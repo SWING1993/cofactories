@@ -1,0 +1,119 @@
+//
+//  Cofactories_iOS-Prefix.pch
+//  Cofactories
+//
+//  Created by 宋国华 on 15/11/3.
+//  Copyright © 2015年 宋国华. All rights reserved.
+//
+
+/*!
+ 企业账号：466542441@qq.com
+ 密码：Fh123456
+ Bundle ID: com.jugongchang.cofactory
+ 
+ AppStore账号：378829879@qq.com
+ 密码：Jugongkeji123
+ Bundle ID: com.cofactory.iosapp
+ 
+ 融云
+ admin@cofactories.com
+ rongcofactories
+ 
+ UMENG
+ cofactories@bangbang93.com
+ umengcofactories
+ 
+ chao5983@163.com	Dd112233
+ */
+
+
+#pragma mark - 服务器
+//内网服务器
+//#define kBaseUrl @"http://192.168.100.2:3001"
+
+//测试服务器
+//#define kBaseUrl @"http://test.cofactories.com"
+//#define PhotoAPI @"http://cofactories-test.b0.upaiyun.com"
+//#define bucketAPI @"cofactories-test"
+
+//正式服务器
+#define kBaseUrl @"http://app2.cofactories.com"
+#define PhotoAPI @"http://cdn.cofactories.com"
+#define bucketAPI @"cofactories"
+
+
+#pragma mark - 第三方key
+//企业版
+#define UMENGAppKey @"55e03514e0f55a390f003db7"
+
+//个人开发者版
+#define appStoreUMENGAppKey @"5566b5e767e58e0c4700aab0"
+
+//appStore地址
+#define kAppUrl  @"http://itunes.apple.com/app/id1015359842"
+//appStore评分地址
+#define kAppReviewURL   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1015359842"
+
+#pragma mark - 系统版本  屏幕尺寸
+//版本号
+#define kVersion_Cofactories [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
+#define kVersionBuild_Cofactories [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+#define Kidentifier [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"]
+
+//ios系统版本
+#define ios8x [[[UIDevice currentDevice] systemVersion] floatValue] >=8.0f
+#define ios7x ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f) && ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0f)
+#define ios6x [[[UIDevice currentDevice] systemVersion] floatValue] < 7.0f
+#define iosNot6x [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f
+#define kStatusBarHeight 20
+#define kNavigationBarHeight 44
+#define iphone4x_3_5 ([UIScreen mainScreen].bounds.size.height==480.0f)
+#define iphone5x_4_0 ([UIScreen mainScreen].bounds.size.height==568.0f)
+#define iphone6_4_7 ([UIScreen mainScreen].bounds.size.height==667.0f)
+#define iphone6Plus_5_5 ([UIScreen mainScreen].bounds.size.height==736.0f || [UIScreen mainScreen].bounds.size.height==414.0f)
+
+//屏幕宽高
+#define kScreenW [[UIScreen mainScreen] bounds].size.width
+#define kScreenH [[UIScreen mainScreen] bounds].size.height
+//屏幕frame,bounds,size
+#define kScreenFrame [UIScreen mainScreen].bounds
+#define kScreenBounds [UIScreen mainScreen].bounds
+#define kScreenSize [UIScreen mainScreen].bounds.size
+
+#define kStatusBarHeight 20
+#define kNavigationBarHeight 44
+#define CellIdentifier @"Cell"
+
+//登录注册 tableHeaderView 高度
+#define tableHeaderView_height 120
+
+//用户身份 FactoryType
+#define kFactoryType [[[NSUserDefaults standardUserDefaults]objectForKey:@"factoryType"] integerValue]
+
+//字体 Font
+
+//Nav字体大小
+#define kNavTitleFontSize 17.5f
+#define kLargeFont  [UIFont systemFontOfSize:16.0f]
+#define kFont [UIFont systemFontOfSize:14.0f]
+#define kSmallFont  [UIFont systemFontOfSize:12.0f]
+
+
+#ifndef Cofactories_iOS_Prefix_pch
+#define Cofactories_iOS_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#pragma mark - 日志开关
+/*!
+ DLog
+ */
+#ifdef DEBUG
+#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define DLog(...)
+#endif
+
+
+#endif /* Cofactories_iOS_Prefix_pch */

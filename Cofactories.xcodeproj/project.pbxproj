@@ -51,6 +51,7 @@
 		03571B441BE84BA100900EF9 /* CofactoriesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CofactoriesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03571B481BE84BA100900EF9 /* CofactoriesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CofactoriesUITests.m; sourceTree = "<group>"; };
 		03571B4A1BE84BA100900EF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03571B5F1BE8546300900EF9 /* Cofactories_iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Cofactories_iOS-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,12 +104,15 @@
 			children = (
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
 				03571B271BE84BA100900EF9 /* AppDelegate.m */,
+				03571B5F1BE8546300900EF9 /* Cofactories_iOS-Prefix.pch */,
 				03571B291BE84BA100900EF9 /* ViewController.h */,
 				03571B2A1BE84BA100900EF9 /* ViewController.m */,
-				03571B2C1BE84BA100900EF9 /* Main.storyboard */,
 				03571B2F1BE84BA100900EF9 /* Assets.xcassets */,
-				03571B311BE84BA100900EF9 /* LaunchScreen.storyboard */,
-				03571B341BE84BA100900EF9 /* Info.plist */,
+				03571B561BE84E1500900EF9 /* Utils */,
+				03571B581BE84E6200900EF9 /* View */,
+				03571B591BE84E7500900EF9 /* Controller */,
+				03571B571BE84E4100900EF9 /* Model */,
+				03571B5A1BE84EA700900EF9 /* OC_Category */,
 				03571B231BE84BA100900EF9 /* Supporting Files */,
 			);
 			path = Cofactories;
@@ -117,7 +121,10 @@
 		03571B231BE84BA100900EF9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				03571B2C1BE84BA100900EF9 /* Main.storyboard */,
+				03571B341BE84BA100900EF9 /* Info.plist */,
 				03571B241BE84BA100900EF9 /* main.m */,
+				03571B311BE84BA100900EF9 /* LaunchScreen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -138,6 +145,41 @@
 				03571B4A1BE84BA100900EF9 /* Info.plist */,
 			);
 			path = CofactoriesUITests;
+			sourceTree = "<group>";
+		};
+		03571B561BE84E1500900EF9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		03571B571BE84E4100900EF9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		03571B581BE84E6200900EF9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		03571B591BE84E7500900EF9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		03571B5A1BE84EA700900EF9 /* OC_Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OC_Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,6 +453,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Cofactories/Cofactories_iOS-Prefix.pch";
 				INFOPLIST_FILE = Cofactories/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactories;
@@ -422,6 +466,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Cofactories/Cofactories_iOS-Prefix.pch";
 				INFOPLIST_FILE = Cofactories/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactories;
@@ -496,6 +542,7 @@
 				03571B4F1BE84BA100900EF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		03571B501BE84BA100900EF9 /* Build configuration list for PBXNativeTarget "CofactoriesTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +551,7 @@
 				03571B521BE84BA100900EF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		03571B531BE84BA100900EF9 /* Build configuration list for PBXNativeTarget "CofactoriesUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +560,7 @@
 				03571B551BE84BA100900EF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
