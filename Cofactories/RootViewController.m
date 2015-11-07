@@ -35,6 +35,17 @@ static NSString * const sampleDescription5 = @"在美工师傅日夜加工的情
     [RootViewController goMain];
 }
 
+//加载注册界面
++ (void)goLogin {
+    /*
+    LoginViewController *loginView =[[LoginViewController alloc]init];
+    UINavigationController *loginNav =[[UINavigationController alloc]initWithRootViewController:loginView];
+    loginNav.navigationBar.barStyle=UIBarStyleBlack;
+    AppDelegate *app =[UIApplication sharedApplication].delegate;
+    app.window.rootViewController =loginNav;
+     */
+}
+
 //创建Tabbar
 +(void)goMain {
     

@@ -10,6 +10,11 @@
 
 @interface RootViewController : UIViewController
 
+//主页
++(void)goMain;
+
+//登录注册
++ (void)goLogin;
 
 @end
 
