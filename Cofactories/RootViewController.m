@@ -33,6 +33,9 @@ static NSString * const sampleDescription5 = @"在美工师傅日夜加工的情
     //未登录 加载展示页面
     //[self showIntroWithCrossDissolve];
     [RootViewController goMain];
+    
+    //kkk
+
 }
 
 +(void)goMain {
