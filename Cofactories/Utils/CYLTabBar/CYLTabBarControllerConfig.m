@@ -10,9 +10,10 @@
 
 //View Controllers
 #import "HomeViewController.h"
-#import "OrderViewController.h"
 #import "IMChatViewController.h"
 #import "MeViewController.h"
+#import "WalletViewController.h"
+
 @interface CYLTabBarControllerConfig ()
 
 @property (nonatomic, readwrite, strong) CYLTabBarController *tabBarController;
@@ -33,7 +34,7 @@
         UIViewController *firstNavigationController = [[UINavigationController alloc]
                                                        initWithRootViewController:firstViewController];
         
-        OrderViewController *secondViewController = [[OrderViewController alloc] init];
+        WalletViewController *secondViewController = [[WalletViewController alloc] init];
         UIViewController *secondNavigationController = [[UINavigationController alloc]
                                                         initWithRootViewController:secondViewController];
         
@@ -54,7 +55,7 @@
             firstViewController.title = @"聚工厂";
         }
         
-        secondViewController.title = @"订单";
+        secondViewController.title = @"钱包";
         thirdViewController.title = @"消息";
         fourthViewController.title = @"我";
 
@@ -95,9 +96,9 @@
                             CYLTabBarItemSelectedImage : @"tabHomeSelected",
                             };
     NSDictionary *dict2 = @{
-                            CYLTabBarItemTitle : @"订单",
-                            CYLTabBarItemImage : @"tabOrder",
-                            CYLTabBarItemSelectedImage : @"tabOrderSelected",
+                            CYLTabBarItemTitle : @"钱包",
+                            CYLTabBarItemImage : @"tabWallet",
+                            CYLTabBarItemSelectedImage : @"tabWalletSelected",
                             };
     NSDictionary *dict3 = @{
                             CYLTabBarItemTitle : @"聊天",
