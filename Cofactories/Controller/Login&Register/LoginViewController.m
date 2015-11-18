@@ -18,7 +18,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+<<<<<<< HEAD
     NSLog(@"123 ---- test IM");
+=======
+    NSLog(@"123 test");
+    
+    NSLog(@"git test song");
+    NSLog(@"123 ---- test denglv");
+>>>>>>> 13d6c657089aa3f061ea400501c3c89188aaaf23
    
 }
 
