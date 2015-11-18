@@ -18,13 +18,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSLog(@"123 ---- test denglv");
+    NSLog(@"123 ---- test IM");
    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+     NSLog(@"123 ---- test IM");
 }
 
 /*
