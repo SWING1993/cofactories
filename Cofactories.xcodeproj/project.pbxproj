@@ -141,6 +141,14 @@
 		03927D7E1BEC8CF50087A2FD /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03927D7D1BEC8CF50087A2FD /* MeViewController.m */; };
 		03927D811BEC8D090087A2FD /* IMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03927D801BEC8D090087A2FD /* IMChatViewController.m */; };
 		03927D841BEC8D1E0087A2FD /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03927D831BEC8D1E0087A2FD /* HomeViewController.m */; };
+		0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2E81BFC65920009AABC /* CYLPlusButton.m */; };
+		0395D2EF1BFC65920009AABC /* CYLTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2EA1BFC65920009AABC /* CYLTabBar.m */; };
+		0395D2F01BFC65920009AABC /* CYLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2EC1BFC65920009AABC /* CYLTabBarController.m */; };
+		0395D2F31BFC65B80009AABC /* CYLPlusButtonSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2F21BFC65B80009AABC /* CYLPlusButtonSubclass.m */; };
+		0395D2F61BFC65EA0009AABC /* CYLTabBarControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2F51BFC65EA0009AABC /* CYLTabBarControllerConfig.m */; };
+		0395D2FA1BFC66FA0009AABC /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2F91BFC66FA0009AABC /* OrderViewController.m */; };
+		0395D2FC1BFC69740009AABC /* post_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0395D2FB1BFC69740009AABC /* post_normal@2x.png */; };
+		0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2FF1BFC6D970009AABC /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -405,6 +413,21 @@
 		03927D801BEC8D090087A2FD /* IMChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMChatViewController.m; sourceTree = "<group>"; };
 		03927D821BEC8D1E0087A2FD /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		03927D831BEC8D1E0087A2FD /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		0395D2E71BFC65920009AABC /* CYLPlusButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLPlusButton.h; sourceTree = "<group>"; };
+		0395D2E81BFC65920009AABC /* CYLPlusButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLPlusButton.m; sourceTree = "<group>"; };
+		0395D2E91BFC65920009AABC /* CYLTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLTabBar.h; sourceTree = "<group>"; };
+		0395D2EA1BFC65920009AABC /* CYLTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLTabBar.m; sourceTree = "<group>"; };
+		0395D2EB1BFC65920009AABC /* CYLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLTabBarController.h; sourceTree = "<group>"; };
+		0395D2EC1BFC65920009AABC /* CYLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLTabBarController.m; sourceTree = "<group>"; };
+		0395D2F11BFC65B80009AABC /* CYLPlusButtonSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLPlusButtonSubclass.h; sourceTree = "<group>"; };
+		0395D2F21BFC65B80009AABC /* CYLPlusButtonSubclass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLPlusButtonSubclass.m; sourceTree = "<group>"; };
+		0395D2F41BFC65EA0009AABC /* CYLTabBarControllerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLTabBarControllerConfig.h; sourceTree = "<group>"; };
+		0395D2F51BFC65EA0009AABC /* CYLTabBarControllerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLTabBarControllerConfig.m; sourceTree = "<group>"; };
+		0395D2F81BFC66FA0009AABC /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
+		0395D2F91BFC66FA0009AABC /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
+		0395D2FB1BFC69740009AABC /* post_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "post_normal@2x.png"; sourceTree = "<group>"; };
+		0395D2FE1BFC6D970009AABC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		0395D2FF1BFC6D970009AABC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -480,6 +503,7 @@
 		03571B221BE84BA100900EF9 /* Cofactories */ = {
 			isa = PBXGroup;
 			children = (
+				0395D2FB1BFC69740009AABC /* post_normal@2x.png */,
 				03571B5F1BE8546300900EF9 /* Cofactories_iOS-Prefix.pch */,
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
 				03571B271BE84BA100900EF9 /* AppDelegate.m */,
@@ -529,6 +553,7 @@
 		03571B561BE84E1500900EF9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				0395D2E51BFC65690009AABC /* CYLTabBar */,
 				03571C9F1BE85DDE00900EF9 /* UMeng */,
 				03571C951BE85DAC00900EF9 /* DOPDropDownMenu  */,
 				03571C621BE85D9C00900EF9 /* IQKeyBoardManager */,
@@ -565,7 +590,9 @@
 		03571B591BE84E7500900EF9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0395D2FD1BFC6D280009AABC /* Login&Register */,
 				03927D791BEC8C3F0087A2FD /* HomeViewController */,
+				0395D2F71BFC66C60009AABC /* OrderViewController */,
 				03927D7A1BEC8C9F0087A2FD /* IMChatViewController */,
 				03927D7B1BEC8CC40087A2FD /* MeViewController */,
 			);
@@ -1042,6 +1069,41 @@
 			path = MeViewController;
 			sourceTree = "<group>";
 		};
+		0395D2E51BFC65690009AABC /* CYLTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				0395D2F41BFC65EA0009AABC /* CYLTabBarControllerConfig.h */,
+				0395D2F51BFC65EA0009AABC /* CYLTabBarControllerConfig.m */,
+				0395D2F11BFC65B80009AABC /* CYLPlusButtonSubclass.h */,
+				0395D2F21BFC65B80009AABC /* CYLPlusButtonSubclass.m */,
+				0395D2E71BFC65920009AABC /* CYLPlusButton.h */,
+				0395D2E81BFC65920009AABC /* CYLPlusButton.m */,
+				0395D2E91BFC65920009AABC /* CYLTabBar.h */,
+				0395D2EA1BFC65920009AABC /* CYLTabBar.m */,
+				0395D2EB1BFC65920009AABC /* CYLTabBarController.h */,
+				0395D2EC1BFC65920009AABC /* CYLTabBarController.m */,
+			);
+			path = CYLTabBar;
+			sourceTree = "<group>";
+		};
+		0395D2F71BFC66C60009AABC /* OrderViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0395D2F81BFC66FA0009AABC /* OrderViewController.h */,
+				0395D2F91BFC66FA0009AABC /* OrderViewController.m */,
+			);
+			path = OrderViewController;
+			sourceTree = "<group>";
+		};
+		0395D2FD1BFC6D280009AABC /* Login&Register */ = {
+			isa = PBXGroup;
+			children = (
+				0395D2FE1BFC6D970009AABC /* LoginViewController.h */,
+				0395D2FF1BFC6D970009AABC /* LoginViewController.m */,
+			);
+			path = "Login&Register";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1161,6 +1223,7 @@
 				03571B7E1BE85B7900900EF9 /* 05.png in Resources */,
 				03927D741BEC81E20087A2FD /* LaunchScreen.xib in Resources */,
 				03571B7F1BE85B7900900EF9 /* pageDot.png in Resources */,
+				0395D2FC1BFC69740009AABC /* post_normal@2x.png in Resources */,
 				03571C9E1BE85DAC00900EF9 /* icon_chose_bottom@2x.png in Resources */,
 				03571C9D1BE85DAC00900EF9 /* icon_chose_arrow_sel@2x.png in Resources */,
 			);
@@ -1212,11 +1275,15 @@
 				03571B671BE85B6C00900EF9 /* NSData+MD5Digest.m in Sources */,
 				03571C441BE85C3700900EF9 /* UINavigationBar+Awesome.m in Sources */,
 				03571BA21BE85B8200900EF9 /* SDWebImageManager+MJ.m in Sources */,
+				0395D2FA1BFC66FA0009AABC /* OrderViewController.m in Sources */,
 				03571C021BE85C0800900EF9 /* UIImage+GIF.m in Sources */,
+				0395D2F01BFC65920009AABC /* CYLTabBarController.m in Sources */,
 				03571C001BE85C0800900EF9 /* SDWebImagePrefetcher.m in Sources */,
 				03571BA31BE85B8200900EF9 /* UIImageView+MJWebCache.m in Sources */,
+				0395D2EF1BFC65920009AABC /* CYLTabBar.m in Sources */,
 				03571B251BE84BA100900EF9 /* main.m in Sources */,
 				03571BC21BE85BD700900EF9 /* AFHTTPRequestOperation.m in Sources */,
+				0395D2F61BFC65EA0009AABC /* CYLTabBarControllerConfig.m in Sources */,
 				03571C921BE85D9C00900EF9 /* IQToolbar.m in Sources */,
 				03571BFB1BE85C0800900EF9 /* SDWebImageCompat.m in Sources */,
 				03571C1A1BE85C1600900EF9 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -1245,6 +1312,7 @@
 				03571C901BE85D9C00900EF9 /* IQBarButtonItem.m in Sources */,
 				03571BCA1BE85BD700900EF9 /* AFURLSessionManager.m in Sources */,
 				03927D811BEC8D090087A2FD /* IMChatViewController.m in Sources */,
+				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
 				03571C071BE85C0800900EF9 /* UIView+WebCacheOperation.m in Sources */,
 				03571C431BE85C3700900EF9 /* UIImageView+Common.m in Sources */,
@@ -1268,12 +1336,14 @@
 				03882C4F1BEC951B0094524A /* HttpClient.m in Sources */,
 				03571BA41BE85B8200900EF9 /* YLGIFImage.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,
+				0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */,
 				03571BC61BE85BD700900EF9 /* AFSecurityPolicy.m in Sources */,
 				03571C5D1BE85D8C00900EF9 /* MJRefreshFooterView.m in Sources */,
 				03571C891BE85D9C00900EF9 /* IQUIView+Hierarchy.m in Sources */,
 				03571B631BE85B4D00900EF9 /* UpYun.m in Sources */,
 				03571C5B1BE85D8C00900EF9 /* MJRefreshBaseView.m in Sources */,
 				03571B771BE85B7900900EF9 /* EAIntroPage.m in Sources */,
+				0395D2F31BFC65B80009AABC /* CYLPlusButtonSubclass.m in Sources */,
 				03571C211BE85C1600900EF9 /* UIWebView+AFNetworking.m in Sources */,
 				03571B781BE85B7900900EF9 /* EAIntroView.m in Sources */,
 				03927D7E1BEC8CF50087A2FD /* MeViewController.m in Sources */,

@@ -8,12 +8,10 @@
 
 #import "RootViewController.h"
 #import "AppDelegate.h"
+#import "CYLTabBarControllerConfig.h"
 #import "EAIntroPage.h"
 #import "EAIntroView.h"
 
-#import "HomeViewController.h"
-#import "IMChatViewController.h"
-#import "MeViewController.h"
 
 static NSString * const sampleDescription1 = @"面辅料商可在此板块发布产品，用户也可以自由发布求购信息。";
 static NSString * const sampleDescription2 = @"新增的流行资讯板块可以为广大用户和设计师提供一个交流的平台。请记住！这里有更多更好更新鲜的流行资讯。";
@@ -31,14 +29,12 @@ static NSString * const sampleDescription5 = @"在美工师傅日夜加工的情
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     //未登录 加载展示页面
-    //[self showIntroWithCrossDissolve];
+    [self showIntroWithCrossDissolve];
     [RootViewController goMain];
-    
-    //kkkp
 
 }
 
-//加载注册界面
+//注册界面
 + (void)goLogin {
     /*
     LoginViewController *loginView =[[LoginViewController alloc]init];
@@ -52,56 +48,9 @@ static NSString * const sampleDescription5 = @"在美工师傅日夜加工的情
 //创建Tabbar
 +(void)goMain {
     
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
     AppDelegate *app =[UIApplication sharedApplication].delegate;
-    app.window.rootViewController = tabBarController;
-    
-    HomeViewController *VC1 = [[HomeViewController alloc] init];
-    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:VC1];
-    nav1.navigationBar.barStyle=UIBarStyleDefault;
-    
-//    CooperationViewController *VC2 = [[CooperationViewController alloc] init];
-//    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:VC2];
-//    nav2.navigationBar.barStyle=UIBarStyleBlack;
-    
-    IMChatViewController *VC3 = [[IMChatViewController alloc] init];
-    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:VC3];
-    nav3.navigationBar.barStyle=UIBarStyleDefault;
-    
-    MeViewController *VC4 = [[MeViewController alloc] init];
-    UINavigationController *nav4 = [[UINavigationController alloc] initWithRootViewController:VC4];
-    nav4.navigationBar.barStyle=UIBarStyleDefault;
-    
-    if ([kBaseUrl isEqualToString:@"http://192.168.100.2:3001"]) {
-        VC1.title = @"聚工厂（内网）";
-    }
-    else if ([kBaseUrl isEqualToString:@"http://test.cofactories.com"]) {
-        VC1.title = @"聚工厂（测试）";
-    }else{
-        VC1.title = @"聚工厂";
-    }
-//    VC2.title = @"合作商";
-    VC3.title = @"消息";
-    VC4.title = @"我";
-    
-    NSArray *viewControllersArray = @[nav1,nav3,nav4];
-    [tabBarController setViewControllers:viewControllersArray];
-    app.window.rootViewController = tabBarController;
-    
-    UITabBar *tabbar = tabBarController.tabBar;
-    UITabBarItem *item1 = tabbar.items[0];
-//    UITabBarItem *item2 = tabbar.items[1];
-    UITabBarItem *item3 = tabbar.items[1];
-    UITabBarItem *item4 = tabbar.items[2];
-    item1.selectedImage = [[UIImage imageNamed:@"tabHomeSelected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item1.image = [[UIImage imageNamed:@"tabHome"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    item2.selectedImage = [[UIImage imageNamed:@"tabpatSelected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    item2.image = [[UIImage imageNamed:@"tabpat"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item3.selectedImage = [[UIImage imageNamed:@"tabmesSelected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item3.image = [[UIImage imageNamed:@"tabmes"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item4.selectedImage = [[UIImage imageNamed:@"tabuserSelected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item4.image = [[UIImage imageNamed:@"tabuser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
+    app.window.rootViewController = tabBarControllerConfig.tabBarController;
 }
 
 

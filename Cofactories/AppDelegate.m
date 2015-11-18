@@ -87,8 +87,8 @@
     
     RootViewController *mainVC = [[RootViewController alloc] init];
     self.window.rootViewController = mainVC;
+    [self customizeInterface];
     [_window makeKeyAndVisible];
-
     return YES;
 }
 //注册用户通知设置
@@ -130,4 +130,29 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+/**
+ *  tabBarItem 的选中和不选中文字属性、背景图片
+ */
+- (void)customizeInterface {
+    
+    //去除 TabBar 自带的顶部阴影
+    [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
+
+    // 普通状态下的文字属性
+    NSMutableDictionary *normalAttrs = [NSMutableDictionary dictionary];
+    normalAttrs[NSForegroundColorAttributeName] = [UIColor grayColor];
+    
+    // 选中状态下的文字属性
+    NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
+    selectedAttrs[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
+    
+    // 设置文字属性
+    UITabBarItem *tabBar = [UITabBarItem appearance];
+    [tabBar setTitleTextAttributes:normalAttrs forState:UIControlStateNormal];
+    [tabBar setTitleTextAttributes:normalAttrs forState:UIControlStateHighlighted];
+    
+    // 设置背景图片
+    UITabBar *tabBarAppearance = [UITabBar appearance];
+    [tabBarAppearance setBackgroundImage:[UIImage imageNamed:@"tabbar_background"]];
+}
 @end
