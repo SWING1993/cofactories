@@ -149,6 +149,7 @@
 		0395D2FA1BFC66FA0009AABC /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2F91BFC66FA0009AABC /* OrderViewController.m */; };
 		0395D2FC1BFC69740009AABC /* post_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0395D2FB1BFC69740009AABC /* post_normal@2x.png */; };
 		0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2FF1BFC6D970009AABC /* LoginViewController.m */; };
+		7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -428,6 +429,8 @@
 		0395D2FB1BFC69740009AABC /* post_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "post_normal@2x.png"; sourceTree = "<group>"; };
 		0395D2FE1BFC6D970009AABC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0395D2FF1BFC6D970009AABC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		7094D71B1BFC7B4B00F7240B /* CHTumblrMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTumblrMenuView.h; sourceTree = "<group>"; };
+		7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTumblrMenuView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -553,6 +556,7 @@
 		03571B561BE84E1500900EF9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				7094D71A1BFC7B2000F7240B /* POPAnimation */,
 				0395D2E51BFC65690009AABC /* CYLTabBar */,
 				03571C9F1BE85DDE00900EF9 /* UMeng */,
 				03571C951BE85DAC00900EF9 /* DOPDropDownMenu  */,
@@ -1104,6 +1108,15 @@
 			path = "Login&Register";
 			sourceTree = "<group>";
 		};
+		7094D71A1BFC7B2000F7240B /* POPAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				7094D71B1BFC7B4B00F7240B /* CHTumblrMenuView.h */,
+				7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */,
+			);
+			path = POPAnimation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1288,6 +1301,7 @@
 				03571BFB1BE85C0800900EF9 /* SDWebImageCompat.m in Sources */,
 				03571C1A1BE85C1600900EF9 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				03571C1F1BE85C1600900EF9 /* UIProgressView+AFNetworking.m in Sources */,
+				7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */,
 				03571BFD1BE85C0800900EF9 /* SDWebImageDownloader.m in Sources */,
 				03571C5E1BE85D8C00900EF9 /* MJRefreshHeaderView.m in Sources */,
 				03571BFE1BE85C0800900EF9 /* SDWebImageDownloaderOperation.m in Sources */,

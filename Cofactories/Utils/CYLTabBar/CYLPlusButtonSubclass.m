@@ -7,6 +7,8 @@
 //
 
 #import "CYLPlusButtonSubclass.h"
+#import "CHTumblrMenuView.h"
+
 @interface CYLPlusButtonSubclass () {
     CGFloat _buttonImageHeight;
 }
@@ -105,22 +107,31 @@
 #pragma mark - Event Response
 
 - (void)clickPublish {
+      [self showMenu];
+}
+
+- (void)showMenu{
+    
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
     UIViewController *viewController = tabBarController.selectedViewController;
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:nil
-                                                    cancelButtonTitle:@"取消"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"test", @"test1", @"test2", nil];
-    [actionSheet showInView:viewController.view];
+
+    CHTumblrMenuView *menuView = [[CHTumblrMenuView alloc] init];
+    [menuView addMenuItemWithTitle:@"供应面料" andIcon:[UIImage imageNamed:@"面辅料_供应面料"] andSelectedBlock:^{
+        NSLog(@"供应面料");
+    }];
+    [menuView addMenuItemWithTitle:@"供应辅料" andIcon:[UIImage imageNamed:@"面辅料_供应辅料"] andSelectedBlock:^{
+        NSLog(@"供应辅料");
+    }];
+    [menuView addMenuItemWithTitle:@"供应坯布" andIcon:[UIImage imageNamed:@"面辅料_供应胚布"] andSelectedBlock:^{
+        NSLog(@"供应坯布");
+        
+    }];
+    
+    [menuView show];
 }
 
-#pragma mark - UIActionSheetDelegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    NSLog(@"buttonIndex = %@", @(buttonIndex));
-}
 
 #pragma mark - CYLPlusButtonSubclassing
 
