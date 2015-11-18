@@ -19,6 +19,7 @@
     // Do any additional setup after loading the view.
     
     NSLog(@"123 test");
+    NSLog(@"git test song");
 }
 
 - (void)didReceiveMemoryWarning {
