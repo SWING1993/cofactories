@@ -18,16 +18,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSLog(@"123 test");
-    
-    NSLog(@"git test song");
-    NSLog(@"123 ---- test denglv");
    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+     NSLog(@"123 ---- test IM");
 }
 
 /*
