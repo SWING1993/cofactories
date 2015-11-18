@@ -32,6 +32,7 @@ static NSString * const sampleDescription5 = @"在美工师傅日夜加工的情
     [self showIntroWithCrossDissolve];
     [RootViewController goMain];
 
+
 }
 
 //注册界面
