@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032554961BFDC1F1003B2E76 /* RegisterViewController.m */; };
+		0325549A1BFDC1F1003B2E76 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032554981BFDC1F1003B2E76 /* ResetPasswordViewController.m */; };
+		0325549D1BFDC22D003B2E76 /* blueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0325549C1BFDC22D003B2E76 /* blueButton.m */; };
+		032554A01BFDC26D003B2E76 /* tablleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0325549F1BFDC26D003B2E76 /* tablleHeaderView.m */; };
+		032554A31BFDC2AD003B2E76 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 032554A21BFDC2AD003B2E76 /* Tools.m */; };
+		032554A61BFDC92E003B2E76 /* SecondRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032554A51BFDC92E003B2E76 /* SecondRegisterViewController.m */; };
 		03571B251BE84BA100900EF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03571B241BE84BA100900EF9 /* main.m */; };
 		03571B281BE84BA100900EF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 03571B271BE84BA100900EF9 /* AppDelegate.m */; };
 		03571B2B1BE84BA100900EF9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03571B2A1BE84BA100900EF9 /* RootViewController.m */; };
@@ -171,6 +177,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		032554951BFDC1F1003B2E76 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = Register/RegisterViewController.h; sourceTree = "<group>"; };
+		032554961BFDC1F1003B2E76 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = Register/RegisterViewController.m; sourceTree = "<group>"; };
+		032554971BFDC1F1003B2E76 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
+		032554981BFDC1F1003B2E76 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
+		0325549B1BFDC22D003B2E76 /* blueButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blueButton.h; sourceTree = "<group>"; };
+		0325549C1BFDC22D003B2E76 /* blueButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = blueButton.m; sourceTree = "<group>"; };
+		0325549E1BFDC26D003B2E76 /* tablleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tablleHeaderView.h; sourceTree = "<group>"; };
+		0325549F1BFDC26D003B2E76 /* tablleHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tablleHeaderView.m; sourceTree = "<group>"; };
+		032554A11BFDC2AD003B2E76 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
+		032554A21BFDC2AD003B2E76 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
+		032554A41BFDC92E003B2E76 /* SecondRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondRegisterViewController.h; sourceTree = "<group>"; };
+		032554A51BFDC92E003B2E76 /* SecondRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondRegisterViewController.m; sourceTree = "<group>"; };
 		03571B201BE84BA100900EF9 /* Cofactories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cofactories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03571B241BE84BA100900EF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		03571B261BE84BA100900EF9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -517,6 +535,8 @@
 				03571B2A1BE84BA100900EF9 /* RootViewController.m */,
 				03882C4D1BEC951B0094524A /* HttpClient.h */,
 				03882C4E1BEC951B0094524A /* HttpClient.m */,
+				032554A11BFDC2AD003B2E76 /* Tools.h */,
+				032554A21BFDC2AD003B2E76 /* Tools.m */,
 				03571B561BE84E1500900EF9 /* Utils */,
 				03571B581BE84E6200900EF9 /* View */,
 				03571B591BE84E7500900EF9 /* Controller */,
@@ -590,6 +610,10 @@
 		03571B581BE84E6200900EF9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0325549E1BFDC26D003B2E76 /* tablleHeaderView.h */,
+				0325549F1BFDC26D003B2E76 /* tablleHeaderView.m */,
+				0325549B1BFDC22D003B2E76 /* blueButton.h */,
+				0325549C1BFDC22D003B2E76 /* blueButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -597,8 +621,8 @@
 		03571B591BE84E7500900EF9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				7094D71F1BFC821400F7240B /* WalletViewController */,
 				0395D2FD1BFC6D280009AABC /* Login&Register */,
+				7094D71F1BFC821400F7240B /* WalletViewController */,
 				03927D791BEC8C3F0087A2FD /* HomeViewController */,
 				0395D2F71BFC66C60009AABC /* OrderViewController */,
 				03927D7A1BEC8C9F0087A2FD /* IMChatViewController */,
@@ -1108,6 +1132,12 @@
 			children = (
 				0395D2FE1BFC6D970009AABC /* LoginViewController.h */,
 				0395D2FF1BFC6D970009AABC /* LoginViewController.m */,
+				032554951BFDC1F1003B2E76 /* RegisterViewController.h */,
+				032554961BFDC1F1003B2E76 /* RegisterViewController.m */,
+				032554A41BFDC92E003B2E76 /* SecondRegisterViewController.h */,
+				032554A51BFDC92E003B2E76 /* SecondRegisterViewController.m */,
+				032554971BFDC1F1003B2E76 /* ResetPasswordViewController.h */,
+				032554981BFDC1F1003B2E76 /* ResetPasswordViewController.m */,
 			);
 			path = "Login&Register";
 			sourceTree = "<group>";
@@ -1277,15 +1307,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				03571C421BE85C3700900EF9 /* UIImage+Common.m in Sources */,
+				032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */,
 				03571C051BE85C0800900EF9 /* UIImageView+HighlightedWebCache.m in Sources */,
 				03571BA91BE85B8F00900EF9 /* NSData+Utils.m in Sources */,
 				03571BD11BE85BDB00900EF9 /* AFOAuth2Manager.m in Sources */,
 				03571B2B1BE84BA100900EF9 /* RootViewController.m in Sources */,
 				03571B9E1BE85B8200900EF9 /* MJPhotoLoadingView.m in Sources */,
+				032554A61BFDC92E003B2E76 /* SecondRegisterViewController.m in Sources */,
 				03571C1E1BE85C1600900EF9 /* UIImageView+AFNetworking.m in Sources */,
 				03571C301BE85C1C00900EF9 /* FBShimmeringLayer.m in Sources */,
 				03571B9F1BE85B8200900EF9 /* MJPhotoProgressView.m in Sources */,
 				03571C871BE85D9C00900EF9 /* IQNSArray+Sort.m in Sources */,
+				0325549D1BFDC22D003B2E76 /* blueButton.m in Sources */,
 				03571C201BE85C1600900EF9 /* UIRefreshControl+AFNetworking.m in Sources */,
 				03571C061BE85C0800900EF9 /* UIImageView+WebCache.m in Sources */,
 				03927D841BEC8D1E0087A2FD /* HomeViewController.m in Sources */,
@@ -1294,6 +1327,7 @@
 				03571BC71BE85BD700900EF9 /* AFURLConnectionOperation.m in Sources */,
 				03571B9B1BE85B8200900EF9 /* MJPhoto.m in Sources */,
 				03571C1C1BE85C1600900EF9 /* UIAlertView+AFNetworking.m in Sources */,
+				032554A01BFDC26D003B2E76 /* tablleHeaderView.m in Sources */,
 				03571C011BE85C0800900EF9 /* UIButton+WebCache.m in Sources */,
 				03571B281BE84BA100900EF9 /* AppDelegate.m in Sources */,
 				03571C311BE85C1C00900EF9 /* FBShimmeringView.m in Sources */,
@@ -1312,6 +1346,7 @@
 				0395D2F61BFC65EA0009AABC /* CYLTabBarControllerConfig.m in Sources */,
 				03571C921BE85D9C00900EF9 /* IQToolbar.m in Sources */,
 				03571BFB1BE85C0800900EF9 /* SDWebImageCompat.m in Sources */,
+				032554A31BFDC2AD003B2E76 /* Tools.m in Sources */,
 				03571C1A1BE85C1600900EF9 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				03571C1F1BE85C1600900EF9 /* UIProgressView+AFNetworking.m in Sources */,
 				7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */,
@@ -1354,6 +1389,7 @@
 				03571C031BE85C0800900EF9 /* UIImage+MultiFormat.m in Sources */,
 				03571BC81BE85BD700900EF9 /* AFURLRequestSerialization.m in Sources */,
 				03571C5C1BE85D8C00900EF9 /* MJRefreshConst.m in Sources */,
+				0325549A1BFDC1F1003B2E76 /* ResetPasswordViewController.m in Sources */,
 				03571C351BE85C1C00900EF9 /* WSProgressHUD.m in Sources */,
 				03571BAD1BE85BCB00900EF9 /* MF_Base64Additions.m in Sources */,
 				03571BF91BE85C0800900EF9 /* NSData+ImageContentType.m in Sources */,

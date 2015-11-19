@@ -7,6 +7,7 @@
 //
 
 #import "RootViewController.h"
+#import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "CYLTabBarControllerConfig.h"
 #import "EAIntroPage.h"
@@ -30,20 +31,21 @@ static NSString * const sampleDescription5 = @"在美工师傅日夜加工的情
     // Do any additional setup after loading the view, typically from a nib.
     //未登录 加载展示页面
     [self showIntroWithCrossDissolve];
-    [RootViewController goMain];
+    
+    [RootViewController goLogin];
+    //[RootViewController goMain];
 
 
 }
 
 //注册界面
 + (void)goLogin {
-    /*
+    
     LoginViewController *loginView =[[LoginViewController alloc]init];
     UINavigationController *loginNav =[[UINavigationController alloc]initWithRootViewController:loginView];
-    loginNav.navigationBar.barStyle=UIBarStyleBlack;
     AppDelegate *app =[UIApplication sharedApplication].delegate;
     app.window.rootViewController =loginNav;
-     */
+    
 }
 
 //创建Tabbar
