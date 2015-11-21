@@ -6,6 +6,7 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "HttpClient.h"
 #import "RootViewController.h"
 #import "LoginViewController.h"
 #import "AppDelegate.h"
@@ -29,13 +30,26 @@ static NSString * const sampleDescription5 = @"在美工师傅日夜加工的情
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    //未登录 加载展示页面
-    [self showIntroWithCrossDissolve];
     
-    [RootViewController goLogin];
-    //[RootViewController goMain];
-
-
+    if ([HttpClient getToken]) {
+        DLog(@"用户已登录");
+        [HttpClient validateOAuthWithBlock:^(int statusCode) {
+            if (statusCode == 404) {
+                [RootViewController goLogin];
+            }else {
+                [RootViewController goMain];
+            }
+        }];
+    }else{
+        DLog(@"用户未登录");
+        //未登录 加载展示页面
+        [self showIntroWithCrossDissolve];
+        [RootViewController goLogin];
+    }
+   
+    AFOAuthCredential *credential=[HttpClient getToken];
+    
+    DLog(@"\n accessToken = %@ \n refreshToken = %@ ",credential.accessToken,credential.refreshToken)
 }
 
 //注册界面

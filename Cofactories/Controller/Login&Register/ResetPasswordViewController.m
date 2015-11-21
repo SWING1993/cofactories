@@ -50,7 +50,7 @@
     self.title=@"找回密码";
 
     self.view.backgroundColor=[UIColor whiteColor];
-    self.tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW-64, kScreenH) style:UITableViewStyleGrouped];
+    self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
 
@@ -114,8 +114,7 @@
 
 - (void)nextBtn {
     if (_passwordTF.text.length<6) {
-        [Tools showErrorWithStatus:@"密码长度应该是6位及以上！"];
-
+        kTipAlert(@"密码长度应该是6位及以上！");
     }
     else{
         /*
@@ -207,7 +206,7 @@
          */
 
     }else{
-        [Tools showErrorWithStatus:@"您输入的是一个无效的手机号码！"];
+        kTipAlert(@"您输入的是一个无效的手机号码！");
         [_codeBtn setEnabled:YES];
     }
 }

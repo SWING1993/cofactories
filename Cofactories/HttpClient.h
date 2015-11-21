@@ -31,8 +31,7 @@
 
 /*!
  注册账号
- 工厂规模必须从小到大排序,如果规模范围是 x 到无限大,则 factorySizeMin = @(x), factorySizeMax = nil;
- 
+  
  @param username            用户名(手机号码)
  @param password            密码
  @param type                工厂类型(enum)
@@ -41,7 +40,7 @@
 
  @param block               回调函数 会返回 @{@"statusCode": @201, @"responseObject": 字典}->(注册成功) @{@"statusCode": @401, @"message": @"验证码错误"}->(验证码错误) @{@"statusCode": @409, @"message": @"该手机已经注册过""}->(手机已经注册过) @{@"statusCode": @0, @"message": @"网络错误"}->(网络错误)
  */
-+ (void)registerWithUsername:(NSString *)username password:(NSString *)password factoryType:(int)type  code:(NSString *)code  factoryName:(NSString *)factoryName andBlock:(void (^)(NSDictionary *responseDictionary))block;
++ (void)registerWithUsername:(NSString *)username password:(NSString *)password UserRole:(NSString *)role  code:(NSString *)code  UserName:(NSString *)name andBlock:(void (^)(NSDictionary *responseDictionary))block;
 
 /*!
  登录账号
@@ -52,7 +51,6 @@
  */
 + (void)loginWithUsername:(NSString *)username password:(NSString *)password andBlock:(void (^)(int statusCode))block;
 
-
 /*!
  返回登录凭据
  
@@ -61,7 +59,7 @@
 + (AFOAuthCredential *)getToken;
 
 /*!
- 删除凭据
+ 退出账号  删除凭据
  
  @return 返回 BOOL 值表示是否成功删除
  */
@@ -74,14 +72,6 @@
  @param block 回调函数 会返回 0->(网络错误) 200->(成功) 400->(用户名密码错误) 404->(access_token不存在)
  */
 + (void)validateOAuthWithBlock:(void (^)(int statusCode))block;
-
-/*!
- 登出账号
- 
- @return BOOL 是否登出成功
- */
-+ (BOOL)logout;
-
 
 /*!
  发送邀请吗
@@ -106,7 +96,5 @@
  @param block       回调函数 会返回 0->(网络错误) 200->(成功) 403->(旧密码错误) 404->(access_token不存在)
  */
 + (void)modifyPassword:(NSString *)password newPassword:(NSString *)newPassword andBlock:(void (^)(int statusCode))block;
-
-
 
 @end

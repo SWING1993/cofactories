@@ -7,6 +7,7 @@
 //
 
 #import "Tools.h"
+#import "HttpClient.h"
 #import "blueButton.h"
 #import "tablleHeaderView.h"
 #import "RegisterViewController.h"
@@ -39,7 +40,7 @@
     self.title=@"注册";
 
     self.view.backgroundColor=[UIColor whiteColor];
-    self.tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW-64, kScreenH) style:UITableViewStyleGrouped];
+    self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
 
@@ -122,78 +123,43 @@
 
 - (void)sendCodeBtn{
     [authcodeBtn setEnabled:NO];
-    
-    /*
     if (_usernameTF.text.length==11) {
+        [HttpClient postVerifyCodeWithPhone:_usernameTF.text andBlock:^(NSDictionary *responseDictionary) {
+            NSInteger  statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
+            NSString * message = [responseDictionary objectForKey:@"message"];
+            
+            if (statusCode == 200) {
+//                [Tools showSuccessWithStatus:message];
+                kTipAlert(@"%@", message);
+                [authcodeBtn setEnabled:NO];
+                seconds = 60;
+                timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
 
-        [HttpClient postVerifyCodeWithPhone:_usernameTF.text andBlock:^(int statusCode) {
-
-            switch (statusCode) {
-                case 0:{
-                    [Tools showErrorWithStatus:@"您的网络状态不太顺畅哦!"];
-                    [authcodeBtn setEnabled:YES];
-
-                }
-                    break;
-
-                case 200:{
-                    [Tools showSuccessWithStatus:@"发送成功，十分钟内有效"];
-                    [authcodeBtn setEnabled:NO];
-                    seconds = 60;
-                    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
-                }
-                    break;
-                    
-                case 400:{
-                    [Tools showErrorWithStatus:@"手机格式不正确"];
-                    [authcodeBtn setEnabled:YES];
-
-
-                }
-                    break;
-                case 409:{
-                    [Tools showShimmeringString:@"需要等待冷却"];
-                    [authcodeBtn setEnabled:YES];
-
-                }
-                    break;
-                    
-                case 502:{
-                    [Tools showErrorWithStatus:@"发送错误"];
-                    [authcodeBtn setEnabled:YES];
-
-                }
-                    break;
-                    
-                default:
-                    [Tools showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
-                    [authcodeBtn setEnabled:YES];
-                    break;
+            }else{
+//                [Tools showErrorWithStatus:message];
+                kTipAlert(@"%@", message);
+                [authcodeBtn setEnabled:YES];
             }
-            DLog(@"验证码code%d",statusCode);
         }];
     }else{
-        [Tools showErrorWithStatus:@"您输入的是一个无效的手机号码"];
+//                [Tools showErrorWithStatus:@"您输入的是一个无效的手机号码!"];
+        kTipAlert(@"您输入的是一个无效的手机号码!");
         [authcodeBtn setEnabled:YES];
-
     }
-     */
 }
 
 
 - (void)registerBtnClick {
-    SecondRegisterViewController * secondVC = [[SecondRegisterViewController alloc]init];
-    [self.navigationController pushViewController:secondVC animated:YES];
-    
     if (_usernameTF.text.length==0 || _passwordTF.text.length==0 || _codeTF.text.length==0 ) {
-
         DLog(@"mo");
-        [Tools showErrorWithStatus:@"注册信息不完整"];
+//        [Tools showErrorWithStatus:@"注册信息不完整!"];
+        kTipAlert(@"注册信息不完整!");
     }else{
         if (_passwordTF.text.length<6) {
-            [Tools showErrorWithStatus:@"密码长度太短！"];
+//            [Tools showErrorWithStatus:@"密码长度太短！"];
+            kTipAlert(@"密码长度太短！");
         }else{
-            /*
+            
             MBProgressHUD *hud = [Tools createHUD];
             hud.labelText = @"正在验证...";
             [HttpClient validateCodeWithPhone:_usernameTF.text code:_codeTF.text andBlock:^(int statusCode) {
@@ -201,36 +167,25 @@
                 if (statusCode == 200) {
                     hud.labelText = @"验证成功!";
                     [hud hide:YES];
-                    
-                    DLog(@"注册信息：%@、%@、%d、%@、%@",_usernameTF.text,_passwordTF.text,factoryTypeInt,_codeTF.text,_factoryNameTF.text);
-                    
-                    [HttpClient registerWithUsername:_usernameTF.text password:_passwordTF.text factoryType:factoryTypeInt code:_codeTF.text factoryName:_factoryNameTF.text andBlock:^(NSDictionary *responseDictionary) {
-                        int statusCode =[responseDictionary[@"statusCode"]intValue];
-                        DLog(@"statusCode == %d",statusCode);
-                        if (statusCode == 200) {
-                            UIAlertView*alertView=[[UIAlertView alloc]initWithTitle:@"注册成功!" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-                            alertView.tag = 10086;
-                            [alertView show];
-                        }else{
-                            DLog(@"注册反馈%@",responseDictionary);
-                            NSString*message=responseDictionary[@"message"];
-                            UIAlertView*alertView=[[UIAlertView alloc]initWithTitle:message message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-                            [alertView show];
-                        }
-                    }];
+                    DLog(@"注册信息：%@、%@、%@",_usernameTF.text,_passwordTF.text,_codeTF.text);
+                    SecondRegisterViewController * registerVC = [[SecondRegisterViewController alloc]init];
+                    registerVC.phone = _usernameTF.text;
+                    registerVC.password = _passwordTF.text;
+                    registerVC.code = _codeTF.text;
+                    [self.navigationController pushViewController:registerVC animated:YES];
                 }
-
                 else if (statusCode == 0) {
                     [hud hide:YES];
-                    [Tools showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
+//                    [Tools showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
+                    kTipAlert(@"您的网络状态不太顺畅哦！");
                 }
                 
                 else {
                     [hud hide:YES];
-                    [Tools showErrorWithStatus:@"验证码过期或者无效"];
+//                    [Tools showErrorWithStatus:@"验证码过期或者无效!"];
+                    kTipAlert(@"验证码过期或者无效!");
                 }
             }];
-             */
         }
     }
 }
@@ -267,7 +222,6 @@
             [cell addSubview:_codeTF];
             [cell addSubview:authcodeBtn];
         }
-        
     }
     return cell;
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "HttpClient.h"
 #import "MeViewController.h"
 
 @interface MeViewController ()
@@ -16,6 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //退出
+    [HttpClient deleteToken];
     // Do any additional setup after loading the view.
 }
 

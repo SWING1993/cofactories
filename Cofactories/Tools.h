@@ -76,54 +76,54 @@
 + (void)AFNetworkReachabilityStatusReachableVia ;
 
 
-/*!
- 错误信息提示框
-
- @param tipStr 提示框文本
- */
-//+ (void)showHudTipStr:(NSString *)tipStr;
-
-
-/*!
- 文本闪烁信息提示框
-
- @param string 提示框文本
- */
-+ (void)showShimmeringString:(NSString *)string;
-
-
-/*!
- 等待加载信息提示框
-
- @param string 提示框文本
- */
-+ (void)showLoadString:(NSString *)string;
-
-
-/*!
- 正确信息提示框
-
- @param string 提示框文本
- */
-+ (void)showSuccessWithStatus:(NSString *)string;
-
-
-/*!
- 错误信息提示框
-
- @param string 提示框文本
- */
-+ (void)showErrorWithStatus: (NSString *)string;
-
-
-/*!
- 纯文本信息提示框
-
- @param string 提示框文本
- */
-+ (void)showString:(NSString *)string;
-
-+ (void)WSProgressHUDDismiss;
+///*!
+// 错误信息提示框
+//
+// @param tipStr 提示框文本
+// */
+////+ (void)showHudTipStr:(NSString *)tipStr;
+//
+//
+///*!
+// 文本闪烁信息提示框
+//
+// @param string 提示框文本
+// */
+//+ (void)showShimmeringString:(NSString *)string;
+//
+//
+///*!
+// 等待加载信息提示框
+//
+// @param string 提示框文本
+// */
+//+ (void)showLoadString:(NSString *)string;
+//
+//
+///*!
+// 正确信息提示框
+//
+// @param string 提示框文本
+// */
+//+ (void)showSuccessWithStatus:(NSString *)string;
+//
+//
+///*!
+// 错误信息提示框
+//
+// @param string 提示框文本
+// */
+//+ (void)showErrorWithStatus: (NSString *)string;
+//
+//
+///*!
+// 纯文本信息提示框
+//
+// @param string 提示框文本
+// */
+//+ (void)showString:(NSString *)string;
+//
+//+ (void)WSProgressHUDDismiss;
 
 /*!
  传入一个String  返回文本的size

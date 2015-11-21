@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 聚工科技. All rights reserved.
 //
 #import "Tools.h"
+#import "HttpClient.h"
 #import "blueButton.h"
 #import "tablleHeaderView.h"
 #import "LoginViewController.h"
@@ -27,21 +28,10 @@
 
     //判断网络状态 给用户相应提示
     [Tools AFNetworkReachabilityStatusReachableVia];
-
-    //删除注册信息
-    DLog(@"删除NSUserDefaults信息");
-    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-    NSDictionary * dict = [defs dictionaryRepresentation];
-    for (id key in dict) {
-        [defs removeObjectForKey:key];
-    }
-    [defs synchronize];
-    DLog(@"%d",[defs synchronize]);
-
-    // Do any additional setup after loading the view from its nib.
+    
     self.title=@"登录";
     self.view.backgroundColor=[UIColor whiteColor];
-    self.tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW-64, kScreenH) style:UITableViewStyleGrouped];
+    self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
 
@@ -116,60 +106,58 @@
     UIButton*button=(UIButton*)sender;
     switch (button.tag) {
         case 0:{
-            [button setEnabled:NO];
             DLog(@"登录");
-            [RootViewController goMain];
+            [button setEnabled:NO];
             if (_passwordTF.text.length == 0||_usernameTF.text.length == 0) {
                 [button setEnabled:YES];
-                [Tools showErrorWithStatus:@"请您填写账号以及密码后登陆"];
+                kTipAlert(@"请您填写账号以及密码后登陆!");
             }else{
-                /*
-                 [HttpClient loginWithUsername:_usernameTF.text password:_passwordTF.text andBlock:^(int statusCode) {
-                 DLog(@"%d",statusCode);
-                 switch (statusCode) {
-                 case 0:{
-                 [button setEnabled:YES];
-                 [Tools showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
-                 
-                 }
-                 break;
-                 case 200:{
-                 [button setEnabled:YES];
-                 
-                 DLog(@"登陆成功");
-                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                 //工厂类型
-                 [HttpClient getUserProfileWithBlock:^(NSDictionary *responseDictionary) {
-                 
-                 if ([responseDictionary[@"statusCode"]integerValue]==200) {
-                 UserModel*userModel=responseDictionary[@"model"];
-                 [userDefaults setInteger:userModel.factoryType forKey:@"factoryType"];
-                 
-                 if ([userDefaults synchronize] == YES) {
-                 DLog(@"token、username、password储存成功！");
-                 [ViewController goMain];
-                 }
-                 else{
-                 DLog(@"token、username、password储存失败！");
-                 [Tools showErrorWithStatus:@"获取用户身份失败，请尝试重新登录！"];
-                 }
-                 }
-                 }];
-                 }
-                 break;
-                 case 400:{
-                 [button setEnabled:YES];
-                 [Tools showErrorWithStatus:@"用户名或密码错误！"];
-                 }
-                 break;
-                 
-                 default:
-                 [button setEnabled:YES];
-                 [Tools showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
-                 break;
-                 }
-                 }];
-                 */
+                [HttpClient loginWithUsername:_usernameTF.text password:_passwordTF.text andBlock:^(int statusCode) {
+                    DLog(@"%d",statusCode);
+                    switch (statusCode) {
+                        case 0:{
+                            [button setEnabled:YES];
+                            kTipAlert(@"您的网络状态不太顺畅哦！");
+                            
+                        }
+                            break;
+                        case 200:{
+                            DLog(@"登陆成功");
+                            [button setEnabled:YES];
+                            [RootViewController goMain];
+
+//                            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//                            //工厂类型
+//                            [HttpClient getUserProfileWithBlock:^(NSDictionary *responseDictionary) {
+//                                
+//                                if ([responseDictionary[@"statusCode"]integerValue]==200) {
+//                                    UserModel*userModel=responseDictionary[@"model"];
+//                                    [userDefaults setInteger:userModel.factoryType forKey:@"factoryType"];
+//                                    
+//                                    if ([userDefaults synchronize] == YES) {
+//                                        DLog(@"token、username、password储存成功！");
+//                                        [ViewController goMain];
+//                                    }
+//                                    else{
+//                                        DLog(@"token、username、password储存失败！");
+//                                        [Tools showErrorWithStatus:@"获取用户身份失败，请尝试重新登录！"];
+//                                    }
+//                                }
+//                            }];
+                        }
+                            break;
+                        case 401:{
+                            [button setEnabled:YES];
+                            kTipAlert(@"用户名或密码错误！");
+                        }
+                            break;
+                            
+                        default:
+                            [button setEnabled:YES];
+                            kTipAlert(@"您的网络状态不太顺畅哦！");
+                            break;
+                    }
+                }];
             }
         }
             break;
@@ -183,7 +171,6 @@
        
         case 2:{
             DLog(@"忘记密码");
-
             ResetPasswordViewController*resetVC = [[ResetPasswordViewController alloc]init];
             UINavigationController*resetNav = [[UINavigationController alloc]initWithRootViewController:resetVC];
             resetNav.modalPresentationStyle = UIModalPresentationCustom;

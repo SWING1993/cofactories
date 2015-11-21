@@ -46,14 +46,16 @@
         UIViewController *fourthNavigationController = [[UINavigationController alloc]
                                                         initWithRootViewController:fourthViewController];
         
-        if ([kBaseUrl isEqualToString:@"http://192.168.100.2:3001"]) {
-            firstViewController.title = @"聚工厂（内网）";
-        }
-        else if ([kBaseUrl isEqualToString:@"http://test.cofactories.com"]) {
-            firstViewController.title = @"聚工厂（测试）";
-        }else{
-            firstViewController.title = @"聚工厂";
-        }
+        firstViewController.title = @"聚工厂";
+
+//        if ([kBaseUrl isEqualToString:@"http://192.168.100.2:3001"]) {
+//            firstViewController.title = @"聚工厂（内网）";
+//        }
+//        else if ([kBaseUrl isEqualToString:@"http://test.cofactories.com"]) {
+//            firstViewController.title = @"聚工厂（测试）";
+//        }else{
+//            firstViewController.title = @"聚工厂";
+//        }
         
         secondViewController.title = @"钱包";
         thirdViewController.title = @"消息";
