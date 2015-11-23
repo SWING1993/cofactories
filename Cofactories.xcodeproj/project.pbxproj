@@ -155,6 +155,22 @@
 		03FF450F1BFEE74000D81DCE /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF45061BFEE74000D81DCE /* AFURLSessionManager.m */; };
 		7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */; };
 		7094D7221BFC825200F7240B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D7211BFC825200F7240B /* WalletViewController.m */; };
+		7D030F1C1C006B13001E10A2 /* Home-设计者.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D030F1B1C006B13001E10A2 /* Home-设计者.png */; };
+		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
+		7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */; };
+		7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */; };
+		7DF1C1B81C00508100460DB7 /* Home-聚.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B71C00508100460DB7 /* Home-聚.png */; };
+		7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */; };
+		7DF1C1C01C00590100460DB7 /* 服装平台.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BC1C00590100460DB7 /* 服装平台.png */; };
+		7DF1C1C11C00590100460DB7 /* 男装新潮流.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BD1C00590100460DB7 /* 男装新潮流.png */; };
+		7DF1C1C21C00590100460DB7 /* 女装新潮流.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BE1C00590100460DB7 /* 女装新潮流.png */; };
+		7DF1C1C31C00590100460DB7 /* 童装设计潮流趋势.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BF1C00590100460DB7 /* 童装设计潮流趋势.png */; };
+		7DF1C1C61C005F2200460DB7 /* HomeActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */; };
+		7DF1C1CC1C0062B300460DB7 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1C71C0062B300460DB7 /* 1.jpg */; };
+		7DF1C1CD1C0062B300460DB7 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1C81C0062B300460DB7 /* 2.jpg */; };
+		7DF1C1CE1C0062B300460DB7 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1C91C0062B300460DB7 /* 3.jpg */; };
+		7DF1C1CF1C0062B300460DB7 /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1CA1C0062B300460DB7 /* 4.jpg */; };
+		7DF1C1D01C0062B300460DB7 /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1CB1C0062B300460DB7 /* 5.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -447,6 +463,27 @@
 		7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTumblrMenuView.m; sourceTree = "<group>"; };
 		7094D7201BFC825200F7240B /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
 		7094D7211BFC825200F7240B /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
+		7D030F1B1C006B13001E10A2 /* Home-设计者.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home-设计者.png"; sourceTree = "<group>"; };
+		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
+		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
+		7DF1C1AC1BFFFEB700460DB7 /* HomeMarketCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketCell.h; sourceTree = "<group>"; };
+		7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketCell.m; sourceTree = "<group>"; };
+		7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePersonalDataCell.h; sourceTree = "<group>"; };
+		7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePersonalDataCell.m; sourceTree = "<group>"; };
+		7DF1C1B71C00508100460DB7 /* Home-聚.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home-聚.png"; sourceTree = "<group>"; };
+		7DF1C1B91C0056B400460DB7 /* WKFCircularSlidingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKFCircularSlidingView.h; sourceTree = "<group>"; };
+		7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKFCircularSlidingView.m; sourceTree = "<group>"; };
+		7DF1C1BC1C00590100460DB7 /* 服装平台.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "服装平台.png"; sourceTree = "<group>"; };
+		7DF1C1BD1C00590100460DB7 /* 男装新潮流.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "男装新潮流.png"; sourceTree = "<group>"; };
+		7DF1C1BE1C00590100460DB7 /* 女装新潮流.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "女装新潮流.png"; sourceTree = "<group>"; };
+		7DF1C1BF1C00590100460DB7 /* 童装设计潮流趋势.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "童装设计潮流趋势.png"; sourceTree = "<group>"; };
+		7DF1C1C41C005F2200460DB7 /* HomeActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeActivityCell.h; sourceTree = "<group>"; };
+		7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeActivityCell.m; sourceTree = "<group>"; };
+		7DF1C1C71C0062B300460DB7 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		7DF1C1C81C0062B300460DB7 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		7DF1C1C91C0062B300460DB7 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		7DF1C1CA1C0062B300460DB7 /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
+		7DF1C1CB1C0062B300460DB7 /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -523,6 +560,17 @@
 			isa = PBXGroup;
 			children = (
 				0395D2FB1BFC69740009AABC /* post_normal@2x.png */,
+				7D030F1B1C006B13001E10A2 /* Home-设计者.png */,
+				7DF1C1B71C00508100460DB7 /* Home-聚.png */,
+				7DF1C1BC1C00590100460DB7 /* 服装平台.png */,
+				7DF1C1BD1C00590100460DB7 /* 男装新潮流.png */,
+				7DF1C1BE1C00590100460DB7 /* 女装新潮流.png */,
+				7DF1C1BF1C00590100460DB7 /* 童装设计潮流趋势.png */,
+				7DF1C1C71C0062B300460DB7 /* 1.jpg */,
+				7DF1C1C81C0062B300460DB7 /* 2.jpg */,
+				7DF1C1C91C0062B300460DB7 /* 3.jpg */,
+				7DF1C1CA1C0062B300460DB7 /* 4.jpg */,
+				7DF1C1CB1C0062B300460DB7 /* 5.jpg */,
 				03571B5F1BE8546300900EF9 /* Cofactories_iOS-Prefix.pch */,
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
 				03571B271BE84BA100900EF9 /* AppDelegate.m */,
@@ -1005,6 +1053,7 @@
 			children = (
 				03927D821BEC8D1E0087A2FD /* HomeViewController.h */,
 				03927D831BEC8D1E0087A2FD /* HomeViewController.m */,
+				7D5BDB781BFF0E8400FC8054 /* HomeView */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -1160,6 +1209,23 @@
 			path = WalletViewController;
 			sourceTree = "<group>";
 		};
+		7D5BDB781BFF0E8400FC8054 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				7DF1C1B91C0056B400460DB7 /* WKFCircularSlidingView.h */,
+				7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */,
+				7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */,
+				7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */,
+				7DF1C1AC1BFFFEB700460DB7 /* HomeMarketCell.h */,
+				7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */,
+				7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */,
+				7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */,
+				7DF1C1C41C005F2200460DB7 /* HomeActivityCell.h */,
+				7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1265,22 +1331,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DF1C1C01C00590100460DB7 /* 服装平台.png in Resources */,
+				03571C341BE85C1C00900EF9 /* WSProgressBundle.bundle in Resources */,
 				03571B7B1BE85B7900900EF9 /* 02.png in Resources */,
 				03571C941BE85D9C00900EF9 /* IQKeyboardManager.bundle in Resources */,
 				03571B7A1BE85B7900900EF9 /* 01.png in Resources */,
 				03571B9C1BE85B8200900EF9 /* MJPhotoBrowser.bundle in Resources */,
+				7DF1C1CF1C0062B300460DB7 /* 4.jpg in Resources */,
 				03571C9C1BE85DAC00900EF9 /* icon_chose_arrow_nor@2x.png in Resources */,
 				03571B7D1BE85B7900900EF9 /* 04.png in Resources */,
+				7D030F1C1C006B13001E10A2 /* Home-设计者.png in Resources */,
 				03571C5A1BE85D8C00900EF9 /* MJRefresh.bundle in Resources */,
 				03927D781BEC86D90087A2FD /* Images.xcassets in Resources */,
+				7DF1C1C11C00590100460DB7 /* 男装新潮流.png in Resources */,
+				7DF1C1C31C00590100460DB7 /* 童装设计潮流趋势.png in Resources */,
 				03571B801BE85B7900900EF9 /* pageDot@2x.png in Resources */,
 				03571B7C1BE85B7900900EF9 /* 03.png in Resources */,
 				03571B7E1BE85B7900900EF9 /* 05.png in Resources */,
 				03927D741BEC81E20087A2FD /* LaunchScreen.xib in Resources */,
+				7DF1C1CE1C0062B300460DB7 /* 3.jpg in Resources */,
+				7DF1C1B81C00508100460DB7 /* Home-聚.png in Resources */,
 				03571B7F1BE85B7900900EF9 /* pageDot.png in Resources */,
 				0395D2FC1BFC69740009AABC /* post_normal@2x.png in Resources */,
 				03571C9E1BE85DAC00900EF9 /* icon_chose_bottom@2x.png in Resources */,
+				7DF1C1CC1C0062B300460DB7 /* 1.jpg in Resources */,
+				7DF1C1CD1C0062B300460DB7 /* 2.jpg in Resources */,
+				7DF1C1D01C0062B300460DB7 /* 5.jpg in Resources */,
 				03571C9D1BE85DAC00900EF9 /* icon_chose_arrow_sel@2x.png in Resources */,
+				7DF1C1C21C00590100460DB7 /* 女装新潮流.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1343,6 +1421,7 @@
 				03571B251BE84BA100900EF9 /* main.m in Sources */,
 				0395D2F61BFC65EA0009AABC /* CYLTabBarControllerConfig.m in Sources */,
 				03571C921BE85D9C00900EF9 /* IQToolbar.m in Sources */,
+				7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */,
 				03571BFB1BE85C0800900EF9 /* SDWebImageCompat.m in Sources */,
 				03FF44F21BFEE73400D81DCE /* UIWebView+AFNetworking.m in Sources */,
 				032554A31BFDC2AD003B2E76 /* Tools.m in Sources */,
@@ -1375,6 +1454,7 @@
 				03927D811BEC8D090087A2FD /* IMChatViewController.m in Sources */,
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
+				7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */,
 				03571C071BE85C0800900EF9 /* UIView+WebCacheOperation.m in Sources */,
 				03FF44F01BFEE73400D81DCE /* UIProgressView+AFNetworking.m in Sources */,
 				03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -1387,6 +1467,9 @@
 				03571BF81BE85C0800900EF9 /* MKAnnotationView+WebCache.m in Sources */,
 				03B5697B1C02ADD000F89CDA /* StoreUserValue.m in Sources */,
 				03571C031BE85C0800900EF9 /* UIImage+MultiFormat.m in Sources */,
+				7DF1C1C61C005F2200460DB7 /* HomeActivityCell.m in Sources */,
+				03571BC81BE85BD700900EF9 /* AFURLRequestSerialization.m in Sources */,
+				7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */,
 				03571C5C1BE85D8C00900EF9 /* MJRefreshConst.m in Sources */,
 				03FF45091BFEE74000D81DCE /* AFHTTPSessionManager.m in Sources */,
 				0325549A1BFDC1F1003B2E76 /* ResetPasswordViewController.m in Sources */,
@@ -1410,6 +1493,7 @@
 				03927D7E1BEC8CF50087A2FD /* MeViewController.m in Sources */,
 				03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */,
 				03571BFA1BE85C0800900EF9 /* SDImageCache.m in Sources */,
+				7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */,
 				7094D7221BFC825200F7240B /* WalletViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
