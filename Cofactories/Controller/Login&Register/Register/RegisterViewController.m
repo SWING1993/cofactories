@@ -162,8 +162,8 @@
             
             MBProgressHUD *hud = [Tools createHUD];
             hud.labelText = @"正在验证...";
-            [HttpClient validateCodeWithPhone:_usernameTF.text code:_codeTF.text andBlock:^(int statusCode) {
-                DLog(@"验证  验证码code==%d",statusCode);
+            [HttpClient validateCodeWithPhone:_usernameTF.text code:_codeTF.text andBlock:^(NSInteger statusCode) {
+                DLog(@"验证  验证码code==%ld",(long)statusCode);
                 if (statusCode == 200) {
                     hud.labelText = @"验证成功!";
                     [hud hide:YES];

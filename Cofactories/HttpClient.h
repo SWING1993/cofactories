@@ -26,7 +26,7 @@
  @param code        验证码
  @param block       回调函数 会返回 0->(网络错误) 200->(验证码正确) 401->(验证码过期或者无效)
  */
-+ (void)validateCodeWithPhone:(NSString *)phoneNumber code:(NSString *)code andBlock:(void (^)(int statusCode))block;
++ (void)validateCodeWithPhone:(NSString *)phoneNumber code:(NSString *)code andBlock:(void (^)(NSInteger statusCode))block;
 
 
 /*!
@@ -49,7 +49,15 @@
  @param password 密码
  @param block    回调函数 会返回 0->(网络错误) 200->(登录成功) 400->(用户名密码错误)
  */
-+ (void)loginWithUsername:(NSString *)username password:(NSString *)password andBlock:(void (^)(int statusCode))block;
++ (void)loginWithUsername:(NSString *)username password:(NSString *)password andBlock:(void (^)(NSInteger statusCode))block;
+
+
+/*!
+ 刷新 access_token
+ 
+ @param block 回调函数 会返回 0->(网络错误) 200->(成功) 400->(用户名密码错误) 404->(access_token不存在)
+ */
++ (void)validateOAuthWithBlock:(void (^)(NSInteger statusCode))block;
 
 /*!
  返回登录凭据
@@ -67,13 +75,6 @@
 
 
 /*!
- 刷新 access_token
- 
- @param block 回调函数 会返回 0->(网络错误) 200->(成功) 400->(用户名密码错误) 404->(access_token不存在)
- */
-+ (void)validateOAuthWithBlock:(void (^)(int statusCode))block;
-
-/*!
  发送邀请吗
  
  @param inviteCode 邀请码
@@ -87,7 +88,7 @@
  @param phoneNumber 手机号码(11位)
  @param block       回调函数 会返回 0->(网络错误) 200->(成功) 400->(手机格式不正确) 409->(需要等待冷却) 502->(发送错误)
  */
-+ (void)postResetPasswordWithPhone:(NSString *)phoneNumber code:(NSString *)code password:(NSString *)password andBlock:(void (^)(int statusCode))block;
++ (void)postResetPasswordWithPhone:(NSString *)phoneNumber code:(NSString *)code password:(NSString *)password andBlock:(void (^)(NSInteger statusCode))block;
 /*!
  修改密码
  
@@ -95,6 +96,14 @@
  @param newPassword 新密码
  @param block       回调函数 会返回 0->(网络错误) 200->(成功) 403->(旧密码错误) 404->(access_token不存在)
  */
-+ (void)modifyPassword:(NSString *)password newPassword:(NSString *)newPassword andBlock:(void (^)(int statusCode))block;
++ (void)modifyPassword:(NSString *)password newPassword:(NSString *)newPassword andBlock:(void (^)(NSInteger statusCode))block;
+
+
+/*!
+ 获取用户资料
+ 
+ @param block 回调函数 会返回 @{@"statusCode": @200, @"model": UserModel对象}->(获取成功) @{@"statusCode": @0, @"message": @"网络错误"}->(网络错误) @{@"statusCode": @400, @"message": @"未登录"} @{@"statusCode": @401, @"message": @"access_token过期或者无效"} @{@"statusCode": @404, @"message": @"access_token不存在"}
+ */
++ (void)getMyProfileWithBlock:(void (^)(NSDictionary *responseDictionary))block;
 
 @end

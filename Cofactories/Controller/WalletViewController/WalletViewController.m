@@ -7,6 +7,7 @@
 //
 
 #import "WalletViewController.h"
+#import "HttpClient.h"
 
 @interface WalletViewController ()
 

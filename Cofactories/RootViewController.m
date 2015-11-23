@@ -21,8 +21,7 @@ static NSString * const sampleDescription3 = @"新增的加工厂订单外发板
 static NSString * const sampleDescription4 = @"新增即时通讯功能，让沟通无处不在。";
 static NSString * const sampleDescription5 = @"在美工师傅日夜加工的情况下，我们的新版面终于问世了，此处应有掌声。";
 
-@interface RootViewController ()<EAIntroDelegate,UIApplicationDelegate>
-
+@interface RootViewController ()
 @end
 
 @implementation RootViewController
@@ -30,46 +29,63 @@ static NSString * const sampleDescription5 = @"在美工师傅日夜加工的情
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+
+    /**
+     *  判断是否展示过新版本特性页
+     */
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"showEAIntroPage"] boolValue]) {
+        [self setupRootViewController];
+    }else {
+        [self showIntroWithCrossDissolve];
+    }
+    
+}
+
+- (void)setupRootViewController {
+    /*
+    AFOAuthCredential *credential=[HttpClient getToken];
+    DLog(@"\n accessToken = %@ \n refreshToken = %@ \n credential.expired = %d",credential.accessToken,credential.refreshToken,credential.expired);
+     */
     
     if ([HttpClient getToken]) {
-        DLog(@"用户已登录");
-        [HttpClient validateOAuthWithBlock:^(int statusCode) {
-            if (statusCode == 404) {
-                [RootViewController goLogin];
+        DLog(@"用户已登录，判断Token是否过期！");
+        [HttpClient validateOAuthWithBlock:^(NSInteger statusCode) {
+            if (statusCode == 200) {
+                [RootViewController setupTabarController];
             }else {
-                [RootViewController goMain];
+                [RootViewController setupLoginViewController];
             }
         }];
     }else{
-        DLog(@"用户未登录");
-        //未登录 加载展示页面
-        [self showIntroWithCrossDissolve];
-        [RootViewController goLogin];
+        DLog(@"用户未登录,去登录！");
+        [RootViewController setupLoginViewController];
     }
-   
-    AFOAuthCredential *credential=[HttpClient getToken];
-    
-    DLog(@"\n accessToken = %@ \n refreshToken = %@ ",credential.accessToken,credential.refreshToken)
 }
 
 //注册界面
-+ (void)goLogin {
-    
++ (void)setupLoginViewController {
     LoginViewController *loginView =[[LoginViewController alloc]init];
     UINavigationController *loginNav =[[UINavigationController alloc]initWithRootViewController:loginView];
     AppDelegate *app =[UIApplication sharedApplication].delegate;
     app.window.rootViewController =loginNav;
-    
 }
 
 //创建Tabbar
-+(void)goMain {
-    
++(void)setupTabarController {
     CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
     AppDelegate *app =[UIApplication sharedApplication].delegate;
     app.window.rootViewController = tabBarControllerConfig.tabBarController;
 }
 
+#pragma mark - EAIntroView delegate
+
+- (void)introDidFinish:(EAIntroView *)introView {
+    DLog(@"EAIntroPage DidFinish");
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"showEAIntroPage"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self setupRootViewController];
+    // 展示页面结束 加载登陆注册页面
+}
 
 - (void)showIntroWithCrossDissolve {
     EAIntroPage *page1 = [EAIntroPage page];

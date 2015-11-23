@@ -6,6 +6,8 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "HttpClient.h"
+#import "UserManagerCenter.h"
 #import "HomeViewController.h"
 
 @interface HomeViewController ()
@@ -17,6 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
+    }];
+   
 }
 
 - (void)didReceiveMemoryWarning {

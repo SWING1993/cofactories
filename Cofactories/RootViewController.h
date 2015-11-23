@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface RootViewController : UIViewController
+#import "EAIntroPage.h"
+#import "EAIntroView.h"
+@interface RootViewController : UIViewController <EAIntroDelegate,UIApplicationDelegate>
 
 //主页
-+(void)goMain;
++(void)setupTabarController;
 
 //登录注册
-+ (void)goLogin;
++ (void)setupLoginViewController;
 
 @end
 

@@ -17,9 +17,38 @@ typedef NS_ENUM(NSInteger, UserType) {
 };
 
 @interface UserModel : NSObject
-@property (nonatomic, assign) UserType UserType;
+
 @property (nonatomic, strong) NSArray * UserTypeListArray;
 @property (nonatomic, strong) NSArray * UserTypeArray;
+
+@property (nonatomic, retain) NSString * role;
+@property (nonatomic, assign) UserType UserType;
+
+@property (nonatomic, retain) NSString * uid;
+@property (nonatomic, retain) NSString * phone;
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * province;
+@property (nonatomic, retain) NSString * city;
+@property (nonatomic, retain) NSString * district;
+@property (nonatomic, retain) NSString * address;
+@property (nonatomic, retain) NSString * subRole;
+@property (nonatomic, retain) NSString * scale;
+@property (nonatomic, retain) NSString * inviteCode;
+@property (nonatomic, retain) NSString * rongToken;
+@property (nonatomic, retain) NSString * verified;
+@property (nonatomic, retain) NSString * enterprise;
+@property (nonatomic, retain) NSString * score;
+@property (nonatomic, retain) NSString * lastActivity;
+@property (nonatomic, retain) NSString * descriptionString;
+@property (nonatomic, retain) NSString * createdAt;
+@property (nonatomic, retain) NSString * updatedAt;
+
+@property (nonatomic, retain) NSDictionary * verifyDic;
+
+- (instancetype)getMyProfile;
++ (void)removeMyProfile;
+- (instancetype)initWithArray;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 
 @end

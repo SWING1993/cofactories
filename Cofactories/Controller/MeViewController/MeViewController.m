@@ -6,6 +6,7 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "UserManagerCenter.h"
 #import "HttpClient.h"
 #import "MeViewController.h"
 
@@ -18,9 +19,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //退出
-    [HttpClient deleteToken];
     // Do any additional setup after loading the view.
+
+    //退出账号 [HttpClient deleteToken];
+    /*
+    UserModel * model = [[UserModel alloc]getMyProfile];
+    NSLog(@"model.uid = %@\n model.UserType = %ld",model.uid,(long)model.UserType);
+    AFOAuthCredential *credential=[HttpClient getToken];
+    DLog(@"\n accessToken = %@ \n refreshToken = %@ \n credential.expired = %d",credential.accessToken,credential.refreshToken,credential.expired)
+     */
+
 }
 
 - (void)didReceiveMemoryWarning {

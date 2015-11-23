@@ -112,8 +112,7 @@
                 [button setEnabled:YES];
                 kTipAlert(@"请您填写账号以及密码后登陆!");
             }else{
-                [HttpClient loginWithUsername:_usernameTF.text password:_passwordTF.text andBlock:^(int statusCode) {
-                    DLog(@"%d",statusCode);
+                [HttpClient loginWithUsername:_usernameTF.text password:_passwordTF.text andBlock:^(NSInteger statusCode) {
                     switch (statusCode) {
                         case 0:{
                             [button setEnabled:YES];
@@ -124,26 +123,8 @@
                         case 200:{
                             DLog(@"登陆成功");
                             [button setEnabled:YES];
-                            [RootViewController goMain];
+                            [RootViewController setupTabarController];
 
-//                            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//                            //工厂类型
-//                            [HttpClient getUserProfileWithBlock:^(NSDictionary *responseDictionary) {
-//                                
-//                                if ([responseDictionary[@"statusCode"]integerValue]==200) {
-//                                    UserModel*userModel=responseDictionary[@"model"];
-//                                    [userDefaults setInteger:userModel.factoryType forKey:@"factoryType"];
-//                                    
-//                                    if ([userDefaults synchronize] == YES) {
-//                                        DLog(@"token、username、password储存成功！");
-//                                        [ViewController goMain];
-//                                    }
-//                                    else{
-//                                        DLog(@"token、username、password储存失败！");
-//                                        [Tools showErrorWithStatus:@"获取用户身份失败，请尝试重新登录！"];
-//                                    }
-//                                }
-//                            }];
                         }
                             break;
                         case 401:{

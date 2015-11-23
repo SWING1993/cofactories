@@ -37,7 +37,7 @@
     
     self.title=@"注册";
    
-    UserModel * model = [[UserModel alloc]init];
+    UserModel * model = [[UserModel alloc]initWithArray];
     self.UserTypeList = model.UserTypeListArray;
     self.UserTypeArray = model.UserTypeArray;
     
