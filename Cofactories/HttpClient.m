@@ -14,47 +14,6 @@
 #import "UserManagerCenter.h"
 
 #pragma mark - 服务器
-//内网服务器
-/**
- *  本地开发环境：
- *
- *  @return nil
- */
-
-//认证服务器：
-#define kAuthUrl @"http://auth.lo.cofactories.com"
-//后端服务器：
-#define kBaseUrl @"http://lo.cofactories.com"
-#define PhotoAPI @"http://cofactories-test.b0.upaiyun.com"
-#define bucketAPI @"cofactories-test"
-
-
-/**
- *  远程测试环境：
- *
- *  @return nil
- 
-//认证服务器：
-#define kAuthUrl @"http://auth.test.cofactories.com"
-//后端服务器：
-#define kBaseUrl @"http://test.cofactories.com"
-#define PhotoAPI @"http://cofactories-test.b0.upaiyun.com"
-#define bucketAPI @"cofactories-test"
-*/
-
-
-/**
- *  正式环境：
- *
- *  @return nil
- 
-//认证服务器：
-#define kAuthUrl @"http://auth.cofactories.com"
-//后端服务器：
-#define kBaseUrl @"http://app.cofactories.com"
-#define PhotoAPI @"http://cdn.cofactories.com"
-#define bucketAPI @"cofactories"
- */
 
 #define kClientID @"123"
 #define kSecret @"123"
@@ -409,6 +368,7 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager GET:API_userProfile parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"userModel = %@",responseObject);
             UserModel *userModel = [[UserModel alloc] initWithDictionary:responseObject];
             [userModel storeValueWithKey:@"MyProfile"];
 

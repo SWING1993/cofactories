@@ -23,9 +23,7 @@
  UserModel * model = [[UserModel alloc]getMyProfile];
 
  model.uid
- 
  model.UserType
- 
  ...
 
  */

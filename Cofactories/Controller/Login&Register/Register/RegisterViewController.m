@@ -17,7 +17,9 @@
 
 }
 
-@property(nonatomic,copy)NSString*statusCode;
+@property (nonatomic,copy) NSString * statusCode;
+
+@property (nonatomic,assign) BOOL isSeletecd;
 
 @end
 
@@ -38,6 +40,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title=@"注册";
+    
+    self.isSeletecd = YES;
+    DLog(@"isSeletecd = %d",self.isSeletecd);
+
 
     self.view.backgroundColor=[UIColor whiteColor];
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
@@ -47,9 +53,27 @@
     tablleHeaderView*tableHeaderView = [[tablleHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, tableHeaderView_height)];
     self.tableView.tableHeaderView = tableHeaderView;
 
-    UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 60)];
+    UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 100)];
+    
+    UIButton * leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBtn.selected = self.isSeletecd;
+    [leftBtn setImage:[UIImage imageNamed:@"leftBtn_Normal"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"leftBtn_Selected"] forState:UIControlStateSelected];
+    leftBtn.frame = CGRectMake(20, 12.5, 25, 25);
+    [leftBtn addTarget:self action:@selector(clickLeftBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [tableFooterView addSubview:leftBtn];
 
-    blueButton*nextBtn=[[blueButton alloc]initWithFrame:CGRectMake(20, 15, kScreenW-40, 35)];;
+    
+    UIButton * btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.frame = CGRectMake(60, 10, kScreenW - 80, 30);
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [btn setTitle:@" 同意《聚工厂服务协议》" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    btn.titleLabel.font = kFont;
+    [btn addTarget:self action:@selector(clickRightBtn) forControlEvents:UIControlEventTouchUpInside];
+    [tableFooterView addSubview:btn];
+
+    blueButton*nextBtn=[[blueButton alloc]initWithFrame:CGRectMake(20, 50, kScreenW-40, 35)];;
     [nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:nextBtn];
@@ -151,12 +175,13 @@
 
 - (void)registerBtnClick {
     if (_usernameTF.text.length==0 || _passwordTF.text.length==0 || _codeTF.text.length==0 ) {
-        DLog(@"mo");
-//        [Tools showErrorWithStatus:@"注册信息不完整!"];
         kTipAlert(@"注册信息不完整!");
-    }else{
+    }
+    else if (!self.isSeletecd){
+        kTipAlert(@"未同意注册用户协议。");
+    }
+    else {
         if (_passwordTF.text.length<6) {
-//            [Tools showErrorWithStatus:@"密码长度太短！"];
             kTipAlert(@"密码长度太短！");
         }else{
             
@@ -176,18 +201,23 @@
                 }
                 else if (statusCode == 0) {
                     [hud hide:YES];
-//                    [Tools showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
                     kTipAlert(@"您的网络状态不太顺畅哦！");
                 }
                 
                 else {
                     [hud hide:YES];
-//                    [Tools showErrorWithStatus:@"验证码过期或者无效!"];
                     kTipAlert(@"验证码过期或者无效!");
                 }
             }];
         }
     }
+}
+- (void)clickLeftBtn:(UIButton *)btn {
+    self.isSeletecd = !self.isSeletecd;
+    btn.selected = self.isSeletecd;
+}
+- (void)clickRightBtn {
+    kTipAlert(@"服务协议！");
 }
 
 - (void)didReceiveMemoryWarning {

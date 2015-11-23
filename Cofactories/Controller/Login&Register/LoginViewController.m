@@ -53,8 +53,8 @@
 
 
     //注册 button
-    UIButton*registerBtn=[[UIButton alloc]initWithFrame:CGRectMake((kScreenW-40)/2+40, 60, (kScreenW-40)/2-20, 25)];
-    //    registerBtn.backgroundColor = [UIColor redColor];
+    UIButton*registerBtn=[[UIButton alloc]initWithFrame:CGRectMake((kScreenW-40)/2+40, 60, (kScreenW-40)/2-20, 40)];
+//        registerBtn.backgroundColor = [UIColor redColor];
     registerBtn.tag=1;
     registerBtn.titleLabel.font=[UIFont systemFontOfSize:15];
     registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
@@ -63,7 +63,7 @@
     [registerBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:registerBtn];
 
-    UIButton*forgetBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, 60, (kScreenW-40)/2-20, 25)];
+    UIButton*forgetBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, 60, (kScreenW-40)/2-20, 40)];
     forgetBtn.tag=2;
     forgetBtn.titleLabel.font=[UIFont systemFontOfSize:15];
     forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

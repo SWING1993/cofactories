@@ -41,7 +41,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 - (void)creatTableView {
-    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64) style:UITableViewStyleGrouped];
+    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 44) style:UITableViewStyleGrouped];
     self.automaticallyAdjustsScrollViewInsets = YES;// 自动调整视图关闭
     self.homeTableView.showsVerticalScrollIndicator = NO;// 竖直滚动条不显示
     self.homeTableView.delegate = self;
@@ -79,7 +79,6 @@ static NSString *activityCellIdentifier = @"activityCell";
         HomePersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:personalDataCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;//去掉选中背景色
         cell.personalDataLeftImage.image = [UIImage imageNamed:@"2.jpg"];
-        
         
         cell.personNameLabel.text = @"蜻蜓队长";
         cell.personStatusLabel.text = @"注册用户";

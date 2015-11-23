@@ -46,16 +46,16 @@
         UIViewController *fourthNavigationController = [[UINavigationController alloc]
                                                         initWithRootViewController:fourthViewController];
         
-        firstViewController.title = @"聚工厂";
-
-//        if ([kBaseUrl isEqualToString:@"http://192.168.100.2:3001"]) {
-//            firstViewController.title = @"聚工厂（内网）";
-//        }
-//        else if ([kBaseUrl isEqualToString:@"http://test.cofactories.com"]) {
-//            firstViewController.title = @"聚工厂（测试）";
-//        }else{
-//            firstViewController.title = @"聚工厂";
-//        }
+        if ([kBaseUrl isEqualToString:@"http://app.cofactories.com"]) {
+            firstViewController.title = @"聚工厂";
+        }
+        
+        else if ([kBaseUrl isEqualToString:@"http://lo.cofactories.com"]) {
+            firstViewController.title = @"聚工厂（内网）";
+        }
+        else if ([kBaseUrl isEqualToString:@"http://test.cofactories.com"]) {
+            firstViewController.title = @"聚工厂（测试）";
+        }
         
         secondViewController.title = @"钱包";
         thirdViewController.title = @"消息";
@@ -79,7 +79,7 @@
         /**
          *  更多TabBar自定义设置：比如：tabBarItem 的选中和不选中文字和背景图片属性、tabbar 背景图片属性
          */
-        // [[self class] customizeTabBarAppearance];
+        [[self class] customizeTabBarAppearance];
         _tabBarController = tabBarController;
     }
     return _tabBarController;
@@ -137,22 +137,22 @@
     // set the text color for selected state
     // 选中状态下的文字属性
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
-    selectedAttrs[NSForegroundColorAttributeName] = [UIColor blackColor];
+    selectedAttrs[NSForegroundColorAttributeName] = [UIColor colorWithRed:70.0f/255.0f green:126.0f/255.0f blue:220/255.0f alpha:1.0f];
     
     // set the text Attributes
     // 设置文字属性
     UITabBarItem *tabBar = [UITabBarItem appearance];
     [tabBar setTitleTextAttributes:normalAttrs forState:UIControlStateNormal];
-    [tabBar setTitleTextAttributes:selectedAttrs forState:UIControlStateHighlighted];
+    [tabBar setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
     
     // Set the dark color to selected tab (the dimmed background)
     // TabBarItem选中后的背景颜色
-    [[UITabBar appearance] setSelectionIndicatorImage:[self imageFromColor:[UIColor colorWithRed:26/255.0 green:163/255.0 blue:133/255.0 alpha:1] forSize:CGSizeMake([UIScreen mainScreen].bounds.size.width/5.0f, 49) withCornerRadius:0]];
+//    [[UITabBar appearance] setSelectionIndicatorImage:[self imageFromColor:[UIColor colorWithRed:26/255.0 green:163/255.0 blue:133/255.0 alpha:1] forSize:CGSizeMake([UIScreen mainScreen].bounds.size.width/5.0f, 49) withCornerRadius:0]];
     
     // set the bar background color
     // 设置背景图片
-    // UITabBar *tabBarAppearance = [UITabBar appearance];
-    // [tabBarAppearance setBackgroundImage:[UIImage imageNamed:@"tabbar_background_ios7"]];
+//    UITabBar *tabBarAppearance = [UITabBar appearance];
+//    [tabBarAppearance setBackgroundImage:[UIImage imageNamed:@"tabbar_background_ios7"]];
 }
 
 + (UIImage *)imageFromColor:(UIColor *)color forSize:(CGSize)size withCornerRadius:(CGFloat)radius

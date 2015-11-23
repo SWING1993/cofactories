@@ -21,7 +21,8 @@
     
     // Do any additional setup after loading the view.
 
-    //退出账号 [HttpClient deleteToken];
+    //退出账号
+    [HttpClient deleteToken];
     /*
     UserModel * model = [[UserModel alloc]getMyProfile];
     NSLog(@"model.uid = %@\n model.UserType = %ld",model.uid,(long)model.UserType);
