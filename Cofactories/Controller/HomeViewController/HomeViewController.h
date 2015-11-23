@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface HomeViewController : UIViewController
+#import "HomeMarketButton.h"
+#import "HomeMarketCell.h"
+#import "HomePersonalDataCell.h"
+#import "HomeActivityCell.h"
+#import "WKFCircularSlidingView.h"
+@interface HomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, HomeMarketCellDelegate, WKFCircularSlidingViewDelegate>
+@property (nonatomic, strong) UITableView *homeTableView;
 
 @end
