@@ -132,6 +132,8 @@
 
 #define kKeyWindow [UIApplication sharedApplication].keyWindow
 
+#import "UserManagerCenter.h"
+
 
 #pragma mark - 日志开关
 /*!
