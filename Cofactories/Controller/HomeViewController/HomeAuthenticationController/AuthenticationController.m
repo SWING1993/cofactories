@@ -8,12 +8,13 @@
 
 #import "AuthenticationController.h"
 #import "AuthenticationCell.h"
-
-
+#import "HttpClient.h"
+#import "AuthenticationPhotoController.h"
 static NSString *renZhengCellIdentifier = @"renZhengCell";
 @interface AuthenticationController () {
     NSArray *titleArray, *placeHolderArray;
     UITextField *textField1, *textField2, *textField3, *textField4;
+    UIButton *lastButton;
 }
 
 @end
@@ -31,7 +32,8 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     [self.tableView registerClass:[AuthenticationCell class] forCellReuseIdentifier:renZhengCellIdentifier];
     titleArray = @[@"企业名称", @"企业地址", @"个人姓名", @"身份证号"];
     placeHolderArray = @[@"企业姓名/个人姓名", @"省、市、区街道地址", @"个人姓名", @"身份证号"];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoAction) name:UITextFieldTextDidChangeNotification object:nil];
+
 }
 
 
@@ -49,14 +51,15 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 
 - (void)creatFooterView {
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 70)];
-    UIButton *lastButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    lastButton = [UIButton buttonWithType:UIButtonTypeCustom];
     lastButton.frame = CGRectMake(20, 10, kScreenW - 40, 38);
-    [lastButton setTitle:@"下一步" forState:UIControlStateNormal];
+    [lastButton setTitle:@"提交认证" forState:UIControlStateNormal];
     lastButton.titleLabel.font = [UIFont systemFontOfSize:15.5];
     lastButton.layer.cornerRadius = 4;
     lastButton.clipsToBounds = YES;
-    lastButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
-    [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+    [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    lastButton.userInteractionEnabled = YES;
     [lastButton addTarget:self action:@selector(nextStepAction:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:lastButton];
     self.tableView.tableFooterView = footerView;
@@ -128,11 +131,37 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 
 #pragma mark - 下一步
 - (void)nextStepAction:(UIButton *)button {
+//    [HttpClient postVerifyWithenterpriseName:textField1.text withpersonName:textField3.text withidCard:textField4.text withenterpriseAddress:textField2.text andBlock:^(NSInteger statusCode) {
+//            DLog(@"%ld", (long)statusCode);
+//        if (statusCode == 200) {
+//            AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
+//            [self.navigationController pushViewController:photoVC animated:YES];
+//        } else {
+//            
+//        }
+//    }];
+    AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:photoVC animated:YES];
     NSLog(@"%@， %@， %@， %@", textField1.text, textField2.text, textField3.text, textField4.text);
+    
 }
 
 
+- (void)infoAction {
+    DLog(@"gfiuhshfolsjfpspi");
+    if (textField1.text.length != 0 && textField2.text.length != 0 && textField3.text.length != 0 && textField4.text.length == 18 ) {
+        DLog(@"去认证");
+        lastButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+        [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        lastButton.userInteractionEnabled = YES;
 
+    } else {
+        DLog(@"信息不完善");
+        lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+        [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        lastButton.userInteractionEnabled = NO;
+    }
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

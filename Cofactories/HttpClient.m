@@ -13,6 +13,7 @@
 
 #import "UserManagerCenter.h"
 #import "RootViewController.h"
+#import "WalletModel.h"
 
 #pragma mark - 服务器
 
@@ -20,23 +21,21 @@
 #define kSecret @"123"
 
 #define API_authorise @"/authorise" // authorise
-#define API_verify @"/user/code" //获取验证码
+#define API_verifyCode @"/user/code" //获取验证码
 #define API_checkCode @"/user/checkCode" //检查短信验证码
 #define API_register @"/user/register" //注册
 #define API_login @"/user/login" //登录
 #define API_reset @"/user/reset"
 #define API_modifyPassword @"/user/password"
-
-
+#define API_wallet @"/user/wallet"
+#define API_verify @"/user/verify"
 #define API_userProfile @"/user/profile"
-#define API_favorite @"/user/favorite"
-#define API_factoryProfile @"/factory/profile"
-#define API_search @"/search"
-#define API_searchFactory @"/search/factory"
-#define API_drawAccess @"/draw/access"
 
+#define API_config @"/config/ad/:"
 
 @implementation HttpClient
+
+/*User**********************************************************************************************************************************************/
 
 //发送手机验证码
 + (void)postVerifyCodeWithPhone:(NSString *)phoneNumber andBlock:(void (^)(NSDictionary *responseDictionary))block {
@@ -51,7 +50,7 @@
     manager.requestSerializer.timeoutInterval = 10.f;
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
-    [manager POST:API_verify parameters:@{@"phone": phoneNumber} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+    [manager POST:API_verifyCode parameters:@{@"phone": phoneNumber} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         DLog(@"responseObject = %@",responseObject);
         block(@{@"statusCode": @(200), @"message": @"发送成功，十分钟内有效！"});
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -405,6 +404,157 @@
         block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
     }
 }
+
+/**
+ *  修改自己的资料
+ *   address 地址，需要拼接上完整的省市区
+ province 市
+ district 区
+ description 备注
+ scale 规模
+ subRole 第二身份
+ *  @param Dic   修改的字典
+ *  @param block 返回状态码 200为修改成功
+ */
++ (void)postMyProfileWithDic:(NSDictionary *)Dic andBlock:(void (^)(NSInteger statusCode))block {
+
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录则获取用户信息
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager    POST:API_userProfile parameters:Dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"修改个人资料 = %@",responseObject);
+            block(200);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            block([operation.response statusCode]);
+        }];
+    } else {
+        DLog(@"access_token不存在");
+        block(404);// access_token不存在
+    }
+}
+
+/**
+ *  获取自己的钱包
+ *
+ *  @param block 回调函数  200 OK  返回钱包Model
+ 
+ */
++ (void)getwalletWithBlock:(void (^)(NSDictionary *responseDictionary))block {
+
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录则获取用户信息
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager GET:API_wallet parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"wallet = %@",responseObject);
+            
+            WalletModel * model = [[WalletModel alloc]initWithDictionary:responseObject];
+            block(@{@"statusCode": @(200), @"model": model});
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            switch ([operation.response statusCode]) {
+                case 400:
+                    block(@{@"statusCode": @(400), @"message": @"未登录"});
+                    break;
+                case 401:
+                    block(@{@"statusCode": @(401), @"message": @"access_token过期或者无效"});
+                    break;
+                    
+                default:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
+                    break;
+            }
+        }];
+    } else {
+        DLog(@"access_token不存在");
+        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
+    }
+}
+
+/**
+ *  上传认证资料
+ *
+ *  @param enterpriseName    企业名称
+ *  @param personName        法人姓名
+ *  @param idCard            身份证号
+ *  @param enterpriseAddress 企业地址
+ *  @param block             返回状态码 200为成功
+ */
++ (void)postVerifyWithenterpriseName:(NSString *)enterpriseName withpersonName:(NSString *)personName withidCard:(NSString *)idCard withenterpriseAddress:(NSString *)enterpriseAddress andBlock:(void (^)(NSInteger statusCode))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录
+        NSMutableDictionary * parametersDic = [[NSMutableDictionary alloc]initWithCapacity:4];
+        if (enterpriseName) {
+            [parametersDic setObject:enterpriseName forKey:@"enterpriseName"];
+        }
+        if (personName) {
+            [parametersDic setObject:personName forKey:@"personName"];
+        }
+        if (idCard) {
+            [parametersDic setObject:idCard forKey:@"idCard"];
+        }
+        if (enterpriseAddress) {
+            [parametersDic setObject:enterpriseAddress forKey:@"enterpriseAddress"];
+        }
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager POST:API_verify parameters:parametersDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"上传认证资料 = %@",responseObject);
+            block(200);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            block([operation.response statusCode]);
+        }];
+    } else {
+        DLog(@"access_token不存在");
+//        block(404);// access_token不存在
+    }
+}
+
+
+/*Config**********************************************************************************************************************************************/
+
++ (void)getConfigWithType:(NSString *)type WithBlock:(void (^)(NSDictionary *))block {
+
+    AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    //设置超时时间
+    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+    manager.requestSerializer.timeoutInterval = 10.f;
+    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    
+    NSString * GetUrl = [NSString stringWithFormat:@"%@%@",API_config,type];
+    
+    [manager GET:GetUrl parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        DLog(@"responseObject = %@",responseObject);
+        block(@{@"statusCode": @(200), @"model": @"model"});
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+        DLog(@"获取验证码的statusCode = %ld",(long)statusCode);
+        switch (statusCode) {
+            case 400:
+                block(@{@"statusCode": @(400), @"message": @"failure"});
+                break;
+            case 409:
+                block(@{@"statusCode": @(409), @"message": @"failure"});
+                break;
+            default:
+                block(@{@"statusCode": @(502), @"message": @"failure"});
+                break;
+        }
+    }];
+}
+
+
+
 
 
 @end

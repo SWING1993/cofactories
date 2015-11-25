@@ -88,10 +88,6 @@ static NSString *zhiFuBaoCellIdentifier = @"zhiFuBaoCell";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoAction) name:UITextFieldTextDidChangeNotification object:nil];
     
-//    ZGYTextField *myTextField = [[ZGYTextField alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(bankButton.frame) + 20, kScreenW - 20, 50)];
-//    myTextField.placeholder = @"just a try";
-//    [self.view addSubview:myTextField];
-    
 }
 
 - (void)infoAction {

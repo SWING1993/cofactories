@@ -134,6 +134,7 @@
 		0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2FF1BFC6D970009AABC /* LoginViewController.m */; };
 		03A1A0CE1C00080500FBEDE8 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A1A0CD1C00080500FBEDE8 /* UserModel.m */; };
 		03A3C8DE1C043F46007BD9B8 /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3C8DD1C043F46007BD9B8 /* SetViewController.swift */; };
+		03B120BC1C0583DA0023F362 /* WalletModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120BB1C0583DA0023F362 /* WalletModel.m */; };
 		03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B569761C02A4CC00F89CDA /* FastCoder.m */; };
 		03B5697B1C02ADD000F89CDA /* StoreUserValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697A1C02ADD000F89CDA /* StoreUserValue.m */; };
 		03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */; };
@@ -158,6 +159,8 @@
 		7094D7221BFC825200F7240B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D7211BFC825200F7240B /* WalletViewController.m */; };
 		7D030F1C1C006B13001E10A2 /* Home-设计者.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D030F1B1C006B13001E10A2 /* Home-设计者.png */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
+		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
+		7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6DB64D1C05BB9D00BF396E /* 身份证.png */; };
 		7DE8C1901C03F9B100E0917D /* HomeSupplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C18F1C03F9B100E0917D /* HomeSupplyController.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
 		7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */; };
@@ -425,6 +428,8 @@
 		03A1A0CD1C00080500FBEDE8 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserModel.m; path = ../Model/UserModel.m; sourceTree = "<group>"; };
 		03A3C8DC1C043F46007BD9B8 /* Cofactories-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Cofactories-Bridging-Header.h"; path = "Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h"; sourceTree = "<group>"; };
 		03A3C8DD1C043F46007BD9B8 /* SetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
+		03B120BA1C0583DA0023F362 /* WalletModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletModel.h; sourceTree = "<group>"; };
+		03B120BB1C0583DA0023F362 /* WalletModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletModel.m; sourceTree = "<group>"; };
 		03B569751C02A4CC00F89CDA /* FastCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastCoder.h; sourceTree = "<group>"; };
 		03B569761C02A4CC00F89CDA /* FastCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastCoder.m; sourceTree = "<group>"; };
 		03B569781C02A57C00F89CDA /* UserManagerCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManagerCenter.h; sourceTree = "<group>"; };
@@ -476,6 +481,9 @@
 		7D030F1B1C006B13001E10A2 /* Home-设计者.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home-设计者.png"; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
+		7D6DB64A1C05AEE300BF396E /* AuthenticationPhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationPhotoController.h; sourceTree = "<group>"; };
+		7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPhotoController.m; sourceTree = "<group>"; };
+		7D6DB64D1C05BB9D00BF396E /* 身份证.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "身份证.png"; sourceTree = "<group>"; };
 		7DE8C18E1C03F9B100E0917D /* HomeSupplyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSupplyController.h; sourceTree = "<group>"; };
 		7DE8C18F1C03F9B100E0917D /* HomeSupplyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSupplyController.m; sourceTree = "<group>"; };
 		7DE8C1911C043CA600E0917D /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
@@ -595,6 +603,7 @@
 				7DF1C1C91C0062B300460DB7 /* 3.jpg */,
 				7DF1C1CA1C0062B300460DB7 /* 4.jpg */,
 				7DF1C1CB1C0062B300460DB7 /* 5.jpg */,
+				7D6DB64D1C05BB9D00BF396E /* 身份证.png */,
 				03571B5F1BE8546300900EF9 /* Cofactories_iOS-Prefix.pch */,
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
 				03571B271BE84BA100900EF9 /* AppDelegate.m */,
@@ -672,6 +681,8 @@
 		03571B571BE84E4100900EF9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				03B120BA1C0583DA0023F362 /* WalletModel.h */,
+				03B120BB1C0583DA0023F362 /* WalletModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1291,6 +1302,8 @@
 		7DEEA5B51C05800A009143C6 /* HomeAuthenticationController */ = {
 			isa = PBXGroup;
 			children = (
+				7D6DB64A1C05AEE300BF396E /* AuthenticationPhotoController.h */,
+				7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */,
 				7DEEA5C91C058B81009143C6 /* AuthenticationController.h */,
 				7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */,
 				7DEEA5B91C0581A2009143C6 /* HomeAuthenticationView */,
@@ -1427,6 +1440,7 @@
 				7DF1C1C31C00590100460DB7 /* 童装设计潮流趋势.png in Resources */,
 				03571B801BE85B7900900EF9 /* pageDot@2x.png in Resources */,
 				03571B7C1BE85B7900900EF9 /* 03.png in Resources */,
+				7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */,
 				03571B7E1BE85B7900900EF9 /* 05.png in Resources */,
 				03927D741BEC81E20087A2FD /* LaunchScreen.xib in Resources */,
 				7DF1C1CE1C0062B300460DB7 /* 3.jpg in Resources */,
@@ -1499,6 +1513,7 @@
 				03571C001BE85C0800900EF9 /* SDWebImagePrefetcher.m in Sources */,
 				7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */,
 				03571BA31BE85B8200900EF9 /* UIImageView+MJWebCache.m in Sources */,
+				7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */,
 				03FF44F11BFEE73400D81DCE /* UIRefreshControl+AFNetworking.m in Sources */,
 				0395D2EF1BFC65920009AABC /* CYLTabBar.m in Sources */,
 				03571B251BE84BA100900EF9 /* main.m in Sources */,
@@ -1527,6 +1542,7 @@
 				03571C881BE85D9C00900EF9 /* IQUITextFieldView+Additions.m in Sources */,
 				03571C5F1BE85D8C00900EF9 /* UIScrollView+MJExtension.m in Sources */,
 				03FF45071BFEE74000D81DCE /* AFHTTPRequestOperation.m in Sources */,
+				03B120BC1C0583DA0023F362 /* WalletModel.m in Sources */,
 				03FF450F1BFEE74000D81DCE /* AFURLSessionManager.m in Sources */,
 				03571C8A1BE85D9C00900EF9 /* IQUIViewController+Additions.m in Sources */,
 				03571C931BE85D9C00900EF9 /* IQUIView+IQKeyboardToolbar.m in Sources */,
