@@ -10,6 +10,7 @@
 #import "UserManagerCenter.h"
 #import "HomeViewController.h"
 #import "HomeSupplyController.h"
+#import "AuthenticationController.h"
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -190,9 +191,12 @@ static NSString *activityCellIdentifier = @"activityCell";
 -(void)clickCircularSlidingView:(int)tag{
     DLog(@"点击了第  %d  张图", tag);
 }
-#pragma mark - Action
+#pragma mark - Action认证
 - (void)authenticationAction {
     DLog(@"前往认证");
+    AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
+    authenticationVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:authenticationVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

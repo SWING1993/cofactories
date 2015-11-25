@@ -163,6 +163,8 @@
 		7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */; };
 		7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */; };
 		7DEEA5631C054A2D009143C6 /* WalletSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5621C054A2D009143C6 /* WalletSelectView.m */; };
+		7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */; };
+		7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */; };
 		7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */; };
 		7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */; };
 		7DF1C1B81C00508100460DB7 /* Home-聚.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B71C00508100460DB7 /* Home-聚.png */; };
@@ -484,6 +486,10 @@
 		7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryViewController.m; sourceTree = "<group>"; };
 		7DEEA5611C054A2D009143C6 /* WalletSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletSelectView.h; sourceTree = "<group>"; };
 		7DEEA5621C054A2D009143C6 /* WalletSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletSelectView.m; sourceTree = "<group>"; };
+		7DEEA5C91C058B81009143C6 /* AuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationController.h; sourceTree = "<group>"; };
+		7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationController.m; sourceTree = "<group>"; };
+		7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationCell.m; sourceTree = "<group>"; };
+		7DEEA5D01C058BB0009143C6 /* AuthenticationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthenticationCell.h; sourceTree = "<group>"; };
 		7DF1C1AC1BFFFEB700460DB7 /* HomeMarketCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketCell.h; sourceTree = "<group>"; };
 		7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketCell.m; sourceTree = "<group>"; };
 		7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePersonalDataCell.h; sourceTree = "<group>"; };
@@ -1072,8 +1078,9 @@
 			children = (
 				03927D821BEC8D1E0087A2FD /* HomeViewController.h */,
 				03927D831BEC8D1E0087A2FD /* HomeViewController.m */,
-				7DE8C18D1C03F97E00E0917D /* HomeSupplyController */,
 				7D5BDB781BFF0E8400FC8054 /* HomeView */,
+				7DEEA5B51C05800A009143C6 /* HomeAuthenticationController */,
+				7DE8C18D1C03F97E00E0917D /* HomeSupplyController */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -1281,6 +1288,25 @@
 			path = WalletView;
 			sourceTree = "<group>";
 		};
+		7DEEA5B51C05800A009143C6 /* HomeAuthenticationController */ = {
+			isa = PBXGroup;
+			children = (
+				7DEEA5C91C058B81009143C6 /* AuthenticationController.h */,
+				7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */,
+				7DEEA5B91C0581A2009143C6 /* HomeAuthenticationView */,
+			);
+			path = HomeAuthenticationController;
+			sourceTree = "<group>";
+		};
+		7DEEA5B91C0581A2009143C6 /* HomeAuthenticationView */ = {
+			isa = PBXGroup;
+			children = (
+				7DEEA5D01C058BB0009143C6 /* AuthenticationCell.h */,
+				7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */,
+			);
+			path = HomeAuthenticationView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1454,6 +1480,7 @@
 				03571C061BE85C0800900EF9 /* UIImageView+WebCache.m in Sources */,
 				03927D841BEC8D1E0087A2FD /* HomeViewController.m in Sources */,
 				03571C481BE85CCF00900EF9 /* MBProgressHUD.m in Sources */,
+				7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */,
 				03571B9B1BE85B8200900EF9 /* MJPhoto.m in Sources */,
 				032554A01BFDC26D003B2E76 /* tablleHeaderView.m in Sources */,
 				03FF44EC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -1495,6 +1522,7 @@
 				03FF450B1BFEE74000D81DCE /* AFSecurityPolicy.m in Sources */,
 				03571C8B1BE85D9C00900EF9 /* IQUIWindow+Hierarchy.m in Sources */,
 				03571C9B1BE85DAC00900EF9 /* DOPDropDownMenu.m in Sources */,
+				7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */,
 				03571BA01BE85B8200900EF9 /* MJPhotoToolbar.m in Sources */,
 				03571C881BE85D9C00900EF9 /* IQUITextFieldView+Additions.m in Sources */,
 				03571C5F1BE85D8C00900EF9 /* UIScrollView+MJExtension.m in Sources */,
