@@ -959,7 +959,6 @@
     }
 
 }
-
 // 获取面料详情
 + (void)getFabricDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
@@ -979,7 +978,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 @end
