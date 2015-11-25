@@ -10,6 +10,18 @@
 
 @implementation ZhiFuBaoCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 120, 50)];
+        [self addSubview:self.photoView];
+    }
+    return self;
+}
+
+
+
 - (void)awakeFromNib {
     // Initialization code
 }

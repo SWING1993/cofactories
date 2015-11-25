@@ -10,4 +10,6 @@
 
 @interface ZhiFuBaoCell : UITableViewCell
 
+@property (nonatomic, strong) UIImageView *photoView;
+
 @end

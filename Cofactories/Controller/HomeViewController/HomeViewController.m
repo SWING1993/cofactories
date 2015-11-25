@@ -9,6 +9,7 @@
 #import "HttpClient.h"
 #import "UserManagerCenter.h"
 #import "HomeViewController.h"
+#import "HomeSupplyController.h"
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -32,6 +33,9 @@ static NSString *activityCellIdentifier = @"activityCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+
+//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+    
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
     }];
    
@@ -41,7 +45,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 - (void)creatTableView {
-    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64) style:UITableViewStyleGrouped];
+    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 44) style:UITableViewStyleGrouped];
     self.automaticallyAdjustsScrollViewInsets = YES;// 自动调整视图关闭
     self.homeTableView.showsVerticalScrollIndicator = NO;// 竖直滚动条不显示
     self.homeTableView.delegate = self;
@@ -75,15 +79,12 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        DLog(@"deddddddeeeee");
-        HomePersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:personalDataCellIdentifier forIndexPath:indexPath];
+         HomePersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:personalDataCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;//去掉选中背景色
         cell.personalDataLeftImage.image = [UIImage imageNamed:@"2.jpg"];
-        
-        
         cell.personNameLabel.text = @"蜻蜓队长";
         cell.personStatusLabel.text = @"注册用户";
-        cell.personWalletLeft.text = @"余额：1000元";
+        cell.personWalletLeft.text = @"余额：0元";
         cell.personAddressLabel.text = @"杭州市下沙街道天城118号";
         [cell.authenticationButton addTarget:self action:@selector(authenticationAction) forControlEvents:UIControlEventTouchUpInside];
         return cell;
@@ -93,6 +94,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         return cell;
     } else {
         HomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:activityCellIdentifier forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.activityPhoto.image = [UIImage imageNamed:arr[indexPath.row]];
         return cell;
     }
@@ -146,10 +148,8 @@ static NSString *activityCellIdentifier = @"activityCell";
         }];
     }
     if (indexPath.section == 2) {
-        //xy方向缩放的初始值为0.1
-        
+        //xy方向缩放的初始值为0.95
         cell.layer.transform = CATransform3DMakeScale(0.95, 0.95, 1);
-        
         //设置动画时间为0.25秒,xy方向缩放的最终值为1
         [UIView animateWithDuration:0.5 animations:^{
             cell.layer.transform = CATransform3DMakeScale(1, 1, 1);
@@ -160,9 +160,32 @@ static NSString *activityCellIdentifier = @"activityCell";
 #pragma mark - HomeMarketCellDelegate
 - (void)homeMarketCell:(HomeMarketCell *)homeMarket marketButtonTag:(NSInteger)marketButtonTag {
     NSLog(@"第%ld个市场", (long)marketButtonTag);
+    switch (marketButtonTag) {
+        case 1:{
+            //设计市场
+        }
+            break;
+        case 2:{
+            //服装市场
+        }
+            break;
+        case 3:{
+            //供应市场
+            HomeSupplyController *homeSupplyVC = [[HomeSupplyController alloc] init];
+            homeSupplyVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:homeSupplyVC animated:YES];
+        }
+            break;
+        case 4:{
+            //加工配套市场
+        }
+            break;
+        default:
+            break;
+    }
 }
 
-#pragma mark -WKFCircularSlidingViewDelegate代理方法
+#pragma mark -WKFCircularSlidingViewDelegate
 -(void)clickCircularSlidingView:(int)tag{
     DLog(@"点击了第  %d  张图", tag);
 }
