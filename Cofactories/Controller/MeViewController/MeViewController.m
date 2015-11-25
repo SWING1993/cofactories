@@ -9,7 +9,7 @@
 #import "UserManagerCenter.h"
 #import "HttpClient.h"
 #import "MeViewController.h"
-#import "Cofactories-Swift.h"
+#import "SetViewController.h"
 
 @interface MeViewController ()
 
@@ -25,29 +25,29 @@
     UIButton * _rightBtn;
 }
 
-//-(void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//    self.navigationController.navigationBarHidden = YES;
-//
-//    [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
-//    }];
-//
-//}
-//
-//-(void)viewWillDisappear:(BOOL)animated
-//{
-//    [super viewWillDisappear:animated];
-//    self.navigationController.navigationBarHidden = NO;
-//}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+
+    [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
+    }];
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [HttpClient deleteToken];
+//    [HttpClient deleteToken];
 
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
 
     self.MyProfile = [[UserModel alloc]getMyProfile];
     DLog(@"type = %ld",self.MyProfile.UserType);
@@ -80,6 +80,7 @@
         DLog(@"个人资料");
         SetViewController * SetVC = [[SetViewController alloc]init];
         SetVC.title = @"个人资料";
+        SetVC.type  = self.MyProfile.UserType;
         SetVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:SetVC animated:YES];
     }
