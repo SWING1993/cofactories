@@ -37,8 +37,21 @@
         if ([dictionary objectForKey:@"role"] || ![[dictionary objectForKey:@"role"] isEqual:[NSNull null]] || [[dictionary objectForKey:@"role"] isEqualToString:@"(null)"]) {
             
             _role = [dictionary objectForKey:@"role"];
-            _UserType = [_role integerValue];
-            
+            if ([_role isEqualToString:@"designer"]) {
+                _UserType = UserType_designer;
+            }else if ([_role isEqualToString:@"clothing"]){
+                _UserType = UserType_clothing;
+            }
+            else if ([_role isEqualToString:@"processing"]){
+                _UserType = UserType_processing;
+            }
+            else if ([_role isEqualToString:@"supplier"]){
+                _UserType = UserType_supplier;
+            }
+            else if ([_role isEqualToString:@"facilitator"]){
+                _UserType = UserType_facilitator;
+            }
+           
         }
         if ([dictionary objectForKey:@"uid"] || ![[dictionary objectForKey:@"uid"] isEqual:[NSNull null]] || [[dictionary objectForKey:@"uid"] isEqualToString:@"(null)"]) {
             

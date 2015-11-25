@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 
 #import "UserManagerCenter.h"
+#import "RootViewController.h"
 
 #pragma mark - 服务器
 
@@ -55,6 +56,7 @@
         block(@{@"statusCode": @(200), @"message": @"发送成功，十分钟内有效！"});
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+        DLog(@"获取验证码的statusCode = %ld",(long)statusCode);
         switch (statusCode) {
             case 400:
                 block(@{@"statusCode": @(400), @"message": @"手机格式不正确！"});
@@ -141,8 +143,11 @@
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-        DLog(@"failure = %@",errors);
-        block(401);
+        NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+        block(statusCode);
+        
+        DLog(@"statusCode = %ld\nfailure = %@",(long)statusCode,errors);
+
     }];
 }
 
@@ -267,6 +272,9 @@
         
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
         block(statusCode);
+        if (statusCode == 500) {
+            [RootViewController setupLoginViewController];
+        }
         
         /*
          NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
@@ -358,6 +366,11 @@
 }
 
 
+/**
+ *  获取自己的用户信息
+ *
+ *  @param block 用户模型
+ */
 + (void)getMyProfileWithBlock:(void (^)(NSDictionary *responseDictionary))block {
 
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];

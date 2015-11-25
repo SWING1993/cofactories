@@ -33,6 +33,7 @@ static NSString * const sampleDescription5 = @"在美工师傅日夜加工的情
     /**
      *  判断是否展示过新版本特性页
      */
+    
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"showEAIntroPage"] boolValue]) {
         [self setupRootViewController];
     }else {

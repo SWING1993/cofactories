@@ -84,7 +84,7 @@
     
     //for log
     [UMessage setLogEnabled:YES];
-    
+
     RootViewController *mainVC = [[RootViewController alloc] init];
     self.window.rootViewController = mainVC;
     [self customizeInterface];
@@ -135,5 +135,16 @@
  */
 - (void)customizeInterface {
     
+    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
+
+    NSDictionary *textAttributes = @{
+                                     NSFontAttributeName: [UIFont boldSystemFontOfSize:kNavTitleFontSize],
+                                     NSForegroundColorAttributeName: [UIColor blackColor],
+                                     };
+    [navigationBarAppearance setTitleTextAttributes:textAttributes];
+
+    
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+
 }
 @end

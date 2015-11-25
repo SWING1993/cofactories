@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 聚工科技. All rights reserved.
 //
 
+#import "HttpClient.h"
 #import "Tools.h"
 #import "blueButton.h"
 #import "tablleHeaderView.h"
@@ -117,8 +118,7 @@
         kTipAlert(@"密码长度应该是6位及以上！");
     }
     else{
-        /*
-        [HttpClient postResetPasswordWithPhone:_usernameTF.text code:_codeTF.text password:_passwordTF.text andBlock:^(int statusCode) {
+        [HttpClient postResetPasswordWithPhone:_usernameTF.text code:_codeTF.text password:_passwordTF.text andBlock:^(NSInteger statusCode) {
             switch (statusCode) {
                 case 200:
                 {
@@ -126,85 +126,52 @@
                                                                      delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
                     alertView.tag = 10086;
                     [alertView show];
-
                 }
                     break;
                 case 400:
                 {
-
-                    [Tools showErrorWithStatus:@"没有这个用户！"];
-
+                    kTipAlert(@"没有这个用户！");
                 }
                     break;
                 case 403:
                 {
-                    [Tools showErrorWithStatus:@"验证码错误"];
-
-
+                    kTipAlert(@"验证码错误！");
                 }
                     break;
-
+                    
                 default:
-                    [Tools showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
-
+                    kTipAlert(@"您的网络状态不太顺畅哦！");
                     break;
             }
         }];
-         */
+
+        
+    
     }
-         
 }
 
 - (void)sendCodeBtn{
     [_codeBtn setEnabled:NO];
 
     if (_usernameTF.text.length==11) {
-        /*
-        [HttpClient postVerifyCodeWithPhone:_usernameTF.text andBlock:^(int statusCode) {
-            switch (statusCode) {
-                case 0:{
-                    [Tools showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
-                    [_codeBtn setEnabled:YES];
-
-                }
-                    break;
-                case 200:{
-                    [Tools showSuccessWithStatus:@"发送成功，十分钟内有效"];
-                    seconds = 60;
-                    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
-                }
-                    break;
-                case 400:{
-                    [Tools showErrorWithStatus:@"手机格式不正确"];
-                    [_codeBtn setEnabled:YES];
-
-
-                }
-                    break;
-                case 409:{
-
-                    [Tools showErrorWithStatus:@"需要等待冷却"];
-                    [_codeBtn setEnabled:YES];
-
-
-                }
-                    break;
-                case 502:{
-                    [Tools showErrorWithStatus:@"发送错误"];
-                    [_codeBtn setEnabled:YES];
-
-
-                }
-                    break;
-
-                default:
-                    [Tools showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
-                    [_codeBtn setEnabled:YES];
-                    break;
+        
+        [HttpClient postVerifyCodeWithPhone:_usernameTF.text andBlock:^(NSDictionary *responseDictionary) {
+            
+            NSInteger  statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
+            NSString * message = [responseDictionary objectForKey:@"message"];
+            
+            if (statusCode == 200) {
+                kTipAlert(@"%@", message);
+                [_codeBtn setEnabled:NO];
+                seconds = 60;
+                timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+                
+            }else{
+                kTipAlert(@"%@", message);
+                [_codeBtn setEnabled:YES];
             }
         }];
-         */
-
+ 
     }else{
         kTipAlert(@"您输入的是一个无效的手机号码！");
         [_codeBtn setEnabled:YES];
@@ -228,8 +195,7 @@
         [_codeBtn.titleLabel sizeToFit];
         _codeBtn.titleLabel.text = title;
         [_codeBtn setTitle:title forState:UIControlStateNormal];
-        DLog(@"%@",_codeBtn.titleLabel.text);
-
+//        DLog(@"%@",_codeBtn.titleLabel.text);
     }
 }
 

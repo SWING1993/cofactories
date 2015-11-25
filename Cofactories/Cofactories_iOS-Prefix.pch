@@ -37,8 +37,8 @@
 //认证服务器：
 #define kAuthUrl @"http://auth.lo.cofactories.com"
 //后端服务器：
-#define kBaseUrl @"http://lo.cofactories.com"
-#define PhotoAPI @"http://cofactories-test.b0.upaiyun.com"
+#define kBaseUrl @"https://lo.cofactories.com"
+#define PhotoAPI @"https://cofactories-test.b0.upaiyun.com"
 #define bucketAPI @"cofactories-test"
 
 
@@ -122,7 +122,7 @@
 
 //字体 Font
 //Nav字体大小
-#define kNavTitleFontSize 17.5f
+#define kNavTitleFontSize 17.0f
 #define kLargeFont  [UIFont systemFontOfSize:16.0f]
 #define kFont [UIFont systemFontOfSize:14.0f]
 #define kSmallFont  [UIFont systemFontOfSize:12.0f]
