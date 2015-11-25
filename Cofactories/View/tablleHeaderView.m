@@ -18,7 +18,7 @@
         // 背景色
         [self setBackgroundColor:[UIColor whiteColor]];
 
-        UIImageView*logoImage = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenW/2-40, 10, 80, 80)];
+        UIImageView*logoImage = [[UIImageView alloc]initWithFrame:CGRectMake(frame.size.width/2-40, 10, 80, 80)];
         logoImage.image=[UIImage imageNamed:@"login_logo"];
         logoImage.layer.cornerRadius = 80/2.0f;
         logoImage.layer.masksToBounds = YES;

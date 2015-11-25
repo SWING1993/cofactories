@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MeViewController : UIViewController
+@interface MeViewController : UITableViewController
+
+@property (nonatomic,assign)NSInteger tagff;
 
 @end

@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 
 #import "UserManagerCenter.h"
+#import "RootViewController.h"
 
 #pragma mark - 服务器
 
@@ -132,7 +133,7 @@
     [parameters setObject:@"no" forKey:@"enterprise"];
     
     [OAuth2Manager POST:API_authorise parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"success = %@",responseObject);
+//        DLog(@"success = %@",responseObject);
         NSString * code = [responseObject objectForKey:@"code"];
         [self loginWithCode:code andBlock:^(NSInteger statusCode) {
             DLog(@"第二步登录验证 statusCode = %ld",(long)statusCode);
@@ -162,7 +163,7 @@
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
     [manager POST:API_login parameters:@{@"code":code} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-        DLog(@"sucess data = %@",responseObject);
+//        DLog(@"sucess data = %@",responseObject);
         block(200);
         [self storeCredentialWihtResponseObject:responseObject];
 
@@ -267,6 +268,9 @@
         
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
         block(statusCode);
+        if (statusCode == 500) {
+            [RootViewController setupLoginViewController];
+        }
         
         /*
          NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
