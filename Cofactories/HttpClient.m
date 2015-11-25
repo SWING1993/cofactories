@@ -520,7 +520,7 @@
         
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager GET:API_verify parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager POST:API_verify parameters:parametersDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
             DLog(@"上传认证资料 = %@",responseObject);
             block(200);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -528,7 +528,7 @@
         }];
     } else {
         DLog(@"access_token不存在");
-        block(404);// access_token不存在
+//        block(404);// access_token不存在
     }
 }
 
@@ -961,7 +961,6 @@
     }
 
 }
-
 // 获取面料详情
 + (void)getFabricDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
@@ -981,7 +980,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 @end

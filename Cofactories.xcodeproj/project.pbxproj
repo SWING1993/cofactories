@@ -165,11 +165,15 @@
 		70F7E36D1C05CB7100DD661E /* DesignMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */; };
 		7D030F1C1C006B13001E10A2 /* Home-设计者.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D030F1B1C006B13001E10A2 /* Home-设计者.png */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
+		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
+		7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6DB64D1C05BB9D00BF396E /* 身份证.png */; };
 		7DE8C1901C03F9B100E0917D /* HomeSupplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C18F1C03F9B100E0917D /* HomeSupplyController.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
 		7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */; };
 		7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */; };
 		7DEEA5631C054A2D009143C6 /* WalletSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5621C054A2D009143C6 /* WalletSelectView.m */; };
+		7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */; };
+		7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */; };
 		7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */; };
 		7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */; };
 		7DF1C1B81C00508100460DB7 /* Home-聚.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B71C00508100460DB7 /* Home-聚.png */; };
@@ -494,6 +498,9 @@
 		7D030F1B1C006B13001E10A2 /* Home-设计者.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home-设计者.png"; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
+		7D6DB64A1C05AEE300BF396E /* AuthenticationPhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationPhotoController.h; sourceTree = "<group>"; };
+		7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPhotoController.m; sourceTree = "<group>"; };
+		7D6DB64D1C05BB9D00BF396E /* 身份证.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "身份证.png"; sourceTree = "<group>"; };
 		7DE8C18E1C03F9B100E0917D /* HomeSupplyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSupplyController.h; sourceTree = "<group>"; };
 		7DE8C18F1C03F9B100E0917D /* HomeSupplyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSupplyController.m; sourceTree = "<group>"; };
 		7DE8C1911C043CA600E0917D /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
@@ -504,6 +511,10 @@
 		7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryViewController.m; sourceTree = "<group>"; };
 		7DEEA5611C054A2D009143C6 /* WalletSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletSelectView.h; sourceTree = "<group>"; };
 		7DEEA5621C054A2D009143C6 /* WalletSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletSelectView.m; sourceTree = "<group>"; };
+		7DEEA5C91C058B81009143C6 /* AuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationController.h; sourceTree = "<group>"; };
+		7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationController.m; sourceTree = "<group>"; };
+		7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationCell.m; sourceTree = "<group>"; };
+		7DEEA5D01C058BB0009143C6 /* AuthenticationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthenticationCell.h; sourceTree = "<group>"; };
 		7DF1C1AC1BFFFEB700460DB7 /* HomeMarketCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketCell.h; sourceTree = "<group>"; };
 		7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketCell.m; sourceTree = "<group>"; };
 		7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePersonalDataCell.h; sourceTree = "<group>"; };
@@ -609,6 +620,7 @@
 				7DF1C1C91C0062B300460DB7 /* 3.jpg */,
 				7DF1C1CA1C0062B300460DB7 /* 4.jpg */,
 				7DF1C1CB1C0062B300460DB7 /* 5.jpg */,
+				7D6DB64D1C05BB9D00BF396E /* 身份证.png */,
 				03571B5F1BE8546300900EF9 /* Cofactories_iOS-Prefix.pch */,
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
 				03571B271BE84BA100900EF9 /* AppDelegate.m */,
@@ -1098,8 +1110,9 @@
 			children = (
 				03927D821BEC8D1E0087A2FD /* HomeViewController.h */,
 				03927D831BEC8D1E0087A2FD /* HomeViewController.m */,
-				7DE8C18D1C03F97E00E0917D /* HomeSupplyController */,
 				7D5BDB781BFF0E8400FC8054 /* HomeView */,
+				7DEEA5B51C05800A009143C6 /* HomeAuthenticationController */,
+				7DE8C18D1C03F97E00E0917D /* HomeSupplyController */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -1314,6 +1327,27 @@
 			path = WalletView;
 			sourceTree = "<group>";
 		};
+		7DEEA5B51C05800A009143C6 /* HomeAuthenticationController */ = {
+			isa = PBXGroup;
+			children = (
+				7D6DB64A1C05AEE300BF396E /* AuthenticationPhotoController.h */,
+				7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */,
+				7DEEA5C91C058B81009143C6 /* AuthenticationController.h */,
+				7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */,
+				7DEEA5B91C0581A2009143C6 /* HomeAuthenticationView */,
+			);
+			path = HomeAuthenticationController;
+			sourceTree = "<group>";
+		};
+		7DEEA5B91C0581A2009143C6 /* HomeAuthenticationView */ = {
+			isa = PBXGroup;
+			children = (
+				7DEEA5D01C058BB0009143C6 /* AuthenticationCell.h */,
+				7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */,
+			);
+			path = HomeAuthenticationView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1435,6 +1469,7 @@
 				03B120C71C05B1E60023F362 /* Areas.plist in Resources */,
 				03571B801BE85B7900900EF9 /* pageDot@2x.png in Resources */,
 				03571B7C1BE85B7900900EF9 /* 03.png in Resources */,
+				7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */,
 				03571B7E1BE85B7900900EF9 /* 05.png in Resources */,
 				03927D741BEC81E20087A2FD /* LaunchScreen.xib in Resources */,
 				7DF1C1CE1C0062B300460DB7 /* 3.jpg in Resources */,
@@ -1489,6 +1524,7 @@
 				03571C061BE85C0800900EF9 /* UIImageView+WebCache.m in Sources */,
 				03927D841BEC8D1E0087A2FD /* HomeViewController.m in Sources */,
 				03571C481BE85CCF00900EF9 /* MBProgressHUD.m in Sources */,
+				7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */,
 				03571B9B1BE85B8200900EF9 /* MJPhoto.m in Sources */,
 				032554A01BFDC26D003B2E76 /* tablleHeaderView.m in Sources */,
 				03FF44EC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -1507,6 +1543,7 @@
 				03571C001BE85C0800900EF9 /* SDWebImagePrefetcher.m in Sources */,
 				7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */,
 				03571BA31BE85B8200900EF9 /* UIImageView+MJWebCache.m in Sources */,
+				7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */,
 				03FF44F11BFEE73400D81DCE /* UIRefreshControl+AFNetworking.m in Sources */,
 				0395D2EF1BFC65920009AABC /* CYLTabBar.m in Sources */,
 				03571B251BE84BA100900EF9 /* main.m in Sources */,
@@ -1530,6 +1567,7 @@
 				03FF450B1BFEE74000D81DCE /* AFSecurityPolicy.m in Sources */,
 				03571C8B1BE85D9C00900EF9 /* IQUIWindow+Hierarchy.m in Sources */,
 				03571C9B1BE85DAC00900EF9 /* DOPDropDownMenu.m in Sources */,
+				7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */,
 				03571BA01BE85B8200900EF9 /* MJPhotoToolbar.m in Sources */,
 				03571C881BE85D9C00900EF9 /* IQUITextFieldView+Additions.m in Sources */,
 				03571C5F1BE85D8C00900EF9 /* UIScrollView+MJExtension.m in Sources */,

@@ -8,7 +8,6 @@
 
 #import "RechargeViewController.h"
 #import "ZhiFuBaoCell.h"
-
 static NSString *zhiFuBaoCellIdentifier = @"zhiFuBaoCell";
 
 @interface RechargeViewController ()<UITextFieldDelegate> {
@@ -58,6 +57,9 @@ static NSString *zhiFuBaoCellIdentifier = @"zhiFuBaoCell";
     
     priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 0, kScreenW - 80*kZGY, 50*kZGY)];
     priceTextField.placeholder = @"请输入金额";
+//    [priceTextField setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    
+    [priceTextField setValue:[UIFont boldSystemFontOfSize:16*kZGY] forKeyPath:@"_placeholderLabel.font"];
     priceTextField.clearButtonMode=UITextFieldViewModeWhileEditing;
     priceTextField.keyboardType = UIKeyboardTypeDecimalPad;
     priceTextField.delegate = self;
@@ -83,12 +85,9 @@ static NSString *zhiFuBaoCellIdentifier = @"zhiFuBaoCell";
     bankButton.titleLabel.font = [UIFont systemFontOfSize:13*kZGY];
     [bankButton addTarget:self action:@selector(bankPayAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:bankButton];
-    //235,235,240
-    //210,210,210
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(changeValue:)
-//                                                 name:@"changeValue" object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoAction) name:UITextFieldTextDidChangeNotification object:nil];
+    
 }
 
 - (void)infoAction {
@@ -111,6 +110,9 @@ static NSString *zhiFuBaoCellIdentifier = @"zhiFuBaoCell";
 - (void)bankPayAction:(UIButton *)button {
     DLog(@"使用线下支付");
 }
+
+
+
 
 
 
