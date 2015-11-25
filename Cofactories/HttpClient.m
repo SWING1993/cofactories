@@ -426,13 +426,9 @@
  *  @param Dic   修改的字典
  *  @param block 返回状态码 200为修改成功
  */
-<<<<<<< HEAD
-+ (void)postMyProfileWithDic:(NSDictionary *)Dic andBlock:(void (^)(NSInteger statusCode))block {
-    
-=======
+
 + (void)postMyProfileWithDic:(NSMutableDictionary *)Dic andBlock:(void (^)(NSInteger statusCode))block {
 
->>>>>>> develop_song
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
