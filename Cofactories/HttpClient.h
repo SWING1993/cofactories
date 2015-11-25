@@ -12,6 +12,8 @@
 
 @interface HttpClient : NSObject
 
+/*User**********************************************************************************************************************************************/
+
 /*!
  发送手机验证码
  
@@ -105,5 +107,48 @@
  @param block 回调函数 会返回 @{@"statusCode": @200, @"model": UserModel对象}->(获取成功) @{@"statusCode": @0, @"message": @"网络错误"}->(网络错误) @{@"statusCode": @400, @"message": @"未登录"} @{@"statusCode": @401, @"message": @"access_token过期或者无效"} @{@"statusCode": @404, @"message": @"access_token不存在"}
  */
 + (void)getMyProfileWithBlock:(void (^)(NSDictionary *responseDictionary))block;
+
+/**
+ *  修改自己的资料
+ *   address 地址，需要拼接上完整的省市区
+ province 市
+ district 区
+ description 备注
+ scale 规模
+ subRole 第二身份
+ *  @param Dic   修改的字典
+ *  @param block 返回状态码 200为修改成功
+ */
++ (void)postMyProfileWithDic:(NSDictionary *)Dic andBlock:(void (^)(NSInteger statusCode))block;
+
+
+/**
+ *  获取自己的钱包
+ *
+ *  @param block 回调函数  200 OK  返回钱包Model
+ 
+ */
++ (void)getwalletWithBlock:(void (^)(NSDictionary *responseDictionary))block;
+
+/**
+ *  上传认证资料
+ *
+ *  @param enterpriseName    企业名称
+ *  @param personName        法人姓名
+ *  @param idCard            身份证号
+ *  @param enterpriseAddress 企业地址
+ *  @param block             返回状态码 200为成功
+ */
++ (void)postVerifyWithenterpriseName:(NSString *)enterpriseName withpersonName:(NSString *)personName withidCard:(NSString *)idCard withenterpriseAddress:(NSString *)enterpriseAddress andBlock:(void (^)(NSInteger statusCode))block;
+
+/*Config**********************************************************************************************************************************************/
+/**
+ *  获取广告
+ *
+ *  @param block 返回参数 200 广告Model
+ */
+
++ (void)getConfigWithType:(NSString *)type WithBlock:(void (^)(NSDictionary *responseDictionary))block;
+
 
 @end

@@ -134,6 +134,7 @@
 		0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2FF1BFC6D970009AABC /* LoginViewController.m */; };
 		03A1A0CE1C00080500FBEDE8 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A1A0CD1C00080500FBEDE8 /* UserModel.m */; };
 		03A3C8DE1C043F46007BD9B8 /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3C8DD1C043F46007BD9B8 /* SetViewController.swift */; };
+		03B120BC1C0583DA0023F362 /* WalletModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120BB1C0583DA0023F362 /* WalletModel.m */; };
 		03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B569761C02A4CC00F89CDA /* FastCoder.m */; };
 		03B5697B1C02ADD000F89CDA /* StoreUserValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697A1C02ADD000F89CDA /* StoreUserValue.m */; };
 		03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */; };
@@ -423,6 +424,8 @@
 		03A1A0CD1C00080500FBEDE8 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserModel.m; path = ../Model/UserModel.m; sourceTree = "<group>"; };
 		03A3C8DC1C043F46007BD9B8 /* Cofactories-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Cofactories-Bridging-Header.h"; path = "Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h"; sourceTree = "<group>"; };
 		03A3C8DD1C043F46007BD9B8 /* SetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
+		03B120BA1C0583DA0023F362 /* WalletModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletModel.h; sourceTree = "<group>"; };
+		03B120BB1C0583DA0023F362 /* WalletModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletModel.m; sourceTree = "<group>"; };
 		03B569751C02A4CC00F89CDA /* FastCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastCoder.h; sourceTree = "<group>"; };
 		03B569761C02A4CC00F89CDA /* FastCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastCoder.m; sourceTree = "<group>"; };
 		03B569781C02A57C00F89CDA /* UserManagerCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManagerCenter.h; sourceTree = "<group>"; };
@@ -666,6 +669,8 @@
 		03571B571BE84E4100900EF9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				03B120BA1C0583DA0023F362 /* WalletModel.h */,
+				03B120BB1C0583DA0023F362 /* WalletModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1499,6 +1504,7 @@
 				03571C881BE85D9C00900EF9 /* IQUITextFieldView+Additions.m in Sources */,
 				03571C5F1BE85D8C00900EF9 /* UIScrollView+MJExtension.m in Sources */,
 				03FF45071BFEE74000D81DCE /* AFHTTPRequestOperation.m in Sources */,
+				03B120BC1C0583DA0023F362 /* WalletModel.m in Sources */,
 				03FF450F1BFEE74000D81DCE /* AFURLSessionManager.m in Sources */,
 				03571C8A1BE85D9C00900EF9 /* IQUIViewController+Additions.m in Sources */,
 				03571C931BE85D9C00900EF9 /* IQUIView+IQKeyboardToolbar.m in Sources */,
