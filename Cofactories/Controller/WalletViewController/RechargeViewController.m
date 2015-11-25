@@ -72,6 +72,7 @@ static NSString *zhiFuBaoCellIdentifier = @"zhiFuBaoCell";
     lastButton.clipsToBounds = YES;
     lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
     [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    lastButton.userInteractionEnabled = NO;
     [lastButton addTarget:self action:@selector(payAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:lastButton];
     
@@ -95,9 +96,11 @@ static NSString *zhiFuBaoCellIdentifier = @"zhiFuBaoCell";
     if (priceTextField.text.length == 0) {
         lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
         [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        lastButton.userInteractionEnabled = NO;
     } else {
         lastButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
         [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        lastButton.userInteractionEnabled = YES;
     }
 
 }
