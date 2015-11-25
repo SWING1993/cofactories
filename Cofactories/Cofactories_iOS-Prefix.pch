@@ -69,7 +69,8 @@
  #define bucketAPI @"cofactories"
  */
 
-
+#import "HttpClient.h" 
+#import "Tools.h"
 
 #pragma mark - 第三方key
 //企业版

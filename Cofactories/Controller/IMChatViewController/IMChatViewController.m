@@ -17,8 +17,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [HttpClient getAccessoryDetailWithId:@"2" WithCompletionBlock:^(NSDictionary *dictionary) {
+        
+    }];
+        // DLog(@"%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@",model.amount,model.createdAt,model.descriptions,model.ID,model.name,model.price,model.photoArray,model.sales,model.type,model.part,model.userUid,model.country);
+    
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
