@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WalletViewController : UIViewController
+@interface WalletViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UITableView *walletTableView;
 
 @end

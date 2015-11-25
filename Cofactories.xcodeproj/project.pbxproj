@@ -158,6 +158,10 @@
 		7094D7221BFC825200F7240B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D7211BFC825200F7240B /* WalletViewController.m */; };
 		7D030F1C1C006B13001E10A2 /* Home-设计者.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D030F1B1C006B13001E10A2 /* Home-设计者.png */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
+		7DE8C1901C03F9B100E0917D /* HomeSupplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C18F1C03F9B100E0917D /* HomeSupplyController.m */; };
+		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
+		7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */; };
+		7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */; };
 		7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */; };
 		7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */; };
 		7DF1C1B81C00508100460DB7 /* Home-聚.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B71C00508100460DB7 /* Home-聚.png */; };
@@ -469,6 +473,14 @@
 		7D030F1B1C006B13001E10A2 /* Home-设计者.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home-设计者.png"; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
+		7DE8C18E1C03F9B100E0917D /* HomeSupplyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSupplyController.h; sourceTree = "<group>"; };
+		7DE8C18F1C03F9B100E0917D /* HomeSupplyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSupplyController.m; sourceTree = "<group>"; };
+		7DE8C1911C043CA600E0917D /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
+		7DE8C1921C043CA600E0917D /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
+		7DE8C1951C0445AF00E0917D /* ZhiFuBaoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhiFuBaoCell.h; sourceTree = "<group>"; };
+		7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhiFuBaoCell.m; sourceTree = "<group>"; };
+		7DEEA55E1C05479C009143C6 /* WalletHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryViewController.h; sourceTree = "<group>"; };
+		7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryViewController.m; sourceTree = "<group>"; };
 		7DF1C1AC1BFFFEB700460DB7 /* HomeMarketCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketCell.h; sourceTree = "<group>"; };
 		7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketCell.m; sourceTree = "<group>"; };
 		7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePersonalDataCell.h; sourceTree = "<group>"; };
@@ -1057,6 +1069,7 @@
 			children = (
 				03927D821BEC8D1E0087A2FD /* HomeViewController.h */,
 				03927D831BEC8D1E0087A2FD /* HomeViewController.m */,
+				7DE8C18D1C03F97E00E0917D /* HomeSupplyController */,
 				7D5BDB781BFF0E8400FC8054 /* HomeView */,
 			);
 			path = HomeViewController;
@@ -1219,6 +1232,11 @@
 			children = (
 				7094D7201BFC825200F7240B /* WalletViewController.h */,
 				7094D7211BFC825200F7240B /* WalletViewController.m */,
+				7DE8C1911C043CA600E0917D /* RechargeViewController.h */,
+				7DE8C1921C043CA600E0917D /* RechargeViewController.m */,
+				7DEEA55E1C05479C009143C6 /* WalletHistoryViewController.h */,
+				7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */,
+				7DE8C1941C04458E00E0917D /* WalletView */,
 			);
 			path = WalletViewController;
 			sourceTree = "<group>";
@@ -1238,6 +1256,24 @@
 				7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */,
 			);
 			path = HomeView;
+			sourceTree = "<group>";
+		};
+		7DE8C18D1C03F97E00E0917D /* HomeSupplyController */ = {
+			isa = PBXGroup;
+			children = (
+				7DE8C18E1C03F9B100E0917D /* HomeSupplyController.h */,
+				7DE8C18F1C03F9B100E0917D /* HomeSupplyController.m */,
+			);
+			path = HomeSupplyController;
+			sourceTree = "<group>";
+		};
+		7DE8C1941C04458E00E0917D /* WalletView */ = {
+			isa = PBXGroup;
+			children = (
+				7DE8C1951C0445AF00E0917D /* ZhiFuBaoCell.h */,
+				7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */,
+			);
+			path = WalletView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1397,6 +1433,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03FF450C1BFEE74000D81DCE /* AFURLConnectionOperation.m in Sources */,
+				7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */,
 				03571C421BE85C3700900EF9 /* UIImage+Common.m in Sources */,
 				032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */,
 				03571C051BE85C0800900EF9 /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -1428,6 +1465,7 @@
 				03571C021BE85C0800900EF9 /* UIImage+GIF.m in Sources */,
 				0395D2F01BFC65920009AABC /* CYLTabBarController.m in Sources */,
 				03571C001BE85C0800900EF9 /* SDWebImagePrefetcher.m in Sources */,
+				7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */,
 				03571BA31BE85B8200900EF9 /* UIImageView+MJWebCache.m in Sources */,
 				03FF44F11BFEE73400D81DCE /* UIRefreshControl+AFNetworking.m in Sources */,
 				0395D2EF1BFC65920009AABC /* CYLTabBar.m in Sources */,
@@ -1442,6 +1480,7 @@
 				7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */,
 				03571BFD1BE85C0800900EF9 /* SDWebImageDownloader.m in Sources */,
 				03571C5E1BE85D8C00900EF9 /* MJRefreshHeaderView.m in Sources */,
+				7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */,
 				03571BFE1BE85C0800900EF9 /* SDWebImageDownloaderOperation.m in Sources */,
 				03571C601BE85D8C00900EF9 /* UIScrollView+MJRefresh.m in Sources */,
 				03571C8E1BE85D9C00900EF9 /* IQSegmentedNextPrevious.m in Sources */,
@@ -1503,6 +1542,7 @@
 				0395D2F31BFC65B80009AABC /* CYLPlusButtonSubclass.m in Sources */,
 				03571B781BE85B7900900EF9 /* EAIntroView.m in Sources */,
 				03927D7E1BEC8CF50087A2FD /* MeViewController.m in Sources */,
+				7DE8C1901C03F9B100E0917D /* HomeSupplyController.m in Sources */,
 				03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */,
 				03571BFA1BE85C0800900EF9 /* SDImageCache.m in Sources */,
 				03A3C8DE1C043F46007BD9B8 /* SetViewController.swift in Sources */,

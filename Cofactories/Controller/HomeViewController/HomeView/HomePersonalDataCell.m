@@ -22,27 +22,29 @@
         
         self.personNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.personalDataLeftImage.frame) + 15*kZGY, 15*kZGY, kScreenW/2 - 75*kZGY, 20*kZGY)];
         self.personNameLabel.font = [UIFont boldSystemFontOfSize:14*kZGY];
-        self.personNameLabel.textColor = [UIColor colorWithRed:70.0f/255.0f green:126.0f/255.0f blue:220/255.0f alpha:1.0f];
+        self.personNameLabel.textColor = [UIColor colorWithRed:68.0f/255.0f green:68.0f/255.0f blue:68.0f/255.0f alpha:1.0f];
         [self addSubview:self.personNameLabel];
         
         self.personStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.personNameLabel.frame.origin.x, CGRectGetMaxY(self.personNameLabel.frame) + 2.5*kZGY, 200*kZGY, 15*kZGY)];
         self.personStatusLabel.font = [UIFont systemFontOfSize:10*kZGY];
-        self.personStatusLabel.textColor = [UIColor grayColor];
+        self.personStatusLabel.textColor = [UIColor colorWithRed:167.0f/255.0f green:167.0f/255.0f blue:167.0f/255.0f alpha:1.0f];
         [self addSubview:self.personStatusLabel];
         
         self.personWalletLeft = [[UILabel alloc] initWithFrame:CGRectMake(self.personNameLabel.frame.origin.x, CGRectGetMaxY(self.personStatusLabel.frame), 200*kZGY, 15*kZGY)];
         self.personWalletLeft.font = [UIFont systemFontOfSize:10*kZGY];
-        self.personWalletLeft.textColor = [UIColor grayColor];
+        self.personWalletLeft.textColor = [UIColor colorWithRed:167.0f/255.0f green:167.0f/255.0f blue:167.0f/255.0f alpha:1.0f];
         [self addSubview:self.personWalletLeft];
         
         self.personAddressLabel = [[UILabel alloc] initWithFrame:CGRectMake(10*kZGY, CGRectGetMaxY(self.personWalletLeft.frame) + 2.5*kZGY, kScreenW/2 - 10*kZGY, 25*kZGY)];
         self.personAddressLabel.font = [UIFont systemFontOfSize:11*kZGY];
+        self.personAddressLabel.textColor = [UIColor colorWithRed:112.0f/255.0f green:112.0f/255.0f blue:112.0f/255.0f alpha:1.0f];
         [self addSubview:self.personAddressLabel];
         
         self.personStyleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW/2 + 10*kZGY, 20*kZGY, kScreenW/4 - 20*kZGY, 20*kZGY)];
         self.personStyleLabel.textAlignment = NSTextAlignmentCenter;
-        self.personStyleLabel.font = [UIFont systemFontOfSize:14*kZGY];
+        self.personStyleLabel.font = [UIFont systemFontOfSize:12*kZGY];
         self.personStyleLabel.text = @"个人身份";
+        self.personStyleLabel.textColor = [UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
         [self addSubview:self.personStyleLabel];
         self.personalDataMiddleImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW/2 + 10*kZGY, CGRectGetMaxY(self.personStyleLabel.frame) + 10*kZGY, kScreenW/4 - 20*kZGY, 30*kZGY)];
         self.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-设计者"];
@@ -53,9 +55,10 @@
         self.personalDataRightImage.image = [UIImage imageNamed:@"Home-聚"];
         [self addSubview:self.personalDataRightImage];
         self.authenticationLabel = [[UILabel alloc] initWithFrame:CGRectMake(3*kScreenW/4 + 10*kZGY, 70*kZGY, kScreenW/4 - 20*kZGY, 20*kZGY)];
-        self.authenticationLabel.font = [UIFont systemFontOfSize:12*kZGY];
+        self.authenticationLabel.font = [UIFont systemFontOfSize:11*kZGY];
         self.authenticationLabel.textAlignment = NSTextAlignmentCenter;
         self.authenticationLabel.text = @"前往认证";
+        self.authenticationLabel.textColor = [UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
         [self addSubview:self.authenticationLabel];
         self.authenticationButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.authenticationButton.frame = CGRectMake(3*kScreenW/4, 0, kScreenW/4, 105*kZGY);
