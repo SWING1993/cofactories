@@ -56,6 +56,7 @@
         block(@{@"statusCode": @(200), @"message": @"发送成功，十分钟内有效！"});
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+        DLog(@"获取验证码的statusCode = %ld",(long)statusCode);
         switch (statusCode) {
             case 400:
                 block(@{@"statusCode": @(400), @"message": @"手机格式不正确！"});
@@ -133,7 +134,7 @@
     [parameters setObject:@"no" forKey:@"enterprise"];
     
     [OAuth2Manager POST:API_authorise parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-//        DLog(@"success = %@",responseObject);
+        DLog(@"success = %@",responseObject);
         NSString * code = [responseObject objectForKey:@"code"];
         [self loginWithCode:code andBlock:^(NSInteger statusCode) {
             DLog(@"第二步登录验证 statusCode = %ld",(long)statusCode);
@@ -142,8 +143,11 @@
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-        DLog(@"failure = %@",errors);
-        block(401);
+        NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+        block(statusCode);
+        
+        DLog(@"statusCode = %ld\nfailure = %@",(long)statusCode,errors);
+
     }];
 }
 
@@ -163,7 +167,7 @@
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
     [manager POST:API_login parameters:@{@"code":code} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-//        DLog(@"sucess data = %@",responseObject);
+        DLog(@"sucess data = %@",responseObject);
         block(200);
         [self storeCredentialWihtResponseObject:responseObject];
 
@@ -362,6 +366,11 @@
 }
 
 
+/**
+ *  获取自己的用户信息
+ *
+ *  @param block 用户模型
+ */
 + (void)getMyProfileWithBlock:(void (^)(NSDictionary *responseDictionary))block {
 
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];

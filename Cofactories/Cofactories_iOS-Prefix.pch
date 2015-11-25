@@ -37,8 +37,8 @@
 //认证服务器：
 #define kAuthUrl @"http://auth.lo.cofactories.com"
 //后端服务器：
-#define kBaseUrl @"http://lo.cofactories.com"
-#define PhotoAPI @"http://cofactories-test.b0.upaiyun.com"
+#define kBaseUrl @"https://lo.cofactories.com"
+#define PhotoAPI @"https://cofactories-test.b0.upaiyun.com"
 #define bucketAPI @"cofactories-test"
 
 
