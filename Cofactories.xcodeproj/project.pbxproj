@@ -133,8 +133,12 @@
 		0395D2FC1BFC69740009AABC /* post_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0395D2FB1BFC69740009AABC /* post_normal@2x.png */; };
 		0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2FF1BFC6D970009AABC /* LoginViewController.m */; };
 		03A1A0CE1C00080500FBEDE8 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A1A0CD1C00080500FBEDE8 /* UserModel.m */; };
-		03A3C8DE1C043F46007BD9B8 /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3C8DD1C043F46007BD9B8 /* SetViewController.swift */; };
 		03B120BC1C0583DA0023F362 /* WalletModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120BB1C0583DA0023F362 /* WalletModel.m */; };
+		03B120BF1C0594720023F362 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120BE1C0594720023F362 /* SetViewController.m */; };
+		03B120C21C05B1AD0023F362 /* SetaddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120C11C05B1AD0023F362 /* SetaddressViewController.m */; };
+		03B120C51C05B1BF0023F362 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120C41C05B1BF0023F362 /* DescriptionViewController.m */; };
+		03B120C71C05B1E60023F362 /* Areas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03B120C61C05B1E60023F362 /* Areas.plist */; };
+		03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120C91C05C1340023F362 /* UbRoleViewController.m */; };
 		03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B569761C02A4CC00F89CDA /* FastCoder.m */; };
 		03B5697B1C02ADD000F89CDA /* StoreUserValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697A1C02ADD000F89CDA /* StoreUserValue.m */; };
 		03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */; };
@@ -428,10 +432,17 @@
 		0395D2FF1BFC6D970009AABC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		03A1A0CC1C00080500FBEDE8 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserModel.h; path = ../Model/UserModel.h; sourceTree = "<group>"; };
 		03A1A0CD1C00080500FBEDE8 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserModel.m; path = ../Model/UserModel.m; sourceTree = "<group>"; };
-		03A3C8DC1C043F46007BD9B8 /* Cofactories-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Cofactories-Bridging-Header.h"; path = "Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h"; sourceTree = "<group>"; };
-		03A3C8DD1C043F46007BD9B8 /* SetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
 		03B120BA1C0583DA0023F362 /* WalletModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletModel.h; sourceTree = "<group>"; };
 		03B120BB1C0583DA0023F362 /* WalletModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletModel.m; sourceTree = "<group>"; };
+		03B120BD1C0594720023F362 /* SetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetViewController.h; sourceTree = "<group>"; };
+		03B120BE1C0594720023F362 /* SetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetViewController.m; sourceTree = "<group>"; };
+		03B120C01C05B1AD0023F362 /* SetaddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetaddressViewController.h; sourceTree = "<group>"; };
+		03B120C11C05B1AD0023F362 /* SetaddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetaddressViewController.m; sourceTree = "<group>"; };
+		03B120C31C05B1BF0023F362 /* DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
+		03B120C41C05B1BF0023F362 /* DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
+		03B120C61C05B1E60023F362 /* Areas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Areas.plist; sourceTree = "<group>"; };
+		03B120C81C05C1340023F362 /* UbRoleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UbRoleViewController.h; sourceTree = "<group>"; };
+		03B120C91C05C1340023F362 /* UbRoleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UbRoleViewController.m; sourceTree = "<group>"; };
 		03B569751C02A4CC00F89CDA /* FastCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastCoder.h; sourceTree = "<group>"; };
 		03B569761C02A4CC00F89CDA /* FastCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastCoder.m; sourceTree = "<group>"; };
 		03B569781C02A57C00F89CDA /* UserManagerCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManagerCenter.h; sourceTree = "<group>"; };
@@ -634,7 +645,7 @@
 			isa = PBXGroup;
 			children = (
 				03927D771BEC86D90087A2FD /* Images.xcassets */,
-				03A3C8DC1C043F46007BD9B8 /* Cofactories-Bridging-Header.h */,
+				03B120C61C05B1E60023F362 /* Areas.plist */,
 				03927D731BEC81E20087A2FD /* LaunchScreen.xib */,
 				03571B341BE84BA100900EF9 /* Info.plist */,
 				03571B241BE84BA100900EF9 /* main.m */,
@@ -1169,7 +1180,14 @@
 		03A3C8DB1C0429C2007BD9B8 /* SetViewController */ = {
 			isa = PBXGroup;
 			children = (
-				03A3C8DD1C043F46007BD9B8 /* SetViewController.swift */,
+				03B120BD1C0594720023F362 /* SetViewController.h */,
+				03B120BE1C0594720023F362 /* SetViewController.m */,
+				03B120C01C05B1AD0023F362 /* SetaddressViewController.h */,
+				03B120C11C05B1AD0023F362 /* SetaddressViewController.m */,
+				03B120C81C05C1340023F362 /* UbRoleViewController.h */,
+				03B120C91C05C1340023F362 /* UbRoleViewController.m */,
+				03B120C31C05B1BF0023F362 /* DescriptionViewController.h */,
+				03B120C41C05B1BF0023F362 /* DescriptionViewController.m */,
 			);
 			name = SetViewController;
 			path = SetVC;
@@ -1448,6 +1466,7 @@
 				03927D781BEC86D90087A2FD /* Images.xcassets in Resources */,
 				7DF1C1C11C00590100460DB7 /* 男装新潮流.png in Resources */,
 				7DF1C1C31C00590100460DB7 /* 童装设计潮流趋势.png in Resources */,
+				03B120C71C05B1E60023F362 /* Areas.plist in Resources */,
 				03571B801BE85B7900900EF9 /* pageDot@2x.png in Resources */,
 				03571B7C1BE85B7900900EF9 /* 03.png in Resources */,
 				7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */,
@@ -1556,10 +1575,12 @@
 				03B120BC1C0583DA0023F362 /* WalletModel.m in Sources */,
 				03FF450F1BFEE74000D81DCE /* AFURLSessionManager.m in Sources */,
 				03571C8A1BE85D9C00900EF9 /* IQUIViewController+Additions.m in Sources */,
+				03B120C51C05B1BF0023F362 /* DescriptionViewController.m in Sources */,
 				03571C931BE85D9C00900EF9 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				03571C911BE85D9C00900EF9 /* IQTitleBarButtonItem.m in Sources */,
 				03571B9A1BE85B8200900EF9 /* MBProgressHUD+Add.m in Sources */,
 				03571BD01BE85BDB00900EF9 /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
+				03B120C21C05B1AD0023F362 /* SetaddressViewController.m in Sources */,
 				03571C8F1BE85D9C00900EF9 /* IQTextView.m in Sources */,
 				03FF45081BFEE74000D81DCE /* AFHTTPRequestOperationManager.m in Sources */,
 				03571C901BE85D9C00900EF9 /* IQBarButtonItem.m in Sources */,
@@ -1568,6 +1589,7 @@
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
 				7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */,
 				03571C071BE85C0800900EF9 /* UIView+WebCacheOperation.m in Sources */,
+				03B120BF1C0594720023F362 /* SetViewController.m in Sources */,
 				03FF44F01BFEE73400D81DCE /* UIProgressView+AFNetworking.m in Sources */,
 				03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */,
 				03571C431BE85C3700900EF9 /* UIImageView+Common.m in Sources */,
@@ -1607,7 +1629,7 @@
 				7DE8C1901C03F9B100E0917D /* HomeSupplyController.m in Sources */,
 				03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */,
 				03571BFA1BE85C0800900EF9 /* SDImageCache.m in Sources */,
-				03A3C8DE1C043F46007BD9B8 /* SetViewController.swift in Sources */,
+				03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */,
 				7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */,
 				7094D7221BFC825200F7240B /* WalletViewController.m in Sources */,
 			);

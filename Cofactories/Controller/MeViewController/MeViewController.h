@@ -10,6 +10,4 @@
 
 @interface MeViewController : UITableViewController
 
-@property (nonatomic,assign)NSInteger tagff;
-
 @end

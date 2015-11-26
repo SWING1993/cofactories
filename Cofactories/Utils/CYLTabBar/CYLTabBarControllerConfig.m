@@ -46,14 +46,14 @@
         UIViewController *fourthNavigationController = [[UINavigationController alloc]
                                                         initWithRootViewController:fourthViewController];
         
-        if ([kBaseUrl isEqualToString:@"http://app.cofactories.com"]) {
+        if ([kBaseUrl isEqualToString:@"https://app.cofactories.com"]) {
             firstViewController.title = @"聚工厂";
         }
         
-        else if ([kBaseUrl isEqualToString:@"http://lo.cofactories.com"]) {
+        else if ([kBaseUrl isEqualToString:@"https://lo.cofactories.com"]) {
             firstViewController.title = @"聚工厂（内网）";
         }
-        else if ([kBaseUrl isEqualToString:@"http://test.cofactories.com"]) {
+        else if ([kBaseUrl isEqualToString:@"https://test.cofactories.com"]) {
             firstViewController.title = @"聚工厂（测试）";
         }
         

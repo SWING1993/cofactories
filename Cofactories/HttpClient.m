@@ -426,8 +426,9 @@
  *  @param Dic   修改的字典
  *  @param block 返回状态码 200为修改成功
  */
-+ (void)postMyProfileWithDic:(NSDictionary *)Dic andBlock:(void (^)(NSInteger statusCode))block {
-    
+
++ (void)postMyProfileWithDic:(NSMutableDictionary *)Dic andBlock:(void (^)(NSInteger statusCode))block {
+
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -439,6 +440,7 @@
             DLog(@"修改个人资料 = %@",responseObject);
             block(200);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            DLog(@"123%@",error);
             block([operation.response statusCode]);
         }];
     } else {
