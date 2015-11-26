@@ -10,7 +10,7 @@
 #import "UserManagerCenter.h"
 #import "HomeViewController.h"
 #import "HomeSupplyController.h"
-#import "AuthenticationController.h"
+#import "AuthenticationPhotoController.h"
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -32,9 +32,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-
 //    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
     
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
@@ -194,10 +192,10 @@ static NSString *activityCellIdentifier = @"activityCell";
 #pragma mark - Action认证
 - (void)authenticationAction {
     DLog(@"前往认证");
-    AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
-    authenticationVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:authenticationVC animated:YES];
-}
+    AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
+    photoVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:photoVC animated:YES];
+    }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

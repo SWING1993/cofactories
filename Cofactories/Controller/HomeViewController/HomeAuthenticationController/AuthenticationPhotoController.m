@@ -7,11 +7,9 @@
 //
 
 #import "AuthenticationPhotoController.h"
-
+#import "AuthenticationController.h"
 
 @interface AuthenticationPhotoController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
-
-@property (nonatomic,retain)NSArray*cellArray;
 
 @property (nonatomic, assign) NSInteger imageType;
 
@@ -30,12 +28,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self creatHeaderView];
-//    [self creatFootView];
+    self.title = @"上传图片";
     self.tableView.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
-    self.cellArray = @[@"身份证正面", @"身份证反面", @"营业执照"];
     
+    self.imageArray = [NSMutableArray arrayWithCapacity:0];
     
     imageView1 = [[UIImageView alloc]init];
     //    imageView1.userInteractionEnabled = YES;
@@ -60,8 +58,11 @@
 }
 
 - (void)creatHeaderView {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, kScreenW)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 1.4*kScreenW)];
     headerView.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
+//    headerView.backgroundColor = [UIColor redColor];
+    headerView.userInteractionEnabled = YES;
+    //事例图片
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, kScreenW - 30, 0.5*kScreenW)];
     imageView.image = [UIImage imageNamed:@"身份证"];
     imageView.layer.cornerRadius = 8;
@@ -70,23 +71,94 @@
     imageView.layer.borderWidth = 0.3;
     [headerView addSubview:imageView];
     
-    UIView *photoView = [[UIView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(imageView.frame) + 20, kScreenW - 30, 0.4*kScreenW)];
-    photoView.backgroundColor = [UIColor whiteColor];
-    photoView.layer.cornerRadius = 8;
-    photoView.clipsToBounds = YES;
-    photoView.layer.borderColor = [UIColor grayColor].CGColor;
-    photoView.layer.borderWidth = 0.3;
-    [photoView addSubview:self.collectionView];
-    [headerView addSubview:photoView];
+    //三张认证照片
+    UIView *bigPhotoView = [[UIView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(imageView.frame) + 20, kScreenW - 30, 0.4*kScreenW)];
+    bigPhotoView.backgroundColor = [UIColor whiteColor];
+    bigPhotoView.layer.cornerRadius = 8;
+    bigPhotoView.clipsToBounds = YES;
+    bigPhotoView.layer.borderColor = [UIColor grayColor].CGColor;
+    bigPhotoView.layer.borderWidth = 0.3;
+    [bigPhotoView addSubview:self.collectionView];
+    NSArray *myArray = @[@"身份证正面", @"身份证反面", @"营业执照"];
+    for (int i = 0; i < 3; i++) {
+        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake((bigPhotoView.frame.size.width/3)*i , CGRectGetMaxY(self.collectionView.frame), bigPhotoView.frame.size.width/3, 20)];
+        myLabel.text = myArray[i];
+        myLabel.textAlignment = NSTextAlignmentCenter;
+        myLabel.font = [UIFont systemFontOfSize:14*kZGY];
+        [bigPhotoView addSubview:myLabel];
+    }
+    [headerView addSubview:bigPhotoView];
     
+    //上传说明
+    UILabel *explainLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, CGRectGetMaxY(bigPhotoView.frame), kScreenW - 30, 30)];
+    explainLabel.textAlignment = NSTextAlignmentCenter;
+    explainLabel.text = @"身份证照片需与本人身份相符，照片要求无水印";
+    explainLabel.numberOfLines = 0;
+    explainLabel.font = [UIFont systemFontOfSize:14*kZGY];
+    [headerView addSubview:explainLabel];
     
+    //确认上传
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    doneButton.frame = CGRectMake(20, CGRectGetMaxY(explainLabel.frame) + 70, kScreenW - 40, 38);
+    [doneButton setTitle:@"下一步" forState:UIControlStateNormal];
+    doneButton.titleLabel.font = [UIFont systemFontOfSize:15.5];
+    doneButton.layer.cornerRadius = 4*kZGY;
+    doneButton.clipsToBounds = YES;
+    doneButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+    [doneButton addTarget:self action:@selector(actionOfDoneButton) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:doneButton];
+    
+    UILabel *explainLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, doneButton.frame.origin.y - 25, kScreenW - 40, 20)];
+    explainLabel2.font = [UIFont systemFontOfSize:11];
+    explainLabel2.textAlignment = NSTextAlignmentCenter;
+    explainLabel2.text = @"建议上传图片尽量清晰";
+    explainLabel2.textColor = [UIColor lightGrayColor];
+    [headerView addSubview:explainLabel2];
     self.tableView.tableHeaderView = headerView;
 }
 
-- (void)creatFootView {
-    
-}
 
+
+- (void)actionOfDoneButton {
+    DLog(@"vkmd;fkvd");
+    AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:authenticationVC animated:YES];
+        if ([self.imageArray count]<3) {
+//            [Tools showErrorWithStatus:@"照片信息不完整!"];
+            
+        }else{
+            
+//            [HttpClient submitVerifyDetailWithLegalPerson:textField2.text idCard:textField3.text andBlock:^(int statusCode) {
+//                DLog(@"%d",statusCode);
+//                switch (statusCode) {
+//                    case 200:
+//                    {
+//                        UIAlertView*alertView = [[UIAlertView alloc]initWithTitle:@"认证提交成功" message:nil
+//                                                                         delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+//                        alertView.tag = 10065;
+//                        [alertView show];
+//                    }
+//                        break;
+//                    case 400:
+//                    {
+//                        [Tools showErrorWithStatus:@"未登录"];
+//                    }
+//                        break;
+//                    case 409:
+//                    {
+//                        [Tools showShimmeringString:@"已经认证或者正在认证，不能修改。"];
+//                    }
+//                        break;
+//                        
+//                        
+//                    default:
+//                        [Tools showErrorWithStatus:@"提交失败，尝试修改信息重新提交！"];
+//                        break;
+//                }
+//            }];
+//        }
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -106,8 +178,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
-    
     return cell;
 }
 
@@ -117,12 +187,12 @@
 }
 
 
-#define kSizeThumbnailCollectionView  ([UIScreen mainScreen].bounds.size.width-80)/3
+#define kSizeThumbnailCollectionView  ([UIScreen mainScreen].bounds.size.width- 30 - 40)/3
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(kSizeThumbnailCollectionView, kSizeThumbnailCollectionView + 40);
+    return CGSizeMake(kSizeThumbnailCollectionView, kSizeThumbnailCollectionView);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -138,7 +208,7 @@
         layout.minimumInteritemSpacing = 2.0;
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kScreenW - 30, kSizeThumbnailCollectionView + 40) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kScreenW - 30, kSizeThumbnailCollectionView + 20) collectionViewLayout:layout];
         _collectionView.backgroundColor = [UIColor whiteColor];
         
         _collectionView.delegate = self;
@@ -158,17 +228,17 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
     
-    UILabel*cellLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, kSizeThumbnailCollectionView + 10, cell.frame.size.width, 20)];
-    cellLabel.alpha = 0.8f;
-    cellLabel.textAlignment = NSTextAlignmentCenter;
-    cellLabel.font = kFont;
-    
+//    UILabel*cellLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, cell.frame.size.width + 10, cell.frame.size.width, 20)];
+//    cellLabel.alpha = 0.8f;
+//    cellLabel.textAlignment = NSTextAlignmentCenter;
+//    cellLabel.font = kFont;
+//    cellLabel.text = self.cellArray[indexPath.row];
     switch (indexPath.row) {
         case 0:
         {
-            cellLabel.text = self.cellArray[indexPath.row];
+//            cellLabel.text = self.cellArray[indexPath.row];
             
-            imageView1.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height - 40);
+            imageView1.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
             if (self.imageType==1) {
                 imageView1.image=[self.imageArray lastObject];
             }
@@ -178,9 +248,9 @@
             break;
         case 1:
         {
-            cellLabel.text = self.cellArray[indexPath.row];
+//            cellLabel.text = self.cellArray[indexPath.row];
             
-            imageView2.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height - 40);
+            imageView2.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
             
             if (self.imageType==2) {
                 
@@ -192,9 +262,9 @@
             break;
         case 2:
         {
-            cellLabel.text = self.cellArray[indexPath.row];
+//            cellLabel.text = self.cellArray[indexPath.row];
             
-            imageView3.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height - 40);
+            imageView3.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
             
             if (self.imageType==3) {
                 imageView3.image=[self.imageArray lastObject];
@@ -207,12 +277,12 @@
         default:
             break;
     }
-    [cell addSubview:cellLabel];
+//    [cell addSubview:cellLabel];
     
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    self.imageType = indexPath.row+1;
+    self.imageType = indexPath.row + 1;
     DLog(@"self.imageType = %ld",(long)self.imageType);
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"相册", nil];
     [actionSheet showInView:self.view];
@@ -236,7 +306,7 @@
             imagePickerController.allowsEditing = YES;
             imagePickerController.showsCameraControls = YES;
             imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-//            imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+            imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
             
             [self presentViewController:imagePickerController animated:YES completion:nil];
         }
@@ -248,8 +318,7 @@
         imagePickerController.delegate = self;
         imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         imagePickerController.allowsEditing = YES;
-//        imagePickerControllpes = @[(NSString *)kUTTypeImage];
-        
+        imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
         [self presentViewController:imagePickerController animated:YES completion:nil];
     }
 }
@@ -266,9 +335,58 @@
         [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObjects:te,nil] ];
         //         reloadRowsAtIndexPaths:[NSArray arrayWithObjects:te,nil] withRowAnimation:UITableViewRowAnimationNone];
         //        [self.collectionView reloadData];
-//        [self updatePortrait];
+        [self updatePortrait];
     }];
 }
+- (void)updatePortrait {
+    switch (self.imageType) {
+        case 1:
+        {
+            DLog(@"license");
+//            [HttpClient uploadVerifyImage:[self.imageArray lastObject] type:@"license" andblock:^(NSDictionary *dictionary) {
+//                if ([dictionary[@"statusCode"] intValue]==200) {
+//                    [Tools showSuccessWithStatus:@"营业执照上传成功"];
+//                }else{
+//                    [Tools showErrorWithStatus:@"上传失败"];
+//                }
+//                
+//            }];
+        }
+            break;
+            
+        case 2:
+        {
+            DLog(@"idCard");
+//            [HttpClient uploadVerifyImage:[self.imageArray lastObject] type:@"idCard" andblock:^(NSDictionary *dictionary) {
+//                if ([dictionary[@"statusCode"] intValue]==200) {
+//                    [Tools showSuccessWithStatus:@"身份证上传成功"];
+//                }else{
+//                    [Tools showErrorWithStatus:@"上传失败"];
+//                }
+//            }];
+            
+        }
+            break;
+            
+        case 3:
+        {
+            DLog(@"photo")
+//            [HttpClient uploadVerifyImage:[self.imageArray lastObject] type:@"photo" andblock:^(NSDictionary *dictionary) {
+//                if ([dictionary[@"statusCode"] intValue]==200) {
+//                    [Tools showSuccessWithStatus:@"公司形象上传成功"];
+//                }else{
+//                    [Tools showErrorWithStatus:@"上传失败"];
+//                }
+//            }];
+        }
+            break;
+            
+        default:
+//            [Tools showErrorWithStatus:@"上传类型未知！"];
+            break;
+    }
+}
+
 
 
 @end

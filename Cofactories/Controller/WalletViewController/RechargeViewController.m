@@ -57,7 +57,6 @@ static NSString *zhiFuBaoCellIdentifier = @"zhiFuBaoCell";
     
     priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 0, kScreenW - 80*kZGY, 50*kZGY)];
     priceTextField.placeholder = @"请输入金额";
-//    [priceTextField setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
     
     [priceTextField setValue:[UIFont boldSystemFontOfSize:16*kZGY] forKeyPath:@"_placeholderLabel.font"];
     priceTextField.clearButtonMode=UITextFieldViewModeWhileEditing;

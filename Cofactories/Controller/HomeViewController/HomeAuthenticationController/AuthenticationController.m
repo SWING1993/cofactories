@@ -9,7 +9,6 @@
 #import "AuthenticationController.h"
 #import "AuthenticationCell.h"
 #import "HttpClient.h"
-#import "AuthenticationPhotoController.h"
 static NSString *renZhengCellIdentifier = @"renZhengCell";
 @interface AuthenticationController () {
     NSArray *titleArray, *placeHolderArray;
@@ -24,7 +23,7 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"认证";
+    self.title = @"认证信息";
     
     [self creatHeaderview];
     [self creatFooterView];
@@ -59,7 +58,7 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     lastButton.clipsToBounds = YES;
     lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
     [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-    lastButton.userInteractionEnabled = YES;
+    lastButton.userInteractionEnabled = NO;
     [lastButton addTarget:self action:@selector(nextStepAction:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:lastButton];
     self.tableView.tableFooterView = footerView;
@@ -131,17 +130,15 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 
 #pragma mark - 下一步
 - (void)nextStepAction:(UIButton *)button {
-//    [HttpClient postVerifyWithenterpriseName:textField1.text withpersonName:textField3.text withidCard:textField4.text withenterpriseAddress:textField2.text andBlock:^(NSInteger statusCode) {
-//            DLog(@"%ld", (long)statusCode);
-//        if (statusCode == 200) {
-//            AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
-//            [self.navigationController pushViewController:photoVC animated:YES];
-//        } else {
-//            
-//        }
-//    }];
-    AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:photoVC animated:YES];
+    [HttpClient postVerifyWithenterpriseName:textField1.text withpersonName:textField3.text withidCard:textField4.text withenterpriseAddress:textField2.text andBlock:^(NSInteger statusCode) {
+            DLog(@"%ld", (long)statusCode);
+        if (statusCode == 200) {
+            DLog(@"上传资料成功");
+        } else {
+            DLog(@"上传资料失败");
+        }
+    }];
+    
     NSLog(@"%@， %@， %@， %@", textField1.text, textField2.text, textField3.text, textField4.text);
     
 }
