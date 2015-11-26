@@ -141,6 +141,14 @@
  */
 + (void)postVerifyWithenterpriseName:(NSString *)enterpriseName withpersonName:(NSString *)personName withidCard:(NSString *)idCard withenterpriseAddress:(NSString *)enterpriseAddress andBlock:(void (^)(NSInteger statusCode))block;
 
+/**
+ *  上传照片
+ *
+ *  @param type  头像还是图片 允許值: avatar, photo
+ *  @param block 200 成功 401 未登录
+ */
++ (void)uploadPhotoWithType:(NSString *)type WithImage:(UIImage *)image andBlock:(void (^)(NSInteger statusCode))block;
+
 /*Config**********************************************************************************************************************************************/
 /**
  *  获取广告

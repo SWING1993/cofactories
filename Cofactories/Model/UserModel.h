@@ -42,6 +42,7 @@ typedef NS_ENUM(NSInteger, UserType) {
 @property (nonatomic, retain) NSString * descriptionString;
 @property (nonatomic, retain) NSString * createdAt;
 @property (nonatomic, retain) NSString * updatedAt;
+@property (nonatomic, copy)   NSMutableArray * photoArray;
 
 @property (nonatomic, retain) NSDictionary * verifyDic;
 

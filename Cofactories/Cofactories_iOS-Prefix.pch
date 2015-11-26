@@ -38,7 +38,7 @@
 #define kAuthUrl @"http://auth.lo.cofactories.com"
 //后端服务器：
 #define kBaseUrl @"https://lo.cofactories.com"
-#define PhotoAPI @"https://cofactories-test.b0.upaiyun.com"
+#define PhotoAPI @"http://cofactories-test.b0.upaiyun.com"
 #define bucketAPI @"cofactories-test"
 
 
@@ -111,6 +111,10 @@
 
 #pragma mark - 常用变量
 
+//Color
+#define kGreen [UIColor colorWithHexString:@"0x3bbd79"]
+#define kBlack [UIColor colorWithHexString:@"0x28303b"]
+
 #define kStatusBarHeight 20
 #define kNavigationBarHeight 44
 #define CellIdentifier @"Cell"
@@ -118,8 +122,6 @@
 //登录注册 tableHeaderView 高度
 #define tableHeaderView_height 120
 
-//用户身份 FactoryType
-#define kFactoryType [[[NSUserDefaults standardUserDefaults]objectForKey:@"factoryType"] integerValue]
 
 //字体 Font
 //Nav字体大小
@@ -132,8 +134,20 @@
 
 #define kKeyWindow [UIApplication sharedApplication].keyWindow
 
-#import "UserManagerCenter.h"
+#pragma mark - 第三方框架
+/*!
+ Category
+ */
+#import "UIBarButtonItem+Common.h"
+#import "UIColor+Expanded.h"
+#import "UIImage+Common.h"
+#import "UIImageView+Common.h"
+#import "UINavigationBar+Awesome.h"
 
+
+#import "UserManagerCenter.h"
+#import "UIButton+WebCache.h"//SDWebImage
+#import "UIImageView+WebCache.h"//SDWebImage
 
 #pragma mark - 日志开关
 /*!

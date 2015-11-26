@@ -10,6 +10,7 @@
 #import "HttpClient.h"
 #import "MeViewController.h"
 #import "SetViewController.h"
+#import "SystemSetViewController/SystemSetViewController.h"
 
 @interface MeViewController ()
 
@@ -25,32 +26,19 @@
     UIButton * _rightBtn;
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
-
-    [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
-    }];
-
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBarHidden = NO;
-}
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [HttpClient deleteToken];
-
-//    self.navigationController.navigationBarHidden = YES;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    DLog(@"%@",paths);
+    
+   
 
     self.MyProfile = [[UserModel alloc]getMyProfile];
     DLog(@"type = %ld",self.MyProfile.UserType);
+    
+    UIBarButtonItem*setButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"settingBtn_Nav"] style:UIBarButtonItemStylePlain target:self action:@selector(setButtonClicked)];
+    self.navigationItem.rightBarButtonItem = setButton;
     
     _tableHeadView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW*0.47)];
     _tableHeadView.image = [UIImage imageNamed:@"Me_tableHeadView"];
@@ -75,12 +63,20 @@
 
 }
 
+- (void)setButtonClicked {
+    SystemSetViewController * systemSetVC = [[SystemSetViewController alloc]init];
+    systemSetVC.title = @"系统";
+    systemSetVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:systemSetVC animated:YES];
+}
+
 - (void)clickHeaderBtnInSection:(UIButton *)Btn {
     if (Btn.tag == 1) {
         DLog(@"个人资料");
         SetViewController * SetVC = [[SetViewController alloc]init];
         SetVC.title = @"个人资料";
         SetVC.type  = self.MyProfile.UserType;
+        SetVC.uid = self.MyProfile.uid;
         SetVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:SetVC animated:YES];
     }
