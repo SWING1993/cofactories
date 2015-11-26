@@ -128,6 +128,10 @@
         if ([_updatedAt isEqualToString:@"<null>"]) {
             _updatedAt = @"尚未填写";
         }
+        
+        _photoArray = [[NSMutableArray alloc]initWithCapacity:0];
+        _photoArray = [dictionary objectForKey:@"photo"];
+        
         _verifyDic = [dictionary objectForKey:@"verify"];
         
     }

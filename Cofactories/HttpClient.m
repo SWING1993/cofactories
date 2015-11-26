@@ -30,7 +30,7 @@
 #define API_wallet @"/user/wallet"
 #define API_verify @"/user/verify"
 #define API_userProfile @"/user/profile"
-
+#define API_uploadPhoto @"/upload/user"
 #define API_config @"/config/ad/:"
 
 #define API_Publish_Machine_Market   @"/market/machine/add"
@@ -528,10 +528,47 @@
         }];
     } else {
         DLog(@"access_token不存在");
-//        block(404);// access_token不存在
+        block(404);// access_token不存在
     }
 }
 
++ (void)uploadPhotoWithType:(NSString *)type WithImage:(UIImage *)image andBlock:(void (^)(NSInteger))block {
+
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录
+        AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        [manager GET:API_uploadPhoto parameters:@{@"type":type} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+//            DLog(@"sucess data = %@",responseObject);
+            DLog(@"图片上传成功");
+            UpYun *upYun = [[UpYun alloc] init];
+            upYun.bucket = bucketAPI;//图片测试
+            upYun.expiresIn = 600;// 10分钟
+            [upYun uploadImage:image policy:[responseObject objectForKey:@"policy"] signature:[responseObject objectForKey:@"signature"]];
+            block(200);
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            block(statusCode);
+            
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            DLog(@"error code = %ld",(long)statusCode);
+            DLog(@"failure = %@",errors);
+//            DLog(@"error = %@",error);
+        }];
+    } else {
+        DLog(@"access_token不存在");
+        block(404);// access_token不存在
+    }
+}
 
 /*Config**********************************************************************************************************************************************/
 

@@ -10,6 +10,8 @@
 
 @interface SetViewController : UITableViewController
 
-@property (nonatomic,assign)UserType type;
+@property (nonatomic, assign)UserType type;
+
+@property (nonatomic, copy)NSString * uid;
 
 @end

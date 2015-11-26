@@ -6,16 +6,24 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "MJPhoto.h"
+#import "MJPhotoBrowser.h"
+
 #import "HttpClient.h"
 #import "SetViewController.h"
 
 #import "SetaddressViewController.h"
 #import "UbRoleViewController.h"
 #import "DescriptionViewController.h"
+#import "PhotoViewController.h"
 
-@interface SetViewController ()
+
+@interface SetViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic,retain)UserModel * MyProfile;
+
+@property (nonatomic,retain)UIButton * headBtn;
+
 
 @end
 
@@ -23,13 +31,14 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    DLog(@"2222");
     [super viewDidAppear:animated];
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
         
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
         if (statusCode == 200) {
             self.MyProfile = [responseDictionary objectForKey:@"model"];
+            DLog(@"photoArr = %@",self.MyProfile.photoArray);
+
             [self.tableView reloadData];
         }
     }];
@@ -42,6 +51,13 @@
     
     self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     
+    self.headBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.headBtn.frame = CGRectMake(kScreenW-100, 5, 65, 65);
+    self.headBtn.layer.masksToBounds = YES;
+    self.headBtn.layer.cornerRadius = 65.0f/2.0f;
+    [self.headBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,self.uid]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"headBtn"]];
+    [self.headBtn addTarget:self action:@selector(uploadHeadBtn) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,14 +65,37 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)uploadHeadBtn{
+    
+    MJPhoto *photo = [[MJPhoto alloc] init];
+    photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,self.uid]];
+    NSArray *photos = [[NSArray alloc]initWithObjects:photo, nil];
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.photos = photos;
+    [browser show];
+}
+
 #pragma mark - Table view data source
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            return 75;
+        }
+    }
+    return 44;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
+        return 1;
+    }
+    
+    else if (section == 1) {
         switch (self.type) {
             case UserType_clothing:
                 //服装企业
@@ -73,11 +112,8 @@
                 break;
         }
     }
-    else if (section == 1) {
-        return 2;
-    }
-    else {
-    
+    else if (section == 2) {
+        return 1;
     }
     return 0;
 }
@@ -95,6 +131,14 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         switch (indexPath.section) {
             case 0:{
+                if (indexPath.row == 0) {
+                    cell.textLabel.text = @"头像";
+                    [cell addSubview:self.headBtn];
+                }
+            }
+                break;
+                
+            case 1:{
                 switch (indexPath.row) {
                     case 0:
                         cell.textLabel.text = @"手机号";
@@ -136,17 +180,11 @@
             }
                 break;
                 
-            case 1:{
+            case 2:{
                 switch (indexPath.row) {
                     case 0:
-                        cell.textLabel.text = @"邀请码";
-                        cell.accessoryType = UITableViewCellAccessoryNone;
-                        
-                        break;
-                    case 1:
                         cell.textLabel.text = @"相册";
                         break;
-                        
                     default:
                         break;
                 }
@@ -164,7 +202,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case 0:
+            
+        case 0:{
+            if (indexPath.row == 0) {
+                DLog(@"头像");
+                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"相册", nil];
+                [actionSheet showInView:self.view];
+
+            }
+        }
+            break;
+        case 1:
             switch (indexPath.row) {
                 case 2:{
                     DLog(@"地址");
@@ -195,10 +243,17 @@
             }
             break;
             
-        case 1:
+        case 2:
             switch (indexPath.row) {
-                case 1:
+                case 0:{
                     DLog(@"相册");
+                    PhotoViewController * photoVC = [[PhotoViewController alloc]init];
+                    photoVC.title = @"我的相册";
+                    photoVC.isMySelf = YES;
+                    photoVC.photoArray = self.MyProfile.photoArray;
+                    [self.navigationController pushViewController:photoVC animated:YES];
+                
+                }
                     break;
                 default:
                     break;
@@ -209,6 +264,59 @@
             break;
     }
 }
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 0) {
+        
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            kTipAlert(@"设备没有相机!");
+        } else {
+            UIImagePickerController *imagePickerController = [UIImagePickerController new];
+            imagePickerController.delegate = self;
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imagePickerController.allowsEditing = YES;
+            imagePickerController.showsCameraControls = YES;
+            imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+            imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+            
+            [self presentViewController:imagePickerController animated:YES completion:nil];
+        }
+        return;
+    }
+    if (buttonIndex == 1) {
+        // 相册
+        UIImagePickerController *imagePickerController = [UIImagePickerController new];
+        imagePickerController.delegate = self;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerController.allowsEditing = YES;
+        imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+        
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+}
+
+#pragma mark <UIImagePickerControllerDelegate>
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    NSData*imageData = UIImageJPEGRepresentation(image, 0.2);
+    UIImage*newImage = [[UIImage alloc]initWithData:imageData];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [HttpClient uploadPhotoWithType:@"avatar" WithImage:newImage andBlock:^(NSInteger statusCode) {
+            if (statusCode == 200) {
+                [[[SDWebImageManager sharedManager] imageCache] clearDisk];
+                [[[SDWebImageManager sharedManager] imageCache] clearMemory];
+                [[NSURLCache sharedURLCache] removeAllCachedResponses];
+                kTipAlert(@"头像上传成功,但是头像显示会略有延迟。");
+                [self.headBtn setBackgroundImage:newImage forState:UIControlStateNormal];
+            }else {
+                kTipAlert(@"头像上传失败,尝试再次上传！");
+            }
+        }];
+    }];
+}
+
 
 
 @end
