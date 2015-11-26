@@ -161,6 +161,11 @@
 		03FF450F1BFEE74000D81DCE /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF45061BFEE74000D81DCE /* AFURLSessionManager.m */; };
 		7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */; };
 		7094D7221BFC825200F7240B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D7211BFC825200F7240B /* WalletViewController.m */; };
+		70F50D6F1C069B0600920F63 /* AccessoryMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D6E1C069B0600920F63 /* AccessoryMarketModel.m */; };
+		70F50D731C06D1F900920F63 /* FabricMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D721C06D1F900920F63 /* FabricMarketModel.m */; };
+		70F50D771C06FB0200920F63 /* SupplierOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D761C06FB0200920F63 /* SupplierOrderModel.m */; };
+		70F50D7A1C06FB1500920F63 /* FactoryOrderMOdel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D791C06FB1500920F63 /* FactoryOrderMOdel.m */; };
+		70F50D7D1C06FB3000920F63 /* DesignOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D7C1C06FB3000920F63 /* DesignOrderModel.m */; };
 		70F7E36A1C05BF3900DD661E /* MachineMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E3691C05BF3900DD661E /* MachineMarketModel.m */; };
 		70F7E36D1C05CB7100DD661E /* DesignMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */; };
 		7D030F1C1C006B13001E10A2 /* Home-设计者.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D030F1B1C006B13001E10A2 /* Home-设计者.png */; };
@@ -491,10 +496,20 @@
 		7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTumblrMenuView.m; sourceTree = "<group>"; };
 		7094D7201BFC825200F7240B /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
 		7094D7211BFC825200F7240B /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
-		70F7E3681C05BF3900DD661E /* MachineMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineMarketModel.h; sourceTree = "<group>"; };
-		70F7E3691C05BF3900DD661E /* MachineMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineMarketModel.m; sourceTree = "<group>"; };
-		70F7E36B1C05CB7100DD661E /* DesignMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignMarketModel.h; sourceTree = "<group>"; };
-		70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignMarketModel.m; sourceTree = "<group>"; };
+		70F50D6D1C069B0600920F63 /* AccessoryMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccessoryMarketModel.h; path = ../AccessoryMarketModel.h; sourceTree = "<group>"; };
+		70F50D6E1C069B0600920F63 /* AccessoryMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccessoryMarketModel.m; path = ../AccessoryMarketModel.m; sourceTree = "<group>"; };
+		70F50D711C06D1F900920F63 /* FabricMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FabricMarketModel.h; sourceTree = "<group>"; };
+		70F50D721C06D1F900920F63 /* FabricMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FabricMarketModel.m; sourceTree = "<group>"; };
+		70F50D751C06FB0200920F63 /* SupplierOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplierOrderModel.h; sourceTree = "<group>"; };
+		70F50D761C06FB0200920F63 /* SupplierOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplierOrderModel.m; sourceTree = "<group>"; };
+		70F50D781C06FB1500920F63 /* FactoryOrderMOdel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryOrderMOdel.h; sourceTree = "<group>"; };
+		70F50D791C06FB1500920F63 /* FactoryOrderMOdel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryOrderMOdel.m; sourceTree = "<group>"; };
+		70F50D7B1C06FB3000920F63 /* DesignOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignOrderModel.h; sourceTree = "<group>"; };
+		70F50D7C1C06FB3000920F63 /* DesignOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignOrderModel.m; sourceTree = "<group>"; };
+		70F7E3681C05BF3900DD661E /* MachineMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MachineMarketModel.h; path = ../MachineMarketModel.h; sourceTree = "<group>"; };
+		70F7E3691C05BF3900DD661E /* MachineMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MachineMarketModel.m; path = ../MachineMarketModel.m; sourceTree = "<group>"; };
+		70F7E36B1C05CB7100DD661E /* DesignMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesignMarketModel.h; path = ../DesignMarketModel.h; sourceTree = "<group>"; };
+		70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DesignMarketModel.m; path = ../DesignMarketModel.m; sourceTree = "<group>"; };
 		7D030F1B1C006B13001E10A2 /* Home-设计者.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home-设计者.png"; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
@@ -698,12 +713,10 @@
 		03571B571BE84E4100900EF9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				70F50D741C06FAE400920F63 /* OrderModel */,
+				70F50D701C069B1000920F63 /* MarketModel */,
 				03B120BA1C0583DA0023F362 /* WalletModel.h */,
 				03B120BB1C0583DA0023F362 /* WalletModel.m */,
-				70F7E3681C05BF3900DD661E /* MachineMarketModel.h */,
-				70F7E3691C05BF3900DD661E /* MachineMarketModel.m */,
-				70F7E36B1C05CB7100DD661E /* DesignMarketModel.h */,
-				70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1290,6 +1303,34 @@
 			path = WalletViewController;
 			sourceTree = "<group>";
 		};
+		70F50D701C069B1000920F63 /* MarketModel */ = {
+			isa = PBXGroup;
+			children = (
+				70F7E3681C05BF3900DD661E /* MachineMarketModel.h */,
+				70F7E3691C05BF3900DD661E /* MachineMarketModel.m */,
+				70F7E36B1C05CB7100DD661E /* DesignMarketModel.h */,
+				70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */,
+				70F50D6D1C069B0600920F63 /* AccessoryMarketModel.h */,
+				70F50D6E1C069B0600920F63 /* AccessoryMarketModel.m */,
+				70F50D711C06D1F900920F63 /* FabricMarketModel.h */,
+				70F50D721C06D1F900920F63 /* FabricMarketModel.m */,
+			);
+			path = MarketModel;
+			sourceTree = "<group>";
+		};
+		70F50D741C06FAE400920F63 /* OrderModel */ = {
+			isa = PBXGroup;
+			children = (
+				70F50D751C06FB0200920F63 /* SupplierOrderModel.h */,
+				70F50D761C06FB0200920F63 /* SupplierOrderModel.m */,
+				70F50D781C06FB1500920F63 /* FactoryOrderMOdel.h */,
+				70F50D791C06FB1500920F63 /* FactoryOrderMOdel.m */,
+				70F50D7B1C06FB3000920F63 /* DesignOrderModel.h */,
+				70F50D7C1C06FB3000920F63 /* DesignOrderModel.m */,
+			);
+			name = OrderModel;
+			sourceTree = "<group>";
+		};
 		7D5BDB781BFF0E8400FC8054 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1507,6 +1548,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03FF450C1BFEE74000D81DCE /* AFURLConnectionOperation.m in Sources */,
+				70F50D7D1C06FB3000920F63 /* DesignOrderModel.m in Sources */,
 				7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */,
 				03571C421BE85C3700900EF9 /* UIImage+Common.m in Sources */,
 				032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */,
@@ -1554,6 +1596,7 @@
 				03FF44F21BFEE73400D81DCE /* UIWebView+AFNetworking.m in Sources */,
 				032554A31BFDC2AD003B2E76 /* Tools.m in Sources */,
 				03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */,
+				70F50D6F1C069B0600920F63 /* AccessoryMarketModel.m in Sources */,
 				7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */,
 				03571BFD1BE85C0800900EF9 /* SDWebImageDownloader.m in Sources */,
 				03571C5E1BE85D8C00900EF9 /* MJRefreshHeaderView.m in Sources */,
@@ -1579,6 +1622,7 @@
 				03571C931BE85D9C00900EF9 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				03571C911BE85D9C00900EF9 /* IQTitleBarButtonItem.m in Sources */,
 				03571B9A1BE85B8200900EF9 /* MBProgressHUD+Add.m in Sources */,
+				70F50D731C06D1F900920F63 /* FabricMarketModel.m in Sources */,
 				03571BD01BE85BDB00900EF9 /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
 				03B120C21C05B1AD0023F362 /* SetaddressViewController.m in Sources */,
 				03571C8F1BE85D9C00900EF9 /* IQTextView.m in Sources */,
@@ -1588,6 +1632,7 @@
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
 				7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */,
+				70F50D771C06FB0200920F63 /* SupplierOrderModel.m in Sources */,
 				03571C071BE85C0800900EF9 /* UIView+WebCacheOperation.m in Sources */,
 				03B120BF1C0594720023F362 /* SetViewController.m in Sources */,
 				03FF44F01BFEE73400D81DCE /* UIProgressView+AFNetworking.m in Sources */,
@@ -1616,6 +1661,7 @@
 				70F7E36A1C05BF3900DD661E /* MachineMarketModel.m in Sources */,
 				03571BA41BE85B8200900EF9 /* YLGIFImage.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,
+				70F50D7A1C06FB1500920F63 /* FactoryOrderMOdel.m in Sources */,
 				0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */,
 				03571C5D1BE85D8C00900EF9 /* MJRefreshFooterView.m in Sources */,
 				03A1A0CE1C00080500FBEDE8 /* UserModel.m in Sources */,

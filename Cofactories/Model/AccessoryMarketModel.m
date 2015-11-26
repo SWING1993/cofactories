@@ -1,23 +1,23 @@
 //
-//  MachineMarketModel.m
+//  AccessoryMarketModel.m
 //  Cofactories
 //
-//  Created by GTF on 15/11/25.
+//  Created by GTF on 15/11/26.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "MachineMarketModel.h"
+#import "AccessoryMarketModel.h"
 
-@implementation MachineMarketModel
+@implementation AccessoryMarketModel
 
-- (instancetype)initMachineMarketModelWithDictionary:(NSDictionary *)dictionary{
+- (instancetype)initAccessoryMarketModelWithDictionary:(NSDictionary *)dictionary{
     if (self = [super init]) {
         self.amount = dictionary[@"amount"];
         
         NSString *creatString = dictionary[@"createdAt"];
         NSArray *creatArray = [Tools WithTime:creatString];
         self.createdAt = (NSString *)[creatArray firstObject];
-        
+
         self.descriptions = dictionary[@"description"];
         self.ID = dictionary[@"id"];
         self.name = dictionary[@"name"];
@@ -31,24 +31,16 @@
             self.sales = dictionary[@"sales"];
         }
         
-        if ([dictionary[@"type"] isEqualToString:@"machine"]) {
-            self.type = @"机械设备";
-        }else if ([dictionary[@"type"] isEqualToString:@"accessory"]){
-            self.type = @"机械设备配件";
-        }
-        
-        self.unit  = dictionary[@"unit"];
+        self.unit = dictionary[@"unit"];
         self.userUid  = dictionary[@"userUid"];
-
         
     }
     return self;
 }
 
-+ (instancetype)getMachineMarketModelWithDictionary:(NSDictionary *)dictionary{
++ (instancetype)getAccessoryMarketModelWithDictionary:(NSDictionary *)dictionary{
     
-    return [[self alloc]initMachineMarketModelWithDictionary:dictionary];
+    return [[self alloc]initAccessoryMarketModelWithDictionary:dictionary];
 }
-
 
 @end

@@ -42,7 +42,13 @@
         
         self.price = dictionary[@"price"];
         self.photoArray = dictionary[@"photo"];
-        self.sales = dictionary[@"sales"];
+        
+        NSString *saleString = [NSString stringWithFormat:@"%@",dictionary[@"sales"]];
+        if ([saleString isEqualToString:@"<null>"]) {
+            self.sales = @"暂未售出";
+        }else{
+            self.sales = dictionary[@"sales"];
+        }
         
         if ([dictionary[@"type"] isEqualToString:@"male"]) {
             self.type = @"男装";
