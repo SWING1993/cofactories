@@ -12,7 +12,7 @@
 static NSString *renZhengCellIdentifier = @"renZhengCell";
 @interface AuthenticationController () {
     NSArray *titleArray, *placeHolderArray;
-    UITextField *textField1, *textField2, *textField3, *textField4;
+    UITextField *priseNameTextField, *priseAddressTextField, *personNameTextField, *idCardTextField;
     UIButton *lastButton;
 }
 
@@ -92,23 +92,23 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     switch (indexPath.row) {
         case 0:
         {
-            textField1 = cell.myTextField;
+            priseNameTextField = cell.myTextField;
         }
             break;
         case 1:
         {
-            textField2 = cell.myTextField;
+            priseAddressTextField = cell.myTextField;
         }
             break;
         case 2:
         {
-            textField3 = cell.myTextField;
+            personNameTextField = cell.myTextField;
         }
             break;
         case 3:
         {
-            textField4 = cell.myTextField;
-            cell.myTextField.keyboardType = UIKeyboardTypeNumberPad;
+            idCardTextField = cell.myTextField;
+//            cell.myTextField.keyboardType = UIKeyboardTypeNumberPad;
         }
             break;
         default:
@@ -130,7 +130,7 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 
 #pragma mark - 下一步
 - (void)nextStepAction:(UIButton *)button {
-    [HttpClient postVerifyWithenterpriseName:textField1.text withpersonName:textField3.text withidCard:textField4.text withenterpriseAddress:textField2.text andBlock:^(NSInteger statusCode) {
+    [HttpClient postVerifyWithenterpriseName:priseNameTextField.text withpersonName:personNameTextField.text withidCard:idCardTextField.text withenterpriseAddress:priseAddressTextField.text andBlock:^(NSInteger statusCode) {
             DLog(@"%ld", (long)statusCode);
         if (statusCode == 200) {
             DLog(@"上传资料成功");
@@ -139,14 +139,14 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
         }
     }];
     
-    NSLog(@"%@， %@， %@， %@", textField1.text, textField2.text, textField3.text, textField4.text);
+    NSLog(@"%@， %@， %@， %@", priseNameTextField.text, priseAddressTextField.text, personNameTextField.text, idCardTextField.text);
     
 }
 
 
 - (void)infoAction {
     DLog(@"gfiuhshfolsjfpspi");
-    if (textField1.text.length != 0 && textField2.text.length != 0 && textField3.text.length != 0 && textField4.text.length == 18 ) {
+    if (priseNameTextField.text.length != 0 && priseAddressTextField.text.length != 0 && personNameTextField.text.length != 0 && idCardTextField.text.length == 18 ) {
         DLog(@"去认证");
         lastButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
         [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

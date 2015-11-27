@@ -36,21 +36,18 @@
     self.imageArray = [NSMutableArray arrayWithCapacity:0];
     
     imageView1 = [[UIImageView alloc]init];
-    //    imageView1.userInteractionEnabled = YES;
     imageView1.image = [UIImage imageNamed:@"添加照片"];
     imageView1.contentMode = UIViewContentModeScaleAspectFill;
     imageView1.clipsToBounds = YES;
     
     
     imageView2 = [[UIImageView alloc]init];
-    //    imageView2.userInteractionEnabled = YES;
     imageView2.image = [UIImage imageNamed:@"添加照片"];
     imageView2.contentMode = UIViewContentModeScaleAspectFill;
     imageView2.clipsToBounds = YES;
     
     
     imageView3 = [[UIImageView alloc]init];
-    //    imageView3.userInteractionEnabled = YES;
     imageView3.contentMode = UIViewContentModeScaleAspectFill;
     imageView3.image = [UIImage imageNamed:@"添加照片"];
     imageView3.clipsToBounds = YES;
@@ -228,16 +225,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
     
-//    UILabel*cellLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, cell.frame.size.width + 10, cell.frame.size.width, 20)];
-//    cellLabel.alpha = 0.8f;
-//    cellLabel.textAlignment = NSTextAlignmentCenter;
-//    cellLabel.font = kFont;
-//    cellLabel.text = self.cellArray[indexPath.row];
     switch (indexPath.row) {
         case 0:
         {
-//            cellLabel.text = self.cellArray[indexPath.row];
-            
             imageView1.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
             if (self.imageType==1) {
                 imageView1.image=[self.imageArray lastObject];
@@ -248,7 +238,6 @@
             break;
         case 1:
         {
-//            cellLabel.text = self.cellArray[indexPath.row];
             
             imageView2.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
             
@@ -262,8 +251,6 @@
             break;
         case 2:
         {
-//            cellLabel.text = self.cellArray[indexPath.row];
-            
             imageView3.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
             
             if (self.imageType==3) {
@@ -277,7 +264,6 @@
         default:
             break;
     }
-//    [cell addSubview:cellLabel];
     
     return cell;
 }

@@ -55,7 +55,7 @@ static NSString *zhiFuBaoCellIdentifier = @"zhiFuBaoCell";
     priceLabel.font = [UIFont systemFontOfSize:16*kZGY];
     [bigView2 addSubview:priceLabel];
     
-    priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 0, kScreenW - 80*kZGY, 50*kZGY)];
+    priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 0, kScreenW - 100*kZGY, 50*kZGY)];
     priceTextField.placeholder = @"请输入金额";
     
     [priceTextField setValue:[UIFont boldSystemFontOfSize:16*kZGY] forKeyPath:@"_placeholderLabel.font"];

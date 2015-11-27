@@ -167,9 +167,13 @@
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
 		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
 		7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6DB64D1C05BB9D00BF396E /* 身份证.png */; };
-		7DE8C1901C03F9B100E0917D /* HomeSupplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C18F1C03F9B100E0917D /* HomeSupplyController.m */; };
+		7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */; };
+		7DE36D221C0809A70090BF5D /* PopularCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
 		7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */; };
+		7DEB8F951C06F13C00B98912 /* ZGYDesignMarkrtController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */; };
+		7DEB8F981C06F64500B98912 /* PopularNewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8F971C06F64500B98912 /* PopularNewsController.m */; };
+		7DEB8FE71C072E3700B98912 /* PopularNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */; };
 		7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */; };
 		7DEEA5631C054A2D009143C6 /* WalletSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5621C054A2D009143C6 /* WalletSelectView.m */; };
 		7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */; };
@@ -501,12 +505,20 @@
 		7D6DB64A1C05AEE300BF396E /* AuthenticationPhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationPhotoController.h; sourceTree = "<group>"; };
 		7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPhotoController.m; sourceTree = "<group>"; };
 		7D6DB64D1C05BB9D00BF396E /* 身份证.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "身份证.png"; sourceTree = "<group>"; };
-		7DE8C18E1C03F9B100E0917D /* HomeSupplyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSupplyController.h; sourceTree = "<group>"; };
-		7DE8C18F1C03F9B100E0917D /* HomeSupplyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSupplyController.m; sourceTree = "<group>"; };
+		7D9DDC9C1C07499500F26B1B /* ZGYSelectButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSelectButtonView.h; sourceTree = "<group>"; };
+		7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSelectButtonView.m; sourceTree = "<group>"; };
+		7DE36D201C0809A70090BF5D /* PopularCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularCollectionViewCell.h; sourceTree = "<group>"; };
+		7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularCollectionViewCell.m; sourceTree = "<group>"; };
 		7DE8C1911C043CA600E0917D /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
 		7DE8C1921C043CA600E0917D /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
 		7DE8C1951C0445AF00E0917D /* ZhiFuBaoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhiFuBaoCell.h; sourceTree = "<group>"; };
 		7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhiFuBaoCell.m; sourceTree = "<group>"; };
+		7DEB8F931C06F13C00B98912 /* ZGYDesignMarkrtController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYDesignMarkrtController.h; sourceTree = "<group>"; };
+		7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYDesignMarkrtController.m; sourceTree = "<group>"; };
+		7DEB8F961C06F64500B98912 /* PopularNewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsController.h; sourceTree = "<group>"; };
+		7DEB8F971C06F64500B98912 /* PopularNewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsController.m; sourceTree = "<group>"; };
+		7DEB8FE51C072E3700B98912 /* PopularNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsCell.h; sourceTree = "<group>"; };
+		7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsCell.m; sourceTree = "<group>"; };
 		7DEEA55E1C05479C009143C6 /* WalletHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryViewController.h; sourceTree = "<group>"; };
 		7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryViewController.m; sourceTree = "<group>"; };
 		7DEEA5611C054A2D009143C6 /* WalletSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletSelectView.h; sourceTree = "<group>"; };
@@ -1111,8 +1123,9 @@
 				03927D821BEC8D1E0087A2FD /* HomeViewController.h */,
 				03927D831BEC8D1E0087A2FD /* HomeViewController.m */,
 				7D5BDB781BFF0E8400FC8054 /* HomeView */,
+				7DEB8F911C06A27F00B98912 /* HomeDesignMarketController */,
+				7DEB8F921C06A28C00B98912 /* HomeSupplyMarketController */,
 				7DEEA5B51C05800A009143C6 /* HomeAuthenticationController */,
-				7DE8C18D1C03F97E00E0917D /* HomeSupplyController */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -1307,15 +1320,6 @@
 			path = HomeView;
 			sourceTree = "<group>";
 		};
-		7DE8C18D1C03F97E00E0917D /* HomeSupplyController */ = {
-			isa = PBXGroup;
-			children = (
-				7DE8C18E1C03F9B100E0917D /* HomeSupplyController.h */,
-				7DE8C18F1C03F9B100E0917D /* HomeSupplyController.m */,
-			);
-			path = HomeSupplyController;
-			sourceTree = "<group>";
-		};
 		7DE8C1941C04458E00E0917D /* WalletView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1325,6 +1329,38 @@
 				7DEEA5621C054A2D009143C6 /* WalletSelectView.m */,
 			);
 			path = WalletView;
+			sourceTree = "<group>";
+		};
+		7DEB8F911C06A27F00B98912 /* HomeDesignMarketController */ = {
+			isa = PBXGroup;
+			children = (
+				7DEB8FE11C072DBA00B98912 /* PopularNewsView */,
+				7DEB8F931C06F13C00B98912 /* ZGYDesignMarkrtController.h */,
+				7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */,
+				7DEB8F961C06F64500B98912 /* PopularNewsController.h */,
+				7DEB8F971C06F64500B98912 /* PopularNewsController.m */,
+			);
+			path = HomeDesignMarketController;
+			sourceTree = "<group>";
+		};
+		7DEB8F921C06A28C00B98912 /* HomeSupplyMarketController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HomeSupplyMarketController;
+			sourceTree = "<group>";
+		};
+		7DEB8FE11C072DBA00B98912 /* PopularNewsView */ = {
+			isa = PBXGroup;
+			children = (
+				7D9DDC9C1C07499500F26B1B /* ZGYSelectButtonView.h */,
+				7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */,
+				7DEB8FE51C072E3700B98912 /* PopularNewsCell.h */,
+				7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */,
+				7DE36D201C0809A70090BF5D /* PopularCollectionViewCell.h */,
+				7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */,
+			);
+			path = PopularNewsView;
 			sourceTree = "<group>";
 		};
 		7DEEA5B51C05800A009143C6 /* HomeAuthenticationController */ = {
@@ -1415,7 +1451,6 @@
 				TargetAttributes = {
 					03571B1F1BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = WPXQYZSK2Q;
 					};
 					03571B381BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
@@ -1517,6 +1552,7 @@
 				03571B9E1BE85B8200900EF9 /* MJPhotoLoadingView.m in Sources */,
 				032554A61BFDC92E003B2E76 /* SecondRegisterViewController.m in Sources */,
 				03571B9F1BE85B8200900EF9 /* MJPhotoProgressView.m in Sources */,
+				7DEB8F951C06F13C00B98912 /* ZGYDesignMarkrtController.m in Sources */,
 				03571C871BE85D9C00900EF9 /* IQNSArray+Sort.m in Sources */,
 				03FF450D1BFEE74000D81DCE /* AFURLRequestSerialization.m in Sources */,
 				70F7E36D1C05CB7100DD661E /* DesignMarketModel.m in Sources */,
@@ -1554,6 +1590,7 @@
 				03FF44F21BFEE73400D81DCE /* UIWebView+AFNetworking.m in Sources */,
 				032554A31BFDC2AD003B2E76 /* Tools.m in Sources */,
 				03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */,
+				7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */,
 				7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */,
 				03571BFD1BE85C0800900EF9 /* SDWebImageDownloader.m in Sources */,
 				03571C5E1BE85D8C00900EF9 /* MJRefreshHeaderView.m in Sources */,
@@ -1581,6 +1618,7 @@
 				03571B9A1BE85B8200900EF9 /* MBProgressHUD+Add.m in Sources */,
 				03571BD01BE85BDB00900EF9 /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
 				03B120C21C05B1AD0023F362 /* SetaddressViewController.m in Sources */,
+				7DEB8FE71C072E3700B98912 /* PopularNewsCell.m in Sources */,
 				03571C8F1BE85D9C00900EF9 /* IQTextView.m in Sources */,
 				03FF45081BFEE74000D81DCE /* AFHTTPRequestOperationManager.m in Sources */,
 				03571C901BE85D9C00900EF9 /* IQBarButtonItem.m in Sources */,
@@ -1597,6 +1635,7 @@
 				03571B791BE85B7900900EF9 /* EARestrictedScrollView.m in Sources */,
 				03571BA51BE85B8200900EF9 /* YLImageView.m in Sources */,
 				03571C401BE85C3700900EF9 /* UIBarButtonItem+Common.m in Sources */,
+				7DE36D221C0809A70090BF5D /* PopularCollectionViewCell.m in Sources */,
 				03571C611BE85D8C00900EF9 /* UIView+MJExtension.m in Sources */,
 				03571BF81BE85C0800900EF9 /* MKAnnotationView+WebCache.m in Sources */,
 				03B5697B1C02ADD000F89CDA /* StoreUserValue.m in Sources */,
@@ -1605,6 +1644,7 @@
 				7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */,
 				7DEEA5631C054A2D009143C6 /* WalletSelectView.m in Sources */,
 				03571C5C1BE85D8C00900EF9 /* MJRefreshConst.m in Sources */,
+				7DEB8F981C06F64500B98912 /* PopularNewsController.m in Sources */,
 				03FF45091BFEE74000D81DCE /* AFHTTPSessionManager.m in Sources */,
 				0325549A1BFDC1F1003B2E76 /* ResetPasswordViewController.m in Sources */,
 				03571BAD1BE85BCB00900EF9 /* MF_Base64Additions.m in Sources */,
@@ -1626,7 +1666,6 @@
 				0395D2F31BFC65B80009AABC /* CYLPlusButtonSubclass.m in Sources */,
 				03571B781BE85B7900900EF9 /* EAIntroView.m in Sources */,
 				03927D7E1BEC8CF50087A2FD /* MeViewController.m in Sources */,
-				7DE8C1901C03F9B100E0917D /* HomeSupplyController.m in Sources */,
 				03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */,
 				03571BFA1BE85C0800900EF9 /* SDImageCache.m in Sources */,
 				03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */,
@@ -1754,6 +1793,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1778,6 +1818,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactories;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1791,6 +1832,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1815,6 +1857,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactories;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
