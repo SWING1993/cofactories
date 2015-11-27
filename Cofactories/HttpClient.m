@@ -1060,13 +1060,14 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager POST:API_Piblish_Supplier_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            DLog(@"responseObject == %@",responseObject);
+//            DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @"200", @"message":responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
         
     }else{
-        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+        completionBlock(@{@"statusCode": @"404", @"message": @"token不存在"});
     }
 }
 

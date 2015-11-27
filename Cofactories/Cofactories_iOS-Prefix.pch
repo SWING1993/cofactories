@@ -114,6 +114,7 @@
 //Color
 #define kGreen [UIColor colorWithHexString:@"0x3bbd79"]
 #define kBlack [UIColor colorWithHexString:@"0x28303b"]
+#define MAIN_COLOR  [UIColor colorWithRed:72/255.0 green:126/255.0 blue:208/255.0 alpha:1]
 
 #define kStatusBarHeight 20
 #define kNavigationBarHeight 44

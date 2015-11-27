@@ -16,7 +16,14 @@
         self.bidCount = dictionary[@"bidCount"];
         self.createdAt = dictionary[@"createdAt"];
         self.deadline = dictionary[@"deadline"];
-        self.descriptions = dictionary[@"description"];
+        
+        NSString *saleString = [NSString stringWithFormat:@"%@",dictionary[@"description"]];
+        if ([saleString isEqualToString:@"<null>"]){
+            self.descriptions = @"商家未填写备注";
+        }else{
+            self.descriptions = dictionary[@"description"];
+        }
+        
         self.ID = dictionary[@"id"];
         self.photoArray = dictionary[@"photo"];
         self.status = dictionary[@"status"];

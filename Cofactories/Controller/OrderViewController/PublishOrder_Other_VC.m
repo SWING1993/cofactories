@@ -1,22 +1,23 @@
 //
-//  OrderViewController.m
+//  PublishOrder_Other_VC.m
 //  Cofactories
 //
-//  Created by 宋国华 on 15/11/18.
+//  Created by GTF on 15/11/27.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "OrderViewController.h"
+#import "PublishOrder_Other_VC.h"
 
-@interface OrderViewController ()
+@interface PublishOrder_Other_VC ()
 
 @end
 
-@implementation OrderViewController
+@implementation PublishOrder_Other_VC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.navigationItem.title = @"寻找其他生产配套";
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,10 +8,12 @@
 
 #import "CYLPlusButtonSubclass.h"
 #import "CHTumblrMenuView.h"
+#import "SelectOrder_VC.h"
 
 @interface CYLPlusButtonSubclass () {
     CGFloat _buttonImageHeight;
 }
+
 @end
 @implementation CYLPlusButtonSubclass
 
@@ -115,16 +117,23 @@
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
     UIViewController *viewController = tabBarController.selectedViewController;
     
-
     CHTumblrMenuView *menuView = [[CHTumblrMenuView alloc] init];
-    [menuView addMenuItemWithTitle:@"供应面料" andIcon:[UIImage imageNamed:@"面辅料_供应面料"] andSelectedBlock:^{
-        NSLog(@"供应面料");
+    __unsafe_unretained CHTumblrMenuView *weakView = menuView; //
+    [menuView addMenuItemWithTitle:@"发布订单" andIcon:[UIImage imageNamed:@"发布订单"] andSelectedBlock:^{
+        NSLog(@"发布订单");
+        
+        SelectOrder_VC *vc = [[SelectOrder_VC alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        
+        [viewController presentViewController:nav animated:YES completion:^{
+            [weakView dismiss:nil];
+        }];
     }];
-    [menuView addMenuItemWithTitle:@"供应辅料" andIcon:[UIImage imageNamed:@"面辅料_供应辅料"] andSelectedBlock:^{
-        NSLog(@"供应辅料");
+    [menuView addMenuItemWithTitle:@"查找订单" andIcon:[UIImage imageNamed:@"查找订单"] andSelectedBlock:^{
+        NSLog(@"查找订单");
     }];
-    [menuView addMenuItemWithTitle:@"供应坯布" andIcon:[UIImage imageNamed:@"面辅料_供应胚布"] andSelectedBlock:^{
-        NSLog(@"供应坯布");
+    [menuView addMenuItemWithTitle:@"管理订单" andIcon:[UIImage imageNamed:@"管理订单"] andSelectedBlock:^{
+        NSLog(@"管理订单");
         
     }];
     
