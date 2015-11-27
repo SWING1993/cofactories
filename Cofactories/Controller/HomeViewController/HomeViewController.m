@@ -9,8 +9,9 @@
 #import "HttpClient.h"
 #import "UserManagerCenter.h"
 #import "HomeViewController.h"
-#import "HomeSupplyController.h"
-#import "AuthenticationPhotoController.h"
+#import "AuthenticationPhotoController.h"//认证
+#import "ZGYDesignMarkrtController.h"//设计市场
+
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -26,6 +27,8 @@ static NSString *activityCellIdentifier = @"activityCell";
 @implementation HomeViewController
 
 - (void)viewDidAppear:(BOOL)animated {
+    
+    
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
     [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -163,6 +166,9 @@ static NSString *activityCellIdentifier = @"activityCell";
     switch (marketButtonTag) {
         case 1:{
             //设计市场
+            ZGYDesignMarkrtController *designVC = [[ZGYDesignMarkrtController alloc] init];
+            designVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:designVC animated:YES];
         }
             break;
         case 2:{
@@ -171,9 +177,8 @@ static NSString *activityCellIdentifier = @"activityCell";
             break;
         case 3:{
             //供应市场
-            HomeSupplyController *homeSupplyVC = [[HomeSupplyController alloc] init];
-            homeSupplyVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:homeSupplyVC animated:YES];
+           
+        
         }
             break;
         case 4:{
@@ -192,6 +197,10 @@ static NSString *activityCellIdentifier = @"activityCell";
 #pragma mark - Action认证
 - (void)authenticationAction {
     DLog(@"前往认证");
+    
+    
+    
+    
     AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
     photoVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:photoVC animated:YES];
