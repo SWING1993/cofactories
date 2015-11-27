@@ -95,8 +95,8 @@
         [self addGestureRecognizer:ges];
         self.backgroundColor = [UIColor clearColor];
         backgroundView_ = [[UIImageView alloc] initWithFrame:self.bounds];
-        backgroundView_.backgroundColor = [UIColor colorWithRed:180/255.0 green:180/255.0 blue:180/255.0 alpha:1.0];
-//        backgroundView_.image = [[UIImage imageNamed:@"modal_background.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:6];
+       // backgroundView_.backgroundColor = [UIColor colorWithRed:180/255.0 green:180/255.0 blue:180/255.0 alpha:1.0];
+        backgroundView_.image = [[UIImage imageNamed:@"modal_background.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:6];
         backgroundView_.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [self addSubview:backgroundView_];
         buttons_ = [[NSMutableArray alloc] initWithCapacity:6];
@@ -178,13 +178,15 @@
 
 - (void)buttonTapped:(CHTumblrMenuItemButton*)btn
 {
-    [self dismiss:nil];
-    double delayInSeconds = CHTumblrMenuViewAnimationTime  + CHTumblrMenuViewAnimationInterval * (buttons_.count + 1);
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        btn.selectedBlock();
-
-    });
+//    [self dismiss:nil];
+//    double delayInSeconds = CHTumblrMenuViewAnimationTime  + CHTumblrMenuViewAnimationInterval * (buttons_.count + 1);
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        btn.selectedBlock();
+//
+//    });
+    
+    btn.selectedBlock();
 }
 
 
@@ -298,16 +300,11 @@
 
 - (void)show
 {
-    
     UIViewController *appRootViewController;
     UIWindow *window;
     
     window = [UIApplication sharedApplication].keyWindow;
-   
-        
     appRootViewController = window.rootViewController;
-    
- 
     
     UIViewController *topViewController = appRootViewController;
     while (topViewController.presentedViewController != nil)

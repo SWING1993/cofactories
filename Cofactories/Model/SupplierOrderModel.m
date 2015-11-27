@@ -18,7 +18,13 @@
         NSArray *creatArray = [Tools WithTime:creatString];
         self.createdAt = (NSString *)[creatArray firstObject];
         
-        self.descriptions = dictionary[@"description"];
+        NSString *saleString = [NSString stringWithFormat:@"%@",dictionary[@"description"]];
+        if ([saleString isEqualToString:@"<null>"]){
+            self.descriptions = @"商家未填写备注";
+        }else{
+            self.descriptions = dictionary[@"description"];
+        }
+        
         self.ID = dictionary[@"id"];
         self.name = dictionary[@"name"];
         self.photoArray = dictionary[@"photo"];
