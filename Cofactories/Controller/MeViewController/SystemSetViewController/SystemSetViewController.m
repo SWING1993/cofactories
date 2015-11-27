@@ -11,6 +11,8 @@
 #import "UMFeedback.h"
 #import "RootViewController.h"
 #import "SystemSetViewController.h"
+#import "AboutViewController.h"
+#import "RevisePasswordViewController.h"
 
 
 
@@ -28,7 +30,6 @@
     
     self.title=@"设置";
     
-    self.view.backgroundColor=[UIColor whiteColor];
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     
@@ -73,11 +74,6 @@
         kTipAlert(@"请您填写邀请码后再提交!");
     }
 }
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    [self.tableView endEditing:YES];
-//}
-
 
 #pragma mark - Table view data source
 
@@ -169,13 +165,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 0:{
-//            RevisePasswordViewController*reviseVC = [[RevisePasswordViewController alloc]init];
-//            UINavigationController*reviseNav = [[UINavigationController alloc]initWithRootViewController:reviseVC];
-//            reviseNav.navigationBar.barStyle=UIBarStyleBlack;
-//            reviseNav.modalPresentationStyle = UIModalPresentationCustom;
-//            [self presentViewController:reviseNav animated:YES completion:nil];
-            
-            
+            RevisePasswordViewController*reviseVC = [[RevisePasswordViewController alloc]init];
+            UINavigationController*reviseNav = [[UINavigationController alloc]initWithRootViewController:reviseVC];
+            reviseNav.modalPresentationStyle = UIModalPresentationCustom;
+            [self presentViewController:reviseNav animated:YES completion:nil];
         }
             break;
             
@@ -199,11 +192,10 @@
             break;
             
         case 3:{
-//            AboutViewController*aboutVC = [[AboutViewController alloc]init];
-//            UINavigationController*aboutNav = [[UINavigationController alloc]initWithRootViewController:aboutVC];
-//            aboutNav.navigationBar.barStyle=UIBarStyleBlack;
-//            aboutNav.modalPresentationStyle = UIModalPresentationCustom;
-//            [self presentViewController:aboutNav animated:YES completion:nil];
+            AboutViewController*aboutVC = [[AboutViewController alloc]init];
+            UINavigationController*aboutNav = [[UINavigationController alloc]initWithRootViewController:aboutVC];
+            aboutNav.modalPresentationStyle = UIModalPresentationCustom;
+            [self presentViewController:aboutNav animated:YES completion:nil];
             
         }
             break;

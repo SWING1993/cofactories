@@ -24,29 +24,30 @@
 
     UIButton * _leftBtn;
     UIButton * _rightBtn;
+    
+    UILabel * myProfileLabel;
+    
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.MyProfile = [[UserModel alloc]getMyProfile];
+    [self initView];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     DLog(@"%@",paths);
-    
-   
-
-    self.MyProfile = [[UserModel alloc]getMyProfile];
     DLog(@"type = %ld",self.MyProfile.UserType);
-    
-    UIBarButtonItem*setButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"settingBtn_Nav"] style:UIBarButtonItemStylePlain target:self action:@selector(setButtonClicked)];
-    self.navigationItem.rightBarButtonItem = setButton;
-    
-    _tableHeadView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW*0.47)];
-    _tableHeadView.image = [UIImage imageNamed:@"Me_tableHeadView"];
-    
+}
+
+- (void)initView {
     
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
-    self.tableView.tableHeaderView = _tableHeadView;
-
+    myProfileLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47-50, kScreenW, 50)];
+    myProfileLabel.font = kLargeFont;
+    myProfileLabel.textAlignment = NSTextAlignmentCenter;
+    myProfileLabel.textColor = [UIColor whiteColor];
+    myProfileLabel.text = [NSString stringWithFormat:@"%@   %@",self.MyProfile.name,[UserModel getRoleWith:self.MyProfile.UserType]];
+    
     _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _leftBtn.tag = 1;
     _leftBtn.frame = CGRectMake(0, 0, kScreenW/2, 49);
@@ -60,6 +61,16 @@
     [_rightBtn setImage:[UIImage imageNamed:@"Me_RightBtn"] forState:UIControlStateNormal];
     _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_rightBtn addTarget:self action:@selector(clickHeaderBtnInSection:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem*setButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"settingBtn_Nav"] style:UIBarButtonItemStylePlain target:self action:@selector(setButtonClicked)];
+    self.navigationItem.rightBarButtonItem = setButton;
+    
+    _tableHeadView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW*0.47)];
+    _tableHeadView.image = [UIImage imageNamed:@"Me_tableHeadView"];
+    
+    [_tableHeadView addSubview:myProfileLabel];
+    
+    self.tableView.tableHeaderView = _tableHeadView;
 
 }
 

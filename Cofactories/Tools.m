@@ -304,5 +304,12 @@
     return requiredSize;
 }
 
++ (void)removeAllCached {
+    DLog(@"清除图片缓存！");
+    [[[SDWebImageManager sharedManager] imageCache] clearDisk];
+    [[[SDWebImageManager sharedManager] imageCache] clearMemory];
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+}
+
 
 @end

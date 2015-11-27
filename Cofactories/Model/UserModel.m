@@ -20,10 +20,17 @@
 
     [[StoreUserValue sharedInstance] removeObjectForKey:@"MyProfile"];
 }
-
+/*
+ 
+ UserType_designer,    //设计者
+ UserType_clothing,    //服装企业
+ UserType_processing,  //加工配套
+ UserType_supplier,    //供应商
+ UserType_facilitator, //服务商
+ */
 - (instancetype)initWithArray {
     if (self) {
-        self.UserTypeListArray = [[NSArray alloc]initWithObjects:@"设计者",@"服装企业",@"供应商",@"加工配套企业",@"服务商", nil];
+        self.UserTypeListArray = [[NSArray alloc]initWithObjects:@"设计者",@"服装企业",@"加工配套企业",@"供应商",@"服务商", nil];
         
         self.UserTypeArray = [[NSArray alloc]initWithObjects:@"designer",@"clothing",@"processing",@"supplier",@"facilitator", nil];
     }
@@ -139,5 +146,34 @@
     return self;
 }
 
++ (NSString *)getRoleWith:(UserType )type {
+    NSString * string = nil;
+    switch (type) {
+        case UserType_designer:
+            string = @"设计者";
+            break;
+            
+        case UserType_clothing:
+            string = @"服装企业";
+            break;
+            
+        case UserType_processing:
+            string = @"加工配套";
+            break;
+            
+        case UserType_supplier:
+            string = @"供应商";
+            break;
+            
+        case UserType_facilitator:
+            string = @"服务商";
+            break;
+            
+        default:
+            string = @"暂无该身份";
+            break;
+    }
+    return string;
+}
 
 @end

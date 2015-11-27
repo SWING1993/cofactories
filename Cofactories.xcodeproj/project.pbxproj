@@ -186,6 +186,9 @@
 		0395D2FC1BFC69740009AABC /* post_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0395D2FB1BFC69740009AABC /* post_normal@2x.png */; };
 		0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2FF1BFC6D970009AABC /* LoginViewController.m */; };
 		03A1A0CE1C00080500FBEDE8 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A1A0CD1C00080500FBEDE8 /* UserModel.m */; };
+		03ACD19D1C081826003AB7CF /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ACD19A1C081826003AB7CF /* AboutViewController.m */; };
+		03ACD19E1C081826003AB7CF /* RevisePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ACD19C1C081826003AB7CF /* RevisePasswordViewController.m */; };
+		03ACD1A11C0833E0003AB7CF /* ScaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ACD1A01C0833E0003AB7CF /* ScaleViewController.m */; };
 		03B120BC1C0583DA0023F362 /* WalletModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120BB1C0583DA0023F362 /* WalletModel.m */; };
 		03B120BF1C0594720023F362 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120BE1C0594720023F362 /* SetViewController.m */; };
 		03B120C21C05B1AD0023F362 /* SetaddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120C11C05B1AD0023F362 /* SetaddressViewController.m */; };
@@ -583,6 +586,12 @@
 		0395D2FF1BFC6D970009AABC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		03A1A0CC1C00080500FBEDE8 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserModel.h; path = ../Model/UserModel.h; sourceTree = "<group>"; };
 		03A1A0CD1C00080500FBEDE8 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserModel.m; path = ../Model/UserModel.m; sourceTree = "<group>"; };
+		03ACD1991C081826003AB7CF /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		03ACD19A1C081826003AB7CF /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		03ACD19B1C081826003AB7CF /* RevisePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevisePasswordViewController.h; sourceTree = "<group>"; };
+		03ACD19C1C081826003AB7CF /* RevisePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevisePasswordViewController.m; sourceTree = "<group>"; };
+		03ACD19F1C0833E0003AB7CF /* ScaleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleViewController.h; sourceTree = "<group>"; };
+		03ACD1A01C0833E0003AB7CF /* ScaleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleViewController.m; sourceTree = "<group>"; };
 		03B120BA1C0583DA0023F362 /* WalletModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletModel.h; sourceTree = "<group>"; };
 		03B120BB1C0583DA0023F362 /* WalletModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletModel.m; sourceTree = "<group>"; };
 		03B120BD1C0594720023F362 /* SetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetViewController.h; sourceTree = "<group>"; };
@@ -1326,6 +1335,10 @@
 			children = (
 				035CC5321C070BC600998FBD /* SystemSetViewController.h */,
 				035CC5331C070BC600998FBD /* SystemSetViewController.m */,
+				03ACD1991C081826003AB7CF /* AboutViewController.h */,
+				03ACD19A1C081826003AB7CF /* AboutViewController.m */,
+				03ACD19B1C081826003AB7CF /* RevisePasswordViewController.h */,
+				03ACD19C1C081826003AB7CF /* RevisePasswordViewController.m */,
 			);
 			path = SystemSetViewController;
 			sourceTree = "<group>";
@@ -1526,6 +1539,8 @@
 				03B120C91C05C1340023F362 /* UbRoleViewController.m */,
 				03B120C31C05B1BF0023F362 /* DescriptionViewController.h */,
 				03B120C41C05B1BF0023F362 /* DescriptionViewController.m */,
+				03ACD19F1C0833E0003AB7CF /* ScaleViewController.h */,
+				03ACD1A01C0833E0003AB7CF /* ScaleViewController.m */,
 				035CC4FB1C06DC3100998FBD /* PhotoViewController.h */,
 				035CC4FC1C06DC3100998FBD /* PhotoViewController.m */,
 			);
@@ -1910,6 +1925,7 @@
 				03571C051BE85C0800900EF9 /* UIImageView+HighlightedWebCache.m in Sources */,
 				03571BA91BE85B8F00900EF9 /* NSData+Utils.m in Sources */,
 				03571BD11BE85BDB00900EF9 /* AFOAuth2Manager.m in Sources */,
+				03ACD19E1C081826003AB7CF /* RevisePasswordViewController.m in Sources */,
 				035CC4FD1C06DC3100998FBD /* PhotoViewController.m in Sources */,
 				03571B2B1BE84BA100900EF9 /* RootViewController.m in Sources */,
 				03571B9E1BE85B8200900EF9 /* MJPhotoLoadingView.m in Sources */,
@@ -2002,6 +2018,7 @@
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
 				7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */,
+				03ACD19D1C081826003AB7CF /* AboutViewController.m in Sources */,
 				70F50D771C06FB0200920F63 /* SupplierOrderModel.m in Sources */,
 				035CC5DC1C070ECB00998FBD /* UMChatToolBar.m in Sources */,
 				03571C071BE85C0800900EF9 /* UIView+WebCacheOperation.m in Sources */,
@@ -2051,6 +2068,7 @@
 				7DE8C1901C03F9B100E0917D /* HomeSupplyController.m in Sources */,
 				03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */,
 				035CC52C1C06DCF000998FBD /* PhotoAlbumManager.m in Sources */,
+				03ACD1A11C0833E0003AB7CF /* ScaleViewController.m in Sources */,
 				03571BFA1BE85C0800900EF9 /* SDImageCache.m in Sources */,
 				03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */,
 				7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */,
