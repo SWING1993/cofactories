@@ -83,4 +83,9 @@
  */
 + (CGSize)getSize:(NSString *)string andFontOfSize:(CGFloat)fontSize;
 
+/**
+ *  清除缓存
+ */
++ (void)removeAllCached;
+
 @end

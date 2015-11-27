@@ -51,5 +51,7 @@ typedef NS_ENUM(NSInteger, UserType) {
 - (instancetype)initWithArray;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
++ (NSString *)getRoleWith:(UserType )type;
+
 
 @end

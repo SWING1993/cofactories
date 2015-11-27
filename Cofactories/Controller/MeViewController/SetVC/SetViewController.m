@@ -15,6 +15,7 @@
 #import "SetaddressViewController.h"
 #import "UbRoleViewController.h"
 #import "DescriptionViewController.h"
+#import "ScaleViewController.h"
 #import "PhotoViewController.h"
 
 
@@ -37,9 +38,14 @@
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
         if (statusCode == 200) {
             self.MyProfile = [responseDictionary objectForKey:@"model"];
-            DLog(@"photoArr = %@",self.MyProfile.photoArray);
-
             [self.tableView reloadData];
+        }else {
+            self.MyProfile = [[UserModel alloc]getMyProfile];
+            double delayInSeconds = 3.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
         }
     }];
     
@@ -102,7 +108,7 @@
                 return 6;
                 break;
                 
-            case UserType_supplier:
+            case UserType_processing:
                 //加工配套
                 return 6;
                 break;
@@ -234,8 +240,13 @@
                     [self.navigationController pushViewController:DescriptionVC animated:YES];
                 }
                     break;
-                case 5:
+                case 5:{
                     DLog(@"规模");
+                    ScaleViewController * scaleVC =[[ScaleViewController alloc]init];
+                    scaleVC.placeholder = self.MyProfile.scale;
+                    scaleVC.userType = self.MyProfile.UserType;
+                    [self.navigationController pushViewController:scaleVC animated:YES];
+                }
                     break;
                     
                 default:
@@ -305,11 +316,14 @@
     [picker dismissViewControllerAnimated:YES completion:^{
         [HttpClient uploadPhotoWithType:@"avatar" WithImage:newImage andBlock:^(NSInteger statusCode) {
             if (statusCode == 200) {
-                [[[SDWebImageManager sharedManager] imageCache] clearDisk];
-                [[[SDWebImageManager sharedManager] imageCache] clearMemory];
-                [[NSURLCache sharedURLCache] removeAllCachedResponses];
                 kTipAlert(@"头像上传成功,但是头像显示会略有延迟。");
                 [self.headBtn setBackgroundImage:newImage forState:UIControlStateNormal];
+                double delayInSeconds = 45.0;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                    [Tools removeAllCached];
+                });
+
             }else {
                 kTipAlert(@"头像上传失败,尝试再次上传！");
             }
