@@ -1096,7 +1096,9 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager POST:API_Piblish_Factory_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            DLog(@"responseObject == %@",responseObject);
+           // DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @"200", @"message":responseObject});
+
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
@@ -1122,7 +1124,8 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager POST:API_Piblish_Design_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            DLog(@"responseObject == %@",responseObject);
+          //  DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @"200", @"message":responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];

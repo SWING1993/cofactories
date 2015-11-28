@@ -28,7 +28,7 @@
 @property (nonatomic, strong) JKAssets  *asset;
 
 @end
-NSString *const reuseIdentifier = @"reuseIdentifier";
+static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 @implementation PublishOrder_Common_VC
 
@@ -62,6 +62,7 @@ NSString *const reuseIdentifier = @"reuseIdentifier";
     _tableView.delegate = self;
     _tableView.dataSource =self;
     [_tableView registerClass:[Order_Common_TVC class] forCellReuseIdentifier:reuseIdentifier];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44)];
@@ -73,7 +74,7 @@ NSString *const reuseIdentifier = @"reuseIdentifier";
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 10, 120, 25)];
     label.textColor = MAIN_COLOR;
     label.textAlignment = NSTextAlignmentLeft;
-    label.font = [UIFont systemFontOfSize:18];
+    label.font = [UIFont systemFontOfSize:16];
     label.text = @"订单信息";
     [headerView addSubview:label];
     
