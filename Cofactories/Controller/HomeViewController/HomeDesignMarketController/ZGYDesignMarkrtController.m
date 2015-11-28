@@ -8,7 +8,7 @@
 
 #import "ZGYDesignMarkrtController.h"
 #import "PopularNewsController.h"
-
+#import "PopularMessageController.h"
 
 @interface ZGYDesignMarkrtController ()
 
@@ -42,9 +42,10 @@
             break;
         case 1001:{
             DLog(@"流行资讯");
-            PopularNewsController *popularVC = [[PopularNewsController alloc] initWithStyle:UITableViewStyleGrouped];
+//            PopularNewsController *popularVC = [[PopularNewsController alloc] initWithStyle:UITableViewStylePlain];
+//            [self.navigationController pushViewController:popularVC animated:YES];
+            PopularMessageController *popularVC = [[PopularMessageController alloc] init];
             [self.navigationController pushViewController:popularVC animated:YES];
-            
             
         }
             break;

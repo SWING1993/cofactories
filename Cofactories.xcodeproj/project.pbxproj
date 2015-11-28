@@ -230,6 +230,8 @@
 		70F7E36A1C05BF3900DD661E /* MachineMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E3691C05BF3900DD661E /* MachineMarketModel.m */; };
 		70F7E36D1C05CB7100DD661E /* DesignMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */; };
 		7D030F1C1C006B13001E10A2 /* Home-设计者.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D030F1B1C006B13001E10A2 /* Home-设计者.png */; };
+		7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5005671C098E230034BE03 /* PopularMessageController.m */; };
+		7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
 		7D5BE9261C0840260062E6F5 /* VerifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BE9251C0840260062E6F5 /* VerifyModel.m */; };
 		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
@@ -245,6 +247,7 @@
 		7DEEA5631C054A2D009143C6 /* WalletSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5621C054A2D009143C6 /* WalletSelectView.m */; };
 		7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */; };
 		7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */; };
+		7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFFE871C094A8200102C98 /* ZGYTitleView.m */; };
 		7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */; };
 		7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */; };
 		7DF1C1B81C00508100460DB7 /* Home-聚.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B71C00508100460DB7 /* Home-聚.png */; };
@@ -686,6 +689,10 @@
 		70F7E36B1C05CB7100DD661E /* DesignMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesignMarketModel.h; path = ../DesignMarketModel.h; sourceTree = "<group>"; };
 		70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DesignMarketModel.m; path = ../DesignMarketModel.m; sourceTree = "<group>"; };
 		7D030F1B1C006B13001E10A2 /* Home-设计者.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home-设计者.png"; sourceTree = "<group>"; };
+		7D5005661C098E230034BE03 /* PopularMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularMessageController.h; sourceTree = "<group>"; };
+		7D5005671C098E230034BE03 /* PopularMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularMessageController.m; sourceTree = "<group>"; };
+		7D50056D1C09A9040034BE03 /* SupplyMarketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplyMarketViewController.h; sourceTree = "<group>"; };
+		7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplyMarketViewController.m; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
 		7D5BE9241C0840260062E6F5 /* VerifyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyModel.h; sourceTree = "<group>"; };
@@ -715,6 +722,8 @@
 		7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationController.m; sourceTree = "<group>"; };
 		7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationCell.m; sourceTree = "<group>"; };
 		7DEEA5D01C058BB0009143C6 /* AuthenticationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthenticationCell.h; sourceTree = "<group>"; };
+		7DEFFE861C094A8200102C98 /* ZGYTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYTitleView.h; sourceTree = "<group>"; };
+		7DEFFE871C094A8200102C98 /* ZGYTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYTitleView.m; sourceTree = "<group>"; };
 		7DF1C1AC1BFFFEB700460DB7 /* HomeMarketCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketCell.h; sourceTree = "<group>"; };
 		7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketCell.m; sourceTree = "<group>"; };
 		7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePersonalDataCell.h; sourceTree = "<group>"; };
@@ -1760,6 +1769,8 @@
 				7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */,
 				7DEB8F961C06F64500B98912 /* PopularNewsController.h */,
 				7DEB8F971C06F64500B98912 /* PopularNewsController.m */,
+				7D5005661C098E230034BE03 /* PopularMessageController.h */,
+				7D5005671C098E230034BE03 /* PopularMessageController.m */,
 			);
 			path = HomeDesignMarketController;
 			sourceTree = "<group>";
@@ -1767,6 +1778,8 @@
 		7DEB8F921C06A28C00B98912 /* HomeSupplyMarketController */ = {
 			isa = PBXGroup;
 			children = (
+				7D50056D1C09A9040034BE03 /* SupplyMarketViewController.h */,
+				7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */,
 			);
 			path = HomeSupplyMarketController;
 			sourceTree = "<group>";
@@ -1780,6 +1793,8 @@
 				7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */,
 				7DE36D201C0809A70090BF5D /* PopularCollectionViewCell.h */,
 				7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */,
+				7DEFFE861C094A8200102C98 /* ZGYTitleView.h */,
+				7DEFFE871C094A8200102C98 /* ZGYTitleView.m */,
 			);
 			path = PopularNewsView;
 			sourceTree = "<group>";
@@ -1872,6 +1887,7 @@
 				TargetAttributes = {
 					03571B1F1BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = WPXQYZSK2Q;
 					};
 					03571B381BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
@@ -1999,6 +2015,7 @@
 				03571BA91BE85B8F00900EF9 /* NSData+Utils.m in Sources */,
 				03571BD11BE85BDB00900EF9 /* AFOAuth2Manager.m in Sources */,
 				03ACD19E1C081826003AB7CF /* RevisePasswordViewController.m in Sources */,
+				7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */,
 				035CC4FD1C06DC3100998FBD /* PhotoViewController.m in Sources */,
 				03571B2B1BE84BA100900EF9 /* RootViewController.m in Sources */,
 				03571B9E1BE85B8200900EF9 /* MJPhotoLoadingView.m in Sources */,
@@ -2129,12 +2146,14 @@
 				03571BAD1BE85BCB00900EF9 /* MF_Base64Additions.m in Sources */,
 				035CC5231C06DCF000998FBD /* JKAssetsGroupCell.m in Sources */,
 				03571BF91BE85C0800900EF9 /* NSData+ImageContentType.m in Sources */,
+				7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */,
 				03571BA11BE85B8200900EF9 /* MJPhotoView.m in Sources */,
 				03571C8D1BE85D9C00900EF9 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				03571C041BE85C0800900EF9 /* UIImage+WebP.m in Sources */,
 				03882C4F1BEC951B0094524A /* HttpClient.m in Sources */,
 				70F7E36A1C05BF3900DD661E /* MachineMarketModel.m in Sources */,
 				03571BA41BE85B8200900EF9 /* YLGIFImage.m in Sources */,
+				7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,
 				70F50D7A1C06FB1500920F63 /* FactoryOrderMOdel.m in Sources */,
 				0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */,

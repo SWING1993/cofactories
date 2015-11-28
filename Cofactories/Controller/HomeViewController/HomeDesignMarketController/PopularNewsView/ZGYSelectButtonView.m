@@ -9,10 +9,11 @@
 #import "ZGYSelectButtonView.h"
 
 #define kColor [UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f]
-#define kButtonWidth kScreenW/4
+
 #define kHeight 30
 #define kBorderWidth 0.3
 #define kMargin 10*kZGY
+#define kButtonWidth (kScreenW - 8*kMargin)/4
 
 @implementation ZGYSelectButtonView
 @synthesize delegate = _delegate;
@@ -29,10 +30,11 @@
         for (int i = 0; i < 4; i++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.tag = i+ 1;
-            btn.frame = CGRectMake(i*kButtonWidth, 0, kButtonWidth, kHeight);
+            btn.frame = CGRectMake((2*i + 1)*kMargin + i*kButtonWidth, 0.3, kButtonWidth, kHeight);
             [btn setTitle:array[i] forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [btn setTitleColor:kColor forState:UIControlStateSelected];
+            [btn setBackgroundImage:[UIImage imageNamed:@"white"] forState:UIControlStateSelected];
             btn.titleLabel.font = [UIFont systemFontOfSize:13];
             [btn addTarget:self action:@selector(actionOfBtn:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
@@ -67,10 +69,10 @@
         }
     }
     [UIView animateWithDuration:0.2 animations:^{
-        selectLabel1.frame = CGRectMake(btn.frame.origin.x + kMargin, 0, 0.3, kHeight);
-        selectLabel2.frame = CGRectMake(btn.frame.origin.x + kMargin, 0, btn.frame.size.width - 2*kMargin, 0.3);
-        selectLabel3.frame = CGRectMake(CGRectGetMaxX(btn.frame) - 0.3 - kMargin, 0, 0.3, kHeight);
-        selectLabel4.frame = CGRectMake(btn.frame.origin.x + kMargin, kHeight - 0.7, btn.frame.size.width - 2*kMargin, 1);
+        selectLabel1.frame = CGRectMake(btn.frame.origin.x - 0.3, 0, 0.3, kHeight);
+        selectLabel2.frame = CGRectMake(btn.frame.origin.x, 0, btn.frame.size.width, 0.3);
+        selectLabel3.frame = CGRectMake(CGRectGetMaxX(btn.frame), 0, 0.3, kHeight);
+        selectLabel4.frame = CGRectMake(btn.frame.origin.x, kHeight - 0.7, btn.frame.size.width, 1);
     }];
 }
 
