@@ -9,6 +9,7 @@
 #import "AuthenticationController.h"
 #import "AuthenticationCell.h"
 #import "HttpClient.h"
+#import "AuthenticationPhotoController.h"
 static NSString *renZhengCellIdentifier = @"renZhengCell";
 @interface AuthenticationController () {
     NSArray *titleArray, *placeHolderArray;
@@ -52,7 +53,7 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 70)];
     lastButton = [UIButton buttonWithType:UIButtonTypeCustom];
     lastButton.frame = CGRectMake(20, 10, kScreenW - 40, 38);
-    [lastButton setTitle:@"提交认证" forState:UIControlStateNormal];
+    [lastButton setTitle:@"下一步" forState:UIControlStateNormal];
     lastButton.titleLabel.font = [UIFont systemFontOfSize:15.5];
     lastButton.layer.cornerRadius = 4;
     lastButton.clipsToBounds = YES;
@@ -130,14 +131,23 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 
 #pragma mark - 下一步
 - (void)nextStepAction:(UIButton *)button {
-    [HttpClient postVerifyWithenterpriseName:priseNameTextField.text withpersonName:personNameTextField.text withidCard:idCardTextField.text withenterpriseAddress:priseAddressTextField.text andBlock:^(NSInteger statusCode) {
-            DLog(@"%ld", (long)statusCode);
-        if (statusCode == 200) {
-            DLog(@"上传资料成功");
-        } else {
-            DLog(@"上传资料失败");
-        }
-    }];
+    
+    
+    AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
+    photoVC.hidesBottomBarWhenPushed = YES;
+    photoVC.priseName = priseNameTextField.text;
+    photoVC.priseAddress = priseAddressTextField.text;
+    photoVC.personName = personNameTextField.text;
+    photoVC.idCard = idCardTextField.text;
+    [self.navigationController pushViewController:photoVC animated:YES];
+//    [HttpClient postVerifyWithenterpriseName:priseNameTextField.text withpersonName:personNameTextField.text withidCard:idCardTextField.text withenterpriseAddress:priseAddressTextField.text andBlock:^(NSInteger statusCode) {
+//            DLog(@"%ld", (long)statusCode);
+//        if (statusCode == 200) {
+//            DLog(@"上传资料成功");
+//        } else {
+//            DLog(@"上传资料失败");
+//        }
+//    }];
     
     NSLog(@"%@， %@， %@， %@", priseNameTextField.text, priseAddressTextField.text, personNameTextField.text, idCardTextField.text);
     

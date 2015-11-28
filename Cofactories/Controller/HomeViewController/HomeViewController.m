@@ -9,9 +9,10 @@
 #import "HttpClient.h"
 #import "UserManagerCenter.h"
 #import "HomeViewController.h"
-#import "AuthenticationPhotoController.h"//认证
+#import "AuthenticationPhotoController.h"//认证2
+#import "AuthenticationController.h"//认证1
 #import "ZGYDesignMarkrtController.h"//设计市场
-
+#import "VerifyModel.h"
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -19,28 +20,49 @@ static NSString *activityCellIdentifier = @"activityCell";
 @interface HomeViewController () {
     NSArray *arr;
     CATransform3D leftTransform, middleTransform, rightTransform;
+    VerifyModel *verifyModel;
 }
 @property (nonatomic,strong)NSMutableArray *firstViewImageArray;
+@property (nonatomic,retain)UserModel * MyProfile;
 
 @end
 
 @implementation HomeViewController
 
 - (void)viewDidAppear:(BOOL)animated {
+
+    [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
+        
+        NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
+        if (statusCode == 200) {
+            self.MyProfile = [responseDictionary objectForKey:@"model"];
+            DLog(@"photoArr = %@",self.MyProfile);
+            if (self.MyProfile.verifyDic == [NSNull null]) {
+                DLog(@"认证字典为空");
+            } else {
+                DLog(@"认证字典不为空");
+                verifyModel = [[VerifyModel alloc] initWithVerifyModelDictionary:self.MyProfile.verifyDic];
+                DLog(@"%@", verifyModel);
+            }
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
+            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            DLog(@"hcisdhcsidco");
+        }
+    }];
+
     
     
-    NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
-    [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
-    
+
+    //个人信息
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
     }];
-   
+    
     arr = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流", ];
     [self creatTableView];
     [self creatTableHeaderView];
@@ -85,11 +107,21 @@ static NSString *activityCellIdentifier = @"activityCell";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;//去掉选中背景色
         cell.personalDataLeftImage.image = [UIImage imageNamed:@"2.jpg"];
         
-        cell.personNameLabel.text = @"蜻蜓队长";
+        cell.personNameLabel.text = self.MyProfile.name;
+      
         cell.personStatusLabel.text = @"注册用户";
         cell.personWalletLeft.text = @"余额：0元";
-        cell.personAddressLabel.text = @"杭州市下沙街道天城118号";
-        [cell.authenticationButton addTarget:self action:@selector(authenticationAction) forControlEvents:UIControlEventTouchUpInside];
+        cell.personAddressLabel.text = self.MyProfile.address;
+        [cell.authenticationButton addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
+        if (verifyModel.status == 0) {
+            cell.authenticationLabel.text = @"前往认证";
+        }
+        if (verifyModel.status == 1) {
+            cell.authenticationLabel.text = @"认证中";
+        }
+        if (verifyModel.status == 2) {
+            cell.authenticationLabel.text = @"已认证";
+        }
         return cell;
     } else if (indexPath.section == 1) {
         HomeMarketCell *cell = [tableView dequeueReusableCellWithIdentifier:marketCellIdentifier forIndexPath:indexPath];
@@ -195,16 +227,19 @@ static NSString *activityCellIdentifier = @"activityCell";
     DLog(@"点击了第  %d  张图", tag);
 }
 #pragma mark - Action认证
-- (void)authenticationAction {
+- (void)authenticationAction:(UIButton *)button {
     DLog(@"前往认证");
-    
-    
-    
-    
-    AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
-    photoVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:photoVC animated:YES];
+    //未认证
+    if (verifyModel.status == 0) {
+//        AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
+//        photoVC.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:photoVC animated:YES];
+        AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
+        authenticationVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:authenticationVC animated:YES];
     }
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

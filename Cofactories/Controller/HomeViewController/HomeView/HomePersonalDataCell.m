@@ -57,7 +57,6 @@
         self.authenticationLabel = [[UILabel alloc] initWithFrame:CGRectMake(3*kScreenW/4 + 10*kZGY, 70*kZGY, kScreenW/4 - 20*kZGY, 20*kZGY)];
         self.authenticationLabel.font = [UIFont systemFontOfSize:11*kZGY];
         self.authenticationLabel.textAlignment = NSTextAlignmentCenter;
-        self.authenticationLabel.text = @"前往认证";
         self.authenticationLabel.textColor = [UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
         [self addSubview:self.authenticationLabel];
         self.authenticationButton = [UIButton buttonWithType:UIButtonTypeCustom];
