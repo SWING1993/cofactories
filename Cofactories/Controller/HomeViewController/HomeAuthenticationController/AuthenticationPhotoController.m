@@ -13,7 +13,9 @@
 
 @property (nonatomic, assign) NSInteger imageType;
 
-@property (nonatomic, retain) NSMutableArray*imageArray;
+@property (nonatomic, retain) NSMutableArray *imageArray;
+
+@property (nonatomic, retain) NSMutableArray *idCardImageArray, *idCardBackImageArray, *licenseImageArray;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -23,8 +25,8 @@
         UIImageView*imageView1;
         UIImageView*imageView2;
         UIImageView*imageView3;
+        UIButton *doneButton;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self creatHeaderView];
@@ -34,24 +36,24 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
     
     self.imageArray = [NSMutableArray arrayWithCapacity:0];
+    self.idCardImageArray = [NSMutableArray arrayWithCapacity:0];
+    self.idCardBackImageArray = [NSMutableArray arrayWithCapacity:0];
+    self.licenseImageArray = [NSMutableArray arrayWithCapacity:0];
     
     imageView1 = [[UIImageView alloc]init];
     imageView1.image = [UIImage imageNamed:@"添加照片"];
     imageView1.contentMode = UIViewContentModeScaleAspectFill;
     imageView1.clipsToBounds = YES;
     
-    
     imageView2 = [[UIImageView alloc]init];
     imageView2.image = [UIImage imageNamed:@"添加照片"];
     imageView2.contentMode = UIViewContentModeScaleAspectFill;
     imageView2.clipsToBounds = YES;
     
-    
     imageView3 = [[UIImageView alloc]init];
     imageView3.contentMode = UIViewContentModeScaleAspectFill;
     imageView3.image = [UIImage imageNamed:@"添加照片"];
     imageView3.clipsToBounds = YES;
-
 }
 
 - (void)creatHeaderView {
@@ -95,14 +97,16 @@
     [headerView addSubview:explainLabel];
     
     //确认上传
-    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     doneButton.frame = CGRectMake(20, CGRectGetMaxY(explainLabel.frame) + 70, kScreenW - 40, 38);
-    [doneButton setTitle:@"下一步" forState:UIControlStateNormal];
+    [doneButton setTitle:@"提交认证" forState:UIControlStateNormal];
     doneButton.titleLabel.font = [UIFont systemFontOfSize:15.5];
     doneButton.layer.cornerRadius = 4*kZGY;
     doneButton.clipsToBounds = YES;
-    doneButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
-    [doneButton addTarget:self action:@selector(actionOfDoneButton) forControlEvents:UIControlEventTouchUpInside];
+    doneButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+    [doneButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    doneButton.userInteractionEnabled = NO;
+    [doneButton addTarget:self action:@selector(actionOfDoneButton:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:doneButton];
     
     UILabel *explainLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, doneButton.frame.origin.y - 25, kScreenW - 40, 20)];
@@ -114,53 +118,14 @@
     self.tableView.tableHeaderView = headerView;
 }
 
-
-
-- (void)actionOfDoneButton {
-    DLog(@"vkmd;fkvd");
-    AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:authenticationVC animated:YES];
-        if ([self.imageArray count]<3) {
-//            [Tools showErrorWithStatus:@"照片信息不完整!"];
-            
-        }else{
-            
-//            [HttpClient submitVerifyDetailWithLegalPerson:textField2.text idCard:textField3.text andBlock:^(int statusCode) {
-//                DLog(@"%d",statusCode);
-//                switch (statusCode) {
-//                    case 200:
-//                    {
-//                        UIAlertView*alertView = [[UIAlertView alloc]initWithTitle:@"认证提交成功" message:nil
-//                                                                         delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-//                        alertView.tag = 10065;
-//                        [alertView show];
-//                    }
-//                        break;
-//                    case 400:
-//                    {
-//                        [Tools showErrorWithStatus:@"未登录"];
-//                    }
-//                        break;
-//                    case 409:
-//                    {
-//                        [Tools showShimmeringString:@"已经认证或者正在认证，不能修改。"];
-//                    }
-//                        break;
-//                        
-//                        
-//                    default:
-//                        [Tools showErrorWithStatus:@"提交失败，尝试修改信息重新提交！"];
-//                        break;
-//                }
-//            }];
-//        }
-    }
+- (void)actionOfDoneButton:(UIButton *)button {
+    DLog(@"提交认证");
+    [HttpClient postVerifyWithenterpriseName:self.priseName withenterpriseAddress:self.priseAddress withpersonName:self.personName withidCard:self.idCard idCardImage:[self.idCardImageArray lastObject] idCardBackImage:[self.idCardBackImageArray lastObject] licenseImage:[self.licenseImageArray lastObject] andBlock:^(NSInteger statusCode) {
+        
+        DLog(@"%ld", statusCode);
+    }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Table view data source
 
@@ -226,8 +191,7 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
     
     switch (indexPath.row) {
-        case 0:
-        {
+        case 0: {
             imageView1.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
             if (self.imageType==1) {
                 imageView1.image=[self.imageArray lastObject];
@@ -236,35 +200,26 @@
             
         }
             break;
-        case 1:
-        {
-            
+        case 1: {
             imageView2.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
-            
             if (self.imageType==2) {
-                
                 imageView2.image=[self.imageArray lastObject];
             }
             [cell addSubview:imageView2];
-            
         }
             break;
-        case 2:
-        {
+        case 2: {
             imageView3.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
-            
             if (self.imageType==3) {
                 imageView3.image=[self.imageArray lastObject];
             }
             [cell addSubview:imageView3];
-            
         }
             break;
             
         default:
             break;
     }
-    
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -273,7 +228,6 @@
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"相册", nil];
     [actionSheet showInView:self.view];
 }
-
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
@@ -315,64 +269,39 @@
     NSData *imageData = UIImageJPEGRepresentation(image,0.00001);
     UIImage*newImage = [UIImage imageWithData:imageData];
     [self.imageArray addObject:newImage];
+    if (self.imageType == 1) {
+        [self.idCardImageArray addObject:newImage];
+    }
+    if (self.imageType == 2) {
+        [self.idCardBackImageArray addObject:newImage];
+    }
+    if (self.imageType == 3) {
+        [self.licenseImageArray addObject:newImage];
+    }
+    DLog(@"idCard = %ld, idCardBack = %ld, license = %ld", self.idCardImageArray.count, self.idCardBackImageArray.count, self.licenseImageArray.count);
     DLog(@"self.imageArray.count%lu",(unsigned long)self.imageArray.count);
+    if (self.idCardImageArray.count == 0 || self.idCardBackImageArray.count == 0 || self.licenseImageArray.count == 0) {
+        doneButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+        [doneButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        doneButton.userInteractionEnabled = NO;
+    } else {
+        doneButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+        [doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        doneButton.userInteractionEnabled = YES;
+
+    }
     [picker dismissViewControllerAnimated:YES completion:^{
         NSIndexPath *te=[NSIndexPath indexPathForRow:self.imageType-1 inSection:0];
         [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObjects:te,nil] ];
         //         reloadRowsAtIndexPaths:[NSArray arrayWithObjects:te,nil] withRowAnimation:UITableViewRowAnimationNone];
         //        [self.collectionView reloadData];
-        [self updatePortrait];
+//        [self updatePortrait];
     }];
 }
-- (void)updatePortrait {
-    switch (self.imageType) {
-        case 1:
-        {
-            DLog(@"license");
-//            [HttpClient uploadVerifyImage:[self.imageArray lastObject] type:@"license" andblock:^(NSDictionary *dictionary) {
-//                if ([dictionary[@"statusCode"] intValue]==200) {
-//                    [Tools showSuccessWithStatus:@"营业执照上传成功"];
-//                }else{
-//                    [Tools showErrorWithStatus:@"上传失败"];
-//                }
-//                
-//            }];
-        }
-            break;
-            
-        case 2:
-        {
-            DLog(@"idCard");
-//            [HttpClient uploadVerifyImage:[self.imageArray lastObject] type:@"idCard" andblock:^(NSDictionary *dictionary) {
-//                if ([dictionary[@"statusCode"] intValue]==200) {
-//                    [Tools showSuccessWithStatus:@"身份证上传成功"];
-//                }else{
-//                    [Tools showErrorWithStatus:@"上传失败"];
-//                }
-//            }];
-            
-        }
-            break;
-            
-        case 3:
-        {
-            DLog(@"photo")
-//            [HttpClient uploadVerifyImage:[self.imageArray lastObject] type:@"photo" andblock:^(NSDictionary *dictionary) {
-//                if ([dictionary[@"statusCode"] intValue]==200) {
-//                    [Tools showSuccessWithStatus:@"公司形象上传成功"];
-//                }else{
-//                    [Tools showErrorWithStatus:@"上传失败"];
-//                }
-//            }];
-        }
-            break;
-            
-        default:
-//            [Tools showErrorWithStatus:@"上传类型未知！"];
-            break;
-    }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-
-
 
 @end

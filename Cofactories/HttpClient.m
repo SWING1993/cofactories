@@ -14,6 +14,7 @@
 #import "UserManagerCenter.h"
 #import "RootViewController.h"
 #import "WalletModel.h"
+#import "VerifyModel.h"
 
 #pragma mark - 服务器
 
@@ -1271,6 +1272,88 @@
         }];
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+}
+
+
++ (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录则获取用户信息
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager GET:API_userProfile parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"userModel = %@",responseObject);
+            block(@{@"statusCode": @(200), @"dictionary": responseObject});
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            switch ([operation.response statusCode]) {
+                case 400:
+                    block(@{@"statusCode": @(400), @"message": @"未登录"});
+                    break;
+                case 401:
+                    block(@{@"statusCode": @(401), @"message": @"access_token过期或者无效"});
+                    break;
+                    
+                default:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
+                    break;
+            }
+        }];
+    } else {
+        DLog(@"access_token不存在");
+        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
+    }
+
+}
++ (void)postVerifyWithenterpriseName:(NSString *)enterpriseName withenterpriseAddress:(NSString *)enterpriseAddress withpersonName:(NSString *)personName withidCard:(NSString *)idCard idCardImage:(UIImage *)idCardImage idCardBackImage:(UIImage *)idCardBackImage licenseImage:(UIImage *)licenseImage andBlock:(void (^)(NSInteger statusCode))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录
+        NSMutableDictionary * parametersDic = [[NSMutableDictionary alloc]initWithCapacity:4];
+        if (enterpriseName) {
+            [parametersDic setObject:enterpriseName forKey:@"enterpriseName"];
+        }
+        if (personName) {
+            [parametersDic setObject:personName forKey:@"personName"];
+        }
+        if (idCard) {
+            [parametersDic setObject:idCard forKey:@"idCard"];
+        }
+        if (enterpriseAddress) {
+            [parametersDic setObject:enterpriseAddress forKey:@"enterpriseAddress"];
+        }
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager POST:API_verify parameters:parametersDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"上传认证资料 = %@",responseObject);
+            block(200);
+            DLog(@"图片上传成功");
+            UpYun *upYun1 = [[UpYun alloc] init];
+            upYun1.bucket = bucketAPI;//图片测试
+            upYun1.expiresIn = 600;// 10分钟
+            [upYun1 uploadImage:idCardImage policy:responseObject[@"data"][@"idCard"][@"policy"] signature:responseObject[@"data"][@"idCard"][@"signature"]];
+            UpYun *upYun2 = [[UpYun alloc] init];
+            upYun2.bucket = bucketAPI;//图片测试
+            upYun2.expiresIn = 600;// 10分钟
+            [upYun2 uploadImage:idCardBackImage policy:responseObject[@"data"][@"idCardBack"][@"policy"] signature:responseObject[@"data"][@"idCardBack"][@"signature"]];
+            UpYun *upYun3 = [[UpYun alloc] init];
+            upYun3.bucket = bucketAPI;//图片测试
+            upYun3.expiresIn = 600;// 10分钟
+            [upYun3 uploadImage:licenseImage policy:responseObject[@"data"][@"license"][@"policy"] signature:responseObject[@"data"][@"license"][@"signature"]];
+            block(2000);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            block([operation.response statusCode]);
+        }];
+    } else {
+        DLog(@"access_token不存在");
+        //        block(404);// access_token不存在
+        block(404);// access_token不存在
     }
 
 }

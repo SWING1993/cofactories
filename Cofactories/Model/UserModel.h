@@ -46,6 +46,16 @@ typedef NS_ENUM(NSInteger, UserType) {
 
 @property (nonatomic, retain) NSDictionary * verifyDic;
 
+
+@property (nonatomic, retain) NSString *enterpriseName;
+@property (nonatomic, retain) NSString *personName;
+@property (nonatomic, retain) NSString *idCard;
+@property (nonatomic, retain) NSString *enterpriseAddress;
+@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, retain) NSString *verifyCreatedAt;
+@property (nonatomic, retain) NSString *verifyUpdatedAt;
+
+
 - (instancetype)getMyProfile;
 + (void)removeMyProfile;
 - (instancetype)initWithArray;
