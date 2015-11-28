@@ -134,6 +134,37 @@
         
         _verifyDic = [dictionary objectForKey:@"verify"];
         
+        if (_verifyDic == [NSNull null]) {
+            DLog(@"认证字典为空");
+        } else {
+            _enterpriseName = _verifyDic[@"enterpriseName"];
+            if ([_enterpriseName isEqualToString:@"<null>"]) {
+                _enterpriseName = @"尚未填写";
+            }
+            _personName = _verifyDic[@"personName"];
+            if ([_personName isEqualToString:@"<null>"]) {
+                _personName = @"尚未填写";
+            }
+            _idCard = _verifyDic[@"idCard"];
+            if ([_idCard isEqualToString:@"<null>"]) {
+                _idCard = @"尚未填写";
+            }
+            _enterpriseAddress = _verifyDic[@"enterpriseAddress"];
+            if ([_enterpriseAddress isEqualToString:@"<null>"]) {
+                _enterpriseAddress = @"尚未填写";
+            }
+            _status = [_verifyDic[@"status"] integerValue];
+
+            _verifyCreatedAt = _verifyDic[@"createdAt"];
+            if ([_verifyCreatedAt isEqualToString:@"<null>"]) {
+                _verifyCreatedAt = @"尚未填写";
+            }
+            _verifyUpdatedAt = _verifyDic[@"updatedAt"];
+            if ([_verifyUpdatedAt isEqualToString:@"<null>"]) {
+                _verifyUpdatedAt = @"尚未填写";
+            }
+
+        }
     }
 
     return self;

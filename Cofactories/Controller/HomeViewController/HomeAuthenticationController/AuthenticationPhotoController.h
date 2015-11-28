@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface AuthenticationPhotoController : UITableViewController
+@property (nonatomic, strong) NSString *priseName;
+@property (nonatomic, strong) NSString *priseAddress;
+@property (nonatomic, strong) NSString *personName;
+@property (nonatomic, strong) NSString *idCard;
 
 @end

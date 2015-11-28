@@ -222,4 +222,22 @@
 // 获取设计商订单详情
 + (void)getDesignOrderDetailWithID:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
+//获取认证信息
++ (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block;
+/**
+ *  上传认证资料和图片
+ *
+ *  @param enterpriseName    企业名称
+ *  @param personName        法人姓名
+ *  @param idCard            身份证号
+ *  @param enterpriseAddress 企业地址
+ 
+ *  @param idCardImage       身份证正面照片
+ *  @param idCardBackImage   身份证反面照片
+ *  @param licenseImage      营业执照照片
+ 
+ *  @param block             返回状态码 200为成功
+ */
++ (void)postVerifyWithenterpriseName:(NSString *)enterpriseName withenterpriseAddress:(NSString *)enterpriseAddress withpersonName:(NSString *)personName withidCard:(NSString *)idCard idCardImage:(UIImage *)idCardImage idCardBackImage:(UIImage *)idCardBackImage licenseImage:(UIImage *)licenseImage andBlock:(void (^)(NSInteger statusCode))block;
+
 @end
