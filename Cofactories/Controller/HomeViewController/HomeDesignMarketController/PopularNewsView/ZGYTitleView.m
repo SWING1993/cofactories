@@ -21,7 +21,7 @@
         UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetHeight(self.frame)/2 - kLeftLabelHeight/2, 3, kLeftLabelHeight)];
         leftLabel.layer.cornerRadius = 1.5;
         leftLabel.clipsToBounds = YES;
-        if ([leftLabelColor isEqual:NULL]) {
+        if ([leftLabelColor isEqual:nil]) {
             leftLabel.backgroundColor = [UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f];
         } else {
             leftLabel.backgroundColor = leftLabelColor;

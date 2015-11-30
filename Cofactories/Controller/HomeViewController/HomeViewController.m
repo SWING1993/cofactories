@@ -13,6 +13,8 @@
 #import "AuthenticationController.h"//认证1
 #import "ZGYDesignMarkrtController.h"//设计市场
 #import "VerifyModel.h"
+#import "SetViewController.h"//完善资料
+#import "SupplyMarketViewController.h"//供应市场
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -111,7 +113,13 @@ static NSString *activityCellIdentifier = @"activityCell";
       
         cell.personStatusLabel.text = @"注册用户";
         cell.personWalletLeft.text = @"余额：0元";
-        cell.personAddressLabel.text = self.MyProfile.address;
+//        cell.personAddressLabel.text = self.MyProfile.address;
+        if ([self.MyProfile.address isEqualToString:@"尚未填写"] || self.MyProfile.address.length == 0) {
+            [cell.personAddressButton setTitle:@"地址暂无，点击完善资料" forState: UIControlStateNormal];
+            [cell.personAddressButton addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            [cell.personAddressButton setTitle:self.MyProfile.address forState: UIControlStateNormal];
+        }
         [cell.authenticationButton addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
         if (verifyModel.status == 0) {
             cell.authenticationLabel.text = @"前往认证";
@@ -209,8 +217,9 @@ static NSString *activityCellIdentifier = @"activityCell";
             break;
         case 3:{
             //供应市场
-           
-        
+            SupplyMarketViewController *supplyMarketVC = [[SupplyMarketViewController alloc] init];
+            supplyMarketVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:supplyMarketVC animated:YES];
         }
             break;
         case 4:{
@@ -240,6 +249,14 @@ static NSString *activityCellIdentifier = @"activityCell";
     }
     
 }
+
+#pragma mark - 地址没有，去完善资料
+- (void)actionOfEdit:(UIButton *)button {
+    SetViewController *setVC = [[SetViewController alloc] init];
+    setVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:setVC animated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
