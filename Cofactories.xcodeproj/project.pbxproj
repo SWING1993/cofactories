@@ -214,6 +214,8 @@
 		03FF450D1BFEE74000D81DCE /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF45021BFEE74000D81DCE /* AFURLRequestSerialization.m */; };
 		03FF450E1BFEE74000D81DCE /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF45041BFEE74000D81DCE /* AFURLResponseSerialization.m */; };
 		03FF450F1BFEE74000D81DCE /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF45061BFEE74000D81DCE /* AFURLSessionManager.m */; };
+		705B25641C09B29400CCA619 /* SearchOrder_Supplier_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 705B25631C09B29400CCA619 /* SearchOrder_Supplier_VC.m */; };
+		705B25671C09B31600CCA619 /* MangerOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 705B25661C09B31600CCA619 /* MangerOrderVC.m */; };
 		7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */; };
 		7094D7221BFC825200F7240B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D7211BFC825200F7240B /* WalletViewController.m */; };
 		70A784ED1C07EF79003D1892 /* SelectOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784EC1C07EF79003D1892 /* SelectOrder_VC.m */; };
@@ -227,6 +229,11 @@
 		70F50D771C06FB0200920F63 /* SupplierOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D761C06FB0200920F63 /* SupplierOrderModel.m */; };
 		70F50D7A1C06FB1500920F63 /* FactoryOrderMOdel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D791C06FB1500920F63 /* FactoryOrderMOdel.m */; };
 		70F50D7D1C06FB3000920F63 /* DesignOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D7C1C06FB3000920F63 /* DesignOrderModel.m */; };
+		70F5EF771C0BE159008878B4 /* SearchOrder_Designer_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F5EF761C0BE159008878B4 /* SearchOrder_Designer_VC.m */; };
+		70F5EF7A1C0BE192008878B4 /* SearchOrder_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F5EF791C0BE192008878B4 /* SearchOrder_Factory_VC.m */; };
+		70F5EF7D1C0C24F5008878B4 /* Order_Factory_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F5EF7C1C0C24F5008878B4 /* Order_Factory_TVC.m */; };
+		70F5EF811C0C4B49008878B4 /* FactoryOrderDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F5EF801C0C4B49008878B4 /* FactoryOrderDetail_VC.m */; };
+		70F5EF841C0C5909008878B4 /* OrderPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F5EF831C0C5909008878B4 /* OrderPhotoViewController.m */; };
 		70F7E36A1C05BF3900DD661E /* MachineMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E3691C05BF3900DD661E /* MachineMarketModel.m */; };
 		70F7E36D1C05CB7100DD661E /* DesignMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */; };
 		70FA60E31C09425400EA84FD /* Comment_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60E21C09425400EA84FD /* Comment_TVC.m */; };
@@ -660,6 +667,10 @@
 		03FF45041BFEE74000D81DCE /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		03FF45051BFEE74000D81DCE /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		03FF45061BFEE74000D81DCE /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		705B25621C09B29400CCA619 /* SearchOrder_Supplier_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOrder_Supplier_VC.h; sourceTree = "<group>"; };
+		705B25631C09B29400CCA619 /* SearchOrder_Supplier_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchOrder_Supplier_VC.m; sourceTree = "<group>"; };
+		705B25651C09B31600CCA619 /* MangerOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MangerOrderVC.h; sourceTree = "<group>"; };
+		705B25661C09B31600CCA619 /* MangerOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MangerOrderVC.m; sourceTree = "<group>"; };
 		7094D71B1BFC7B4B00F7240B /* CHTumblrMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTumblrMenuView.h; sourceTree = "<group>"; };
 		7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTumblrMenuView.m; sourceTree = "<group>"; };
 		7094D7201BFC825200F7240B /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
@@ -686,6 +697,16 @@
 		70F50D791C06FB1500920F63 /* FactoryOrderMOdel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryOrderMOdel.m; sourceTree = "<group>"; };
 		70F50D7B1C06FB3000920F63 /* DesignOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignOrderModel.h; sourceTree = "<group>"; };
 		70F50D7C1C06FB3000920F63 /* DesignOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignOrderModel.m; sourceTree = "<group>"; };
+		70F5EF751C0BE159008878B4 /* SearchOrder_Designer_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOrder_Designer_VC.h; sourceTree = "<group>"; };
+		70F5EF761C0BE159008878B4 /* SearchOrder_Designer_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchOrder_Designer_VC.m; sourceTree = "<group>"; };
+		70F5EF781C0BE192008878B4 /* SearchOrder_Factory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOrder_Factory_VC.h; sourceTree = "<group>"; };
+		70F5EF791C0BE192008878B4 /* SearchOrder_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchOrder_Factory_VC.m; sourceTree = "<group>"; };
+		70F5EF7B1C0C24F5008878B4 /* Order_Factory_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order_Factory_TVC.h; sourceTree = "<group>"; };
+		70F5EF7C1C0C24F5008878B4 /* Order_Factory_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order_Factory_TVC.m; sourceTree = "<group>"; };
+		70F5EF7F1C0C4B49008878B4 /* FactoryOrderDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryOrderDetail_VC.h; sourceTree = "<group>"; };
+		70F5EF801C0C4B49008878B4 /* FactoryOrderDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryOrderDetail_VC.m; sourceTree = "<group>"; };
+		70F5EF821C0C5909008878B4 /* OrderPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPhotoViewController.h; sourceTree = "<group>"; };
+		70F5EF831C0C5909008878B4 /* OrderPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPhotoViewController.m; sourceTree = "<group>"; };
 		70F7E3681C05BF3900DD661E /* MachineMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MachineMarketModel.h; path = ../MachineMarketModel.h; sourceTree = "<group>"; };
 		70F7E3691C05BF3900DD661E /* MachineMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MachineMarketModel.m; path = ../MachineMarketModel.m; sourceTree = "<group>"; };
 		70F7E36B1C05CB7100DD661E /* DesignMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesignMarketModel.h; path = ../DesignMarketModel.h; sourceTree = "<group>"; };
@@ -1558,6 +1579,7 @@
 		0395D2F71BFC66C60009AABC /* OrderViewController */ = {
 			isa = PBXGroup;
 			children = (
+				70F5EF7E1C0C4B05008878B4 /* OderDetail */,
 				70FA60DE1C093EAD00EA84FD /* Publish */,
 				70FA60E01C093F1000EA84FD /* LookOver */,
 				70FA60DF1C093EF700EA84FD /* Manage */,
@@ -1704,6 +1726,8 @@
 				70A784F31C083390003D1892 /* Order_Common_TVC.m */,
 				70FA60E11C09425400EA84FD /* Comment_TVC.h */,
 				70FA60E21C09425400EA84FD /* Comment_TVC.m */,
+				70F5EF7B1C0C24F5008878B4 /* Order_Factory_TVC.h */,
+				70F5EF7C1C0C24F5008878B4 /* Order_Factory_TVC.m */,
 			);
 			path = Order_Cell;
 			sourceTree = "<group>";
@@ -1736,6 +1760,15 @@
 			name = OrderModel;
 			sourceTree = "<group>";
 		};
+		70F5EF7E1C0C4B05008878B4 /* OderDetail */ = {
+			isa = PBXGroup;
+			children = (
+				70F5EF7F1C0C4B49008878B4 /* FactoryOrderDetail_VC.h */,
+				70F5EF801C0C4B49008878B4 /* FactoryOrderDetail_VC.m */,
+			);
+			path = OderDetail;
+			sourceTree = "<group>";
+		};
 		70FA60DE1C093EAD00EA84FD /* Publish */ = {
 			isa = PBXGroup;
 			children = (
@@ -1756,6 +1789,8 @@
 		70FA60DF1C093EF700EA84FD /* Manage */ = {
 			isa = PBXGroup;
 			children = (
+				705B25651C09B31600CCA619 /* MangerOrderVC.h */,
+				705B25661C09B31600CCA619 /* MangerOrderVC.m */,
 			);
 			path = Manage;
 			sourceTree = "<group>";
@@ -1763,6 +1798,14 @@
 		70FA60E01C093F1000EA84FD /* LookOver */ = {
 			isa = PBXGroup;
 			children = (
+				705B25621C09B29400CCA619 /* SearchOrder_Supplier_VC.h */,
+				705B25631C09B29400CCA619 /* SearchOrder_Supplier_VC.m */,
+				70F5EF751C0BE159008878B4 /* SearchOrder_Designer_VC.h */,
+				70F5EF761C0BE159008878B4 /* SearchOrder_Designer_VC.m */,
+				70F5EF781C0BE192008878B4 /* SearchOrder_Factory_VC.h */,
+				70F5EF791C0BE192008878B4 /* SearchOrder_Factory_VC.m */,
+				70F5EF821C0C5909008878B4 /* OrderPhotoViewController.h */,
+				70F5EF831C0C5909008878B4 /* OrderPhotoViewController.m */,
 			);
 			path = LookOver;
 			sourceTree = "<group>";
@@ -2067,6 +2110,7 @@
 				035CC4FD1C06DC3100998FBD /* PhotoViewController.m in Sources */,
 				03571B2B1BE84BA100900EF9 /* RootViewController.m in Sources */,
 				03571B9E1BE85B8200900EF9 /* MJPhotoLoadingView.m in Sources */,
+				705B25671C09B31600CCA619 /* MangerOrderVC.m in Sources */,
 				035CC5291C06DCF000998FBD /* JKPhotoBrowserCell.m in Sources */,
 				032554A61BFDC92E003B2E76 /* SecondRegisterViewController.m in Sources */,
 				03571B9F1BE85B8200900EF9 /* MJPhotoProgressView.m in Sources */,
@@ -2083,6 +2127,7 @@
 				03927D841BEC8D1E0087A2FD /* HomeViewController.m in Sources */,
 				70A784F01C081905003D1892 /* PublishOrder_Common_VC.m in Sources */,
 				03571C481BE85CCF00900EF9 /* MBProgressHUD.m in Sources */,
+				70F5EF7D1C0C24F5008878B4 /* Order_Factory_TVC.m in Sources */,
 				7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */,
 				035CC5271C06DCF000998FBD /* JKImagePickerController.m in Sources */,
 				035CC5E01C070ECB00998FBD /* UMTextView.m in Sources */,
@@ -2135,6 +2180,7 @@
 				03571BFE1BE85C0800900EF9 /* SDWebImageDownloaderOperation.m in Sources */,
 				03571C601BE85D8C00900EF9 /* UIScrollView+MJRefresh.m in Sources */,
 				03571C8E1BE85D9C00900EF9 /* IQSegmentedNextPrevious.m in Sources */,
+				70F5EF811C0C4B49008878B4 /* FactoryOrderDetail_VC.m in Sources */,
 				03571BFC1BE85C0800900EF9 /* SDWebImageDecoder.m in Sources */,
 				03571BFF1BE85C0800900EF9 /* SDWebImageManager.m in Sources */,
 				03FF44ED1BFEE73400D81DCE /* UIAlertView+AFNetworking.m in Sources */,
@@ -2144,6 +2190,7 @@
 				7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */,
 				03571BA01BE85B8200900EF9 /* MJPhotoToolbar.m in Sources */,
 				03571C881BE85D9C00900EF9 /* IQUITextFieldView+Additions.m in Sources */,
+				70F5EF7A1C0BE192008878B4 /* SearchOrder_Factory_VC.m in Sources */,
 				03571C5F1BE85D8C00900EF9 /* UIScrollView+MJExtension.m in Sources */,
 				03FF45071BFEE74000D81DCE /* AFHTTPRequestOperation.m in Sources */,
 				03B120BC1C0583DA0023F362 /* WalletModel.m in Sources */,
@@ -2162,6 +2209,7 @@
 				03571C901BE85D9C00900EF9 /* IQBarButtonItem.m in Sources */,
 				035CC52B1C06DCF000998FBD /* JKUtil.m in Sources */,
 				03927D811BEC8D090087A2FD /* IMChatViewController.m in Sources */,
+				70F5EF771C0BE159008878B4 /* SearchOrder_Designer_VC.m in Sources */,
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
 				7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */,
@@ -2192,6 +2240,7 @@
 				03571C5C1BE85D8C00900EF9 /* MJRefreshConst.m in Sources */,
 				7DEB8F981C06F64500B98912 /* PopularNewsController.m in Sources */,
 				03FF45091BFEE74000D81DCE /* AFHTTPSessionManager.m in Sources */,
+				705B25641C09B29400CCA619 /* SearchOrder_Supplier_VC.m in Sources */,
 				0325549A1BFDC1F1003B2E76 /* ResetPasswordViewController.m in Sources */,
 				035CC5DF1C070ECB00998FBD /* UMRadialView.m in Sources */,
 				03571BAD1BE85BCB00900EF9 /* MF_Base64Additions.m in Sources */,
@@ -2199,6 +2248,7 @@
 				03571BF91BE85C0800900EF9 /* NSData+ImageContentType.m in Sources */,
 				03571BA11BE85B8200900EF9 /* MJPhotoView.m in Sources */,
 				03571C8D1BE85D9C00900EF9 /* IQKeyboardReturnKeyHandler.m in Sources */,
+				70F5EF841C0C5909008878B4 /* OrderPhotoViewController.m in Sources */,
 				03571C041BE85C0800900EF9 /* UIImage+WebP.m in Sources */,
 				03882C4F1BEC951B0094524A /* HttpClient.m in Sources */,
 				70F7E36A1C05BF3900DD661E /* MachineMarketModel.m in Sources */,

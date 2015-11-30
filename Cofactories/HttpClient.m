@@ -1152,6 +1152,21 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager GET:API_Search_Supplier_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             DLog(@"responseObject == %@",responseObject);
+//            completionBlock(@{@"statusCode": @"200", @"message":responseObject});
+//            NSArray *responseArray = (NSArray *)responseObject;
+//            NSMutableArray *array = [@[] mutableCopy];
+//            
+//            [responseArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                NSString *idString = [NSString stringWithFormat:@"%@",obj[@"id"]];
+//                [self getSupplierOrderDetailWithID:idString WithCompletionBlock:^(NSDictionary *dictionary) {
+//                    SupplierOrderModel *model = [SupplierOrderModel getSupplierOrderModelWithDictionary:dictionary];
+//                    [array addObject:model];
+//                }];
+//                if (idx == responseArray.count-1) {
+//                completionBlock(@{@"statusCode": @"200", @"message":array});
+//                }
+//            }];
+            
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
@@ -1162,7 +1177,7 @@
 }
 
 // 搜索找工厂订单
-+ (void)searchFactoryOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType amount:(NSString *)aAmount deadline:(NSString *)aDeadline WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)searchFactoryOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType amount:(NSArray *)aAmount deadline:(NSArray *)aDeadline pageCount:(NSNumber *)aPageCount WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
     if (credential) {
@@ -1171,7 +1186,7 @@
             [parametersDictionary setObject:aKeyword forKeyedSubscript:@"keyword"];
         }
         if (aType) {
-            [parametersDictionary setObject:aType forKeyedSubscript:@"type"];
+            [parametersDictionary setObject:aType forKeyedSubscript:@"subRole"];
         }
         if (aAmount) {
             [parametersDictionary setObject:aAmount forKeyedSubscript:@"amount"];
@@ -1179,10 +1194,22 @@
         if (aDeadline) {
             [parametersDictionary setObject:aDeadline forKeyedSubscript:@"deadline"];
         }
+        if (aPageCount) {
+            [parametersDictionary setObject:aPageCount forKeyedSubscript:@"page"];
+        }
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager GET:API_Search_Factory_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            DLog(@"responseObject == %@",responseObject);
+            //DLog(@"responseObject == %@",responseObject);
+            NSArray *responseArray = (NSArray *)responseObject;
+            NSMutableArray *array = [@[] mutableCopy];
+            [responseArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary *dictionary = (NSDictionary *)obj;
+                FactoryOrderMOdel *model = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
+                [array addObject:model];
+            }];
+            completionBlock(@{@"statusCode": @"200", @"message":array});
+
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
@@ -1247,7 +1274,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/",aID];
         [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            DLog(@"responseObject == %@",responseObject);
+           // DLog(@"responseObject == %@",responseObject);
             completionBlock(responseObject);
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);

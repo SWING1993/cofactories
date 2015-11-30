@@ -14,7 +14,9 @@
     if (self = [super init]) {
         self.amount = dictionary[@"amount"];
         self.bidCount = dictionary[@"bidCount"];
-        self.createdAt = dictionary[@"createdAt"];
+        NSString *creatString = dictionary[@"createdAt"];
+        NSArray *creatArray = [Tools WithTime:creatString];
+        self.createdAt = (NSString *)[creatArray firstObject];
         self.deadline = dictionary[@"deadline"];
         
         NSString *saleString = [NSString stringWithFormat:@"%@",dictionary[@"description"]];
@@ -26,9 +28,21 @@
         
         self.ID = dictionary[@"id"];
         self.photoArray = dictionary[@"photo"];
-        self.status = dictionary[@"status"];
+        
+        NSString *statusString = [NSString stringWithFormat:@"%@",dictionary[@"status"]];
+        self.status = statusString;
+        
         self.subRole = dictionary[@"subRole"];
-        self.type = dictionary[@""];
+        
+        NSString *typeString = [NSString stringWithFormat:@"%@",dictionary[@"type"]];
+        if ([typeString isEqualToString:@"knit"]) {
+            self.type = @"针织";
+        }else if ([typeString isEqualToString:@"woven"]){
+            self.type = @"梭织";
+        }else{
+            self.type = @"加工配套";
+        }
+        
         self.userUid = dictionary[@"userUid"];
     }
     return self;

@@ -308,7 +308,7 @@
         _cellStyle = UITableViewCellStyleValue1;
         _separatorColor = kSeparatorColor;
         _textColor = kTextColor;
-        _textSelectedColor = kTextSelectColor;
+        _textSelectedColor = MAIN_COLOR;
         _detailTextFont = [UIFont systemFontOfSize:11];
         _detailTextColor = kDetailTextColor;
         _indicatorColor = kTextColor;

@@ -9,11 +9,15 @@
 #import "CYLPlusButtonSubclass.h"
 #import "CHTumblrMenuView.h"
 #import "SelectOrder_VC.h"
+#import "SearchOrder_Supplier_VC.h"
+#import "SearchOrder_Designer_VC.h"
+#import "SearchOrder_Factory_VC.h"
+#import "MangerOrderVC.h"
 
 @interface CYLPlusButtonSubclass () {
     CGFloat _buttonImageHeight;
 }
-
+@property(nonatomic,strong)UserModel *userModel;
 @end
 @implementation CYLPlusButtonSubclass
 
@@ -131,10 +135,59 @@
     }];
     [menuView addMenuItemWithTitle:@"查找订单" andIcon:[UIImage imageNamed:@"查找订单"] andSelectedBlock:^{
         NSLog(@"查找订单");
+        
+        self.userModel = [[UserModel alloc] getMyProfile];
+        switch (self.userModel.UserType) {
+            case UserType_supplier:
+            {
+                SearchOrder_Supplier_VC *vc = [[SearchOrder_Supplier_VC alloc] init];
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+                
+                [viewController presentViewController:nav animated:YES completion:^{
+                    [weakView dismiss:nil];
+                }];
+                
+            }
+                break;
+                
+            case UserType_designer:
+            {
+                SearchOrder_Designer_VC *vc = [[SearchOrder_Designer_VC alloc] init];
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+                
+                [viewController presentViewController:nav animated:YES completion:^{
+                    [weakView dismiss:nil];
+                }];
+                
+            }
+                break;
+            case UserType_processing:
+            {
+                SearchOrder_Factory_VC *vc = [[SearchOrder_Factory_VC alloc] init];
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+                
+                [viewController presentViewController:nav animated:YES completion:^{
+                    [weakView dismiss:nil];
+                }];
+            }
+                break;
+                
+            default:
+                kTipAlert(@"该身份接订单功能未开通");
+                break;
+        }
+        
+       
     }];
     [menuView addMenuItemWithTitle:@"管理订单" andIcon:[UIImage imageNamed:@"管理订单"] andSelectedBlock:^{
         NSLog(@"管理订单");
+        MangerOrderVC *vc = [[MangerOrderVC alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
         
+        [viewController presentViewController:nav animated:YES completion:^{
+            [weakView dismiss:nil];
+        }];
+
     }];
     
     [menuView show];

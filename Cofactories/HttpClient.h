@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "AFOAuth2Manager.h"
 #import "UpYun.h"
+#import "SupplierOrderModel.h"
+#import "FactoryOrderMOdel.h"
 
 @interface HttpClient : NSObject
 
@@ -208,7 +210,7 @@
 + (void)searchSupplierOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 搜索找工厂订单
-+ (void)searchFactoryOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType amount:(NSString *)aAmount deadline:(NSString *)aDeadline WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
++ (void)searchFactoryOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType amount:(NSArray *)aAmount deadline:(NSArray *)aDeadline pageCount:(NSNumber *)aPageCount WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 搜索设计商订单
 + (void)searchDesignOrderWithKeyword:(NSString *)aKeyword WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;

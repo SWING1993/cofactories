@@ -36,7 +36,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"enterpriseName=%@, personName = %@, idCard = %@, enterpriseAddress = %@, status = %@, createdAt = %@, updatedAt = %@", self.enterpriseName, self.personName, self.idCard, self.enterpriseAddress, self.status, self.verifyCreatedAt, self.verifyUpdatedAt];
+    return [NSString stringWithFormat:@"enterpriseName=%@, personName = %@, idCard = %@, enterpriseAddress = %@, status = %ld, createdAt = %@, updatedAt = %@", self.enterpriseName, self.personName, self.idCard, self.enterpriseAddress, (long)self.status, self.verifyCreatedAt, self.verifyUpdatedAt];
 }
 
 @end
