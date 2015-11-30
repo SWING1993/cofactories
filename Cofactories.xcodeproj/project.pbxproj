@@ -239,6 +239,7 @@
 		7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
 		7D5BE9261C0840260062E6F5 /* VerifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BE9251C0840260062E6F5 /* VerifyModel.m */; };
+		7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665E881C0C1C9000C7C7BF /* ZGYSupplyMarketView.m */; };
 		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
 		7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6DB64D1C05BB9D00BF396E /* 身份证.png */; };
 		7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */; };
@@ -246,7 +247,6 @@
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
 		7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */; };
 		7DEB8F951C06F13C00B98912 /* ZGYDesignMarkrtController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */; };
-		7DEB8F981C06F64500B98912 /* PopularNewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8F971C06F64500B98912 /* PopularNewsController.m */; };
 		7DEB8FE71C072E3700B98912 /* PopularNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */; };
 		7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */; };
 		7DEEA5631C054A2D009143C6 /* WalletSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5621C054A2D009143C6 /* WalletSelectView.m */; };
@@ -267,6 +267,7 @@
 		7DF1C1CE1C0062B300460DB7 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1C91C0062B300460DB7 /* 3.jpg */; };
 		7DF1C1CF1C0062B300460DB7 /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1CA1C0062B300460DB7 /* 4.jpg */; };
 		7DF1C1D01C0062B300460DB7 /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1CB1C0062B300460DB7 /* 5.jpg */; };
+		7DFEBE3C1C0C18F200B2D2D5 /* SupplyMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFEBE3B1C0C18F200B2D2D5 /* SupplyMarketButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -712,6 +713,8 @@
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
 		7D5BE9241C0840260062E6F5 /* VerifyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyModel.h; sourceTree = "<group>"; };
 		7D5BE9251C0840260062E6F5 /* VerifyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyModel.m; sourceTree = "<group>"; };
+		7D665E871C0C1C9000C7C7BF /* ZGYSupplyMarketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSupplyMarketView.h; sourceTree = "<group>"; };
+		7D665E881C0C1C9000C7C7BF /* ZGYSupplyMarketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSupplyMarketView.m; sourceTree = "<group>"; };
 		7D6DB64A1C05AEE300BF396E /* AuthenticationPhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationPhotoController.h; sourceTree = "<group>"; };
 		7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPhotoController.m; sourceTree = "<group>"; };
 		7D6DB64D1C05BB9D00BF396E /* 身份证.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "身份证.png"; sourceTree = "<group>"; };
@@ -725,8 +728,6 @@
 		7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhiFuBaoCell.m; sourceTree = "<group>"; };
 		7DEB8F931C06F13C00B98912 /* ZGYDesignMarkrtController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYDesignMarkrtController.h; sourceTree = "<group>"; };
 		7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYDesignMarkrtController.m; sourceTree = "<group>"; };
-		7DEB8F961C06F64500B98912 /* PopularNewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsController.h; sourceTree = "<group>"; };
-		7DEB8F971C06F64500B98912 /* PopularNewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsController.m; sourceTree = "<group>"; };
 		7DEB8FE51C072E3700B98912 /* PopularNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsCell.h; sourceTree = "<group>"; };
 		7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsCell.m; sourceTree = "<group>"; };
 		7DEEA55E1C05479C009143C6 /* WalletHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryViewController.h; sourceTree = "<group>"; };
@@ -757,6 +758,8 @@
 		7DF1C1C91C0062B300460DB7 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		7DF1C1CA1C0062B300460DB7 /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
 		7DF1C1CB1C0062B300460DB7 /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
+		7DFEBE3A1C0C18F200B2D2D5 /* SupplyMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplyMarketButton.h; sourceTree = "<group>"; };
+		7DFEBE3B1C0C18F200B2D2D5 /* SupplyMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplyMarketButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1832,8 +1835,6 @@
 				7DEB8FE11C072DBA00B98912 /* PopularNewsView */,
 				7DEB8F931C06F13C00B98912 /* ZGYDesignMarkrtController.h */,
 				7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */,
-				7DEB8F961C06F64500B98912 /* PopularNewsController.h */,
-				7DEB8F971C06F64500B98912 /* PopularNewsController.m */,
 				7D5005661C098E230034BE03 /* PopularMessageController.h */,
 				7D5005671C098E230034BE03 /* PopularMessageController.m */,
 			);
@@ -1845,6 +1846,7 @@
 			children = (
 				7D50056D1C09A9040034BE03 /* SupplyMarketViewController.h */,
 				7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */,
+				7DFEBE361C0C039700B2D2D5 /* SupplyMarketView */,
 			);
 			path = HomeSupplyMarketController;
 			sourceTree = "<group>";
@@ -1883,6 +1885,17 @@
 				7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */,
 			);
 			path = HomeAuthenticationView;
+			sourceTree = "<group>";
+		};
+		7DFEBE361C0C039700B2D2D5 /* SupplyMarketView */ = {
+			isa = PBXGroup;
+			children = (
+				7DFEBE3A1C0C18F200B2D2D5 /* SupplyMarketButton.h */,
+				7DFEBE3B1C0C18F200B2D2D5 /* SupplyMarketButton.m */,
+				7D665E871C0C1C9000C7C7BF /* ZGYSupplyMarketView.h */,
+				7D665E881C0C1C9000C7C7BF /* ZGYSupplyMarketView.m */,
+			);
+			path = SupplyMarketView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2141,6 +2154,7 @@
 				03FF44F21BFEE73400D81DCE /* UIWebView+AFNetworking.m in Sources */,
 				032554A31BFDC2AD003B2E76 /* Tools.m in Sources */,
 				70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */,
+				7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */,
 				03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */,
 				70F50D6F1C069B0600920F63 /* AccessoryMarketModel.m in Sources */,
 				035CC5221C06DCF000998FBD /* JKAssetsCollectionFooterView.m in Sources */,
@@ -2188,6 +2202,7 @@
 				03571C071BE85C0800900EF9 /* UIView+WebCacheOperation.m in Sources */,
 				03B120BF1C0594720023F362 /* SetViewController.m in Sources */,
 				035CC5DE1C070ECB00998FBD /* UMPostTableViewCell.m in Sources */,
+				7DFEBE3C1C0C18F200B2D2D5 /* SupplyMarketButton.m in Sources */,
 				70FA60EF1C098DE400EA84FD /* ZFPopupMenu.m in Sources */,
 				03FF44F01BFEE73400D81DCE /* UIProgressView+AFNetworking.m in Sources */,
 				03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -2207,7 +2222,6 @@
 				7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */,
 				7DEEA5631C054A2D009143C6 /* WalletSelectView.m in Sources */,
 				03571C5C1BE85D8C00900EF9 /* MJRefreshConst.m in Sources */,
-				7DEB8F981C06F64500B98912 /* PopularNewsController.m in Sources */,
 				03FF45091BFEE74000D81DCE /* AFHTTPSessionManager.m in Sources */,
 				0325549A1BFDC1F1003B2E76 /* ResetPasswordViewController.m in Sources */,
 				035CC5DF1C070ECB00998FBD /* UMRadialView.m in Sources */,

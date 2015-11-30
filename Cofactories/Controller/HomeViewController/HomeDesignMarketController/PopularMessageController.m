@@ -73,8 +73,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     _searchBar.delegate = self;
     [self.navigationController.view addSubview:_searchBar];
     [_searchBar setBackgroundImage:[[UIImage alloc] init] ];
-    _searchBar.placeholder = @"搜索标题或作者";
-    
+    _searchBar.placeholder = @"搜索文章、图片、作者";
     
 }
 #pragma mark - UISearchBarDelegate
@@ -159,38 +158,30 @@ static NSString *popularCellIdentifier = @"popularCell";
     firstView.imagesArray = self.firstViewImageArray;
     [headerView addSubview:firstView];
     
-    
     //设计师
-    UIButton *designBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    designBtn.frame = CGRectMake(5, CGRectGetMaxY(firstView.frame) + 5, kScreenW - 10, 80);
-    designBtn.backgroundColor = [UIColor whiteColor];
-    [designBtn addTarget:self action:@selector(actionOfdesign:) forControlEvents:UIControlEventTouchUpInside];
-    designBtn.layer.borderColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f].CGColor;
-    designBtn.layer.borderWidth = 0.3;
-    designBtn.layer.cornerRadius = 3;
-    designBtn.clipsToBounds = YES;
-    [headerView addSubview:designBtn];
+    UIView *designView = [[UIView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(firstView.frame) + 5, kScreenW - 10, 80)];
+    designView.backgroundColor = [UIColor whiteColor];
+    designView.layer.borderColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f].CGColor;
+    designView.layer.borderWidth = 0.3;
+    designView.layer.cornerRadius = 3;
+    designView.clipsToBounds = YES;
+    [headerView addSubview:designView];
     
-    UIImageView *designPhoto = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(designBtn.frame) - 10 - 120, 10, 115, 70)];
+    UIImageView *designTextPhoto = [[UIImageView alloc] initWithFrame:CGRectMake(20, 22.5, 130, 35)];
+    designTextPhoto.image = [UIImage imageNamed:@"Home-Lijo"];
+    [designView addSubview:designTextPhoto];
+    
+    UIImageView *designPhoto = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(designView.frame) - 10 - 115, 10, 115, 70)];
     designPhoto.image = [UIImage imageNamed:@"Home-design"];
     designPhoto.userInteractionEnabled = YES;
-    [designBtn addSubview:designPhoto];
+    [designView addSubview:designPhoto];
     
     
-    
-//    UILabel *designtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, designBtn.frame.size.width - 150, 20)];
-//    designtitleLabel.text = @"Lijo";
-//    designtitleLabel.font = [UIFont boldSystemFontOfSize:16];
-//    [designBtn addSubview:designtitleLabel];
-//    
-//    UILabel *designDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(designtitleLabel.frame), designtitleLabel.frame.size.width, 20)];
-//    NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"聚工厂资深时尚设计师"];
-//    NSRange range1=[[hintString string]rangeOfString:@"资深时尚"];
-//    [hintString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range1];
-//    designDetailLabel.attributedText = hintString;
-//    designDetailLabel.font = [UIFont systemFontOfSize:12];
-//    [designBtn addSubview:];
-    
+    UIButton *designBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    designBtn.frame = CGRectMake(5, CGRectGetMaxY(firstView.frame) + 5, kScreenW - 10, 80);
+    designBtn.backgroundColor = [UIColor clearColor];
+    [designBtn addTarget:self action:@selector(actionOfdesign:) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:designBtn];
     
     //文章推荐
     
@@ -224,7 +215,6 @@ static NSString *popularCellIdentifier = @"popularCell";
     [footerView addSubview:selectBtnView];
     [self creatCollectionView];
     [footerView addSubview:self.collectionView];
-    
     
     self.popularTableView.tableFooterView = footerView;
 }

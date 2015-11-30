@@ -35,10 +35,16 @@
         self.personWalletLeft.textColor = [UIColor colorWithRed:167.0f/255.0f green:167.0f/255.0f blue:167.0f/255.0f alpha:1.0f];
         [self addSubview:self.personWalletLeft];
         
-        self.personAddressLabel = [[UILabel alloc] initWithFrame:CGRectMake(10*kZGY, CGRectGetMaxY(self.personWalletLeft.frame) + 2.5*kZGY, kScreenW/2 - 10*kZGY, 25*kZGY)];
-        self.personAddressLabel.font = [UIFont systemFontOfSize:11*kZGY];
-        self.personAddressLabel.textColor = [UIColor colorWithRed:112.0f/255.0f green:112.0f/255.0f blue:112.0f/255.0f alpha:1.0f];
-        [self addSubview:self.personAddressLabel];
+        self.personAddressButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.personAddressButton.frame = CGRectMake(10*kZGY, CGRectGetMaxY(self.personWalletLeft.frame) + 2.5*kZGY, kScreenW/2 - 10*kZGY, 25*kZGY);
+        self.personAddressButton.titleLabel.font = [UIFont systemFontOfSize:11*kZGY];
+        [self.personAddressButton setTitleColor:[UIColor colorWithRed:112.0f/255.0f green:112.0f/255.0f blue:112.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        
+        [self addSubview:self.personAddressButton];
+//        self.personAddressLabel = [[UILabel alloc] initWithFrame:CGRectMake(10*kZGY, CGRectGetMaxY(self.personWalletLeft.frame) + 2.5*kZGY, kScreenW/2 - 10*kZGY, 25*kZGY)];
+//        self.personAddressLabel.font = [UIFont systemFontOfSize:11*kZGY];
+//        self.personAddressLabel.textColor = [UIColor colorWithRed:112.0f/255.0f green:112.0f/255.0f blue:112.0f/255.0f alpha:1.0f];
+//        [self addSubview:self.personAddressLabel];
         
         self.personStyleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW/2 + 10*kZGY, 20*kZGY, kScreenW/4 - 20*kZGY, 20*kZGY)];
         self.personStyleLabel.textAlignment = NSTextAlignmentCenter;

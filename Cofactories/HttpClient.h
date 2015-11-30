@@ -238,6 +238,20 @@
  
  *  @param block             返回状态码 200为成功
  */
+
 + (void)postVerifyWithenterpriseName:(NSString *)enterpriseName withenterpriseAddress:(NSString *)enterpriseAddress withpersonName:(NSString *)personName withidCard:(NSString *)idCard idCardImage:(UIImage *)idCardImage idCardBackImage:(UIImage *)idCardBackImage licenseImage:(UIImage *)licenseImage andBlock:(void (^)(NSInteger statusCode))block;
+
+
+/**
+ *  上传图片
+ *  @param pohoto
+ *  @param policy
+ *  @param signature
+ 
+ *  @param block             返回状态码 200为成功
+ */
+
++ (void)uploadPhotoWithPhoto:(UIImage *)photo WithPolicy:(NSString *)policy WithSignature:(NSString *)signature andBlock:(void (^)(NSInteger))block;
+
 
 @end
