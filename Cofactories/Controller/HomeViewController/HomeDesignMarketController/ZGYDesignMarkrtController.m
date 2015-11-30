@@ -7,10 +7,9 @@
 //
 
 #import "ZGYDesignMarkrtController.h"
-#import "PopularNewsController.h"
-
-
-@interface ZGYDesignMarkrtController ()
+#import "PopularMessageController.h"
+#import "ZGYSupplyMarketView.h"
+@interface ZGYDesignMarkrtController ()<ZGYSupplyMarketViewDelegate>
 
 @end
 
@@ -21,41 +20,37 @@
     
     self.navigationItem.title = @"设计市场";
     
-    for (int i = 0; i < 3; i++) {
-        UIButton *designButton = [UIButton buttonWithType:UIButtonTypeCustom
-                                  ];
-        designButton.frame = CGRectMake(0, 64 + i*((kScreenH - 64)/3), kScreenW, (kScreenH - 64)/3);
-        designButton.tag = 1000+ i;
-        [designButton setImage:[UIImage imageNamed:@"男装新潮流"] forState:UIControlStateNormal];
-        [designButton addTarget:self action:@selector(actionOfDesign:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:designButton];
-    }
-
+    self.view.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
+    NSArray *photoArray = @[@"3.jpg", @"4.jpg", @"5.jpg"];
+    NSArray *titleArray = @[@"版型购买", @"流行资讯", @"设计者汇总"];
+    NSArray *detailTitleArray = @[@"最全版型聚集地", @"最全流行资讯聚集地", @"最全潮流设计师聚集地"];
+    ZGYSupplyMarketView *designView = [[ZGYSupplyMarketView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 370) photoArray:photoArray titleArray:titleArray detailTitleArray:detailTitleArray];
+    designView.delegate = self;
+    [self.view addSubview:designView];
+    
 
 }
+#pragma mark - ZGYSupplyMarketViewDelegate
 
-- (void)actionOfDesign:(UIButton *)button {
-    switch (button.tag) {
-        case 1000:{
-            DLog(@"版型购买");
+- (void)supplyMarketView:(ZGYSupplyMarketView *)supplyMarketView supplyMarketButtonTag:(NSInteger)supplyMarketButtonTag {
+    switch (supplyMarketButtonTag) {
+        case 0:{
+            
         }
             break;
-        case 1001:{
-            DLog(@"流行资讯");
-            PopularNewsController *popularVC = [[PopularNewsController alloc] initWithStyle:UITableViewStyleGrouped];
+        case 1:{
+            PopularMessageController *popularVC = [[PopularMessageController alloc] init];
             [self.navigationController pushViewController:popularVC animated:YES];
-            
+        }
+            break;
+        case 2:{
             
         }
             break;
-        case 1002:{
-            DLog(@"设计者汇总");
-        }
-            break;
-
         default:
             break;
     }
+    DLog(@"第 %ld 个", supplyMarketButtonTag + 1);
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,16 +7,7 @@
 //
 
 #import "VerifyModel.h"
-/*
-@property (nonatomic, strong) NSString *enterpriseName;
-@property (nonatomic, strong) NSString *personName;
-@property (nonatomic, strong) NSString *idCard;
-@property (nonatomic, strong) NSString *enterpriseAddress;
-@property (nonatomic, assign) NSInteger status;
-@property (nonatomic, strong) NSString *createdAt;
-@property (nonatomic, strong) NSString *updatedAt;
-@property (nonatomic, assign) NSInteger userUid;
-*/
+
 @implementation VerifyModel
 
 - (instancetype)initWithVerifyModelDictionary:(NSDictionary *)dictionary

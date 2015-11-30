@@ -406,9 +406,10 @@
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         [manager GET:API_userProfile parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            DLog(@"userModel = %@",responseObject);
+//            DLog(@"userModel = %@",responseObject);
             UserModel *userModel = [[UserModel alloc] initWithDictionary:responseObject];
             [userModel storeValueWithKey:@"MyProfile"];
+            DLog(@"userModel.description = %@",userModel.description);
             block(@{@"statusCode": @(200), @"model": userModel});
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             switch ([operation.response statusCode]) {
@@ -1360,22 +1361,27 @@
         
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         [manager POST:API_verify parameters:parametersDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
             DLog(@"上传认证资料 = %@",responseObject);
+            DLog(@"idCardImage = %@, idCardBackImage = %@, licenseImage = %@", idCardImage, idCardBackImage, licenseImage);
             block(200);
-            DLog(@"图片上传成功");
+            DLog(@"%@    %@", responseObject[@"data"][@"idCard"][@"policy"], responseObject[@"data"][@"idCard"][@"signature"]);
             UpYun *upYun1 = [[UpYun alloc] init];
             upYun1.bucket = bucketAPI;//图片测试
             upYun1.expiresIn = 600;// 10分钟
             [upYun1 uploadImage:idCardImage policy:responseObject[@"data"][@"idCard"][@"policy"] signature:responseObject[@"data"][@"idCard"][@"signature"]];
-            UpYun *upYun2 = [[UpYun alloc] init];
-            upYun2.bucket = bucketAPI;//图片测试
-            upYun2.expiresIn = 600;// 10分钟
-            [upYun2 uploadImage:idCardBackImage policy:responseObject[@"data"][@"idCardBack"][@"policy"] signature:responseObject[@"data"][@"idCardBack"][@"signature"]];
-            UpYun *upYun3 = [[UpYun alloc] init];
-            upYun3.bucket = bucketAPI;//图片测试
-            upYun3.expiresIn = 600;// 10分钟
-            [upYun3 uploadImage:licenseImage policy:responseObject[@"data"][@"license"][@"policy"] signature:responseObject[@"data"][@"license"][@"signature"]];
+//            UpYun *upYun2 = [[UpYun alloc] init];
+//            upYun2.bucket = bucketAPI;//图片测试
+//            upYun2.expiresIn = 600;// 10分钟
+            [upYun1 uploadImage:idCardBackImage policy:responseObject[@"data"][@"idCardBack"][@"policy"] signature:responseObject[@"data"][@"idCardBack"][@"signature"]];
+//            UpYun *upYun3 = [[UpYun alloc] init];
+//            upYun3.bucket = bucketAPI;//图片测试
+//            upYun3.expiresIn = 600;// 10分钟
+            [upYun1 uploadImage:licenseImage policy:responseObject[@"data"][@"license"][@"policy"] signature:responseObject[@"data"][@"license"][@"signature"]];
+            DLog(@"图片上传成功");
             block(2000);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             block([operation.response statusCode]);
@@ -1386,6 +1392,14 @@
         block(404);// access_token不存在
     }
 
+}
+
++ (void)uploadPhotoWithPhoto:(UIImage *)photo WithPolicy:(NSString *)policy WithSignature:(NSString *)signature andBlock:(void (^)(NSInteger))block {
+    UpYun *upYun1 = [[UpYun alloc] init];
+    upYun1.bucket = bucketAPI;//图片测试
+    upYun1.expiresIn = 600;// 10分钟
+    [upYun1 uploadImage:photo policy:policy signature:signature];
+    block(200);
 }
 
 @end

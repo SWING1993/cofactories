@@ -11,7 +11,8 @@
 @interface HomePersonalDataCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView *personalDataLeftImage, *personalDataMiddleImage, *personalDataRightImage;
-@property (nonatomic, strong) UILabel *personNameLabel, *personStatusLabel, *personWalletLeft, *personAddressLabel;//个人资料（名字，钱包余额，用户类型，地址）
+@property (nonatomic, strong) UILabel *personNameLabel, *personStatusLabel, *personWalletLeft;//个人资料（名字，钱包余额，用户类型）
+@property (nonatomic, strong) UIButton *personAddressButton;//地址
 @property (nonatomic, strong) UILabel *personStyleLabel;//个人身份
 @property (nonatomic, strong) UILabel *authenticationLabel;//是否是认证用户
 

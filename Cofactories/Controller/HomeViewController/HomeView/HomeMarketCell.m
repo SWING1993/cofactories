@@ -14,7 +14,7 @@
 {
     NSArray *titleArray = @[@"设计市场", @"服装市场", @"供应市场", @"加工配套市场"];
     NSArray *detailArray = @[@"引领时尚潮流", @"服装精品企业", @"新品爆款", @"应有尽有"];
-    NSArray *photoArray = @[@"1.jpg", @"3.jpg", @"4.jpg", @"5.jpg"];
+    NSArray *photoArray = @[@"Home_market_design", @"Home_market_cloth", @"Home_market_supply", @"Home_market_processed"];
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         for (NSInteger i = 0; i < 4; i++) {
