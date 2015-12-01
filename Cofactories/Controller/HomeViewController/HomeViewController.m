@@ -232,25 +232,9 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(HomePersonalDataCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        leftTransform = CATransform3DIdentity;
-        middleTransform = CATransform3DIdentity;
-        rightTransform = CATransform3DIdentity;
-        leftTransform = CATransform3DRotate(leftTransform,(M_PI/0*180), 0, 1, 0);
-        middleTransform = CATransform3DRotate(middleTransform,(M_PI/0*180), 0, 1, 0);
-        rightTransform = CATransform3DRotate(rightTransform,(M_PI/0*180), 0, 1, 0);
-        cell.personalDataLeftImage.layer.transform = leftTransform;
-        cell.personalDataMiddleImage.layer.transform = middleTransform;
-        cell.personalDataRightImage.layer.transform = rightTransform;
-        [UIView animateWithDuration:2 animations:^{
-            leftTransform = CATransform3DRotate(leftTransform,(M_PI/180*180), 0, 1, 0);//旋转
-            middleTransform = CATransform3DRotate(middleTransform,(M_PI/180*180), 0, 1, 0);
-            rightTransform = CATransform3DRotate(rightTransform,(M_PI/180*180), 0, 1, 0);
-            cell.personalDataLeftImage.layer.transform = leftTransform;
-            cell.personalDataMiddleImage.layer.transform = middleTransform;
-            cell.personalDataRightImage.layer.transform = rightTransform;
-        } completion:^(BOOL finished){
-            
-        }];
+        [Tools rotate360DegreeWithImageView:cell.personalDataLeftImage];
+        [Tools rotate360DegreeWithImageView:cell.personalDataMiddleImage];
+        [Tools rotate360DegreeWithImageView:cell.personalDataRightImage];
     }
     if (indexPath.section == 2) {
         //xy方向缩放的初始值为0.95

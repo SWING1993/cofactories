@@ -222,7 +222,6 @@
 		705B25671C09B31600CCA619 /* MangerOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 705B25661C09B31600CCA619 /* MangerOrderVC.m */; };
 		7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */; };
 		7094D7221BFC825200F7240B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D7211BFC825200F7240B /* WalletViewController.m */; };
-		70A784ED1C07EF79003D1892 /* SelectOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784EC1C07EF79003D1892 /* SelectOrder_VC.m */; };
 		70A784F01C081905003D1892 /* PublishOrder_Common_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784EF1C081905003D1892 /* PublishOrder_Common_VC.m */; };
 		70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F31C083390003D1892 /* Order_Common_TVC.m */; };
 		70A784F71C085C1A003D1892 /* PublishOrder_Designer_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F61C085C1A003D1892 /* PublishOrder_Designer_VC.m */; };
@@ -266,6 +265,7 @@
 		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
 		7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6DB64D1C05BB9D00BF396E /* 身份证.png */; };
 		7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */; };
+		7DA5E6981C0D4CDD00736C10 /* SelectOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA5E6971C0D4CDD00736C10 /* SelectOrder_VC.m */; };
 		7DE36D221C0809A70090BF5D /* PopularCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
 		7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */; };
@@ -702,8 +702,6 @@
 		7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTumblrMenuView.m; sourceTree = "<group>"; };
 		7094D7201BFC825200F7240B /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
 		7094D7211BFC825200F7240B /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
-		70A784EB1C07EF79003D1892 /* SelectOrder_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectOrder_VC.h; path = ../SelectOrder_VC.h; sourceTree = "<group>"; };
-		70A784EC1C07EF79003D1892 /* SelectOrder_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectOrder_VC.m; path = ../SelectOrder_VC.m; sourceTree = "<group>"; };
 		70A784EE1C081905003D1892 /* PublishOrder_Common_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishOrder_Common_VC.h; path = Cofactories/Controller/OrderViewController/PublishOrder_Common_VC.h; sourceTree = SOURCE_ROOT; };
 		70A784EF1C081905003D1892 /* PublishOrder_Common_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Common_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Common_VC.m; sourceTree = SOURCE_ROOT; };
 		70A784F21C083390003D1892 /* Order_Common_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order_Common_TVC.h; sourceTree = "<group>"; };
@@ -779,6 +777,8 @@
 		7D6DB64D1C05BB9D00BF396E /* 身份证.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "身份证.png"; sourceTree = "<group>"; };
 		7D9DDC9C1C07499500F26B1B /* ZGYSelectButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSelectButtonView.h; sourceTree = "<group>"; };
 		7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSelectButtonView.m; sourceTree = "<group>"; };
+		7DA5E6961C0D4CDD00736C10 /* SelectOrder_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectOrder_VC.h; path = Cofactories/Controller/OrderViewController/SelectOrder_VC.h; sourceTree = SOURCE_ROOT; };
+		7DA5E6971C0D4CDD00736C10 /* SelectOrder_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectOrder_VC.m; path = Cofactories/Controller/OrderViewController/SelectOrder_VC.m; sourceTree = SOURCE_ROOT; };
 		7DE36D201C0809A70090BF5D /* PopularCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularCollectionViewCell.h; sourceTree = "<group>"; };
 		7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularCollectionViewCell.m; sourceTree = "<group>"; };
 		7DE8C1911C043CA600E0917D /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
@@ -1851,8 +1851,8 @@
 		70FA60DE1C093EAD00EA84FD /* Publish */ = {
 			isa = PBXGroup;
 			children = (
-				70A784EB1C07EF79003D1892 /* SelectOrder_VC.h */,
-				70A784EC1C07EF79003D1892 /* SelectOrder_VC.m */,
+				7DA5E6961C0D4CDD00736C10 /* SelectOrder_VC.h */,
+				7DA5E6971C0D4CDD00736C10 /* SelectOrder_VC.m */,
 				70A784EE1C081905003D1892 /* PublishOrder_Common_VC.h */,
 				70A784EF1C081905003D1892 /* PublishOrder_Common_VC.m */,
 				70A784F51C085C1A003D1892 /* PublishOrder_Designer_VC.h */,
@@ -2249,7 +2249,6 @@
 				03571B9B1BE85B8200900EF9 /* MJPhoto.m in Sources */,
 				035CC5341C070BC600998FBD /* SystemSetViewController.m in Sources */,
 				032554A01BFDC26D003B2E76 /* tablleHeaderView.m in Sources */,
-				70A784ED1C07EF79003D1892 /* SelectOrder_VC.m in Sources */,
 				03FF44EC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				03571C011BE85C0800900EF9 /* UIButton+WebCache.m in Sources */,
 				03FF450E1BFEE74000D81DCE /* AFURLResponseSerialization.m in Sources */,
@@ -2324,9 +2323,9 @@
 				03571C8F1BE85D9C00900EF9 /* IQTextView.m in Sources */,
 				03FF45081BFEE74000D81DCE /* AFHTTPRequestOperationManager.m in Sources */,
 				7D665EA71C0C60EE00C7C7BF /* IMChatListViewController.m in Sources */,
+				7DA5E6981C0D4CDD00736C10 /* SelectOrder_VC.m in Sources */,
 				03571C901BE85D9C00900EF9 /* IQBarButtonItem.m in Sources */,
 				035CC52B1C06DCF000998FBD /* JKUtil.m in Sources */,
-				03927D811BEC8D090087A2FD /* IMChatViewController.m in Sources */,
 				70F5EF771C0BE159008878B4 /* SearchOrder_Designer_VC.m in Sources */,
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
