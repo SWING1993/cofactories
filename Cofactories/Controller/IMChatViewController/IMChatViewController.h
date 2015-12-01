@@ -1,13 +1,16 @@
 //
 //  IMChatViewController.h
-//  Cofactories
+//  cofactory-1.1
 //
-//  Created by 宋国华 on 15/11/6.
-//  Copyright © 2015年 宋国华. All rights reserved.
+//  Created by 赵广印 on 15/10/15.
+//  Copyright © 2015年 聚工科技. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <RongIMKit/RongIMKit.h>
 
-@interface IMChatViewController : UIViewController
+@interface IMChatViewController : RCConversationViewController
+
+
+
 
 @end

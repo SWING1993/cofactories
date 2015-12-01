@@ -53,8 +53,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+        
     self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     
     self.headBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -190,6 +189,11 @@
                 switch (indexPath.row) {
                     case 0:
                         cell.textLabel.text = @"相册";
+                        if ([self.MyProfile.photoArray count] == 0) {
+                            cell.detailTextLabel.text = @"暂无照片";
+                        }else {
+                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu张",(unsigned long)[self.MyProfile.photoArray count]];
+                        }
                         break;
                     default:
                         break;

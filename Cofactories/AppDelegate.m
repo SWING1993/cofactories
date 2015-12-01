@@ -29,6 +29,28 @@
     self.window = [[UIWindow alloc] initWithFrame:kScreenBounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
+    //初始化融云SDK。
+    [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY];
+    [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
+    /**
+     * 融云推送处理1
+     */
+    if ([application
+         respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings
+                                                settingsForTypes:(UIUserNotificationTypeBadge |
+                                                                  UIUserNotificationTypeSound |
+                                                                  UIUserNotificationTypeAlert)
+                                                categories:nil];
+        [application registerUserNotificationSettings:settings];
+    } else {
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge |
+        UIRemoteNotificationTypeAlert |
+        UIRemoteNotificationTypeSound;
+        [application registerForRemoteNotificationTypes:myTypes];
+    }
+
+    
     //关闭友盟bug检测
     [MobClick setCrashReportEnabled:NO];
     //开启腾讯Bugly
@@ -91,6 +113,9 @@
     [_window makeKeyAndVisible];
     return YES;
 }
+/**
+ * 融云推送处理2
+ */
 //注册用户通知设置
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
     // register to receive notifications
@@ -98,7 +123,21 @@
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+//    [HttpClient registerDeviceWithDeviceId:[NSString stringWithFormat:@"%@", deviceToken] andBlock:^(int statusCode) {
+//        DLog(@"deviceTokenStatus %d  deviceToken = %@", statusCode,deviceToken);
+//    }];
     [UMessage registerDeviceToken:deviceToken];
+    /**
+     * 融云推送处理3
+     */
+    NSString *token =[[[[deviceToken description] stringByReplacingOccurrencesOfString:@"<"
+                                                                            withString:@""]
+                       stringByReplacingOccurrencesOfString:@">"
+                       withString:@""]
+                      stringByReplacingOccurrencesOfString:@" "
+                      withString:@""];
+    
+    [[RCIMClient sharedRCIMClient] setDeviceToken:token];
 }
 - (void)didReceiveMessageNotification:(NSNotification *)notification {
     [UIApplication sharedApplication].applicationIconBadgeNumber =
@@ -128,6 +167,25 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+#pragma mark - RCIMConnectionStatusDelegate
+
+/**
+ *  IM登陆状态
+ *
+ *  @param status 网络状态。
+ */
+- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
+    if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"提示"
+                              message:@"您"
+                              @"的帐号在别的设备上登录，您被迫下线！"
+                              delegate:nil
+                              cancelButtonTitle:@"知道了"
+                              otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 /**

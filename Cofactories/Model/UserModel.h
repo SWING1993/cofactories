@@ -55,6 +55,8 @@ typedef NS_ENUM(NSInteger, UserType) {
 @property (nonatomic, retain) NSString *verifyCreatedAt;
 @property (nonatomic, retain) NSString *verifyUpdatedAt;
 
+@property (nonatomic, copy)   NSArray  *scaleArr;
+
 
 - (instancetype)getMyProfile;
 + (void)removeMyProfile;

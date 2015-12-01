@@ -85,7 +85,7 @@
  @param inviteCode 邀请码
 
  */
-+ (void)registerWithInviteCode:(NSString *)inviteCode andBlock:(void (^)(NSDictionary *responseDictionary))block;
++ (void)registerWithInviteCode:(NSString *)inviteCode andBlock:(void (^)(NSInteger statusCode))block;
 
 /*!
  重置密码
@@ -101,7 +101,7 @@
  @param newPassword 新密码
  @param block       回调函数 会返回 0->(网络错误) 200->(成功) 403->(旧密码错误) 404->(access_token不存在)
  */
-+ (void)modifyPassword:(NSString *)password newPassword:(NSString *)newPassword andBlock:(void (^)(NSInteger statusCode))block;
++ (void)changePassword:(NSString *)oldPassword newPassword:(NSString *)newPassword andBlock:(void (^)(NSInteger statusCode))block;
 
 
 /*!
@@ -279,5 +279,9 @@
 
 + (void)uploadPhotoWithPhoto:(UIImage *)photo WithPolicy:(NSString *)policy WithSignature:(NSString *)signature andBlock:(void (^)(NSInteger))block;
 
+/**
+ *获取融云的Token
+ */
 
++ (void)getIMTokenWithBlock:(void (^)(NSDictionary *))block;
 @end

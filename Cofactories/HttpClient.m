@@ -28,8 +28,9 @@
 #define API_checkCode @"/user/checkCode" //检查短信验证码
 #define API_register @"/user/register" //注册
 #define API_login @"/user/login" //登录
-#define API_reset @"/user/reset"
-#define API_modifyPassword @"/user/password"
+#define API_reset @"/user/reset" //重置密码
+#define API_changePassword @"/user/changePassword" //修改密码
+#define API_inviteCode @"/user/inviteCode" //邀请码
 #define API_wallet @"/user/wallet"
 #define API_verify @"/user/verify"
 #define API_userProfile @"/user/profile"
@@ -53,6 +54,8 @@
 #define API_Search_Supplier_Order @"/order/supplier/search"
 #define API_Search_Factory_Order  @"/order/factory/search"
 #define API_Search_Design_Order   @"/order/design/search"
+
+#define API_GetIMToken @"/im/token"//获取融云token
 
 @implementation HttpClient
 
@@ -130,7 +133,7 @@
                 break;
                 
             default:
-                block(@{@"statusCode": @(0), @"message": @"网络错误!"});
+                block(@{@"statusCode": @(statusCode), @"message": @"注册错误!"});
                 break;
         }
     }];
@@ -323,7 +326,7 @@
 
 
 //发送邀请码
-+ (void)registerWithInviteCode:(NSString *)inviteCode andBlock:(void (^)(NSDictionary *responseDictionary))block {
++ (void)registerWithInviteCode:(NSString *)inviteCode andBlock:(void (^)(NSInteger))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -337,10 +340,10 @@
         
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager POST:API_userProfile parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            block (responseObject);
+        [manager PUT:API_inviteCode parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            block (200);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            //            block (error);
+            block ([operation.response statusCode]);
         }];
     } else {
         DLog(@"else");
@@ -368,8 +371,8 @@
 }
 
 //修改密码
-+ (void)modifyPassword:(NSString *)password newPassword:(NSString *)newPassword andBlock:(void (^)(NSInteger))block {
-    NSParameterAssert(password);
++ (void)changePassword:(NSString *)oldPassword newPassword:(NSString *)newPassword andBlock:(void (^)(NSInteger))block {
+    NSParameterAssert(oldPassword);
     NSParameterAssert(newPassword);
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
@@ -377,10 +380,13 @@
     if (credential) {
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager POST:API_modifyPassword parameters:@{@"password": password, @"newPassword": newPassword} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager PUT:API_changePassword parameters:@{@"oldPassword": oldPassword, @"newPassword": newPassword} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             block(200);
+            DLog(@"200");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             block([operation.response statusCode]);
+            DLog(@"%ld",[operation.response statusCode]);
+
         }];
     }
 }
@@ -1566,6 +1572,37 @@
     upYun1.expiresIn = 600;// 10分钟
     [upYun1 uploadImage:photo policy:policy signature:signature];
     block(200);
+}
++ (void)getIMTokenWithBlock:(void (^)(NSDictionary *))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        
+        [manager GET:API_GetIMToken parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSString *token = responseObject[@"data"][@"token"];
+            block(@{@"statusCode": @([operation.response statusCode]), @"IMToken": token});
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            switch ([operation.response statusCode]) {
+                case 400:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
+                    break;
+                case 401:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
+                    break;
+                    
+                default:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
+                    break;
+            }
+        }];
+    } else {
+        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
+    }
+    
+    
 }
 
 @end

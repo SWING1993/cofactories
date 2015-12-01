@@ -45,7 +45,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     layout.minimumInteritemSpacing = 2.0;
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH-64-44) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:kScreenBounds collectionViewLayout:layout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;

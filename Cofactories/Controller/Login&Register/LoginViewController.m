@@ -117,7 +117,6 @@
                         case 0:{
                             [button setEnabled:YES];
                             kTipAlert(@"您的网络状态不太顺畅哦！");
-                            
                         }
                             break;
                         case 200:{
@@ -135,7 +134,7 @@
                             
                         default:
                             [button setEnabled:YES];
-                            kTipAlert(@"您的网络状态不太顺畅哦！");
+                            kTipAlert(@"登录失败！(错误码：%ld)",(long)statusCode);
                             break;
                     }
                 }];

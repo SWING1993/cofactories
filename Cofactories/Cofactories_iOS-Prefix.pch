@@ -150,6 +150,10 @@
 #import "UIButton+WebCache.h"//SDWebImage
 #import "UIImageView+WebCache.h"//SDWebImage
 
+//融云IM
+#import <RongIMKit/RongIMKit.h>
+#define RONGCLOUD_IM_APPKEY @"pwe86ga5edfp6"
+
 #pragma mark - 日志开关
 /*!
  DLog

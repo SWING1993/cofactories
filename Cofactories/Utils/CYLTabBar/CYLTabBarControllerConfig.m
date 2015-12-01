@@ -10,7 +10,7 @@
 
 //View Controllers
 #import "HomeViewController.h"
-#import "IMChatViewController.h"
+#import "IMChatListViewController.h"
 #import "MeViewController.h"
 #import "WalletViewController.h"
 
@@ -38,7 +38,8 @@
         UIViewController *secondNavigationController = [[UINavigationController alloc]
                                                         initWithRootViewController:secondViewController];
         
-        IMChatViewController *thirdViewController = [[IMChatViewController alloc] init];
+//        IMChatViewController *thirdViewController = [[IMChatViewController alloc] init];
+        IMChatListViewController *thirdViewController = [[IMChatListViewController alloc] initWithDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP),@(ConversationType_SYSTEM)] collectionConversationType:@[@(ConversationType_DISCUSSION)]];
         UIViewController *thirdNavigationController = [[UINavigationController alloc]
                                                        initWithRootViewController:thirdViewController];
         

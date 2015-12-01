@@ -71,7 +71,7 @@
         UIAlertView*alertView = [[UIAlertView alloc]initWithTitle:@"密码不能为空" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alertView show];
     }else{
-        [HttpClient modifyPassword:oldPasswordTF.text newPassword:passwordTF.text andBlock:^(NSInteger statusCode) {
+        [HttpClient changePassword:oldPasswordTF.text newPassword:passwordTF.text andBlock:^(NSInteger statusCode) {
             switch (statusCode) {
                 case 200:
                 {
@@ -85,8 +85,10 @@
                     break;
                     
                 default:
+                    kTipAlert(@"修改失败，尝试重新修改！(错误码：%ld)",(long)statusCode);
                     break;
             }
+
         }];
     }
 }

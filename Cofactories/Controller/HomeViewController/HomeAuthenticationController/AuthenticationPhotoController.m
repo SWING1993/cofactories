@@ -121,7 +121,7 @@
 - (void)actionOfDoneButton:(UIButton *)button {
     DLog(@"提交认证");
     [HttpClient postVerifyWithenterpriseName:self.priseName withenterpriseAddress:self.priseAddress withpersonName:self.personName withidCard:self.idCard idCardImage:[self.idCardImageArray lastObject] idCardBackImage:[self.idCardBackImageArray lastObject] licenseImage:[self.licenseImageArray lastObject] andBlock:^(NSInteger statusCode) {
-        if (statusCode == 2000) {
+        if (statusCode == 200) {
             kTipAlert(@"提交认证成功");
         }
         DLog(@"%ld", statusCode);

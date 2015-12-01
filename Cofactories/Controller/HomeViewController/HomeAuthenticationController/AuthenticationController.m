@@ -140,15 +140,6 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     photoVC.personName = personNameTextField.text;
     photoVC.idCard = idCardTextField.text;
     [self.navigationController pushViewController:photoVC animated:YES];
-//    [HttpClient postVerifyWithenterpriseName:priseNameTextField.text withpersonName:personNameTextField.text withidCard:idCardTextField.text withenterpriseAddress:priseAddressTextField.text andBlock:^(NSInteger statusCode) {
-//            DLog(@"%ld", (long)statusCode);
-//        if (statusCode == 200) {
-//            DLog(@"上传资料成功");
-//        } else {
-//            DLog(@"上传资料失败");
-//        }
-//    }];
-    
     NSLog(@"%@， %@， %@， %@", priseNameTextField.text, priseAddressTextField.text, personNameTextField.text, idCardTextField.text);
     
 }
