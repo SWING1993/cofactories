@@ -32,7 +32,9 @@ static NSString *activityCellIdentifier = @"activityCell";
 @implementation HomeViewController
 
 - (void)viewDidAppear:(BOOL)animated {
-
+    //设置代理（融云）
+    [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
         
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
@@ -56,14 +58,55 @@ static NSString *activityCellIdentifier = @"activityCell";
     
     
 }
+#pragma mark - RCIMUserInfoDataSource
+
+//获取IM用户信息
+- (void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
+    //解析工厂信息
+//    [HttpClient getUserProfileWithUid:[userId intValue] andBlock:^(NSDictionary *responseDictionary) {
+//        FactoryModel *userModel1 = (FactoryModel *)responseDictionary[@"model"];
+//        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (intm 64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        RCUserInfo *user = [[RCUserInfo alloc]init];
+//        user.userId = userId;
+//        user.name = userModel1.factoryName;
+//        user.portraitUri = [NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,userId];
+//        return completion(user);
+//        //        });
+//    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-
     //个人信息
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
     }];
+
+    //获取融云的token
+    [HttpClient getIMTokenWithBlock:^(NSDictionary *responseDictionary) {
+        NSInteger statusCode = [responseDictionary[@"statusCode"]integerValue];
+        DLog(@"融云====%ld", (long)statusCode);
+        if (statusCode == 200) {
+            NSString *token = responseDictionary[@"IMToken"];
+            DLog(@"融云token====%@", token);
+            
+            // 快速集成第二步，连接融云服务器
+            [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
+                [self updateBadgeValueForTabBarItem];
+                // Connect 成功
+                DLog(@" Connect 成功");
+            }
+                                          error:^(RCConnectErrorCode status) {
+                                              // Connect 失败
+                                              DLog(@" Connect 失败")
+                                          }
+                                 tokenIncorrect:^() {
+                                     // Token 失效的状态处理
+                                      DLog(@" Connect Token失效")
+                                 }];
+        }
+    }];
+    
+
     
     arr = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流", ];
     [self creatTableView];
@@ -108,19 +151,38 @@ static NSString *activityCellIdentifier = @"activityCell";
          HomePersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:personalDataCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;//去掉选中背景色
         cell.personalDataLeftImage.image = [UIImage imageNamed:@"2.jpg"];
-        
         cell.personNameLabel.text = self.MyProfile.name;
-      
-        cell.personStatusLabel.text = @"注册用户";
+        //用户类型
+        if ([self.MyProfile.verified isEqualToString:@"尚未填写"] || [self.MyProfile.verified isEqualToString:@"0"]) {
+            cell.personStatusLabel.text = @"注册用户";
+        } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
+            cell.personStatusLabel.text = @"认证用户";
+        }
+        //钱包余额
         cell.personWalletLeft.text = @"余额：0元";
-//        cell.personAddressLabel.text = self.MyProfile.address;
+        
+        //用户身份
+        if (self.MyProfile.UserType == UserType_designer) {
+            cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-设计者"];
+        } else if (self.MyProfile.UserType == UserType_clothing) {
+            cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服装企业"];
+        } else if (self.MyProfile.UserType == UserType_processing) {
+            cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-加工企业"];
+        } else if (self.MyProfile.UserType == UserType_supplier) {
+            cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-供应商"];
+        } else if (self.MyProfile.UserType == UserType_facilitator) {
+            cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服务商"];
+        }
+        //地址
         if ([self.MyProfile.address isEqualToString:@"尚未填写"] || self.MyProfile.address.length == 0) {
             [cell.personAddressButton setTitle:@"地址暂无，点击完善资料" forState: UIControlStateNormal];
             [cell.personAddressButton addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
         } else {
             [cell.personAddressButton setTitle:self.MyProfile.address forState: UIControlStateNormal];
         }
+        
         [cell.authenticationButton addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
+        //认证状态
         if (verifyModel.status == 0) {
             cell.authenticationLabel.text = @"前往认证";
         }
@@ -256,6 +318,38 @@ static NSString *activityCellIdentifier = @"activityCell";
     setVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:setVC animated:YES];
 }
+
+#pragma mark - Action
+- (void)updateBadgeValueForTabBarItem {
+    __weak typeof(self) IMSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        int count = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
+        if (count>0) {
+            IMSelf.tabBarController.viewControllers[2].tabBarItem.badgeValue = [[NSString alloc]initWithFormat:@"%d",count];
+        } else {
+            IMSelf.tabBarController.viewControllers[2].tabBarItem.badgeValue = nil;
+        }
+        
+    });
+}
+#pragma mark - RCIMReceiveMessageDelegate
+//必须要写在这里，不能写在通话列表里
+-(void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left {
+    DLog(@"=============================");
+    __weak typeof(self) IMSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        int messageCount = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
+        if (messageCount>0) {
+            IMSelf.tabBarController.viewControllers[2].tabBarItem.badgeValue = [[NSString alloc]initWithFormat:@"%d",messageCount];
+        } else {
+            IMSelf.tabBarController.viewControllers[2].tabBarItem.badgeValue = nil;
+        }
+    });
+    
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

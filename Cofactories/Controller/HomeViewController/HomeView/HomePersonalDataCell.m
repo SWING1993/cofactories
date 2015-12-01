@@ -52,11 +52,10 @@
         self.personStyleLabel.text = @"个人身份";
         self.personStyleLabel.textColor = [UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
         [self addSubview:self.personStyleLabel];
-        self.personalDataMiddleImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW/2 + 10*kZGY, CGRectGetMaxY(self.personStyleLabel.frame) + 10*kZGY, kScreenW/4 - 20*kZGY, 30*kZGY)];
-        self.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-设计者"];
+        self.personalDataMiddleImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW/2 + 20*kZGY, CGRectGetMaxY(self.personStyleLabel.frame) + 15*kZGY, kScreenW/4 - 40*kZGY, 18*kZGY)];
         [self addSubview:self.personalDataMiddleImage];
         
-        self.personalDataRightImage = [[UIImageView alloc] initWithFrame:CGRectMake(3*kScreenW/4 + 25*kZGY, 20*kZGY, kScreenW/4 - 50*kZGY, 40*kZGY)];
+        self.personalDataRightImage = [[UIImageView alloc] initWithFrame:CGRectMake(3*kScreenW/4 + 30*kZGY, 20*kZGY, kScreenW/4 - 60*kZGY, 40*kZGY)];
         
         self.personalDataRightImage.image = [UIImage imageNamed:@"Home-聚"];
         [self addSubview:self.personalDataRightImage];
