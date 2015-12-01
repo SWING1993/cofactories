@@ -12,7 +12,7 @@
 #import "HomePersonalDataCell.h"
 #import "HomeActivityCell.h"
 #import "WKFCircularSlidingView.h"
-@interface HomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, HomeMarketCellDelegate, WKFCircularSlidingViewDelegate>
+@interface HomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, HomeMarketCellDelegate, WKFCircularSlidingViewDelegate, RCIMUserInfoDataSource, RCIMReceiveMessageDelegate>
 @property (nonatomic, strong) UITableView *homeTableView;
 
 @end

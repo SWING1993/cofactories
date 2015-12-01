@@ -253,5 +253,9 @@
 
 + (void)uploadPhotoWithPhoto:(UIImage *)photo WithPolicy:(NSString *)policy WithSignature:(NSString *)signature andBlock:(void (^)(NSInteger))block;
 
+/**
+ *获取融云的Token
+ */
 
++ (void)getIMTokenWithBlock:(void (^)(NSDictionary *))block;
 @end
