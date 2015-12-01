@@ -82,7 +82,7 @@ ALAssetsFilter * ALAssetsFilterFromJKImagePickerControllerFilterType(JKImagePick
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-//    self.navigationController.navigationBar.tintColor=[UIColor blackColor];
+    self.navigationController.navigationBar.tintColor=[UIColor blackColor];
     [self setUpProperties];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
@@ -117,8 +117,8 @@ ALAssetsFilter * ALAssetsFilterFromJKImagePickerControllerFilterType(JKImagePick
     preBtn.frame = CGRectMake(0, 0, 50, 30);
     [preBtn setTitle:@"预览" forState:UIControlStateNormal];
     [preBtn setTitleColor:[UIColor colorWithHexString:@"0x3bbc79"] forState:UIControlStateNormal];
-    [preBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [preBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    [preBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [preBtn setTitleColor:[UIColor blackColor] forState:UIControlStateDisabled];
     [preBtn addTarget:self action:@selector(previewPhotoesSelected) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *preItem = [[UIBarButtonItem alloc] initWithCustomView:preBtn];
     [self.navigationItem setRightBarButtonItem:preItem animated:NO];
@@ -427,7 +427,7 @@ ALAssetsFilter * ALAssetsFilterFromJKImagePickerControllerFilterType(JKImagePick
         cancelBtn.frame = CGRectMake(0, 0, 50, 30);
         [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         [cancelBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-        [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [cancelBtn setTitleColor:[UIColor colorWithHexString:@"0x3bbc79"] forState:UIControlStateHighlighted];
         [cancelBtn addTarget:self action:@selector(cancelEventDidTouched) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
