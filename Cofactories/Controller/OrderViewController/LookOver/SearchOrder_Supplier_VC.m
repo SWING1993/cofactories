@@ -7,25 +7,24 @@
 //
 
 #import "SearchOrder_Supplier_VC.h"
+#import "Order_Supplier_TVC.h"
+#import "OrderPhotoViewController.h"
+#import "SupplierOrderDetail_VC.h"
 
 @interface SearchOrder_Supplier_VC ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>{
     UITableView     *_tableView;
-    CALayer         *_lineLayer;
+    UILabel         *_lineLB;
     NSMutableArray  *_buttonArray;
+    NSMutableArray  *_dataArray;
+
 }
+@property (nonatomic,copy)NSString  *oderKeywordString;
+@property (nonatomic,copy)NSString  *oderTypeString;
 
 @end
 static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 @implementation SearchOrder_Supplier_VC
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [HttpClient searchSupplierOrderWithKeyword:@"" type:@"" WithCompletionBlock:^(NSDictionary *dictionary) {
-        DLog(@"%@",dictionary);
-        [_tableView reloadData];
-    }];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,8 +32,41 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     
     _buttonArray = [@[] mutableCopy];
+    _dataArray = [@[] mutableCopy];
+    [HttpClient searchSupplierOrderWithKeyword:nil type:nil pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+        DLog(@"%@",dictionary);
+        _dataArray = dictionary[@"message"];
+        [_tableView reloadData];
+
+    }];
+    [self initSelectView];
     [self customSearchBar];
     [self initTableView];
+}
+
+- (void)initSelectView{
+    NSArray *array = @[@"不限",@"面料",@"辅料",@"机械设备"];
+    for (int i = 0; i<4; i++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(i*(kScreenW/4.f), 64, kScreenW/4.f, 42);
+        [button setTitle:array[i] forState:UIControlStateNormal];
+        button.tag = i+1;
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        [button addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:button];
+        if (i==0) {
+            [button setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
+            [_buttonArray removeAllObjects];
+            [_buttonArray addObject:button];
+        }else{
+            [button setTitleColor:[UIColor brownColor] forState:UIControlStateNormal];
+        }
+    }
+    
+    _lineLB = [UILabel new];
+    _lineLB.backgroundColor = MAIN_COLOR;
+    _lineLB.frame = CGRectMake(0, 42+64, kScreenW/4.f, 2);
+    [self.view addSubview:_lineLB];
 }
 
 #pragma mark - 关键字搜索
@@ -55,6 +87,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
+    
+    _oderKeywordString = searchBar.text;
+    _oderTypeString = nil;
+    
+    [HttpClient searchSupplierOrderWithKeyword:_oderKeywordString type:_oderTypeString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+        DLog(@"%@",dictionary);
+        _dataArray = dictionary[@"message"];
+        [_tableView reloadData];
+    }];
 }
 
 
@@ -67,104 +108,131 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 #pragma mark - 表
 
 - (void)initTableView{
-    _tableView = [[UITableView alloc] initWithFrame:kScreenBounds style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64+44, kScreenW, kScreenH-64-44) style:UITableViewStylePlain];
     _tableView.delegate =self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+    _tableView.rowHeight = 100;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_tableView registerClass:[Order_Supplier_TVC class] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:_tableView];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 100;
+    return _dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    
+    Order_Supplier_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    SupplierOrderModel *model = _dataArray[indexPath.row];
+    [cell laoutWithDataModel:model];
+    cell.imageButton.tag = indexPath.row+1;
+    [cell.imageButton addTarget:self action:@selector(imageDetailClick:) forControlEvents:UIControlEventTouchUpInside];
+
     return  cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 44;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    SupplierOrderModel *model = _dataArray[indexPath.row];
+    
+    SupplierOrderDetail_VC *vc = [SupplierOrderDetail_VC new];
+    
+    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+    backItem.title=@"返回";
+    backItem.tintColor=[UIColor whiteColor];
+    self.navigationItem.backBarButtonItem = backItem;
+    //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+    [HttpClient getSupplierOrderDetailWithID:model.ID WithCompletionBlock:^(NSDictionary *dictionary) {
+        SupplierOrderModel *dataModel = [SupplierOrderModel getSupplierOrderModelWithDictionary:dictionary];
+        vc.dataModel = dataModel;
+        
+        [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
+            OthersUserModel *model = dictionary[@"message"];
+            vc.otherUserModel = model;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }];
+    }];
+    
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44)];
-    view.backgroundColor = [UIColor grayColor];
-    
-    NSArray *array = @[@"不限",@"面料",@"辅料",@"机械设备"];
-    for (int i = 0; i<4; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(i*(kScreenW/4.f), 0, kScreenW/4.f, 42);
-        [button setTitle:array[i] forState:UIControlStateNormal];
-        button.tag = i+1;
-        [button addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchUpInside];
-        [view addSubview:button];
-        if (i==0) {
-            [button setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
-            [_buttonArray addObject:button];
-        }
+- (void)imageDetailClick:(id)sender{
+    UIButton *button = (UIButton *)sender;
+    NSInteger index = button.tag-1;
+    FactoryOrderMOdel *model = _dataArray[index];
+    if (model.photoArray.count == 0) {
+        kTipAlert(@"用户未上传图片");
+    }else{
+        OrderPhotoViewController *vc = [[OrderPhotoViewController alloc] initWithPhotoArray:model.photoArray];
+        vc.titleString = @"订单图片";
+        [self.navigationController pushViewController:vc animated:YES];
     }
-    
-    if (!_lineLayer) {
-        _lineLayer = [CALayer layer];
-        _lineLayer.backgroundColor = MAIN_COLOR.CGColor;
-        _lineLayer.frame = CGRectMake(0, 42, kScreenW/4.f, 2);
-        [view.layer addSublayer:_lineLayer];
-    }
-    
-    return view;
 }
 
 - (void)typeClick:(id)sender{
     UIButton *button = (UIButton *)sender;
     
-    UIButton *lastButton = [_buttonArray firstObject];
-    [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    UIButton *lastButton = _buttonArray[0] ;
+    [lastButton setTitleColor:[UIColor brownColor] forState:UIControlStateNormal];
     
     [button setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
     [_buttonArray removeAllObjects];
     [_buttonArray addObject:button];
     
-    [UIView animateWithDuration:1.f animations:^{
-        _lineLayer.frame = CGRectMake(button.frame.origin.x, 42, kScreenW/4.f, 2);
+    [UIView animateWithDuration:0.2f animations:^{
+        _lineLB.frame = CGRectMake(button.frame.origin.x, 42+64, kScreenW/4.f, 2);
     }];
     
+    
+    _oderKeywordString = nil;
     switch (button.tag) {
         case 1:
         {
-            [HttpClient searchSupplierOrderWithKeyword:@"" type:@"" WithCompletionBlock:^(NSDictionary *dictionary) {
+            _oderTypeString = nil;
+            [HttpClient searchSupplierOrderWithKeyword:_oderKeywordString type:_oderTypeString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
                 DLog(@"%@",dictionary);
+                _dataArray = dictionary[@"message"];
                 [_tableView reloadData];
             }];
+
         }
             break;
             
         case 2:
         {
-            [HttpClient searchSupplierOrderWithKeyword:@"" type:@"fabric" WithCompletionBlock:^(NSDictionary *dictionary) {
+            _oderTypeString = @"fabric";
+            [HttpClient searchSupplierOrderWithKeyword:_oderKeywordString type:_oderTypeString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
                 DLog(@"%@",dictionary);
+                _dataArray = dictionary[@"message"];
                 [_tableView reloadData];
             }];
+
         }
             break;
             
         case 3:
         {
-            [HttpClient searchSupplierOrderWithKeyword:@"" type:@"accessory" WithCompletionBlock:^(NSDictionary *dictionary) {
+            _oderTypeString = @"accessory";
+            [HttpClient searchSupplierOrderWithKeyword:_oderKeywordString type:_oderTypeString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
                 DLog(@"%@",dictionary);
+                _dataArray = dictionary[@"message"];
                 [_tableView reloadData];
             }];
+
         }
             break;
             
         case 4:
         {
-            [HttpClient searchSupplierOrderWithKeyword:@"" type:@"machine" WithCompletionBlock:^(NSDictionary *dictionary) {
+            _oderTypeString = @"machine";
+            [HttpClient searchSupplierOrderWithKeyword:_oderKeywordString type:_oderTypeString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
                 DLog(@"%@",dictionary);
+                _dataArray = dictionary[@"message"];
                 [_tableView reloadData];
             }];
+
+            
         }
             
             break;

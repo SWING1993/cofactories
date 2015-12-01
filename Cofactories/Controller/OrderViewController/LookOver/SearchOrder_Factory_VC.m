@@ -21,7 +21,7 @@
     NSArray         *_workingTimeArray;
     NSMutableArray  *_dataArray;
     int              _refrushCount;
-
+    
 }
 
 @property (nonatomic,copy)NSString  *oderKeywordString;
@@ -36,7 +36,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-   
+    
 }
 
 - (void)viewDidLoad {
@@ -51,7 +51,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _dropDownMenu.delegate = self;
     _dropDownMenu.dataSource = self;
     [self.view addSubview:_dropDownMenu];
-
+    
     [self customSearchBar];
     [self initTableView];
     
@@ -61,10 +61,10 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         _dataArray = dictionary[@"message"];
         [_tableView reloadData];
     }];
-
+    
     _refrushCount = 1;
     [self setupRefresh];
-
+    
 }
 
 - (void)setupRefresh
@@ -89,7 +89,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             [_dataArray addObject:model];
         }
         [_tableView reloadData];
-
+        
     }];
     [_tableView footerEndRefreshing];
 }
@@ -118,7 +118,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _orderDeadlineArray = nil;
     _orderAmountArray = nil;
     _refrushCount = 1;
-
+    
     [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineArray pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
         DLog(@"%@",dictionary);
         _dataArray = dictionary[@"message"];
@@ -162,7 +162,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     FactoryOrderMOdel *model = _dataArray[indexPath.row];
     
-   
     FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
     
     UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
@@ -174,7 +173,13 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [HttpClient getFactoryOrderDetailWithID:model.ID WithCompletionBlock:^(NSDictionary *dictionary) {
         FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
         vc.dataModel = dataModel;
-        [self.navigationController pushViewController:vc animated:YES];
+        
+        [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
+            OthersUserModel *model = dictionary[@"message"];
+            vc.otherUserModel = model;
+            [self.navigationController pushViewController:vc animated:YES];
+               
+        }];
     }];
     
 }
@@ -190,7 +195,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         vc.titleString = @"订单图片";
         [self.navigationController pushViewController:vc animated:YES];
     }
-
+    
 }
 
 #pragma mark - 选择器
@@ -247,7 +252,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 case 2:
                     _orderTypeString = @"其他";
                     break;
-
+                    
                 default:
                     break;
             }
@@ -260,11 +265,11 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 case 1:
                     _orderAmountArray = @[@"0",@"500"];
                     break;
-
+                    
                 case 2:
                     _orderAmountArray = @[@"501",@"1000"];
                     break;
-
+                    
                 case 3:
                     _orderAmountArray = @[@"1001",@"2000"];
                     break;
@@ -274,7 +279,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 case 5:
                     _orderAmountArray = @[@"5001",@"500000000"];
                     break;
-
+                    
                 default:
                     break;
             }
@@ -306,7 +311,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     DLog(@"%@,%@,%@",_orderTypeString,_orderAmountArray,_orderDeadlineArray);
     _oderKeywordString = nil;
     _refrushCount = 1;
-
+    
     [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineArray pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
         DLog(@"%@",dictionary);
         _dataArray = dictionary[@"message"];

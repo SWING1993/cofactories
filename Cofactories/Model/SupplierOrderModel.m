@@ -28,7 +28,9 @@
         self.ID = dictionary[@"id"];
         self.name = dictionary[@"name"];
         self.photoArray = dictionary[@"photo"];
-        self.status = dictionary[@"status"];
+        
+        NSString *statusString = [NSString stringWithFormat:@"%@",dictionary[@"status"]];
+        self.status = statusString;
         
         NSString *typeString = [NSString stringWithFormat:@"%@",dictionary[@"type"]];
         if ([typeString isEqualToString:@"fabric"]) {
@@ -42,7 +44,7 @@
         }
         
         self.unit = dictionary[@"unit"];
-        self.userUid = dictionary[@"userUid"];
+        self.userUid = [NSString stringWithFormat:@"%@",dictionary[@"userUid"]];
     }
     return self;
 }

@@ -619,6 +619,29 @@
     }];
 }
 
+// 获取他人信息
++ (void)getOtherIndevidualsInformationWithUserID:(NSString *)userID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/user/profile/",userID];
+        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+              //DLog(@"responseObject == %@",responseObject);
+            OthersUserModel *model = [[OthersUserModel alloc] initWithDictionary:responseObject];
+            completionBlock(@{@"statusCode":@200,@"message":model});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+}
+
 
 // 发布机械设备（市场）
 + (void)publishMachineWithName:(NSString *)aName type:(NSString *)aType price:(NSString *)aPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
@@ -1138,7 +1161,7 @@
 }
 
 // 搜索供应商订单
-+ (void)searchSupplierOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)searchSupplierOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType pageCount:(NSNumber *)aPageCount WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
     if (credential) {
@@ -1149,24 +1172,21 @@
         if (aType) {
             [parametersDictionary setObject:aType forKeyedSubscript:@"type"];
         }
+        if (aPageCount) {
+            [parametersDictionary setObject:aPageCount forKeyedSubscript:@"page"];
+        }
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager GET:API_Search_Supplier_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             DLog(@"responseObject == %@",responseObject);
-//            completionBlock(@{@"statusCode": @"200", @"message":responseObject});
-//            NSArray *responseArray = (NSArray *)responseObject;
-//            NSMutableArray *array = [@[] mutableCopy];
-//            
-//            [responseArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                NSString *idString = [NSString stringWithFormat:@"%@",obj[@"id"]];
-//                [self getSupplierOrderDetailWithID:idString WithCompletionBlock:^(NSDictionary *dictionary) {
-//                    SupplierOrderModel *model = [SupplierOrderModel getSupplierOrderModelWithDictionary:dictionary];
-//                    [array addObject:model];
-//                }];
-//                if (idx == responseArray.count-1) {
-//                completionBlock(@{@"statusCode": @"200", @"message":array});
-//                }
-//            }];
+            NSArray *responseArray = (NSArray *)responseObject;
+            NSMutableArray *array = [@[] mutableCopy];
+            [responseArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary *dictionary = (NSDictionary *)obj;
+                SupplierOrderModel *model = [SupplierOrderModel getSupplierOrderModelWithDictionary:dictionary];
+                [array addObject:model];
+            }];
+            completionBlock(@{@"statusCode": @"200", @"message":array});
             
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
@@ -1222,13 +1242,16 @@
 }
 
 // 搜索设计商订单
-+ (void)searchDesignOrderWithKeyword:(NSString *)aKeyword WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)searchDesignOrderWithKeyword:(NSString *)aKeyword pageCount:(NSNumber *)aPageCount WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
     if (credential) {
         NSMutableDictionary * parametersDictionary = [@{} mutableCopy];
         if (aKeyword) {
             [parametersDictionary setObject:aKeyword forKeyedSubscript:@"keyword"];
+        }
+        if (aPageCount) {
+            [parametersDictionary setObject:aPageCount forKeyedSubscript:@"page"];
         }
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
@@ -1298,6 +1321,149 @@
         [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             DLog(@"responseObject == %@",responseObject);
             completionBlock(responseObject);
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+}
+
+// 投标工厂订单
++ (void)bidFactoryOrderWithDiscription:(NSString *)aDiscription orderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        NSMutableDictionary * parametersDictionary = [@{} mutableCopy];
+        if (aDiscription) {
+            [parametersDictionary setObject:aDiscription forKeyedSubscript:@"description"];
+        }
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/bid/",aOrderID];
+        [manager POST:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @"200", @"message":responseObject});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+}
+
+// 投标供应商订单
++ (void)bidSupplierOrderWithPrice:(NSString *)aPrice source:(NSString *)aSource discription:(NSString *)aDiscription orderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        NSMutableDictionary * parametersDictionary = [@{} mutableCopy];
+        if (aDiscription) {
+            [parametersDictionary setObject:aDiscription forKeyedSubscript:@"description"];
+        }
+        if (aPrice) {
+            [parametersDictionary setObject:aPrice forKeyedSubscript:@"price"];
+        }
+        if (aSource) {
+            [parametersDictionary setObject:aSource forKeyedSubscript:@"source"];
+        }
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/supplier/bid/",aOrderID];
+        [manager POST:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            DLog(@"responseObject == %@",responseObject);
+            completionBlock(responseObject);
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+}
+
+// 投标设计订单
++ (void)bidDesignerOrderWithDiscription:(NSString *)aDiscription orderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        NSMutableDictionary * parametersDictionary = [@{} mutableCopy];
+        if (aDiscription) {
+            [parametersDictionary setObject:aDiscription forKeyedSubscript:@"description"];
+        }
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/design/bid/",aOrderID];
+        [manager POST:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            DLog(@"responseObject == %@",responseObject);
+            completionBlock(responseObject);
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+}
+
+// 获取供应订单竞标用户
++ (void)getSupplierOrderBidUserAmountWithOrderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/supplier/bid/",aOrderID];
+        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @(200), @"message": responseObject});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+}
+
+// 获取工厂订单竞标用户
++ (void)getFactoryOrderBidUserAmountWithOrderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/bid/",aOrderID];
+        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+           // DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @(200), @"message": responseObject});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+}
+
+// 获取设计订单竞标用户
++ (void)getDesignerOrderBidUserAmountWithOrderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/design/bid/",aOrderID];
+        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @(200), @"message": responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];

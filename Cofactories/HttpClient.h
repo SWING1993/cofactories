@@ -11,6 +11,7 @@
 #import "UpYun.h"
 #import "SupplierOrderModel.h"
 #import "FactoryOrderMOdel.h"
+#import "OthersUserModel.h"
 
 @interface HttpClient : NSObject
 
@@ -161,6 +162,10 @@
 + (void)getConfigWithType:(NSString *)type WithBlock:(void (^)(NSDictionary *responseDictionary))block;
 
 
+// 获取他人信息
++ (void)getOtherIndevidualsInformationWithUserID:(NSString *)userID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+
 // 发布机械设备（市场）
 + (void)publishMachineWithName:(NSString *)aName type:(NSString *)aType price:(NSString *)aPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
@@ -207,13 +212,13 @@
 + (void)publishDesignOrderWithName:(NSString *)aName description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 搜索供应商订单
-+ (void)searchSupplierOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
++ (void)searchSupplierOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType pageCount:(NSNumber *)aPageCount WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 搜索找工厂订单
 + (void)searchFactoryOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType amount:(NSArray *)aAmount deadline:(NSArray *)aDeadline pageCount:(NSNumber *)aPageCount WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 搜索设计商订单
-+ (void)searchDesignOrderWithKeyword:(NSString *)aKeyword WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
++ (void)searchDesignOrderWithKeyword:(NSString *)aKeyword pageCount:(NSNumber *)aPageCount WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 获取供应商订单详情
 + (void)getSupplierOrderDetailWithID:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
@@ -223,6 +228,25 @@
 
 // 获取设计商订单详情
 + (void)getDesignOrderDetailWithID:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 投标工厂订单
++ (void)bidFactoryOrderWithDiscription:(NSString *)aDiscription orderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 投标供应商订单
++ (void)bidSupplierOrderWithPrice:(NSString *)aPrice source:(NSString *)aSource discription:(NSString *)aDiscription orderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 投标设计订单
++ (void)bidDesignerOrderWithDiscription:(NSString *)aDiscription orderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 获取供应订单竞标用户
++ (void)getSupplierOrderBidUserAmountWithOrderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 获取工厂订单竞标用户
++ (void)getFactoryOrderBidUserAmountWithOrderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 获取设计订单竞标用户
++ (void)getDesignerOrderBidUserAmountWithOrderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
 
 //获取认证信息
 + (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block;

@@ -1,16 +1,16 @@
 //
-//  FactoryOrderDetail_VC.m
+//  SupplierOrderDetail_VC.m
 //  Cofactories
 //
-//  Created by GTF on 15/11/30.
+//  Created by GTF on 15/12/1.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "FactoryOrderDetail_VC.h"
+#import "SupplierOrderDetail_VC.h"
 #import "OrderPhotoViewController.h"
-#import "OrderBid_Factory_VC.h"
+#import "OrderBid_Supplier_VC.h"
 
-@interface FactoryOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
+@interface SupplierOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;
     BOOL                 _isMyselfOrder;
@@ -22,7 +22,8 @@
 
 @end
 static NSString *const reuseIdentifier = @"reuseIdentifier";
-@implementation FactoryOrderDetail_VC
+
+@implementation SupplierOrderDetail_VC
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -35,16 +36,16 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     }else{
         _isMyselfOrder = NO;
     }
-
+    
     if ([_dataModel.status isEqualToString:@"0"]) {
         _isCompletion = NO;
     }else if ([_dataModel.status isEqualToString:@"1"]){
         _isCompletion = YES;
     }
     
-    [HttpClient getFactoryOrderBidUserAmountWithOrderID:_dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient getSupplierOrderBidUserAmountWithOrderID:_dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
         DLog("%@,%@",dictionary,_userModel.uid);
-
+        
         _bidAmountArray = dictionary[@"message"];
         [_bidAmountArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSDictionary *dic = (NSDictionary *)obj;
@@ -124,9 +125,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)chatBidClick:(id)sender{
     UIButton *button = (UIButton *)sender;
     
-
+    
     DLog("-->>%d",_isAlreadyBid);
-
+    
     if (button.tag == 1) {
         // 聊天
     }else if (button.tag == 2){
@@ -135,7 +136,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             if (!_isCompletion) {
                 if (!_isAlreadyBid) {
                     NSLog(@"%ld",(long)button.tag);
-                    OrderBid_Factory_VC *vc = [OrderBid_Factory_VC new];
+                    OrderBid_Supplier_VC *vc = [OrderBid_Supplier_VC new];
                     vc.orderID = _dataModel.ID;
                     [self.navigationController pushViewController:vc animated:YES];
                 }else{
@@ -182,10 +183,10 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 cell.textLabel.text = [NSString stringWithFormat:@"  类型:   %@",_dataModel.type];
                 break;
             case 1:
-                cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %@件",_dataModel.amount];
+                cell.textLabel.text = [NSString stringWithFormat:@"  名称:   %@",_dataModel.name];
                 break;
             case 2:
-                cell.textLabel.text = [NSString stringWithFormat:@"  期限:   %@天",_dataModel.deadline];
+                cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %@%@",_dataModel.amount,_dataModel.unit];
                 break;
             case 3:
                 cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
@@ -195,7 +196,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 break;
         }
         return cell;
-
+        
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
@@ -272,7 +273,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     lineLayer.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0].CGColor;
     lineLayer.frame = CGRectMake(0,_sectionFooterHeight-10, kScreenW, 10);
     [view.layer addSublayer:lineLayer];
-
+    
     if (section == 0) {
         return view;
     }
@@ -297,5 +298,4 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                                     attributes:attribute context:nil].size;
     return size;
 }
-
 @end

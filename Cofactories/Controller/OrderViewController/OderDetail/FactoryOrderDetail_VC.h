@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface FactoryOrderDetail_VC : UIViewController
-@property (nonatomic,strong)FactoryOrderMOdel *dataModel;
+@property (nonatomic,strong)FactoryOrderMOdel  *dataModel;
+@property (nonatomic,strong)OthersUserModel    *otherUserModel;
 @end

@@ -1,21 +1,21 @@
 //
-//  Order_Factory_TVC.m
+//  Order_Supplier_TVC.m
 //  Cofactories
 //
-//  Created by GTF on 15/11/30.
+//  Created by GTF on 15/12/1.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "Order_Factory_TVC.h"
+#import "Order_Supplier_TVC.h"
 
-@implementation Order_Factory_TVC{
+@implementation Order_Supplier_TVC{
     UIImageView    *_labelImage;
     UILabel        *_creatTimeLB;
     UILabel        *_statusLB;
     UILabel        *_typeLB;
     UILabel        *_amountLB;
     UILabel        *_deadlineLB;
-
+    
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -56,7 +56,7 @@
 }
 
 
-- (void)laoutWithDataModel:(FactoryOrderMOdel *)dataModel{
+- (void)laoutWithDataModel:(SupplierOrderModel *)dataModel{
     _creatTimeLB.text = dataModel.createdAt;
     
     if ([dataModel.status isEqualToString:@"0"]) {
@@ -67,14 +67,14 @@
         _statusLB.textColor = [UIColor colorWithRed:43/255.0 green:135/255.0 blue:70/255.0 alpha:1];
     }
     if (dataModel.photoArray.count > 0) {
-   [_imageButton sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,dataModel.photoArray[0]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+        [_imageButton sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,dataModel.photoArray[0]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     }else{
         [_imageButton setBackgroundImage:[UIImage imageNamed:@"placeHolderImage"] forState:UIControlStateNormal];
     }
-     _typeLB.text = [NSString stringWithFormat:@"类型   %@",dataModel.type];
-    _amountLB.text = [NSString stringWithFormat:@"数量   %@",dataModel.amount];
-    _deadlineLB.text = [NSString stringWithFormat:@"期限   %@",dataModel.deadline];
-        
+    _typeLB.text = [NSString stringWithFormat:@"名称   %@",dataModel.name];
+    _amountLB.text = [NSString stringWithFormat:@"数量   %@%@",dataModel.amount,dataModel.unit];
+    _deadlineLB.text = [NSString stringWithFormat:@"类型   %@",dataModel.type];
+    
 }
 
 @end

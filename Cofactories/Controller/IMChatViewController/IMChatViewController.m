@@ -17,9 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [HttpClient searchSupplierOrderWithKeyword:nil type:nil WithCompletionBlock:^(NSDictionary *dictionary) {
-        
-    }];
+
     
 }
 - (void)didReceiveMemoryWarning {

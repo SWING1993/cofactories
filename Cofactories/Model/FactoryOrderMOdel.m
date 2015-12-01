@@ -43,7 +43,7 @@
             self.type = @"加工配套";
         }
         
-        self.userUid = dictionary[@"userUid"];
+        self.userUid = [NSString stringWithFormat:@"%@",dictionary[@"userUid"]];
     }
     return self;
 }

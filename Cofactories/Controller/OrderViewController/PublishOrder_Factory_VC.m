@@ -342,7 +342,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 
                 DLog(@"%@",dictionary);
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
-                    kTipAlert(@"发布订单成功");
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发布订单成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    alertView.tag = 10086;
+                    [alertView show];
                     if (_imageViewArray.count>0) {
                         NSString *policyString = dictionary[@"message"][@"data"][@"policy"];
                         NSString *signatureString = dictionary[@"message"][@"data"][@"signature"];
@@ -366,6 +368,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 
             }];
             
+        }
+    }
+    
+    if (alertView.tag == 10086) {
+        if (buttonIndex == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
 }

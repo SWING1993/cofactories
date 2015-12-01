@@ -1,85 +1,46 @@
 //
-//  PublishOrder_VC.m
+//  OrderBid_Factory_VC.m
 //  Cofactories
 //
-//  Created by GTF on 15/11/27.
+//  Created by GTF on 15/12/1.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "PublishOrder_Common_VC.h"
-#import "Order_Common_TVC.h"
+#import "OrderBid_Factory_VC.h"
+#import "Comment_TVC.h"
 #import "JKPhotoBrowser.h"
 #import "JKImagePickerController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "MJPhotoBrowser.h"
-@interface PublishOrder_Common_VC ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,JKImagePickerControllerDelegate>{
-    UITableView    *_tableView;
-    UITextField    *_titleTF;
-    UITextField    *_amountTF;
-    UITextField    *_unitTF;
-    UITextField    *_commentTF;
-    BOOL            _isAblePublish;
-    UIButton       *_addButton;
-    NSMutableArray *_imageViewArray;
-    UIScrollView   *_scrollView;
-    NSString       *_typeString;
-    
+
+@interface OrderBid_Factory_VC ()<JKImagePickerControllerDelegate,UIAlertViewDelegate>{
+    UITextView       *_commentTV;
+    UIButton         *_addButton;
+    NSMutableArray   *_imageViewArray;
+    UIScrollView     *_scrollView;
 }
 @property (nonatomic, strong) JKAssets  *asset;
 
 @end
 static NSString *const reuseIdentifier = @"reuseIdentifier";
 
-@implementation PublishOrder_Common_VC
+@implementation OrderBid_Factory_VC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"投标";
     
-    self.view.backgroundColor = [UIColor whiteColor];
     _imageViewArray = [@[] mutableCopy];
+    self.tableView.rowHeight = kScreenW/2.f-40;
+    [self.tableView registerClass:[Comment_TVC class] forCellReuseIdentifier:reuseIdentifier];
     
-    switch (self.orderType) {
-        case 1:
-            self.navigationItem.title = @"求购面料";
-            _typeString = @"fabric";
-            break;
-        case 2:
-            self.navigationItem.title = @"求购辅料";
-            _typeString = @"accessory";
-            break;
-        case 3:
-            self.navigationItem.title = @"求购机械设备";
-            _typeString = @"machine";
-            break;
-        default:
-            break;
-    }
-    [self initTableView];
-}
-
-- (void)initTableView{
-    _tableView = [[UITableView alloc] initWithFrame:kScreenBounds style:UITableViewStylePlain];
-    _tableView.delegate = self;
-    _tableView.dataSource =self;
-    [_tableView registerClass:[Order_Common_TVC class] forCellReuseIdentifier:reuseIdentifier];
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_tableView];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 10)];
+    headerView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1];
+    self.tableView.tableHeaderView = headerView;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44)];
-    _tableView.tableHeaderView = headerView;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 20, 25)];
-    imageView.image = [UIImage imageNamed:@"dd.png"];
-    [headerView addSubview:imageView];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 10, 120, 25)];
-    label.textColor = MAIN_COLOR;
-    label.textAlignment = NSTextAlignmentLeft;
-    label.font = [UIFont systemFontOfSize:16];
-    label.text = @"订单信息";
-    [headerView addSubview:label];
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 174)];
-    _tableView.tableFooterView = footerView;
+    self.tableView.tableFooterView = footerView;
     
     _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _addButton.frame = CGRectMake((kScreenW-80)/2.0, 30, 80, 80);
@@ -94,109 +55,27 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     publishButton.layer.masksToBounds = YES;
     publishButton.layer.cornerRadius = 5;
     publishButton.backgroundColor = MAIN_COLOR;
-    [publishButton setTitle:@"发布订单" forState:UIControlStateNormal];
-    [publishButton addTarget:self action:@selector(publishClick) forControlEvents:UIControlEventTouchUpInside];
+    [publishButton setTitle:@"确认投标" forState:UIControlStateNormal];
+    [publishButton addTarget:self action:@selector(bidClick) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:publishButton];
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    Order_Common_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    NSArray *array = @[@"订单标题",@"订单数量",@"单位",@"备注"];
-    [cell returnTextFieldTitleString:array[indexPath.row] indexPath:indexPath];
-    
-    switch (indexPath.row) {
-        case 0:
-            _titleTF = cell.textField;
-            break;
-        case 1:
-            _amountTF = cell.textField;
-            break;
-        case 2:
-            _unitTF = cell.textField;
-            break;
-        case 3:
-            _commentTF = cell.textField;
-            break;
-        default:
-            break;
-    }
-    
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    _commentTV = cell.commentTextView;
+
     return cell;
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 10;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        return 44;
-    }else{
-        return 100;
-    }
-}
-
-- (void)publishClick{
-    if (_titleTF.text.length > 0 && _amountTF.text.length > 0 && _unitTF.text.length > 0) {
-        _isAblePublish = YES;
-    }else{
-        _isAblePublish = NO;
-        kTipAlert(@"请填写必填信息，再发布订单!");
-    }
-    
-    if (_isAblePublish) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
-        alertView.tag = 100;
-        [alertView show];
-    }
-}
-
-//点击发布订单
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == 100) {
-        if (buttonIndex == 1) {
-            DLog(@"%@,%@,%@,%@,%@",_typeString,_titleTF.text,_amountTF.text,_unitTF.text,_commentTF.text);
-            [HttpClient publishSupplierOrderWithType:_typeString name:_titleTF.text amount:_amountTF.text unit:_unitTF.text description:_commentTF.text WithCompletionBlock:^(NSDictionary *dictionary) {
-                DLog(@"%@",dictionary);
-                if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发布订单成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-                    alertView.tag = 10086;
-                    [alertView show];
-                    if (_imageViewArray.count>0) {
-                        NSString *policyString = dictionary[@"message"][@"data"][@"policy"];
-                        NSString *signatureString = dictionary[@"message"][@"data"][@"signature"];
-                        UpYun *upYun = [[UpYun alloc] init];
-                        upYun.bucket = bucketAPI;//图片测试
-                        upYun.expiresIn = 600;// 10分钟
-                        
-                        DLog(@"%@",_imageViewArray);
-                        [_imageViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                            UIImage *image = (UIImage *)obj;
-                            [upYun uploadImage:image policy:policyString signature:signatureString];
-                        }];
-                        
-                    }else{
-                        // 用户未上传图片
-                    }
-                    
-                }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
-                    kTipAlert(@"发布订单失败，请重新登录");
-                }
-            }];
-        }
-    }
-    
-    if (alertView.tag == 10086) {
-        if (buttonIndex == 0) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }
 }
 
 - (void)addImageClick{
@@ -212,6 +91,58 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:imagePickerController];
         [self presentViewController:navigationController animated:YES completion:nil];
     }
+    
+}
+
+- (void)bidClick{
+    if (_commentTV.text.length > 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认投标订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认投标", nil];
+        alertView.tag = 100;
+        [alertView show];
+    }else{
+        kTipAlert(@"请填写必填信息，再发布订单!");
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 100) {
+        if (buttonIndex == 1) {
+            DLog(@"%@",_commentTV.text);
+            [HttpClient bidFactoryOrderWithDiscription:_commentTV.text orderID:_orderID WithCompletionBlock:^(NSDictionary *dictionary) {
+                DLog(@"%@",dictionary);
+                if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"投标成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    alertView.tag = 10086;
+                    [alertView show];
+                    if (_imageViewArray.count>0) {
+                        NSString *policyString = dictionary[@"message"][@"data"][@"policy"];
+                        NSString *signatureString = dictionary[@"message"][@"data"][@"signature"];
+                        UpYun *upYun = [[UpYun alloc] init];
+                        upYun.bucket = bucketAPI;//图片测试
+                        upYun.expiresIn = 600;// 10分钟
+                        DLog(@"%@",_imageViewArray);
+                        [_imageViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            UIImage *image = (UIImage *)obj;
+                            [upYun uploadImage:image policy:policyString signature:signatureString];
+                        }];
+                        
+                    }else{
+                        // 用户未上传图片
+                    }
+                    
+                }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
+                    kTipAlert(@"发布订单失败，请重新登录");
+                }
+
+            }];
+        }
+    }
+    
+    if (alertView.tag == 10086) {
+        if (buttonIndex == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 
 - (void)creatScrollView{
@@ -223,7 +154,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _scrollView.pagingEnabled = YES;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
-    [_tableView.tableFooterView addSubview:_scrollView];
+    [self.tableView.tableFooterView addSubview:_scrollView];
     
     _scrollView.contentSize = CGSizeMake(90 * _imageViewArray.count, 80);
     for (int i = 0; i < _imageViewArray.count; i++) {
@@ -316,6 +247,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [browser show];
     
 }
+
 
 
 @end
