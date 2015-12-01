@@ -21,7 +21,8 @@
 
 @property (nonatomic,strong) UIPickerView * orderPicker;
 @property (nonatomic,strong) UIToolbar    * pickerToolbar;
-@property(nonatomic,retain)  NSArray      * cellPickList;
+@property (nonatomic,retain) NSArray      * cellPickList;
+@property (nonatomic,retain) NSString     * seletectStr;
 
 @end
 
@@ -31,6 +32,7 @@
     [super viewDidLoad];
     
     self.title=@"公司规模";
+    
     
     //确定Btn
     UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
@@ -65,10 +67,8 @@
         MBProgressHUD *hud = [Tools createHUD];
         hud.labelText = @"正在修改";
         
-        DLog(@"%@===%@",[[Tools RangeSizeWith:SizeTF.text] firstObject],[[Tools RangeSizeWith:SizeTF.text] lastObject]);
-        
         NSMutableDictionary * parametersDic = [[NSMutableDictionary alloc]initWithCapacity:1];
-        [parametersDic setObject:SizeTF.text forKey:@"scale"];
+        [parametersDic setObject:self.seletectStr forKey:@"scale"];
         
         [HttpClient postMyProfileWithDic:parametersDic andBlock:^(NSInteger statusCode) {
             if (statusCode == 200) {
@@ -171,6 +171,7 @@
 -(void)ensure{
     
     NSInteger provinceIndex = [self.orderPicker selectedRowInComponent: PROVINCE_COMPONENT];
+    self.seletectStr = [NSString stringWithFormat:@"%ld",(long)provinceIndex+1];
     _tmpPickerName = [self.cellPickList objectAtIndex: provinceIndex];
     SizeTF.text = _tmpPickerName;
     _tmpPickerName = nil;

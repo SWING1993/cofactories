@@ -14,7 +14,7 @@
 
 @interface MeViewController ()
 
-@property (nonatomic,strong)UserModel * MyProfile;
+@property (nonatomic,retain)UserModel * MyProfile;
 
 @end
 

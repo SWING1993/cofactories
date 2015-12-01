@@ -47,9 +47,12 @@
             _UserType = UserType_designer;
         }else if ([_role isEqualToString:@"clothing"]){
             _UserType = UserType_clothing;
+            self.scaleArr = @[@"0万件-10万件",@"10万件-40万件", @"40万件-100万件", @"100万件--200万件", @"200万件以上"];
         }
         else if ([_role isEqualToString:@"processing"]){
             _UserType = UserType_processing;
+            self.scaleArr = @[@"0人-2人",@"2人-10人",  @"10人-20人", @"20人以上"];
+
         }
         else if ([_role isEqualToString:@"supplier"]){
             _UserType = UserType_supplier;
@@ -95,10 +98,16 @@
         if ([_subRole isEqualToString:@"<null>"]) {
             _subRole = @"尚未填写";
         }
-        _scale = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"scale"]];
-        if ([_scale isEqualToString:@"<null>"]) {
+        
+        
+        if ([[dictionary objectForKey:@"scale"] isEqual:[NSNull null]]) {
             _scale = @"尚未填写";
+        }else {
+            NSInteger seletecdInt = [[dictionary objectForKey:@"scale"] integerValue] - 1;
+            _scale = self.scaleArr[seletecdInt];
         }
+
+        
         _inviteCode = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"inviteCode"]];
         if ([_inviteCode isEqualToString:@"<null>"]) {
             _inviteCode = @"尚未填写";
@@ -141,9 +150,10 @@
         
         _verifyDic = [dictionary objectForKey:@"verify"];
         
-        if (_verifyDic == [NSNull null]) {
+        if ([_verifyDic isEqual:[NSNull null]]) {
             DLog(@"认证字典为空");
         } else {
+            DLog(@"认证字典");
             _enterpriseName = _verifyDic[@"enterpriseName"];
             if ([_enterpriseName isEqualToString:@"<null>"]) {
                 _enterpriseName = @"尚未填写";

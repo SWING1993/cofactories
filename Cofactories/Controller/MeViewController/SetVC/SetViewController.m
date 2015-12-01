@@ -53,8 +53,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+        
     self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     
     self.headBtn = [UIButton buttonWithType:UIButtonTypeCustom];
