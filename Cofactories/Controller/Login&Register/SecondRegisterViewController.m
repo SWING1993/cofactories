@@ -12,6 +12,7 @@
 #import "blueButton.h"
 #import "tablleHeaderView.h"
 #import "SecondRegisterViewController.h"
+#import "RootViewController.h"
 
 @interface SecondRegisterViewController ()<UIAlertViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource> {
 
@@ -55,6 +56,14 @@
     [tableFooterView addSubview:nextBtn];
     self.tableView.tableFooterView = tableFooterView;
     [self createUI];
+    //设置Btn
+    UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"返回登录" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
+    self.navigationItem.rightBarButtonItem = setButton;
+}
+
+- (void)buttonClicked{
+    NSArray * viewControllers = self.navigationController.viewControllers;
+    [self.navigationController popToViewController:[viewControllers firstObject] animated:YES];
 }
 
 
@@ -85,44 +94,40 @@
             int statusCode =[responseDictionary[@"statusCode"]intValue];
             DLog(@"statusCode == %d",statusCode);
             if (statusCode == 200) {
-                UIAlertView*alertView=[[UIAlertView alloc]initWithTitle:@"注册成功!" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                UIAlertView*alertView=[[UIAlertView alloc]initWithTitle:@"注册成功!" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"去登录", nil];
                 alertView.tag = 10086;
                 [alertView show];
             }else{
-                NSString*message=responseDictionary[@"message"];
-                kTipAlert(@"%@",message);
-                DLog(@"注册失败信息：%@",responseDictionary);
+                NSString*message = responseDictionary[@"message"];
+                kTipAlert(@"%@(错误码：%ld)",message,(long)statusCode);
             }
         }];
     }
 }
 //注册成功 登录
 - (void)login{
-    /*
-     [HttpClient loginWithUsername:_usernameTF.text password:_passwordTF.text andBlock:^(int statusCode) {
-     DLog(@"%d",statusCode);
-     switch (statusCode) {
-     case 200:{
-     [HttpClient getUserProfileWithBlock:^(NSDictionary *responseDictionary) {
-     UserModel*userModel=responseDictionary[@"model"];
-     [[NSUserDefaults standardUserDefaults] setInteger:userModel.factoryType forKey:@"factoryType"];
-     
-     if ([[NSUserDefaults standardUserDefaults] synchronize] == YES) {
-     [ViewController goMain];
-     }
-     else{
-     [Tools showErrorWithStatus:@"获取用户身份失败，请尝试重新登录！"];
-     }
-     }];
-     }
-     break;
-     
-     default:
-     [Tools showErrorWithStatus:@"登录失败,尝试重新登录！"];
-     break;
-     }
-     }];
-     */
+
+   [HttpClient loginWithUsername:self.phone password:self.password andBlock:^(NSInteger statusCode) {
+       switch (statusCode) {
+           case 0:{
+               kTipAlert(@"您的网络状态不太顺畅哦！");
+           }
+               break;
+           case 200:{
+               [RootViewController setupTabarController];
+               
+           }
+               break;
+           case 401:{
+               kTipAlert(@"用户名或密码错误！");
+           }
+               break;
+               
+           default:
+               kTipAlert(@"登录失败！(错误码：%ld)",(long)statusCode);
+               break;
+       }
+   }];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

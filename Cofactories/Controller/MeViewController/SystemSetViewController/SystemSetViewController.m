@@ -28,15 +28,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UserModel * model = [[UserModel alloc]getMyProfile];
+    
     self.title=@"设置";
     
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     
-    inviteCodeTF=[[UITextField alloc]initWithFrame:CGRectMake(10, 7, kScreenW/2-10, 30)];
+    inviteCodeTF=[[UITextField alloc]initWithFrame:CGRectMake(70, 7, 100, 30)];
+    inviteCodeTF.font = kFont;
     inviteCodeTF.borderStyle=UITextBorderStyleRoundedRect;
     inviteCodeTF.keyboardType=UIKeyboardTypeNumberPad;
+    inviteCodeTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     inviteCodeTF.placeholder=@"邀请码";
+    if (![model.inviteCode isEqualToString:@"尚未填写"]) {
+        inviteCodeTF.text = model.inviteCode;
+    }
+    
     
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
@@ -66,9 +74,16 @@
 
 - (void)OKBtn {
     if (inviteCodeTF.text.length!=0) {
-        kTipAlert(@"邀请码提交成功!");
-        [HttpClient registerWithInviteCode:inviteCodeTF.text andBlock:^(NSDictionary *responseDictionary) {
-            DLog(@"%@",responseDictionary);
+        [HttpClient registerWithInviteCode:inviteCodeTF.text andBlock:^(NSInteger statusCode) {
+            if (statusCode == 200) {
+                kTipAlert(@"邀请码提交成功!");
+            }
+            else if (statusCode == 409) {
+                kTipAlert(@"该用户已存在邀请码！");
+            }
+            else {
+                kTipAlert(@"邀请码提交失败，尝试重新提交。(错误码：%ld)",(long)statusCode);
+            }
         }];
     }else{
         kTipAlert(@"请您填写邀请码后再提交!");
@@ -121,6 +136,7 @@
                 
                 
             case 4:{
+                cell.textLabel.text=@"邀请码：";
                 [cell setAccessoryType:UITableViewCellAccessoryNone];
                 
                 [cell addSubview:inviteCodeTF];

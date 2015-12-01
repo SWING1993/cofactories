@@ -28,8 +28,9 @@
 #define API_checkCode @"/user/checkCode" //检查短信验证码
 #define API_register @"/user/register" //注册
 #define API_login @"/user/login" //登录
-#define API_reset @"/user/reset"
-#define API_modifyPassword @"/user/password"
+#define API_reset @"/user/reset" //重置密码
+#define API_changePassword @"/user/changePassword" //修改密码
+#define API_inviteCode @"/user/inviteCode" //邀请码
 #define API_wallet @"/user/wallet"
 #define API_verify @"/user/verify"
 #define API_userProfile @"/user/profile"
@@ -132,7 +133,7 @@
                 break;
                 
             default:
-                block(@{@"statusCode": @(0), @"message": @"网络错误!"});
+                block(@{@"statusCode": @(statusCode), @"message": @"注册错误!"});
                 break;
         }
     }];
@@ -325,7 +326,7 @@
 
 
 //发送邀请码
-+ (void)registerWithInviteCode:(NSString *)inviteCode andBlock:(void (^)(NSDictionary *responseDictionary))block {
++ (void)registerWithInviteCode:(NSString *)inviteCode andBlock:(void (^)(NSInteger))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -339,10 +340,10 @@
         
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager POST:API_userProfile parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            block (responseObject);
+        [manager PUT:API_inviteCode parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            block (200);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            //            block (error);
+            block ([operation.response statusCode]);
         }];
     } else {
         DLog(@"else");
@@ -370,8 +371,8 @@
 }
 
 //修改密码
-+ (void)modifyPassword:(NSString *)password newPassword:(NSString *)newPassword andBlock:(void (^)(NSInteger))block {
-    NSParameterAssert(password);
++ (void)changePassword:(NSString *)oldPassword newPassword:(NSString *)newPassword andBlock:(void (^)(NSInteger))block {
+    NSParameterAssert(oldPassword);
     NSParameterAssert(newPassword);
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
@@ -379,10 +380,13 @@
     if (credential) {
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager POST:API_modifyPassword parameters:@{@"password": password, @"newPassword": newPassword} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager PUT:API_changePassword parameters:@{@"oldPassword": oldPassword, @"newPassword": newPassword} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             block(200);
+            DLog(@"200");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             block([operation.response statusCode]);
+            DLog(@"%ld",[operation.response statusCode]);
+
         }];
     }
 }
