@@ -224,7 +224,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 2.0;
     layout.minimumInteritemSpacing = 2.0;
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(selectBtnView.frame), kScreenW, ((kScreenW - 30)/3 + 40)*2 + 30) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(selectBtnView.frame), kScreenW, ((kScreenW - 30*kZGY)/3 + 40*kZGY)*2 + 30*kZGY) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor = [UIColor whiteColor];
@@ -329,20 +329,30 @@ static NSString *popularCellIdentifier = @"popularCell";
     cell.photoView.image = [UIImage imageNamed:@"5.jpg"];
     cell.newsTitle.text = @"春夏东京男装发布会最IN";
     
+    if (cell.likeButton.selected == YES) {
+        [cell.likeButton setImage:[UIImage imageNamed:@"Home已喜欢"] forState:UIControlStateNormal];
+    } else {
+        [cell.likeButton setImage:[UIImage imageNamed:@"Home我喜欢"] forState:UIControlStateNormal];
+    }
+    cell.likeButton.tag = 222 + indexPath.row;
+    [cell.likeButton addTarget:self action:@selector(actionOfLike:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 //item大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((kScreenW - 30)/3, (kScreenW - 30)/3 + 40);
+    return CGSizeMake((kScreenW - 30*kZGY)/3, (kScreenW - 30*kZGY)/3 + 40*kZGY);
 }
 //分区边距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(10, 10, 10, 10);
+    return UIEdgeInsetsMake(10*kZGY, 10*kZGY, 10*kZGY, 10*kZGY);
 }
 
-
+- (void)actionOfLike:(UIButton *)button {
+    button.selected = YES;
+    [self.collectionView reloadData];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

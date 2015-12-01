@@ -310,6 +310,20 @@
     [[[SDWebImageManager sharedManager] imageCache] clearMemory];
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
-
++ (UIImageView *)rotate360DegreeWithImageView:(UIImageView *)imageView{
+    CABasicAnimation *animation = [ CABasicAnimation
+                                   animationWithKeyPath: @"transform" ];
+    //围绕Z轴旋转，垂直与屏幕
+    animation.fromValue = [ NSValue valueWithCATransform3D:
+                         
+                         CATransform3DMakeRotation(M_PI, 0.0, 1.0, 0.0) ];
+    animation.toValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+    animation.duration = 1.5;
+    //旋转效果累计，先转180度，接着再旋转180度，从而实现360旋转
+    animation.cumulative = YES;
+    animation.repeatCount = 1;
+    [imageView.layer addAnimation:animation forKey:nil];
+    return imageView;
+}
 
 @end

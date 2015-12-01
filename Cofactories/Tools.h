@@ -87,5 +87,9 @@
  *  清除缓存
  */
 + (void)removeAllCached;
+/**
+ *  图片旋转
+ */
++ (UIImageView *)rotate360DegreeWithImageView:(UIImageView *)imageView;
 
 @end

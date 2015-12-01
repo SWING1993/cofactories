@@ -17,9 +17,12 @@
         self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.width)];
         [self addSubview:self.photoView];
         
-        self.newsTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoView.frame), self.frame.size.width, 40)];
+        self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.likeButton.frame = CGRectMake(self.frame.size.width - 43, 3, 40, 40);
+        [self addSubview:self.likeButton];
+        self.newsTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoView.frame), self.frame.size.width, 40*kZGY)];
         self.newsTitle.numberOfLines = 2;
-        self.newsTitle.font = [UIFont systemFontOfSize:12];
+        self.newsTitle.font = [UIFont systemFontOfSize:12*kZGY];
         [self addSubview:self.newsTitle];
     }
     return self;
