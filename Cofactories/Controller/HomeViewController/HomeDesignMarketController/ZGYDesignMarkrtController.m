@@ -10,6 +10,7 @@
 #import "PopularMessageController.h"
 #import "ZGYSupplyMarketView.h"
 #import "IMChatViewController.h"
+#import "AllDesignController.h"
 @interface ZGYDesignMarkrtController ()<ZGYSupplyMarketViewDelegate>
 @property(nonatomic,strong)UserModel *userModel;
 @end
@@ -62,7 +63,8 @@
         }
             break;
         case 2:{
-            
+            AllDesignController *allDesignVC = [[AllDesignController alloc] init];
+            [self.navigationController pushViewController:allDesignVC animated:YES];
         }
             break;
         default:

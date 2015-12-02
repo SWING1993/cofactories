@@ -19,6 +19,14 @@
     BOOL _wasKeyboardManagerEnabled;
 
 }
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
+    NSDictionary *textAttributes = @{
+                                     NSFontAttributeName: [UIFont boldSystemFontOfSize:15],
+                                     NSForegroundColorAttributeName: [UIColor whiteColor],
+                                     };
+    [self.navigationController.navigationBar setTitleTextAttributes:textAttributes];
+}
 
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -33,23 +41,19 @@
     [super viewWillDisappear:animated];
     [[IQKeyboardManager sharedManager] setEnable:_wasKeyboardManagerEnabled];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:_wasKeyboardManagerEnabled];
-    
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     NSDictionary *textAttributes = @{
                                      NSFontAttributeName: [UIFont boldSystemFontOfSize:kNavTitleFontSize],
                                      NSForegroundColorAttributeName: [UIColor blackColor],
                                      };
     [self.navigationController.navigationBar setTitleTextAttributes:textAttributes];
+
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
-    NSDictionary *textAttributes = @{
-                                     NSFontAttributeName: [UIFont boldSystemFontOfSize:15],
-                                     NSForegroundColorAttributeName: [UIColor whiteColor],
-                                     };
-    [self.navigationController.navigationBar setTitleTextAttributes:textAttributes];    [self.pluginBoardView removeItemAtIndex:2];
+    [self.pluginBoardView removeItemAtIndex:2];
     [self notifyUpdateUnreadMessageCount];
     self.enableNewComingMessageIcon = YES;
 }

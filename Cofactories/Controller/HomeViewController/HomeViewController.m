@@ -58,8 +58,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         RCUserInfo *user = [[RCUserInfo alloc]init];
         user.userId = userId;
         user.name = otherModel.name;
-        user.portraitUri = [NSString stringWithFormat:@"%@/user/%@.png",kBaseUrl, userId];
-        DLog(@"%@", user.portraitUri);
+        user.portraitUri = [NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI, userId];
         return completion(user);
     }];
 }
