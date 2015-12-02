@@ -244,6 +244,12 @@
 		70FA60F01C098DE400EA84FD /* ZFPopupMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60EC1C098DE400EA84FD /* ZFPopupMenuItem.m */; };
 		70FA60F11C098DE400EA84FD /* ZFPopupOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60EE1C098DE400EA84FD /* ZFPopupOverlayView.m */; };
 		70FA60F81C09A38E00EA84FD /* CustomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60F71C09A38E00EA84FD /* CustomeView.m */; };
+		7D41C8A71C0EEAF800703869 /* AllDesignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D41C8A61C0EEAF800703869 /* AllDesignCell.m */; };
+		7D4D06BF1C0ED39200BF49D9 /* ClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06B91C0ED39200BF49D9 /* ClassCell.m */; };
+		7D4D06C01C0ED39200BF49D9 /* LMDownMenuView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06BB1C0ED39200BF49D9 /* LMDownMenuView2.m */; };
+		7D4D06C11C0ED39200BF49D9 /* ZGYSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06BD1C0ED39200BF49D9 /* ZGYSelectView.m */; };
+		7D4D06C21C0ED39200BF49D9 /* ZGYSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D4D06BE1C0ED39200BF49D9 /* ZGYSelectView.xib */; };
+		7D4D06C51C0ED48900BF49D9 /* AllDesignController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06C41C0ED48900BF49D9 /* AllDesignController.m */; };
 		7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5005671C098E230034BE03 /* PopularMessageController.m */; };
 		7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
@@ -745,6 +751,17 @@
 		70FA60EE1C098DE400EA84FD /* ZFPopupOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPopupOverlayView.m; sourceTree = "<group>"; };
 		70FA60F61C09A38E00EA84FD /* CustomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomeView.h; sourceTree = "<group>"; };
 		70FA60F71C09A38E00EA84FD /* CustomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomeView.m; sourceTree = "<group>"; };
+		7D41C8A51C0EEAF800703869 /* AllDesignCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllDesignCell.h; sourceTree = "<group>"; };
+		7D41C8A61C0EEAF800703869 /* AllDesignCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllDesignCell.m; sourceTree = "<group>"; };
+		7D4D06B81C0ED39200BF49D9 /* ClassCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCell.h; sourceTree = "<group>"; };
+		7D4D06B91C0ED39200BF49D9 /* ClassCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCell.m; sourceTree = "<group>"; };
+		7D4D06BA1C0ED39200BF49D9 /* LMDownMenuView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMDownMenuView2.h; sourceTree = "<group>"; };
+		7D4D06BB1C0ED39200BF49D9 /* LMDownMenuView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMDownMenuView2.m; sourceTree = "<group>"; };
+		7D4D06BC1C0ED39200BF49D9 /* ZGYSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSelectView.h; sourceTree = "<group>"; };
+		7D4D06BD1C0ED39200BF49D9 /* ZGYSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSelectView.m; sourceTree = "<group>"; };
+		7D4D06BE1C0ED39200BF49D9 /* ZGYSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZGYSelectView.xib; sourceTree = "<group>"; };
+		7D4D06C31C0ED48900BF49D9 /* AllDesignController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllDesignController.h; sourceTree = "<group>"; };
+		7D4D06C41C0ED48900BF49D9 /* AllDesignController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllDesignController.m; sourceTree = "<group>"; };
 		7D5005661C098E230034BE03 /* PopularMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularMessageController.h; sourceTree = "<group>"; };
 		7D5005671C098E230034BE03 /* PopularMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularMessageController.m; sourceTree = "<group>"; };
 		7D50056D1C09A9040034BE03 /* SupplyMarketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplyMarketViewController.h; sourceTree = "<group>"; };
@@ -1956,6 +1973,8 @@
 				7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */,
 				7D5005661C098E230034BE03 /* PopularMessageController.h */,
 				7D5005671C098E230034BE03 /* PopularMessageController.m */,
+				7D4D06C31C0ED48900BF49D9 /* AllDesignController.h */,
+				7D4D06C41C0ED48900BF49D9 /* AllDesignController.m */,
 			);
 			path = HomeDesignMarketController;
 			sourceTree = "<group>";
@@ -1981,6 +2000,15 @@
 				7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */,
 				7DEFFE861C094A8200102C98 /* ZGYTitleView.h */,
 				7DEFFE871C094A8200102C98 /* ZGYTitleView.m */,
+				7D4D06BC1C0ED39200BF49D9 /* ZGYSelectView.h */,
+				7D4D06BD1C0ED39200BF49D9 /* ZGYSelectView.m */,
+				7D4D06BE1C0ED39200BF49D9 /* ZGYSelectView.xib */,
+				7D4D06BA1C0ED39200BF49D9 /* LMDownMenuView2.h */,
+				7D4D06BB1C0ED39200BF49D9 /* LMDownMenuView2.m */,
+				7D4D06B81C0ED39200BF49D9 /* ClassCell.h */,
+				7D4D06B91C0ED39200BF49D9 /* ClassCell.m */,
+				7D41C8A51C0EEAF800703869 /* AllDesignCell.h */,
+				7D41C8A61C0EEAF800703869 /* AllDesignCell.m */,
 			);
 			path = PopularNewsView;
 			sourceTree = "<group>";
@@ -2149,6 +2177,7 @@
 				7DF1C1C31C00590100460DB7 /* 童装设计潮流趋势.png in Resources */,
 				03B120C71C05B1E60023F362 /* Areas.plist in Resources */,
 				035CC5521C070D8C00998FBD /* UMSCommentDetailController.xib in Resources */,
+				7D4D06C21C0ED39200BF49D9 /* ZGYSelectView.xib in Resources */,
 				035CC5D81C070ECB00998FBD /* umeng_fb_audio_play_default@2x.png in Resources */,
 				03571B801BE85B7900900EF9 /* pageDot@2x.png in Resources */,
 				03571B7C1BE85B7900900EF9 /* 03.png in Resources */,
@@ -2234,6 +2263,7 @@
 				03571C061BE85C0800900EF9 /* UIImageView+WebCache.m in Sources */,
 				70A784FD1C085D75003D1892 /* PublishOrder_Other_VC.m in Sources */,
 				03927D841BEC8D1E0087A2FD /* HomeViewController.m in Sources */,
+				7D41C8A71C0EEAF800703869 /* AllDesignCell.m in Sources */,
 				70A784F01C081905003D1892 /* PublishOrder_Common_VC.m in Sources */,
 				03571C481BE85CCF00900EF9 /* MBProgressHUD.m in Sources */,
 				70F5EF7D1C0C24F5008878B4 /* Order_Factory_TVC.m in Sources */,
@@ -2279,6 +2309,7 @@
 				705421FE1C0DA8F600BD2B47 /* SupplierOrderDetail_VC.m in Sources */,
 				70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */,
 				7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */,
+				7D4D06C01C0ED39200BF49D9 /* LMDownMenuView2.m in Sources */,
 				03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */,
 				70F50D6F1C069B0600920F63 /* AccessoryMarketModel.m in Sources */,
 				035CC5221C06DCF000998FBD /* JKAssetsCollectionFooterView.m in Sources */,
@@ -2289,6 +2320,7 @@
 				7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */,
 				03571BFE1BE85C0800900EF9 /* SDWebImageDownloaderOperation.m in Sources */,
 				03571C601BE85D8C00900EF9 /* UIScrollView+MJRefresh.m in Sources */,
+				7D4D06C11C0ED39200BF49D9 /* ZGYSelectView.m in Sources */,
 				03571C8E1BE85D9C00900EF9 /* IQSegmentedNextPrevious.m in Sources */,
 				70F5EF811C0C4B49008878B4 /* FactoryOrderDetail_VC.m in Sources */,
 				03571BFC1BE85C0800900EF9 /* SDWebImageDecoder.m in Sources */,
@@ -2361,6 +2393,7 @@
 				7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */,
 				03571BA11BE85B8200900EF9 /* MJPhotoView.m in Sources */,
 				03571C8D1BE85D9C00900EF9 /* IQKeyboardReturnKeyHandler.m in Sources */,
+				7D4D06BF1C0ED39200BF49D9 /* ClassCell.m in Sources */,
 				705421F81C0D7A3C00BD2B47 /* OrderBid_Factory_VC.m in Sources */,
 				70F5EF841C0C5909008878B4 /* OrderPhotoViewController.m in Sources */,
 				03571C041BE85C0800900EF9 /* UIImage+WebP.m in Sources */,
@@ -2384,6 +2417,7 @@
 				0395D2F31BFC65B80009AABC /* CYLPlusButtonSubclass.m in Sources */,
 				03571B781BE85B7900900EF9 /* EAIntroView.m in Sources */,
 				03927D7E1BEC8CF50087A2FD /* MeViewController.m in Sources */,
+				7D4D06C51C0ED48900BF49D9 /* AllDesignController.m in Sources */,
 				03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */,
 				035CC52C1C06DCF000998FBD /* PhotoAlbumManager.m in Sources */,
 				03ACD1A11C0833E0003AB7CF /* ScaleViewController.m in Sources */,
