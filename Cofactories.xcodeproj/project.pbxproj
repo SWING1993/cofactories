@@ -247,7 +247,6 @@
 		7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5005671C098E230034BE03 /* PopularMessageController.m */; };
 		7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
-		7D5BE9261C0840260062E6F5 /* VerifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BE9251C0840260062E6F5 /* VerifyModel.m */; };
 		7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665E881C0C1C9000C7C7BF /* ZGYSupplyMarketView.m */; };
 		7D665E941C0C49AD00C7C7BF /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D665E8B1C0C49AD00C7C7BF /* Emoji.plist */; };
 		7D665E951C0C49AD00C7C7BF /* RongCloudKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D665E8C1C0C49AD00C7C7BF /* RongCloudKit.strings */; };
@@ -752,8 +751,6 @@
 		7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplyMarketViewController.m; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
-		7D5BE9241C0840260062E6F5 /* VerifyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyModel.h; sourceTree = "<group>"; };
-		7D5BE9251C0840260062E6F5 /* VerifyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyModel.m; sourceTree = "<group>"; };
 		7D665E871C0C1C9000C7C7BF /* ZGYSupplyMarketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSupplyMarketView.h; sourceTree = "<group>"; };
 		7D665E881C0C1C9000C7C7BF /* ZGYSupplyMarketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSupplyMarketView.m; sourceTree = "<group>"; };
 		7D665E8B1C0C49AD00C7C7BF /* Emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoji.plist; sourceTree = "<group>"; };
@@ -997,8 +994,6 @@
 				70F50D701C069B1000920F63 /* MarketModel */,
 				03B120BA1C0583DA0023F362 /* WalletModel.h */,
 				03B120BB1C0583DA0023F362 /* WalletModel.m */,
-				7D5BE9241C0840260062E6F5 /* VerifyModel.h */,
-				7D5BE9251C0840260062E6F5 /* VerifyModel.m */,
 				705421F21C0D3AA100BD2B47 /* OthersUserModel.h */,
 				705421F31C0D3AA100BD2B47 /* OthersUserModel.m */,
 			);
@@ -2089,7 +2084,7 @@
 				TargetAttributes = {
 					03571B1F1BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 5TP43F4R7Y;
+						DevelopmentTeam = WPXQYZSK2Q;
 					};
 					03571B381BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
@@ -2341,7 +2336,6 @@
 				70FA60EF1C098DE400EA84FD /* ZFPopupMenu.m in Sources */,
 				03FF44F01BFEE73400D81DCE /* UIProgressView+AFNetworking.m in Sources */,
 				03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */,
-				7D5BE9261C0840260062E6F5 /* VerifyModel.m in Sources */,
 				03571C431BE85C3700900EF9 /* UIImageView+Common.m in Sources */,
 				03FF44EF1BFEE73400D81DCE /* UIImageView+AFNetworking.m in Sources */,
 				03571B791BE85B7900900EF9 /* EARestrictedScrollView.m in Sources */,
@@ -2586,7 +2580,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesy1;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesy2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
@@ -2629,7 +2623,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesy1;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesy2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";

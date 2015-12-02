@@ -12,7 +12,6 @@
 #import "AuthenticationPhotoController.h"//认证2
 #import "AuthenticationController.h"//认证1
 #import "ZGYDesignMarkrtController.h"//设计市场
-#import "VerifyModel.h"
 #import "SetViewController.h"//完善资料
 #import "SupplyMarketViewController.h"//供应市场
 
@@ -21,8 +20,6 @@ static NSString *personalDataCellIdentifier = @"personalDataCell";
 static NSString *activityCellIdentifier = @"activityCell";
 @interface HomeViewController () {
     NSArray *arr;
-    CATransform3D leftTransform, middleTransform, rightTransform;
-    VerifyModel *verifyModel;
 }
 @property (nonatomic,strong)NSMutableArray *firstViewImageArray;
 @property (nonatomic,retain)UserModel * MyProfile;
@@ -41,13 +38,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         if (statusCode == 200) {
             self.MyProfile = [responseDictionary objectForKey:@"model"];
             DLog(@"photoArr = %@",self.MyProfile);
-            if (self.MyProfile.verifyDic == [NSNull null]) {
-                DLog(@"认证字典为空");
-            } else {
-                DLog(@"认证字典不为空");
-                verifyModel = [[VerifyModel alloc] initWithVerifyModelDictionary:self.MyProfile.verifyDic];
-                DLog(@"%@", verifyModel);
-            }
+            
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
             [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
         } else {
@@ -55,24 +46,22 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
     }];
 
-    
-    
 }
 #pragma mark - RCIMUserInfoDataSource
 
 //获取IM用户信息
 - (void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
+    DLog(@"**************************");
     //解析工厂信息
-//    [HttpClient getUserProfileWithUid:[userId intValue] andBlock:^(NSDictionary *responseDictionary) {
-//        FactoryModel *userModel1 = (FactoryModel *)responseDictionary[@"model"];
-//        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (intm 64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        RCUserInfo *user = [[RCUserInfo alloc]init];
-//        user.userId = userId;
-//        user.name = userModel1.factoryName;
-//        user.portraitUri = [NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,userId];
-//        return completion(user);
-//        //        });
-//    }];
+    [HttpClient getOtherIndevidualsInformationWithUserID:userId WithCompletionBlock:^(NSDictionary *dictionary) {
+        OthersUserModel *otherModel = (OthersUserModel *)dictionary[@"message"];
+        RCUserInfo *user = [[RCUserInfo alloc]init];
+        user.userId = userId;
+        user.name = otherModel.name;
+        user.portraitUri = [NSString stringWithFormat:@"%@/user/%@.png",kBaseUrl, userId];
+        DLog(@"%@", user.portraitUri);
+        return completion(user);
+    }];
 }
 
 - (void)viewDidLoad {
@@ -105,9 +94,7 @@ static NSString *activityCellIdentifier = @"activityCell";
                                  }];
         }
     }];
-    
 
-    
     arr = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流", ];
     [self creatTableView];
     [self creatTableHeaderView];
@@ -183,13 +170,13 @@ static NSString *activityCellIdentifier = @"activityCell";
         
         [cell.authenticationButton addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
         //认证状态
-        if (verifyModel.status == 0) {
+        if (self.MyProfile.status == 0) {
             cell.authenticationLabel.text = @"前往认证";
         }
-        if (verifyModel.status == 1) {
+        if (self.MyProfile.status == 1) {
             cell.authenticationLabel.text = @"认证中";
         }
-        if (verifyModel.status == 2) {
+        if (self.MyProfile.status == 2) {
             cell.authenticationLabel.text = @"已认证";
         }
         return cell;
@@ -285,15 +272,11 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)authenticationAction:(UIButton *)button {
     DLog(@"前往认证");
     //未认证
-    if (verifyModel.status == 0) {
-//        AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
-//        photoVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:photoVC animated:YES];
+    if (self.MyProfile.status == 0) {
         AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
         authenticationVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:authenticationVC animated:YES];
     }
-    
 }
 
 #pragma mark - 地址没有，去完善资料
@@ -331,9 +314,6 @@ static NSString *activityCellIdentifier = @"activityCell";
     });
     
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
