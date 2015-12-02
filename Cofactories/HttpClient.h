@@ -11,6 +11,7 @@
 #import "UpYun.h"
 #import "SupplierOrderModel.h"
 #import "FactoryOrderMOdel.h"
+#import "DesignOrderModel.h"
 #import "OthersUserModel.h"
 
 @interface HttpClient : NSObject

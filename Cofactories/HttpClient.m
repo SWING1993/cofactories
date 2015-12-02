@@ -1262,7 +1262,15 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager GET:API_Search_Design_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            DLog(@"responseObject == %@",responseObject);
+            //DLog(@"responseObject == %@",responseObject);
+            NSArray *responseArray = (NSArray *)responseObject;
+            NSMutableArray *array = [@[] mutableCopy];
+            [responseArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary *dictionary = (NSDictionary *)obj;
+                DesignOrderModel *model = [DesignOrderModel getDesignOrderModelWithDictionary:dictionary];
+                [array addObject:model];
+            }];
+            completionBlock(@{@"statusCode": @"200", @"message":array});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
@@ -1381,7 +1389,7 @@
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/supplier/bid/",aOrderID];
         [manager POST:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             DLog(@"responseObject == %@",responseObject);
-            completionBlock(responseObject);
+            completionBlock(@{@"statusCode": @"200", @"message":responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
@@ -1406,7 +1414,7 @@
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/design/bid/",aOrderID];
         [manager POST:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             DLog(@"responseObject == %@",responseObject);
-            completionBlock(responseObject);
+            completionBlock(@{@"statusCode": @"200", @"message":responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];

@@ -124,10 +124,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)chatBidClick:(id)sender{
     UIButton *button = (UIButton *)sender;
-    
-    
-    DLog("-->>%d",_isAlreadyBid);
-    
     if (button.tag == 1) {
         // 聊天
     }else if (button.tag == 2){

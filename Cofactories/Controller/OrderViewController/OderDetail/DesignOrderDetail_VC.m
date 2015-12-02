@@ -1,28 +1,32 @@
 //
-//  FactoryOrderDetail_VC.m
+//  DesignOrderDetail_VC.m
 //  Cofactories
 //
-//  Created by GTF on 15/11/30.
+//  Created by GTF on 15/12/2.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "FactoryOrderDetail_VC.h"
+#import "DesignOrderDetail_VC.h"
 #import "OrderPhotoViewController.h"
 #import "OrderBid_Factory_VC.h"
 
-@interface FactoryOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
+@interface DesignOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;
     BOOL                 _isMyselfOrder;
     BOOL                 _isCompletion;
     BOOL                 _isAlreadyBid;
     NSArray             *_bidAmountArray;
+    UIImageView         *_orderImageOne;
+    UIImageView         *_orderImageTwo;
+
 }
 @property(nonatomic,strong)UserModel *userModel;
 
 @end
 static NSString *const reuseIdentifier = @"reuseIdentifier";
-@implementation FactoryOrderDetail_VC
+
+@implementation DesignOrderDetail_VC
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -35,16 +39,16 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     }else{
         _isMyselfOrder = NO;
     }
-
+    
     if ([_dataModel.status isEqualToString:@"0"]) {
         _isCompletion = NO;
     }else if ([_dataModel.status isEqualToString:@"1"]){
         _isCompletion = YES;
     }
     
-    [HttpClient getFactoryOrderBidUserAmountWithOrderID:_dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient getDesignerOrderBidUserAmountWithOrderID:_dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
         DLog("%@,%@",dictionary,_userModel.uid);
-
+        
         _bidAmountArray = dictionary[@"message"];
         [_bidAmountArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSDictionary *dic = (NSDictionary *)obj;
@@ -61,12 +65,14 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     }];
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"订单详情";
     self.view.backgroundColor = [UIColor whiteColor];
-    
+
     [self initTableView];
+
 }
 
 - (void)initTableView{
@@ -78,7 +84,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:_tableView];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 126)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 126+10)];
     _tableView.tableHeaderView = headerView;
     
     UIButton *imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -119,6 +125,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         [headerView addSubview:button];
     }
     
+    UILabel *lineLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 126, kScreenW, 10)];
+    lineLB.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+    [headerView addSubview:lineLB];
 }
 
 - (void)chatBidClick:(id)sender{
@@ -133,7 +142,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 if (!_isAlreadyBid) {
                     NSLog(@"%ld",(long)button.tag);
                     OrderBid_Factory_VC *vc = [OrderBid_Factory_VC new];
-                    vc.orderTypeString = @"FactoryOrder";
+                    vc.orderTypeString = @"DesignOrder";
                     vc.orderID = _dataModel.ID;
                     [self.navigationController pushViewController:vc animated:YES];
                 }else{
@@ -158,63 +167,31 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     }
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
-}
 
+#pragma mark - 表
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 0) {
-        return 4;
-    }
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (indexPath.section == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-        cell.textLabel.font = [UIFont systemFontOfSize:13];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        switch (indexPath.row) {
-            case 0:
-                cell.textLabel.text = [NSString stringWithFormat:@"  类型:   %@",_dataModel.type];
-                break;
-            case 1:
-                cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %@件",_dataModel.amount];
-                break;
-            case 2:
-                cell.textLabel.text = [NSString stringWithFormat:@"  期限:   %@天",_dataModel.deadline];
-                break;
-            case 3:
-                cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
-                break;
-                
-            default:
-                break;
-        }
-        return cell;
-
-    }
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     cell.textLabel.font = [UIFont systemFontOfSize:13];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    NSMutableAttributedString *labelText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"已参与投标的厂商有%zi家",_bidAmountArray.count]];
+    NSMutableAttributedString *labelText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"  已参与投标的厂商有%zi家",_bidAmountArray.count]];
     NSString *lengthString = [NSString stringWithFormat:@"%lu",(unsigned long)_bidAmountArray.count];
     NSInteger length = lengthString.length;
-    [labelText addAttribute:NSForegroundColorAttributeName value:MAIN_COLOR range:NSMakeRange(9,length)];
+    [labelText addAttribute:NSForegroundColorAttributeName value:MAIN_COLOR range:NSMakeRange(11,length)];
     cell.textLabel.attributedText = labelText;
-    
+
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 170+10;
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 50)];
-    
-    CALayer *lineLayer = [CALayer layer];
-    lineLayer.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0].CGColor;
-    lineLayer.frame = CGRectMake(0,0, kScreenW, 10);
-    [view.layer addSublayer:lineLayer];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 170+10)];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 20, 25)];
     imageView.image = [UIImage imageNamed:@"dd.png"];
@@ -234,66 +211,58 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     numberLB.font = [UIFont systemFontOfSize:12];
     [view addSubview:numberLB];
     
-    if (section == 0) {
-        return view;
-    }
-    return nil;
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return 55;
-    }else if (section == 1){
-        return 0.01;
-    }
-    return 0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, _sectionFooterHeight-30)];
+    UILabel *titleLB = [[UILabel alloc]initWithFrame:CGRectMake(20, 45, kScreenW-30, 30)];
+    titleLB.font = [UIFont systemFontOfSize:12];
+    titleLB.text = [NSString stringWithFormat:@"标题          %@",_dataModel.name];
+    [view addSubview:titleLB];
     
-    NSString *string = [NSString stringWithFormat:@"备注信息: %@",_dataModel.descriptions];
-    CGSize size = [self returnSizeWithString:string];
-    UILabel *LB1 = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, size.width, size.height+20)];
-    LB1.font = kFont;
-    LB1.numberOfLines = 0;
-    LB1.textColor = [UIColor grayColor];
-    LB1.text = string;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:LB1.text];;
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    [paragraphStyle setLineSpacing:4];
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, LB1.text.length)];
-    LB1.attributedText = attributedString;
-    [view addSubview:LB1];
+    UILabel *orderPhotoLB = [[UILabel alloc] initWithFrame:CGRectMake(20, 75, 60, 25)];
+    orderPhotoLB.font = [UIFont systemFontOfSize:12];
+    orderPhotoLB.text = @"订单照片";
+    [view addSubview:orderPhotoLB];
+
+
+    for (int i = 0; i<2; i++) {
+        UIImageView *orderImage = [[UIImageView alloc] initWithFrame:CGRectMake(80+i*82, 80, 72, 54)];
+        orderImage.layer.masksToBounds = YES;
+        orderImage.layer.cornerRadius = 5;
+        [view addSubview:orderImage];
+        
+        if (i == 0) {
+            _orderImageOne = orderImage;
+        }else{
+            _orderImageTwo = orderImage;
+        }
+    }
     
-    CALayer *lineLayer = [CALayer layer];
-    lineLayer.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0].CGColor;
-    lineLayer.frame = CGRectMake(0,_sectionFooterHeight-10, kScreenW, 10);
-    [view.layer addSublayer:lineLayer];
-
-    if (section == 0) {
-        return view;
+    switch (_dataModel.photoArray.count) {
+        case 0:
+            _orderImageOne.image = [UIImage imageNamed:@"placeHolderImage"];
+            _orderImageTwo.image = nil;
+            break;
+        case 1:
+            [_orderImageOne sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+            _orderImageTwo.image = nil;
+            break;
+          default:
+            [_orderImageOne sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+            [_orderImageTwo sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[1]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+            break;
     }
-    return nil;
+
+    UILabel *commentLB = [[UILabel alloc]initWithFrame:CGRectMake(20, 138, kScreenW-30, 32)];
+    commentLB.font = [UIFont systemFontOfSize:12];
+    commentLB.text = [NSString stringWithFormat:@"备注          %@",_dataModel.descriptions];
+    [view addSubview:commentLB];
+    
+    UILabel *lineLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, kScreenW, 10)];
+    lineLB.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+    [view addSubview:lineLB];
+
+    return view;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (section == 0) {
-        NSString *string = [NSString stringWithFormat:@"备注信息: %@",_dataModel.descriptions];
-        CGSize size = [self returnSizeWithString:string];
-        _sectionFooterHeight = size.height+20+10+20;
-        return _sectionFooterHeight;
-    }else if (section == 1){
-        return 0.01;
-    }
-    return 0;
-}
 
-- (CGSize)returnSizeWithString:(NSString *)string{
-    NSDictionary *attribute = @{NSFontAttributeName: kFont};
-    CGSize size = [string boundingRectWithSize:CGSizeMake(kScreenW-30, LONG_MAX) options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading
-                                    attributes:attribute context:nil].size;
-    return size;
-}
 
 @end

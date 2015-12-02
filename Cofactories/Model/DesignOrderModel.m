@@ -27,8 +27,11 @@
         self.ID = dictionary[@"id"];
         self.name = dictionary[@"name"];
         self.photoArray = dictionary[@"photo"];
-        self.status = dictionary[@"status"];
-        self.userUid = dictionary[@"userUid"];
+        
+        NSString *statusString = [NSString stringWithFormat:@"%@",dictionary[@"status"]];
+        self.status = statusString;
+        
+        self.userUid = [NSString stringWithFormat:@"%@",dictionary[@"userUid"]];
         self.bidCount = dictionary[@"bidCount"];
     }
     return self;

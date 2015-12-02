@@ -10,12 +10,14 @@
 #import "Order_Supplier_TVC.h"
 #import "OrderPhotoViewController.h"
 #import "SupplierOrderDetail_VC.h"
+#import "MJRefresh.h"
 
 @interface SearchOrder_Supplier_VC ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>{
     UITableView     *_tableView;
     UILabel         *_lineLB;
     NSMutableArray  *_buttonArray;
     NSMutableArray  *_dataArray;
+    int              _refrushCount;
 
 }
 @property (nonatomic,copy)NSString  *oderKeywordString;
@@ -42,6 +44,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [self initSelectView];
     [self customSearchBar];
     [self initTableView];
+    
+    _refrushCount = 1;
+    [self setupRefresh];
 }
 
 - (void)initSelectView{
@@ -69,6 +74,35 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [self.view addSubview:_lineLB];
 }
 
+- (void)setupRefresh
+{
+    [_tableView addFooterWithTarget:self action:@selector(footerRereshing)];
+    _tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    _tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    _tableView.footerRefreshingText = @"加载中...";
+}
+
+- (void)footerRereshing
+{
+    _refrushCount++;
+    DLog(@"_refrushCount==%d",_refrushCount);
+    [HttpClient searchSupplierOrderWithKeyword:_oderKeywordString type:_oderTypeString pageCount:@(_refrushCount) WithCompletionBlock:^(NSDictionary *dictionary){
+        NSArray *array = dictionary[@"message"];;
+        
+        for (int i=0; i<array.count; i++)
+        {
+            SupplierOrderModel *model = array[i];
+            
+            [_dataArray addObject:model];
+        }
+        [_tableView reloadData];
+        
+    }];
+    [_tableView footerEndRefreshing];
+}
+
+
+
 #pragma mark - 关键字搜索
 - (void)customSearchBar{
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
@@ -89,6 +123,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [searchBar resignFirstResponder];
     
     _oderKeywordString = searchBar.text;
+    _refrushCount = 1;
     _oderTypeString = nil;
     
     [HttpClient searchSupplierOrderWithKeyword:_oderKeywordString type:_oderTypeString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
@@ -185,6 +220,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     }];
     
     
+    _refrushCount = 1;
     _oderKeywordString = nil;
     switch (button.tag) {
         case 1:

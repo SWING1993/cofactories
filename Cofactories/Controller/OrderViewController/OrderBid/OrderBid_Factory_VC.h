@@ -10,4 +10,6 @@
 
 @interface OrderBid_Factory_VC : UITableViewController
 @property (nonatomic,copy)NSString *orderID;
+@property (nonatomic,copy)NSString *orderTypeString;
+
 @end

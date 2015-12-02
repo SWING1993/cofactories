@@ -108,33 +108,68 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     if (alertView.tag == 100) {
         if (buttonIndex == 1) {
             DLog(@"%@",_commentTV.text);
-            [HttpClient bidFactoryOrderWithDiscription:_commentTV.text orderID:_orderID WithCompletionBlock:^(NSDictionary *dictionary) {
-                DLog(@"%@",dictionary);
-                if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"投标成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-                    alertView.tag = 10086;
-                    [alertView show];
-                    if (_imageViewArray.count>0) {
-                        NSString *policyString = dictionary[@"message"][@"data"][@"policy"];
-                        NSString *signatureString = dictionary[@"message"][@"data"][@"signature"];
-                        UpYun *upYun = [[UpYun alloc] init];
-                        upYun.bucket = bucketAPI;//图片测试
-                        upYun.expiresIn = 600;// 10分钟
-                        DLog(@"%@",_imageViewArray);
-                        [_imageViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                            UIImage *image = (UIImage *)obj;
-                            [upYun uploadImage:image policy:policyString signature:signatureString];
-                        }];
+            
+            if ([self.orderTypeString isEqualToString:@"FactoryOrder"]) {
+                [HttpClient bidFactoryOrderWithDiscription:_commentTV.text orderID:_orderID WithCompletionBlock:^(NSDictionary *dictionary) {
+                    DLog(@"%@",dictionary);
+                    if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"投标成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                        alertView.tag = 10086;
+                        [alertView show];
+                        if (_imageViewArray.count>0) {
+                            NSString *policyString = dictionary[@"message"][@"data"][@"policy"];
+                            NSString *signatureString = dictionary[@"message"][@"data"][@"signature"];
+                            UpYun *upYun = [[UpYun alloc] init];
+                            upYun.bucket = bucketAPI;//图片测试
+                            upYun.expiresIn = 600;// 10分钟
+                            DLog(@"%@",_imageViewArray);
+                            [_imageViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                UIImage *image = (UIImage *)obj;
+                                [upYun uploadImage:image policy:policyString signature:signatureString];
+                            }];
+                            
+                        }else{
+                            // 用户未上传图片
+                        }
                         
-                    }else{
-                        // 用户未上传图片
+                    }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
+                        kTipAlert(@"发布订单失败，请重新登录");
                     }
                     
-                }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
-                    kTipAlert(@"发布订单失败，请重新登录");
-                }
+                }];
 
-            }];
+            }else if ([self.orderTypeString isEqualToString:@"DesignOrder"]){
+                
+                [HttpClient bidDesignerOrderWithDiscription:_commentTV.text orderID:_orderID WithCompletionBlock:^(NSDictionary *dictionary) {
+                    DLog(@"%@",dictionary);
+                    if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"投标成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                        alertView.tag = 10086;
+                        [alertView show];
+                        if (_imageViewArray.count>0) {
+                            NSString *policyString = dictionary[@"message"][@"data"][@"policy"];
+                            NSString *signatureString = dictionary[@"message"][@"data"][@"signature"];
+                            UpYun *upYun = [[UpYun alloc] init];
+                            upYun.bucket = bucketAPI;//图片测试
+                            upYun.expiresIn = 600;// 10分钟
+                            DLog(@"%@",_imageViewArray);
+                            [_imageViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                UIImage *image = (UIImage *)obj;
+                                [upYun uploadImage:image policy:policyString signature:signatureString];
+                            }];
+                            
+                        }else{
+                            // 用户未上传图片
+                        }
+                        
+                    }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
+                        kTipAlert(@"发布订单失败，请重新登录");
+                    }
+                    
+                }];
+            }
+            
+           
         }
     }
     
