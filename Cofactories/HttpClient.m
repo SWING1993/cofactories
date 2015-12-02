@@ -14,7 +14,6 @@
 #import "UserManagerCenter.h"
 #import "RootViewController.h"
 #import "WalletModel.h"
-#import "VerifyModel.h"
 
 #pragma mark - 服务器
 

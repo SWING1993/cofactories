@@ -9,11 +9,16 @@
 #import "ZGYDesignMarkrtController.h"
 #import "PopularMessageController.h"
 #import "ZGYSupplyMarketView.h"
+#import "IMChatViewController.h"
 @interface ZGYDesignMarkrtController ()<ZGYSupplyMarketViewDelegate>
-
+@property(nonatomic,strong)UserModel *userModel;
 @end
 
 @implementation ZGYDesignMarkrtController
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,7 +32,9 @@
     ZGYSupplyMarketView *designView = [[ZGYSupplyMarketView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 370) photoArray:photoArray titleArray:titleArray detailTitleArray:detailTitleArray];
     designView.delegate = self;
     [self.view addSubview:designView];
-    
+    if (!self.userModel) {
+        self.userModel = [[UserModel alloc] getMyProfile];
+    }
 
 }
 #pragma mark - ZGYSupplyMarketViewDelegate
@@ -35,7 +42,18 @@
 - (void)supplyMarketView:(ZGYSupplyMarketView *)supplyMarketView supplyMarketButtonTag:(NSInteger)supplyMarketButtonTag {
     switch (supplyMarketButtonTag) {
         case 0:{
-            
+            IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
+            conversationVC.conversationType = ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
+            conversationVC.targetId = @"4"; // 接收者的 targetId，这里为举例。
+            conversationVC.userName = @"IVERSON"; // 接受者的 username，这里为举例。
+            conversationVC.title = @"IVERSON"; // 会话的 title。
+            conversationVC.hidesBottomBarWhenPushed=YES;
+            // 把单聊视图控制器添加到导航栈。
+//            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+//            backItem.title=@"返回";
+//            self.navigationItem.backBarButtonItem = backItem;
+            [self.navigationController.navigationBar setHidden:NO];
+            [self.navigationController pushViewController:conversationVC animated:YES];
         }
             break;
         case 1:{

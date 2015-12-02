@@ -9,7 +9,7 @@
 #import "FactoryOrderDetail_VC.h"
 #import "OrderPhotoViewController.h"
 #import "OrderBid_Factory_VC.h"
-
+#import "IMChatViewController.h"
 @interface FactoryOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;

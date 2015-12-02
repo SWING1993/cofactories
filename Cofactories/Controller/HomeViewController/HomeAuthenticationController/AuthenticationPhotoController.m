@@ -120,9 +120,14 @@
 
 - (void)actionOfDoneButton:(UIButton *)button {
     DLog(@"提交认证");
+    doneButton.userInteractionEnabled = NO;
     [HttpClient postVerifyWithenterpriseName:self.priseName withenterpriseAddress:self.priseAddress withpersonName:self.personName withidCard:self.idCard idCardImage:[self.idCardImageArray lastObject] idCardBackImage:[self.idCardBackImageArray lastObject] licenseImage:[self.licenseImageArray lastObject] andBlock:^(NSInteger statusCode) {
         if (statusCode == 200) {
-            kTipAlert(@"提交认证成功");
+            kTipAlert(@"提交认证成功, 可能需要几分钟的等待时间上传图片！");
+            doneButton.userInteractionEnabled = YES;
+        } else {
+            kTipAlert(@"提交认证失败");
+            doneButton.userInteractionEnabled = YES;
         }
         DLog(@"%ld", statusCode);
     }];

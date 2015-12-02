@@ -9,9 +9,9 @@
 #import "IMChatViewController.h"
 #import "IQKeyboardManager.h"
 
-@interface IMChatViewController () {
-//    FactoryModel  *_userModel;
-}
+@interface IMChatViewController ()
+
+@property(nonatomic,strong)UserModel *userModel;
 
 @end
 
@@ -33,13 +33,23 @@
     [super viewWillDisappear:animated];
     [[IQKeyboardManager sharedManager] setEnable:_wasKeyboardManagerEnabled];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:_wasKeyboardManagerEnabled];
-
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    NSDictionary *textAttributes = @{
+                                     NSFontAttributeName: [UIFont boldSystemFontOfSize:kNavTitleFontSize],
+                                     NSForegroundColorAttributeName: [UIColor blackColor],
+                                     };
+    [self.navigationController.navigationBar setTitleTextAttributes:textAttributes];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.pluginBoardView removeItemAtIndex:2];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
+    NSDictionary *textAttributes = @{
+                                     NSFontAttributeName: [UIFont boldSystemFontOfSize:15],
+                                     NSForegroundColorAttributeName: [UIColor whiteColor],
+                                     };
+    [self.navigationController.navigationBar setTitleTextAttributes:textAttributes];    [self.pluginBoardView removeItemAtIndex:2];
     [self notifyUpdateUnreadMessageCount];
     self.enableNewComingMessageIcon = YES;
 }
@@ -48,17 +58,19 @@
 
 
 
-//- (void)didTapCellPortrait:(NSString *)userId {
-//    NSNumber *uid = (NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"selfuid"];
-//    if ([[NSString stringWithFormat:@"%@", uid] isEqualToString:userId]) {
-//        DLog(@"自己的uid = %@", userId);
-//    } else {
-//        DLog(@"对方的uid = %@", userId);
-//        //解析工厂信息
-//        [Tools showLoadString:@"获取资料中..."];
+- (void)didTapCellPortrait:(NSString *)userId {
+    if (!self.userModel) {
+        self.userModel = [[UserModel alloc] getMyProfile];
+    }
+
+    if ([self.userModel.uid isEqualToString:userId]) {
+        DLog(@"自己的uid = %@", userId);
+    } else {
+        DLog(@"对方的uid = %@", userId);
+        //解析工厂信息
+        DLog(@"看对方的资料");
 //        [HttpClient getUserProfileWithUid:[userId intValue] andBlock:^(NSDictionary *responseDictionary) {
 //            _userModel = (FactoryModel *)responseDictionary[@"model"];
-//            [Tools WSProgressHUDDismiss];
 //            CooperationInfoViewController *vc = [CooperationInfoViewController new];
 //            vc.factoryModel = _userModel;
 //            vc.IMFlag = YES;
@@ -69,10 +81,10 @@
 //            [self.navigationController pushViewController:vc animated:YES];
 //            
 //        }];
-//
-//    }
-//    
-//}
+
+    }
+    
+}
 
 /**
  *  更新左上角未读消息数
