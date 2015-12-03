@@ -59,7 +59,7 @@
     leftBtn.selected = self.isSeletecd;
     [leftBtn setImage:[UIImage imageNamed:@"leftBtn_Normal"] forState:UIControlStateNormal];
     [leftBtn setImage:[UIImage imageNamed:@"leftBtn_Selected"] forState:UIControlStateSelected];
-    leftBtn.frame = CGRectMake(20, 12.5, 25, 25);
+    leftBtn.frame = CGRectMake(25, 15, 20, 20);
     [leftBtn addTarget:self action:@selector(clickLeftBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:leftBtn];
 
@@ -67,7 +67,7 @@
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeSystem];
     btn.frame = CGRectMake(60, 10, kScreenW - 80, 30);
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [btn setTitle:@" 同意《聚工厂服务协议》" forState:UIControlStateNormal];
+    [btn setTitle:@"同意《聚工厂服务协议》" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     btn.titleLabel.font = kFont;
     [btn addTarget:self action:@selector(clickRightBtn) forControlEvents:UIControlEventTouchUpInside];

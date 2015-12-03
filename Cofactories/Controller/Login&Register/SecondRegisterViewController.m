@@ -62,7 +62,7 @@
 }
 
 - (void)buttonClicked{
-    NSArray * viewControllers = self.navigationController.viewControllers;
+     NSArray * viewControllers = self.navigationController.viewControllers;
     [self.navigationController popToViewController:[viewControllers firstObject] animated:YES];
 }
 
