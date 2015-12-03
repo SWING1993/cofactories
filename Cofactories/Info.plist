@@ -20,6 +20,27 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wxdf66977ff3f413e2</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>QQ41D998BE</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -41,5 +62,14 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+    <key>qq.com</key>
+    <dict>
+        <key>NSIncludesSubdomains</key>
+        <true/>
+        <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+        <true/>
+        <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+        <false/>
+    </dict>
 </dict>
 </plist>

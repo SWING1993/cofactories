@@ -31,32 +31,35 @@ static NSString *processCellIdentifier = @"processCell";
     photoArray = @[@"Process-加工厂", @"Process-锁眼钉扣", @"Process-代裁", @"Process-后整包装", @"Process-砂洗水洗", @"Process-绣花厂", @"Procss-印染厂", @"Process-印花厂", @"Process-其他特种工艺"];
     titleArray = @[@"加工厂", @"锁眼钉扣", @"代裁", @"后整包装", @"砂洗水洗", @"印花厂", @"印染厂", @"绣花厂", @"其他特种工艺"];
     [self creatCollectionView];
-//    ZGYTitleView *titleView = [[ZGYTitleView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 44) Title:@"加工配套企业汇总" leftLabelColor:[UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f]];
-//    titleView.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:titleView];
-    UIView *bigView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 44)];
-    bigView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:bigView];
+
     
-    UIImageView *allImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 24, 24)];
+    
+    UIImageView *allImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 74, 24, 24)];
     allImage.image = [UIImage imageNamed:@"Process-加工配套企业汇总"];
-    [bigView addSubview:allImage];
-    UILabel *myTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(allImage.frame) + 10, 0, kScreenW - 74, 44)];
+    [self.view addSubview:allImage];
+    UILabel *myTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(allImage.frame) + 10, 64, kScreenW - 74, 44)];
     myTitle.text = @"加工配套企业汇总";
     myTitle.font = [UIFont systemFontOfSize:15];
     myTitle.textColor = [UIColor colorWithRed:38.0f/255.0f green:38.0f/255.0f blue:38.0f/255.0f alpha:1.0f];
-    [bigView addSubview:myTitle];
+    [self.view addSubview:myTitle];
     
+    
+    UIView *bigView = [[UIView alloc] initWithFrame:CGRectMake(0, 108, kScreenW, 10)];
+    bigView.backgroundColor = [UIColor colorWithRed:249.0f/255.0f green:249.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
+    [self.view addSubview:bigView];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 108, kScreenW, 0.3)];
+    lineView.backgroundColor = kDeepBlue;
+    [self.view addSubview:lineView];
 }
 - (void)creatCollectionView {
     //创建CollectionView
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, kScreenW, kScreenH - 50) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 54, kScreenW, kScreenH - 54) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.collectionView.backgroundColor = [UIColor colorWithRed:249.0f/255.0f green:249.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
     
     [self.collectionView registerClass:[ProcessMarketListCell class] forCellWithReuseIdentifier:processCellIdentifier];
