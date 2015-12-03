@@ -12,6 +12,9 @@
 #import "UMessage.h"
 #import "MobClick.h"
 
+#import "UMSocialWechatHandler.h"
+#import "UMSocialSnsService.h"
+#import "UMSocialQQHandler.h"
 //腾讯Bugly
 #import <Bugly/CrashReporter.h>
 
@@ -32,6 +35,10 @@
     //初始化融云SDK。
     [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY];
     [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
+    //设置微信AppId、appSecret，分享url
+    [UMSocialWechatHandler setWXAppId:@"wxdf66977ff3f413e2" appSecret:@"a6e3fe6788a9a523cb6657e0ef7ae9f4" url:@"http://www.umeng.com/social"];
+    //设置分享到QQ/Qzone的应用Id，和分享url 链接
+    [UMSocialQQHandler setQQWithAppId:@"1104779454" appKey:@"VNaZ1cQfyRS2C3I7" url:@"http://www.umeng.com/social"];
     /**
      * 融云推送处理1
      */
@@ -205,4 +212,16 @@
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
 
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        //调用其他SDK，例如支付宝SDK等
+    }
+    return result;
+}
+
+
+
 @end
