@@ -271,6 +271,8 @@
 		7D665EA81C0C60EE00C7C7BF /* IMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */; };
 		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
 		7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6DB64D1C05BB9D00BF396E /* 身份证.png */; };
+		7D8E703A1C0FE894004A7E2C /* ProcessMarketController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E70391C0FE894004A7E2C /* ProcessMarketController.m */; };
+		7D8E703E1C0FEA06004A7E2C /* ProcessMarketListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E703D1C0FEA06004A7E2C /* ProcessMarketListCell.m */; };
 		7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */; };
 		7DA5E6981C0D4CDD00736C10 /* SelectOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA5E6971C0D4CDD00736C10 /* SelectOrder_VC.m */; };
 		7DE36D221C0809A70090BF5D /* PopularCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */; };
@@ -795,6 +797,10 @@
 		7D6DB64A1C05AEE300BF396E /* AuthenticationPhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationPhotoController.h; sourceTree = "<group>"; };
 		7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPhotoController.m; sourceTree = "<group>"; };
 		7D6DB64D1C05BB9D00BF396E /* 身份证.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "身份证.png"; sourceTree = "<group>"; };
+		7D8E70381C0FE894004A7E2C /* ProcessMarketController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessMarketController.h; sourceTree = "<group>"; };
+		7D8E70391C0FE894004A7E2C /* ProcessMarketController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessMarketController.m; sourceTree = "<group>"; };
+		7D8E703C1C0FEA06004A7E2C /* ProcessMarketListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessMarketListCell.h; sourceTree = "<group>"; };
+		7D8E703D1C0FEA06004A7E2C /* ProcessMarketListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessMarketListCell.m; sourceTree = "<group>"; };
 		7D9DDC9C1C07499500F26B1B /* ZGYSelectButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSelectButtonView.h; sourceTree = "<group>"; };
 		7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSelectButtonView.m; sourceTree = "<group>"; };
 		7DA5E6961C0D4CDD00736C10 /* SelectOrder_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectOrder_VC.h; path = Cofactories/Controller/OrderViewController/SelectOrder_VC.h; sourceTree = SOURCE_ROOT; };
@@ -1610,6 +1616,7 @@
 			children = (
 				03927D821BEC8D1E0087A2FD /* HomeViewController.h */,
 				03927D831BEC8D1E0087A2FD /* HomeViewController.m */,
+				7D8E70371C0FE85C004A7E2C /* HomeProcessMarketController */,
 				7D5BDB781BFF0E8400FC8054 /* HomeView */,
 				7DEB8F911C06A27F00B98912 /* HomeDesignMarketController */,
 				7DEB8F921C06A28C00B98912 /* HomeSupplyMarketController */,
@@ -1964,6 +1971,25 @@
 			path = Rong_Cloud_iOS_SDK_v2_3_8_stable;
 			sourceTree = "<group>";
 		};
+		7D8E70371C0FE85C004A7E2C /* HomeProcessMarketController */ = {
+			isa = PBXGroup;
+			children = (
+				7D8E703B1C0FE9E9004A7E2C /* ProcessMarketView */,
+				7D8E70381C0FE894004A7E2C /* ProcessMarketController.h */,
+				7D8E70391C0FE894004A7E2C /* ProcessMarketController.m */,
+			);
+			path = HomeProcessMarketController;
+			sourceTree = "<group>";
+		};
+		7D8E703B1C0FE9E9004A7E2C /* ProcessMarketView */ = {
+			isa = PBXGroup;
+			children = (
+				7D8E703C1C0FEA06004A7E2C /* ProcessMarketListCell.h */,
+				7D8E703D1C0FEA06004A7E2C /* ProcessMarketListCell.m */,
+			);
+			path = ProcessMarketView;
+			sourceTree = "<group>";
+		};
 		7DE8C1941C04458E00E0917D /* WalletView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2302,6 +2328,7 @@
 				70FA60E31C09425400EA84FD /* Comment_TVC.m in Sources */,
 				03571BA31BE85B8200900EF9 /* UIImageView+MJWebCache.m in Sources */,
 				7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */,
+				7D8E703A1C0FE894004A7E2C /* ProcessMarketController.m in Sources */,
 				03FF44F11BFEE73400D81DCE /* UIRefreshControl+AFNetworking.m in Sources */,
 				035CC52A1C06DCF000998FBD /* JKPromptView.m in Sources */,
 				0395D2EF1BFC65920009AABC /* CYLTabBar.m in Sources */,
@@ -2408,6 +2435,7 @@
 				705421F81C0D7A3C00BD2B47 /* OrderBid_Factory_VC.m in Sources */,
 				70F5EF841C0C5909008878B4 /* OrderPhotoViewController.m in Sources */,
 				03571C041BE85C0800900EF9 /* UIImage+WebP.m in Sources */,
+				7D8E703E1C0FEA06004A7E2C /* ProcessMarketListCell.m in Sources */,
 				03882C4F1BEC951B0094524A /* HttpClient.m in Sources */,
 				70F7E36A1C05BF3900DD661E /* MachineMarketModel.m in Sources */,
 				705422011C0DB36F00BD2B47 /* OrderBid_Supplier_VC.m in Sources */,

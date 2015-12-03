@@ -14,6 +14,7 @@
 #import "ZGYDesignMarkrtController.h"//设计市场
 #import "SetViewController.h"//完善资料
 #import "SupplyMarketViewController.h"//供应市场
+#import "ProcessMarketController.h"//加工配套市场
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -256,6 +257,9 @@ static NSString *activityCellIdentifier = @"activityCell";
             break;
         case 4:{
             //加工配套市场
+            ProcessMarketController *processMarketVC = [[ProcessMarketController alloc] init];
+            processMarketVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:processMarketVC animated:YES];
         }
             break;
         default:
