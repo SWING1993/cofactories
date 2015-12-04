@@ -12,6 +12,7 @@
 #import "SupplierOrderModel.h"
 #import "FactoryOrderMOdel.h"
 #import "DesignOrderModel.h"
+#import "ProcessingAndComplitonOrderModel.h"
 #import "OthersUserModel.h"
 
 @interface HttpClient : NSObject
@@ -248,6 +249,11 @@
 // 获取设计订单竞标用户
 + (void)getDesignerOrderBidUserAmountWithOrderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
+// 获取所有用户有关的订单
++ (void)getAllMyOrdersWithOrderStatus:(NSString *)aStatus page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 关闭订单
++ (void)closeOrderWithOrderID:(NSString *)aOrderID winnerUserID:(NSString *)aWinnerUserID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 //获取认证信息
 + (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block;

@@ -123,6 +123,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         button.tag = i+1;
         [button addTarget:self action:@selector(chatBidClick:) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:button];
+        
     }
     
     UILabel *lineLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 126, kScreenW, 10)];

@@ -1486,6 +1486,64 @@
 
 }
 
+// 获取所有用户有关的订单
++ (void)getAllMyOrdersWithOrderStatus:(NSString *)aStatus page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        NSMutableDictionary * parametersDictionary = [@{} mutableCopy];
+        if (aStatus) {
+            [parametersDictionary setObject:aStatus forKeyedSubscript:@"status"];
+        }
+        if (aPage) {
+            [parametersDictionary setObject:aPage forKeyedSubscript:@"page"];
+        }
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = @"/order/myAll";
+        [manager GET:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+           // DLog(@"responseObject == %@",responseObject);
+            NSArray *responseArray = (NSArray *)responseObject;
+            NSMutableArray *array = [@[] mutableCopy];
+            [responseArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary *dictionary = (NSDictionary *)obj;
+                ProcessingAndComplitonOrderModel *model = [ProcessingAndComplitonOrderModel getProcessingAndComplitonOrderModelWithDictionary:dictionary];
+                [array addObject:model];
+            }];
+            completionBlock(@{@"statusCode": @"200", @"message":array});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+}
+
+// 关闭订单
++ (void)closeOrderWithOrderID:(NSString *)aOrderID winnerUserID:(NSString *)aWinnerUserID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/close/",aOrderID];
+        [manager POST:urlString parameters:@{@"winner":aWinnerUserID} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @(200), @"message": responseObject});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+    
+    
+}
 
 + (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];

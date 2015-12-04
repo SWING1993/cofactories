@@ -118,6 +118,24 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         button.tag = i+1;
         [button addTarget:self action:@selector(chatBidClick:) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:button];
+     
+        if (i == 1) {
+            
+            switch (_supplierOrderDetailBidStatus) {
+                case SupplierOrderDetailBidStatus_Common:
+                    [button setBackgroundImage:[UIImage imageNamed:buttonArray[i]] forState:UIControlStateNormal];
+                    break;
+                case SupplierOrderDetailBidStatus_BidOver:
+                    [button setBackgroundImage:[UIImage imageNamed:@"alreadyBid"] forState:UIControlStateNormal];
+                    break;
+                case SupplierOrderDetailBidStatus_BidManagement:
+                    [button setBackgroundImage:[UIImage imageNamed:@"manageBid"] forState:UIControlStateNormal];
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
     
 }
@@ -127,23 +145,44 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     if (button.tag == 1) {
         // 聊天
     }else if (button.tag == 2){
+        
+        
         // 投标
-        if (!_isMyselfOrder) {
-            if (!_isCompletion) {
-                if (!_isAlreadyBid) {
-                    NSLog(@"%ld",(long)button.tag);
-                    OrderBid_Supplier_VC *vc = [OrderBid_Supplier_VC new];
-                    vc.orderID = _dataModel.ID;
-                    [self.navigationController pushViewController:vc animated:YES];
+        
+        
+        switch (_supplierOrderDetailBidStatus) {
+            case SupplierOrderDetailBidStatus_Common:
+            {
+                if (!_isMyselfOrder) {
+                    if (!_isCompletion) {
+                        if (!_isAlreadyBid) {
+                            NSLog(@"%ld",(long)button.tag);
+                            OrderBid_Supplier_VC *vc = [OrderBid_Supplier_VC new];
+                            vc.orderID = _dataModel.ID;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }else{
+                            kTipAlert(@"该订单您已投过标");
+                        }
+                    }else{
+                        kTipAlert(@"该订单已完成投标");
+                    }
                 }else{
-                    kTipAlert(@"该订单您已投过标");
+                    kTipAlert(@"不可投标自己的订单");
                 }
-            }else{
-                kTipAlert(@"该订单已完成投标");
+
             }
-        }else{
-            kTipAlert(@"不可投标自己的订单");
+                break;
+            case SupplierOrderDetailBidStatus_BidOver:
+                kTipAlert(@"该订单您已投过标");
+                break;
+            case SupplierOrderDetailBidStatus_BidManagement:
+                
+                break;
+                
+            default:
+                break;
         }
+        
     }
 }
 
