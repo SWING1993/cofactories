@@ -1,0 +1,92 @@
+//
+//  BidManage_Supplier_VC.m
+//  Cofactories
+//
+//  Created by GTF on 15/12/4.
+//  Copyright © 2015年 宋国华. All rights reserved.
+//
+
+#import "BidManage_Supplier_VC.h"
+#import "BidManage_Supp_TVC.h"
+
+@interface BidManage_Supplier_VC (){
+    NSMutableArray  *_dataArray;
+    NSMutableArray  *_buttonArray;
+    NSInteger        _selectedIndex;
+}
+
+@end
+static NSString *const reuseIdentifier = @"reuseIdentifier";
+@implementation BidManage_Supplier_VC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = @"投标管理";
+    self.tableView.rowHeight = 250;
+    _buttonArray = [@[] mutableCopy];
+
+    [HttpClient getSupplierOrderBidUserAmountWithOrderID:self.orderID WithCompletionBlock:^(NSDictionary *dictionary) {
+        NSArray *responseArray = (NSArray *)dictionary[@"message"];
+        _dataArray = [@[] mutableCopy];
+        [responseArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dic = (NSDictionary *)obj;
+            BidManage_Supplier_Model *model = [BidManage_Supplier_Model getBidManage_Supplier_ModelWithDictionary:dic];
+            [_dataArray addObject:model];
+        }];
+
+        DLog(@">>=%@",_dataArray);
+        [self.tableView reloadData];
+    }];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _dataArray.count;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BidManage_Supp_TVC *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (!cell) {
+        cell = [[BidManage_Supp_TVC alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    }
+    
+    BidManage_Supplier_Model *model = _dataArray[indexPath.row];
+    [cell layoutDataWithModel:model];
+    
+    cell.selectButton.tag = indexPath.row;
+    
+    if (_selectedIndex == indexPath.row) {
+        [cell.selectButton setTitle:@"已选" forState:UIControlStateNormal];
+        cell.selectButton.backgroundColor = MAIN_COLOR;
+    }else{
+        [cell.selectButton setTitle:@"选择" forState:UIControlStateNormal];
+        cell.selectButton.backgroundColor = [UIColor colorWithRed:163/255.0 green:163/255.0 blue:163/255.0 alpha:1];
+    }
+
+    [cell.selectButton addTarget:self action:@selector(selectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    return cell;
+}
+
+- (void)selectButtonClick:(UIButton *)button{
+    _selectedIndex = button.tag;
+    
+    if (_buttonArray.count > 0) {
+        UIButton *lastButton = [_buttonArray firstObject];
+        [lastButton setTitle:@"选择" forState:UIControlStateNormal];
+        lastButton.backgroundColor = [UIColor colorWithRed:163/255.0 green:163/255.0 blue:163/255.0 alpha:1];
+    }
+    
+    
+    [button setTitle:@"已选" forState:UIControlStateNormal];
+    button.backgroundColor = MAIN_COLOR;
+    [_buttonArray removeAllObjects];
+    [_buttonArray addObject:button];
+    
+    [self.tableView reloadData];
+    
+    DLog(@"%d",_selectedIndex);
+    
+}
+
+@end

@@ -13,6 +13,7 @@
 #import "FactoryOrderMOdel.h"
 #import "DesignOrderModel.h"
 #import "ProcessingAndComplitonOrderModel.h"
+#import "BidManage_Supplier_Model.h"
 #import "OthersUserModel.h"
 
 @interface HttpClient : NSObject

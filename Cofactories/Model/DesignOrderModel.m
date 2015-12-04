@@ -32,7 +32,7 @@
         self.status = statusString;
         
         self.userUid = [NSString stringWithFormat:@"%@",dictionary[@"userUid"]];
-        self.bidCount = dictionary[@"bidCount"];
+        self.bidCount = [NSString stringWithFormat:@"%@",dictionary[@"bidCount"]];
     }
     return self;
 }

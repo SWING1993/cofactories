@@ -1433,7 +1433,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/supplier/bid/",aOrderID];
         [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            DLog(@"responseObject == %@",responseObject);
+           // DLog(@"responseObject == %@",responseObject);
             completionBlock(@{@"statusCode": @(200), @"message": responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);

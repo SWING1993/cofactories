@@ -9,6 +9,7 @@
 #import "SupplierOrderDetail_VC.h"
 #import "OrderPhotoViewController.h"
 #import "OrderBid_Supplier_VC.h"
+#import "BidManage_Supplier_VC.h"
 
 @interface SupplierOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
@@ -175,7 +176,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             case SupplierOrderDetailBidStatus_BidOver:
                 kTipAlert(@"该订单您已投过标");
                 break;
-            case SupplierOrderDetailBidStatus_BidManagement:
+            case SupplierOrderDetailBidStatus_BidManagement:{
+                if ([_dataModel.bidCount isEqualToString:@"0"]) {
+                    kTipAlert(@"该订单暂无商家投标");
+                }else{
+                    BidManage_Supplier_VC *vc = [BidManage_Supplier_VC new];
+                    vc.orderID = _dataModel.ID;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            }
                 
                 break;
                 

@@ -146,7 +146,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [HttpClient getDesignOrderDetailWithID:model.ID WithCompletionBlock:^(NSDictionary *dictionary) {
         DesignOrderModel *dataModel = [DesignOrderModel getDesignOrderModelWithDictionary:dictionary];
         vc.dataModel = dataModel;
-        
+        vc.designOrderDetailBidStatus = DesignOrderDetailBidStatus_Common;
         [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
             OthersUserModel *model = dictionary[@"message"];
             vc.otherUserModel = model;

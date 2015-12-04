@@ -25,9 +25,9 @@
             self.orderType = @"加工订单";
         }else if ([orderTypeString isEqualToString:@"design"]) {
             self.orderType = @"设计师订单";
-        }else if ([orderTypeString isEqualToString:@"supplier"]) {
+        }else if ([orderTypeString isEqualToString:@"supply"]) {
             self.orderType = @"供应商订单";
-        }else if ([orderTypeString isEqualToString:@"bid"]) {
+        }else {
             self.orderType = @"投标订单";
         }
                 

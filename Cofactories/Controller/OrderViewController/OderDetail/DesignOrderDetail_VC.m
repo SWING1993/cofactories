@@ -9,6 +9,7 @@
 #import "DesignOrderDetail_VC.h"
 #import "OrderPhotoViewController.h"
 #import "OrderBid_Factory_VC.h"
+#import "BidManage_FactoryAndDesign_VC.h"
 
 @interface DesignOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
@@ -124,6 +125,25 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         [button addTarget:self action:@selector(chatBidClick:) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:button];
         
+        if (i == 1) {
+            
+            switch (_designOrderDetailBidStatus) {
+                case DesignOrderDetailBidStatus_Common:
+                    [button setBackgroundImage:[UIImage imageNamed:buttonArray[i]] forState:UIControlStateNormal];
+                    break;
+                case DesignOrderDetailBidStatus_BidOver:
+                    [button setBackgroundImage:[UIImage imageNamed:@"alreadyBid"] forState:UIControlStateNormal];
+                    break;
+                case DesignOrderDetailBidStatus_BidManagement:
+                    [button setBackgroundImage:[UIImage imageNamed:@"manageBid"] forState:UIControlStateNormal];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+
+        
     }
     
     UILabel *lineLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 126, kScreenW, 10)];
@@ -138,24 +158,47 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         // 聊天
     }else if (button.tag == 2){
         // 投标
-        if (!_isMyselfOrder) {
-            if (!_isCompletion) {
-                if (!_isAlreadyBid) {
-                    NSLog(@"%ld",(long)button.tag);
-                    OrderBid_Factory_VC *vc = [OrderBid_Factory_VC new];
-                    vc.orderTypeString = @"DesignOrder";
+        switch (_designOrderDetailBidStatus) {
+            case DesignOrderDetailBidStatus_Common:{
+                if (!_isMyselfOrder) {
+                    if (!_isCompletion) {
+                        if (!_isAlreadyBid) {
+                            NSLog(@"%ld",(long)button.tag);
+                            OrderBid_Factory_VC *vc = [OrderBid_Factory_VC new];
+                            vc.orderTypeString = @"DesignOrder";
+                            vc.orderID = _dataModel.ID;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }else{
+                            kTipAlert(@"该订单您已投过标");
+                        }
+                    }else{
+                        kTipAlert(@"该订单已完成投标");
+                    }
+                }else{
+                    kTipAlert(@"不可投标自己的订单");
+                }
+            }
+                
+                break;
+            case DesignOrderDetailBidStatus_BidOver:
+                kTipAlert(@"不可投标自己的订单");
+                break;
+                
+            case DesignOrderDetailBidStatus_BidManagement:{
+                if ([_dataModel.bidCount isEqualToString:@"0"]) {
+                    kTipAlert(@"该订单暂无商家投标");
+                }else{
+                    BidManage_FactoryAndDesign_VC *vc = [BidManage_FactoryAndDesign_VC new];
                     vc.orderID = _dataModel.ID;
                     [self.navigationController pushViewController:vc animated:YES];
-                }else{
-                    kTipAlert(@"该订单您已投过标");
                 }
-            }else{
-                kTipAlert(@"该订单已完成投标");
             }
-        }else{
-            kTipAlert(@"不可投标自己的订单");
+                break;
+                
+            default:
+                break;
         }
-    }
+     }
 }
 
 - (void)imageDetailClick{

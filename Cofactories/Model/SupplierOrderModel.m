@@ -13,7 +13,7 @@
 - (instancetype)initSupplierOrderModelWithDictionary:(NSDictionary *)dictionary{
     if (self == [super init]) {
         self.amount = dictionary[@"amount"];
-        self.bidCount = dictionary[@"bidCount"];
+        self.bidCount = [NSString stringWithFormat:@"%@",dictionary[@"bidCount"]];
         NSString *creatString = dictionary[@"createdAt"];
         NSArray *creatArray = [Tools WithTime:creatString];
         self.createdAt = (NSString *)[creatArray firstObject];
