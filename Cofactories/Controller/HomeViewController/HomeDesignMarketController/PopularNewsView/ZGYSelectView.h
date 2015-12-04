@@ -31,7 +31,7 @@
 @property (nonatomic, assign) BOOL isNearView;//是三个选择的视图;
 @property (nonatomic, assign) BOOL isSearchView;//是两个选择的视图;
 
-- (id)initWithFrame:(CGRect)frame levelArray:(NSArray *)levelArr classArray:(NSArray *)classArr addressArray:(NSArray *)addressArr title:(NSString *)title;
+- (id)initWithFrame:(CGRect)frame levelArray:(NSArray *)levelArr classArray:(NSArray *)classArr addressArray:(NSArray *)addressArr title:(NSString *)title isTwo:(BOOL)isTwo;
 
 - (void)relodateTitles;
 - (void)hideSelectView;

@@ -62,14 +62,14 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-    <key>qq.com</key>
-    <dict>
-        <key>NSIncludesSubdomains</key>
-        <true/>
-        <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
-        <true/>
-        <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-        <false/>
-    </dict>
+	<key>qq.com</key>
+	<dict>
+		<key>NSIncludesSubdomains</key>
+		<true/>
+		<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+		<true/>
+		<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+		<false/>
+	</dict>
 </dict>
 </plist>

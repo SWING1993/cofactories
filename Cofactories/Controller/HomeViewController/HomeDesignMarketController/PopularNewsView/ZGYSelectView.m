@@ -53,7 +53,7 @@
     [self.btn_selectRank addTarget:self action:@selector(actionOfClass:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (id)initWithFrame:(CGRect)frame levelArray:(NSArray *)levelArr classArray:(NSArray *)classArr addressArray:(NSArray *)addressArr title:(NSString *)title {
+- (id)initWithFrame:(CGRect)frame levelArray:(NSArray *)levelArr classArray:(NSArray *)classArr addressArray:(NSArray *)addressArr title:(NSString *)title isTwo:(BOOL)isTwo {
     levelArray = levelArr;
     classArray = classArr;
     placeArray = addressArr;
@@ -69,7 +69,19 @@
         float ww = frame.size.width/3;
         float hh = frame.size.height;
         
-        for (int i = 0; i<3; i++) {
+        NSInteger num;
+        
+        _isSearchView = isTwo;
+        if (isTwo) {
+            //
+            num = 2;
+            ww = frame.size.width/2;
+        }else{
+            num = 3;
+        }
+
+        
+        for (int i = 0; i<num; i++) {
             UIView* rootV = [[UIView alloc] initWithFrame:CGRectMake(ww*i, 0, ww, hh)];
             rootV.tag = 900+i;
             [self addSubview:rootV];
@@ -96,8 +108,11 @@
         [classBtn addTarget:self action:@selector(actionOfClass:) forControlEvents:UIControlEventTouchUpInside];
         UIButton* areaBtn = buttons[1];
         [areaBtn addTarget:self action:@selector(actionOfClass:) forControlEvents:UIControlEventTouchUpInside];
-        UIButton* rankBtn = buttons[2];
+        if (!isTwo) {
+            UIButton* rankBtn = buttons[2];
             [rankBtn addTarget:self action:@selector(actionOfClass:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
         [self relodateTitles];
     }
     return self;
@@ -109,12 +124,14 @@
     classBtn.accessibilityLabel = chuShiZhi;
 
     UIButton* areaBtn = buttons[1];
-    [areaBtn setTitle:@"不限种类" forState:UIControlStateNormal];
+    [areaBtn setTitle:classArray[0] forState:UIControlStateNormal];
     areaBtn.accessibilityLabel = areaBtn.titleLabel.text;
+    if (!_isSearchView) {
+        UIButton* rankBtn = buttons[2];
+        [rankBtn setTitle:placeArray[0] forState:UIControlStateNormal];
+        rankBtn.accessibilityLabel = rankBtn.titleLabel.text;
+    }
     
-    UIButton* rankBtn = buttons[2];
-    [rankBtn setTitle:@"不限地区" forState:UIControlStateNormal];
-    rankBtn.accessibilityLabel = rankBtn.titleLabel.text;
     [self reloadFrame];
 }
 

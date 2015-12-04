@@ -8,6 +8,8 @@
 
 #import "SupplyMarketViewController.h"
 #import "ZGYSupplyMarketView.h"
+#import "materialShopViewController.h"
+
 
 @interface SupplyMarketViewController ()<UIScrollViewDelegate, ZGYSupplyMarketViewDelegate> {
     NSMutableArray *btnArray;
@@ -127,10 +129,29 @@
 - (void)supplyMarketView:(ZGYSupplyMarketView *)supplyMarketView supplyMarketButtonTag:(NSInteger)supplyMarketButtonTag {
     if (supplyMarketView.tag == 222) {
         DLog(@"左边第 %ld 个", supplyMarketButtonTag);
+        switch (supplyMarketButtonTag) {
+            case 0: {
+                //面料商家
+            }
+                break;
+            case 1: {
+                //辅料商家
+            }
+                break;
+            case 2: {
+                //机械设备商家
+            }
+                break;
+            default:
+                break;
+        }
     } else {
         DLog(@"右边第 %ld 个", supplyMarketButtonTag);
+        //面料商城
+        materialShopViewController *materialShopVC = [[materialShopViewController alloc] init];
+        materialShopVC.number = supplyMarketButtonTag + 1;
+        [self.navigationController pushViewController:materialShopVC animated:YES];
     }
-    
 }
 
 - (void)didReceiveMemoryWarning {
