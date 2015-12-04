@@ -52,7 +52,7 @@
     self.tableView.tableFooterView = tableFooterView;
 
     //设置Btn
-    UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
+    UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
     self.navigationItem.rightBarButtonItem = setButton;
 }
 
