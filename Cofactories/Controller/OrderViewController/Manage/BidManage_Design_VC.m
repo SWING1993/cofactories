@@ -1,49 +1,48 @@
 //
-//  BidManage_Supplier_VC.m
+//  BidManage_Design_VC.m
 //  Cofactories
 //
-//  Created by GTF on 15/12/4.
+//  Created by GTF on 15/12/5.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "BidManage_Supplier_VC.h"
-#import "BidManage_Supp_TVC.h"
+#import "BidManage_Design_VC.h"
+#import "BidManage_Design_TVC.h"
 
-@interface BidManage_Supplier_VC ()<UIAlertViewDelegate>{
+@interface BidManage_Design_VC ()<UIAlertViewDelegate>{
     NSMutableArray  *_dataArray;
     NSMutableArray  *_buttonArray;
     NSInteger        _selectedIndex;
 }
 
+
 @end
 static NSString *const reuseIdentifier = @"reuseIdentifier";
-@implementation BidManage_Supplier_VC
+@implementation BidManage_Design_VC
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [HttpClient getSupplierOrderBidUserAmountWithOrderID:self.orderID WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient getDesignOrderBidUserAmountWithOrderID:self.orderID WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *responseArray = (NSArray *)dictionary[@"message"];
         _dataArray = [@[] mutableCopy];
         [responseArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSDictionary *dic = (NSDictionary *)obj;
-            BidManage_Supplier_Model *model = [BidManage_Supplier_Model getBidManage_Supplier_ModelWithDictionary:dic];
+            BidManage_Design_Model *model = [BidManage_Design_Model getBidManage_Design_ModelWithDictionary:dic];
             [_dataArray addObject:model];
         }];
-        
         DLog(@">>=%@",_dataArray);
         [self.tableView reloadData];
     }];
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"投标管理";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确认中标" style:UIBarButtonItemStylePlain target:self action:@selector(bidClick)];
-    self.tableView.rowHeight = 205;
-    _buttonArray = [@[] mutableCopy];
-    
-   }
+    self.tableView.rowHeight = 160;
+    _buttonArray = [@[] mutableCopy];}
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _dataArray.count;
@@ -51,13 +50,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    BidManage_Supp_TVC *cell = [tableView cellForRowAtIndexPath:indexPath];
+    BidManage_Design_TVC *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
-        cell = [[BidManage_Supp_TVC alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+        cell = [[BidManage_Design_TVC alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
     
-    BidManage_Supplier_Model *model = _dataArray[indexPath.row];
+    BidManage_Design_Model *model = _dataArray[indexPath.row];
     [cell layoutDataWithModel:model];
     
     cell.selectButton.tag = indexPath.row;
@@ -71,6 +69,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     }
     
     [cell.selectButton addTarget:self action:@selector(selectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
 }
 
@@ -106,14 +105,14 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
         if (buttonIndex == 1) {
             // 关闭订单
-            BidManage_Supplier_Model *model = _dataArray[_selectedIndex];
+            BidManage_Design_Model *model = _dataArray[_selectedIndex];
             DLog(@"userID==%@",model.userID);
-
-            [HttpClient closeSupplierOrderWithOrderID:_orderID winnerUserID:model.userID WithCompletionBlock:^(NSDictionary *dictionary) {
+            
+            [HttpClient closeDesignOrderWithOrderID:_orderID winnerUserID:model.userID WithCompletionBlock:^(NSDictionary *dictionary) {
                 DLog(@"%@",dictionary);
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"订单完成" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
-                    alert.tag = 11;
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"订单完成" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
+                    alert.tag = 110;
                     [alert show];
                 }else{
                     kTipAlert(@"操作失败请检查网络");
@@ -123,11 +122,13 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
     }
     
-    if (alertView.tag == 11) {
+    if (alertView.tag == 110) {
         if (buttonIndex == 0) {
             [self dismissViewControllerAnimated:YES completion:nil];
+
         }
     }
 }
+
 
 @end

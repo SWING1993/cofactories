@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BidManage_FD_TVC : UITableViewCell
-
+@interface BidManage_Factory_TVC : UITableViewCell
+@property (nonatomic,strong)UIButton *selectButton;
+- (void)layoutDataWithModel:(BidManage_Factory_Model *)model;
 @end

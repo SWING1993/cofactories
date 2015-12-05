@@ -1,24 +1,23 @@
 //
-//  BidManage_Supp_TVC.m
+//  BidManage_FD_TVC.m
 //  Cofactories
 //
 //  Created by GTF on 15/12/4.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "BidManage_Supp_TVC.h"
+#import "BidManage_Factory_TVC.h"
 #import "MJPhotoBrowser.h"
 #import "MJPhoto.h"
-@implementation BidManage_Supp_TVC{
+@implementation BidManage_Factory_TVC{
     UILabel      *_nameLB;
     UIButton     *_phoneButton;
     UILabel      *_phoneLB;
-    UILabel      *_priceLB;
-    UILabel      *_sourceLB;
     UIScrollView *_scrollView;
     NSArray      *_array;
     UILabel      *_descriptionLB;
 }
+
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -46,23 +45,14 @@
         _phoneLB.textColor = [UIColor grayColor];
         [self.contentView addSubview:_phoneLB];
         
-        _priceLB = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 140, 25)];
-        _priceLB.font = [UIFont systemFontOfSize:12];
-        _priceLB.textColor = [UIColor grayColor];
-        [self.contentView addSubview:_priceLB];
         
-        _sourceLB = [[UILabel alloc] initWithFrame:CGRectMake(15, 90, 140, 25)];
-        _sourceLB.font = [UIFont systemFontOfSize:12];
-        _sourceLB.textColor = [UIColor grayColor];
-        [self.contentView addSubview:_sourceLB];
-
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(15, 115, kScreenW-30, 60)];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(15, 65, kScreenW-30, 60)];
         _scrollView.pagingEnabled = YES;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         [self addSubview:_scrollView];
         
-        _descriptionLB = [[UILabel alloc] initWithFrame:CGRectMake(15, 180, kScreenW-30, 25)];
+        _descriptionLB = [[UILabel alloc] initWithFrame:CGRectMake(15, 130, kScreenW-30, 25)];
         _descriptionLB.font = [UIFont systemFontOfSize:12];
         _descriptionLB.textColor = [UIColor grayColor];
         [self addSubview:_descriptionLB];
@@ -70,16 +60,10 @@
     return self;
 }
 
-- (void)layoutDataWithModel:(BidManage_Supplier_Model *)model{
+- (void)layoutDataWithModel:(BidManage_Factory_Model *)model{
     _nameLB.text = model.userName;
     _phoneLB.text = model.userphone;
-    if ([model.price isEqualToString:@"-1"]) {
-        _priceLB.text = @"价格           面议";
-    }else{
-        _priceLB.text = [NSString stringWithFormat:@"价格          %@元",model.price];
-    }
-    _sourceLB.text = [NSString stringWithFormat:@"货源状态   %@",model.source];
-    
+        
     if (model.photoArray.count == 0) {
         _scrollView.contentSize = CGSizeMake(60, 60);
         UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
@@ -87,7 +71,7 @@
         [_scrollView addSubview:bg];
         
     }else if (model.photoArray.count > 0){
-    
+        
         _scrollView.contentSize = CGSizeMake(70 * model.photoArray.count, 60);
         _array = model.photoArray;
         for (int i = 0; i < model.photoArray.count; i++) {
@@ -121,7 +105,7 @@
     browser.currentPhotoIndex = button.tag;
     browser.photos = photos;
     [browser show];
-
+    
 }
 
 - (void)phoneClick{
@@ -129,5 +113,6 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     
 }
+
 
 @end

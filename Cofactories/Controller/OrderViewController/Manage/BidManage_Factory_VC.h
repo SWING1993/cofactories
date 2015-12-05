@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BidManage_FactoryAndDesign_VC : UITableViewController
+@interface BidManage_Factory_VC : UITableViewController
 @property (nonatomic,copy)NSString *orderID;
 
 @end

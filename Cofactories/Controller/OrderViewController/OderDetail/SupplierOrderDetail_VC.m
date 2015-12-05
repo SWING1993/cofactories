@@ -10,6 +10,7 @@
 #import "OrderPhotoViewController.h"
 #import "OrderBid_Supplier_VC.h"
 #import "BidManage_Supplier_VC.h"
+#import "MarkOrder_VC.h"
 
 @interface SupplierOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
@@ -132,6 +133,10 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 case SupplierOrderDetailBidStatus_BidManagement:
                     [button setBackgroundImage:[UIImage imageNamed:@"manageBid"] forState:UIControlStateNormal];
                     break;
+                case SupplierOrderDetailBidStatus_BidMark:
+                    [button setBackgroundImage:[UIImage imageNamed:@"markBid"] forState:UIControlStateNormal];
+                    break;
+                    
 
                 default:
                     break;
@@ -185,9 +190,16 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     [self.navigationController pushViewController:vc animated:YES];
                 }
             }
-                
                 break;
                 
+            case SupplierOrderDetailBidStatus_BidMark:{
+                // 评分
+                MarkOrder_VC *vc = [MarkOrder_VC new];
+                vc.markOrderType = MarkOrderType_Supplier;
+                vc.orderID = _dataModel.ID;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+                break;
             default:
                 break;
         }
@@ -299,7 +311,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, _sectionFooterHeight-30)];
     
-    NSString *string = [NSString stringWithFormat:@"备注信息: %@",_dataModel.descriptions];
+    NSString *string = [NSString stringWithFormat:@"备注信息:%@",_dataModel.descriptions];
     CGSize size = [self returnSizeWithString:string];
     UILabel *LB1 = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, size.width, size.height+20)];
     LB1.font = kFont;
@@ -326,7 +338,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     if (section == 0) {
-        NSString *string = [NSString stringWithFormat:@"备注信息: %@",_dataModel.descriptions];
+        NSString *string = [NSString stringWithFormat:@"备注信息:%@",_dataModel.descriptions];
         CGSize size = [self returnSizeWithString:string];
         _sectionFooterHeight = size.height+20+10+20;
         return _sectionFooterHeight;

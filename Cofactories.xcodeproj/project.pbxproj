@@ -231,6 +231,12 @@
 		70A784F71C085C1A003D1892 /* PublishOrder_Designer_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F61C085C1A003D1892 /* PublishOrder_Designer_VC.m */; };
 		70A784FA1C085CD3003D1892 /* PublishOrder_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F91C085CD3003D1892 /* PublishOrder_Factory_VC.m */; };
 		70A784FD1C085D75003D1892 /* PublishOrder_Other_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784FC1C085D75003D1892 /* PublishOrder_Other_VC.m */; };
+		70F4A76B1C128964000DF7E7 /* BidManage_Design_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A76A1C128964000DF7E7 /* BidManage_Design_VC.m */; };
+		70F4A76E1C1289C2000DF7E7 /* BidManage_Design_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A76D1C1289C2000DF7E7 /* BidManage_Design_TVC.m */; };
+		70F4A7711C1289F7000DF7E7 /* BidManage_Factory_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A7701C1289F7000DF7E7 /* BidManage_Factory_Model.m */; };
+		70F4A7741C128A06000DF7E7 /* BidManage_Design_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A7731C128A06000DF7E7 /* BidManage_Design_Model.m */; };
+		70F4A7771C12CF4E000DF7E7 /* CompletionOrder_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A7761C12CF4E000DF7E7 /* CompletionOrder_TVC.m */; };
+		70F4A7811C12E2C9000DF7E7 /* MarkOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A7801C12E2C9000DF7E7 /* MarkOrder_VC.m */; };
 		70F50D6F1C069B0600920F63 /* AccessoryMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D6E1C069B0600920F63 /* AccessoryMarketModel.m */; };
 		70F50D731C06D1F900920F63 /* FabricMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D721C06D1F900920F63 /* FabricMarketModel.m */; };
 		70F50D771C06FB0200920F63 /* SupplierOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D761C06FB0200920F63 /* SupplierOrderModel.m */; };
@@ -251,9 +257,9 @@
 		70FA60F11C098DE400EA84FD /* ZFPopupOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60EE1C098DE400EA84FD /* ZFPopupOverlayView.m */; };
 		70FA60F81C09A38E00EA84FD /* CustomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60F71C09A38E00EA84FD /* CustomeView.m */; };
 		70FBE0991C115A8000B15513 /* BidManage_Supplier_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE0981C115A8000B15513 /* BidManage_Supplier_VC.m */; };
-		70FBE09C1C115A9F00B15513 /* BidManage_FactoryAndDesign_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE09B1C115A9F00B15513 /* BidManage_FactoryAndDesign_VC.m */; };
+		70FBE09C1C115A9F00B15513 /* BidManage_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE09B1C115A9F00B15513 /* BidManage_Factory_VC.m */; };
 		70FBE09F1C115F8E00B15513 /* BidManage_Supp_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE09E1C115F8E00B15513 /* BidManage_Supp_TVC.m */; };
-		70FBE0A21C115FB700B15513 /* BidManage_FD_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE0A11C115FB700B15513 /* BidManage_FD_TVC.m */; };
+		70FBE0A21C115FB700B15513 /* BidManage_Factory_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE0A11C115FB700B15513 /* BidManage_Factory_TVC.m */; };
 		70FBE0A51C1162FE00B15513 /* BidManage_Supplier_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE0A41C1162FE00B15513 /* BidManage_Supplier_Model.m */; };
 		7D0B4C0C1C11A2E800543A07 /* materialShopDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B4C0B1C11A2E800543A07 /* materialShopDetailController.m */; };
 		7D41C8A71C0EEAF800703869 /* AllDesignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D41C8A61C0EEAF800703869 /* AllDesignCell.m */; };
@@ -758,6 +764,18 @@
 		70A784F91C085CD3003D1892 /* PublishOrder_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Factory_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Factory_VC.m; sourceTree = SOURCE_ROOT; };
 		70A784FB1C085D75003D1892 /* PublishOrder_Other_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishOrder_Other_VC.h; path = Cofactories/Controller/OrderViewController/PublishOrder_Other_VC.h; sourceTree = SOURCE_ROOT; };
 		70A784FC1C085D75003D1892 /* PublishOrder_Other_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Other_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Other_VC.m; sourceTree = SOURCE_ROOT; };
+		70F4A7691C128964000DF7E7 /* BidManage_Design_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Design_VC.h; sourceTree = "<group>"; };
+		70F4A76A1C128964000DF7E7 /* BidManage_Design_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_Design_VC.m; sourceTree = "<group>"; };
+		70F4A76C1C1289C2000DF7E7 /* BidManage_Design_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Design_TVC.h; sourceTree = "<group>"; };
+		70F4A76D1C1289C2000DF7E7 /* BidManage_Design_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_Design_TVC.m; sourceTree = "<group>"; };
+		70F4A76F1C1289F7000DF7E7 /* BidManage_Factory_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Factory_Model.h; sourceTree = "<group>"; };
+		70F4A7701C1289F7000DF7E7 /* BidManage_Factory_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_Factory_Model.m; sourceTree = "<group>"; };
+		70F4A7721C128A06000DF7E7 /* BidManage_Design_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Design_Model.h; sourceTree = "<group>"; };
+		70F4A7731C128A06000DF7E7 /* BidManage_Design_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_Design_Model.m; sourceTree = "<group>"; };
+		70F4A7751C12CF4E000DF7E7 /* CompletionOrder_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletionOrder_TVC.h; sourceTree = "<group>"; };
+		70F4A7761C12CF4E000DF7E7 /* CompletionOrder_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletionOrder_TVC.m; sourceTree = "<group>"; };
+		70F4A77F1C12E2C9000DF7E7 /* MarkOrder_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkOrder_VC.h; sourceTree = "<group>"; };
+		70F4A7801C12E2C9000DF7E7 /* MarkOrder_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkOrder_VC.m; sourceTree = "<group>"; };
 		70F50D6D1C069B0600920F63 /* AccessoryMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccessoryMarketModel.h; path = ../AccessoryMarketModel.h; sourceTree = "<group>"; };
 		70F50D6E1C069B0600920F63 /* AccessoryMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccessoryMarketModel.m; path = ../AccessoryMarketModel.m; sourceTree = "<group>"; };
 		70F50D711C06D1F900920F63 /* FabricMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FabricMarketModel.h; sourceTree = "<group>"; };
@@ -798,12 +816,12 @@
 		70FA60F71C09A38E00EA84FD /* CustomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomeView.m; sourceTree = "<group>"; };
 		70FBE0971C115A8000B15513 /* BidManage_Supplier_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Supplier_VC.h; sourceTree = "<group>"; };
 		70FBE0981C115A8000B15513 /* BidManage_Supplier_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_Supplier_VC.m; sourceTree = "<group>"; };
-		70FBE09A1C115A9F00B15513 /* BidManage_FactoryAndDesign_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_FactoryAndDesign_VC.h; sourceTree = "<group>"; };
-		70FBE09B1C115A9F00B15513 /* BidManage_FactoryAndDesign_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_FactoryAndDesign_VC.m; sourceTree = "<group>"; };
+		70FBE09A1C115A9F00B15513 /* BidManage_Factory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Factory_VC.h; sourceTree = "<group>"; };
+		70FBE09B1C115A9F00B15513 /* BidManage_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_Factory_VC.m; sourceTree = "<group>"; };
 		70FBE09D1C115F8E00B15513 /* BidManage_Supp_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Supp_TVC.h; sourceTree = "<group>"; };
 		70FBE09E1C115F8E00B15513 /* BidManage_Supp_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_Supp_TVC.m; sourceTree = "<group>"; };
-		70FBE0A01C115FB700B15513 /* BidManage_FD_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_FD_TVC.h; sourceTree = "<group>"; };
-		70FBE0A11C115FB700B15513 /* BidManage_FD_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_FD_TVC.m; sourceTree = "<group>"; };
+		70FBE0A01C115FB700B15513 /* BidManage_Factory_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Factory_TVC.h; sourceTree = "<group>"; };
+		70FBE0A11C115FB700B15513 /* BidManage_Factory_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_Factory_TVC.m; sourceTree = "<group>"; };
 		70FBE0A31C1162FE00B15513 /* BidManage_Supplier_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Supplier_Model.h; sourceTree = "<group>"; };
 		70FBE0A41C1162FE00B15513 /* BidManage_Supplier_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_Supplier_Model.m; sourceTree = "<group>"; };
 		7D0B4C0A1C11A2E800543A07 /* materialShopDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = materialShopDetailController.h; sourceTree = "<group>"; };
@@ -1761,6 +1779,7 @@
 		0395D2F71BFC66C60009AABC /* OrderViewController */ = {
 			isa = PBXGroup;
 			children = (
+				70F4A7781C12E1FC000DF7E7 /* OrderMark */,
 				705421F51C0D7A0000BD2B47 /* OrderBid */,
 				70F5EF7E1C0C4B05008878B4 /* OderDetail */,
 				70FA60DE1C093EAD00EA84FD /* Publish */,
@@ -1928,12 +1947,25 @@
 				70F572991C0E98E7005957CB /* Order_Designer_TVC.m */,
 				70037F041C1034A50086267C /* ProgressingOrder_TVC.h */,
 				70037F051C1034A50086267C /* ProgressingOrder_TVC.m */,
+				70F4A7751C12CF4E000DF7E7 /* CompletionOrder_TVC.h */,
+				70F4A7761C12CF4E000DF7E7 /* CompletionOrder_TVC.m */,
 				70FBE09D1C115F8E00B15513 /* BidManage_Supp_TVC.h */,
 				70FBE09E1C115F8E00B15513 /* BidManage_Supp_TVC.m */,
-				70FBE0A01C115FB700B15513 /* BidManage_FD_TVC.h */,
-				70FBE0A11C115FB700B15513 /* BidManage_FD_TVC.m */,
+				70FBE0A01C115FB700B15513 /* BidManage_Factory_TVC.h */,
+				70FBE0A11C115FB700B15513 /* BidManage_Factory_TVC.m */,
+				70F4A76C1C1289C2000DF7E7 /* BidManage_Design_TVC.h */,
+				70F4A76D1C1289C2000DF7E7 /* BidManage_Design_TVC.m */,
 			);
 			path = Order_Cell;
+			sourceTree = "<group>";
+		};
+		70F4A7781C12E1FC000DF7E7 /* OrderMark */ = {
+			isa = PBXGroup;
+			children = (
+				70F4A77F1C12E2C9000DF7E7 /* MarkOrder_VC.h */,
+				70F4A7801C12E2C9000DF7E7 /* MarkOrder_VC.m */,
+			);
+			path = OrderMark;
 			sourceTree = "<group>";
 		};
 		70F50D701C069B1000920F63 /* MarketModel */ = {
@@ -1964,6 +1996,10 @@
 				70037F081C10350B0086267C /* ProcessingAndComplitonOrderModel.m */,
 				70FBE0A31C1162FE00B15513 /* BidManage_Supplier_Model.h */,
 				70FBE0A41C1162FE00B15513 /* BidManage_Supplier_Model.m */,
+				70F4A76F1C1289F7000DF7E7 /* BidManage_Factory_Model.h */,
+				70F4A7701C1289F7000DF7E7 /* BidManage_Factory_Model.m */,
+				70F4A7721C128A06000DF7E7 /* BidManage_Design_Model.h */,
+				70F4A7731C128A06000DF7E7 /* BidManage_Design_Model.m */,
 			);
 			name = OrderModel;
 			sourceTree = "<group>";
@@ -2009,8 +2045,10 @@
 				70037EFF1C1021F40086267C /* CompletionOrder_VC.m */,
 				70FBE0971C115A8000B15513 /* BidManage_Supplier_VC.h */,
 				70FBE0981C115A8000B15513 /* BidManage_Supplier_VC.m */,
-				70FBE09A1C115A9F00B15513 /* BidManage_FactoryAndDesign_VC.h */,
-				70FBE09B1C115A9F00B15513 /* BidManage_FactoryAndDesign_VC.m */,
+				70FBE09A1C115A9F00B15513 /* BidManage_Factory_VC.h */,
+				70FBE09B1C115A9F00B15513 /* BidManage_Factory_VC.m */,
+				70F4A7691C128964000DF7E7 /* BidManage_Design_VC.h */,
+				70F4A76A1C128964000DF7E7 /* BidManage_Design_VC.m */,
 			);
 			path = Manage;
 			sourceTree = "<group>";
@@ -2528,7 +2566,7 @@
 				035CC5341C070BC600998FBD /* SystemSetViewController.m in Sources */,
 				032554A01BFDC26D003B2E76 /* tablleHeaderView.m in Sources */,
 				03FF44EC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m in Sources */,
-				70FBE0A21C115FB700B15513 /* BidManage_FD_TVC.m in Sources */,
+				70FBE0A21C115FB700B15513 /* BidManage_Factory_TVC.m in Sources */,
 				03571C011BE85C0800900EF9 /* UIButton+WebCache.m in Sources */,
 				03FF450E1BFEE74000D81DCE /* AFURLResponseSerialization.m in Sources */,
 				03571B281BE84BA100900EF9 /* AppDelegate.m in Sources */,
@@ -2570,16 +2608,20 @@
 				70F50D6F1C069B0600920F63 /* AccessoryMarketModel.m in Sources */,
 				035CC5221C06DCF000998FBD /* JKAssetsCollectionFooterView.m in Sources */,
 				7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */,
+				70F4A7811C12E2C9000DF7E7 /* MarkOrder_VC.m in Sources */,
 				7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */,
+				70F4A76E1C1289C2000DF7E7 /* BidManage_Design_TVC.m in Sources */,
 				03571BFD1BE85C0800900EF9 /* SDWebImageDownloader.m in Sources */,
 				03571C5E1BE85D8C00900EF9 /* MJRefreshHeaderView.m in Sources */,
 				7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */,
 				03571BFE1BE85C0800900EF9 /* SDWebImageDownloaderOperation.m in Sources */,
 				03571C601BE85D8C00900EF9 /* UIScrollView+MJRefresh.m in Sources */,
+				70F4A7741C128A06000DF7E7 /* BidManage_Design_Model.m in Sources */,
 				7D4D06C11C0ED39200BF49D9 /* ZGYSelectView.m in Sources */,
 				03571C8E1BE85D9C00900EF9 /* IQSegmentedNextPrevious.m in Sources */,
 				70F5EF811C0C4B49008878B4 /* FactoryOrderDetail_VC.m in Sources */,
 				03571BFC1BE85C0800900EF9 /* SDWebImageDecoder.m in Sources */,
+				70F4A7711C1289F7000DF7E7 /* BidManage_Factory_Model.m in Sources */,
 				03571BFF1BE85C0800900EF9 /* SDWebImageManager.m in Sources */,
 				03FF44ED1BFEE73400D81DCE /* UIAlertView+AFNetworking.m in Sources */,
 				03FF450B1BFEE74000D81DCE /* AFSecurityPolicy.m in Sources */,
@@ -2631,6 +2673,7 @@
 				03571C431BE85C3700900EF9 /* UIImageView+Common.m in Sources */,
 				03FF44EF1BFEE73400D81DCE /* UIImageView+AFNetworking.m in Sources */,
 				03571B791BE85B7900900EF9 /* EARestrictedScrollView.m in Sources */,
+				70F4A76B1C128964000DF7E7 /* BidManage_Design_VC.m in Sources */,
 				70037F091C10350B0086267C /* ProcessingAndComplitonOrderModel.m in Sources */,
 				03571BA51BE85B8200900EF9 /* YLImageView.m in Sources */,
 				03571C401BE85C3700900EF9 /* UIBarButtonItem+Common.m in Sources */,
@@ -2653,6 +2696,7 @@
 				035CC5231C06DCF000998FBD /* JKAssetsGroupCell.m in Sources */,
 				03571BF91BE85C0800900EF9 /* NSData+ImageContentType.m in Sources */,
 				7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */,
+				70F4A7771C12CF4E000DF7E7 /* CompletionOrder_TVC.m in Sources */,
 				03571BA11BE85B8200900EF9 /* MJPhotoView.m in Sources */,
 				03571C8D1BE85D9C00900EF9 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				7D4D06BF1C0ED39200BF49D9 /* ClassCell.m in Sources */,
@@ -2685,7 +2729,7 @@
 				7D4D06C51C0ED48900BF49D9 /* AllDesignController.m in Sources */,
 				03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */,
 				035CC52C1C06DCF000998FBD /* PhotoAlbumManager.m in Sources */,
-				70FBE09C1C115A9F00B15513 /* BidManage_FactoryAndDesign_VC.m in Sources */,
+				70FBE09C1C115A9F00B15513 /* BidManage_Factory_VC.m in Sources */,
 				03ACD1A11C0833E0003AB7CF /* ScaleViewController.m in Sources */,
 				03571BFA1BE85C0800900EF9 /* SDImageCache.m in Sources */,
 				03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */,

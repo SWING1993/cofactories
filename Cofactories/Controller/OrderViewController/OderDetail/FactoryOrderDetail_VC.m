@@ -10,8 +10,8 @@
 #import "OrderPhotoViewController.h"
 #import "OrderBid_Factory_VC.h"
 #import "IMChatViewController.h"
-#import "BidManage_FactoryAndDesign_VC.h"
-
+#import "BidManage_Factory_VC.h"
+#import "MarkOrder_VC.h"
 @interface FactoryOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;
@@ -132,7 +132,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 case FactoryOrderDetailBidStatus_BidManagement:
                     [button setBackgroundImage:[UIImage imageNamed:@"manageBid"] forState:UIControlStateNormal];
                     break;
-                    
+                case FactoryOrderDetailBidStatus_BidMark:
+                    [button setBackgroundImage:[UIImage imageNamed:@"markBid"] forState:UIControlStateNormal];
+                    break;
                 default:
                     break;
             }
@@ -181,12 +183,20 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 if ([_dataModel.bidCount isEqualToString:@"0"]) {
                     kTipAlert(@"该订单暂无商家投标");
                 }else{
-                    BidManage_FactoryAndDesign_VC *vc = [BidManage_FactoryAndDesign_VC new];
+                    BidManage_Factory_VC *vc = [BidManage_Factory_VC new];
                     vc.orderID = _dataModel.ID;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
             }
+                break;
                 
+            case FactoryOrderDetailBidStatus_BidMark:{
+                // 评分
+                MarkOrder_VC *vc = [MarkOrder_VC new];
+                vc.markOrderType = MarkOrderType_Factory;
+                vc.orderID = _dataModel.ID;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
                 break;
             default:
                 break;
