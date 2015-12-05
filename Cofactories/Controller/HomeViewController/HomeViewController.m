@@ -95,7 +95,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
     }];
 
-    arr = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流", ];
+    arr = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流"];
     [self creatTableView];
     [self creatTableHeaderView];
 }
