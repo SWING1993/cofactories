@@ -33,7 +33,6 @@ static NSString *processCellIdentifier = @"processCell";
     [self creatCollectionView];
 
     
-    
     UIImageView *allImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 74, 24, 24)];
     allImage.image = [UIImage imageNamed:@"Process-加工配套企业汇总"];
     [self.view addSubview:allImage];
@@ -47,9 +46,22 @@ static NSString *processCellIdentifier = @"processCell";
     UIView *bigView = [[UIView alloc] initWithFrame:CGRectMake(0, 108, kScreenW, 10)];
     bigView.backgroundColor = [UIColor colorWithRed:249.0f/255.0f green:249.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
     [self.view addSubview:bigView];
+    
+    for (int i = 0; i < 4; i++) {
+        UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + 54 + i*(kScreenW/3 + 15*kZGY), kScreenW, 0.5)];
+        lineView1.backgroundColor = [UIColor colorWithRed:222.0f/255.0f green:222.0f/255.0f blue:222.0f/255.0f alpha:1.0f];
+        [self.view addSubview:lineView1];
+        
+    }
+    for (int i = 1; i < 3; i++) {
+        UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(i*kScreenW/3, 64 + 54 , 0.5, 3*(kScreenW/3 + 15*kZGY))];
+        lineView2.backgroundColor = [UIColor colorWithRed:222.0f/255.0f green:222.0f/255.0f blue:222.0f/255.0f alpha:1.0f];
+        [self.view addSubview:lineView2];
+    }
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 108, kScreenW, 0.3)];
-    lineView.backgroundColor = kDeepBlue;
+    lineView.backgroundColor = [UIColor colorWithRed:222.0f/255.0f green:222.0f/255.0f blue:222.0f/255.0f alpha:1.0f];
     [self.view addSubview:lineView];
+    
 }
 - (void)creatCollectionView {
     //创建CollectionView
@@ -60,6 +72,7 @@ static NSString *processCellIdentifier = @"processCell";
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.scrollEnabled = NO;
     [self.view addSubview:self.collectionView];
     
     [self.collectionView registerClass:[ProcessMarketListCell class] forCellWithReuseIdentifier:processCellIdentifier];
@@ -86,14 +99,14 @@ static NSString *processCellIdentifier = @"processCell";
     ProcessMarketListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:processCellIdentifier forIndexPath:indexPath];
     cell.photoView.image = [UIImage imageNamed:photoArray[indexPath.row]];
     cell.processTitle.text = titleArray[indexPath.row];
-    
+//    cell.backgroundColor = [UIColor redColor];
     return cell;
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 //item大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(kScreenW/3 , kScreenW/3 + 20*kZGY);
+    return CGSizeMake(kScreenW/3 , kScreenW/3 + 15*kZGY);
 }
 //分区边距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

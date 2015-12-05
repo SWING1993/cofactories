@@ -24,10 +24,10 @@
         self.sub_titleLb.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.sub_titleLb];
         UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 0.3, kScreenW/3, 0.3)];
-        myView.backgroundColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
+        myView.backgroundColor = kLineGrayCorlor;
         [self addSubview:myView];
         self.rightView = [[UIView alloc] initWithFrame:CGRectMake(kScreenW/3 - 0.5, 0, 0.3, 44)];
-        self.rightView.backgroundColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
+        self.rightView.backgroundColor = kLineGrayCorlor;
         [self addSubview:self.rightView];
     }
     return self;

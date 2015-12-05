@@ -1,81 +1,104 @@
 //
-//  AllDesignController.m
+//  materialShopViewController.m
 //  Cofactories
 //
-//  Created by 赵广印 on 15/12/2.
+//  Created by 赵广印 on 15/12/4.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "AllDesignController.h"
+#import "materialShopViewController.h"
 #import "ZGYSelectView.h"
-#import "AllDesignCell.h"
+#import "MaterialShopCell.h"
 
 #define kSearchFrameLong CGRectMake(50, 30, kScreenW-50, 25)
 #define kSearchFrameShort CGRectMake(50, 30, kScreenW-100, 25)
-
-static NSString *designCellIdentifier = @"designCell";
-@interface AllDesignController ()<ZGYSelectViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate> {
+static NSString *materialCellIdentifier = @"materialCell";
+@interface materialShopViewController ()<UISearchBarDelegate, ZGYSelectViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
     ZGYSelectView* selectView;
     UISearchBar *_searchBar;
     UIView *bigView;
 }
-
-@property (nonatomic, strong) UITableView *designTableView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
 
-@implementation AllDesignController
+@implementation materialShopViewController
 
 -(void)viewWillDisappear:(BOOL)animated {
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 }
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self creatSearchBar];
     [self creatCancleItem];
-    [self creatTableView];
+    [self creatCollectionView];
     [self creatSelectView];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
+
 }
 
-- (void)creatTableView {
-    self.designTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, kScreenW, kScreenH - 45)];
-    self.designTableView.dataSource = self;
-    self.designTableView.delegate = self;
-    [self.view addSubview:self.designTableView];
-    self.designTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.designTableView registerClass:[AllDesignCell class] forCellReuseIdentifier:designCellIdentifier];
+- (void)creatCollectionView {
+    //创建CollectionView
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumLineSpacing = 4;
+    layout.minimumInteritemSpacing = 4;
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 45, kScreenW, kScreenH - 45) collectionViewLayout:layout];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    self.collectionView.backgroundColor = kBackgroundColor;
+    [self.view addSubview:self.collectionView];
+    
+    [self.collectionView registerClass:[MaterialShopCell class] forCellWithReuseIdentifier:materialCellIdentifier];
 }
+
 - (void)creatSelectView {
-    NSArray *levelArray = @[@"不限等级", @"企业用户", @"认证用户", @"注册用户"];
-    NSArray *classArray = @[@"不限种类", @"独立设计师", @"设计工作室"];
-    NSArray *placeArray = @[@"不限地区", @"北京", @"上海", @"杭州", @"广州"];
-    selectView = [[ZGYSelectView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 45) levelArray:levelArray classArray:classArray addressArray:placeArray title:@"不限等级" isTwo:NO];
-//    selectView = [[ZGYSelectView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 45) levelArray:levelArray classArray:classArray addressArray:placeArray title:@"不限等级"];
+    
+    switch (self.number) {
+        case 1: {
+            NSArray *levelArray = @[@"全部面料", @"针织", @"梭织", @"特种面料"];
+            NSArray *classArray = @[@"不限地区", @"北京", @"上海", @"杭州", @"广州"];
+            NSArray *placeArray = @[@"价格不限", @"从高到低", @"从低到高"];
+            selectView = [[ZGYSelectView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 45) levelArray:levelArray classArray:classArray addressArray:placeArray title:@"全部面料" isTwo:NO];
+        }
+            break;
+        case 2: {
+            NSArray *levelArray = @[@"不限地区", @"北京", @"上海", @"杭州", @"广州"];
+            NSArray *classArray = @[@"价格不限", @"从高到低", @"从低到高"];
+            selectView = [[ZGYSelectView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 45) levelArray:levelArray classArray:classArray addressArray:nil title:@"不限地区" isTwo:YES];
+        }
+            break;
+        case 3: {
+            NSArray *levelArray = @[@"全部设备", @"机器设备", @"配件"];
+            NSArray *classArray = @[@"不限地区", @"北京", @"上海", @"杭州", @"广州"];
+            NSArray *placeArray = @[@"价格不限", @"从高到低", @"从低到高"];
+            selectView = [[ZGYSelectView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 45) levelArray:levelArray classArray:classArray addressArray:placeArray title:@"全部设备" isTwo:NO];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    
+
     
     selectView.backgroundColor = [UIColor colorWithRed:0.973 green:0.973 blue:0.973 alpha:1];
-    [[NSUserDefaults standardUserDefaults] setObject:@"不限类型" forKey:@"ZGYLevelType"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"全部面料" forKey:@"ZGYLevelType"];
     selectView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     selectView.layer.borderWidth = 0.5;
     selectView.delegate = self;
     [self.view addSubview:selectView];
 }
-
 - (void)creatCancleItem {
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
     temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
     temporaryBarButtonItem.target = self;
     temporaryBarButtonItem.action = @selector(back);
     self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
-
+    
 }
 - (void)creatSearchBar{
     
@@ -84,9 +107,55 @@ static NSString *designCellIdentifier = @"designCell";
     _searchBar.delegate = self;
     [self.navigationController.view addSubview:_searchBar];
     [_searchBar setBackgroundImage:[[UIImage alloc] init] ];
-    _searchBar.placeholder = @"搜索文章、图片、作者";
+    _searchBar.placeholder = @"请输入商品名称";
     
 }
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 9;
+    
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    MaterialShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:materialCellIdentifier forIndexPath:indexPath];
+    cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
+    cell.materialTitle.text = @"纯棉纱布面料 原单特卖 非常好的面料";
+    cell.priceLabel.text = @"￥ 59";
+    cell.saleLabel.text = @"已售 999 件";
+    cell.placeLabel.text = @"杭州";
+    return cell;
+}
+
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+//item大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(kScreenW/2 - 2 , kScreenW/2 + 100);
+}
+//分区边距
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+
+
+
+
+
 #pragma mark - UISearchBarDelegate
 
 //点击搜索框改变seachBar的大小，创建取消按钮，添加一层View
@@ -107,7 +176,7 @@ static NSString *designCellIdentifier = @"designCell";
     [searchBar resignFirstResponder];
     [bigView removeFromSuperview];
     _searchBar.frame = kSearchFrameLong;
-//    self.searchArray = [NSMutableArray arrayWithCapacity:0];
+    //    self.searchArray = [NSMutableArray arrayWithCapacity:0];
     //    [HttpClient getInfomationWithKind:[NSString stringWithFormat:@"s=%@", searchBar.text] page:1 andBlock:^(NSDictionary *responseDictionary){
     //        NSArray *jsonArray = responseDictionary[@"responseArray"];
     //        for (NSDictionary *dictionary in jsonArray) {
@@ -159,34 +228,10 @@ static NSString *designCellIdentifier = @"designCell";
     [bigView removeFromSuperview];
 }
 
-
-#pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    AllDesignCell *cell = [tableView dequeueReusableCellWithIdentifier:designCellIdentifier forIndexPath:indexPath];
-    cell.designPhoto.image = [UIImage imageNamed:@"4.jpg"];
-    cell.levelPhoto.image = [UIImage imageNamed:@"DesignLevel-企业用户"];
-    cell.designTitle.text = @"DM服装设计";
-    cell.classTitle.text = @"设计工作室";
-    cell.addressTitle.text = @"杭州";
-    cell.likePhoto.image = [UIImage imageNamed:@"Design-like"];
-    cell.likeCount.text = @"1075";
-    return cell;
-}
-
-
-
-#pragma mark - UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
-}
-
 
 
 - (void)selectView:(ZGYSelectView*)selectview selectAreaId:(NSString*)areaid andClassifyId:(NSString*)classifyid andRankId:(NSString*)rankId {
@@ -198,10 +243,6 @@ static NSString *designCellIdentifier = @"designCell";
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 /*
 #pragma mark - Navigation
