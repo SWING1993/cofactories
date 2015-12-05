@@ -319,7 +319,6 @@
                          CATransform3DMakeRotation(M_PI, 0.0, 1.0, 0.0) ];
     animation.toValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
     animation.duration = 1.5;
-    //旋转效果累计，先转180度，接着再旋转180度，从而实现360旋转
     animation.cumulative = YES;
     animation.repeatCount = 1;
     [imageView.layer addAnimation:animation forKey:nil];
