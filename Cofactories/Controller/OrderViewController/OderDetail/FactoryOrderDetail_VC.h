@@ -11,7 +11,7 @@ typedef NS_ENUM(NSInteger, FactoryOrderDetailBidStatus) {
     FactoryOrderDetailBidStatus_Common,          // 普通状态订单详情
     FactoryOrderDetailBidStatus_BidOver,         // 已投标订单详情
     FactoryOrderDetailBidStatus_BidManagement,   // 投标管理订单详情
-
+    FactoryOrderDetailBidStatus_BidMark           // 评分订单详情
 };
 
 #import <UIKit/UIKit.h>

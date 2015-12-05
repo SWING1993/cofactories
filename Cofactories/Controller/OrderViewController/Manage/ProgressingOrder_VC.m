@@ -65,7 +65,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
     ProcessingAndComplitonOrderModel *dataModel = _dataArray[indexPath.row];
     
-    
     if ([dataModel.orderType isEqualToString:@"加工订单"]) {
         
         FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];

@@ -62,7 +62,7 @@
     if ([dataModel.status isEqualToString:@"0"]) {
         _statusLB.text = @"未完成";
         _statusLB.textColor = MAIN_COLOR;
-    }else if ([dataModel.status isEqualToString:@"1"]){
+    }else {
         _statusLB.text = @"已完成";
         _statusLB.textColor = [UIColor colorWithRed:43/255.0 green:135/255.0 blue:70/255.0 alpha:1];
     }

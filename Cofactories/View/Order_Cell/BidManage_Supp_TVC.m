@@ -17,6 +17,7 @@
     UILabel      *_sourceLB;
     UIScrollView *_scrollView;
     NSArray      *_array;
+    UILabel      *_descriptionLB;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -61,6 +62,10 @@
         _scrollView.showsVerticalScrollIndicator = NO;
         [self addSubview:_scrollView];
         
+        _descriptionLB = [[UILabel alloc] initWithFrame:CGRectMake(15, 180, kScreenW-30, 25)];
+        _descriptionLB.font = [UIFont systemFontOfSize:12];
+        _descriptionLB.textColor = [UIColor grayColor];
+        [self addSubview:_descriptionLB];
     }
     return self;
 }
@@ -95,6 +100,8 @@
             
         }
     }
+    
+    _descriptionLB.text = [NSString stringWithFormat:@"备注信息: %@",model.descriptions];
 }
 
 - (void)MJPhotoBrowserClick:(id)sender{

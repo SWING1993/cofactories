@@ -12,7 +12,7 @@ typedef NS_ENUM(NSInteger, DesignOrderDetailBidStatus) {
     DesignOrderDetailBidStatus_Common,          // 普通状态订单详情
     DesignOrderDetailBidStatus_BidOver,         // 已投标订单详情
     DesignOrderDetailBidStatus_BidManagement,   // 投标管理订单详情
-    
+    DesignOrderDetailBidStatus_BidMark           // 评分订单详情
 };
 
 

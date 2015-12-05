@@ -14,6 +14,8 @@
 #import "DesignOrderModel.h"
 #import "ProcessingAndComplitonOrderModel.h"
 #import "BidManage_Supplier_Model.h"
+#import "BidManage_Design_Model.h"
+#import "BidManage_Factory_Model.h"
 #import "OthersUserModel.h"
 
 @interface HttpClient : NSObject
@@ -248,13 +250,19 @@
 + (void)getFactoryOrderBidUserAmountWithOrderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 获取设计订单竞标用户
-+ (void)getDesignerOrderBidUserAmountWithOrderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
++ (void)getDesignOrderBidUserAmountWithOrderID:(NSString *)aOrderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 获取所有用户有关的订单
 + (void)getAllMyOrdersWithOrderStatus:(NSString *)aStatus page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
-// 关闭订单
-+ (void)closeOrderWithOrderID:(NSString *)aOrderID winnerUserID:(NSString *)aWinnerUserID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+// 关闭供应订单
++ (void)closeSupplierOrderWithOrderID:(NSString *)aOrderID winnerUserID:(NSString *)aWinnerUserID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 关闭工厂订单
++ (void)closeFactoryOrderWithOrderID:(NSString *)aOrderID winnerUserID:(NSString *)aWinnerUserID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 关闭设计订单
++ (void)closeDesignOrderWithOrderID:(NSString *)aOrderID winnerUserID:(NSString *)aWinnerUserID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 //获取认证信息
 + (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block;

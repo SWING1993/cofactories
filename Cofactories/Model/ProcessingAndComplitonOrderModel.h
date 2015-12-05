@@ -13,6 +13,7 @@
 @property(nonatomic,copy)NSString  *ID;
 @property(nonatomic,copy)NSString  *orderType;
 @property(nonatomic,strong)NSArray *photoArray;
+@property(nonatomic,copy)NSString  *orderStatus;
 
 - (instancetype)initProcessingAndComplitonOrderModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getProcessingAndComplitonOrderModelWithDictionary:(NSDictionary *)dictionary;

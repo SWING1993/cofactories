@@ -58,7 +58,7 @@
             firstViewController.title = @"聚工厂（测试）";
         }
         
-        secondViewController.title = @"钱包";
+        secondViewController.title = @"";
         thirdViewController.title = @"消息";
         fourthViewController.title = @"我";
 

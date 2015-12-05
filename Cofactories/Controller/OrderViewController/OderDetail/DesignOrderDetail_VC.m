@@ -9,8 +9,8 @@
 #import "DesignOrderDetail_VC.h"
 #import "OrderPhotoViewController.h"
 #import "OrderBid_Factory_VC.h"
-#import "BidManage_FactoryAndDesign_VC.h"
-
+#import "BidManage_Design_VC.h"
+#import "MarkOrder_VC.h"
 @interface DesignOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;
@@ -47,7 +47,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         _isCompletion = YES;
     }
     
-    [HttpClient getDesignerOrderBidUserAmountWithOrderID:_dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient getDesignOrderBidUserAmountWithOrderID:_dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
         DLog("%@,%@",dictionary,_userModel.uid);
         
         _bidAmountArray = dictionary[@"message"];
@@ -137,7 +137,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 case DesignOrderDetailBidStatus_BidManagement:
                     [button setBackgroundImage:[UIImage imageNamed:@"manageBid"] forState:UIControlStateNormal];
                     break;
-                    
+                case DesignOrderDetailBidStatus_BidMark:
+                    [button setBackgroundImage:[UIImage imageNamed:@"markBid"] forState:UIControlStateNormal];
+                    break;
                 default:
                     break;
             }
@@ -188,13 +190,21 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 if ([_dataModel.bidCount isEqualToString:@"0"]) {
                     kTipAlert(@"该订单暂无商家投标");
                 }else{
-                    BidManage_FactoryAndDesign_VC *vc = [BidManage_FactoryAndDesign_VC new];
+                    BidManage_Design_VC *vc = [BidManage_Design_VC new];
                     vc.orderID = _dataModel.ID;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
             }
                 break;
                 
+            case DesignOrderDetailBidStatus_BidMark:{
+                // 评分
+                MarkOrder_VC *vc = [MarkOrder_VC new];
+                vc.markOrderType = MarkOrderType_Design;
+                vc.orderID = _dataModel.ID;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+                break;
             default:
                 break;
         }

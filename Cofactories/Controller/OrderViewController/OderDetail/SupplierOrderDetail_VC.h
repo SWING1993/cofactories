@@ -10,8 +10,9 @@ typedef NS_ENUM(NSInteger, SupplierOrderDetailBidStatus) {
     
     SupplierOrderDetailBidStatus_Common,          // 普通状态订单详情
     SupplierOrderDetailBidStatus_BidOver,         // 已投标订单详情
-    SupplierOrderDetailBidStatus_BidManagement  // 投标管理订单详情
-    
+    SupplierOrderDetailBidStatus_BidManagement,   // 投标管理订单详情
+    SupplierOrderDetailBidStatus_BidMark          // 评分订单详情
+
 };
 
 #import <UIKit/UIKit.h>

@@ -15,23 +15,26 @@
     
     self = [super init];
     if (self) {
-        if ([dictionary objectForKey:@"cash"] || ![[dictionary objectForKey:@"cash"] isEqual:[NSNull null]] ) {
-            _cash = [dictionary objectForKey:@"cash"];
+        
+        if (![[dictionary objectForKey:@"cash"] isEqual:[NSNull null]]) {
+            _cash = [[dictionary objectForKey:@"cash"] floatValue];
         }
         
-        if ([dictionary objectForKey:@"createdAt"] || ![[dictionary objectForKey:@"createdAt"] isEqual:[NSNull null]] ) {
-            _createdAt = [dictionary objectForKey:@"createdAt"];
+        if (![[dictionary objectForKey:@"freeze"] isEqual:[NSNull null]] ) {
+            _freeze = [[dictionary objectForKey:@"freeze"] floatValue];
         }
-        if ([dictionary objectForKey:@"freeze"] || ![[dictionary objectForKey:@"freeze"] isEqual:[NSNull null]] ) {
-            _freeze = [dictionary objectForKey:@"freeze"];
-        }
-        if ([dictionary objectForKey:@"id"] || ![[dictionary objectForKey:@"id"] isEqual:[NSNull null]] ) {
+        if (![[dictionary objectForKey:@"id"] isEqual:[NSNull null]] ) {
             _Walletid = [dictionary objectForKey:@"id"];
         }
-        if ([dictionary objectForKey:@"money"] || ![[dictionary objectForKey:@"money"] isEqual:[NSNull null]] ) {
-            _money = [dictionary objectForKey:@"money"];
+        if ( ![[dictionary objectForKey:@"money"] isEqual:[NSNull null]] ) {
+            _money = [[dictionary objectForKey:@"money"]floatValue];
         }
-        if ([dictionary objectForKey:@"updatedAt"] || ![[dictionary objectForKey:@"updatedAt"] isEqual:[NSNull null]] ) {
+
+
+        if (![[dictionary objectForKey:@"createdAt"] isEqual:[NSNull null]] ) {
+            _createdAt = [dictionary objectForKey:@"createdAt"];
+        }
+           if (![[dictionary objectForKey:@"updatedAt"] isEqual:[NSNull null]] ) {
             _updatedAt = [dictionary objectForKey:@"updatedAt"];
         }
     }

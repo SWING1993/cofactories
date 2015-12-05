@@ -30,7 +30,9 @@
         }else {
             self.orderType = @"投标订单";
         }
-                
+        
+        self.orderStatus = [NSString stringWithFormat:@"%@",dictionary[@"status"]];
+        
     }return self;
 }
 
