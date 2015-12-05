@@ -10,12 +10,13 @@
 
 @interface WalletModel : NSObject
 
-@property (nonatomic,retain) NSString *cash;
-@property (nonatomic,retain) NSString *createdAt;
-@property (nonatomic,retain) NSString *freeze;
 @property (nonatomic,retain) NSString *Walletid;
-@property (nonatomic,retain) NSString *money;
+@property (nonatomic,assign) CGFloat  cash;
+@property (nonatomic,assign) CGFloat  freeze;
+@property (nonatomic,assign) CGFloat  money;
+@property (nonatomic,retain) NSString *createdAt;
 @property (nonatomic,retain) NSString *updatedAt;
+
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

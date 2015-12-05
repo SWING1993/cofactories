@@ -493,20 +493,20 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             switch ([operation.response statusCode]) {
                 case 400:
-                    block(@{@"statusCode": @(400), @"message": @"未登录"});
+                    block(@{@"statusCode": @(400), @"message": @"未登录!"});
                     break;
                 case 401:
-                    block(@{@"statusCode": @(401), @"message": @"access_token过期或者无效"});
+                    block(@{@"statusCode": @(401), @"message": @"access_token过期或者无效!"});
                     break;
                     
                 default:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误!"});
                     break;
             }
         }];
     } else {
         DLog(@"access_token不存在");
-        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
+        block(@{@"statusCode": @404, @"message": @"access_token不存在!"});// access_token不存在
     }
 }
 

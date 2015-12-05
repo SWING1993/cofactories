@@ -43,7 +43,7 @@ static NSString *activityCellIdentifier = @"activityCell";
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
             [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
         } else {
-            DLog(@"hcisdhcsidco");
+            self.MyProfile = [[UserModel alloc]getMyProfile];
         }
     }];
 
@@ -66,9 +66,6 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //个人信息
-    [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
-    }];
 
     //获取融云的token
     [HttpClient getIMTokenWithBlock:^(NSDictionary *responseDictionary) {

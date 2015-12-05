@@ -43,10 +43,11 @@
     
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     myProfileLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47-50, kScreenW, 50)];
-    myProfileLabel.font = kLargeFont;
+    myProfileLabel.font = kFont;
+    myProfileLabel.numberOfLines = 2;
     myProfileLabel.textAlignment = NSTextAlignmentCenter;
     myProfileLabel.textColor = [UIColor whiteColor];
-    myProfileLabel.text = [NSString stringWithFormat:@"%@   %@",self.MyProfile.name,[UserModel getRoleWith:self.MyProfile.UserType]];
+    myProfileLabel.text = [NSString stringWithFormat:@"%@\n%@",self.MyProfile.name,[UserModel getRoleWith:self.MyProfile.UserType]];
     
     _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _leftBtn.tag = 1;
