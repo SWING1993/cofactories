@@ -92,4 +92,8 @@
  */
 + (UIImageView *)rotate360DegreeWithImageView:(UIImageView *)imageView;
 
+
+// 商家汇总筛选条件
++ (NSDictionary *)returenSelectDataDictionaryWithIndex:(NSInteger)index;
+
 @end

@@ -55,7 +55,7 @@
 #define API_Search_Design_Order   @"/order/design/search"
 
 #define API_GetIMToken @"/im/token"//获取融云token
-
+#define API_SearchBusiness @"/user/search"
 @implementation HttpClient
 
 /*User**********************************************************************************************************************************************/
@@ -122,7 +122,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
         DLog(@"error = %@", error);
-        DLog(@"error = %ld",statusCode);
+        DLog(@"error = %ld",(long)statusCode);
         switch (statusCode) {
             case 401:
                 block(@{@"statusCode": @(401), @"message": @"验证码错误!"});
@@ -1062,6 +1062,52 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
+    
+}
+
+// 商家汇总（找合作商，找厂家）
++ (void)searchBusinessWithRole:(NSString *)aRole scale:(NSString *)aScale province:(NSString *)aProvince city:(NSString *)aCity subRole:(NSString *)aSubRole keyWord:(NSString *)aKeyWord page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        NSMutableDictionary * parametersDictionary = [@{} mutableCopy];
+        if (aRole) {
+            [parametersDictionary setObject:aRole forKey:@"role"];
+        }
+        if (aScale) {
+            [parametersDictionary setObject:aScale forKey:@"scale"];
+        }
+        if (aProvince) {
+            [parametersDictionary setObject:aProvince forKey:@"province"];
+        }
+        if (aCity) {
+            [parametersDictionary setObject:aCity forKey:@"city"];
+        }
+        if (aSubRole) {
+            [parametersDictionary setObject:aSubRole forKey:@"subRole"];
+        }
+        if (aKeyWord) {
+            [parametersDictionary setObject:aKeyWord forKey:@"keyword"];
+        }
+        if (aPage) {
+            [parametersDictionary setObject:aPage forKey:@"page"];
+        }
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager GET:API_SearchBusiness parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+               // DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @"200", @"message":responseObject});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+        
+    }else{
+        completionBlock(@{@"statusCode": @"404", @"message": @"token不存在"});
+    }
+
+    
+    
     
 }
 
