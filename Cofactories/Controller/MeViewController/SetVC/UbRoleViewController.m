@@ -25,7 +25,8 @@
     self.title=@"二级身份";
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
-    
+    self.tableView.rowHeight = 40;
+
     
     label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, kScreenW-40, 30)];
     label.backgroundColor = [UIColor clearColor];

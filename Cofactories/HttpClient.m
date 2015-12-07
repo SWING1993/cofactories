@@ -31,6 +31,8 @@
 #define API_changePassword @"/user/changePassword" //修改密码
 #define API_inviteCode @"/user/inviteCode" //邀请码
 #define API_wallet @"/user/wallet"
+#define API_walletCharge @"/wallet/charge"
+#define API_walletSign @"/wallet/sign/alipay"
 #define API_verify @"/user/verify"
 #define API_userProfile @"/user/profile"
 #define API_uploadPhoto @"/upload/user"
@@ -509,6 +511,66 @@
         block(@{@"statusCode": @404, @"message": @"access_token不存在!"});// access_token不存在
     }
 }
+
+
++ (void)walletCharge:(void (^)(NSDictionary *responseDictionary))block {
+
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录则获取用户信息
+        AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        [manager POST:API_walletCharge parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+//            DLog(@"sucess data = %@",responseObject);
+            NSDictionary * dataDic = [responseObject objectForKey:@"data"];
+            block(@{@"statusCode": @(200), @"data":dataDic });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    } else {
+        DLog(@"access_token不存在");
+        block(@{@"statusCode": @404, @"message": @"access_token不存在!"});// access_token不存在
+    }
+}
+
++ (void)walletsignwithOrderSpec:(NSString *)orderSpec andBlock:(void (^)(NSDictionary *))block {
+    DLog(@"sign");
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录则获取用户信息
+        AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        [manager POST:API_walletSign parameters:@{@"string":orderSpec} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            NSDictionary * dataDic = [responseObject objectForKey:@"data"];
+            block(@{@"statusCode": @(200), @"data":dataDic });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    } else {
+        DLog(@"access_token不存在");
+        block(@{@"statusCode": @404, @"message": @"access_token不存在!"});// access_token不存在
+    }
+}
+
 
 /**
  *  上传认证资料

@@ -14,22 +14,9 @@
 
 #import "AlipayHeader.h"
 
-//// partner:合作者身份(PID),以 2088 开头由 16 位纯数字组成的字符串。
-//
-//#define kPartnerID @"合作者身份PID"
-//
-////﻿  seller:支付宝收款账号,手机号码或邮箱格式。(支付宝登录账号)
-//
-//#define kSellerAccount @"收款账号"
-//
-//// private_key:商户方的私钥,pkcs8 格式。
-//
-//#define kPrivateKey @"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALhEjUj0Gi/n1V8Eb+A1gEXXR2JXguE1/YJ6KEEmH5A2WP5h0XcUU9GdgIV6O4C/gzAf1jmaRhlwKweP+GawQ84vHmFF+zoEZDIiHOvHr3FJJ2SsB1zslYG3Ri0gpG023cLuMlCiy6AoxXJQn3LGfLgqeJfvLz+nhcz3vCB6EJrZAgMBAAECgYAvnNb88MYLdtX1VUorHufkI/o3+PDCjJbSrgnUu6sQMlrQcCoVoNT/prjcxHa3j8SwHKnX/Hr8e7VCoPrIXedG4Gc5u9PWukHzyYteByTuY29mJ2QmKhy1gzaCWGjkeF90kBST39oqwireWIaJZfi+sAjXAmu8crzg9s6dzB3ouQJBAPVJO557CFfSBjFbdrro+npE1p1erukhOHoIuPlTVkrQlGmZfVJKe+9IAi+36DgSzWvqDoonNblhIn0wtfYfaKcCQQDAUQSXbBRQfrrWvHHWVnNLm5G75qsTpaKlN85zpDj6UtQ+QMge+pYdaEQGWEIyOZdno2IR7ywmLc0pu5JDbNB/AkAS7j39sz0nmfwEXyzArC54tUtjBeW19Gxpbrbn9ziXuZVauQ/lA/6grwwMJsNzYHAePgg1PWV2EzsYMmQ4xJ/NAkBb2hYsUCV/sJeCGizwpweYE+xN50TMNG7zJC1JlCTWghr2xLAQA7UQxIzAzwSGwnTqveEIGchnT7bOeNTJuT33AkEA3PLB2aOV7rxnzDZisrhmxWp+KaaoM6UyY5lbMXR9SQe0yyckbJX+31b+pIGi39bnghBB5fgJFvzkqtbhDESqKg=="
-
-
 static NSString *cellIdentifier = @"cellIdentifier";
 
-@interface RechargeViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate> {
+@interface RechargeViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIAlertViewDelegate> {
     UIButton *lastButton;
     UITextField *priceTextField;
 }
@@ -46,6 +33,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     self.title = @"充值";
     
     [self initView];
+   
 }
 
 - (void)initView {
@@ -59,8 +47,8 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [self.view addSubview:self.rechargeTableView];
     
     priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 0, kScreenW - 100, 44)];
-    priceTextField.placeholder = @"请输入金额";
-    
+    priceTextField.placeholder = @"输入充值金额";
+    priceTextField.font = kFont;
     priceTextField.clearButtonMode=UITextFieldViewModeWhileEditing;
     priceTextField.keyboardType = UIKeyboardTypeDecimalPad;
     priceTextField.delegate = self;
@@ -93,9 +81,9 @@ static NSString *cellIdentifier = @"cellIdentifier";
     self.rechargeTableView.tableHeaderView = view;
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoAction) name:UITextFieldTextDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoActionRecharge) name:UITextFieldTextDidChangeNotification object:nil];
 }
-- (void)infoAction {
+- (void)infoActionRecharge {
     DLog(@"输入的金额：%@",priceTextField.text);
     if (priceTextField.text.length == 0) {
         lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
@@ -112,19 +100,45 @@ static NSString *cellIdentifier = @"cellIdentifier";
     CGFloat money ;
     money = [priceTextField.text floatValue];
     if ((0<money && money<5000) || money == 5000 ) {
-        kTipAlert(@"支付宝");
-        
+        //[AlipayToolKit genTradeNoWithTime]
         NSString * amountStr = [NSString stringWithFormat:@"%.2f",money];
-        [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:[AlipayToolKit genTradeNoWithTime] productName:@"邮票" productDescription:@"全真邮票" amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
+        [HttpClient walletCharge:^(NSDictionary *responseDictionary) {
+            NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
+            if (statusCode == 200) {
+                NSDictionary * dataDic = [responseDictionary objectForKey:@"data"];
+                DLog(@"data = %@",dataDic);
+                NSString * tradeNO = [dataDic objectForKey:@"_id"];
+                NSString * descriptionStr = [dataDic objectForKey:@"_id"];
+                NSString * status = [dataDic objectForKey:@"status"];
+                NSString * subject = [dataDic objectForKey:@"subject"];
+
+                DLog(@"tradeNO =%@\ndescription =%@\nstatus = %@\nsubject = %@",tradeNO,descriptionStr,status,subject);
+                
+                
+                [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
+            }else {
+                kTipAlert(@"%@",[responseDictionary objectForKey:@"message"]);
+            }
+        }];
     }
     else if (5000<money ) {
-        kTipAlert(@"使用线下支付");
+        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"充值金额过大，请联系客服进行线下充值！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alertView.tag = 5000;
+        [alertView show];
     }
     else {
         kTipAlert(@"你输入的%@无法识别，请重新输入！",priceTextField.text);
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSString *str = [NSString stringWithFormat:@"telprompt://%@", kCustomerServicePhone];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    }else {
+        DLog(@"取消线下充值");
+    }
+}
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -144,7 +158,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
         [cell setAccessoryType:UITableViewCellAccessoryNone];
 
         if (indexPath.section == 0 && indexPath.row ==0) {
-            cell.textLabel.text = @"金额：";
+            cell.textLabel.text = @"充值金额";
             [cell addSubview:priceTextField];
         }
     }
