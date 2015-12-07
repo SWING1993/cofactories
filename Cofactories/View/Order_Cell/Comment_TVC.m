@@ -16,10 +16,10 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 80, 30)];
-        label.font = [UIFont systemFontOfSize:14];
-        label.text = @"添加备注";
-        [self.contentView addSubview:label];
+        self.commentLB = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 80, 30)];
+        _commentLB.font = [UIFont systemFontOfSize:14];
+        _commentLB.text = @"添加备注";
+        [self.contentView addSubview:_commentLB];
         
         self.commentTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 30, kScreenW-40, (kScreenW/2)-40-30-10)];
         self.commentTextView.font = [UIFont systemFontOfSize:14];

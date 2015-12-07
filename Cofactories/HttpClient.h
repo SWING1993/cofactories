@@ -264,6 +264,15 @@
 // 关闭设计订单
 + (void)closeDesignOrderWithOrderID:(NSString *)aOrderID winnerUserID:(NSString *)aWinnerUserID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
+// 评价供应商订单
++ (void)judgeSupplierOrderWithOrderID:(NSString *)aOrderID score:(NSString *)aScore comment:(NSString *)aComment WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 评价工厂订单
++ (void)judgeFactoryOrderWithOrderID:(NSString *)aOrderID score:(NSString *)aScore comment:(NSString *)aComment WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 评价设计订单
++ (void)judgeDesignOrderWithOrderID:(NSString *)aOrderID score:(NSString *)aScore comment:(NSString *)aComment WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
 //获取认证信息
 + (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block;
 /**

@@ -10,4 +10,5 @@
 
 @interface Comment_TVC : UITableViewCell
 @property (nonatomic,strong)UITextView *commentTextView;
+@property (nonatomic,strong)UILabel *commentLB;
 @end
