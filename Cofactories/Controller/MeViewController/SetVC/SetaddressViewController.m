@@ -38,6 +38,8 @@
 
     self.title=@"公司地址";
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
+    self.tableView.showsVerticalScrollIndicator=NO;
+    self.tableView.rowHeight = 40;
     
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *plistPath = [bundle pathForResource:@"Areas" ofType:@"plist"];

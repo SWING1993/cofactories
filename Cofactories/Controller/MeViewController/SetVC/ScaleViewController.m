@@ -39,7 +39,8 @@
     self.navigationItem.rightBarButtonItem = setButton;
     
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
-    self.tableView.showsVerticalScrollIndicator=NO;
+    self.tableView.showsVerticalScrollIndicator=NO; 
+    self.tableView.rowHeight = 40;
     
     if (self.userType == UserType_clothing) {
         DLog(@"11");
@@ -50,7 +51,7 @@
     self.cellPickList = @[@"0人-2人",@"2人-10人",  @"10人-20人", @"20人以上"];
     }
     
-    SizeTF=[[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-30, 44)];
+    SizeTF=[[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-30, 40)];
     SizeTF.font = kFont;
     SizeTF.text=self.placeholder;
     SizeTF.clearButtonMode=YES;
