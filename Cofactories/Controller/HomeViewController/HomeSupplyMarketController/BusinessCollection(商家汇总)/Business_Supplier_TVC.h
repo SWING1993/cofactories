@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 @class Market_Model;
 
-@interface Market_TVC : UITableViewCell
-- (void)layoutSomeDataWithMarketModel:(Market_Model *)marketModel;
+@interface Business_Supplier_TVC : UITableViewCell
+- (void)layoutSomeDataWithMarketModel:(Business_Supplier_Model *)model;
 @end

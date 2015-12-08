@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Market_VC : UIViewController
-- (id)initWithMarketType:(NSInteger)marketType andSelecteDataDictionary:(NSDictionary *)dictionary;
+@interface Business_Supplier_VC : UIViewController
+- (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary;
 @end

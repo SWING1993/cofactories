@@ -18,6 +18,11 @@
 #import "BidManage_Factory_Model.h"
 #import "OthersUserModel.h"
 
+/**
+ * 商家模型
+ */
+#import "Business_Supplier_Model.h"
+
 @interface HttpClient : NSObject
 
 /*User**********************************************************************************************************************************************/

@@ -9,37 +9,31 @@
 #define kScreenWideth [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
 
-#import "Market_VC.h"
-#import "Market_TVC.h"
+#import "Business_Supplier_VC.h"
+#import "Business_Supplier_TVC.h"
 #import "DOPDropDownMenu.h"
 
-@interface Market_VC ()<UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UISearchBarDelegate>{
-    NSInteger        _marketType;
+@interface Business_Supplier_VC ()<UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UISearchBarDelegate>{
+    NSString        *_subrole;
     NSDictionary    *_selectDataDictionary;
     DOPDropDownMenu *_dropDownMenu;
     UITableView     *_tableView;
     NSArray         *_zhejiangArray;
     NSArray         *_anhuiArray;
     NSArray         *_guangdongArray;
+    NSMutableArray  *_dataArray;
 }
 
 @end
 
 static NSString *const reuseIdentifier = @"reuseIdentifier";
 
-@implementation Market_VC
+@implementation Business_Supplier_VC
 
-/** type
- * 1.设计市场
- * 2.服装市场
- * 3.供应市场
- * 4.加工配套市场
- */
-
-- (id)initWithMarketType:(NSInteger)marketType andSelecteDataDictionary:(NSDictionary *)dictionary{
+- (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary{
     
     if (self = [super init]) {
-        _marketType = marketType;
+        _subrole = subrole;
         _selectDataDictionary = dictionary;
         [self customSearchBar];
     }
@@ -62,10 +56,20 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.rowHeight = 90;
-    [_tableView registerClass:[Market_TVC class] forCellReuseIdentifier:reuseIdentifier];
+    [_tableView registerClass:[Business_Supplier_TVC class] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:_tableView];
     
-    
+    _dataArray = [@[] mutableCopy];
+    [HttpClient searchBusinessWithRole:@"supplier" scale:nil province:nil city:nil subRole:_subrole keyWord:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+        NSArray *array = dictionary[@"message"];
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dic = obj;
+            Business_Supplier_Model *model = [Business_Supplier_Model getBusinessSupplierModelWithDictionary:dic];
+            [_dataArray addObject:model];
+        }];
+        [_tableView reloadData];
+        
+    }];
 }
 
 #pragma mark - 搜索框
@@ -191,15 +195,17 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 #pragma mark - 表方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 10;
+    return _dataArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    Market_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    [cell layoutSomeDataWithMarketModel:nil];
+    Business_Supplier_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    Business_Supplier_Model *model = _dataArray[indexPath.row];
+    [cell layoutSomeDataWithMarketModel:model];
     return cell;
 }
+
 
 @end

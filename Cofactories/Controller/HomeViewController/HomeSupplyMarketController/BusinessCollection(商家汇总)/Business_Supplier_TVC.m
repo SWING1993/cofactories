@@ -6,9 +6,9 @@
 //  Copyright © 2015年 GUY. All rights reserved.
 //
 
-#import "Market_TVC.h"
+#import "Business_Supplier_TVC.h"
 
-@implementation Market_TVC{
+@implementation Business_Supplier_TVC{
     UIImageView *_marketImage;
     UILabel     *_marketNameLabel;
     UIImageView *_certifyImage;
@@ -21,8 +21,8 @@
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         _marketImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 100, 70)];
-        _marketImage.backgroundColor = [UIColor yellowColor];
         [self.contentView addSubview:_marketImage];
         
         for (int i = 0; i<3; i++) {
@@ -59,17 +59,24 @@
     return self;
 }
 
-- (void)layoutSomeDataWithMarketModel:(Market_Model *)marketModel{
-    
-    _marketNameLabel.text = @"新天地辅料厂家";
-    _marketCreditLabel.text = @"789评价";
-    _marketMessageLabel.text = @"面辅料      柯桥";
+- (void)layoutSomeDataWithMarketModel:(Business_Supplier_Model *)model{
+
+    _marketNameLabel.text = model.businessName;
+    _marketCreditLabel.text = [NSString stringWithFormat:@"%@评分",model.businessScore];
+    _marketMessageLabel.text = [NSString stringWithFormat:@"%@    %@",model.businessSubrole,model.businessCity];
     
     CGSize textSize = [_marketNameLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:14] forKey:NSFontAttributeName]];
     _certifyImage.frame = CGRectMake(_marketNameLabel.frame.origin.x + textSize.width + 10, _marketNameLabel.frame.origin.y + 5, 15, 15);
-    _certifyImage.image = [UIImage imageNamed:@"企.png"];
-
     
+    if ([model.businessEnterprise isEqualToString:@"企业用户"]) {
+        _certifyImage.image = [UIImage imageNamed:@"企.png"];
+    }else if ([model.businessVerified isEqualToString:@"认证用户"]){
+        _certifyImage.image = [UIImage imageNamed:@"证.png"];
+    }else{
+        _certifyImage.image = nil;
+    }
+
+    [_marketImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,model.businessUid]] placeholderImage:[UIImage imageNamed:@"placeHolderUserImage.png"]];
 }
 
 @end

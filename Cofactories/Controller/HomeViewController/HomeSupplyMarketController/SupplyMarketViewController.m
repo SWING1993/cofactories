@@ -9,7 +9,7 @@
 #import "SupplyMarketViewController.h"
 #import "ZGYSupplyMarketView.h"
 #import "materialShopViewController.h"
-#import "Market_VC.h"
+#import "Business_Supplier_VC.h"
 
 @interface SupplyMarketViewController ()<UIScrollViewDelegate, ZGYSupplyMarketViewDelegate> {
     NSMutableArray *btnArray;
@@ -133,18 +133,23 @@
         switch (supplyMarketButtonTag) {
             case 0: {
                 //面料商家
-                [HttpClient searchBusinessWithRole:@"supplier" scale:nil province:nil city:nil subRole:nil keyWord:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
-                    
-                    DLog(@"%@",dictionary);
-                }];
+                Business_Supplier_VC *vc = [[Business_Supplier_VC alloc] initWithSubrole:@"面料商" andSelecteDataDictionary:[Tools returenSelectDataDictionaryWithIndex:3]];
+                [self.navigationController pushViewController:vc animated:YES];
+
             }
                 break;
             case 1: {
                 //辅料商家
+                Business_Supplier_VC *vc = [[Business_Supplier_VC alloc] initWithSubrole:@"辅料商" andSelecteDataDictionary:[Tools returenSelectDataDictionaryWithIndex:3]];
+                [self.navigationController pushViewController:vc animated:YES];
+
             }
                 break;
             case 2: {
                 //机械设备商家
+                Business_Supplier_VC *vc = [[Business_Supplier_VC alloc] initWithSubrole:@"机械设备商" andSelecteDataDictionary:[Tools returenSelectDataDictionaryWithIndex:3]];
+                [self.navigationController pushViewController:vc animated:YES];
+
             }
                 break;
             default:
