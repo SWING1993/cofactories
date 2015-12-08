@@ -83,6 +83,8 @@
 //appStore评分地址
 #define kAppReviewURL   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1015359842"
 
+#define kCustomerServicePhone @"4006400391"
+
 #pragma mark - 系统版本  屏幕尺寸
 //版本号
 #define kVersion_Cofactories [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]

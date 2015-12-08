@@ -9,14 +9,20 @@
 #import "HttpClient.h"
 #import "UbRoleViewController.h"
 
-@interface UbRoleViewController ()
+#define PROVINCE_COMPONENT  0
+
+
+@interface UbRoleViewController () <UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+
+@property (nonatomic,strong) UIPickerView *orderPicker;
+@property (nonatomic,strong) UIToolbar    *pickerToolbar;
 
 @end
 
 @implementation UbRoleViewController {
     UILabel * label;
     UITextField * textField;
-
+    NSString *_tmpPickerName;
 }
 
 - (void)viewDidLoad {
@@ -25,7 +31,8 @@
     self.title=@"二级身份";
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
-    
+    self.tableView.rowHeight = 40;
+
     
     label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, kScreenW-40, 30)];
     label.backgroundColor = [UIColor clearColor];
@@ -37,7 +44,10 @@
     textField.font = kFont;
     textField.text = self.placeholder;
     textField.clearButtonMode=YES;
-    textField.placeholder=@"填写二级地址";
+    textField.placeholder=@"选择二级身份";
+    textField.inputView = [self fecthPicker];
+    textField.inputAccessoryView = [self fecthToolbar];
+    textField.delegate =self;
     
     //设置Btn
     UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
@@ -108,5 +118,74 @@
     }
     return viewForHeaderInSection;
 }
+
+- (UIPickerView *)fecthPicker{
+    if (!self.orderPicker) {
+        self.orderPicker = [[UIPickerView alloc] init];
+        self.orderPicker.delegate = self;
+        self.orderPicker.dataSource = self;
+        self.orderPicker.backgroundColor = [UIColor whiteColor];
+        [self.orderPicker selectRow:0 inComponent:0 animated:NO];
+    }
+    return self.orderPicker;
+}
+
+- (UIToolbar *)fecthToolbar{
+    
+    if (!self.pickerToolbar) {
+        self.pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 40)];
+        UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+        UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(ensure)];
+        self.pickerToolbar.items = [NSArray arrayWithObjects:left,space,right,nil];
+    }
+    return self.pickerToolbar;
+}
+#pragma mark - UIPickerView datasource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return self.cellPickList.count;
+}
+
+
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [self.cellPickList objectAtIndex:row];
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    UILabel *myView = nil;
+    myView = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, kScreenW, 30)];
+    myView.textAlignment = NSTextAlignmentCenter;
+    myView.text = [self.cellPickList objectAtIndex:row];
+    myView.font = kFont;
+    myView.backgroundColor = [UIColor clearColor];
+    return myView;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    _tmpPickerName = [self pickerView:pickerView titleForRow:row forComponent:component];
+}
+-(void)ensure{
+    
+    NSInteger provinceIndex = [self.orderPicker selectedRowInComponent: PROVINCE_COMPONENT];
+    _tmpPickerName = [self.cellPickList objectAtIndex: provinceIndex];
+    textField.text = _tmpPickerName;
+    _tmpPickerName = nil;
+    [textField endEditing:YES];
+}
+-(void)cancel{
+    
+    _tmpPickerName = nil;
+    [textField endEditing:YES];
+}
+
 
 @end

@@ -11,6 +11,7 @@
 #import "HttpClient.h"
 #import "RechargeViewController.h"
 #import "WalletModel.h"
+#import "WithdrawalViewController.h"
 
 #define kHeaderHeight kScreenW*0.47
 
@@ -102,12 +103,17 @@
 }
 - (void)clickHeaderBtnInSection:(UIButton *)btn {
     if (btn.tag == 1) {
-        RechargeViewController * vc = [[RechargeViewController alloc]init];
-        vc.title = @"充值";
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:NO];
+        RechargeViewController * vc1 = [[RechargeViewController alloc]init];
+        vc1.title = @"充值";
+        vc1.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc1 animated:NO];
     }
     else if (btn.tag == 2) {
+        WithdrawalViewController * vc2 = [[WithdrawalViewController alloc]init];
+        vc2.title = @"提现";
+        vc2.money = @"200";
+        vc2.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc2 animated:NO];
     
     }
 }

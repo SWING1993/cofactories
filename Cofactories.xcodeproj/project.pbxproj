@@ -200,6 +200,8 @@
 		03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B569761C02A4CC00F89CDA /* FastCoder.m */; };
 		03B5697B1C02ADD000F89CDA /* StoreUserValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697A1C02ADD000F89CDA /* StoreUserValue.m */; };
 		03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */; };
+		03B8973E1C151EC100DB8E4E /* WithdrawalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */; };
+		03B897401C15490400DB8E4E /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */; };
 		03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DA1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m */; };
 		03FF44EC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m */; };
 		03FF44ED1BFEE73400D81DCE /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DE1BFEE73400D81DCE /* UIAlertView+AFNetworking.m */; };
@@ -777,6 +779,9 @@
 		03B5697A1C02ADD000F89CDA /* StoreUserValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreUserValue.m; sourceTree = "<group>"; };
 		03B5697C1C02AE3000F89CDA /* NSObject+StoreValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+StoreValue.h"; sourceTree = "<group>"; };
 		03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+StoreValue.m"; sourceTree = "<group>"; };
+		03B8973C1C151EC100DB8E4E /* WithdrawalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithdrawalViewController.h; sourceTree = "<group>"; };
+		03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithdrawalViewController.m; sourceTree = "<group>"; };
+		03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		03FF44D91BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		03FF44DA1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		03FF44DB1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -1867,6 +1872,7 @@
 			isa = PBXGroup;
 			children = (
 				030941A31C12E6C90091E3E7 /* openssl */,
+				03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */,
 				03662C771C12E0D700AEEF48 /* AlipaySDK.framework */,
 				03662C781C12E0D700AEEF48 /* libcrypto.a */,
 				03662C791C12E0D700AEEF48 /* libssl.a */,
@@ -2114,6 +2120,8 @@
 				7094D7211BFC825200F7240B /* WalletViewController.m */,
 				7DE8C1911C043CA600E0917D /* RechargeViewController.h */,
 				7DE8C1921C043CA600E0917D /* RechargeViewController.m */,
+				03B8973C1C151EC100DB8E4E /* WithdrawalViewController.h */,
+				03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */,
 				7DEEA55E1C05479C009143C6 /* WalletHistoryViewController.h */,
 				7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */,
 				7DE8C1941C04458E00E0917D /* WalletView */,
@@ -2600,7 +2608,7 @@
 				TargetAttributes = {
 					03571B1F1BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 5TP43F4R7Y;
+						DevelopmentTeam = WPXQYZSK2Q;
 					};
 					03571B381BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
@@ -2654,6 +2662,7 @@
 				7DF1C1CF1C0062B300460DB7 /* 4.jpg in Resources */,
 				035CC5D31C070ECB00998FBD /* umeng_fb_audio_dialog_cancel@2x.png in Resources */,
 				03571C9C1BE85DAC00900EF9 /* icon_chose_arrow_nor@2x.png in Resources */,
+				03B897401C15490400DB8E4E /* AlipaySDK.bundle in Resources */,
 				035CC5CB1C070ECB00998FBD /* cancel@2x.png in Resources */,
 				03571B7D1BE85B7900900EF9 /* 04.png in Resources */,
 				7D665E971C0C49AD00C7C7BF /* release_notes_ios.txt in Resources */,
@@ -2791,6 +2800,7 @@
 				7D8E703A1C0FE894004A7E2C /* ProcessMarketController.m in Sources */,
 				03662CE21C12E0FD00AEEF48 /* Order.m in Sources */,
 				03FF44F11BFEE73400D81DCE /* UIRefreshControl+AFNetworking.m in Sources */,
+				03B8973E1C151EC100DB8E4E /* WithdrawalViewController.m in Sources */,
 				035CC52A1C06DCF000998FBD /* JKPromptView.m in Sources */,
 				0395D2EF1BFC65920009AABC /* CYLTabBar.m in Sources */,
 				03571B251BE84BA100900EF9 /* main.m in Sources */,
@@ -3147,7 +3157,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesy9;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesyhvs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
@@ -3199,7 +3209,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesy9;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesyhvs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";

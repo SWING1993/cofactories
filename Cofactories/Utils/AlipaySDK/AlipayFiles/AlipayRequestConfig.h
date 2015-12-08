@@ -1,10 +1,3 @@
-//
-//  AlipayRequestConfig.h
-//  IntegratedAlipay
-//
-//  Created by Winann on 15/1/9.
-//  Copyright (c) 2015年 Winann. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import "AlipayHeader.h"
@@ -35,11 +28,3 @@
 
 @end
 
-/**
- *  支付宝的一些参数的生成
- */
-@interface AlipayToolKit : NSObject
-
-+ (NSString *)genTradeNoWithTime;
-
-@end

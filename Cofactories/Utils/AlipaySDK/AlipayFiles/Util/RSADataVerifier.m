@@ -46,7 +46,6 @@
 	[result appendString:@"\n-----END PUBLIC KEY-----\n"];
 	
 	return result;
-	
 }
 
 - (NSString *)algorithmName {
@@ -73,8 +72,12 @@
 	
 	BOOL ret;
 	rsaVerifyString(string, signString, path, &ret);
+    if (ret == NO) {
+        DLog(@"签名失败");
+    }else{
+        DLog(@"签名成功");
+    }
 	return ret;
-	
 }
 
 @end

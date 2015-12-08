@@ -55,13 +55,13 @@
 /**
  *  支付宝服务器主动通知商户 网站里指定的页面 http 路径。
  */
-#define kNotifyURL @""
+#define kNotifyURL @"https://pay.cofactories.com/alipay/test"
 
 
 /**
  *  appSckeme:应用注册scheme,在Info.plist定义URLtypes，处理支付宝回调
  */
-#define kAppScheme @"聚工厂"
+#define kAppScheme @"123"
 
 
 /**
@@ -69,5 +69,6 @@
  */
 #define kPrivateKey @"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALhEjUj0Gi/n1V8Eb+A1gEXXR2JXguE1/YJ6KEEmH5A2WP5h0XcUU9GdgIV6O4C/gzAf1jmaRhlwKweP+GawQ84vHmFF+zoEZDIiHOvHr3FJJ2SsB1zslYG3Ri0gpG023cLuMlCiy6AoxXJQn3LGfLgqeJfvLz+nhcz3vCB6EJrZAgMBAAECgYAvnNb88MYLdtX1VUorHufkI/o3+PDCjJbSrgnUu6sQMlrQcCoVoNT/prjcxHa3j8SwHKnX/Hr8e7VCoPrIXedG4Gc5u9PWukHzyYteByTuY29mJ2QmKhy1gzaCWGjkeF90kBST39oqwireWIaJZfi+sAjXAmu8crzg9s6dzB3ouQJBAPVJO557CFfSBjFbdrro+npE1p1erukhOHoIuPlTVkrQlGmZfVJKe+9IAi+36DgSzWvqDoonNblhIn0wtfYfaKcCQQDAUQSXbBRQfrrWvHHWVnNLm5G75qsTpaKlN85zpDj6UtQ+QMge+pYdaEQGWEIyOZdno2IR7ywmLc0pu5JDbNB/AkAS7j39sz0nmfwEXyzArC54tUtjBeW19Gxpbrbn9ziXuZVauQ/lA/6grwwMJsNzYHAePgg1PWV2EzsYMmQ4xJ/NAkBb2hYsUCV/sJeCGizwpweYE+xN50TMNG7zJC1JlCTWghr2xLAQA7UQxIzAzwSGwnTqveEIGchnT7bOeNTJuT33AkEA3PLB2aOV7rxnzDZisrhmxWp+KaaoM6UyY5lbMXR9SQe0yyckbJX+31b+pIGi39bnghBB5fgJFvzkqtbhDESqKg=="
 
+#define kPublicKey @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTSwr1a7ErecBi6tSGfXF9Q4gzOOLzb/1xJVJARtR2SGA48AVf/HGhJlNOaO1ZxX8MFlMh/p2fliJTKfmWGdncd0ceNbj5YPDxGySicSQv3P/Kbz9nvNhUqJX7sWZ4n5JW458eCu4fAIIM9qhORy7MkX1nIELiH2UubbrAxFuSoQIDAQAB"
 
 #endif

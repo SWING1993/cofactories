@@ -144,6 +144,15 @@
 + (void)getwalletWithBlock:(void (^)(NSDictionary *responseDictionary))block;
 
 /**
+ *  Wallet - 充值
+ *
+ *  @param block 返回参数
+ */
++ (void)walletCharge:(void (^)(NSDictionary *responseDictionary))block;
+
++ (void)walletsignwithOrderSpec:(NSString *)orderSpec andBlock:(void (^)(NSDictionary *responseDictionary))block;
+
+/**
  *  上传认证资料
  *
  *  @param enterpriseName    企业名称
