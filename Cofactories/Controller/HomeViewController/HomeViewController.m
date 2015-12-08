@@ -15,6 +15,7 @@
 #import "SetViewController.h"//完善资料
 #import "SupplyMarketViewController.h"//供应市场
 #import "ProcessMarketController.h"//加工配套市场
+#import "Business_Cloth_VC.h"
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -243,6 +244,9 @@ static NSString *activityCellIdentifier = @"activityCell";
             break;
         case 2:{
             //服装市场
+            Business_Cloth_VC *vc = [[Business_Cloth_VC alloc] initWithSelecteDataDictionary:[Tools returenSelectDataDictionaryWithIndex:2]];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 3:{

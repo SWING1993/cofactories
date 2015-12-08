@@ -40,7 +40,12 @@
             self.businessSubrole = subroleString;
         }
         
-        self.businessCity = dictionary[@"city"];
+        NSString *cityString = [NSString stringWithFormat:@"%@",dictionary[@"city"]];
+        if ([cityString isEqualToString:@"<null>"] || cityString == nil) {
+            self.businessCity = @"商家暂未填写";
+        }else{
+            self.businessCity = cityString;
+        }
         
         NSString *scoreString = [NSString stringWithFormat:@"%@",dictionary[@"score"]];
         if ([scoreString isEqualToString:@"<null>"] || scoreString == nil) {

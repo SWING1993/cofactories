@@ -1128,7 +1128,7 @@
 }
 
 // 商家汇总（找合作商，找厂家）
-+ (void)searchBusinessWithRole:(NSString *)aRole scale:(NSString *)aScale province:(NSString *)aProvince city:(NSString *)aCity subRole:(NSString *)aSubRole keyWord:(NSString *)aKeyWord page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)searchBusinessWithRole:(NSString *)aRole scale:(NSString *)aScale province:(NSString *)aProvince city:(NSString *)aCity subRole:(NSString *)aSubRole keyWord:(NSString *)aKeyWord verified:(NSString *)aVerified page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -1151,6 +1151,9 @@
         }
         if (aKeyWord) {
             [parametersDictionary setObject:aKeyWord forKey:@"keyword"];
+        }
+        if (aVerified) {
+            [parametersDictionary setObject:aVerified forKey:@"verified"];
         }
         if (aPage) {
             [parametersDictionary setObject:aPage forKey:@"page"];

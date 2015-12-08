@@ -222,7 +222,7 @@
 + (void)getFabricDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 商家汇总（找合作商，找厂家）
-+ (void)searchBusinessWithRole:(NSString *)aRole scale:(NSString *)aScale province:(NSString *)aProvince city:(NSString *)aCity subRole:(NSString *)aSubRole keyWord:(NSString *)aKeyWord page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
++ (void)searchBusinessWithRole:(NSString *)aRole scale:(NSString *)aScale province:(NSString *)aProvince city:(NSString *)aCity subRole:(NSString *)aSubRole keyWord:(NSString *)aKeyWord verified:(NSString *)aVerified page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 
 // 发布供应商订单

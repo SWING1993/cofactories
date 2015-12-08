@@ -258,6 +258,8 @@
 		70F5EF811C0C4B49008878B4 /* FactoryOrderDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F5EF801C0C4B49008878B4 /* FactoryOrderDetail_VC.m */; };
 		70F5EF841C0C5909008878B4 /* OrderPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F5EF831C0C5909008878B4 /* OrderPhotoViewController.m */; };
 		70F6D1F61C1697D000E23166 /* Business_Supplier_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1F51C1697D000E23166 /* Business_Supplier_Model.m */; };
+		70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */; };
+		70F6D2071C16CD7E00E23166 /* Business_Cloth_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */; };
 		70F7E36A1C05BF3900DD661E /* MachineMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E3691C05BF3900DD661E /* MachineMarketModel.m */; };
 		70F7E36D1C05CB7100DD661E /* DesignMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */; };
 		70FA60E31C09425400EA84FD /* Comment_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60E21C09425400EA84FD /* Comment_TVC.m */; };
@@ -897,6 +899,10 @@
 		70F5EF831C0C5909008878B4 /* OrderPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPhotoViewController.m; sourceTree = "<group>"; };
 		70F6D1F41C1697D000E23166 /* Business_Supplier_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Supplier_Model.h; sourceTree = "<group>"; };
 		70F6D1F51C1697D000E23166 /* Business_Supplier_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Supplier_Model.m; sourceTree = "<group>"; };
+		70F6D1FB1C16C8BD00E23166 /* Business_Factory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Factory_VC.h; sourceTree = "<group>"; };
+		70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Factory_VC.m; sourceTree = "<group>"; };
+		70F6D2051C16CD7E00E23166 /* Business_Cloth_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Cloth_VC.h; sourceTree = "<group>"; };
+		70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Cloth_VC.m; sourceTree = "<group>"; };
 		70F7E3681C05BF3900DD661E /* MachineMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MachineMarketModel.h; path = ../MachineMarketModel.h; sourceTree = "<group>"; };
 		70F7E3691C05BF3900DD661E /* MachineMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MachineMarketModel.m; path = ../MachineMarketModel.m; sourceTree = "<group>"; };
 		70F7E36B1C05CB7100DD661E /* DesignMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesignMarketModel.h; path = ../DesignMarketModel.h; sourceTree = "<group>"; };
@@ -1923,6 +1929,7 @@
 			children = (
 				03927D821BEC8D1E0087A2FD /* HomeViewController.h */,
 				03927D831BEC8D1E0087A2FD /* HomeViewController.m */,
+				70F6D2011C16CCE800E23166 /* HomeClothsMarket(服装市场) */,
 				7D5BDB781BFF0E8400FC8054 /* HomeView */,
 				7D8E70371C0FE85C004A7E2C /* HomeProcessMarketController */,
 				7DEB8F911C06A27F00B98912 /* HomeDesignMarketController */,
@@ -2234,6 +2241,24 @@
 			name = Business;
 			sourceTree = "<group>";
 		};
+		70F6D1F71C16C80E00E23166 /* 加工配套商家汇总 */ = {
+			isa = PBXGroup;
+			children = (
+				70F6D1FB1C16C8BD00E23166 /* Business_Factory_VC.h */,
+				70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */,
+			);
+			path = "加工配套商家汇总";
+			sourceTree = "<group>";
+		};
+		70F6D2011C16CCE800E23166 /* HomeClothsMarket(服装市场) */ = {
+			isa = PBXGroup;
+			children = (
+				70F6D2051C16CD7E00E23166 /* Business_Cloth_VC.h */,
+				70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */,
+			);
+			path = "HomeClothsMarket(服装市场)";
+			sourceTree = "<group>";
+		};
 		70FA60DE1C093EAD00EA84FD /* Publish */ = {
 			isa = PBXGroup;
 			children = (
@@ -2341,6 +2366,7 @@
 		7D8E70371C0FE85C004A7E2C /* HomeProcessMarketController */ = {
 			isa = PBXGroup;
 			children = (
+				70F6D1F71C16C80E00E23166 /* 加工配套商家汇总 */,
 				7D8E703B1C0FE9E9004A7E2C /* ProcessMarketView */,
 				7D8E70381C0FE894004A7E2C /* ProcessMarketController.h */,
 				7D8E70391C0FE894004A7E2C /* ProcessMarketController.m */,
@@ -2792,6 +2818,7 @@
 				7D0B4C0C1C11A2E800543A07 /* materialShopDetailController.m in Sources */,
 				03571C021BE85C0800900EF9 /* UIImage+GIF.m in Sources */,
 				0395D2F01BFC65920009AABC /* CYLTabBarController.m in Sources */,
+				70F6D2071C16CD7E00E23166 /* Business_Cloth_VC.m in Sources */,
 				03571C001BE85C0800900EF9 /* SDWebImagePrefetcher.m in Sources */,
 				7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */,
 				70FA60E31C09425400EA84FD /* Comment_TVC.m in Sources */,
@@ -2827,6 +2854,7 @@
 				70F4A7811C12E2C9000DF7E7 /* MarkOrder_VC.m in Sources */,
 				7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */,
 				70F4A76E1C1289C2000DF7E7 /* BidManage_Design_TVC.m in Sources */,
+				70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */,
 				03571BFD1BE85C0800900EF9 /* SDWebImageDownloader.m in Sources */,
 				03571C5E1BE85D8C00900EF9 /* MJRefreshHeaderView.m in Sources */,
 				7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */,

@@ -1,20 +1,17 @@
 //
-//  Market_VC.m
-//  ttttttt
+//  Business_Factory_VC.m
+//  Cofactories
 //
-//  Created by GTF on 15/11/24.
-//  Copyright © 2015年 GUY. All rights reserved.
+//  Created by GTF on 15/12/8.
+//  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#define kScreenWideth [[UIScreen mainScreen] bounds].size.width
-#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
-
-#import "Business_Supplier_VC.h"
-#import "Business_Supplier_TVC.h"
+#import "Business_Factory_VC.h"
 #import "DOPDropDownMenu.h"
+#import "Business_Supplier_TVC.h"
 #import "MJRefresh.h"
 
-@interface Business_Supplier_VC ()<UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UISearchBarDelegate>{
+@interface Business_Factory_VC ()<UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UISearchBarDelegate>{
     NSString        *_subrole;
     NSDictionary    *_selectDataDictionary;
     DOPDropDownMenu *_dropDownMenu;
@@ -24,19 +21,19 @@
     NSArray         *_guangdongArray;
     NSMutableArray  *_dataArray;
     NSInteger        _refrushCount;
+
 }
 @property (nonatomic,copy)NSString *userType;
+@property (nonatomic,copy)NSString *userScale;
 @property (nonatomic,copy)NSString *userBusinessName;
 @property (nonatomic,copy)NSString *userProvince;
 @property (nonatomic,copy)NSString *userCity;
+
 @end
-
 static NSString *const reuseIdentifier = @"reuseIdentifier";
-
-@implementation Business_Supplier_VC
+@implementation Business_Factory_VC
 
 - (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary{
-    
     if (self = [super init]) {
         _subrole = subrole;
         _selectDataDictionary = dictionary;
@@ -56,7 +53,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _dropDownMenu.dataSource = self;
     [self.view addSubview:_dropDownMenu];
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44+64, kScreenWideth, kScreenHeight-44-64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44+64, kScreenW, kScreenH-44-64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
@@ -67,7 +64,8 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _dataArray = [@[] mutableCopy];
     _refrushCount = 1;
     [self setupRefresh];
-    [HttpClient searchBusinessWithRole:@"supplier" scale:nil province:nil city:nil subRole:_subrole keyWord:nil verified:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient searchBusinessWithRole:@"processing" scale:nil province:nil city:nil subRole:_subrole keyWord:nil verified:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+        DLog(@"==%@",dictionary);
         NSArray *array = dictionary[@"message"];
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSDictionary *dic = obj;
@@ -75,10 +73,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             [_dataArray addObject:model];
         }];
         [_tableView reloadData];
-        
+
     }];
 }
-
 
 - (void)setupRefresh{
     [_tableView addFooterWithTarget:self action:@selector(footerRereshing)];
@@ -90,7 +87,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)footerRereshing{
     _refrushCount++;
     DLog(@"_refrushCount==%d",_refrushCount);
-    [HttpClient searchBusinessWithRole:@"supplier" scale:nil province:_userProvince city:_userCity subRole:_subrole keyWord:_userBusinessName verified:_userType page:@(_refrushCount) WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient searchBusinessWithRole:@"processing" scale:_userScale province:_userProvince city:_userCity subRole:_subrole keyWord:_userBusinessName verified:_userType page:@(_refrushCount) WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSDictionary *dic = obj;
@@ -103,6 +100,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [_tableView footerEndRefreshing];
     
 }
+
 
 #pragma mark - 搜索框
 - (void)customSearchBar{
@@ -129,9 +127,10 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _userCity = nil;
     _userProvince = nil;
     _userType = nil;
+    _userScale = nil;
     
     DLog(@"==%@,==%@,==%@,==%@",_userProvince,_userCity,_userBusinessName,_userType);
-    [HttpClient searchBusinessWithRole:@"supplier" scale:nil province:_userProvince city:_userCity subRole:_subrole keyWord:_userBusinessName verified:_userType page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient searchBusinessWithRole:@"processing" scale:nil province:_userProvince city:_userCity subRole:_subrole keyWord:_userBusinessName verified:_userType page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         [_dataArray removeAllObjects];
         NSArray *array = dictionary[@"message"];
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -261,7 +260,25 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             }
             break;
         case 1:
-            
+            switch (indexPath.row) {
+                case 0:
+                    _userScale = nil;
+                    break;
+                case 1:
+                    _userScale = @"1";
+                    break;
+                case 2:
+                    _userScale = @"2";
+                    break;
+                case 3:
+                    _userScale = @"3";
+                    break;
+                case 4:
+                    _userScale = @"4";
+                    break;
+                default:
+                    break;
+            }
             break;
         case 2:
             switch (indexPath.row) {
@@ -349,8 +366,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
     _refrushCount = 1;
     _userBusinessName = nil;
-    DLog(@"==%@,==%@,==%@,==%@",_userProvince,_userCity,_userBusinessName,_userType);
-    [HttpClient searchBusinessWithRole:@"supplier" scale:nil province:_userProvince city:_userCity subRole:_subrole keyWord:_userBusinessName verified:_userType page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+    
+    DLog(@"==%@,==%@,==%@,==%@,==%@",_userProvince,_userCity,_userBusinessName,_userType,_userScale);
+    [HttpClient searchBusinessWithRole:@"processing" scale:_userScale province:_userProvince city:_userCity subRole:_subrole keyWord:_userBusinessName verified:_userType page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         [_dataArray removeAllObjects];
         NSArray *array = dictionary[@"message"];
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -361,8 +379,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         [_tableView reloadData];
         
     }];
-    
 }
+
+
 
 #pragma mark - 表方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -378,6 +397,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [cell layoutSomeDataWithMarketModel:model];
     return cell;
 }
+
 
 
 @end
