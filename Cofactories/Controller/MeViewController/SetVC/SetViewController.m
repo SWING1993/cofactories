@@ -25,6 +25,8 @@
 
 @property (nonatomic,retain)UIButton * headBtn;
 
+@property (nonatomic,copy) NSArray * UbRoleArray;
+
 
 @end
 
@@ -62,6 +64,30 @@
     self.headBtn.layer.cornerRadius = 65.0f/2.0f;
     [self.headBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,self.uid]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"headBtn"]];
     [self.headBtn addTarget:self action:@selector(uploadHeadBtn) forControlEvents:UIControlEventTouchUpInside];
+        
+    switch (self.type) {
+        case UserType_designer:{
+            self.UbRoleArray = @[@"个人设计者",@"设计工作室"];
+        
+        }
+            break;
+            
+        case UserType_processing:{
+            self.UbRoleArray = @[@"加工厂",@"锁眼钉扣",@"代裁",@"后整包装",@"砂洗水洗",@"印花厂",@"印染厂",@"绣花厂",@"其他特种工艺"];
+
+        }
+            break;
+            
+        case UserType_supplier:{
+            self.UbRoleArray = @[@"面料商",@"辅料商",@"机械设备商"];
+
+        }
+            break;
+            
+        default:
+            self.UbRoleArray = @[@"暂无"];
+            break;
+    }
     
 }
 
@@ -234,6 +260,7 @@
                     DLog(@"二级身份");
                     UbRoleViewController * ubRoleVC = [[UbRoleViewController alloc]init];
                     ubRoleVC.placeholder = self.MyProfile.subRole;
+                    ubRoleVC.cellPickList = [self.UbRoleArray copy];
                     [self.navigationController pushViewController:ubRoleVC animated:YES];
                 }
                     break;
