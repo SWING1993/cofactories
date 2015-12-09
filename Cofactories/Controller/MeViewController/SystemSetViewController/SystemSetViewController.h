@@ -10,4 +10,6 @@
 
 @interface SystemSetViewController : UITableViewController
 
+@property (nonatomic,copy) NSString * inviteCode;
+
 @end

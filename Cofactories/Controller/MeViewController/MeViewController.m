@@ -78,6 +78,7 @@
 - (void)setButtonClicked {
     SystemSetViewController * systemSetVC = [[SystemSetViewController alloc]init];
     systemSetVC.title = @"系统";
+    systemSetVC.inviteCode = self.MyProfile.inviteCode;
     systemSetVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:systemSetVC animated:YES];
 }

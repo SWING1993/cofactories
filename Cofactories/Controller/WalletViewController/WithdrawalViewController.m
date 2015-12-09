@@ -36,7 +36,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
     self.tableView.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.automaticallyAdjustsScrollViewInsets = YES;// 自动调整视图关闭
     self.tableView.showsVerticalScrollIndicator = NO;// 竖直滚动条不显示
     
     priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(85, 0, kScreenW - 100, 44)];
@@ -58,7 +57,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     lastButton = [UIButton buttonWithType:UIButtonTypeCustom];
     lastButton.frame = CGRectMake(15,10,kScreenW-30,35);
-    [lastButton setTitle:@"下一步" forState:UIControlStateNormal];
+    [lastButton setTitle:@"提现" forState:UIControlStateNormal];
     lastButton.titleLabel.font = [UIFont systemFontOfSize:15.5*kZGY];
     lastButton.layer.cornerRadius = 5;
     lastButton.clipsToBounds = YES;
@@ -76,7 +75,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
     label.text = [NSString stringWithFormat:@"可提现金额%.2f元",[self.money floatValue]];
     label.backgroundColor = [UIColor clearColor];
     UIView*view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 30)];
-//    view.backgroundColor = [UIColor colorWithRed:1.000 green:0.953 blue:0.498 alpha:1.000];
     [view addSubview:label];
     self.tableView.tableHeaderView = view;
     
@@ -90,7 +88,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
         [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
         lastButton.userInteractionEnabled = NO;
     } else {
-        //[priceTextField.text compare:self.money] == NSOrderedAscending || [priceTextField.text isEqualToString:self.money]
         if (([priceTextField.text floatValue]<[self.money floatValue] || [priceTextField.text floatValue]==[self.money floatValue]) && bankcardTextField.text.length>0) {
             lastButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
             [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -107,17 +104,22 @@ static NSString *cellIdentifier = @"cellIdentifier";
 - (void)payAction {
     CGFloat money ;
     money = [priceTextField.text floatValue];
-    if ((0<money && money<5000) || money == 5000 ) {
-        kTipAlert(@"支付宝");
+    
+   
+    
+    if (0<money) {
         
         NSString * amountStr = [NSString stringWithFormat:@"%.2f",money];
+        [HttpClient walletWithDrawWithFee:amountStr WithMethod:@"alipay" WithAccount:bankcardTextField.text andBlock:^(NSInteger statusCode) {
+            if (statusCode == 200) {
+                kTipAlert(@"申请提现成功，我们将在2个工作日内处理您的申请，请耐心等待。");
+            }
+            else {
+                kTipAlert(@"申请提现失败,账户余额%@元。（错误码：%ld）",self.money,(long)statusCode);
+            }
+        }];
+
       
-    }
-    else if (5000<money ) {
-        kTipAlert(@"使用线下支付");
-        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"充值金额过大，请联系客服进行线下充值！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        alertView.tag = 5000;
-        [alertView show];
     }
     else {
         kTipAlert(@"你输入的%@无法识别，请重新输入！",priceTextField.text);

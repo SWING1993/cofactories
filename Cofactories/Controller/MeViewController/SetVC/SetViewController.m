@@ -244,7 +244,6 @@
                 DLog(@"头像");
                 UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"相册", nil];
                 [actionSheet showInView:self.view];
-
             }
         }
             break;

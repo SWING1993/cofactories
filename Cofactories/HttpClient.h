@@ -148,9 +148,22 @@
  *
  *  @param block 返回参数
  */
-+ (void)walletCharge:(void (^)(NSDictionary *responseDictionary))block;
++ (void)walletWithFee:(NSString *)fee WihtCharge:(void (^)(NSDictionary *responseDictionary))block;
 
 + (void)walletsignwithOrderSpec:(NSString *)orderSpec andBlock:(void (^)(NSDictionary *responseDictionary))block;
+
+
++ (void)walletHistoryWithPage:(NSNumber *)page WithBlock:(void (^)(NSDictionary *responseDictionary))block;
+
+/**
+ *  提现
+ *
+ *  @param fee     提现金额
+ *  @param method  提现方式(将来万一加入微信啥的) 允許值: alipay
+ *  @param account 提现账号
+ *  @param block   回调block
+ */
++ (void)walletWithDrawWithFee:(NSString *)fee WithMethod:(NSString *)method WithAccount:(NSString *)account  andBlock:(void (^)(NSInteger statusCode))block;
 
 /**
  *  上传认证资料

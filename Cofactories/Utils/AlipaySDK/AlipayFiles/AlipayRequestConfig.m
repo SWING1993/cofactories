@@ -56,24 +56,24 @@
     
     // 将商品信息拼接成字符串
     NSString *orderSpec = [order description];
-    
-    [HttpClient walletsignwithOrderSpec:orderSpec andBlock:^(NSDictionary *responseDictionary) {
-        NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
-        if (statusCode == 200) {
-            NSDictionary * dataDic = [responseDictionary objectForKey:@"data"];
-            NSString * signedString = [dataDic objectForKey:@"sign"];
-            [self payWithAppScheme:appScheme orderSpec:orderSpec signedString:signedString];
-        }
-        
-    }];
+//    
+//    [HttpClient walletsignwithOrderSpec:orderSpec andBlock:^(NSDictionary *responseDictionary) {
+//        NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
+//        if (statusCode == 200) {
+//            NSDictionary * dataDic = [responseDictionary objectForKey:@"data"];
+//            NSString * signedString = [dataDic objectForKey:@"sign"];
+//            if (signedString) {
+//                [self payWithAppScheme:appScheme orderSpec:orderSpec signedString:signedString];
+//            }
+//        }
+//    }];
 
     
     // 获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循 RSA 签名规范, 并将签名字符串 base64 编码和 UrlEncode
     NSString *signedString = [self genSignedStringWithPrivateKey:kPrivateKey OrderSpec:orderSpec];
-    DLog(@"signedString = %@",signedString);
     
     // 调用支付接口
-    //[self payWithAppScheme:appScheme orderSpec:orderSpec signedString:signedString];
+    [self payWithAppScheme:appScheme orderSpec:orderSpec signedString:signedString];
 }
 
 // 生成signedString
@@ -93,11 +93,31 @@
     NSString *orderString = nil;
     if (signedString != nil) {
         orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"", orderSpec, signedString, @"RSA"];
-        DLog(@"%@",orderString);
+//        DLog(@"%@",orderString);
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+            NSInteger resultStatus = [[resultDic objectForKey:@"resultStatus"]integerValue];
+            switch (resultStatus) {
+                case 4000:
+                    kTipAlert(@"订单支付失败");
+                    break;
+                case 6001:
+                    kTipAlert(@"用户中途取消");
+                    break;
+                case 6002:
+                    kTipAlert(@"网络连接出错");
+                    break;
+                case 8000:
+                    kTipAlert(@"支付结果确认中");
+                    break;
+                case 9000:
+                    kTipAlert(@"订单支付成功");
+                    break;
+                    
+                default:
+                    kTipAlert(@"充值错误（%@）",[resultDic objectForKey:@"resultStatus"]);
+                    break;
+            }
             NSLog(@"reslut = %@",resultDic);
-            kTipAlert(@"%@",[resultDic objectForKey:@"memo"]);
-
         }];
     }
 }
