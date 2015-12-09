@@ -30,6 +30,7 @@ static NSString *placeCellIdentifier = @"placeCell";
     NSArray *classArray;//分类数组
     NSArray *placeArray;//地址数组
     
+    NSDictionary *bigDic;
     
 //    NSString *isSelect;
     NSString *chuShiZhi;
@@ -44,9 +45,9 @@ static NSString *placeCellIdentifier = @"placeCell";
         currSubTitle = [title componentsSeparatedByString:@"&&"].lastObject;
         
         levelArray = levelArr;
-        classArray = classArr;
+//        classArray = classArr;
         placeArray = addressArr;
-        
+        bigDic = @{@"地区不限":@[], @"浙江":@[@"浙江不限", @"湖州（含织里）", @"杭州", @"宁波", @"浙江其他"], @"安徽":@[@"安徽不限", @"宣城（含广德）", @"安徽其他"], @"广东":@[@"广东不限", @"广州（含新塘）", @"广东其他"], @"福建":@[], @"江苏":@[], @"其他":@[]};
         self.frame = frame;
         self.backgroundColor = [UIColor colorWithRed:0.145 green:0.145 blue:0.145 alpha:0];
         self.userInteractionEnabled = YES;
@@ -169,11 +170,24 @@ static NSString *placeCellIdentifier = @"placeCell";
     float hh = 44*classArray.count + 20 - 0.3;
     
     UITableView* rootableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, selectView.bounds.size.width/3, hh-20)];
+    rootableview.tag = 100;
     rootableview.delegate = self;
     rootableview.dataSource = self;
     rootableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [rootableview registerClass:[ClassCell class] forCellReuseIdentifier:classCellIdentifier];
     [selectView addSubview:rootableview];
+    
+    
+    
+    UITableView* subtableview = [[UITableView alloc] initWithFrame:CGRectMake(rootableview.bounds.size.width, 0, selectView.bounds.size.width/2, hh-20)];
+    subtableview.tag = 101;
+    subtableview.accessibilityIdentifier = [NSString stringWithFormat:@"%ld",(long)index];
+    subtableview.delegate = self;
+    subtableview.dataSource = self;
+    subtableview.backgroundColor = [UIColor colorWithWhite:0.93 alpha:1];
+    subtableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [selectView addSubview:subtableview];
+
     [selectView addSubview:dragBtn];
     
     [UIView animateWithDuration:0.35f animations:^{
@@ -246,7 +260,12 @@ static NSString *placeCellIdentifier = @"placeCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSInteger rows = 0;
     if (currType == SelectTypeOfClass) {
-        rows = classArray.count;
+        if (tableView.tag == 100) {
+            rows = classArray.count;
+        } else {
+            rows = [bigDic[currTitle] count];
+        }
+        
     }
     else if (currType == SelectTypeOfPlace)
     {
@@ -276,14 +295,17 @@ static NSString *placeCellIdentifier = @"placeCell";
             return cell;
     }
     if (currType == SelectTypeOfClass) {
-        ClassCell *cell = [tableView dequeueReusableCellWithIdentifier:classCellIdentifier forIndexPath:indexPath];
-        cell.sub_titleLb.text = classArray[indexPath.row];
-        if ([currTitle isEqualToString:cell.sub_titleLb.text]) {
-            cell.backgroundColor = [UIColor colorWithRed:0.941 green:0.937 blue:0.929 alpha:1];
-            cell.sub_titleLb.textColor = kSelectTitleColor;
-            cell.rightView.backgroundColor = [UIColor colorWithRed:0.941 green:0.937 blue:0.929 alpha:1];
+        if (tableView.tag == 100) {
+            ClassCell *cell = [tableView dequeueReusableCellWithIdentifier:classCellIdentifier forIndexPath:indexPath];
+            cell.sub_titleLb.text = classArray[indexPath.row];
+            if ([currTitle isEqualToString:cell.sub_titleLb.text]) {
+                cell.backgroundColor = [UIColor colorWithRed:0.941 green:0.937 blue:0.929 alpha:1];
+                cell.sub_titleLb.textColor = kSelectTitleColor;
+                cell.rightView.backgroundColor = [UIColor colorWithRed:0.941 green:0.937 blue:0.929 alpha:1];
+            }
+            return cell;
         }
-        return cell;
+        
     }
     if (currType == SelectTypeOfPlace) {
         ClassCell *cell = [tableView dequeueReusableCellWithIdentifier:placeCellIdentifier forIndexPath:indexPath];
