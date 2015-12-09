@@ -163,13 +163,16 @@
 {
     BOOL result = [UMSocialSnsService handleOpenURL:url];
     if (result == FALSE) {
+        DLog(@"123");
         //调用其他SDK，例如支付宝SDK等
         //如果极简开发包不可用，会跳转支付宝钱包进行支付，需要将支付宝钱包的支付结果回传给开发包
         if ([url.host isEqualToString:@"safepay"]) {
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
                 //【由于在跳转支付宝客户端支付的过程中，商户app在后台很可能被系统kill了，所以pay接口的callback就会失效，请商户对standbyCallback返回的回调结果进行处理,就是在这个方法里面处理跟callback一样的逻辑】
                 NSLog(@"result1 = %@",resultDic);
-                kTipAlert(@"%@",[resultDic objectForKey:@"memo"]);
+                NSInteger resultStatus = [[resultDic objectForKey:@"resultStatus"]integerValue];
+                [self showAlertWithResultStatus:resultStatus];
+
             }];
         }
         if ([url.host isEqualToString:@"platformapi"]){//支付宝钱包快登授权返回authCode
@@ -177,11 +180,37 @@
             [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
                 //【由于在跳转支付宝客户端支付的过程中，商户app在后台很可能被系统kill了，所以pay接口的callback就会失效，请商户对standbyCallback返回的回调结果进行处理,就是在这个方法里面处理跟callback一样的逻辑】
                 NSLog(@"result2 = %@",resultDic);
+                NSInteger resultStatus = [[resultDic objectForKey:@"resultStatus"]integerValue];
+                [self showAlertWithResultStatus:resultStatus];
             }];
         }
 
     }
     return result;
+}
+
+- (void)showAlertWithResultStatus:(NSInteger )resultStatus {
+    switch (resultStatus) {
+        case 4000:
+            kTipAlert(@"订单支付失败");
+            break;
+        case 6001:
+            kTipAlert(@"用户中途取消");
+            break;
+        case 6002:
+            kTipAlert(@"网络连接出错");
+            break;
+        case 8000:
+            kTipAlert(@"支付结果确认中");
+            break;
+        case 9000:
+            kTipAlert(@"订单支付成功");
+            break;
+            
+        default:
+            kTipAlert(@"充值错误（%ld）",(long)resultStatus);
+            break;
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

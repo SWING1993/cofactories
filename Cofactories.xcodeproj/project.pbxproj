@@ -191,12 +191,14 @@
 		03ACD19D1C081826003AB7CF /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ACD19A1C081826003AB7CF /* AboutViewController.m */; };
 		03ACD19E1C081826003AB7CF /* RevisePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ACD19C1C081826003AB7CF /* RevisePasswordViewController.m */; };
 		03ACD1A11C0833E0003AB7CF /* ScaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ACD1A01C0833E0003AB7CF /* ScaleViewController.m */; };
-		03B120BC1C0583DA0023F362 /* WalletModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120BB1C0583DA0023F362 /* WalletModel.m */; };
 		03B120BF1C0594720023F362 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120BE1C0594720023F362 /* SetViewController.m */; };
 		03B120C21C05B1AD0023F362 /* SetaddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120C11C05B1AD0023F362 /* SetaddressViewController.m */; };
 		03B120C51C05B1BF0023F362 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120C41C05B1BF0023F362 /* DescriptionViewController.m */; };
 		03B120C71C05B1E60023F362 /* Areas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03B120C61C05B1E60023F362 /* Areas.plist */; };
 		03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B120C91C05C1340023F362 /* UbRoleViewController.m */; };
+		03B4559B1C17EDE6002F1A81 /* WalletModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B4559A1C17EDE6002F1A81 /* WalletModel.m */; };
+		03B4559E1C17EE1E002F1A81 /* WalletHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B4559D1C17EE1E002F1A81 /* WalletHistoryModel.m */; };
+		03B455A11C17FCB6002F1A81 /* WalletHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B455A01C17FCB6002F1A81 /* WalletHistoryTableViewCell.m */; };
 		03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B569761C02A4CC00F89CDA /* FastCoder.m */; };
 		03B5697B1C02ADD000F89CDA /* StoreUserValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697A1C02ADD000F89CDA /* StoreUserValue.m */; };
 		03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */; };
@@ -709,9 +711,9 @@
 		03662C771C12E0D700AEEF48 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		03662C781C12E0D700AEEF48 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		03662C791C12E0D700AEEF48 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
-		03662C7E1C12E0FD00AEEF48 /* AlipayHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlipayHeader.h; sourceTree = "<group>"; };
-		03662C7F1C12E0FD00AEEF48 /* AlipayRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlipayRequestConfig.h; sourceTree = "<group>"; };
-		03662C801C12E0FD00AEEF48 /* AlipayRequestConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlipayRequestConfig.m; sourceTree = "<group>"; };
+		03662C7E1C12E0FD00AEEF48 /* AlipayHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlipayHeader.h; path = AlipayFiles/AlipayHeader.h; sourceTree = "<group>"; };
+		03662C7F1C12E0FD00AEEF48 /* AlipayRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlipayRequestConfig.h; path = AlipayFiles/AlipayRequestConfig.h; sourceTree = "<group>"; };
+		03662C801C12E0FD00AEEF48 /* AlipayRequestConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlipayRequestConfig.m; path = AlipayFiles/AlipayRequestConfig.m; sourceTree = "<group>"; };
 		03662CCD1C12E0FD00AEEF48 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		03662CCE1C12E0FD00AEEF48 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		03662CD01C12E0FD00AEEF48 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
@@ -760,8 +762,6 @@
 		03ACD19C1C081826003AB7CF /* RevisePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevisePasswordViewController.m; sourceTree = "<group>"; };
 		03ACD19F1C0833E0003AB7CF /* ScaleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleViewController.h; sourceTree = "<group>"; };
 		03ACD1A01C0833E0003AB7CF /* ScaleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleViewController.m; sourceTree = "<group>"; };
-		03B120BA1C0583DA0023F362 /* WalletModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletModel.h; sourceTree = "<group>"; };
-		03B120BB1C0583DA0023F362 /* WalletModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletModel.m; sourceTree = "<group>"; };
 		03B120BD1C0594720023F362 /* SetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetViewController.h; sourceTree = "<group>"; };
 		03B120BE1C0594720023F362 /* SetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetViewController.m; sourceTree = "<group>"; };
 		03B120C01C05B1AD0023F362 /* SetaddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetaddressViewController.h; sourceTree = "<group>"; };
@@ -771,6 +771,12 @@
 		03B120C61C05B1E60023F362 /* Areas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Areas.plist; sourceTree = "<group>"; };
 		03B120C81C05C1340023F362 /* UbRoleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UbRoleViewController.h; sourceTree = "<group>"; };
 		03B120C91C05C1340023F362 /* UbRoleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UbRoleViewController.m; sourceTree = "<group>"; };
+		03B455991C17EDE6002F1A81 /* WalletModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletModel.h; sourceTree = "<group>"; };
+		03B4559A1C17EDE6002F1A81 /* WalletModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletModel.m; sourceTree = "<group>"; };
+		03B4559C1C17EE1E002F1A81 /* WalletHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryModel.h; sourceTree = "<group>"; };
+		03B4559D1C17EE1E002F1A81 /* WalletHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryModel.m; sourceTree = "<group>"; };
+		03B4559F1C17FCB6002F1A81 /* WalletHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryTableViewCell.h; sourceTree = "<group>"; };
+		03B455A01C17FCB6002F1A81 /* WalletHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryTableViewCell.m; sourceTree = "<group>"; };
 		03B569751C02A4CC00F89CDA /* FastCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastCoder.h; sourceTree = "<group>"; };
 		03B569761C02A4CC00F89CDA /* FastCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastCoder.m; sourceTree = "<group>"; };
 		03B569781C02A57C00F89CDA /* UserManagerCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManagerCenter.h; sourceTree = "<group>"; };
@@ -1314,10 +1320,9 @@
 		03571B571BE84E4100900EF9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				03B455981C17ED96002F1A81 /* WalletModel */,
 				70F50D741C06FAE400920F63 /* OrderModel */,
 				70F50D701C069B1000920F63 /* MarketModel */,
-				03B120BA1C0583DA0023F362 /* WalletModel.h */,
-				03B120BB1C0583DA0023F362 /* WalletModel.m */,
 				705421F21C0D3AA100BD2B47 /* OthersUserModel.h */,
 				705421F31C0D3AA100BD2B47 /* OthersUserModel.m */,
 			);
@@ -1867,12 +1872,15 @@
 		03662C761C12E0A500AEEF48 /* AlipaySDK */ = {
 			isa = PBXGroup;
 			children = (
+				03662C7E1C12E0FD00AEEF48 /* AlipayHeader.h */,
+				03662C7F1C12E0FD00AEEF48 /* AlipayRequestConfig.h */,
+				03662C801C12E0FD00AEEF48 /* AlipayRequestConfig.m */,
+				03662C7D1C12E0FD00AEEF48 /* AlipayFiles */,
 				030941A31C12E6C90091E3E7 /* openssl */,
 				03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */,
 				03662C771C12E0D700AEEF48 /* AlipaySDK.framework */,
 				03662C781C12E0D700AEEF48 /* libcrypto.a */,
 				03662C791C12E0D700AEEF48 /* libssl.a */,
-				03662C7D1C12E0FD00AEEF48 /* AlipayFiles */,
 			);
 			path = AlipaySDK;
 			sourceTree = "<group>";
@@ -1883,9 +1891,6 @@
 				03662CCF1C12E0FD00AEEF48 /* Util */,
 				03662CCD1C12E0FD00AEEF48 /* Order.h */,
 				03662CCE1C12E0FD00AEEF48 /* Order.m */,
-				03662C7F1C12E0FD00AEEF48 /* AlipayRequestConfig.h */,
-				03662C801C12E0FD00AEEF48 /* AlipayRequestConfig.m */,
-				03662C7E1C12E0FD00AEEF48 /* AlipayHeader.h */,
 			);
 			path = AlipayFiles;
 			sourceTree = "<group>";
@@ -2013,6 +2018,17 @@
 			);
 			name = SetViewController;
 			path = SetVC;
+			sourceTree = "<group>";
+		};
+		03B455981C17ED96002F1A81 /* WalletModel */ = {
+			isa = PBXGroup;
+			children = (
+				03B455991C17EDE6002F1A81 /* WalletModel.h */,
+				03B4559A1C17EDE6002F1A81 /* WalletModel.m */,
+				03B4559C1C17EE1E002F1A81 /* WalletHistoryModel.h */,
+				03B4559D1C17EE1E002F1A81 /* WalletHistoryModel.m */,
+			);
+			path = WalletModel;
 			sourceTree = "<group>";
 		};
 		03B569731C02A3F200F89CDA /* UserManagerCenter */ = {
@@ -2433,6 +2449,8 @@
 		7DE8C1941C04458E00E0917D /* WalletView */ = {
 			isa = PBXGroup;
 			children = (
+				03B4559F1C17FCB6002F1A81 /* WalletHistoryTableViewCell.h */,
+				03B455A01C17FCB6002F1A81 /* WalletHistoryTableViewCell.m */,
 				7DE8C1951C0445AF00E0917D /* ZhiFuBaoCell.h */,
 				7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */,
 				7DEEA5611C054A2D009143C6 /* WalletSelectView.h */,
@@ -2729,6 +2747,7 @@
 				03571C051BE85C0800900EF9 /* UIImageView+HighlightedWebCache.m in Sources */,
 				03571BA91BE85B8F00900EF9 /* NSData+Utils.m in Sources */,
 				03571BD11BE85BDB00900EF9 /* AFOAuth2Manager.m in Sources */,
+				03B455A11C17FCB6002F1A81 /* WalletHistoryTableViewCell.m in Sources */,
 				03ACD19E1C081826003AB7CF /* RevisePasswordViewController.m in Sources */,
 				7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */,
 				035CC4FD1C06DC3100998FBD /* PhotoViewController.m in Sources */,
@@ -2802,6 +2821,7 @@
 				03FF44F21BFEE73400D81DCE /* UIWebView+AFNetworking.m in Sources */,
 				032554A31BFDC2AD003B2E76 /* Tools.m in Sources */,
 				705421FE1C0DA8F600BD2B47 /* SupplierOrderDetail_VC.m in Sources */,
+				03B4559B1C17EDE6002F1A81 /* WalletModel.m in Sources */,
 				70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */,
 				7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */,
 				7D4D06C01C0ED39200BF49D9 /* LMDownMenuView2.m in Sources */,
@@ -2838,7 +2858,6 @@
 				70F5EF7A1C0BE192008878B4 /* SearchOrder_Factory_VC.m in Sources */,
 				03571C5F1BE85D8C00900EF9 /* UIScrollView+MJExtension.m in Sources */,
 				03FF45071BFEE74000D81DCE /* AFHTTPRequestOperation.m in Sources */,
-				03B120BC1C0583DA0023F362 /* WalletModel.m in Sources */,
 				03662CE11C12E0FD00AEEF48 /* AlipayRequestConfig.m in Sources */,
 				03FF450F1BFEE74000D81DCE /* AFURLSessionManager.m in Sources */,
 				03571C8A1BE85D9C00900EF9 /* IQUIViewController+Additions.m in Sources */,
@@ -2862,6 +2881,7 @@
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
 				7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */,
+				03B4559E1C17EE1E002F1A81 /* WalletHistoryModel.m in Sources */,
 				03ACD19D1C081826003AB7CF /* AboutViewController.m in Sources */,
 				70FBE0991C115A8000B15513 /* BidManage_Supplier_VC.m in Sources */,
 				03662CE61C12E0FD00AEEF48 /* MD5DataSigner.m in Sources */,
@@ -3143,7 +3163,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesyhvs;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesyhvssf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
@@ -3195,7 +3215,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesyhvs;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesyhvssf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";

@@ -28,8 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UserModel * model = [[UserModel alloc]getMyProfile];
-    
+
     self.title=@"设置";
     
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
@@ -41,8 +40,8 @@
     inviteCodeTF.keyboardType=UIKeyboardTypeNumberPad;
     inviteCodeTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     inviteCodeTF.placeholder=@"邀请码";
-    if (![model.inviteCode isEqualToString:@"尚未填写"]) {
-        inviteCodeTF.text = model.inviteCode;
+    if (![self.inviteCode isEqualToString:@"尚未填写"]) {
+        inviteCodeTF.text = self.inviteCode;
     }
     
     
@@ -78,8 +77,11 @@
             if (statusCode == 200) {
                 kTipAlert(@"邀请码提交成功!");
             }
+            else if (statusCode == 400) {
+                kTipAlert(@"不存在该邀请码。(错误码：400)");
+            }
             else if (statusCode == 409) {
-                kTipAlert(@"该用户已存在邀请码！");
+                kTipAlert(@"该用户已存在邀请码。(错误码：409)");
             }
             else {
                 kTipAlert(@"邀请码提交失败，尝试重新提交。(错误码：%ld)",(long)statusCode);
@@ -136,7 +138,7 @@
                 
                 
             case 4:{
-                cell.textLabel.text=@"邀请码：";
+                cell.textLabel.text=@"邀请码";
                 [cell setAccessoryType:UITableViewCellAccessoryNone];
                 
                 [cell addSubview:inviteCodeTF];
@@ -162,7 +164,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 7.0f;
+    return 10.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -189,12 +191,7 @@
             break;
             
         case 1:{
-            // 模态弹出友盟反馈
             [self presentViewController:[UMFeedback feedbackModalViewController] animated:YES completion:nil];
-            
-            //蒲公英反馈
-            //[self showFeedbackView];
-            
         }
             break;
         case 2:{
@@ -216,12 +213,72 @@
         }
             break;
             
+            /*
+        case 4:{
             
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"填写邀请码" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField){
+                
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alertTextFieldDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
+                textField.placeholder = self.inviteCode;
+                textField.keyboardType = UIKeyboardTypeNumberPad;
+                textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+                if (![self.inviteCode isEqualToString:@"尚未填写"]) {
+                    textField.text = self.inviteCode;
+                }
+            }];
             
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"提交" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+                if (alertController.textFields.firstObject.text.length>0) {
+                    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+                    
+                    [HttpClient registerWithInviteCode:alertController.textFields.firstObject.text andBlock:^(NSInteger statusCode) {
+                        if (statusCode == 200) {
+                            kTipAlert(@"邀请码提交成功!");
+                        }
+                        else if (statusCode == 400) {
+                            kTipAlert(@"不存在该邀请码。(错误码：400)");
+                        }
+                        else if (statusCode == 409) {
+                            kTipAlert(@"该用户已存在邀请码。(错误码：409)");
+                        }
+                        else {
+                            kTipAlert(@"邀请码提交失败，尝试重新提交。(错误码：%ld)",(long)statusCode);
+                        }
+                    }];
+                }
+                
+            }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [alertController.textFields.firstObject resignFirstResponder];
+                }];
+            }];
+            
+            [alertController addAction:okAction];
+            [alertController addAction:cancelAction];
+
+            [self presentViewController:alertController animated:YES completion:^{
+                
+            }];
+        }
+            break;
+             */
+
         default:
             break;
     }
 }
+/*
+- (void)alertTextFieldDidChange:(NSNotification *)notification{
+    UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
+    if (alertController) {
+        UIAlertAction *okAction = alertController.actions.firstObject;
+        okAction.enabled = alertController.textFields.firstObject.text.length > 2;
+        DLog(@"alertController.textFields.firstObject.text.length = %lu",alertController.textFields.firstObject.text.length);
+    }
+}
+ */
 
 //友盟实现回调方法（可选）：
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
