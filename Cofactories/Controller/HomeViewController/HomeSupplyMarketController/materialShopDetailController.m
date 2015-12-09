@@ -17,7 +17,7 @@
 #import "ShopCarController.h"
 #import "ShopCarModel.h"
 #import "DataBaseHandle.h"
-
+#import "ShoppingOrderController.h"
 
 static NSString *shopCellIdentifier = @"shopCell";
 static NSString *abstractCellIdentifier = @"abstractCell";
@@ -234,7 +234,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
         backGroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
         [self.view addSubview:backGroundView];
-        popView = [[UIView alloc] initWithFrame:CGRectMake(40*kZGY, 200*kZGY, kScreenW - 80*kZGY, 250*kZGY)];
+        popView = [[UIView alloc] initWithFrame:CGRectMake(20*kZGY, 200*kZGY, kScreenW - 40*kZGY, 270*kZGY)];
         popView.backgroundColor = [UIColor whiteColor];
         popView.layer.cornerRadius = 8*kZGY;
         popView.clipsToBounds = YES;
@@ -339,6 +339,9 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         [popView removeFromSuperview];
     } else if (button.tag == 1001) {
         //立即购买
+        DLog(@"*********%ld", numberView.timeAmount);
+        
+        
     } else if (button.tag == 1002) {
         //关闭弹窗
 //        CABasicAnimation *basic = [CABasicAnimation animationWithKeyPath:@"bounds"];
@@ -452,6 +455,9 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         [self.navigationController pushViewController:shopCarVC animated:YES];
     } else if (button.tag == 223){
         DLog(@"底部 + 立即购买");
+        ShoppingOrderController *shoppingVC = [[ShoppingOrderController alloc] init];
+        [self.navigationController pushViewController:shoppingVC animated:YES];
+        
     }
 }
 

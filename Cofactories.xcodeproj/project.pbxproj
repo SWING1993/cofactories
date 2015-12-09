@@ -281,6 +281,7 @@
 		7D06AFA91C168EB000EE7102 /* DataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D06AFA81C168EB000EE7102 /* DataBaseManager.m */; };
 		7D06AFAC1C168F3A00EE7102 /* DataBaseHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D06AFAB1C168F3A00EE7102 /* DataBaseHandle.m */; };
 		7D0B4C0C1C11A2E800543A07 /* materialShopDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B4C0B1C11A2E800543A07 /* materialShopDetailController.m */; };
+		7D17DE741C180EB900F28DA5 /* ShoppingOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D17DE731C180EB900F28DA5 /* ShoppingOrderController.m */; };
 		7D41C8A71C0EEAF800703869 /* AllDesignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D41C8A61C0EEAF800703869 /* AllDesignCell.m */; };
 		7D43078A1C10271E00C4A3FF /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4307891C10271E00C4A3FF /* libiconv.tbd */; };
 		7D4D06BF1C0ED39200BF49D9 /* ClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06B91C0ED39200BF49D9 /* ClassCell.m */; };
@@ -960,6 +961,8 @@
 		7D06AFAB1C168F3A00EE7102 /* DataBaseHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseHandle.m; sourceTree = "<group>"; };
 		7D0B4C0A1C11A2E800543A07 /* materialShopDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = materialShopDetailController.h; sourceTree = "<group>"; };
 		7D0B4C0B1C11A2E800543A07 /* materialShopDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = materialShopDetailController.m; sourceTree = "<group>"; };
+		7D17DE721C180EB900F28DA5 /* ShoppingOrderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingOrderController.h; sourceTree = "<group>"; };
+		7D17DE731C180EB900F28DA5 /* ShoppingOrderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingOrderController.m; sourceTree = "<group>"; };
 		7D41C8A51C0EEAF800703869 /* AllDesignCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllDesignCell.h; sourceTree = "<group>"; };
 		7D41C8A61C0EEAF800703869 /* AllDesignCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllDesignCell.m; sourceTree = "<group>"; };
 		7D4307891C10271E00C4A3FF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
@@ -2599,6 +2602,8 @@
 				70EB7EDF1C156896009E19F9 /* BusinessCollection(商家汇总) */,
 				7DDBC9FD1C15A4F3008FD2E0 /* ShopCarController.h */,
 				7DDBC9FE1C15A4F3008FD2E0 /* ShopCarController.m */,
+				7D17DE721C180EB900F28DA5 /* ShoppingOrderController.h */,
+				7D17DE731C180EB900F28DA5 /* ShoppingOrderController.m */,
 				7DFEBE361C0C039700B2D2D5 /* SupplyMarketView */,
 			);
 			path = HomeSupplyMarketController;
@@ -3001,6 +3006,7 @@
 				03571C8A1BE85D9C00900EF9 /* IQUIViewController+Additions.m in Sources */,
 				03B120C51C05B1BF0023F362 /* DescriptionViewController.m in Sources */,
 				03571C931BE85D9C00900EF9 /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				7D17DE741C180EB900F28DA5 /* ShoppingOrderController.m in Sources */,
 				03571C911BE85D9C00900EF9 /* IQTitleBarButtonItem.m in Sources */,
 				03571B9A1BE85B8200900EF9 /* MBProgressHUD+Add.m in Sources */,
 				70F50D731C06D1F900920F63 /* FabricMarketModel.m in Sources */,
