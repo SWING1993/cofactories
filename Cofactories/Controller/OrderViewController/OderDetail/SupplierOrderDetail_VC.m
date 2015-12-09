@@ -242,7 +242,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 cell.textLabel.text = [NSString stringWithFormat:@"  名称:   %@",_dataModel.name];
                 break;
             case 2:
-                cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %@%@",_dataModel.amount,_dataModel.unit];
+                cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %f%@",_dataModel.amount,_dataModel.unit];
                 break;
             case 3:
                 cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];

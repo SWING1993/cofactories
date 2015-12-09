@@ -15,8 +15,6 @@
 @property (nonatomic, strong) UILabel *designTitle;
 @property (nonatomic, strong) UILabel *classTitle;
 @property (nonatomic, strong) UILabel *addressTitle;
-@property (nonatomic, strong) UIImageView *likePhoto;
-@property (nonatomic, strong) UILabel *likeCount;
 
-
+- (void)layoutDataWith:(Business_Supplier_Model *)model;
 @end

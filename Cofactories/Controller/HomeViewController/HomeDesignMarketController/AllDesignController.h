@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AllDesignController : UIViewController
-
+- (id)initWithSelecteDataDictionary:(NSDictionary *)dictionary;
 @end

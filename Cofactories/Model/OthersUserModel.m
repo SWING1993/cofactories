@@ -68,6 +68,10 @@
         if ([_score isEqualToString:@"<null>"]) {
             _score = @"尚未填写";
         }
+        _descriptions = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"description"]];
+        if ([_descriptions isEqualToString:@"<null>"]) {
+            _descriptions = @"用户介绍暂无";
+        }
         _photoArray = [[NSMutableArray alloc]initWithCapacity:0];
         _photoArray = [dictionary objectForKey:@"photo"];
     }

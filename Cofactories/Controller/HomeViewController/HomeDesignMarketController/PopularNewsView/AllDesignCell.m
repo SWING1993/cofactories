@@ -14,6 +14,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.designPhoto = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 50, 50)];
         self.designPhoto.layer.cornerRadius = 25;
         self.designPhoto.clipsToBounds = YES;
@@ -41,14 +42,6 @@
         self.addressTitle.textColor = [UIColor colorWithRed:158.0f/255.0f green:158.0f/255.0f blue:158.0f/255.0f alpha:1.0f];
         [self addSubview:self.addressTitle];
 
-        self.likeCount = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW - 15 - 35, 15, 35, 25)];
-        self.likeCount.textColor = [UIColor colorWithRed:255.0f/255.0f green:69.0f/255.0f blue:65.0f/255.0f alpha:1.0f];
-        self.likeCount.font = [UIFont systemFontOfSize:13];
-        [self addSubview:self.likeCount];
-        
-        self.likePhoto = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW - self.likeCount.frame.size.width - 15 - 15 - 5, 20, 15, 15)];
-        [self addSubview:self.likePhoto];
-        
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 80 - 0.3, kScreenW, 0.3)];
         lineView.backgroundColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
         [self addSubview:lineView];
@@ -58,14 +51,24 @@
 }
 
 
-- (void)awakeFromNib {
-    // Initialization code
+- (void)layoutDataWith:(Business_Supplier_Model *)model{
+    
+    [_designPhoto sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,model.businessUid]] placeholderImage:[UIImage imageNamed:@"headBtn.png"]];
+   // DLog(@">>==%@",[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,model.businessUid]);
+    
+    if ([model.businessEnterprise isEqualToString:@"企业用户"]) {
+        _levelPhoto.image = [UIImage imageNamed:@"企.png"];
+    }else if ([model.businessVerified isEqualToString:@"认证用户"]){
+        _levelPhoto.image = [UIImage imageNamed:@"证.png"];
+    }else{
+        _levelPhoto.image = nil;
+    }
+    
+    _designTitle.text = model.businessName;
+    _classTitle.text = model.businessSubrole;
+    _addressTitle.text = model.businessCity;
+
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end

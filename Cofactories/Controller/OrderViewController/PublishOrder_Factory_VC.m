@@ -113,7 +113,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _amountTF = [[UITextField alloc] initWithFrame:CGRectMake(115, 45+44+7, kScreenW - 120, 30)];
     _amountTF.font = [UIFont systemFontOfSize:12];
     _amountTF.textColor = [UIColor grayColor];
-    _amountTF.keyboardType = UIKeyboardTypeDecimalPad;
+    _amountTF.keyboardType = UIKeyboardTypeNumberPad;
     _amountTF.placeholder = @"请填写订单数量";
     [headerView addSubview:_amountTF];
     

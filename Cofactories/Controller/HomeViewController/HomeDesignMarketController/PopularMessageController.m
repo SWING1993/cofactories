@@ -308,7 +308,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    DLog(@"第 %ld 个新闻", indexPath.row + 1);
+    DLog(@"第 %d 个新闻", indexPath.row + 1);
 }
 
 

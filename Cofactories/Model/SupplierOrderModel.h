@@ -11,7 +11,7 @@
 @interface SupplierOrderModel : NSObject
 
 @property(nonatomic,copy)NSString *bidCount;
-@property(nonatomic,copy)NSString *amount;
+@property(nonatomic,assign)CGFloat amount;
 @property(nonatomic,copy)NSString *createdAt;
 @property(nonatomic,copy)NSString *deletedAt;
 @property(nonatomic,copy)NSString *descriptions;

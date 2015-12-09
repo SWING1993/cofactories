@@ -40,15 +40,15 @@
         self.imageButton.layer.cornerRadius = 5;
         [self.contentView addSubview:self.imageButton];
         
-        _typeLB = [[UILabel alloc] initWithFrame:CGRectMake(115, 20, 120, 25)];
+        _typeLB = [[UILabel alloc] initWithFrame:CGRectMake(115, 20, kScreenW-120, 25)];
         _typeLB.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_typeLB];
         
-        _amountLB = [[UILabel alloc] initWithFrame:CGRectMake(115, 20+25, 120, 25)];
+        _amountLB = [[UILabel alloc] initWithFrame:CGRectMake(115, 20+25, kScreenW-120, 25)];
         _amountLB.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_amountLB];
         
-        _deadlineLB = [[UILabel alloc] initWithFrame:CGRectMake(115, 20+25+25, 120, 25)];
+        _deadlineLB = [[UILabel alloc] initWithFrame:CGRectMake(115, 20+25+25, kScreenW-120, 25)];
         _deadlineLB.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_deadlineLB];
     }
@@ -72,7 +72,7 @@
         [_imageButton setBackgroundImage:[UIImage imageNamed:@"placeHolderImage"] forState:UIControlStateNormal];
     }
     _typeLB.text = [NSString stringWithFormat:@"名称   %@",dataModel.name];
-    _amountLB.text = [NSString stringWithFormat:@"数量   %@%@",dataModel.amount,dataModel.unit];
+    _amountLB.text = [NSString stringWithFormat:@"数量   %.2f%@",dataModel.amount,dataModel.unit];
     _deadlineLB.text = [NSString stringWithFormat:@"类型   %@",dataModel.type];
     
 }

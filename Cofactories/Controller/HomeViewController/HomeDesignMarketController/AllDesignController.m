@@ -7,210 +7,399 @@
 //
 
 #import "AllDesignController.h"
-#import "ZGYSelectView.h"
 #import "AllDesignCell.h"
+#import "DOPDropDownMenu.h"
+#import "MJRefresh.h"
+#import "PersonalMessage_Design_VC.h"
 
-#define kSearchFrameLong CGRectMake(50, 30, kScreenW-50, 25)
-#define kSearchFrameShort CGRectMake(50, 30, kScreenW-100, 25)
-
-static NSString *designCellIdentifier = @"designCell";
-@interface AllDesignController ()<ZGYSelectViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate> {
-    ZGYSelectView* selectView;
-    UISearchBar *_searchBar;
-    UIView *bigView;
+@interface AllDesignController ()<UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UISearchBarDelegate>{
+    NSDictionary    *_selectDataDictionary;
+    DOPDropDownMenu *_dropDownMenu;
+    UITableView     *_tableView;
+    NSArray         *_zhejiangArray;
+    NSArray         *_anhuiArray;
+    NSArray         *_guangdongArray;
+    NSMutableArray  *_dataArray;
+    NSInteger        _refrushCount;
 }
 
-@property (nonatomic, strong) UITableView *designTableView;
-
+@property (nonatomic,copy)NSString *userType;
+@property (nonatomic,copy)NSString *userSubrole;
+@property (nonatomic,copy)NSString *userBusinessName;
+@property (nonatomic,copy)NSString *userProvince;
+@property (nonatomic,copy)NSString *userCity;
 @end
-
+static NSString *const reuseIdentifier = @"reuseIdentifier";
 @implementation AllDesignController
 
--(void)viewWillDisappear:(BOOL)animated {
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+- (id)initWithSelecteDataDictionary:(NSDictionary *)dictionary{
+    if (self = [super init]) {
+        _selectDataDictionary = dictionary;
+        [self customSearchBar];
+    }
+    return self;
 }
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self creatSearchBar];
-    [self creatCancleItem];
-    [self creatTableView];
-    [self creatSelectView];
+    _zhejiangArray = @[@"浙江不限",@"湖州(含织里)",@"杭州",@"宁波",@"浙江其他"];
+    _anhuiArray = @[@"安徽不限",@"宣城(含广德)",@"安徽其他"];
+    _guangdongArray = @[@"广东不限",@"广州(含新塘)",@"广东其他"];
+    _dropDownMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
+    _dropDownMenu.delegate = self;
+    _dropDownMenu.dataSource = self;
+    [self.view addSubview:_dropDownMenu];
     
-    self.view.backgroundColor = [UIColor whiteColor];
-}
-
-- (void)creatTableView {
-    self.designTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, kScreenW, kScreenH - 45)];
-    self.designTableView.dataSource = self;
-    self.designTableView.delegate = self;
-    [self.view addSubview:self.designTableView];
-    self.designTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.designTableView registerClass:[AllDesignCell class] forCellReuseIdentifier:designCellIdentifier];
-}
-- (void)creatSelectView {
-    NSArray *levelArray = @[@"不限等级", @"企业用户", @"认证用户", @"注册用户"];
-    NSArray *classArray = @[@"不限种类", @"独立设计师", @"设计工作室"];
-    NSArray *placeArray = @[@"不限地区", @"北京", @"上海", @"杭州", @"广州"];
-    selectView = [[ZGYSelectView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 45) levelArray:levelArray classArray:classArray addressArray:placeArray title:@"不限等级" isTwo:NO];
-//    selectView = [[ZGYSelectView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 45) levelArray:levelArray classArray:classArray addressArray:placeArray title:@"不限等级"];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44+64, kScreenW, kScreenH-44-64) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.rowHeight = 80;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_tableView registerClass:[AllDesignCell class] forCellReuseIdentifier:reuseIdentifier];
+    [self.view addSubview:_tableView];
     
-    selectView.backgroundColor = [UIColor colorWithRed:0.973 green:0.973 blue:0.973 alpha:1];
-    [[NSUserDefaults standardUserDefaults] setObject:@"不限类型" forKey:@"ZGYLevelType"];
-    selectView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    selectView.layer.borderWidth = 0.5;
-    selectView.delegate = self;
-    [self.view addSubview:selectView];
-}
-
-- (void)creatCancleItem {
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
-    temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(back);
-    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
+    _dataArray = [@[] mutableCopy];
+    _refrushCount = 1;
+    [self setupRefresh];
+    [HttpClient searchBusinessWithRole:@"designer" scale:nil province:nil city:nil subRole:nil keyWord:nil verified:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+        DLog(@"==%@",dictionary);
+        NSArray *array = dictionary[@"message"];
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dic = obj;
+            Business_Supplier_Model *model = [Business_Supplier_Model getBusinessSupplierModelWithDictionary:dic];
+            [_dataArray addObject:model];
+        }];
+        [_tableView reloadData];
+        
+    }];
 
 }
-- (void)creatSearchBar{
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    _searchBar = [[UISearchBar alloc] initWithFrame:kSearchFrameLong];
-    _searchBar.delegate = self;
-    [self.navigationController.view addSubview:_searchBar];
-    [_searchBar setBackgroundImage:[[UIImage alloc] init] ];
-    _searchBar.placeholder = @"搜索文章、图片、作者";
+
+- (void)setupRefresh{
+    [_tableView addFooterWithTarget:self action:@selector(footerRereshing)];
+    _tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    _tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    _tableView.footerRefreshingText = @"加载中...";
+}
+
+- (void)footerRereshing{
+    _refrushCount++;
+    DLog(@"_refrushCount==%d",_refrushCount);
+    [HttpClient searchBusinessWithRole:@"designer" scale:nil province:_userProvince city:_userCity subRole:_userSubrole keyWord:_userBusinessName verified:_userType page:@(_refrushCount) WithCompletionBlock:^(NSDictionary *dictionary) {
+        NSArray *array = dictionary[@"message"];
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dic = obj;
+            Business_Supplier_Model *model = [Business_Supplier_Model getBusinessSupplierModelWithDictionary:dic];
+            [_dataArray addObject:model];
+        }];
+        [_tableView reloadData];
+        
+    }];
+    [_tableView footerEndRefreshing];
     
 }
-#pragma mark - UISearchBarDelegate
 
-//点击搜索框改变seachBar的大小，创建取消按钮，添加一层View
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-    if (_searchBar.frame.size.width == kScreenW-50) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancleButtonClick)];
-        _searchBar.frame = kSearchFrameShort;
-        bigView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
-        bigView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
-        [self.view addSubview:bigView];
+
+
+#pragma mark - 搜索框
+- (void)customSearchBar{
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    searchBar.delegate = self;
+    searchBar.placeholder = @"请输入店铺名称";
+    [searchBar setShowsCancelButton:YES];
+    self.navigationItem.titleView = searchBar;
+    
+    for (UIView *view in [[searchBar.subviews lastObject] subviews]) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            UIButton *cancelBtn = (UIButton *)view;
+            [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        }
     }
 }
 
-
-//点击搜索出结果
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    //搜索完移除view改变searchBar的大小
     [searchBar resignFirstResponder];
-    [bigView removeFromSuperview];
-    _searchBar.frame = kSearchFrameLong;
-//    self.searchArray = [NSMutableArray arrayWithCapacity:0];
-    //    [HttpClient getInfomationWithKind:[NSString stringWithFormat:@"s=%@", searchBar.text] page:1 andBlock:^(NSDictionary *responseDictionary){
-    //        NSArray *jsonArray = responseDictionary[@"responseArray"];
-    //        for (NSDictionary *dictionary in jsonArray) {
-    //            InformationModel *information = [[InformationModel alloc] initModelWith:dictionary];
-    //
-    //            [self.searchArray addObject:information];
-    //        }
-    //        if (self.searchArray.count == 0) {
-    //            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"搜索结果为空" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-    //            [alertView show];
-    //
-    //        } else {
-    //            [self removeSearchBar];
-    //            PMSearchViewController *PMSearchVC = [[PMSearchViewController alloc] init];
-    //            //            PMSearchVC.searchArray = [NSMutableArray arrayWithArray:self.searchArray];
-    //            PMSearchVC.searchText = searchBar.text;
-    //            [self.navigationController pushViewController:PMSearchVC animated:YES];
-    //        }
-    //    }];
-}
-
-
-//点击键盘之外的View移除View
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (![_searchBar isExclusiveTouch]) {
-        [_searchBar resignFirstResponder];
-        [bigView removeFromSuperview];
-        _searchBar.frame = kSearchFrameLong;
-    }
-}
-
-//点击取消收回键盘，移除View，改变seachBar的大小
-- (void)cancleButtonClick {
-    //收回键盘
-    [_searchBar resignFirstResponder];
-    [bigView removeFromSuperview];
-    _searchBar.frame = kSearchFrameLong;
+    NSLog(@"%@",searchBar.text);
+    
+    _refrushCount = 1;
+    _userBusinessName = searchBar.text;
+    _userCity = nil;
+    _userProvince = nil;
+    _userType = nil;
+    _userSubrole = nil;
+    
+    DLog(@"==%@,==%@,==%@,==%@",_userProvince,_userCity,_userBusinessName,_userType);
+    [HttpClient searchBusinessWithRole:@"clothing" scale:nil province:_userProvince city:_userCity subRole:_userSubrole keyWord:_userBusinessName verified:_userType page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+        [_dataArray removeAllObjects];
+        NSArray *array = dictionary[@"message"];
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dic = obj;
+            Business_Supplier_Model *model = [Business_Supplier_Model getBusinessSupplierModelWithDictionary:dic];
+            [_dataArray addObject:model];
+        }];
+        [_tableView reloadData];
+        
+    }];
     
 }
 
-//返回时移除searchBar
-- (void)back {
-    [_searchBar removeFromSuperview];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-//同时移除searchBar和View（在当前页面操作）
-- (void)removeSearchBar {
-    [_searchBar removeFromSuperview];
-    [bigView removeFromSuperview];
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
+    [self.view endEditing:YES];
 }
 
 
-#pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+#pragma mark - 选择器方法
+- (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu{
+    return 3;
 }
+
+- (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column{
+    switch (column) {
+        case 0:
+            return [(NSArray *)_selectDataDictionary[@"accountType"] count];
+            break;
+        case 1:
+            return [(NSArray *)_selectDataDictionary[@"scale"] count];
+            break;
+        case 2:
+            return [(NSArray *)_selectDataDictionary[@"area"] count];
+            break;
+            
+        default:
+            break;
+    }
+    return 0;
+}
+
+- (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath{
+    
+    switch (indexPath.column) {
+        case 0:
+            return _selectDataDictionary[@"accountType"][indexPath.row];
+            break;
+        case 1:
+            return _selectDataDictionary[@"scale"][indexPath.row];
+            break;
+        case 2:
+            return _selectDataDictionary[@"area"][indexPath.row];
+            break;
+            
+        default:
+            break;
+    }
+    return nil;
+}
+
+- (NSInteger)menu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column{
+    
+    if (column == 2) {
+        switch (row) {
+            case 1:
+                return _zhejiangArray.count;
+                break;
+                
+            case 2:
+                return _anhuiArray.count;
+                break;
+            case 3:
+                return _guangdongArray.count;
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    return 0;
+}
+
+- (NSString *)menu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath{
+    if (indexPath.column == 2) {
+        switch (indexPath.row) {
+            case 1:
+                return _zhejiangArray[indexPath.item];
+                break;
+                
+            case 2:
+                return _anhuiArray[indexPath.item];
+                break;
+            case 3:
+                return _guangdongArray[indexPath.item];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    return nil;
+}
+
+- (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath{
+    
+    NSLog(@"==%ld,==%ld,==%ld",(long)indexPath.column,(long)indexPath.row,(long)indexPath.item);
+    
+    switch (indexPath.column) {
+        case 0:
+            switch (indexPath.row) {
+                case 0:
+                    _userType = nil;
+                    break;
+                case 1:
+                    _userType = @"enterprise";
+                    break;
+                case 2:
+                    _userType = @"verified";
+                    break;
+                case 3:
+                    _userType = @"register";
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 1:
+            switch (indexPath.row) {
+                case 0:
+                    _userSubrole = nil;
+                    break;
+                case 1:
+                    _userSubrole = @"个人设计者";
+                    break;
+                case 2:
+                    _userSubrole = @"设计工作室";
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 2:
+            switch (indexPath.row) {
+                case 0:
+                    _userProvince = @"";
+                    _userCity = @"";
+                    break;
+                case 1:
+                    _userProvince = @"浙江省";
+                    _userCity = @"";
+                    switch (indexPath.item) {
+                        case 0:
+                            _userCity = @"";
+                            break;
+                        case 1:
+                            _userCity = @"湖州市";
+                            break;
+                        case 2:
+                            _userCity = @"杭州市";
+                            break;
+                        case 3:
+                            _userCity = @"宁波市";
+                            break;
+                        case 4:
+                            _userCity = @"其他";
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 2:
+                    _userProvince = @"安徽省";
+                    _userCity = @"";
+                    switch (indexPath.item) {
+                        case 0:
+                            _userCity = @"";
+                            break;
+                        case 1:
+                            _userCity = @"宣城市";
+                            break;
+                        case 2:
+                            _userCity = @"其他";///////////////////////////
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    break;
+                case 3:
+                    _userProvince = @"广东省";
+                    _userCity = @"";
+                    switch (indexPath.item) {
+                        case 0:
+                            _userCity = @"";
+                            break;
+                        case 1:
+                            _userCity = @"广州市";
+                            break;
+                        case 2:
+                            _userCity = @"其他";/////////////////////////////
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 4:
+                    _userProvince = @"福建省";
+                    _userCity = @"";
+                    break;
+                case 5:
+                    _userProvince = @"江苏省";
+                    _userCity = @"";
+                    break;
+                case 6:
+                    _userProvince = @"其他";///////////////////////////
+                    _userCity = @"";
+                    break;
+                default:
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
+    
+    _refrushCount = 1;
+    _userBusinessName = nil;
+    
+    DLog(@"==%@,==%@,==%@,==%@,==%@",_userProvince,_userCity,_userBusinessName,_userType,_userSubrole);
+    [HttpClient searchBusinessWithRole:@"designer" scale:nil province:_userProvince city:_userCity subRole:_userSubrole keyWord:_userBusinessName verified:_userType page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+        [_dataArray removeAllObjects];
+        NSArray *array = dictionary[@"message"];
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dic = obj;
+            Business_Supplier_Model *model = [Business_Supplier_Model getBusinessSupplierModelWithDictionary:dic];
+            [_dataArray addObject:model];
+        }];
+        [_tableView reloadData];
+        
+    }];
+    
+}
+
+#pragma mark - 表方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    
+    return _dataArray.count;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    AllDesignCell *cell = [tableView dequeueReusableCellWithIdentifier:designCellIdentifier forIndexPath:indexPath];
-    cell.designPhoto.image = [UIImage imageNamed:@"4.jpg"];
-    cell.levelPhoto.image = [UIImage imageNamed:@"DesignLevel-企业用户"];
-    cell.designTitle.text = @"DM服装设计";
-    cell.classTitle.text = @"设计工作室";
-    cell.addressTitle.text = @"杭州";
-    cell.likePhoto.image = [UIImage imageNamed:@"Design-like"];
-    cell.likeCount.text = @"1075";
+    
+    AllDesignCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    Business_Supplier_Model *model = _dataArray[indexPath.row];
+    [cell layoutDataWith:model];
     return cell;
 }
 
-
-
-#pragma mark - UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Business_Supplier_Model *model = _dataArray[indexPath.row];
+    PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
+    vc.userID = model.businessUid;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
-
-- (void)selectView:(ZGYSelectView*)selectview selectAreaId:(NSString*)areaid andClassifyId:(NSString*)classifyid andRankId:(NSString*)rankId {
-    NSLog(@"**************%@ %@ %@", areaid, classifyid, rankId);
-    
-}
-- (void)selectView:(ZGYSelectView*)selectview selectTitle:(NSString*)currTitle {
-    NSLog(@"**************%@", currTitle);
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

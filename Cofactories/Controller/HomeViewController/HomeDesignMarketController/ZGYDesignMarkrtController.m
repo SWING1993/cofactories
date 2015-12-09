@@ -79,14 +79,14 @@
         }
             break;
         case 2:{
-            AllDesignController *allDesignVC = [[AllDesignController alloc] init];
+            AllDesignController *allDesignVC = [[AllDesignController alloc] initWithSelecteDataDictionary:[Tools returenSelectDataDictionaryWithIndex:1]];
             [self.navigationController pushViewController:allDesignVC animated:YES];
         }
             break;
         default:
             break;
     }
-    DLog(@"第 %ld 个", supplyMarketButtonTag + 1);
+    DLog(@"第 %d 个", supplyMarketButtonTag + 1);
 }
 
 - (void)didReceiveMemoryWarning {
