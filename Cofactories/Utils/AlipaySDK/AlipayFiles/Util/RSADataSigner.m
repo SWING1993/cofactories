@@ -28,7 +28,6 @@
 
 
 - (NSString *)formatPrivateKey:(NSString *)privateKey {
-    DLog(@")formatPrivateKey");
     const char *pstr = [privateKey UTF8String];
     int len = [privateKey length];
     NSMutableString *result = [NSMutableString string];
@@ -50,7 +49,7 @@
         index++;
     }
     [result appendString:@"\n-----END PRIVATE KEY-----"];
-    DLog(@"支付宝验证签名：%@",result);
+//    DLog(@"支付宝验证签名：%@",result);
     return result;
 }
 
@@ -70,7 +69,7 @@
 	// 把密钥写入文件
 	//
 	NSString *formatKey = [self formatPrivateKey:_privateKey];
-    DLog(@"密钥地址：%@",path);
+//    DLog(@"密钥地址：%@",path);
 	[formatKey writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
 	
 	const char *message = [string cStringUsingEncoding:NSUTF8StringEncoding];
@@ -80,7 +79,7 @@
     int ret = rsa_sign_with_private_key_pem((char *)message, messageLength, sig, &sig_len, (char *)[path UTF8String]);
 	//签名成功,需要给签名字符串base64编码和UrlEncode,该两个方法也可以根据情况替换为自己函数
     if (ret == 1) {
-        DLog(@"//签名成功,需要给签名字符串base64编码和UrlEncode");
+//        DLog(@"//签名成功,需要给签名字符串base64编码和UrlEncode");
         NSString * base64String = base64StringFromData([NSData dataWithBytes:sig length:sig_len]);
 		//NSData * UTF8Data = [base64String dataUsingEncoding:NSUTF8StringEncoding];
 		signedString = [self urlEncodedString:base64String];

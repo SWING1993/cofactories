@@ -12,6 +12,8 @@
 #import "RechargeViewController.h"
 #import "WalletModel.h"
 #import "WithdrawalViewController.h"
+#import "WalletHistoryViewController.h"
+
 
 #define kHeaderHeight kScreenW*0.47
 
@@ -39,7 +41,7 @@
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
             self.walletModel = [responseDictionary objectForKey:@"model"];
-            _myLabel.text = [NSString stringWithFormat:@"账户余额\n\n%.2f元",self.walletModel.money];
+            _myLabel.text = [NSString stringWithFormat:@"可使用金额 %.2f元\n可提现金额 %.2f元\n冻结金额 %.2f元",self.walletModel.money,self.walletModel.cash,self.walletModel.freeze];
         }
         else {
             NSString * message = [responseDictionary objectForKey:@"message"];
@@ -111,7 +113,7 @@
     else if (btn.tag == 2) {
         WithdrawalViewController * vc2 = [[WithdrawalViewController alloc]init];
         vc2.title = @"提现";
-        vc2.money = @"200";
+        vc2.money = [NSString stringWithFormat:@"%.2f",self.walletModel.money];
         vc2.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc2 animated:NO];
     
@@ -185,6 +187,10 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             //资金明细
+            WalletHistoryViewController * historyVC = [[WalletHistoryViewController alloc]init];
+            historyVC.title = @"资金明细";
+            historyVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:historyVC animated:YES];
             
         } else if (indexPath.row == 1) {
             //实名认证
