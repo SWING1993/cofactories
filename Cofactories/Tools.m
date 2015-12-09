@@ -303,6 +303,12 @@
                                                  attributes:attribute context:nil].size;
     return requiredSize;
 }
++ (CGSize)getSize:(NSString *)string andFontOfSize:(CGFloat)fontSize andWidthMake:(CGFloat)width {
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:fontSize]};
+    CGSize requiredSize = [string boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading
+                                            attributes:attribute context:nil].size;
+    return requiredSize;
+}
 
 + (void)removeAllCached {
     DLog(@"清除图片缓存！");

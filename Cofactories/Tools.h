@@ -82,7 +82,7 @@
  @param string 文本
  */
 + (CGSize)getSize:(NSString *)string andFontOfSize:(CGFloat)fontSize;
-
++ (CGSize)getSize:(NSString *)string andFontOfSize:(CGFloat)fontSize andWidthMake:(CGFloat)width;//自适应高度
 /**
  *  清除缓存
  */

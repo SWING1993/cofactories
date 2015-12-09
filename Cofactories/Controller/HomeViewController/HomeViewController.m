@@ -15,6 +15,7 @@
 #import "SetViewController.h"//完善资料
 #import "SupplyMarketViewController.h"//供应市场
 #import "ProcessMarketController.h"//加工配套市场
+#import "DataBaseHandle.h"
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -95,6 +96,7 @@ static NSString *activityCellIdentifier = @"activityCell";
     arr = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流"];
     [self creatTableView];
     [self creatTableHeaderView];
+    [self creatShoppingCarTable];
 }
 
 - (void)creatTableView {
@@ -315,6 +317,11 @@ static NSString *activityCellIdentifier = @"activityCell";
     
 }
 
+- (void)creatShoppingCarTable {
+    //创建购物车的表
+    DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
+    [dataBaseHandle createShoppingCarTable];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
