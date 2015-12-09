@@ -61,20 +61,20 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _tableView = [[UITableView alloc] initWithFrame:kScreenBounds style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource =self;
-    [_tableView registerClass:[Order_Common_TVC class] forCellReuseIdentifier:reuseIdentifier];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_tableView registerClass:[Order_Common_TVC class] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:_tableView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44)];
     _tableView.tableHeaderView = headerView;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 20, 25)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 20)];
     imageView.image = [UIImage imageNamed:@"dd.png"];
     [headerView addSubview:imageView];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 10, 120, 25)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(35, 8, 120, 25)];
     label.textColor = MAIN_COLOR;
     label.textAlignment = NSTextAlignmentLeft;
-    label.font = [UIFont systemFontOfSize:16];
+    label.font = [UIFont systemFontOfSize:14];
     label.text = @"订单信息";
     [headerView addSubview:label];
     
@@ -82,7 +82,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _tableView.tableFooterView = footerView;
     
     _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _addButton.frame = CGRectMake((kScreenW-80)/2.0, 30, 80, 80);
+    _addButton.frame = CGRectMake(20, 30, 80, 80);
     [_addButton setBackgroundImage:[UIImage imageNamed:@"addImageButton.png"] forState:UIControlStateNormal];
     _addButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_addButton addTarget:self action:@selector(addImageClick) forControlEvents:UIControlEventTouchUpInside];
@@ -253,7 +253,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
     }else{
         [_scrollView removeFromSuperview];
-        _addButton.frame = CGRectMake((kScreenW-80)/2.0, 30, 80, 80);
     }
 }
 
@@ -280,7 +279,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     [_imageViewArray addObject:image];
                     if (idx == [assets count] - 1) {
                         DLog(@"_imageViewArrayCount==%zi",_imageViewArray.count);
-                        _addButton.frame = CGRectMake(20, 30, 80, 80);
                         [self creatScrollView];
                     }
                 }

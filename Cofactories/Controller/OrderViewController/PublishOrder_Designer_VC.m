@@ -47,20 +47,20 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _tableView.rowHeight = kScreenW/2.f-40;
     [self.view addSubview:_tableView];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44*2)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 80)];
     _tableView.tableHeaderView = headerView;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 20, 25)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 20)];
     imageView.image = [UIImage imageNamed:@"dd.png"];
     [headerView addSubview:imageView];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 10, 120, 25)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(35, 8, 120, 25)];
     label.textColor = MAIN_COLOR;
     label.textAlignment = NSTextAlignmentLeft;
-    label.font = [UIFont systemFontOfSize:16];
+    label.font = [UIFont systemFontOfSize:14];
     label.text = @"订单信息";
     [headerView addSubview:label];
     
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 45, 70, 44)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, 70, 44)];
     _titleLabel.font = [UIFont systemFontOfSize:14];
     [headerView addSubview:_titleLabel];
     
@@ -69,9 +69,10 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [attributedTitle addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,1)];
     _titleLabel.attributedText = attributedTitle;
 
-    _titleTF = [[UITextField alloc] initWithFrame:CGRectMake(130, 45+7, kScreenW - 150, 30)];
-    _titleTF.borderStyle = UITextBorderStyleRoundedRect;
-    _titleTF.font = [UIFont systemFontOfSize:14];
+    _titleTF = [[UITextField alloc] initWithFrame:CGRectMake(85, 35+7, kScreenW - 95, 30)];
+    _titleTF.font = [UIFont systemFontOfSize:12];
+    _titleTF.textColor = [UIColor grayColor];
+    _titleTF.placeholder = @"请填写订单标题";
     [headerView addSubview:_titleTF];
 
 
@@ -79,7 +80,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _tableView.tableFooterView = footerView;
     
     _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _addButton.frame = CGRectMake((kScreenW-80)/2.0, 30, 80, 80);
+    _addButton.frame = CGRectMake(20, 30, 80, 80);
     [_addButton setBackgroundImage:[UIImage imageNamed:@"addImageButton.png"] forState:UIControlStateNormal];
     _addButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_addButton addTarget:self action:@selector(addImageClick) forControlEvents:UIControlEventTouchUpInside];
@@ -225,7 +226,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
     }else{
         [_scrollView removeFromSuperview];
-        _addButton.frame = CGRectMake((kScreenW-80)/2.0, 30, 80, 80);
     }
 }
 
@@ -252,7 +252,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     [_imageViewArray addObject:image];
                     if (idx == [assets count] - 1) {
                         DLog(@"_imageViewArrayCount==%zi",_imageViewArray.count);
-                        _addButton.frame = CGRectMake(20, 30, 80, 80);
                         [self creatScrollView];
                     }
                 }

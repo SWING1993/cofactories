@@ -47,12 +47,8 @@
             self.businessCity = cityString;
         }
         
-        NSString *scoreString = [NSString stringWithFormat:@"%@",dictionary[@"score"]];
-        if ([scoreString isEqualToString:@"<null>"] || scoreString == nil) {
-            self.businessScore = @"商家暂未获得";
-        }else{
-            self.businessScore = subroleString;
-        }
+        self.businessScore = [NSString stringWithFormat:@"%@",dictionary[@"score"]];
+        
     }
     return self;
 }

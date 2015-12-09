@@ -62,7 +62,12 @@
 - (void)layoutSomeDataWithMarketModel:(Business_Supplier_Model *)model{
 
     _marketNameLabel.text = model.businessName;
-    _marketCreditLabel.text = [NSString stringWithFormat:@"%@评分",model.businessScore];
+    if ([model.businessScore isEqualToString:@"0"]) {
+        _marketCreditLabel.text = @"商家暂未获得评分";
+        
+    }else{
+        _marketCreditLabel.text = [NSString stringWithFormat:@"%@评分",model.businessScore];
+    }
     _marketMessageLabel.text = [NSString stringWithFormat:@"%@    %@",model.businessSubrole,model.businessCity];
     
     CGSize textSize = [_marketNameLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:14] forKey:NSFontAttributeName]];

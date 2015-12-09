@@ -67,18 +67,18 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44*5)];
     _tableView.tableHeaderView = headerView;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 20, 24)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 20)];
     imageView.image = [UIImage imageNamed:@"dd.png"];
     [headerView addSubview:imageView];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 10, 120, 24)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(35, 8, 120, 25)];
     label.textColor = MAIN_COLOR;
     label.textAlignment = NSTextAlignmentLeft;
-    label.font = [UIFont systemFontOfSize:16];
+    label.font = [UIFont systemFontOfSize:14];
     label.text = @"订单信息";
     [headerView addSubview:label];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 45, 70, 44)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 45, 70, 44)];
     titleLabel.font = [UIFont systemFontOfSize:14];
     [headerView addSubview:titleLabel];
     
@@ -88,11 +88,11 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     titleLabel.attributedText = attributedTitle;
     
     
-    _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(140, 45, 80, 44)];
+    _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(115, 45, 100, 44)];
     _typeLabel.font = [UIFont systemFontOfSize:12];
     _typeLabel.textColor = [UIColor grayColor];
     _typeLabel.text = @"针织/梭织";
-    _typeLabel.textAlignment = NSTextAlignmentCenter;
+    _typeLabel.textAlignment = NSTextAlignmentLeft;
     [headerView addSubview:_typeLabel];
     
     UIButton *selectedButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -101,7 +101,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [selectedButton addTarget:self action:@selector(selectedButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:selectedButton];
     
-    UILabel *amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 45+44, 100, 44)];
+    UILabel *amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 45+44, 100, 44)];
     amountLabel.font = [UIFont systemFontOfSize:14];
     [headerView addSubview:amountLabel];
     
@@ -110,12 +110,14 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [attributedTitle1 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,1)];
     amountLabel.attributedText = attributedTitle1;
     
-    _amountTF = [[UITextField alloc] initWithFrame:CGRectMake(155, 45+44+7, kScreenW - 180, 30)];
-    _amountTF.borderStyle = UITextBorderStyleRoundedRect;
+    _amountTF = [[UITextField alloc] initWithFrame:CGRectMake(115, 45+44+7, kScreenW - 120, 30)];
     _amountTF.font = [UIFont systemFontOfSize:12];
+    _amountTF.textColor = [UIColor grayColor];
+    _amountTF.keyboardType = UIKeyboardTypeDecimalPad;
+    _amountTF.placeholder = @"请填写订单数量";
     [headerView addSubview:_amountTF];
     
-    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 45+44+44, 70, 44)];
+    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 45+44+44, 70, 44)];
     timeLabel.font = [UIFont systemFontOfSize:14];
     [headerView addSubview:timeLabel];
     
@@ -124,16 +126,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [attributedTitle2 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,1)];
     timeLabel.attributedText = attributedTitle2;
     
-    _customeView = [[CustomeView alloc] initWithFrame:CGRectMake(155, 45+44+44+7, kScreenW-180, (kScreenW-180)/6.f)];
+    _customeView = [[CustomeView alloc] initWithFrame:CGRectMake(115, 45+44+44+12, kScreenW-200, (kScreenW-200)/6.f)];
     [headerView addSubview:_customeView];
     
-    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 45+44+44+44, 70, 44)];
+    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45+44+44+44, 70, 44)];
     commentLabel.font = [UIFont systemFontOfSize:14];
     commentLabel.text = @"备注";
     [headerView addSubview:commentLabel];
     
-    _commentTF = [[UITextField alloc] initWithFrame:CGRectMake(155, 45+44+44+44+7, kScreenW - 180, 30)];
-    _commentTF.borderStyle = UITextBorderStyleRoundedRect;
+    _commentTF = [[UITextField alloc] initWithFrame:CGRectMake(115, 45+44+44+44+7, kScreenW - 120, 30)];
     _commentTF.font = [UIFont systemFontOfSize:12];
     _commentTF.placeholder = @"特殊要求填写备注说明";
     [headerView addSubview:_commentTF];
@@ -142,7 +143,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _tableView.tableFooterView = footerView;
     
     _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _addButton.frame = CGRectMake((kScreenW-80)/2.0, 30, 80, 80);
+    _addButton.frame = CGRectMake(20, 30, 80, 80);
     [_addButton setBackgroundImage:[UIImage imageNamed:@"addImageButton.png"] forState:UIControlStateNormal];
     _addButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_addButton addTarget:self action:@selector(addImageClick) forControlEvents:UIControlEventTouchUpInside];
@@ -248,7 +249,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
     }else{
         [_scrollView removeFromSuperview];
-        _addButton.frame = CGRectMake((kScreenW-80)/2.0, 30, 80, 80);
     }
 }
 
@@ -275,7 +275,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     [_imageViewArray addObject:image];
                     if (idx == [assets count] - 1) {
                         DLog(@"_imageViewArrayCount==%zi",_imageViewArray.count);
-                        _addButton.frame = CGRectMake(20, 30, 80, 80);
                         [self creatScrollView];
                     }
                 }

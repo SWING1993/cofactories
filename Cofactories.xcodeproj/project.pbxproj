@@ -2695,7 +2695,7 @@
 				TargetAttributes = {
 					03571B1F1BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = WPXQYZSK2Q;
+						DevelopmentTeam = 5TP43F4R7Y;
 					};
 					03571B381BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
@@ -3257,7 +3257,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesy7;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesy8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
@@ -3309,7 +3309,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesy7;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesy8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
