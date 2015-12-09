@@ -9,6 +9,7 @@
 #import "materialShopViewController.h"
 #import "ZGYSelectView.h"
 #import "MaterialShopCell.h"
+#import "materialShopDetailController.h"
 
 #define kSearchFrameLong CGRectMake(50, 30, kScreenW-50, 25)
 #define kSearchFrameShort CGRectMake(50, 30, kScreenW-100, 25)
@@ -24,6 +25,12 @@ static NSString *materialCellIdentifier = @"materialCell";
 
 @implementation materialShopViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self creatSearchBar];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setHidden:NO];
+}
 -(void)viewWillDisappear:(BOOL)animated {
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
@@ -32,9 +39,8 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self creatSearchBar];
+    
+//    [self creatSearchBar];
     [self creatCancleItem];
     [self creatCollectionView];
     [self creatSelectView];
@@ -137,7 +143,9 @@ static NSString *materialCellIdentifier = @"materialCell";
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [self removeSearchBar];
+    materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
+    [self.navigationController pushViewController:materialShopVC animated:YES];
 }
 
 

@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UIImageView *photoView;
 @property (nonatomic, strong) UILabel *newsTitle;
-@property (nonatomic, strong) UIButton *likeButton;
-
+@property (nonatomic, strong) UIImageView *likeView;
+@property (nonatomic, strong) UILabel *likeCountLabel;
+@property (nonatomic, strong) UILabel *commentCountLabel;
 @end

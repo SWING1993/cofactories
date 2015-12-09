@@ -328,14 +328,8 @@ static NSString *popularCellIdentifier = @"popularCell";
     PopularCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:popularCellIdentifier forIndexPath:indexPath];
     cell.photoView.image = [UIImage imageNamed:@"5.jpg"];
     cell.newsTitle.text = @"春夏东京男装发布会最IN";
-    
-    if (cell.likeButton.selected == YES) {
-        [cell.likeButton setImage:[UIImage imageNamed:@"Home已喜欢"] forState:UIControlStateNormal];
-    } else {
-        [cell.likeButton setImage:[UIImage imageNamed:@"Home我喜欢"] forState:UIControlStateNormal];
-    }
-    cell.likeButton.tag = 222 + indexPath.row;
-    [cell.likeButton addTarget:self action:@selector(actionOfLike:) forControlEvents:UIControlEventTouchUpInside];
+    cell.likeCountLabel.text = @"2345";
+    cell.commentCountLabel.text = @"评论数：999+";
     return cell;
 }
 
@@ -349,10 +343,6 @@ static NSString *popularCellIdentifier = @"popularCell";
     return UIEdgeInsetsMake(10*kZGY, 10*kZGY, 10*kZGY, 10*kZGY);
 }
 
-- (void)actionOfLike:(UIButton *)button {
-    button.selected = YES;
-    [self.collectionView reloadData];
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
