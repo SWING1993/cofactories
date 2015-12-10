@@ -11,5 +11,10 @@
 @interface WalletHistoryTableViewCell : UITableViewCell
 
 
+@property (nonatomic,strong) UILabel * timeLabel;
+@property (nonatomic,strong) UILabel * feeLabel;
+@property (nonatomic,strong) UILabel * typeLabel;
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withRowSize:(CGSize)rowSize ;
 
 @end
