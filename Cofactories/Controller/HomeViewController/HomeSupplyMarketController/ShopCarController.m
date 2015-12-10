@@ -198,9 +198,35 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
         }
     }
     } else if (button.tag == 1) {
-        
-        
         DLog(@"删除");
+        DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
+        for (int i = 0; i < self.shoppingCarArray.count; i++) {
+            ShopCarModel *shopCar = self.shoppingCarArray[i];
+            if (shopCar.isSelect == YES) {
+//                [self.shoppingCarArray removeObject:shopCar];
+                [dataBaseHandle deleteShoppingCarWithID:shopCar.ID];
+                
+//                        DetailCar *car = dataBaseHandle.shoppingCarArray[indexPath.row];
+//                        [dataBaseHandle deleteCarWithID:car.ID];
+            }
+        }
+        self.dataBasaHandle = [DataBaseHandle mainDataBaseHandle];
+        [self.dataBasaHandle searchAllShoppingCar];
+        self.shoppingCarArray = [NSMutableArray arrayWithCapacity:0];
+        for (int i = 0; i < self.dataBasaHandle.shoppingCarArray.count; i++) {
+            ShopCarModel *selectModel = self.dataBasaHandle.shoppingCarArray[i];
+            selectModel.isSelect = NO;
+            [self.shoppingCarArray addObject:selectModel];
+        }
+
+        
+        [self.myTableView reloadData];
+//        DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
+//        DetailCar *car = dataBaseHandle.shoppingCarArray[indexPath.row];
+//        [dataBaseHandle deleteCarWithID:car.ID];
+        
+
+        
     } else if (button.tag == 2) {
         DLog(@"结算");
     }

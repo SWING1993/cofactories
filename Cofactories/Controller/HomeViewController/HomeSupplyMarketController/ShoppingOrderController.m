@@ -162,10 +162,12 @@ static NSString *OrderCellIdentifier = @"OrderCell";
             break;
         case 1: {
             phoneNumberTF = cell.myTextField;
+            phoneNumberTF.keyboardType = UIKeyboardTypeNumberPad;
         }
             break;
         case 2: {
             youBianTF = cell.myTextField;
+            youBianTF.keyboardType = UIKeyboardTypeNumberPad;
         }
             break;
         case 3: {

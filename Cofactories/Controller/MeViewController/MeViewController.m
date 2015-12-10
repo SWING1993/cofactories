@@ -196,11 +196,13 @@
     switch (indexPath.section) {
             case 0:
             switch (indexPath.row) {
-                case 0:
-                    DLog(@"我的店铺");
+                case 0: {
+                    
+                }
                     break;
                 case 1:
                     DLog(@"我的活动");
+                    
                     break;
             }
             break;

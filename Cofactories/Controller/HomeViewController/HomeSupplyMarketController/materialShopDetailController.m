@@ -20,6 +20,7 @@
 #import "ShoppingOrderController.h"
 
 static NSString *shopCellIdentifier = @"shopCell";
+static NSString *selectCellIdentifier = @"selectCell";
 static NSString *abstractCellIdentifier = @"abstractCell";
 static NSString *popViewCellIdentifier = @"popViewCell";
 @interface materialShopDetailController ()<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
@@ -32,6 +33,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     ZGYSelectNumberView *numberView;
     NSArray *selectArray;
     NSString *selectString;
+    NSString *selectColorString;
 }
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, strong) NSArray *photoArray;
@@ -142,6 +144,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [self.view addSubview:self.myTableView];
     [self.myTableView registerClass:[MaterialShopDetailCell class] forCellReuseIdentifier:shopCellIdentifier];
     [self.myTableView registerClass:[MaterialAbstractCell class] forCellReuseIdentifier:abstractCellIdentifier];
+    [self.myTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:selectCellIdentifier];
     _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, (kScreenH)/2.0-80)];
     self.myTableView.tableHeaderView = _headView;
     
@@ -179,10 +182,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         return cell;
   
     } else if (indexPath.section == 1){
-        UITableViewCell*cell = [tableView cellForRowAtIndexPath:indexPath];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-        }
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:selectCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         cell.textLabel.text = selectString;
@@ -301,56 +301,78 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 
 - (void)actionOfPopBuy:(UIButton *)button {
     DLog(@"%ld", numberView.timeAmount);
+    //找出选中的颜色
+    BOOL selectFlag = YES;
+    for (int i = 0; i < self.colorSelectArray.count; i++) {
+        SelectColorModel *selectColor = self.colorSelectArray[i];
+        if (selectColor.isSelect == YES) {
+            selectColorString = selectColor.colorText;
+            selectFlag = NO;
+            break;
+        }
+    }
+    DLog(@"选中的颜色%@", selectColorString);
+
     if (button.tag == 1000) {
-        //加入购物车
-        DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
-        ShopCarModel *shopCarModel = [[ShopCarModel alloc] init];
-//        [dataBaseHandle searchAllShoppingCar];
-//        BOOL flag = YES;
-//        for (DataBaseCar *car in dataBaseHandle.carArray) {
-//            if ([self.carId integerValue] == [car.carId integerValue] ) {
-//                flag = NO;
-//                break;
-//            }
-//        }
-//        if (flag == NO) {
-//            
-//            [self showMessage:@"您已经收藏过本款车型"];
-//        } else {
-//            [self showMessage:@"收藏成功"];
-//            
-//            detailCar.carId = self.carId;
-//            detailCar.title = self.nameTitle;
-//            detailCar.imageURl = self.imageURl;
-//            detailCar.lowestPrice = self.lowestPrice;
-//            detailCar.guidePrice = self.guidePrice;
-//            [dataBaseHandle addDetailCar:detailCar];
-//        }
-        shopCarModel.ID = 33;
-        shopCarModel.shoppingID = @"88";
-        shopCarModel.shopCarTitle = @"88棉麻布料";
-        shopCarModel.shopCarPrice = @"8885";
-        shopCarModel.shopCarColor = @"88青色";
-        shopCarModel.shopCarNumber = @"3888";
-        shopCarModel.photoUrl = @"www88";
-        [dataBaseHandle addShoppingCar:shopCarModel];
+        if (selectFlag == YES) {
+            DLog(@"请选择颜色");
+            kTipAlert(@"请选择颜色");
+        } else {
+            //加入购物车
+            DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
+            BOOL flag = YES;
+            for (ShopCarModel *shopCar in dataBaseHandle.shoppingCarArray) {
+                if (shopCar.ID == 22) {
+                    flag = NO;
+                    break;
+                }
+            }
+            if (flag == NO) {
+                DLog(@"购物车里已有该商品");
+                kTipAlert(@"购物车里已有该商品");
+            } else {
+                ShopCarModel *shopCarModel = [[ShopCarModel alloc] init];
+                [dataBaseHandle searchAllShoppingCar];
+                shopCarModel.ID = 22;
+                shopCarModel.shoppingID = @"22";
+                shopCarModel.shopCarTitle = @"22棉麻布料";
+                shopCarModel.shopCarPrice = @"122";
+                shopCarModel.shopCarColor = selectColorString;
+                shopCarModel.shopCarNumber = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
+                shopCarModel.photoUrl = @"www22";
+                [dataBaseHandle addShoppingCar:shopCarModel];
+                selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", selectColorString, numberView.timeAmount];
+                [backGroundView removeFromSuperview];
+                [popView removeFromSuperview];
+                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
+                [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        }
         
-        [backGroundView removeFromSuperview];
-        [popView removeFromSuperview];
+        
     } else if (button.tag == 1001) {
-        //立即购买
-        DLog(@"*********%ld", numberView.timeAmount);
-        
+        if (selectFlag == YES) {
+            DLog(@"请选择颜色");
+            kTipAlert(@"请选择颜色");
+        } else {
+            //立即购买
+            DLog(@"*********%ld", numberView.timeAmount);
+            ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
+            [self.navigationController pushViewController:shopOrderVC animated:YES];
+
+        }
         
     } else if (button.tag == 1002) {
         //关闭弹窗
-//        CABasicAnimation *basic = [CABasicAnimation animationWithKeyPath:@"bounds"];
-//        basic.duration = 0.2;
-//        basic.fromValue = [NSValue valueWithCGRect:popView.frame];
-//        basic.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 0, 0)];
-//        [popView.layer addAnimation:basic forKey:@"yichu"];
+        if (selectFlag == YES) {
+            selectString = [NSString stringWithFormat:@"已选“颜色未选” “数量：%ld”", numberView.timeAmount];
+        } else {
+            selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", selectColorString, numberView.timeAmount];
+        }
         [backGroundView removeFromSuperview];
         [popView removeFromSuperview];
+        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
+        [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
@@ -448,17 +470,32 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [bigView addSubview:lineView];
 }
 - (void)actionOfBuy:(UIButton *)button {
+    BOOL selectFlag = YES;
+    for (int i = 0; i < self.colorSelectArray.count; i++) {
+        SelectColorModel *selectColor = self.colorSelectArray[i];
+        if (selectColor.isSelect == YES) {
+            selectColorString = selectColor.colorText;
+            selectFlag = NO;
+            break;
+        }
+    }
+    if (selectFlag == YES) {
+        DLog(@"请选择颜色");
+        kTipAlert(@"请选择颜色");
+    } else {
     if (button.tag == 222) {
         DLog(@"底部 + 加入购物车");
-//        [self.myTableView reloadData];
-        ShopCarController *shopCarVC = [[ShopCarController alloc] init];
-        [self.navigationController pushViewController:shopCarVC animated:YES];
-    } else if (button.tag == 223){
+        
+            ShopCarController *shopCarVC = [[ShopCarController alloc] init];
+            [self.navigationController pushViewController:shopCarVC animated:YES];
+        } else if (button.tag == 223){
         DLog(@"底部 + 立即购买");
         ShoppingOrderController *shoppingVC = [[ShoppingOrderController alloc] init];
         [self.navigationController pushViewController:shoppingVC animated:YES];
         
     }
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

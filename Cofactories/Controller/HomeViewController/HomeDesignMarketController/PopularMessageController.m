@@ -194,7 +194,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     self.popularTableView.tableHeaderView = headerView;
 }
 - (void)creatFooterView {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 80 + ((kScreenW - 30)/3 + 40)*2 + 30)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 80 + ((kScreenW - 30)/3 + 60)*2 + 30)];
     footerView.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
     //流行导读
     ZGYTitleView *title2 = [[ZGYTitleView alloc] initWithFrame:CGRectMake(0, 20, kScreenW, 25) Title:@"流行导读" leftLabelColor:[UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f]];
@@ -224,7 +224,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 2.0;
     layout.minimumInteritemSpacing = 2.0;
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(selectBtnView.frame), kScreenW, ((kScreenW - 30*kZGY)/3 + 40*kZGY)*2 + 30*kZGY) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(selectBtnView.frame), kScreenW, ((kScreenW - 30*kZGY)/3 + 60*kZGY)*2 + 30*kZGY) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor = [UIColor whiteColor];
@@ -336,7 +336,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 #pragma mark - UICollectionViewDelegateFlowLayout
 //item大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((kScreenW - 30*kZGY)/3, (kScreenW - 30*kZGY)/3 + 40*kZGY);
+    return CGSizeMake((kScreenW - 30*kZGY)/3, (kScreenW - 30*kZGY)/3 + 60*kZGY);
 }
 //分区边距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
