@@ -198,9 +198,11 @@
             switch (indexPath.row) {
                 case 0:
                     DLog("购物车");
+
                     break;
                 case 1:
                     DLog(@"我的活动");
+                    
                     break;
             }
             break;
