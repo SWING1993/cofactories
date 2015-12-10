@@ -41,7 +41,7 @@
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
             self.walletModel = [responseDictionary objectForKey:@"model"];
-            _myLabel.text = [NSString stringWithFormat:@"可使用金额 %.2f元\n可提现金额 %.2f元\n冻结金额 %.2f元",self.walletModel.money,self.walletModel.cash,self.walletModel.freeze];
+            _myLabel.text = [NSString stringWithFormat:@"钱包余额 %.2f元\n\n冻结金额 %.2f元\n\n可提现额度 %.2f元",self.walletModel.money,self.walletModel.freeze,self.walletModel.maxWithDraw];
         }
         else {
             NSString * message = [responseDictionary objectForKey:@"message"];
@@ -78,11 +78,12 @@
     _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_rightBtn addTarget:self action:@selector(clickHeaderBtnInSection:) forControlEvents:UIControlEventTouchUpInside];
     
-    _myLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47/3, kScreenW, kScreenW*0.47/2)];
+    _myLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47/4, kScreenW, kScreenW*0.47*3/4)];
     _myLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-    _myLabel.numberOfLines = 3;
+    _myLabel.numberOfLines = 5;
     _myLabel.textAlignment = NSTextAlignmentCenter;
     _myLabel.textColor = [UIColor whiteColor];
+    
 
     
     
@@ -113,7 +114,7 @@
     else if (btn.tag == 2) {
         WithdrawalViewController * vc2 = [[WithdrawalViewController alloc]init];
         vc2.title = @"提现";
-        vc2.money = [NSString stringWithFormat:@"%.2f",self.walletModel.money];
+        vc2.money = [NSString stringWithFormat:@"%.2f",self.walletModel.maxWithDraw];
         vc2.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc2 animated:NO];
     

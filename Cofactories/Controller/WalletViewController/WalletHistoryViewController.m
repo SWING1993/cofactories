@@ -8,6 +8,7 @@
 
 #import "WalletHistoryModel.h"
 #import "WalletHistoryViewController.h"
+#import "WalletHistoryTableViewCell.h"
 
 @interface WalletHistoryViewController ()
 
@@ -24,7 +25,7 @@
     [HttpClient walletHistoryWithPage:@1 WithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
-            self.modelArray = [responseDictionary objectForKey:@"ModelArray"];
+            self.modelArray = [[responseDictionary objectForKey:@"ModelArray"] mutableCopy];
             DLog(@"array count = %lu",(unsigned long)[self.modelArray count]);
             [self.tableView reloadData];
         }
@@ -40,6 +41,8 @@
     [super viewDidLoad];
     self.modelArray = [[NSMutableArray alloc]initWithCapacity:0];
     self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.rowHeight = 80.0f;
     
    }
 
@@ -54,37 +57,34 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell*cell = [tableView cellForRowAtIndexPath:indexPath];
+    WalletHistoryTableViewCell*cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell = [[WalletHistoryTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier withRowSize:CGSizeMake(kScreenW, 80)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        cell.textLabel.font=[UIFont systemFontOfSize:14.5];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
-        if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                cell.textLabel.text = @"资金明细";
-            }
-            else if (indexPath.row == 1) {
-                cell.textLabel.text = @"实名认证";
-            }
-        } else {
-            cell.textLabel.text = @"关于钱包";
-            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
+        
+        WalletHistoryModel * model = [self.modelArray objectAtIndex:indexPath.row];
+        cell.typeLabel.text = model.type;
+        cell.timeLabel.text = model.createdTime;
+        if (model.fee>0) {
+            cell.feeLabel.text = [NSString stringWithFormat:@"%.2f元",model.fee];
+            cell.feeLabel.textColor = [UIColor colorWithRed:0.000 green:0.502 blue:0.000 alpha:1.000];
+        }else {
+            cell.feeLabel.text = [NSString stringWithFormat:@"%.2f元",model.fee];
+            cell.feeLabel.textColor = [UIColor redColor];
         }
     }
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
-
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
+    return 80;
 }
+ */
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return 55;
-    }
+   
     return 5.0f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

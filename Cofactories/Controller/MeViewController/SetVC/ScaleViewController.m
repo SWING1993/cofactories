@@ -172,7 +172,7 @@
 -(void)ensure{
     
     NSInteger provinceIndex = [self.orderPicker selectedRowInComponent: PROVINCE_COMPONENT];
-    self.seletectStr = [NSString stringWithFormat:@"%ld",(long)provinceIndex+1];
+    self.seletectStr = [NSString stringWithFormat:@"%ld",(long)provinceIndex];
     _tmpPickerName = [self.cellPickList objectAtIndex: provinceIndex];
     SizeTF.text = _tmpPickerName;
     _tmpPickerName = nil;

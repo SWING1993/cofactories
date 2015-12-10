@@ -17,6 +17,8 @@
 #import "ProcessMarketController.h"//加工配套市场
 #import "Business_Cloth_VC.h"
 #import "DataBaseHandle.h"
+#import "MeShopController.h"
+
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -39,9 +41,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
         if (statusCode == 200) {
-            self.MyProfile = [responseDictionary objectForKey:@"model"];
-            DLog(@"photoArr = %@",self.MyProfile);
-            
+            self.MyProfile = [responseDictionary objectForKey:@"model"];            
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
             [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
         } else {
@@ -75,7 +75,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         DLog(@"融云====%ld", (long)statusCode);
         if (statusCode == 200) {
             NSString *token = responseDictionary[@"IMToken"];
-            DLog(@"融云token====%@", token);
+//            DLog(@"融云token====%@", token);
             
             // 快速集成第二步，连接融云服务器
             [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
@@ -213,6 +213,10 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2) {
         DLog(@"第%ld个活动", indexPath.row + 1);
+        MeShopController *meShopVC = [[MeShopController alloc] init];
+        meShopVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:meShopVC animated:YES];
+        
     }
 }
 
