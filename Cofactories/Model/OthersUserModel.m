@@ -58,11 +58,11 @@
         }
         _verified = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"verified"]];
         if ([_verified isEqualToString:@"<null>"]) {
-            _verified = @"尚未填写";
+            _verified = @"非认证用户";
         }
         _enterprise = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"enterprise"]];
         if ([_enterprise isEqualToString:@"<null>"]) {
-            _enterprise = @"尚未填写";
+            _enterprise = @"非企业用户";
         }
         _score = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"score"]];
         if ([_score isEqualToString:@"<null>"]) {

@@ -397,7 +397,11 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     Business_Supplier_Model *model = _dataArray[indexPath.row];
     PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
     vc.userID = model.businessUid;
-    [self.navigationController pushViewController:vc animated:YES];
+    [HttpClient getOtherIndevidualsInformationWithUserID:model.businessUid WithCompletionBlock:^(NSDictionary *dictionary) {
+        OthersUserModel *model = dictionary[@"message"];
+        vc.userModel = model;
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
 }
 
 

@@ -762,6 +762,34 @@
     }];
 }
 
+// 获取用户评论
++ (void)getUserCommentWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/user/comment/",aUserID];
+        [manager GET:urlString parameters:@{@"page":aPage} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+           // DLog(@"responseObject == %@",responseObject);
+            NSArray *array = responseObject;
+            NSMutableArray *dataArray = [@[] mutableCopy];
+            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary *dic = (NSDictionary *)obj;
+                DealComment_Model *model = [DealComment_Model getDealCommentModelWithDictionary:dic];
+                [dataArray addObject:model];
+            }];
+            completionBlock(@{@"statusCode":@200,@"message":dataArray});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+}
+
 // 获取他人信息
 + (void)getOtherIndevidualsInformationWithUserID:(NSString *)userID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
@@ -827,7 +855,7 @@
 }
 
 // 发布设计（市场）
-+ (void)publishDesignWithName:(NSString *)aName country:(NSString *)aCountry type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice amount:(NSString *)aAmount description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)publishDesignWithName:(NSString *)aName country:(NSString *)aCountry type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice marketPrice:(NSString *)aMarketPrice amount:(NSString *)aAmount description:(NSString *)aDescription category:(NSArray *)aCategory WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -848,12 +876,18 @@
         if (aPrice) {
             [parametersDictionary setObject:aPrice forKey:@"price"];
         }
+        if (aMarketPrice) {
+            [parametersDictionary setObject:aMarketPrice forKey:@"marketPrice"];
+        }
         if (aAmount) {
             [parametersDictionary setObject:aAmount forKey:@"amount"];
         }
         
         if (aDescription) {
             [parametersDictionary setObject:aDescription forKey:@"description"];
+        }
+        if (aCategory) {
+            [parametersDictionary setObject:aCategory forKey:@"category"];
         }
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
@@ -1864,6 +1898,36 @@
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
 
+}
+
+// 获取店铺
++ (void)getUserShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manger.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/market/shop/",aUserID];
+
+        [manger GET:urlString parameters:@{@"page":aPage} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             //DLog(@"responseObject == %@",responseObject);
+            NSArray *array = responseObject;
+            NSMutableArray *dataArray = [@[] mutableCopy];
+            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary *dic = (NSDictionary *)obj;
+                PersonalShop_Model *model = [PersonalShop_Model getPersonalShopModelWithDictionary:dic];
+                [dataArray addObject:model];
+            }];
+            completionBlock(@{@"statusCode": @"200", @"message": dataArray});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+    
 }
 
 

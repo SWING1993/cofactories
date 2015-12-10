@@ -17,6 +17,9 @@
 #import "BidManage_Design_Model.h"
 #import "BidManage_Factory_Model.h"
 #import "OthersUserModel.h"
+#import "PersonalShop_Model.h"
+#import "DealComment_Model.h"
+#import "DealComment_Model.h"
 
 /**
  * 商家模型
@@ -194,6 +197,12 @@
 + (void)getConfigWithType:(NSString *)type WithBlock:(void (^)(NSDictionary *responseDictionary))block;
 
 
+
+// 获取用户评论
++ (void)getUserCommentWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+
+
 // 获取他人信息
 + (void)getOtherIndevidualsInformationWithUserID:(NSString *)userID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
@@ -201,8 +210,8 @@
 // 发布机械设备（市场）
 + (void)publishMachineWithName:(NSString *)aName type:(NSString *)aType price:(NSString *)aPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
-// 发布机械设计（市场）
-+ (void)publishDesignWithName:(NSString *)aName country:(NSString *)aCountry type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice amount:(NSString *)aAmount description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+// 发布设计（市场）
++ (void)publishDesignWithName:(NSString *)aName country:(NSString *)aCountry type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice marketPrice:(NSString *)aMarketPrice amount:(NSString *)aAmount description:(NSString *)aDescription category:(NSArray *)aCategory WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 发布辅料（市场）
 + (void)publishAccessoryWithName:(NSString *)aName price:(NSString *)aPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
@@ -303,6 +312,9 @@
 
 // 评价设计订单
 + (void)judgeDesignOrderWithOrderID:(NSString *)aOrderID score:(NSString *)aScore comment:(NSString *)aComment WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 获取店铺
++ (void)getUserShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 //获取认证信息
 + (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block;
