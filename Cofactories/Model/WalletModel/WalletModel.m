@@ -29,14 +29,22 @@
         if ( ![[dictionary objectForKey:@"money"] isEqual:[NSNull null]] ) {
             _money = [[dictionary objectForKey:@"money"]floatValue];
         }
-
-
+        if ( ![[dictionary objectForKey:@"credit"] isEqual:[NSNull null]] ) {
+            _credit = [[dictionary objectForKey:@"credit"]floatValue];
+        }
+        
+        if ( ![[dictionary objectForKey:@"maxWithDraw"] isEqual:[NSNull null]] ) {
+            _maxWithDraw = [[dictionary objectForKey:@"maxWithDraw"]floatValue];
+        }
+        
         if (![[dictionary objectForKey:@"createdAt"] isEqual:[NSNull null]] ) {
             _createdAt = [dictionary objectForKey:@"createdAt"];
         }
            if (![[dictionary objectForKey:@"updatedAt"] isEqual:[NSNull null]] ) {
             _updatedAt = [dictionary objectForKey:@"updatedAt"];
         }
+        
+        
     }
     return self;
 }

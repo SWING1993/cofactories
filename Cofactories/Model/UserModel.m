@@ -9,6 +9,8 @@
 #import "UserModel.h"
 #import "StoreUserValue.h"
 
+static NSString * placeholderString = @"暂无";
+
 @implementation UserModel
 
 - (instancetype)getMyProfile {
@@ -41,146 +43,202 @@
     self = [super init];
     if (self) {
         
-        _role = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"role"]];
         
-        if ([_role isEqualToString:@"designer"]) {
-            _UserType = UserType_designer;
-        }else if ([_role isEqualToString:@"clothing"]){
-            _UserType = UserType_clothing;
-            self.scaleArr = @[@"0万件-10万件",@"10万件-40万件", @"40万件-100万件", @"100万件--200万件", @"200万件以上"];
-        }
-        else if ([_role isEqualToString:@"processing"]){
-            _UserType = UserType_processing;
-            self.scaleArr = @[@"0人-2人",@"2人-10人",  @"10人-20人", @"20人以上"];
-
-        }
-        else if ([_role isEqualToString:@"supplier"]){
-            _UserType = UserType_supplier;
-        }
-        else if ([_role isEqualToString:@"facilitator"]){
-            _UserType = UserType_facilitator;
-        }
-
-        _uid = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"uid"]];
-        if ([_uid isEqualToString:@"<null>"]) {
-            _uid = @"尚未填写";
-        }
-
-        _phone = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"phone"]];
-        if ([_phone isEqualToString:@"<null>"]) {
-            _phone = @"尚未填写";
-        }
-
-        _name = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"name"]];
-        if ([_name isEqualToString:@"<null>"]) {
-            _name = @"尚未填写";
+        if (![[dictionary objectForKey:@"role"] isEqual:[NSNull null]]) {
+            _role = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"role"]];
+            if ([_role isEqualToString:@"designer"]) {
+                _UserType = UserType_designer;
+            }else if ([_role isEqualToString:@"clothing"]){
+                _UserType = UserType_clothing;
+                self.scaleArr = @[@"0万件-10万件",@"10万件-40万件", @"40万件-100万件", @"100万件--200万件", @"200万件以上"];
+            }
+            else if ([_role isEqualToString:@"processing"]){
+                _UserType = UserType_processing;
+                self.scaleArr = @[@"0人-2人",@"2人-10人",  @"10人-20人", @"20人以上"];
+                
+            }
+            else if ([_role isEqualToString:@"supplier"]){
+                _UserType = UserType_supplier;
+            }
+            else if ([_role isEqualToString:@"facilitator"]){
+                _UserType = UserType_facilitator;
+            }
         }
         
-        _province = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"province"]];
+       
+        if ([[dictionary objectForKey:@"uid"] isEqual:[NSNull null]]) {
+            _uid = placeholderString;
+        }else{
+            _uid = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"uid"]];
+        }
 
-        if ([_province isEqualToString:@"<null>"]) {
-            _province = @"尚未填写";
-        }
-        _city = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"city"]];
-        if ([_city isEqualToString:@"<null>"]) {
-            _city = @"尚未填写";
-        }
-        _district = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"district"]];
-        if ([_district isEqualToString:@"<null>"]) {
-            _district = @"尚未填写";
-        }
-        _address =  [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"address"]];
 
-        if ([_address isEqualToString:@"<null>"]) {
-            _address = @"尚未填写";
+        if ([[dictionary objectForKey:@"phone"] isEqual:[NSNull null]]) {
+            _phone = placeholderString;
+        }else {
+            _phone = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"phone"]];
+
         }
-        _subRole = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"subRole"]];
-        if ([_subRole isEqualToString:@"<null>"]) {
-            _subRole = @"尚未填写";
+
+        if ([[dictionary objectForKey:@"name"] isEqual:[NSNull null]]) {
+            _name = placeholderString;
+        }else {
+            _name = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"name"]];
+
+        }
+        
+
+        if ([[dictionary objectForKey:@"province"] isEqual:[NSNull null]]) {
+            _province = placeholderString;
+        }else {
+            _province = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"province"]];
+
+        }
+        
+        if ([[dictionary objectForKey:@"city"] isEqual:[NSNull null]]) {
+            _city = placeholderString;
+        }else {
+            _city = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"city"]];
+        }
+        
+        
+        if ([[dictionary objectForKey:@"district"] isEqual:[NSNull null]]) {
+            _district = placeholderString;
+        }else {
+            _district = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"district"]];
+        }
+        
+
+        if ([[dictionary objectForKey:@"address"] isEqual:[NSNull null]]) {
+            _address = placeholderString;
+        }else {
+            _address =  [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"address"]];
+
+        }
+        
+        
+        if ([[dictionary objectForKey:@"subRole"] isEqual:[NSNull null]]) {
+            _subRole = placeholderString;
+        }else {
+            _subRole = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"subRole"]];
+
         }
         
         
         if ([[dictionary objectForKey:@"scale"] isEqual:[NSNull null]]) {
-            _scale = @"尚未填写";
+            _scale = placeholderString;
         }else {
-            NSInteger seletecdInt = [[dictionary objectForKey:@"scale"] integerValue] - 1;
-            _scale = self.scaleArr[seletecdInt];
-        }
+            NSInteger seletecdInt = [[dictionary objectForKey:@"scale"] integerValue];
 
-        
-        _inviteCode = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"inviteCode"]];
-        if ([_inviteCode isEqualToString:@"<null>"]) {
-            _inviteCode = @"尚未填写";
-        }
-        _rongToken = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"rongToken"]];
-        if ([_rongToken isEqualToString:@"<null>"]) {
-            _rongToken = @"尚未填写";
-        }
-        _verified = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"verified"]];
-        if ([_verified isEqualToString:@"<null>"]) {
-            _verified = @"尚未填写";
-        }
-        _enterprise = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"enterprise"]];
-        if ([_enterprise isEqualToString:@"<null>"]) {
-            _enterprise = @"尚未填写";
-        }
-        _score = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"score"]];
-        if ([_score isEqualToString:@"<null>"]) {
-            _score = @"尚未填写";
-        }
-        _lastActivity = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"lastActivity"]];
-        if ([_lastActivity isEqualToString:@"<null>"]) {
-            _lastActivity = @"尚未填写";
-        }
-        _descriptionString = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"description"]];
-        if ([_descriptionString isEqualToString:@"<null>"]) {
-            _descriptionString = @"尚未填写";
-        }
-        _createdAt = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"createdAt"]];
-        if ([_createdAt isEqualToString:@"<null>"]) {
-            _createdAt = @"尚未填写";
-        }
-        _updatedAt = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"updatedAt"]];
-        if ([_updatedAt isEqualToString:@"<null>"]) {
-            _updatedAt = @"尚未填写";
+            if (_UserType == UserType_clothing && seletecdInt < 5) {
+                _scale = self.scaleArr[seletecdInt];
+            }
+            else if (_UserType == UserType_processing && seletecdInt < 4) {
+                _scale = self.scaleArr[seletecdInt];
+            }
+            else {
+                kTipAlert(@"数组越界 然后爆炸");
+                _scale = placeholderString;
+            }
         }
         
-        _photoArray = [[NSMutableArray alloc]initWithCapacity:0];
-        _photoArray = [dictionary objectForKey:@"photo"];
+        if ([[dictionary objectForKey:@"inviteCode"] isEqual:[NSNull null]]) {
+            _inviteCode = placeholderString;
+        }else {
+            _inviteCode = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"inviteCode"]];
+        }
         
-        _verifyDic = [dictionary objectForKey:@"verify"];
+        if ([[dictionary objectForKey:@"rongToken"] isEqual:[NSNull null]]) {
+            _rongToken = placeholderString;
+        }else {
+            _rongToken = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"rongToken"]];
+
+        }
         
-        if ([_verifyDic isEqual:[NSNull null]]) {
+        if ([[dictionary objectForKey:@"verified"] isEqual:[NSNull null]]) {
+            _verified = placeholderString;
+        }else {
+            _verified = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"verified"]];
+
+        }
+        
+        if ([[dictionary objectForKey:@"enterprise"] isEqual:[NSNull null]]) {
+            _enterprise = placeholderString;
+        }else {
+            _enterprise = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"enterprise"]];
+
+        }
+        
+        if ([[dictionary objectForKey:@"score"] isEqual:[NSNull null]]) {
+            _score = placeholderString;
+        }else {
+            _score = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"score"]];
+        }
+        
+        
+        if ([[dictionary objectForKey:@"lastActivity"] isEqual:[NSNull null]]) {
+            _lastActivity = placeholderString;
+        }else {
+            _lastActivity = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"lastActivity"]];
+
+        }
+        
+        
+        if ([[dictionary objectForKey:@"description"] isEqual:[NSNull null]]) {
+            _descriptionString = placeholderString;
+        }else {
+            _descriptionString = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"description"]];
+
+        }
+        
+        if ([[dictionary objectForKey:@"createdAt"] isEqual:[NSNull null]]) {
+            _createdAt = placeholderString;
+        }else {
+            _createdAt = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"createdAt"]];
+
+        }
+        
+        if ([[dictionary objectForKey:@"updatedAt"] isEqual:[NSNull null]]) {
+            _updatedAt = placeholderString;
+        }else {
+            _updatedAt = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"updatedAt"]];
+
+        }
+        
+        _photoArray = [[dictionary objectForKey:@"photo"] mutableCopy];
+        
+        _verifyDic = [[dictionary objectForKey:@"verify"] copy];
+        
+        if ([[dictionary objectForKey:@"verify"] isEqual:[NSNull null]]) {
             DLog(@"认证字典为空");
         } else {
             DLog(@"认证字典");
             _enterpriseName = _verifyDic[@"enterpriseName"];
             if ([_enterpriseName isEqualToString:@"<null>"]) {
-                _enterpriseName = @"尚未填写";
+                _enterpriseName = placeholderString;
             }
             _personName = _verifyDic[@"personName"];
             if ([_personName isEqualToString:@"<null>"]) {
-                _personName = @"尚未填写";
+                _personName = placeholderString;
             }
             _idCard = _verifyDic[@"idCard"];
             if ([_idCard isEqualToString:@"<null>"]) {
-                _idCard = @"尚未填写";
+                _idCard = placeholderString;
             }
             _enterpriseAddress = _verifyDic[@"enterpriseAddress"];
             if ([_enterpriseAddress isEqualToString:@"<null>"]) {
-                _enterpriseAddress = @"尚未填写";
+                _enterpriseAddress = placeholderString;
             }
             _status = [_verifyDic[@"status"] integerValue];
 
             _verifyCreatedAt = _verifyDic[@"createdAt"];
             if ([_verifyCreatedAt isEqualToString:@"<null>"]) {
-                _verifyCreatedAt = @"尚未填写";
+                _verifyCreatedAt = placeholderString;
             }
             _verifyUpdatedAt = _verifyDic[@"updatedAt"];
             if ([_verifyUpdatedAt isEqualToString:@"<null>"]) {
-                _verifyUpdatedAt = @"尚未填写";
+                _verifyUpdatedAt = placeholderString;
             }
-
         }
     }
 

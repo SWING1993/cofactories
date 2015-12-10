@@ -10,15 +10,6 @@
 
 @implementation WalletHistoryModel
 
-/*
- @property (nonatomic,assign) CGFloat  fee;
- @property (nonatomic,retain) NSString * Walletid;
- @property (nonatomic,assign) NSString * type;
- @property (nonatomic,assign) NSString * status;
- @property (nonatomic,retain) NSString * createdTime;
- @property (nonatomic,retain) NSString * finishedTime;
- @property (nonatomic,retain) NSString * products;
- */
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     
     self = [super init];
@@ -33,7 +24,25 @@
         }
         
         if (![[dictionary objectForKey:@"type"] isEqual:[NSNull null]] ) {
-            _type = [dictionary objectForKey:@"type"];
+            if ([[dictionary objectForKey:@"type"] isEqualToString:@"charge"]) {
+                _type = @"充值";
+ 
+            }
+            else if ([[dictionary objectForKey:@"type"] isEqualToString:@"order"]) {
+                _type = @"订单保证金";
+
+            }
+            else if ([[dictionary objectForKey:@"type"] isEqualToString:@"market"]) {
+                _type = @"商城购买";
+                
+            }
+            else if ([[dictionary objectForKey:@"type"] isEqualToString:@"withDraw"]) {
+                _type = @"提现";
+            }
+            else {
+                _type = [dictionary objectForKey:@"type"];
+
+            }
         }
         
         if ( ![[dictionary objectForKey:@"status"] isEqual:[NSNull null]] ) {

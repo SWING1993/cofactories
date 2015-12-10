@@ -423,7 +423,7 @@
 //            DLog(@"userModel = %@",responseObject);
             UserModel *userModel = [[UserModel alloc] initWithDictionary:responseObject];
             [userModel storeValueWithKey:@"MyProfile"];
-            DLog(@"userModel.description = %@",userModel.description);
+//            DLog(@"userModel.description = %@",userModel.description);
             block(@{@"statusCode": @(200), @"model": userModel});
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             switch ([operation.response statusCode]) {
@@ -467,7 +467,7 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager    POST:API_userProfile parameters:Dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            DLog(@"修改个人资料 = %@",responseObject);
+//            DLog(@"修改个人资料 = %@",responseObject);
             block(200);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             DLog(@"123%@",error);
@@ -604,6 +604,7 @@
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         [manager GET:API_walletHistory parameters:@{@"page":page} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject = %@",responseObject);
             NSMutableArray * array = [[NSMutableArray alloc]initWithCapacity:0];
             [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 WalletHistoryModel * model = [[WalletHistoryModel alloc]initWithDictionary:obj];

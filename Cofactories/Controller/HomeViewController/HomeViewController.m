@@ -39,9 +39,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
         if (statusCode == 200) {
-            self.MyProfile = [responseDictionary objectForKey:@"model"];
-            DLog(@"photoArr = %@",self.MyProfile);
-            
+            self.MyProfile = [responseDictionary objectForKey:@"model"];            
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
             [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
         } else {
@@ -75,7 +73,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         DLog(@"融云====%ld", (long)statusCode);
         if (statusCode == 200) {
             NSString *token = responseDictionary[@"IMToken"];
-            DLog(@"融云token====%@", token);
+//            DLog(@"融云token====%@", token);
             
             // 快速集成第二步，连接融云服务器
             [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {

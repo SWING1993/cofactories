@@ -21,8 +21,9 @@
 @end
 
 @implementation SystemSetViewController {
-    UITextField*inviteCodeTF;
-    UIButton*quitButton;
+//    UITextField*inviteCodeTF;
+    UIButton * quitButton;
+    UIAlertView * inviteCodeAlert;
 }
 
 - (void)viewDidLoad {
@@ -34,6 +35,7 @@
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     
+    /*
     inviteCodeTF=[[UITextField alloc]initWithFrame:CGRectMake(70, 7, 100, 30)];
     inviteCodeTF.font = kFont;
     inviteCodeTF.borderStyle=UITextBorderStyleRoundedRect;
@@ -43,7 +45,7 @@
     if (![self.inviteCode isEqualToString:@"尚未填写"]) {
         inviteCodeTF.text = self.inviteCode;
     }
-    
+    */
     
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
@@ -52,25 +54,66 @@
     quitButton.titleLabel.font = kFont;
     [quitButton setTitle:@"退出登录" forState:UIControlStateNormal];
     [quitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //loginBtn.alpha=0.8f;
     [quitButton addTarget:self action:@selector(quitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
+    inviteCodeAlert = [[UIAlertView alloc]initWithTitle:@"邀请码"
+                                                    message:nil
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"发送",nil];
+    [inviteCodeAlert setTag:123456];
+    [inviteCodeAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    
+    UITextField * alertTextField = [inviteCodeAlert textFieldAtIndex:0];
+    alertTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    alertTextField.placeholder = @"邀请码";
+    alertTextField.text = self.inviteCode;
+    if (![self.inviteCode isEqualToString:@"尚未填写"]) {
+        alertTextField.text = self.inviteCode;
+    }
+    alertTextField.keyboardType = UIKeyboardTypeNumberPad;
 }
 
 - (void)quitButtonClicked{
     
     UIAlertView*alertView = [[UIAlertView alloc]initWithTitle:@"确定退出" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.tag = 404;
     [alertView show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if (buttonIndex==1) {
-        [HttpClient deleteToken];
-        [RootViewController setupLoginViewController];
+    if (alertView.tag == 404) {
+        if (buttonIndex==1) {
+            [HttpClient deleteToken];
+            [RootViewController setupLoginViewController];
+        }
+    }
+    if (alertView.tag == 123456) {
+        UITextField * alertTextField = [alertView textFieldAtIndex:0];
+        if (buttonIndex == 1) {
+            if (alertTextField.text.length > 0) {
+                [HttpClient registerWithInviteCode:alertTextField.text andBlock:^(NSInteger statusCode) {
+                    if (statusCode == 200) {
+                        kTipAlert(@"邀请码提交成功!");
+                    }
+                    else if (statusCode == 400) {
+                        kTipAlert(@"不存在该邀请码。(错误码：400)");
+                    }
+                    else if (statusCode == 409) {
+                        kTipAlert(@"该用户已存在邀请码。(错误码：409)");
+                    }
+                    else {
+                        kTipAlert(@"邀请码提交失败，尝试重新提交。(错误码：%ld)",(long)statusCode);
+                    }
+                }];
+            }else{
+                kTipAlert(@"请您填写邀请码后再提交!");
+            }
+        }
     }
 }
 
+/*
 - (void)OKBtn {
     if (inviteCodeTF.text.length!=0) {
         [HttpClient registerWithInviteCode:inviteCodeTF.text andBlock:^(NSInteger statusCode) {
@@ -91,6 +134,7 @@
         kTipAlert(@"请您填写邀请码后再提交!");
     }
 }
+ */
 
 #pragma mark - Table view data source
 
@@ -139,19 +183,18 @@
                 
             case 4:{
                 cell.textLabel.text=@"邀请码";
+                /*
                 [cell setAccessoryType:UITableViewCellAccessoryNone];
-                
                 [cell addSubview:inviteCodeTF];
                 blueButton*OKBtn = [[blueButton alloc]initWithFrame:CGRectMake(kScreenW-70, 10, 60, 24)];
                 [OKBtn setTitle:@"提交" forState:UIControlStateNormal];
                 [OKBtn addTarget:self action:@selector(OKBtn) forControlEvents:UIControlEventTouchUpInside];
                 [cell addSubview:OKBtn];
-                
+                 */
             }
                 break;
                 
             case 5:{
-                [cell setAccessoryType:UITableViewCellAccessoryNone];
                 [cell addSubview:quitButton];
             }
                 break;
@@ -164,22 +207,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10.0f;
+    return 12.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
+    return 0.0001f;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 10)];
-    return view;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 0.01f)];
-    return view;
-}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 0:{
@@ -213,6 +247,11 @@
         }
             break;
             
+            
+        case 4: {
+        [inviteCodeAlert show];
+        }
+            break;
             /*
         case 4:{
             
@@ -269,16 +308,6 @@
             break;
     }
 }
-/*
-- (void)alertTextFieldDidChange:(NSNotification *)notification{
-    UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
-    if (alertController) {
-        UIAlertAction *okAction = alertController.actions.firstObject;
-        okAction.enabled = alertController.textFields.firstObject.text.length > 2;
-        DLog(@"alertController.textFields.firstObject.text.length = %lu",alertController.textFields.firstObject.text.length);
-    }
-}
- */
 
 //友盟实现回调方法（可选）：
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
