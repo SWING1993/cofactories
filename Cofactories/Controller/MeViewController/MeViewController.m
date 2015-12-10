@@ -141,7 +141,7 @@
             case 0:
                 switch (indexPath.row) {
                     case 0:
-                        cell.textLabel.text = @"我的店铺";
+                        cell.textLabel.text = @"购物车";
                         break;
                     case 1:
                         cell.textLabel.text = @"我的活动";
@@ -150,7 +150,7 @@
                 break;
              
             case 1:
-                cell.textLabel.text = @"购物车";
+                cell.textLabel.text = @"我的店铺";
                 break;
                 
             case 2:
@@ -197,7 +197,7 @@
             case 0:
             switch (indexPath.row) {
                 case 0:
-                    DLog(@"我的店铺");
+                    DLog("购物车");
                     break;
                 case 1:
                     DLog(@"我的活动");
@@ -206,7 +206,7 @@
             break;
             
             case 1:
-            DLog("购物车");
+            DLog(@"我的店铺");
             break;
             
             case 2:
