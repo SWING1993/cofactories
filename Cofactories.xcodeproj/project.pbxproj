@@ -204,6 +204,7 @@
 		03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */; };
 		03B8973E1C151EC100DB8E4E /* WithdrawalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */; };
 		03B897401C15490400DB8E4E /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */; };
+		03CB36601C1AAEE600814CA9 /* WalletHistoryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB365F1C1AAEE600814CA9 /* WalletHistoryInfoViewController.m */; };
 		03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DA1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m */; };
 		03FF44EC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m */; };
 		03FF44ED1BFEE73400D81DCE /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DE1BFEE73400D81DCE /* UIAlertView+AFNetworking.m */; };
@@ -806,6 +807,8 @@
 		03B8973C1C151EC100DB8E4E /* WithdrawalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithdrawalViewController.h; sourceTree = "<group>"; };
 		03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithdrawalViewController.m; sourceTree = "<group>"; };
 		03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		03CB365E1C1AAEE600814CA9 /* WalletHistoryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryInfoViewController.h; sourceTree = "<group>"; };
+		03CB365F1C1AAEE600814CA9 /* WalletHistoryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryInfoViewController.m; sourceTree = "<group>"; };
 		03FF44D91BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		03FF44DA1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		03FF44DB1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -1298,9 +1301,9 @@
 				7DA9501F1C12E6BB00BFCB31 /* 企业用户.png */,
 				7D6DB64D1C05BB9D00BF396E /* 身份证.png */,
 				03571B5F1BE8546300900EF9 /* Cofactories_iOS-Prefix.pch */,
-				03571B291BE84BA100900EF9 /* RootViewController.h */,
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
 				03571B271BE84BA100900EF9 /* AppDelegate.m */,
+				03571B291BE84BA100900EF9 /* RootViewController.h */,
 				03571B2A1BE84BA100900EF9 /* RootViewController.m */,
 				03882C4D1BEC951B0094524A /* HttpClient.h */,
 				03882C4E1BEC951B0094524A /* HttpClient.m */,
@@ -2200,6 +2203,8 @@
 				03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */,
 				7DEEA55E1C05479C009143C6 /* WalletHistoryViewController.h */,
 				7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */,
+				03CB365E1C1AAEE600814CA9 /* WalletHistoryInfoViewController.h */,
+				03CB365F1C1AAEE600814CA9 /* WalletHistoryInfoViewController.m */,
 				7DE8C1941C04458E00E0917D /* WalletView */,
 			);
 			path = WalletViewController;
@@ -3061,6 +3066,7 @@
 				03571C071BE85C0800900EF9 /* UIView+WebCacheOperation.m in Sources */,
 				03B120BF1C0594720023F362 /* SetViewController.m in Sources */,
 				035CC5DE1C070ECB00998FBD /* UMPostTableViewCell.m in Sources */,
+				03CB36601C1AAEE600814CA9 /* WalletHistoryInfoViewController.m in Sources */,
 				7D665EA81C0C60EE00C7C7BF /* IMChatViewController.m in Sources */,
 				7DFEBE3C1C0C18F200B2D2D5 /* SupplyMarketButton.m in Sources */,
 				70FA60EF1C098DE400EA84FD /* ZFPopupMenu.m in Sources */,

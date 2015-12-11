@@ -23,6 +23,8 @@
 
 #define kTimeoutInterval 10.f
 
+#define API_launch @"/user/launch" //启动
+
 #define API_authorise @"/authorise" // authorise
 #define API_verifyCode @"/user/code" //获取验证码
 #define API_checkCode @"/user/checkCode" //检查短信验证码
@@ -68,6 +70,30 @@
 @implementation HttpClient
 
 /*User**********************************************************************************************************************************************/
+
+
++ (void)iOSLaunchWithDeviceId:(NSString *)deviceId WithClientVersion:(NSString *)clientVersion {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    
+    AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    if (credential) {
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+    }
+    //设置超时时间
+    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+    manager.requestSerializer.timeoutInterval = kTimeoutInterval;
+    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    
+    [manager POST:API_launch parameters:@{@"deviceId": deviceId,@"deviceType": @"iOS",@"clientVersion": clientVersion} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+//        DLog(@"User - 启动成功 = 200");
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+        DLog(@"User - 启动失败 = %ld",(long)statusCode);
+    }];
+}
 
 //发送手机验证码
 + (void)postVerifyCodeWithPhone:(NSString *)phoneNumber andBlock:(void (^)(NSDictionary *responseDictionary))block {

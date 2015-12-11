@@ -25,6 +25,9 @@
 
 @interface HttpClient : NSObject
 
++ (void)iOSLaunchWithDeviceId:(NSString *)deviceId WithClientVersion:(NSString *)clientVersion;
+
+
 /*User**********************************************************************************************************************************************/
 
 /*!
