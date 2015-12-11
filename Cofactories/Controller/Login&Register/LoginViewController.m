@@ -107,6 +107,10 @@
     switch (button.tag) {
         case 0:{
             DLog(@"登录");
+            MBProgressHUD *hud = [Tools createHUD];
+            hud.labelText = @"登录中...";
+            
+
             [button setEnabled:NO];
             if (_passwordTF.text.length == 0||_usernameTF.text.length == 0) {
                 [button setEnabled:YES];
@@ -115,11 +119,14 @@
                 [HttpClient loginWithUsername:_usernameTF.text password:_passwordTF.text andBlock:^(NSInteger statusCode) {
                     switch (statusCode) {
                         case 0:{
+                            [hud hide:YES];
                             [button setEnabled:YES];
                             kTipAlert(@"您的网络状态不太顺畅哦！");
                         }
                             break;
                         case 200:{
+                            [hud hide:YES];
+
                             DLog(@"登陆成功");
                             [button setEnabled:YES];
                             [RootViewController setupTabarController];
@@ -127,12 +134,16 @@
                         }
                             break;
                         case 401:{
+                            [hud hide:YES];
+
                             [button setEnabled:YES];
                             kTipAlert(@"用户名或密码错误！");
                         }
                             break;
                             
                         default:
+                            [hud hide:YES];
+
                             [button setEnabled:YES];
                             kTipAlert(@"登录失败！(错误码：%ld)",(long)statusCode);
                             break;

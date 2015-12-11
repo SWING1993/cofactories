@@ -253,6 +253,7 @@
  */
 - (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
     if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
+        /*
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"提示"
                               message:@"您"
@@ -261,6 +262,7 @@
                               cancelButtonTitle:@"知道了"
                               otherButtonTitles:nil, nil];
         [alert show];
+         */
     }
 }
 

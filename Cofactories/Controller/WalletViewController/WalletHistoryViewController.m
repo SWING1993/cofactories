@@ -9,6 +9,7 @@
 #import "WalletHistoryModel.h"
 #import "WalletHistoryViewController.h"
 #import "WalletHistoryTableViewCell.h"
+#import "WalletHistoryInfoViewController.h"
 
 @interface WalletHistoryViewController ()
 
@@ -96,7 +97,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        
+        WalletHistoryInfoViewController * infoVC = [[WalletHistoryInfoViewController alloc]init];
+        infoVC.title = @"账单详情";
+        infoVC.model = self.modelArray[indexPath.row];
+        [self.navigationController pushViewController:infoVC animated:YES];
     }
 }
 

@@ -17,40 +17,98 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
+    self.tableView.showsHorizontalScrollIndicator = NO;
+    self.tableView.backgroundColor = [UIColor whiteColor];
 }
+
+
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 4;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return 60;
+    }else
+        return 44;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell*cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
+        
+        switch (indexPath.row) {
+            case 0:
+            {
+                cell.textLabel.text = self.model.status;
+                cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
+                cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:14.5f];
+
+                if (self.model.fee>0) {
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"+%.2f 元",self.model.fee];
+                    cell.detailTextLabel.textColor = kGreen;
+                }else {
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f 元",self.model.fee];
+                    cell.detailTextLabel.textColor = [UIColor redColor];
+                }
+            }
+                break;
+            case 1:
+            {
+               cell.textLabel.text = @"订单号";
+                cell.detailTextLabel.text = self.model.Walletid;
+                cell.textLabel.font = kFont;
+                cell.detailTextLabel.font = kFont;
+            }
+                break;
+            case 2:
+            {
+                cell.textLabel.text = @"交易类型";
+                cell.detailTextLabel.text = self.model.type;
+                cell.textLabel.font = kFont;
+                cell.detailTextLabel.font = kFont;
+            }
+                break;
+            case 3:
+            {
+                cell.textLabel.text = @"创建时间";
+                cell.detailTextLabel.text = self.model.createdTime;
+                cell.textLabel.font = kFont;
+                cell.detailTextLabel.font = kFont;
+
+            }
+                break;
+            case 4:
+            {
+                cell.textLabel.text = @"创建时间";
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+    return cell;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
