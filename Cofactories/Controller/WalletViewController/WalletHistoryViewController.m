@@ -42,7 +42,7 @@
     self.modelArray = [[NSMutableArray alloc]initWithCapacity:0];
     self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.rowHeight = 80.0f;
+    self.tableView.rowHeight = 70.0f;
     
    }
 
@@ -64,13 +64,15 @@
         [cell setAccessoryType:UITableViewCellAccessoryNone];
         
         WalletHistoryModel * model = [self.modelArray objectAtIndex:indexPath.row];
-        cell.typeLabel.text = model.type;
-        cell.timeLabel.text = model.createdTime;
+        cell.typeLabel.text = [NSString stringWithFormat:@"\n%@",model.type];
+        cell.timeLabel.text = [NSString stringWithFormat:@"%@\n",model.createdTime];
+        
         if (model.fee>0) {
-            cell.feeLabel.text = [NSString stringWithFormat:@"%.2f元",model.fee];
-            cell.feeLabel.textColor = [UIColor colorWithRed:0.000 green:0.502 blue:0.000 alpha:1.000];
+            cell.feeLabel.text = [NSString stringWithFormat:@"+%.2f 元",model.fee];
+            cell.feeLabel.textColor = kGreen;
+            //[UIColor colorWithRed:0.322 green:0.655 blue:0.184 alpha:1.000];
         }else {
-            cell.feeLabel.text = [NSString stringWithFormat:@"%.2f元",model.fee];
+            cell.feeLabel.text = [NSString stringWithFormat:@"%.2f 元",model.fee];
             cell.feeLabel.textColor = [UIColor redColor];
         }
     }
@@ -90,6 +92,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.01f;
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        
+    }
 }
 
 
