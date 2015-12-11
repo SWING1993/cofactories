@@ -11,6 +11,9 @@
 #import "MeViewController.h"
 #import "SetViewController.h"
 #import "SystemSetViewController/SystemSetViewController.h"
+#import "MeShopController.h"//店铺
+#import "ShopCarController.h"//购物车
+
 
 @interface MeViewController ()
 
@@ -196,9 +199,13 @@
     switch (indexPath.section) {
             case 0:
             switch (indexPath.row) {
-                case 0:
+                case 0: {
                     DLog("购物车");
-
+                    ShopCarController *shopCarVC = [[ShopCarController alloc] init];
+                    shopCarVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:shopCarVC animated:YES];
+                }
+                    
                     break;
                 case 1:
                     DLog(@"我的活动");
@@ -207,8 +214,20 @@
             }
             break;
             
-            case 1:
+        case 1: {
             DLog(@"我的店铺");
+            if (self.MyProfile.UserType == UserType_designer) {
+                //设计者
+                
+                
+            } else if (self.MyProfile.UserType == UserType_supplier) {
+                //供应商
+                MeShopController *meShopVC = [[MeShopController alloc] init];
+                meShopVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:meShopVC animated:YES];
+            }
+        }
+            
             break;
             
             case 2:

@@ -128,12 +128,12 @@ static NSString * placeholderString = @"暂无";
         if ([[dictionary objectForKey:@"scale"] isEqual:[NSNull null]]) {
             _scale = placeholderString;
         }else {
-            NSInteger seletecdInt = [[dictionary objectForKey:@"scale"] integerValue];
+            NSInteger seletecdInt = [[dictionary objectForKey:@"scale"] integerValue] - 1;
 
-            if (_UserType == UserType_clothing && seletecdInt < 5) {
+            if (_UserType == UserType_clothing && seletecdInt < 4) {
                 _scale = self.scaleArr[seletecdInt];
             }
-            else if (_UserType == UserType_processing && seletecdInt < 4) {
+            else if (_UserType == UserType_processing && seletecdInt < 3) {
                 _scale = self.scaleArr[seletecdInt];
             }
             else {

@@ -9,9 +9,11 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 
+
 #import "UMessage.h"
 #import "MobClick.h"
 
+#import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialSnsService.h"
 #import "UMSocialQQHandler.h"
@@ -20,6 +22,10 @@
 
 //支付宝
 #import <AlipaySDK/AlipaySDK.h>
+
+
+//腾讯bugly
+#define Appkey_bugly @"900009962"
 
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define _IPHONE80_ 80000
@@ -38,6 +44,8 @@
     //初始化融云SDK。
     [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY];
     [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
+    
+    [UMSocialData setAppKey:Appkey_Umeng];
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:@"wxdf66977ff3f413e2" appSecret:@"a6e3fe6788a9a523cb6657e0ef7ae9f4" url:@"http://www.umeng.com/social"];
     //设置分享到QQ/Qzone的应用Id，和分享url 链接
@@ -64,15 +72,15 @@
     //关闭友盟bug检测
     [MobClick setCrashReportEnabled:NO];
     //开启腾讯Bugly
-    [[CrashReporter sharedInstance] installWithAppId:@"900009962"];
+    [[CrashReporter sharedInstance] installWithAppId:Appkey_bugly];
     
        // 注册友盟统计 SDK
-    [MobClick startWithAppkey:appStoreUMENGAppKey reportPolicy:SENDDAILY channelId:@"app-Store"];// 启动时发送 Log AppStore分发渠道
+    [MobClick startWithAppkey:Appkey_Umeng reportPolicy:SENDDAILY channelId:@"appStore"];// 启动时发送 Log AppStore分发渠道
     [MobClick setAppVersion:kVersion_Cofactories];
     
     // 注册友盟推送服务 SDK
     //set AppKey and LaunchOptions
-    [UMessage startWithAppkey:appStoreUMENGAppKey launchOptions:launchOptions];
+    [UMessage startWithAppkey:Appkey_Umeng launchOptions:launchOptions];
     
     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= _IPHONE80_
@@ -133,9 +141,11 @@
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-//    [HttpClient registerDeviceWithDeviceId:[NSString stringWithFormat:@"%@", deviceToken] andBlock:^(int statusCode) {
-//        DLog(@"deviceTokenStatus %d  deviceToken = %@", statusCode,deviceToken);
-//    }];
+ 
+    
+    DLog(@"deviceToken = %@",[NSString stringWithFormat:@"%@", deviceToken]);
+    [HttpClient iOSLaunchWithDeviceId:[NSString stringWithFormat:@"%@", deviceToken] WithClientVersion:kVersion_Cofactories];
+    
     [UMessage registerDeviceToken:deviceToken];
     /**
      * 融云推送处理3
@@ -156,6 +166,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     [UMessage didReceiveRemoteNotification:userInfo];
+   
 }
 
 
@@ -163,7 +174,6 @@
 {
     BOOL result = [UMSocialSnsService handleOpenURL:url];
     if (result == FALSE) {
-        DLog(@"123");
         //调用其他SDK，例如支付宝SDK等
         //如果极简开发包不可用，会跳转支付宝钱包进行支付，需要将支付宝钱包的支付结果回传给开发包
         if ([url.host isEqualToString:@"safepay"]) {

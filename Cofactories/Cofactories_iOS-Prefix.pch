@@ -73,10 +73,9 @@
 #import "Tools.h"
 
 #pragma mark - 第三方key
-//企业版
-#define UMENGAppKey @"55e03514e0f55a390f003db7"
-//个人开发者版
-#define appStoreUMENGAppKey @"5566b5e767e58e0c4700aab0"
+
+//友盟
+#define Appkey_Umeng @"5566b5e767e58e0c4700aab0"
 
 //appStore地址
 #define kAppUrl  @"http://itunes.apple.com/app/id1015359842"

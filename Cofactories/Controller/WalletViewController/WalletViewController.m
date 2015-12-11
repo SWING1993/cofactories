@@ -191,7 +191,7 @@
             WalletHistoryViewController * historyVC = [[WalletHistoryViewController alloc]init];
             historyVC.title = @"资金明细";
             historyVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:historyVC animated:YES];
+            [self.navigationController pushViewController:historyVC animated:NO];
             
         } else if (indexPath.row == 1) {
             //实名认证
