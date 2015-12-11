@@ -205,6 +205,7 @@
 		03B8973E1C151EC100DB8E4E /* WithdrawalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */; };
 		03B897401C15490400DB8E4E /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */; };
 		03CB36601C1AAEE600814CA9 /* WalletHistoryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB365F1C1AAEE600814CA9 /* WalletHistoryInfoViewController.m */; };
+		03CB36661C1AC4DE00814CA9 /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB36651C1AC4DE00814CA9 /* UserProtocolViewController.m */; };
 		03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DA1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m */; };
 		03FF44EC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m */; };
 		03FF44ED1BFEE73400D81DCE /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DE1BFEE73400D81DCE /* UIAlertView+AFNetworking.m */; };
@@ -820,6 +821,8 @@
 		03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		03CB365E1C1AAEE600814CA9 /* WalletHistoryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryInfoViewController.h; sourceTree = "<group>"; };
 		03CB365F1C1AAEE600814CA9 /* WalletHistoryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryInfoViewController.m; sourceTree = "<group>"; };
+		03CB36641C1AC4DE00814CA9 /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
+		03CB36651C1AC4DE00814CA9 /* UserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
 		03FF44D91BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		03FF44DA1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		03FF44DB1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -2097,6 +2100,8 @@
 				032554A51BFDC92E003B2E76 /* SecondRegisterViewController.m */,
 				032554971BFDC1F1003B2E76 /* ResetPasswordViewController.h */,
 				032554981BFDC1F1003B2E76 /* ResetPasswordViewController.m */,
+				03CB36641C1AC4DE00814CA9 /* UserProtocolViewController.h */,
+				03CB36651C1AC4DE00814CA9 /* UserProtocolViewController.m */,
 			);
 			path = "Login&Register";
 			sourceTree = "<group>";
@@ -3000,6 +3005,7 @@
 				035CC5DB1C070ECB00998FBD /* UMChatTableViewCell.m in Sources */,
 				705421F41C0D3AA100BD2B47 /* OthersUserModel.m in Sources */,
 				0325549D1BFDC22D003B2E76 /* blueButton.m in Sources */,
+				03CB36661C1AC4DE00814CA9 /* UserProtocolViewController.m in Sources */,
 				03571C061BE85C0800900EF9 /* UIImageView+WebCache.m in Sources */,
 				70A784FD1C085D75003D1892 /* PublishOrder_Other_VC.m in Sources */,
 				03927D841BEC8D1E0087A2FD /* HomeViewController.m in Sources */,
@@ -3421,7 +3427,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesyhyy;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriessong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
@@ -3473,7 +3479,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesyhyy;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriessong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";

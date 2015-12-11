@@ -74,6 +74,8 @@
 
 #pragma mark - 第三方key
 
+#define kUserProtocolUrl @"http://lo.test.mxd.moe/cofactories-3-html5/eula/eula.html"
+
 //友盟
 #define Appkey_Umeng @"5566b5e767e58e0c4700aab0"
 

@@ -41,7 +41,9 @@
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
             self.walletModel = [responseDictionary objectForKey:@"model"];
-            _myLabel.text = [NSString stringWithFormat:@"钱包余额 %.2f元\n\n冻结金额 %.2f元\n\n可提现额度 %.2f元",self.walletModel.money,self.walletModel.freeze,self.walletModel.maxWithDraw];
+            _myLabel.text = [NSString stringWithFormat:@"钱包余额 %.2f元\n\n冻结金额 %.2f元",self.walletModel.money,self.walletModel.freeze];
+            
+           // \n\n可提现额度 %.2f元,self.walletModel.maxWithDraw
         }
         else {
             NSString * message = [responseDictionary objectForKey:@"message"];

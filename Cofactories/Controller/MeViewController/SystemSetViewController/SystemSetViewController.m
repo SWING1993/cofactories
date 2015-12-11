@@ -13,6 +13,7 @@
 #import "SystemSetViewController.h"
 #import "AboutViewController.h"
 #import "RevisePasswordViewController.h"
+#import "UserProtocolViewController.h"
 
 
 
@@ -22,7 +23,7 @@
 
 @implementation SystemSetViewController {
 //    UITextField*inviteCodeTF;
-    UIButton * quitButton;
+//    UIButton * quitButton;
     UIAlertView * inviteCodeAlert;
 }
 
@@ -31,7 +32,7 @@
     
 
     self.title=@"设置";
-    
+    self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     
@@ -50,11 +51,13 @@
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     
+    /*
     quitButton=[[UIButton alloc]initWithFrame:CGRectMake(50, 7, kScreenW-100, 30)];
     quitButton.titleLabel.font = kFont;
     [quitButton setTitle:@"退出登录" forState:UIControlStateNormal];
     [quitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [quitButton addTarget:self action:@selector(quitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+     */
     
     inviteCodeAlert = [[UIAlertView alloc]initWithTitle:@"邀请码"
                                                     message:nil
@@ -74,12 +77,14 @@
     alertTextField.keyboardType = UIKeyboardTypeNumberPad;
 }
 
+/*
 - (void)quitButtonClicked{
     
     UIAlertView*alertView = [[UIAlertView alloc]initWithTitle:@"确定退出" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alertView.tag = 404;
     [alertView show];
 }
+ */
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 404) {
@@ -139,11 +144,20 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    return 7;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 5.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.0001f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -175,11 +189,10 @@
                 break;
                 
             case 3:{
-                cell.textLabel.text=@"关于聚工厂";
+                cell.textLabel.text = @"聚工厂用户服务协议";
                 
             }
                 break;
-                
                 
             case 4:{
                 cell.textLabel.text=@"邀请码";
@@ -195,7 +208,14 @@
                 break;
                 
             case 5:{
-                [cell addSubview:quitButton];
+                cell.textLabel.text=@"关于聚工厂";
+                
+            }
+                break;
+
+                
+            case 6:{
+                cell.textLabel.text = @"注销登录";
             }
                 break;
                 
@@ -206,13 +226,6 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 12.0f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.0001f;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
@@ -238,7 +251,21 @@
         }
             break;
             
-        case 3:{
+        case 3: {
+            UserProtocolViewController * protocolVC = [[UserProtocolViewController alloc]init];
+            UINavigationController * protocolNav = [[UINavigationController alloc]initWithRootViewController:protocolVC];
+            [self presentViewController:protocolNav animated:YES completion:^{
+                
+            }];
+        }
+            break;
+            
+        case 4: {
+        [inviteCodeAlert show];
+        }
+            break;
+            
+        case 5:{
             AboutViewController*aboutVC = [[AboutViewController alloc]init];
             UINavigationController*aboutNav = [[UINavigationController alloc]initWithRootViewController:aboutVC];
             aboutNav.modalPresentationStyle = UIModalPresentationCustom;
@@ -246,10 +273,12 @@
             
         }
             break;
+
             
-            
-        case 4: {
-        [inviteCodeAlert show];
+        case 6 : {
+            UIAlertView*alertView = [[UIAlertView alloc]initWithTitle:@"确定退出" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alertView.tag = 404;
+            [alertView show];
         }
             break;
             /*

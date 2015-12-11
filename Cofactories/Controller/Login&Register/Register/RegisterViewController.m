@@ -12,6 +12,7 @@
 #import "tablleHeaderView.h"
 #import "RegisterViewController.h"
 #import "SecondRegisterViewController.h"
+#import "UserProtocolViewController.h"
 
 @interface RegisterViewController () {
 
@@ -67,7 +68,7 @@
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeSystem];
     btn.frame = CGRectMake(60, 10, kScreenW - 80, 30);
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [btn setTitle:@"同意《聚工厂服务协议》" forState:UIControlStateNormal];
+    [btn setTitle:@"同意《聚工厂用户服务协议》" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     btn.titleLabel.font = kFont;
     [btn addTarget:self action:@selector(clickRightBtn) forControlEvents:UIControlEventTouchUpInside];
@@ -217,7 +218,11 @@
     btn.selected = self.isSeletecd;
 }
 - (void)clickRightBtn {
-    kTipAlert(@"服务协议！");
+    UserProtocolViewController * protocolVC = [[UserProtocolViewController alloc]init];
+    UINavigationController * protocolNav = [[UINavigationController alloc]initWithRootViewController:protocolVC];
+    [self presentViewController:protocolNav animated:YES completion:^{
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
