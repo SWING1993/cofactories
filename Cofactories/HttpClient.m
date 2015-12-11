@@ -816,7 +816,7 @@
 
 
 // 发布机械设备（市场）
-+ (void)publishMachineWithName:(NSString *)aName type:(NSString *)aType price:(NSString *)aPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)publishMachineWithName:(NSString *)aName type:(NSString *)aType marketPrice:(NSString *)aMarketPrice price:(NSString *)aPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription category:(NSArray *)aCategory WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -831,6 +831,9 @@
         if (aPrice) {
             [parametersDictionary setObject:aPrice forKey:@"price"];
         }
+        if (aMarketPrice) {
+            [parametersDictionary setObject:aMarketPrice forKey:@"marketPrice"];
+        }
         if (aAmount) {
             [parametersDictionary setObject:aAmount forKey:@"amount"];
         }
@@ -839,6 +842,9 @@
         }
         if (aDescription) {
             [parametersDictionary setObject:aDescription forKey:@"description"];
+        }
+        if (aCategory) {
+            [parametersDictionary setObject:aCategory forKey:@"category"];
         }
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
@@ -907,7 +913,7 @@
 }
 
 // 发布辅料（市场）
-+ (void)publishAccessoryWithName:(NSString *)aName price:(NSString *)aPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)publishAccessoryWithName:(NSString *)aName price:(NSString *)aPrice marketPrice:(NSString *)aMarketPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription category:(NSArray *)aCategory WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -919,6 +925,9 @@
         if (aPrice) {
             [parametersDictionary setObject:aPrice forKey:@"price"];
         }
+        if (aMarketPrice) {
+            [parametersDictionary setObject:aMarketPrice forKey:@"marketPrice"];
+        }
         if (aAmount) {
             [parametersDictionary setObject:aAmount forKey:@"amount"];
         }
@@ -928,6 +937,10 @@
         if (aDescription) {
             [parametersDictionary setObject:aDescription forKey:@"description"];
         }
+        if (aCategory) {
+            [parametersDictionary setObject:aCategory forKey:@"category"];
+        }
+
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager POST:API_Publish_Accessory_Market parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -945,7 +958,7 @@
 }
 
 // 发布面料（市场）
-+ (void)publishFabricWithName:(NSString *)aName type:(NSString *)aType price:(NSString *)aPrice width:(NSString *)aWidth amount:(NSString *)aAmount unit:(NSString *)aUnit usage:(NSString *)aUsage description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)publishFabricWithName:(NSString *)aName type:(NSString *)aType price:(NSString *)aPrice marketPrice:(NSString *)aMarketPrice width:(NSString *)aWidth amount:(NSString *)aAmount unit:(NSString *)aUnit usage:(NSString *)aUsage description:(NSString *)aDescription category:(NSArray *)aCategory WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -959,6 +972,9 @@
         }
         if (aPrice) {
             [parametersDictionary setObject:aPrice forKey:@"price"];
+        }
+        if (aMarketPrice) {
+            [parametersDictionary setObject:aMarketPrice forKey:@"marketPrice"];
         }
         if (aWidth) {
             [parametersDictionary setObject:aWidth forKey:@"width"];
@@ -974,6 +990,9 @@
         }
         if (aDescription) {
             [parametersDictionary setObject:aDescription forKey:@"description"];
+        }
+        if (aCategory) {
+            [parametersDictionary setObject:aCategory forKey:@"category"];
         }
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
@@ -992,7 +1011,7 @@
 }
 
 // 搜索机械设备（市场）
-+ (void)searchMachineWithType:(NSString *)aType price:(NSString *)aPrice keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)searchMachineWithType:(NSString *)aType price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -1003,6 +1022,9 @@
         }
         if (aPrice) {
             [parametersDictionary setObject:aPrice forKey:@"price"];
+        }
+        if (aPriceOrder) {
+            [parametersDictionary setObject:aPriceOrder forKey:@"priceOrder"];
         }
         if (aProvince) {
             [parametersDictionary setObject:aProvince forKey:@"province"];
@@ -1032,8 +1054,8 @@
     }
 }
 
-// 搜索机械设备（市场）
-+ (void)searchDesignWithType:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice keyword:(NSString *)aKeyword page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+// 搜索设计（市场）
++ (void)searchDesignWithType:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -1044,6 +1066,9 @@
         }
         if (aPrice) {
             [parametersDictionary setObject:aPrice forKey:@"price"];
+        }
+        if (aPriceOrder) {
+            [parametersDictionary setObject:aPriceOrder forKey:@"priceOrder"];
         }
         if (aPart) {
             [parametersDictionary setObject:aPart forKey:@"part"];
@@ -1072,7 +1097,7 @@
 }
 
 // 搜索辅料（市场）
-+ (void)searchAccessoryWithPrice:(NSString *)aPrice keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)searchAccessoryWithPrice:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -1081,6 +1106,9 @@
         
         if (aPrice) {
             [parametersDictionary setObject:aPrice forKey:@"price"];
+        }
+        if (aPriceOrder) {
+            [parametersDictionary setObject:aPriceOrder forKey:@"priceOrder"];
         }
         if (aProvince) {
             [parametersDictionary setObject:aProvince forKey:@"province"];
@@ -1112,7 +1140,7 @@
 }
 
 // 搜索面料（市场）
-+ (void)searchFabricWithType:(NSString *)aType price:(NSString *)aPrice keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)searchFabricWithType:(NSString *)aType price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -1123,6 +1151,9 @@
         }
         if (aPrice) {
             [parametersDictionary setObject:aPrice forKey:@"price"];
+        }
+        if (aPriceOrder) {
+            [parametersDictionary setObject:aPriceOrder forKey:@"priceOrder"];
         }
         if (aProvince) {
             [parametersDictionary setObject:aProvince forKey:@"province"];

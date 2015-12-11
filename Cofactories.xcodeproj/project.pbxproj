@@ -1419,7 +1419,7 @@
 		03571B591BE84E7500900EF9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				70F4AFB11C180DEF00615A7E /* PersonalMessage */,
+				70F4AFB11C180DEF00615A7E /* PersonalMessage(设计师个人界面) */,
 				0395D2FD1BFC6D280009AABC /* Login&Register */,
 				03927D791BEC8C3F0087A2FD /* HomeViewController */,
 				7094D71F1BFC821400F7240B /* WalletViewController */,
@@ -2290,12 +2290,13 @@
 			path = OrderMark;
 			sourceTree = "<group>";
 		};
-		70F4AFB11C180DEF00615A7E /* PersonalMessage */ = {
+		70F4AFB11C180DEF00615A7E /* PersonalMessage(设计师个人界面) */ = {
 			isa = PBXGroup;
 			children = (
 				70F4AFB61C18249C00615A7E /* PersonalMessage_Design_VC.h */,
 				70F4AFB71C18249C00615A7E /* PersonalMessage_Design_VC.m */,
 			);
+			name = "PersonalMessage(设计师个人界面)";
 			path = PersonalMessage;
 			sourceTree = "<group>";
 		};
