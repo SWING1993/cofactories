@@ -35,14 +35,14 @@
         
         NSString *subroleString = [NSString stringWithFormat:@"%@",dictionary[@"subRole"]];
         if ([subroleString isEqualToString:@"<null>"] || subroleString == nil) {
-            self.businessSubrole = @"商家暂未填写";
+            self.businessSubrole = @"子身份暂无";
         }else{
             self.businessSubrole = subroleString;
         }
         
         NSString *cityString = [NSString stringWithFormat:@"%@",dictionary[@"city"]];
         if ([cityString isEqualToString:@"<null>"] || cityString == nil) {
-            self.businessCity = @"商家暂未填写";
+            self.businessCity = @"地址未填写";
         }else{
             self.businessCity = cityString;
         }

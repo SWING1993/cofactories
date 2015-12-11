@@ -12,7 +12,6 @@
     UIImageView  *_userImage;
     UILabel      *_userNameLB;
     UILabel      *_commentTimeLB;
-    UILabel      *_commentContentLB;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -58,7 +57,10 @@
 - (void)layoutDataWithDealCommentModel:(DealComment_Model *)model{
     _userNameLB.text = model.name;
     _commentTimeLB.text = model.createdTime;
+    _commentContentLB.numberOfLines = 0;
     _commentContentLB.text = model.commentString;
     [_userImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,model.userID]] placeholderImage:[UIImage imageNamed:@"headBtn.png"]];
 }
+
+
 @end

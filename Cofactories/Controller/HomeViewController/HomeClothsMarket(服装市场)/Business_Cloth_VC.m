@@ -10,6 +10,7 @@
 #import "DOPDropDownMenu.h"
 #import "Business_Supplier_TVC.h"
 #import "MJRefresh.h"
+#import "PersonalMessage_Clothing_VC.h"
 
 @interface Business_Cloth_VC ()<UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UISearchBarDelegate>{
     NSDictionary    *_selectDataDictionary;
@@ -400,5 +401,16 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     Business_Supplier_Model *model = _dataArray[indexPath.row];
     [cell layoutSomeDataWithMarketModel:model];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Business_Supplier_Model *model = _dataArray[indexPath.row];
+    PersonalMessage_Clothing_VC *vc = [PersonalMessage_Clothing_VC new];
+    vc.userID = model.businessUid;
+    [HttpClient getOtherIndevidualsInformationWithUserID:model.businessUid WithCompletionBlock:^(NSDictionary *dictionary) {
+        OthersUserModel *model = dictionary[@"message"];
+        vc.userModel = model;
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
 }
 @end

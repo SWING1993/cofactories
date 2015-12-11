@@ -10,4 +10,6 @@
 
 @interface DealComment_TVC : UITableViewCell
 - (void)layoutDataWithDealCommentModel:(DealComment_Model *)model;
+@property (nonatomic,strong) UILabel *commentContentLB;
+
 @end

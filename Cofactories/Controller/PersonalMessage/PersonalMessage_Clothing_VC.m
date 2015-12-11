@@ -1,49 +1,40 @@
 //
-//  PersonalMessage_Design_VC.m
+//  PersonalMessage_Clothing_VC.m
 //  Cofactories
 //
-//  Created by GTF on 15/12/9.
+//  Created by GTF on 15/12/11.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "PersonalMessage_Design_VC.h"
-#import "PersonalShop_TVC.h"
+#import "PersonalMessage_Clothing_VC.h"
 #import "PersonalWorks_TVC.h"
 #import "DealComment_TVC.h"
 #import "MJRefresh.h"
-@interface PersonalMessage_Design_VC (){
+
+
+@interface PersonalMessage_Clothing_VC (){
     NSInteger              _selectedIndex;
-    NSMutableArray        *_dataArrayOne;      // 个人店铺
     NSMutableArray        *_dataArrayThree;    // 交易评论
-    NSInteger              _refreshCountOne;   // 个人店铺
     NSInteger              _refreshCountThree; // 交易评论
+    
 }
 
 @end
-static NSString *const reuseIdentifier1 = @"reuseIdentifier1"; // 个人店铺
 static NSString *const reuseIdentifier2 = @"reuseIdentifier2"; // 作品集合
 static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 
-@implementation PersonalMessage_Design_VC
+@implementation PersonalMessage_Clothing_VC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    [super viewDidLoad];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigator_btn_back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBackClick)];
     self.navigationItem.title = @"个人信息";
     
     _selectedIndex = 1;
     [self creatHeader];
-//    [HttpClient publishDesignWithName:@"uwrvchgy" country:@"jp" type:@"female" part:@"suit" price:@"156" marketPrice:@"897" amount:@"134" description:@"asfdojnvdfnehnfoiahreiofoeijh" category:@[@"无色无味"] WithCompletionBlock:^(NSDictionary *dictionary) {
-//        
-//    }];
-    
-    _dataArrayOne = [@[] mutableCopy];
-    [HttpClient getUserShopWithUserID:_userID page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
-        _dataArrayOne = dictionary[@"message"];
-        [self.tableView reloadData];
-    }];
     
     _dataArrayThree = [@[] mutableCopy];
     [HttpClient getUserCommentWithUserID:_userID page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
@@ -51,7 +42,6 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         [self.tableView reloadData];
     }];
     
-    _refreshCountOne = 1;
     _refreshCountThree = 1;
     [self setupRefresh];
 }
@@ -99,9 +89,10 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     [headerView addSubview:subroleLB];
     CGSize subroleSize = [Tools getSize:_userModel.subRole andFontOfSize:12.f];
     subroleLB.frame = CGRectMake(90, 25+size.height+5, subroleSize.width+10,subroleSize.height+5);
-    subroleLB.text = _userModel.subRole;
+    subroleLB.text = _userModel.role;
     
-    NSArray *array = @[_userModel.address,_userModel.descriptions];
+    NSString *firstString = [NSString stringWithFormat:@"%@   %@",_userModel.address,_userModel.scale];
+    NSArray *array = @[firstString,_userModel.descriptions];
     for (int i = 0; i<array.count; i++) {
         UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(15, 85+i*25, kScreenW-30, 25)];
         lb.textColor = [UIColor grayColor];
@@ -124,28 +115,8 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 - (void)footerRereshing{
     
     if (_selectedIndex == 1) {
-        // 刷新店铺
-        _refreshCountOne++;
-        DLog(@"_refreshCountOne==%d",_refreshCountOne);
-        [HttpClient getUserShopWithUserID:_userID page:@(_refreshCountOne) WithCompletionBlock:^(NSDictionary *dictionary){
-            
-            NSArray *array = dictionary[@"message"];
-            
-            for (int i=0; i<array.count; i++)
-            {
-                PersonalShop_Model *model = array[i];
-                
-                [_dataArrayOne addObject:model];
-            }
-            [self.tableView reloadData];
-            [self.tableView footerEndRefreshing];
-        }];
-
-    }else if (_selectedIndex == 2){
-        
         [self.tableView footerEndRefreshing];
-        
-    }else if (_selectedIndex == 3){
+    }else if (_selectedIndex == 2){
         // 刷新评论
         _refreshCountThree++;
         DLog(@"_refreshCountThree==%d",_refreshCountThree);
@@ -163,20 +134,13 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
             [self.tableView footerEndRefreshing];
         }];
     }
-  }
+}
 
 #pragma mark - 表
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    //DLog(@">>%d",_dataArrayOne.count);
     
-    if (_selectedIndex == 1 ) {
-        if (_dataArrayOne.count%2 == 0) {
-            return _dataArrayOne.count/2;
-        }else{
-            return (_dataArrayOne.count/2)+1;
-        }
-    }else if (_selectedIndex == 2){
+    if (_selectedIndex == 1){
         
         if (_userModel.photoArray.count%3 == 0) {
             return _userModel.photoArray.count/3;
@@ -187,23 +151,13 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     }else{
         return _dataArrayThree.count;
     }
-
+    
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_selectedIndex == 1 ) {
-        PersonalShop_TVC *cell = [tableView cellForRowAtIndexPath:indexPath];
-        if (!cell) {
-            cell = [[PersonalShop_TVC alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier1];
-        }
-        
-        [cell layoutDataWithArray:_dataArrayOne indexPath:indexPath];
-        [cell.buttonLeft addTarget:self action:@selector(personalShopClick:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.buttonRight addTarget:self action:@selector(personalShopClick:) forControlEvents:UIControlEventTouchUpInside];
-        return cell;
-        
-    }else if (_selectedIndex == 2){
+    
+    if (_selectedIndex == 1){
         PersonalWorks_TVC *cell = [tableView cellForRowAtIndexPath:indexPath];
         if (!cell) {
             cell = [[PersonalWorks_TVC alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier2];
@@ -217,23 +171,18 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         }
         DealComment_Model *model = _dataArrayThree[indexPath.row];
         [cell layoutDataWithDealCommentModel:model];
-        
         return cell;
     }
-
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (_selectedIndex == 1 ) {
-        return (kScreenW-10)/2.f+70;
-    }else if (_selectedIndex == 2){
         return (kScreenW - 40)/3.f+10;
-    }else if (_selectedIndex == 3){
-
+    }else{
         return 90;
     }
-    return 0;
 }
 
 
@@ -244,10 +193,10 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 40)];
     view.backgroundColor = [UIColor whiteColor];
-    NSArray *array = @[@"个人店铺",@"个人相册",@"交易评论"];
+    NSArray *array = @[@"个人相册",@"交易评论"];
     for (int i = 0; i<array.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(i*kScreenW/3.f, 0, kScreenW/3.f, 38);
+        button.frame = CGRectMake(i*kScreenW/2.f, 0, kScreenW/2.f, 38);
         [button setTitle:array[i] forState:UIControlStateNormal];
         button.tag = i+1;
         [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
@@ -258,7 +207,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         
         if (i == 0) {
             CALayer *_lineLayer = [CALayer layer];
-            _lineLayer.frame = CGRectMake((_selectedIndex-1)*kScreenW/3.f, 38, kScreenW/3.f, 2);
+            _lineLayer.frame = CGRectMake((_selectedIndex-1)*kScreenW/2.f, 38, kScreenW/2.f, 2);
             _lineLayer.backgroundColor = MAIN_COLOR.CGColor;
             [view.layer addSublayer:_lineLayer];
         }
@@ -276,25 +225,10 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 - (void)buttonClick:(id)sender{
     UIButton *button = (UIButton *)sender;
     _selectedIndex = button.tag;
-    DLog(@"==%d",_refreshCountOne);
-
-        _refreshCountOne = 1;
-        _refreshCountThree = 1;
+    DLog(@"==%d",_refreshCountThree);
+    
+    _refreshCountThree = 1;
     [self.tableView reloadData];
-    
-}
-
-#pragma mark - 个人店铺
-
-- (void)personalShopClick:(id)sender{
-    UIButton *button = (UIButton *)sender;
-    NSLog(@"%d",button.tag);
-    
-    if ([_userModel.role isEqualToString:@"设计者"]) {
-        
-    }else if ([_userModel.role isEqualToString:@"供应商"]){
-        
-    }
     
 }
 

@@ -246,6 +246,7 @@
 		70A784FA1C085CD3003D1892 /* PublishOrder_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F91C085CD3003D1892 /* PublishOrder_Factory_VC.m */; };
 		70A784FD1C085D75003D1892 /* PublishOrder_Other_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784FC1C085D75003D1892 /* PublishOrder_Other_VC.m */; };
 		70E9F1831C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F1821C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m */; };
+		70E9F1861C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F1851C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m */; };
 		70EB7EE61C15697E009E19F9 /* Business_Supplier_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EB7EE01C15697E009E19F9 /* Business_Supplier_TVC.m */; };
 		70EB7EE71C15697E009E19F9 /* Business_Supplier_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EB7EE21C15697E009E19F9 /* Business_Supplier_VC.m */; };
 		70F4A76B1C128964000DF7E7 /* BidManage_Design_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A76A1C128964000DF7E7 /* BidManage_Design_VC.m */; };
@@ -904,6 +905,8 @@
 		70A784FC1C085D75003D1892 /* PublishOrder_Other_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Other_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Other_VC.m; sourceTree = SOURCE_ROOT; };
 		70E9F1811C1AA6DA00C13912 /* PersonalMessage_Factory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalMessage_Factory_VC.h; sourceTree = "<group>"; };
 		70E9F1821C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalMessage_Factory_VC.m; sourceTree = "<group>"; };
+		70E9F1841C1AB3C100C13912 /* PersonalMessage_Clothing_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalMessage_Clothing_VC.h; sourceTree = "<group>"; };
+		70E9F1851C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalMessage_Clothing_VC.m; sourceTree = "<group>"; };
 		70EB7EE01C15697E009E19F9 /* Business_Supplier_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Supplier_TVC.m; sourceTree = "<group>"; };
 		70EB7EE11C15697E009E19F9 /* Business_Supplier_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Supplier_VC.h; sourceTree = "<group>"; };
 		70EB7EE21C15697E009E19F9 /* Business_Supplier_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Supplier_VC.m; sourceTree = "<group>"; };
@@ -1440,7 +1443,7 @@
 		03571B591BE84E7500900EF9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				70F4AFB11C180DEF00615A7E /* PersonalMessage(设计师个人界面) */,
+				70F4AFB11C180DEF00615A7E /* PersonalMessage(个人界面) */,
 				0395D2FD1BFC6D280009AABC /* Login&Register */,
 				03927D791BEC8C3F0087A2FD /* HomeViewController */,
 				7094D71F1BFC821400F7240B /* WalletViewController */,
@@ -2313,15 +2316,17 @@
 			path = OrderMark;
 			sourceTree = "<group>";
 		};
-		70F4AFB11C180DEF00615A7E /* PersonalMessage(设计师个人界面) */ = {
+		70F4AFB11C180DEF00615A7E /* PersonalMessage(个人界面) */ = {
 			isa = PBXGroup;
 			children = (
 				70F4AFB61C18249C00615A7E /* PersonalMessage_Design_VC.h */,
 				70F4AFB71C18249C00615A7E /* PersonalMessage_Design_VC.m */,
 				70E9F1811C1AA6DA00C13912 /* PersonalMessage_Factory_VC.h */,
 				70E9F1821C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m */,
+				70E9F1841C1AB3C100C13912 /* PersonalMessage_Clothing_VC.h */,
+				70E9F1851C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m */,
 			);
-			name = "PersonalMessage(设计师个人界面)";
+			name = "PersonalMessage(个人界面)";
 			path = PersonalMessage;
 			sourceTree = "<group>";
 		};
@@ -3069,6 +3074,7 @@
 				70F4A7811C12E2C9000DF7E7 /* MarkOrder_VC.m in Sources */,
 				7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */,
 				70F4A76E1C1289C2000DF7E7 /* BidManage_Design_TVC.m in Sources */,
+				70E9F1861C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m in Sources */,
 				70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */,
 				03571BFD1BE85C0800900EF9 /* SDWebImageDownloader.m in Sources */,
 				03571C5E1BE85D8C00900EF9 /* MJRefreshHeaderView.m in Sources */,

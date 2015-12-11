@@ -11,7 +11,12 @@
 @implementation DealComment_Model
 - (instancetype)initDealCommentModelWithDictionary:(NSDictionary *)dictionary{
     if (self = [super init]) {
-        _commentString = [NSString stringWithFormat:@"%@",dictionary[@"comment"]];
+        NSString *commentString = [NSString stringWithFormat:@"%@",dictionary[@"comment"]];
+        if ([commentString isEqualToString:@"<null>"]) {
+            _commentString = @"商家未评论";
+        }else{
+            _commentString = commentString;
+        }
         _createdTime = [NSString stringWithFormat:@"%@",dictionary[@"createdAt"]];
 
         NSDictionary *senderDictionary = dictionary[@"sender"];
