@@ -24,7 +24,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title=@"修改密码";
-    self.view.backgroundColor=[UIColor whiteColor];
+//    self.view.backgroundColor=[UIColor whiteColor];
+//    self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.rowHeight = 40;
@@ -43,9 +44,9 @@
 
 
 
-    UIView*tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 50)];
+    UIView*tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70)];
     tableFooterView.backgroundColor = [UIColor clearColor];
-    blueButton*nextBtn=[[blueButton alloc]initWithFrame:CGRectMake(20, 7, kScreenW-40, 35)];
+    blueButton*nextBtn=[[blueButton alloc]initWithFrame:CGRectMake(20, 20, kScreenW-40, 35)];
     [nextBtn setTitle:@"确定" forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(RevisePasswordBtn) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:nextBtn];

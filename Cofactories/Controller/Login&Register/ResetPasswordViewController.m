@@ -58,9 +58,9 @@
     tablleHeaderView*tableHeaderView = [[tablleHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, tableHeaderView_height)];
     self.tableView.tableHeaderView = tableHeaderView;
 
-    UIView*tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 50)];
+    UIView*tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70)];
     tableFooterView.backgroundColor = [UIColor clearColor];
-    blueButton*nextBtn=[[blueButton alloc]initWithFrame:CGRectMake(20, 7, kScreenW-40, 35)];
+    blueButton*nextBtn=[[blueButton alloc]initWithFrame:CGRectMake(20, 20, kScreenW-40, 35)];
     [nextBtn setTitle:@"重置密码" forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextBtn) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:nextBtn];
