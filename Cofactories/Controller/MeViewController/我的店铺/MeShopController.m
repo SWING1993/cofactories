@@ -8,6 +8,8 @@
 
 #import "MeShopController.h"
 #import "MeShopCell.h"
+#import "MeAddSupply_VC.h"//添加商品
+#import "MeDetailSupply_VC.h"//商品详情页
 
 
 static NSString *shopCellIdentifier = @"shopCell";
@@ -31,7 +33,12 @@ static NSString *shopCellIdentifier = @"shopCell";
     self.navigationItem.rightBarButtonItem = rightItem;
     isEdit = NO;
     [self creatCollectionView];
-
+    //加号按钮
+    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    addButton.frame = CGRectMake(kScreenW - 70, kScreenH - 70, 50, 50);
+    [addButton setImage:[UIImage imageNamed:@"MeShop-加号"] forState:UIControlStateNormal];
+    [addButton addTarget:self action:@selector(actionOfAdd:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:addButton];
 }
 
 - (void)creatCollectionView {
@@ -56,7 +63,7 @@ static NSString *shopCellIdentifier = @"shopCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 6;
+    return 20;
     
 }
 
@@ -73,6 +80,12 @@ static NSString *shopCellIdentifier = @"shopCell";
     cell.shopTitle.text = @"法莱蓉面料 法兰绒布料 双面";
     cell.saleLabel.text = @"已售 999 件";
     return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    MeDetailSupply_VC *medetailSupplyVC = [[MeDetailSupply_VC alloc] init];
+    [self.navigationController pushViewController:medetailSupplyVC animated:YES];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -99,7 +112,12 @@ static NSString *shopCellIdentifier = @"shopCell";
 }
 
 
-
+#pragma mark - 添加产品
+- (void)actionOfAdd:(UIButton *)button {
+    DLog(@"供应商添加");
+    MeAddSupply_VC *meAddVC = [[MeAddSupply_VC alloc] init];
+    [self.navigationController pushViewController:meAddVC animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

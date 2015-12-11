@@ -486,8 +486,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     if (button.tag == 222) {
         DLog(@"底部 + 加入购物车");
         
-            ShopCarController *shopCarVC = [[ShopCarController alloc] init];
-            [self.navigationController pushViewController:shopCarVC animated:YES];
+//            ShopCarController *shopCarVC = [[ShopCarController alloc] init];
+//            [self.navigationController pushViewController:shopCarVC animated:YES];
         } else if (button.tag == 223){
         DLog(@"底部 + 立即购买");
         ShoppingOrderController *shoppingVC = [[ShoppingOrderController alloc] init];

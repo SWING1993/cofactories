@@ -18,7 +18,7 @@
         [self addSubview:self.photoView];
         self.shopTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.photoView.frame), self.frame.size.width - 10, 40)];
         self.shopTitle.numberOfLines = 2;
-        self.shopTitle.font = [UIFont systemFontOfSize:15];
+        self.shopTitle.font = [UIFont systemFontOfSize:13];
         self.shopTitle.textColor = [UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         [self addSubview:self.shopTitle];
         self.saleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.shopTitle.frame), self.frame.size.width - 10, 20)];
@@ -27,7 +27,7 @@
         [self addSubview:self.saleLabel];
         
         self.deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.deleteButton.frame = CGRectMake(self.frame.size.width - 40, 0, 40, 40);
+        self.deleteButton.frame = CGRectMake(self.frame.size.width - 30, 0, 30, 30);
         [self addSubview:self.deleteButton];
         
     }
