@@ -10,6 +10,7 @@
 #import "DOPDropDownMenu.h"
 #import "Business_Supplier_TVC.h"
 #import "MJRefresh.h"
+#import "PersonalMessage_Factory_VC.h"
 
 @interface Business_Factory_VC ()<UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UISearchBarDelegate>{
     NSString        *_subrole;
@@ -398,6 +399,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     return cell;
 }
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Business_Supplier_Model *model = _dataArray[indexPath.row];
+    PersonalMessage_Factory_VC *vc = [PersonalMessage_Factory_VC new];
+    vc.userID = model.businessUid;
+    [HttpClient getOtherIndevidualsInformationWithUserID:model.businessUid WithCompletionBlock:^(NSDictionary *dictionary) {
+        OthersUserModel *model = dictionary[@"message"];
+        vc.userModel = model;
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
+}
 
 @end

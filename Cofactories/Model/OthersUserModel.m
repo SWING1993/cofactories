@@ -53,9 +53,11 @@
             _subRole = @"尚未填写";
         }
         _scale = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"scale"]];
+    
         if ([_scale isEqualToString:@"<null>"]) {
             _scale = @"尚未填写";
         }
+        
         _verified = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"verified"]];
         if ([_verified isEqualToString:@"<null>"]) {
             _verified = @"非认证用户";

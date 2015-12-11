@@ -79,6 +79,10 @@
         
         PersonalShop_Model *modelLeft = array[2*indexPath.row];
         PersonalShop_Model *modelRight = array[2*indexPath.row+1];
+        
+        DLog(@"left=%@",modelLeft.goodsPrice);
+        DLog(@"right=%@",modelRight.goodsPrice);
+        
         _nameLBLeft.text = modelLeft.goodsName;
         _priceLBLeft.text = [NSString stringWithFormat:@"￥%@",modelLeft.goodsPrice];
         _salesLBLeft.text = [NSString stringWithFormat:@"%@人付款",modelLeft.goodsSales];
@@ -98,10 +102,14 @@
         }
 
         
-    }else {
+    }else if (array.count%2 == 1){
         if (indexPath.row != (array.count/2)) {
             PersonalShop_Model *modelLeft = array[2*indexPath.row];
             PersonalShop_Model *modelRight = array[2*indexPath.row+1];
+            
+            DLog(@"left=%@",modelLeft.goodsPrice);
+            DLog(@"right=%@",modelRight.goodsPrice);
+
             _nameLBLeft.text = modelLeft.goodsName;
             _priceLBLeft.text = [NSString stringWithFormat:@"￥%@",modelLeft.goodsPrice];
             _salesLBLeft.text = [NSString stringWithFormat:@"%@人付款",modelLeft.goodsSales];
@@ -121,19 +129,20 @@
             }
             
 
-        }else{
+        }else if(indexPath.row == (array.count/2)){
+            
+            [_buttonRight removeFromSuperview];
+
             PersonalShop_Model *modelLeft = array[2*indexPath.row];
             _nameLBLeft.text = modelLeft.goodsName;
             _priceLBLeft.text = [NSString stringWithFormat:@"￥%@",modelLeft.goodsPrice];
             _salesLBLeft.text = [NSString stringWithFormat:@"%@人付款",modelLeft.goodsSales];
+            
             if (modelLeft.photoArray.count == 0) {
                 _imageLeft.image = [UIImage imageNamed:@"默认图片"];
             }else{
                 [_imageLeft sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,modelLeft.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
             }
-            
-            [_buttonRight removeFromSuperview];
-            
         }
 
     }
