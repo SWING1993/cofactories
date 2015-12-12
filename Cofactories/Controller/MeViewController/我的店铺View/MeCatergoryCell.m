@@ -15,7 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.catergoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        self.catergoryLabel.backgroundColor = [UIColor grayColor];
+        self.catergoryLabel.backgroundColor = [UIColor colorWithRed:193.0/255.0 green:193.0/255.0 blue:193.0/255.0 alpha:1.0];
         self.catergoryLabel.textColor = [UIColor whiteColor];
         self.catergoryLabel.font = [UIFont systemFontOfSize:14];
         self.catergoryLabel.layer.cornerRadius = self.frame.size.height/2;

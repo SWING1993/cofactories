@@ -40,7 +40,6 @@ static NSString *materialCellIdentifier = @"materialCell";
     [super viewDidLoad];
     
     
-//    [self creatSearchBar];
     [self creatCancleItem];
     [self creatCollectionView];
     [self creatSelectView];

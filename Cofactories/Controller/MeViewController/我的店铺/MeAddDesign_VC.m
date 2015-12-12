@@ -1,12 +1,12 @@
 //
-//  MeAddSupply_VC.m
+//  MeAddDesign_VC.m
 //  Cofactories
 //
-//  Created by 赵广印 on 15/12/10.
+//  Created by 赵广印 on 15/12/11.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "MeAddSupply_VC.h"
+#import "MeAddDesign_VC.h"
 #import "MeTextFieldCell.h"
 #import "JKPhotoBrowser.h"
 #import "JKImagePickerController.h"
@@ -18,9 +18,8 @@
 #import "DOPDropDownMenu.h"
 static NSString *TFCellIdentifier = @"TFCell";
 static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
-
-@interface MeAddSupply_VC ()<UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, JKImagePickerControllerDelegate, UIAlertViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate> {
-    UITextField *nameTF, *salePriceTF, *marketPriceTF, *amountTF, *unitTF;
+@interface MeAddDesign_VC ()<UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, JKImagePickerControllerDelegate, UIAlertViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate> {
+    UITextField *nameTF, *salePriceTF, *marketPriceTF, *amountTF;
     NSArray *labelArray, *placeHolderArray;
     PlaceholderTextView *descriptionTV;
     
@@ -28,12 +27,14 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
     UIButton * _addCatergoryBtn;
     UILabel  * tiShiYuLabel;
     DOPDropDownMenu *_dropDownMenu;
-    NSArray         *_supplierTypeArray;
-    NSArray         *_fabricTypeArray;
-    NSArray         *_machineTypeArray;
+    NSArray         *allTypeArray;
+    NSArray         *manTypeArray;
+    NSArray         *womenTypeArray;
+    NSArray         *boyTypeArray;
+    NSArray         *girlTypeArray;
     
     NSString *leftTypeString, *rightTypeString;
-
+    
 }
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, strong) NSMutableArray *collectionImage;//上传图片数组
@@ -43,17 +44,18 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 @property (nonatomic, strong) NSMutableArray *categoryArray;//商品分类
 
 
+
 @end
 
-@implementation MeAddSupply_VC
+@implementation MeAddDesign_VC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"发布商品";
     
-    labelArray = @[@"售价", @"市场标价", @"单位", @"库存"];
-    placeHolderArray = @[@"请输入价格", @"请输入价格", @"请输入单位", @"请输入库存量"];
+    labelArray = @[@"售价", @"市场标价", @"库存"];
+    placeHolderArray = @[@"请输入价格", @"请输入价格", @"请输入库存量"];
     self.collectionImage = [[NSMutableArray alloc]initWithCapacity:9];
     self.categoryArray = [NSMutableArray arrayWithCapacity:0];
     
@@ -89,10 +91,12 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
     [self creatTableView];
     
     //选择类型
-    _supplierTypeArray = @[@"面料",@"辅料",@"机械设备"];
-    _fabricTypeArray = @[@"针织",@"梭织",@"特种面料"];
-    _machineTypeArray = @[@"设备",@"配件"];
-    leftTypeString = @"fabric";//面料
+    allTypeArray = @[@"男装",@"女装",@"男童", @"女童"];
+    manTypeArray = @[@"上衣",@"下衣",@"套装"];
+    womenTypeArray = @[@"上衣",@"下衣",@"套装"];
+    boyTypeArray = @[@"上衣",@"下衣",@"套装"];
+    girlTypeArray = @[@"上衣",@"下衣",@"套装"];
+    leftTypeString = @"male";
     rightTypeString = nil;
     _dropDownMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
     _dropDownMenu.delegate = self;
@@ -145,7 +149,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
     self.myTableView.dataSource = self;
     self.myTableView.delegate = self;
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    self.myTableView.backgroundColor = [UIColor redColor];
+    //    self.myTableView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.myTableView];
     [self.myTableView registerClass:[MeTextFieldCell class] forCellReuseIdentifier:TFCellIdentifier];
     [self.myTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
@@ -179,7 +183,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 2) {
-        return 4;
+        return 3;
     } else {
         return 1;
     }
@@ -204,8 +208,8 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
                 [cell addSubview:self.collectionView];
             }
         }
-
-                return cell;
+        
+        return cell;
     } else if (indexPath.section == 2) {
         MeTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:TFCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -215,7 +219,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
             case 0:{
                 salePriceTF = cell.myTextField;
                 salePriceTF.keyboardType = UIKeyboardTypeDecimalPad;
-               
+                
             }
                 break;
             case 1:{
@@ -224,19 +228,15 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
             }
                 break;
             case 2:{
-                unitTF = cell.myTextField;
-                unitTF.keyboardType = UIKeyboardTypeDefault;
-            }
-                break;
-            case 3:{
                 amountTF = cell.myTextField;
                 amountTF.keyboardType = UIKeyboardTypeNumberPad;
             }
                 break;
+
             default:
                 break;
         }
-
+        
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -249,7 +249,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
             tiShiYuLabel.hidden = YES;
             [cell addSubview:self.collectionView1];
         }
-
+        
         return cell;
     }
     
@@ -282,7 +282,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
         if (6<[self.collectionImage count] && [self.collectionImage count]<10) {
             return kScreenW+50;
         }
-
+        
     } else if (indexPath.section == 3) {
         return 145;
     }
@@ -451,10 +451,10 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
         browser.currentPhotoIndex = indexPath.row;
         browser.photos = photos;
         [browser show];
-
     } else {
         
     }
+    
     
 }
 
@@ -509,65 +509,47 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 
 #pragma mark - 发表商品
 - (void)pressRightItem {
-    DLog(@"leftTypeString = %@, rightTypeString = %@, name = %@, photoNumber = %ld, salePrice = %@, marketPrice = %@, unit = %@, amount = %@, categoryCount = %ld, description  = %@",leftTypeString, rightTypeString, nameTF.text, self.collectionImage.count, salePriceTF.text, marketPriceTF.text, unitTF.text, amountTF.text, self.categoryArray.count, descriptionTV.text);
-    
-    
-    if ([leftTypeString isEqualToString:@"accessory"]) {
-        //辅料
-        if ([self isBlankString:nameTF.text] == YES || self.collectionImage.count == 0 || [self isBlankString:salePriceTF.text] == YES || [self isBlankString:marketPriceTF.text] == YES || [self isBlankString:unitTF.text] == YES || [self isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [self isBlankString:descriptionTV.text] == YES) {
-            kTipAlert(@"商品信息填写不完整");
-        } else {
-            [self publishShoppingMarket];
-        }
-
-        
+    DLog(@"leftTypeString = %@, rightTypeString = %@, name = %@, photoNumber = %ld, salePrice = %@, marketPrice = %@, amount = %@, categoryCount = %ld, description  = %@",leftTypeString, rightTypeString, nameTF.text, self.collectionImage.count, salePriceTF.text, marketPriceTF.text, amountTF.text, self.categoryArray.count, descriptionTV.text);
+    if (rightTypeString.length == 0) {
+        kTipAlert(@"请选择上装、下装或套装");
     } else {
-        //面料和机械设备
-        if ([self isBlankString:nameTF.text] == YES || self.collectionImage.count == 0 || [self isBlankString:salePriceTF.text] == YES || [self isBlankString:marketPriceTF.text] == YES || [self isBlankString:unitTF.text] == YES || [self isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [self isBlankString:descriptionTV.text] == YES) {
+        if ([self isBlankString:nameTF.text] == YES || self.collectionImage.count == 0 || [self isBlankString:salePriceTF.text] == YES || [self isBlankString:marketPriceTF.text] == YES || [self isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [self isBlankString:descriptionTV.text] == YES) {
             kTipAlert(@"商品信息填写不完整");
-        } else if (rightTypeString.length == 0) {
-            kTipAlert(@"面料和辅料未选择二级身份");
         } else {
-            [self publishShoppingMarket];
+            [HttpClient publishDesignWithMarket:@"design" name:nameTF.text type:leftTypeString part:rightTypeString price:salePriceTF.text marketPrice:marketPriceTF.text country:@"cn" amount:amountTF.text description:descriptionTV.text category:self.categoryArray WithCompletionBlock:^(NSDictionary *dictionary) {
+                int statusCode = [dictionary[@"statusCode"] intValue];
+                if (statusCode == 200) {
+                    kTipAlert(@"发布成功");
+                    if (self.collectionImage.count > 0) {
+                        NSDictionary *myDic = dictionary[@"responseObject"];
+                        NSString *policyString = myDic[@"data"][@"policy"];
+                        NSString *signatureString = myDic[@"data"][@"signature"];
+                        UpYun *upYun = [[UpYun alloc] init];
+                        upYun.bucket = bucketAPI;//图片测试
+                        upYun.expiresIn = 600;// 10分钟
+                        
+                        DLog(@"%@",self.collectionImage);
+                        [self.collectionImage enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            UIImage *image = (UIImage *)obj;
+                            [upYun uploadImage:image policy:policyString signature:signatureString];
+                        }];
+                        
+                    }else{
+                        // 用户未上传图片
+                        kTipAlert(@"未上传图片");
+                    }
+                    
+                } else {
+                    kTipAlert(@"发布失败");
+                }
+                
+                
+            }];
         }
-
     }
     
     
-    }
-
-
-- (void)publishShoppingMarket {
-    [HttpClient publishFabricWithMarket:leftTypeString name:nameTF.text type:rightTypeString price:salePriceTF.text marketPrice:marketPriceTF.text amount:amountTF.text unit:unitTF.text description:descriptionTV.text category:self.categoryArray WithCompletionBlock:^(NSDictionary *dictionary) {
-        int statusCode = [dictionary[@"statusCode"] intValue];
-        if (statusCode==200) {
-            kTipAlert(@"发布成功");
-            if (self.collectionImage.count > 0) {
-                NSDictionary *myDic = dictionary[@"responseObject"];
-                NSString *policyString = myDic[@"data"][@"policy"];
-                NSString *signatureString = myDic[@"data"][@"signature"];
-                UpYun *upYun = [[UpYun alloc] init];
-                upYun.bucket = bucketAPI;//图片测试
-                upYun.expiresIn = 600;// 10分钟
-                
-                DLog(@"%@",self.collectionImage);
-                [self.collectionImage enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    UIImage *image = (UIImage *)obj;
-                    [upYun uploadImage:image policy:policyString signature:signatureString];
-                }];
-                
-            }else{
-                // 用户未上传图片
-                kTipAlert(@"未上传图片");
-            }
-            
-        }else {
-            kTipAlert(@"发布失败");
-        }
-        
-    }];
 }
-
 
 //判断是否含有字符
 - (BOOL) isBlankString:(NSString *)string {
@@ -591,30 +573,34 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 }
 
 - (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column{
-    return _supplierTypeArray.count;
+    return allTypeArray.count;
 }
 
 - (NSInteger)menu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column{
     if (row == 0) {
-        return _fabricTypeArray.count;
+        return manTypeArray.count;
     }else if (row == 1){
-        return 0;
+        return womenTypeArray.count;
     }else if (row == 2){
-        return _machineTypeArray.count;
+        return boyTypeArray.count;
+    } else if (row == 3) {
+        return girlTypeArray.count;
     }
     return 0;
 }
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath{
-    return _supplierTypeArray[indexPath.row];
+    return allTypeArray[indexPath.row];
 }
 
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath{
     if (indexPath.row == 0) {
-        return _fabricTypeArray[indexPath.item];
+        return manTypeArray[indexPath.item];
     }else if (indexPath.row == 1){
-        return nil;
+        return womenTypeArray[indexPath.item];
     }else if (indexPath.row == 2){
-        return _machineTypeArray[indexPath.item];
+        return boyTypeArray[indexPath.item];
+    } else if (indexPath.row == 3) {
+        return girlTypeArray[indexPath.item];
     }
     return nil;
 }
@@ -622,48 +608,87 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:
-            leftTypeString = @"fabric";//面料
+            leftTypeString = @"male";
             rightTypeString = nil;
             switch (indexPath.item) {
                 case 0:
-                    rightTypeString = @"knit";
+                    rightTypeString = @"top";
                     break;
                 case 1:
-                    rightTypeString = @"woven";
+                    rightTypeString = @"bottom";
                     break;
                 case 2:
-                    rightTypeString = @"spcial";
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case 1:
-            leftTypeString = @"accessory";//辅料
-            rightTypeString = nil;
-            break;
-        case 2:
-            leftTypeString = @"machine";//机械设备
-            rightTypeString = nil;
-            switch (indexPath.item) {
-                case 0:
-                    rightTypeString = @"machine";
-                    break;
-                case 1:
-                    rightTypeString = @"accessory";
+                    rightTypeString = @"suit";
                     break;
                 
                 default:
                     break;
             }
             break;
+        case 1:
+            leftTypeString = @"female";
+            rightTypeString = nil;
+            switch (indexPath.item) {
+                case 0:
+                    rightTypeString = @"top";
+                    break;
+                case 1:
+                    rightTypeString = @"bottom";
+                    break;
+                case 2:
+                    rightTypeString = @"suit";
+                    break;
+                
+                default:
+                    break;
+            }
+
+            break;
+        case 2:
+            leftTypeString = @"boy";
+            rightTypeString = nil;
+            switch (indexPath.item) {
+                case 0:
+                    rightTypeString = @"top";
+                    break;
+                case 1:
+                    rightTypeString = @"bottom";
+                    break;
+                case 2:
+                    rightTypeString = @"suit";
+                    break;
+                
+                default:
+                    break;
+            }
+            break;
+        case 3:
+            leftTypeString = @"girl";
+            rightTypeString = nil;
+            switch (indexPath.item) {
+                case 0:
+                    rightTypeString = @"top";
+                    break;
+                case 1:
+                    rightTypeString = @"bottom";
+                    break;
+                case 2:
+                    rightTypeString = @"suit";
+                    break;
+                
+                default:
+                    break;
+            }
+            break;
+
         default:
             break;
     }
     
     DLog(@"leftString = %@, rightString = %@", leftTypeString, rightTypeString);
-//    DLog(@"%ld,%ld",(long)indexPath.row,(long)indexPath.item);
+    //    DLog(@"%ld,%ld",(long)indexPath.row,(long)indexPath.item);
 }
+
 /*
 #pragma mark - Navigation
 

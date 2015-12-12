@@ -10,4 +10,6 @@
 
 @interface MeDetailSupply_VC : UITableViewController
 
+@property (nonatomic, strong) NSString *goodsID;//传入商品id, 获取商品详情
+
 @end

@@ -218,11 +218,15 @@
             DLog(@"我的店铺");
             if (self.MyProfile.UserType == UserType_designer) {
                 //设计者
-                
+                MeShopController *meShopVC = [[MeShopController alloc] init];
+                meShopVC.myUserType = UserType_designer;
+                meShopVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:meShopVC animated:YES];
                 
             } else if (self.MyProfile.UserType == UserType_supplier) {
                 //供应商
                 MeShopController *meShopVC = [[MeShopController alloc] init];
+                meShopVC.myUserType = UserType_supplier;
                 meShopVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:meShopVC animated:YES];
             }

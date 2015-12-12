@@ -95,5 +95,7 @@
 
 // 商家汇总筛选条件
 + (NSDictionary *)returenSelectDataDictionaryWithIndex:(NSInteger)index;
+// 商品购买筛选条件
++ (NSDictionary *)goodsSelectDataDictionaryWithIndex:(NSInteger)index;
 
 @end
