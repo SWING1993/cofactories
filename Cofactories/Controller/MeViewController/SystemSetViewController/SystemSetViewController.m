@@ -11,7 +11,6 @@
 #import "UMFeedback.h"
 #import "RootViewController.h"
 #import "SystemSetViewController.h"
-#import "AboutViewController.h"
 #import "RevisePasswordViewController.h"
 #import "UserProtocolViewController.h"
 
@@ -22,42 +21,35 @@
 @end
 
 @implementation SystemSetViewController {
-//    UITextField*inviteCodeTF;
-//    UIButton * quitButton;
     UIAlertView * inviteCodeAlert;
+    UIAlertView * quitAlert;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 
     self.title=@"设置";
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     
-    /*
-    inviteCodeTF=[[UITextField alloc]initWithFrame:CGRectMake(70, 7, 100, 30)];
-    inviteCodeTF.font = kFont;
-    inviteCodeTF.borderStyle=UITextBorderStyleRoundedRect;
-    inviteCodeTF.keyboardType=UIKeyboardTypeNumberPad;
-    inviteCodeTF.clearButtonMode = UITextFieldViewModeWhileEditing;
-    inviteCodeTF.placeholder=@"邀请码";
-    if (![self.inviteCode isEqualToString:@"尚未填写"]) {
-        inviteCodeTF.text = self.inviteCode;
-    }
-    */
+    UIView*tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 130)];
+    tableHeaderView.backgroundColor=[UIColor whiteColor];
     
-    self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
-    self.tableView.showsVerticalScrollIndicator=NO;
+    UIImageView*logoImage = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenW/2-40, 10, 80, 80)];
+    logoImage.image=[UIImage imageNamed:@"login_logo"];
+    logoImage.layer.cornerRadius = 15;
+    logoImage.layer.masksToBounds = YES;
+    [tableHeaderView addSubview:logoImage];
     
-    /*
-    quitButton=[[UIButton alloc]initWithFrame:CGRectMake(50, 7, kScreenW-100, 30)];
-    quitButton.titleLabel.font = kFont;
-    [quitButton setTitle:@"退出登录" forState:UIControlStateNormal];
-    [quitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [quitButton addTarget:self action:@selector(quitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-     */
+    UILabel*logoLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, kScreenW, 20)];
+    logoLabel.font = kLargeFont;
+    logoLabel.text=[NSString stringWithFormat:@"聚工厂 cofactories %@",kVersion_Cofactories];
+    logoLabel.textAlignment = NSTextAlignmentCenter;
+    [tableHeaderView addSubview:logoLabel];
+    
+    self.tableView.tableHeaderView=tableHeaderView;
+
     
     inviteCodeAlert = [[UIAlertView alloc]initWithTitle:@"邀请码"
                                                     message:nil
@@ -75,16 +67,10 @@
         alertTextField.text = self.inviteCode;
     }
     alertTextField.keyboardType = UIKeyboardTypeNumberPad;
-}
-
-/*
-- (void)quitButtonClicked{
     
-    UIAlertView*alertView = [[UIAlertView alloc]initWithTitle:@"确定退出" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    alertView.tag = 404;
-    [alertView show];
+    quitAlert = [[UIAlertView alloc]initWithTitle:@"确定退出" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    quitAlert.tag = 404;
 }
- */
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 404) {
@@ -118,42 +104,29 @@
     }
 }
 
-/*
-- (void)OKBtn {
-    if (inviteCodeTF.text.length!=0) {
-        [HttpClient registerWithInviteCode:inviteCodeTF.text andBlock:^(NSInteger statusCode) {
-            if (statusCode == 200) {
-                kTipAlert(@"邀请码提交成功!");
-            }
-            else if (statusCode == 400) {
-                kTipAlert(@"不存在该邀请码。(错误码：400)");
-            }
-            else if (statusCode == 409) {
-                kTipAlert(@"该用户已存在邀请码。(错误码：409)");
-            }
-            else {
-                kTipAlert(@"邀请码提交失败，尝试重新提交。(错误码：%ld)",(long)statusCode);
-            }
-        }];
-    }else{
-        kTipAlert(@"请您填写邀请码后再提交!");
-    }
-}
- */
-
 #pragma mark - Table view data source
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 7;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0) {
+        return 3;
+    }
+    else if (section == 1) {
+        return 3;
+    }
     return 1;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 5.0f;
+    if (section == 0) {
+        return 0.0001f;
+    }
+    return 7.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -171,54 +144,56 @@
         
         switch (indexPath.section) {
             case 0:{
-                cell.textLabel.text=@"修改密码";
+                switch (indexPath.row) {
+                    case 0:{
+                        cell.textLabel.text=@"去评分";
+
+                    }
+                        break;
+                    case 1:{
+                        cell.textLabel.text = @"去分享";
+                    }
+                        break;
+                    case 2:{
+                        cell.textLabel.text=@"邀请码";
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
                 
             }
                 break;
                 
                 
             case 1:{
-                cell.textLabel.text=@"意见反馈";
+                switch (indexPath.row) {
+                    case 0:{
+                        cell.textLabel.text=@"修改密码";
+                    }
+                        break;
+                    case 1:{
+                        cell.textLabel.text=@"意见反馈";
+                    }
+                        break;
+                    case 2:{
+                        cell.textLabel.text = @"服务协议";
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
                 
             }
                 
                 break;
             case 2:{
-                cell.textLabel.text=@"分享给好友";
-            }
-                break;
-                
-            case 3:{
-                cell.textLabel.text = @"聚工厂用户服务协议";
-                
-            }
-                break;
-                
-            case 4:{
-                cell.textLabel.text=@"邀请码";
-                /*
-                [cell setAccessoryType:UITableViewCellAccessoryNone];
-                [cell addSubview:inviteCodeTF];
-                blueButton*OKBtn = [[blueButton alloc]initWithFrame:CGRectMake(kScreenW-70, 10, 60, 24)];
-                [OKBtn setTitle:@"提交" forState:UIControlStateNormal];
-                [OKBtn addTarget:self action:@selector(OKBtn) forControlEvents:UIControlEventTouchUpInside];
-                [cell addSubview:OKBtn];
-                 */
-            }
-                break;
-                
-            case 5:{
-                cell.textLabel.text=@"关于聚工厂";
-                
-            }
-                break;
-
-                
-            case 6:{
                 cell.textLabel.text = @"注销登录";
             }
                 break;
-                
+
             default:
                 break;
         }
@@ -228,59 +203,76 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     switch (indexPath.section) {
         case 0:{
-            RevisePasswordViewController*reviseVC = [[RevisePasswordViewController alloc]init];
-            UINavigationController*reviseNav = [[UINavigationController alloc]initWithRootViewController:reviseVC];
-            reviseNav.modalPresentationStyle = UIModalPresentationCustom;
-            [self presentViewController:reviseNav animated:YES completion:nil];
+            switch (indexPath.row) {
+                case 0:{
+                    NSString *str = kAppReviewURL;
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+                }
+                    break;
+                case 1:{
+                    [UMSocialSnsService presentSnsIconSheetView:self
+                                                         appKey:Appkey_Umeng
+                                                      shareText:@"推荐一款非常好用的app——聚工厂，大家快来试试。下载链接：https://itunes.apple.com/cn/app/ju-gong-chang/id1015359842?mt=8"
+                                                     shareImage:[UIImage imageNamed:@"icon.png"]
+                                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToRenren, UMShareToSina,UMShareToTencent,UMShareToEmail,UMShareToSms,nil]
+                                                       delegate:self];
+                }
+                    break;
+                case 2:{
+                    [inviteCodeAlert show];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
         }
             break;
+            
             
         case 1:{
-            [self presentViewController:[UMFeedback feedbackModalViewController] animated:YES completion:nil];
+            switch (indexPath.row) {
+                case 0:{
+                    RevisePasswordViewController*reviseVC = [[RevisePasswordViewController alloc]init];
+                    UINavigationController*reviseNav = [[UINavigationController alloc]initWithRootViewController:reviseVC];
+                    reviseNav.modalPresentationStyle = UIModalPresentationCustom;
+                    [self presentViewController:reviseNav animated:YES completion:nil];
+                }
+                    break;
+                case 1:{
+                    [self presentViewController:[UMFeedback feedbackModalViewController] animated:YES completion:nil];
+                }
+                    break;
+                case 2:{
+                    UserProtocolViewController * protocolVC = [[UserProtocolViewController alloc]init];
+                    UINavigationController * protocolNav = [[UINavigationController alloc]initWithRootViewController:protocolVC];
+                    [self presentViewController:protocolNav animated:YES completion:^{
+                        
+                    }];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
         }
+            
             break;
         case 2:{
-            [UMSocialSnsService presentSnsIconSheetView:self
-                                                 appKey:Appkey_Umeng
-                                              shareText:@"推荐一款非常好用的app——聚工厂，大家快来试试。下载链接：https://itunes.apple.com/cn/app/ju-gong-chang/id1015359842?mt=8"
-                                             shareImage:[UIImage imageNamed:@"icon.png"]
-                                        shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToRenren, UMShareToSina,UMShareToTencent,UMShareToEmail,UMShareToSms,nil]
-                                               delegate:self];
-        }
-            break;
-            
-        case 3: {
-            UserProtocolViewController * protocolVC = [[UserProtocolViewController alloc]init];
-            UINavigationController * protocolNav = [[UINavigationController alloc]initWithRootViewController:protocolVC];
-            [self presentViewController:protocolNav animated:YES completion:^{
-                
-            }];
-        }
-            break;
-            
-        case 4: {
-        [inviteCodeAlert show];
-        }
-            break;
-            
-        case 5:{
-            AboutViewController*aboutVC = [[AboutViewController alloc]init];
-            UINavigationController*aboutNav = [[UINavigationController alloc]initWithRootViewController:aboutVC];
-            aboutNav.modalPresentationStyle = UIModalPresentationCustom;
-            [self presentViewController:aboutNav animated:YES completion:nil];
-            
-        }
-            break;
 
-            
-        case 6 : {
-            UIAlertView*alertView = [[UIAlertView alloc]initWithTitle:@"确定退出" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            alertView.tag = 404;
-            [alertView show];
+            [quitAlert show];
         }
             break;
+            
+        default:
+            break;
+    }
+
             /*
         case 4:{
             
@@ -333,9 +325,6 @@
             break;
              */
 
-        default:
-            break;
-    }
 }
 
 //友盟实现回调方法（可选）：

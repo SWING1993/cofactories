@@ -98,7 +98,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         WalletHistoryInfoViewController * infoVC = [[WalletHistoryInfoViewController alloc]init];
-        infoVC.title = @"账单详情";
+        infoVC.title = @"明细详情";
         infoVC.model = self.modelArray[indexPath.row];
         [self.navigationController pushViewController:infoVC animated:YES];
     }

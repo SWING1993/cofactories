@@ -13,6 +13,7 @@
 #import "WalletModel.h"
 #import "WithdrawalViewController.h"
 #import "WalletHistoryViewController.h"
+#import "AboutWalletViewController.h"
 
 
 #define kHeaderHeight kScreenW*0.47
@@ -21,7 +22,8 @@
 @interface WalletViewController () {
     UIButton * _leftBtn;
     UIButton * _rightBtn;
-    UILabel  * _myLabel;
+    UILabel  * _myLabel1;
+    UILabel  * _myLabel2;
 }
 @property (nonatomic,retain)WalletModel * walletModel;
 @property (nonatomic,retain)UserModel * MyProfile;
@@ -41,9 +43,10 @@
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
             self.walletModel = [responseDictionary objectForKey:@"model"];
-            _myLabel.text = [NSString stringWithFormat:@"钱包余额 %.2f元\n\n冻结金额 %.2f元",self.walletModel.money,self.walletModel.freeze];
+            _myLabel1.text = [NSString stringWithFormat:@"\n%.2f",self.walletModel.money];
+            _myLabel2.text = [NSString stringWithFormat:@"余额(元)\n\n冻结金额 %.2f元",self.walletModel.freeze];
             
-           // \n\n可提现额度 %.2f元,self.walletModel.maxWithDraw
+            // \n\n可提现额度 %.2f元,self.walletModel.maxWithDraw
         }
         else {
             NSString * message = [responseDictionary objectForKey:@"message"];
@@ -80,18 +83,24 @@
     _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_rightBtn addTarget:self action:@selector(clickHeaderBtnInSection:) forControlEvents:UIControlEventTouchUpInside];
     
-    _myLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47/4, kScreenW, kScreenW*0.47*3/4)];
-    _myLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-    _myLabel.numberOfLines = 5;
-    _myLabel.textAlignment = NSTextAlignmentCenter;
-    _myLabel.textColor = [UIColor whiteColor];
+    _myLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47/4, kScreenW, kScreenW*0.47*1/4)];
+    _myLabel1.font = [UIFont boldSystemFontOfSize:16.0f];
+    _myLabel1.numberOfLines = 2;
+    _myLabel1.textAlignment = NSTextAlignmentCenter;
+    _myLabel1.textColor = [UIColor whiteColor];
     
+    _myLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47/2, kScreenW, kScreenW*0.47/2)];
+    _myLabel2.font = kFont;
+    _myLabel2.numberOfLines = 5;
+    _myLabel2.textAlignment = NSTextAlignmentCenter;
+    _myLabel2.textColor = [UIColor whiteColor];
 
     
     
     UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 0.47)];
     image.image = [self imageFromColor:[UIColor colorWithRed:0.188 green:0.475 blue:0.839 alpha:1.000] forSize:CGSizeMake(kScreenW, kScreenW*0.47) withCornerRadius:0];
-    [image addSubview:_myLabel];
+    [image addSubview:_myLabel1];
+    [image addSubview:_myLabel2];
     
     
 
@@ -210,7 +219,9 @@
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            DLog(@"关于钱包");
+            AboutWalletViewController * aboutVC = [[AboutWalletViewController alloc]init];
+            aboutVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:aboutVC animated:YES];
         }
     }
 }
