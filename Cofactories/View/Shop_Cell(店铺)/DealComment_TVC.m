@@ -12,6 +12,7 @@
     UIImageView  *_userImage;
     UILabel      *_userNameLB;
     UILabel      *_commentTimeLB;
+    CALayer      *_lineLayer;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -46,10 +47,9 @@
             }
         }
         
-        CALayer *lineLayer = [CALayer layer];
-        lineLayer.frame = CGRectMake(0, 89, kScreenW, 0.5);
-        lineLayer.backgroundColor = [UIColor grayColor].CGColor;
-        [self.layer addSublayer:lineLayer];
+        _lineLayer = [CALayer layer];
+        _lineLayer.backgroundColor = [UIColor grayColor].CGColor;
+        [self.layer addSublayer:_lineLayer];
     }
     return self;
 }
@@ -58,9 +58,18 @@
     _userNameLB.text = model.name;
     _commentTimeLB.text = model.createdTime;
     _commentContentLB.numberOfLines = 0;
+    CGSize size = [self returnSizeWithString:model.commentString];
+    _commentContentLB.frame =  CGRectMake(90, 65, kScreenW-100, size.height);
     _commentContentLB.text = model.commentString;
+    _lineLayer.frame = CGRectMake(0, 65+_commentContentLB.frame.size.height+12, kScreenW, 0.5);
     [_userImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,model.userID]] placeholderImage:[UIImage imageNamed:@"headBtn.png"]];
 }
 
-
+- (CGSize)returnSizeWithString:(NSString *)string{
+    
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};
+    CGSize requiredSize = [string boundingRectWithSize:CGSizeMake(kScreenW-10-90, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading
+                                            attributes:attribute context:nil].size;
+    return requiredSize;
+}
 @end

@@ -44,7 +44,7 @@
         _nameLBLeft = [[UILabel alloc] initWithFrame:CGRectMake(10, (kScreenW-10)/2.f+10, (kScreenW-10)/2.f-20, 25)];
         _nameLBLeft.font = [UIFont systemFontOfSize:14];
         [_buttonLeft addSubview:_nameLBLeft];
-        _priceLBLeft = [[UILabel alloc] initWithFrame:CGRectMake(10, (kScreenW-10)/2.f+10+25, 50, 25)];
+        _priceLBLeft = [[UILabel alloc] initWithFrame:CGRectMake(10, (kScreenW-10)/2.f+10+25, 70, 25)];
         _priceLBLeft.font = [UIFont systemFontOfSize:14];
         _priceLBLeft.textColor = [UIColor redColor];
         [_buttonLeft addSubview:_priceLBLeft];
@@ -60,7 +60,7 @@
         _nameLBRight = [[UILabel alloc] initWithFrame:CGRectMake(10, (kScreenW-10)/2.f+10, (kScreenW-10)/2.f-20, 25)];
         _nameLBRight.font = [UIFont systemFontOfSize:14];
         [_buttonRight addSubview:_nameLBRight];
-        _priceLBRight = [[UILabel alloc] initWithFrame:CGRectMake(10, (kScreenW-10)/2.f+10+25, 50, 25)];
+        _priceLBRight = [[UILabel alloc] initWithFrame:CGRectMake(10, (kScreenW-10)/2.f+10+25, 70, 25)];
         _priceLBRight.font = [UIFont systemFontOfSize:14];
         _priceLBRight.textColor = [UIColor redColor];
         [_buttonRight addSubview:_priceLBRight];

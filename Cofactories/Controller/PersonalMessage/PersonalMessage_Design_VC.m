@@ -231,11 +231,12 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         return (kScreenW - 40)/3.f+10;
     }else if (_selectedIndex == 3){
 
-        return 90;
+         DealComment_Model *model = _dataArrayThree[indexPath.row];
+        CGSize size = [self returnSizeWithString:model.commentString];
+        return 80+size.height;
     }
     return 0;
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 41;
@@ -266,7 +267,6 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         if(button.tag == _selectedIndex) {
             button.selected = YES;
         }
-        
     }
     return view;
 }
@@ -301,6 +301,14 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 #pragma mark - 导航pop
 - (void)goBackClick{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (CGSize)returnSizeWithString:(NSString *)string{
+    
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};
+    CGSize requiredSize = [string boundingRectWithSize:CGSizeMake(kScreenW-10-90, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading
+                                            attributes:attribute context:nil].size;
+    return requiredSize;
 }
 
 @end
