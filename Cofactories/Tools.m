@@ -340,5 +340,12 @@
     
     return [array objectAtIndex:index-1];
 }
++ (NSDictionary *)goodsSelectDataDictionaryWithIndex:(NSInteger)index {
+    NSArray * array = @[@{@"accountType":@[@"全部面料",@"针织",@"梭织",@"特种面料"],@"scale":@[@"价格不限",@"从高到低",@"从低到高"],@"area":@[@"地区不限",@"浙江",@"安徽",@"广东",@"福建",@"江苏",@"其他"]},
+                        @{@"accountType":@[@"价格不限",@"从高到低",@"从低到高"], @"area":@[@"地区不限",@"浙江",@"安徽",@"广东",@"福建",@"江苏",@"其他"]},
+                        @{@"accountType":@[@"全部设备",@"机械设备",@"配件"],@"scale":@[@"价格不限",@"从高到低",@"从低到高"],@"area":@[@"地区不限",@"浙江",@"安徽",@"广东",@"福建",@"江苏",@"其他"]}];
+    
+    return [array objectAtIndex:index-1];
 
+}
 @end

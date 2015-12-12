@@ -96,6 +96,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 //        [button sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,self.photoArray[i]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@""]];
         [button setImage:[UIImage imageNamed:self.photoArray[i]] forState:UIControlStateNormal];
+        button.imageView.contentMode = UIViewContentModeScaleAspectFill;
         [button setFrame:CGRectMake(i * kScreenW, 0, kScreenW, (kScreenH)/2.0-80)];
         [button addTarget:self action:@selector(MJPhotoBrowserClick:) forControlEvents:UIControlEventTouchUpInside];
         button.tag = i;

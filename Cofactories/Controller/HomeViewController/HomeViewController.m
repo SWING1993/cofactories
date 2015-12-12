@@ -213,9 +213,6 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2) {
         DLog(@"第%ld个活动", indexPath.row + 1);
-        MeShopController *meShopVC = [[MeShopController alloc] init];
-        meShopVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:meShopVC animated:YES];
         
     }
 }

@@ -18,9 +18,13 @@
 @property (nonatomic,copy)NSString *name;
 @property (nonatomic,copy)NSString *part;
 @property (nonatomic,strong)NSArray *photoArray;
+@property (nonatomic,strong)NSArray *categoryArray;
 @property (nonatomic,copy)NSString *price;
+@property (nonatomic,copy)NSString *marketPrice;
+@property (nonatomic,copy)NSString *enterPrisePrice;//企业用户专享价
 @property (nonatomic,copy)NSString *sales; // 销售出去的次数
 @property (nonatomic,copy)NSString *type;
+@property (nonatomic,copy)NSString *market;//哪个市场
 @property (nonatomic,copy)NSString *updatedAt;
 @property (nonatomic,copy)NSString *userUid;
 

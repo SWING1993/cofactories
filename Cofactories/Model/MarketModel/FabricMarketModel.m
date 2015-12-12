@@ -12,37 +12,83 @@
 
 - (instancetype)initFabricMarketModelWithDictionary:(NSDictionary *)dictionary{
     if (self = [super init]) {
-        self.amount = dictionary[@"amount"];
+        self.amount = [NSString stringWithFormat:@"%@", dictionary[@"amount"]];
         
         NSString *creatString = dictionary[@"createdAt"];
         NSArray *creatArray = [Tools WithTime:creatString];
         self.createdAt = (NSString *)[creatArray firstObject];
         
-        if ([dictionary[@"type"] isEqualToString:@"knit"]) {
-            self.type = @"针织";
-        }else if ([dictionary[@"type"] isEqualToString:@"woven"]){
-            self.type = @"梭织";
-        }else if ([dictionary[@"type"] isEqualToString:@"special"]){
-            self.type = @"特种面料";
-        }
+//        if ([dictionary[@"type"] isEqualToString:@"knit"]) {
+//            self.type = @"针织";
+//        }else if ([dictionary[@"type"] isEqualToString:@"woven"]){
+//            self.type = @"梭织";
+//        }else if ([dictionary[@"type"] isEqualToString:@"special"]){
+//            self.type = @"特种面料";
+//        }else if ([dictionary[@"type"] isEqualToString:@"machine"]){
+//            self.type = @"机械设备";
+//        }else if ([dictionary[@"type"] isEqualToString:@"part"]){
+//            self.type = @"配件";
+//        }else if ([dictionary[@"type"] isEqualToString:@"male"]){
+//            self.type = @"男装";
+//        }else if ([dictionary[@"type"] isEqualToString:@"female"]){
+//            self.type = @"女装";
+//        }else if ([dictionary[@"type"] isEqualToString:@"boy"]){
+//            self.type = @"男童";
+//        }else if ([dictionary[@"type"] isEqualToString:@"girl"]){
+//            self.type = @"女童";
+//        }else {
+//            self.type = @"暂无";
+//        }
+
+        
+        self.market = dictionary[@"market"];
         
         self.descriptions = dictionary[@"description"];
-        self.ID = dictionary[@"id"];
+        self.ID = [NSString stringWithFormat:@"%@", dictionary[@"id"]];
         self.name = dictionary[@"name"];
-        self.price = dictionary[@"price"];
+        self.price = [NSString stringWithFormat:@"%@", dictionary[@"price"]];
+        self.marketPrice = [NSString stringWithFormat:@"%@", dictionary[@"marketPrice"]];
+        self.enterPrisePrice = [NSString stringWithFormat:@"%@", dictionary[@"enterprisePrice"]];
         self.photoArray = dictionary[@"photo"];
+        self.catrgoryArray = dictionary[@"category"];
         
         NSString *saleString = [NSString stringWithFormat:@"%@",dictionary[@"sales"]];
         if ([saleString isEqualToString:@"<null>"]) {
             self.sales = @"暂未售出";
         }else{
-            self.sales = dictionary[@"sales"];
+            self.sales = saleString;
         }
         
-        self.unit = dictionary[@"unit"];
+        NSString *unitString = [NSString stringWithFormat:@"%@",dictionary[@"unit"]];
+        if ([unitString isEqualToString:@"<null>"]) {
+            self.unit = @"件";
+        } else {
+            self.unit = dictionary[@"unit"];
+        }
+        
         self.userUid  = dictionary[@"userUid"];
-        self.usage = dictionary[@"usage"];
-        self.width = dictionary[@"width"];
+        
+        
+        //设计市场专有
+//        if ([dictionary[@"country"] isEqualToString:@"jp"]) {
+//            self.country = @"日本";
+//        }else if ([dictionary[@"country"] isEqualToString:@"kr"]){
+//            self.country = @"韩国";
+//        }else if ([dictionary[@"country"] isEqualToString:@"eu"]){
+//            self.country = @"欧美";
+//        }else if ([dictionary[@"country"] isEqualToString:@"cn"]){
+//            self.country = @"中国";
+//        }
+//
+//        if ([dictionary[@"part"] isEqualToString:@"top"]) {
+//            self.part = @"上衣";
+//        } else if ([dictionary[@"part"] isEqualToString:@"bottom"]) {
+//            self.part = @"下衣";
+//        } else if ([dictionary[@"part"] isEqualToString:@"suit"]) {
+//            self.part = @"套装";
+//        }
+//        
+//        self.productId = dictionary[@"productId"];
     }
     return self;
 }
@@ -51,5 +97,12 @@
     
     return [[self alloc]initFabricMarketModelWithDictionary:dictionary];
 }
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"name = %@, price = %@, marketPrice = %@, amount = %@, unit = %@, descriptions = %@", self.name, self.price, self.marketPrice, self.amount, self.unit, self.descriptions];
+}
+
+
 
 @end
