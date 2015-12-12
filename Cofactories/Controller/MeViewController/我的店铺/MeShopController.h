@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MeShopController : UIViewController
+@property (nonatomic, assign) NSInteger myUserType;
+
 
 @end

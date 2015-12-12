@@ -17,14 +17,23 @@
 @property (nonatomic,copy)NSString *ID;
 @property (nonatomic,copy)NSString *name;
 @property (nonatomic,strong)NSArray *photoArray;
+@property (nonatomic,strong)NSArray *catrgoryArray;
 @property (nonatomic,copy)NSString *price;
+@property (nonatomic,copy)NSString *marketPrice;
+@property (nonatomic,copy)NSString *enterPrisePrice;//企业用户专享价
 @property (nonatomic,copy)NSString *sales; // 销售出去的次数
 @property (nonatomic,copy)NSString *unit;
 @property (nonatomic,copy)NSString *type;
+@property (nonatomic,copy)NSString *market;//什么市场
 @property (nonatomic,copy)NSString *updatedAt;
 @property (nonatomic,copy)NSString *userUid;
-@property (nonatomic,copy)NSString *usage;
-@property (nonatomic,copy)NSString *width;
+
+//设计市场专有
+@property (nonatomic,copy)NSString *country;
+@property (nonatomic,copy)NSString *part;//上衣，下衣，套装
+@property (nonatomic,copy)NSString *productId;
+
+
 
 - (instancetype)initFabricMarketModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getFabricMarketModelWithDictionary:(NSDictionary *)dictionary;

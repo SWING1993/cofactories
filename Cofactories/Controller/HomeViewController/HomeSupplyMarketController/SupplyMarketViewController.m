@@ -10,6 +10,10 @@
 #import "ZGYSupplyMarketView.h"
 #import "materialShopViewController.h"
 #import "Business_Supplier_VC.h"
+#import "FabricShop_VC.h"//面料商城
+#import "AccessoryShop_VC.h"//辅料商城
+#import "MachineShop_VC.h"//机械设备商城
+
 
 @interface SupplyMarketViewController ()<UIScrollViewDelegate, ZGYSupplyMarketViewDelegate> {
     NSMutableArray *btnArray;
@@ -157,10 +161,39 @@
         }
     } else {
         DLog(@"右边第 %ld 个", (long)supplyMarketButtonTag);
-        //面料商城
-        materialShopViewController *materialShopVC = [[materialShopViewController alloc] init];
-        materialShopVC.number = supplyMarketButtonTag + 1;
-        [self.navigationController pushViewController:materialShopVC animated:YES];
+        switch (supplyMarketButtonTag) {
+            case 0: {
+                //面料商城
+                FabricShop_VC *fabricShopVC = [[FabricShop_VC alloc] initWithSubrole:@"" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:1]];
+                [self.navigationController pushViewController:fabricShopVC animated:YES];
+            }
+                
+                break;
+            case 1: {
+                //辅料商城
+                AccessoryShop_VC *accessoryVC = [[AccessoryShop_VC alloc] initWithSubrole:@"辅料商城" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:2]];
+                [self.navigationController pushViewController:accessoryVC animated:YES];
+ 
+                
+                
+            }
+                
+                break;
+            case 2: {
+                MachineShop_VC *machineVC = [[MachineShop_VC alloc] initWithSubrole:@"机械设备" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:3]];
+                [self.navigationController pushViewController:machineVC animated:YES];
+                
+                
+//                //面料商城
+//                materialShopViewController *materialShopVC = [[materialShopViewController alloc] init];
+//                materialShopVC.number = supplyMarketButtonTag + 1;
+//                [self.navigationController pushViewController:materialShopVC animated:YES];
+            }
+                
+                break;
+            default:
+                break;
+        }
     }
 }
 
