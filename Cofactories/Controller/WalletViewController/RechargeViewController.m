@@ -42,6 +42,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 0, kScreenW - 100, 44)];
     priceTextField.placeholder = @"输入充值金额";
+    priceTextField.tag = 2;
     priceTextField.font = kFont;
     priceTextField.clearButtonMode=UITextFieldViewModeWhileEditing;
     priceTextField.keyboardType = UIKeyboardTypeDecimalPad;
@@ -103,9 +104,10 @@ static NSString *cellIdentifier = @"cellIdentifier";
         [HttpClient walletWithFee:amountStr WihtCharge:^(NSDictionary *responseDictionary) {
             NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
             if (statusCode == 200) {
+                DLog(@"%@",responseDictionary);
                 NSDictionary * dataDic = [responseDictionary objectForKey:@"data"];
                 NSString * tradeNO = [dataDic objectForKey:@"_id"];
-                NSString * descriptionStr = [dataDic objectForKey:@"_id"];
+                NSString * descriptionStr = [dataDic objectForKey:@"description"];
                 NSString * status = [dataDic objectForKey:@"status"];
                 NSString * subject = [dataDic objectForKey:@"subject"];
                 
@@ -122,7 +124,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
                     kTipAlert(@"生成订单信息失败");
                     Btn.enabled = YES;
                 }
-                
                 
             }else {
                 kTipAlert(@"%@",[responseDictionary objectForKey:@"message"]);
@@ -200,6 +201,29 @@ static NSString *cellIdentifier = @"cellIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.tag == 2) {
+        NSMutableString * futureString = [NSMutableString stringWithString:textField.text];
+        [futureString  insertString:string atIndex:range.location];
+        NSInteger flag=0;
+        const NSInteger limited = 2;//小数点后需要限制的个数
+        for (NSInteger i = futureString.length-1; i>=0; i--) {
+            if ([futureString characterAtIndex:i] == '.' ) {
+                if (flag > limited) {
+                    return NO;
+                }
+                break;
+            }
+            flag++;
+        }
+        return YES;
+    }
+    else
+        return YES;
+}
+
 
 -(void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

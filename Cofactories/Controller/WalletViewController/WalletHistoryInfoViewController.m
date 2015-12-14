@@ -9,7 +9,6 @@
 #import "WalletHistoryInfoViewController.h"
 
 @interface WalletHistoryInfoViewController ()
-
 @end
 
 @implementation WalletHistoryInfoViewController
@@ -26,7 +25,6 @@
 
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }

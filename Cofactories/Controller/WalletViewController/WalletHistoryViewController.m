@@ -5,13 +5,16 @@
 //  Created by 赵广印 on 15/11/25.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
-
+#import "MJRefresh.h"
 #import "WalletHistoryModel.h"
 #import "WalletHistoryViewController.h"
 #import "WalletHistoryTableViewCell.h"
 #import "WalletHistoryInfoViewController.h"
 
-@interface WalletHistoryViewController ()
+@interface WalletHistoryViewController () {
+    NSInteger        _refrushCount;
+}
+
 
 @property (nonatomic,retain)WalletHistoryModel * model;
 
@@ -23,11 +26,24 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _refrushCount = 1;
+    self.modelArray = [[NSMutableArray alloc]initWithCapacity:0];
+    self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.rowHeight = 70.0f;
+    [self setupRefresh];
+    
     [HttpClient walletHistoryWithPage:@1 WithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
             self.modelArray = [[responseDictionary objectForKey:@"ModelArray"] mutableCopy];
-            DLog(@"array count = %lu",(unsigned long)[self.modelArray count]);
+            DLog(@"第一页有%lu条数据",(unsigned long)[self.modelArray count]);
             [self.tableView reloadData];
         }
         else {
@@ -37,15 +53,47 @@
     }];
 }
 
+#pragma mark - MJRefesh
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.modelArray = [[NSMutableArray alloc]initWithCapacity:0];
-    self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
-    self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.rowHeight = 70.0f;
-    
-   }
+- (void)setupRefresh
+{
+    [self.tableView addFooterWithTarget:self action:@selector(footerRereshing)];
+    self.tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    self.tableView.footerRefreshingText = @"加载中。。。";
+}
+
+- (void)footerRereshing
+{
+    _refrushCount++;
+    DLog(@"加载第%ld页",_refrushCount);
+    NSNumber * pageNumber = [[NSNumber alloc]initWithInteger:_refrushCount];
+    [HttpClient walletHistoryWithPage:pageNumber WithBlock:^(NSDictionary *responseDictionary) {
+        NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
+        if (statusCode == 200) {
+            NSArray *array = [[responseDictionary objectForKey:@"ModelArray"] mutableCopy];
+            DLog(@"第%lu页有%lu条数据",_refrushCount,(unsigned long)[array count]);
+            if ([array count] == 0) {
+                kTipAlert(@"已经没有更多的数据了 。。。 ");
+                DLog(@"共有%lu条数据",(unsigned long)[self.modelArray count]);
+
+            }else {
+                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    WalletHistoryModel *model = array[idx];
+                    [self.modelArray addObject:model];
+                }];
+                DLog(@"共有%lu条数据",(unsigned long)[self.modelArray count]);
+                [self.tableView reloadData];
+            }
+        }
+        else {
+            NSString * message = [responseDictionary objectForKey:@"message"];
+            kTipAlert(@"%@(错误码：%ld)",message,(long)statusCode);
+        }
+    }];
+    [self.tableView footerEndRefreshing];
+}
+
 
 #pragma mark - Table view data source
 

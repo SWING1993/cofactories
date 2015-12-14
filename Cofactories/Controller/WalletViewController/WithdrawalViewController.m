@@ -39,6 +39,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     self.tableView.showsVerticalScrollIndicator = NO;// 竖直滚动条不显示
     
     priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(85, 0, kScreenW - 100, 44)];
+    priceTextField.tag = 2;
     priceTextField.placeholder = [NSString stringWithFormat:@"本次最多可提现%.2f元",[self.money floatValue]];
     priceTextField.font = kFont;
     priceTextField.clearButtonMode=UITextFieldViewModeWhileEditing;
@@ -46,7 +47,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     priceTextField.delegate = self;
     
     bankcardTextField = [[UITextField alloc] initWithFrame:CGRectMake(85, 0, kScreenW - 100, 44)];
-    bankcardTextField.placeholder = @"与认证银行卡号一致";
+    bankcardTextField.placeholder = @"开户人与账号认证姓名一致";
     bankcardTextField.font = kFont;
     bankcardTextField.clearButtonMode=UITextFieldViewModeWhileEditing;
     bankcardTextField.keyboardType = UIKeyboardTypeDecimalPad;
@@ -126,6 +127,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     }
 }
 
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -172,9 +174,28 @@ static NSString *cellIdentifier = @"cellIdentifier";
     return 0.01;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.tag == 2) {
+        NSMutableString * futureString = [NSMutableString stringWithString:textField.text];
+        [futureString  insertString:string atIndex:range.location];
+        NSInteger flag=0;
+        const NSInteger limited = 2;//小数点后需要限制的个数
+        for (NSInteger i = futureString.length-1; i>=0; i--) {
+            if ([futureString characterAtIndex:i] == '.' ) {
+                if (flag > limited) {
+                    return NO;
+                }
+                break;
+            }
+            flag++;
+        }
+        return YES;
+    }
+    else
+        return YES;
 }
+
 
 
 - (void)didReceiveMemoryWarning {
