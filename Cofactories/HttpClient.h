@@ -221,26 +221,16 @@
 // 发布面料、辅料、机械设备（商城 店铺）
 + (void)publishFabricWithMarket:(NSString *)aMarket name:(NSString *)aName type:(NSString *)aType price:(NSString *)aPrice marketPrice:(NSString *)aMarketPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription category:(NSArray *)aCategory WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
-// 搜索机械设备（市场）
-+ (void)searchMachineWithType:(NSString *)aType price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
 
 // 搜索设计（市场）
-+ (void)searchDesignWithType:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
++ (void)searchDesignWithMarket:(NSString *)aMarket type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity country:(NSString *)aCountry page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
-// 搜索辅料（市场）
-+ (void)searchAccessoryWithPrice:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
-// 搜索面料（市场）
+
+// 搜索面料、辅料、机械设备（商城））
 + (void)searchFabricWithMarket:(NSString *)aMarket type:(NSString *)aType price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
-// 获取机械设备详情
-//+ (void)getMachineDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
-
-// 获取设计详情
-//+ (void)getDesignDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
-
-// 获取辅料详情
-//+ (void)getAccessoryDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 // 获取面料、辅料、机械设备、设计 详情
 + (void)getFabricDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
@@ -317,6 +307,8 @@
 
 // 获取店铺
 + (void)getUserShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+//删除店铺里的商品
++ (void)deleteUserShopWithShopID:(NSString *)aShopID withCompletionBlock:(void(^)(int statusCode))block;
 
 //获取认证信息
 + (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block;
@@ -354,4 +346,6 @@
  */
 
 + (void)getIMTokenWithBlock:(void (^)(NSDictionary *))block;
+
+
 @end

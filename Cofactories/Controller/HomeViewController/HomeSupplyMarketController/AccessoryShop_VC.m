@@ -8,20 +8,28 @@
 
 #import "AccessoryShop_VC.h"
 #import "DOPDropDownMenu.h"
+#import "MaterialShopCell.h"
+#import "materialShopDetailController.h"
+#import "SVPullToRefresh.h"
+#import "SearchShopMarketModel.h"
+static NSString *materialCellIdentifier = @"materialCell";
 
-@interface AccessoryShop_VC ()<DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UISearchBarDelegate>{
+@interface AccessoryShop_VC ()<DOPDropDownMenuDataSource,DOPDropDownMenuDelegate, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>{
     NSString        *_subrole;
     NSDictionary    *_selectDataDictionary;
     DOPDropDownMenu *_dropDownMenu;
     NSArray         *_zhejiangArray;
     NSArray         *_anhuiArray;
     NSArray         *_guangdongArray;
-    NSMutableArray  *_dataArray;
-    NSInteger        _refrushCount;
 }
 @property (nonatomic,copy)NSString *userPrice;
 @property (nonatomic,copy)NSString *userProvince;
 @property (nonatomic,copy)NSString *userCity;
+
+
+@property (nonatomic, strong) UICollectionView *myCollectionView;
+@property (nonatomic, strong) NSMutableArray *goodsArray;
+@property (nonatomic)NSInteger page;
 
 @end
 
@@ -38,7 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    [self creatCollectionView];
     
     _zhejiangArray = @[@"浙江不限",@"湖州(含织里)",@"杭州",@"宁波",@"浙江其他"];
     _anhuiArray = @[@"安徽不限",@"宣城(含广德)",@"安徽其他"];
@@ -47,6 +55,37 @@
     _dropDownMenu.delegate = self;
     _dropDownMenu.dataSource = self;
     [self.view addSubview:_dropDownMenu];
+    self.page = 1;
+    //上拉加载更多数据
+    __weak typeof(self) weakSelf = self;
+    [self.myCollectionView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.page++;
+        DLog(@"^^^^^^^^^^^^^^^^^^^^^^^");
+        [HttpClient searchFabricWithMarket:@"accessory" type:nil price:nil priceOrder:weakSelf.userPrice keyword:nil province:weakSelf.userProvince city:weakSelf.userCity page:@(weakSelf.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+            NSArray *array = dictionary[@"message"];
+            for (NSDictionary *myDic in array) {
+                SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
+                [weakSelf.goodsArray addObject:searchModel];
+            }
+            [weakSelf.myCollectionView.infiniteScrollingView stopAnimating];
+            [weakSelf.myCollectionView reloadData];
+            
+        }];
+    }];
+    
+    [self netWork];
+
+}
+- (void)netWork {
+    self.goodsArray = [NSMutableArray arrayWithCapacity:0];
+    [HttpClient searchFabricWithMarket:@"accessory" type:nil price:nil priceOrder:nil keyword:nil province:nil city:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+        NSArray *array = dictionary[@"message"];
+        for (NSDictionary *myDic in array) {
+            SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
+            [self.goodsArray addObject:searchModel];
+        }
+        [self.myCollectionView reloadData];
+    }];
 }
 
 #pragma mark - 选择器方法
@@ -235,20 +274,85 @@
             break;
     }
     
-    _refrushCount = 1;
+    self.page = 1;
     DLog(@"==%@,==%@,==%@",_userPrice,_userProvince,_userCity);
-    //    [HttpClient searchBusinessWithRole:@"supplier" scale:nil province:_userProvince city:_userCity subRole:_subrole keyWord:_userBusinessName verified:_userType page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
-    //        [_dataArray removeAllObjects];
-    //        NSArray *array = dictionary[@"message"];
-    //        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-    //            NSDictionary *dic = obj;
-    //            Business_Supplier_Model *model = [Business_Supplier_Model getBusinessSupplierModelWithDictionary:dic];
-    //            [_dataArray addObject:model];
-    //        }];
-    //        [_tableView reloadData];
-    //        
-    //    }];
+    self.goodsArray = [NSMutableArray arrayWithCapacity:0];
+    [HttpClient searchFabricWithMarket:@"accessory" type:nil price:nil priceOrder:self.userPrice keyword:nil province:self.userProvince city:self.userCity page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+        NSArray *array = dictionary[@"message"];
+        for (NSDictionary *myDic in array) {
+            SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
+            [self.goodsArray addObject:searchModel];
+        }
+        [self.myCollectionView reloadData];
+        
+    }];
     
+}
+
+- (void)creatCollectionView {
+    //创建CollectionView
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumLineSpacing = 4;
+    layout.minimumInteritemSpacing = 4;
+    self.myCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 45, kScreenW, kScreenH - 45) collectionViewLayout:layout];
+    self.myCollectionView.delegate = self;
+    self.myCollectionView.dataSource = self;
+    self.myCollectionView.backgroundColor = kBackgroundColor;
+    [self.view addSubview:self.myCollectionView];
+    
+    [self.myCollectionView registerClass:[MaterialShopCell class] forCellWithReuseIdentifier:materialCellIdentifier];
+}
+
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.goodsArray.count;
+    
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    MaterialShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:materialCellIdentifier forIndexPath:indexPath];
+    SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
+    //    cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
+    if (myModel.photoArray.count > 0) {
+        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+    } else {
+        cell.photoView.image = [UIImage imageNamed:@"默认图片"];
+    }
+    
+    cell.materialTitle.text = myModel.name;
+    cell.priceLabel.text = [NSString stringWithFormat:@"￥ %@", myModel.price];
+    cell.saleLabel.text = [NSString stringWithFormat:@"已售 %@ 件", myModel.sales];
+    cell.placeLabel.text = myModel.city;
+    return cell;
+}
+
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    //    [self removeSearchBar];
+    materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
+    SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
+    materialShopVC.shopID = myModel.ID;
+    [self.navigationController pushViewController:materialShopVC animated:YES];
+}
+
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+//item大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(kScreenW/2 - 2 , kScreenW/2 + 100);
+}
+//分区边距
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 
