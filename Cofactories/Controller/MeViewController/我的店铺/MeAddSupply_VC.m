@@ -478,35 +478,56 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 
 - (void)addCatergoryBtn {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"商品分类" message:@"注：各个商品分类属性以空格隔开，单个属性20个字以内" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    alert.tag = 555;
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    //得到输入框
-    UITextField *tf=[alertView textFieldAtIndex:0];
-    DLog(@"^^^^^^^^^^^^%@", tf.text);
-    if (buttonIndex == 1) {
-        BOOL tfFlag = [self isBlankString:tf.text];
-        if (tfFlag == YES) {
-            DLog(@"输入的没有内容");
-            kTipAlert(@"输入的内容为空");
-        } else {
-            NSString *cutString = @"";
-            if (tf.text.length > 20) {
-                cutString = [tf.text substringToIndex:20];
+    if (alertView.tag == 555) {
+        //得到输入框
+        UITextField *tf=[alertView textFieldAtIndex:0];
+        DLog(@"^^^^^^^^^^^^%@", tf.text);
+        if (buttonIndex == 1) {
+            BOOL tfFlag = [self isBlankString:tf.text];
+            if (tfFlag == YES) {
+                DLog(@"输入的没有内容");
+                kTipAlert(@"输入的内容为空");
             } else {
-                cutString = tf.text;
+                NSString *cutString = @"";
+                if (tf.text.length > 20) {
+                    cutString = [tf.text substringToIndex:20];
+                } else {
+                    cutString = tf.text;
+                }
+                [self.categoryArray addObject:cutString];
+                DLog(@"%ld", self.categoryArray.count);
+                [self.collectionView1 reloadData];
+                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:3];
+                [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
             }
-            [self.categoryArray addObject:cutString];
-            DLog(@"%ld", self.categoryArray.count);
-            [self.collectionView1 reloadData];
-            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:3];
-            [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+        }
+
+    }
+    
+    if (alertView.tag == 666) {
+        if (buttonIndex == 1) {
+            [self publishShoppingMarket];
+        } else {
+            
+        }
+
+    }
+    if (alertView.tag == 777) {
+        if (buttonIndex == 1) {
+            [self publishShoppingMarket];
+        } else {
+            
         }
         
     }
-    
+
 }
 
 #pragma mark - 发表商品
@@ -519,7 +540,9 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
         if ([self isBlankString:nameTF.text] == YES || self.collectionImage.count == 0 || [self isBlankString:salePriceTF.text] == YES || [self isBlankString:marketPriceTF.text] == YES || [self isBlankString:unitTF.text] == YES || [self isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [self isBlankString:descriptionTV.text] == YES) {
             kTipAlert(@"商品信息填写不完整");
         } else {
-            [self publishShoppingMarket];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认发布" message:nil delegate:self cancelButtonTitle:@"放弃" otherButtonTitles:@"确定", nil];
+            alert.tag = 666;
+            [alert show];
         }
 
         
@@ -528,9 +551,12 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
         if ([self isBlankString:nameTF.text] == YES || self.collectionImage.count == 0 || [self isBlankString:salePriceTF.text] == YES || [self isBlankString:marketPriceTF.text] == YES || [self isBlankString:unitTF.text] == YES || [self isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [self isBlankString:descriptionTV.text] == YES) {
             kTipAlert(@"商品信息填写不完整");
         } else if (rightTypeString.length == 0) {
-            kTipAlert(@"面料和辅料未选择二级身份");
+            kTipAlert(@"面料和机械设备未选择二级身份");
         } else {
-            [self publishShoppingMarket];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认发布" message:nil delegate:self cancelButtonTitle:@"放弃" otherButtonTitles:@"确定", nil];
+            alert.tag = 777;
+            [alert show];
+            
         }
 
     }
@@ -540,7 +566,8 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 
 
 - (void)publishShoppingMarket {
-    [HttpClient publishFabricWithMarket:leftTypeString name:nameTF.text type:rightTypeString price:salePriceTF.text marketPrice:marketPriceTF.text amount:amountTF.text unit:unitTF.text description:descriptionTV.text category:self.categoryArray WithCompletionBlock:^(NSDictionary *dictionary) {
+    NSString *myAmount = [NSString stringWithFormat:@"%ld", [amountTF.text integerValue]];
+    [HttpClient publishFabricWithMarket:leftTypeString name:nameTF.text type:rightTypeString price:salePriceTF.text marketPrice:marketPriceTF.text amount:myAmount unit:unitTF.text description:descriptionTV.text category:self.categoryArray WithCompletionBlock:^(NSDictionary *dictionary) {
         int statusCode = [dictionary[@"statusCode"] intValue];
         if (statusCode==200) {
             kTipAlert(@"发布成功");
@@ -557,7 +584,12 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
                     UIImage *image = (UIImage *)obj;
                     [upYun uploadImage:image policy:policyString signature:signatureString];
                 }];
-                
+                double delayInSeconds = 1.0f;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    NSArray *navArray = self.navigationController.viewControllers;
+                    [self.navigationController popToViewController:navArray[1] animated:YES];
+                });
             }else{
                 // 用户未上传图片
                 kTipAlert(@"未上传图片");

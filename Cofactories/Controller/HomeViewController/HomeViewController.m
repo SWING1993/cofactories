@@ -33,7 +33,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 @implementation HomeViewController
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
@@ -218,21 +218,21 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(HomePersonalDataCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        [Tools rotate360DegreeWithImageView:cell.personalDataLeftImage];
-        [Tools rotate360DegreeWithImageView:cell.personalDataMiddleImage];
-        [Tools rotate360DegreeWithImageView:cell.personalDataRightImage];
-    }
-    if (indexPath.section == 2) {
-        //xy方向缩放的初始值为0.95
-        cell.layer.transform = CATransform3DMakeScale(0.95, 0.95, 1);
-        //设置动画时间为0.25秒,xy方向缩放的最终值为1
-        [UIView animateWithDuration:0.5 animations:^{
-            cell.layer.transform = CATransform3DMakeScale(1, 1, 1);
-        }];
-    }
-}
+//-(void)tableView:(UITableView *)tableView willDisplayCell:(HomePersonalDataCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (indexPath.section == 0) {
+//        [Tools rotate360DegreeWithImageView:cell.personalDataLeftImage];
+//        [Tools rotate360DegreeWithImageView:cell.personalDataMiddleImage];
+//        [Tools rotate360DegreeWithImageView:cell.personalDataRightImage];
+//    }
+//    if (indexPath.section == 2) {
+//        //xy方向缩放的初始值为0.95
+//        cell.layer.transform = CATransform3DMakeScale(0.95, 0.95, 1);
+//        //设置动画时间为0.25秒,xy方向缩放的最终值为1
+//        [UIView animateWithDuration:0.5 animations:^{
+//            cell.layer.transform = CATransform3DMakeScale(1, 1, 1);
+//        }];
+//    }
+//}
 
 #pragma mark - HomeMarketCellDelegate
 - (void)homeMarketCell:(HomeMarketCell *)homeMarket marketButtonTag:(NSInteger)marketButtonTag {

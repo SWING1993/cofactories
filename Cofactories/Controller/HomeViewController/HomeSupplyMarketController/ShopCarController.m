@@ -10,13 +10,13 @@
 #import "ShoppingCarCell.h"
 #import "DataBaseHandle.h"
 #import "ShopCarModel.h"
-
+#import "materialShopDetailController.h"
 
 static NSString *shopCarCellIdentifier = @"shopCarCell";
 @interface ShopCarController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     BOOL isEdit;
 //    BOOL allSelect;
-    UIButton *button1, *button2, *button3;
+    UIButton *button1, *button2;
     UIImageView *allSelectView;
 }
 @property (nonatomic, strong) UITableView *myTableView;
@@ -67,14 +67,14 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
 - (void)creatBottomView {
     UIView *bigView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenH - 50*kZGY, kScreenW, 50*kZGY)];
     bigView.layer.borderColor = kLineGrayCorlor.CGColor;
-    bigView.layer.borderWidth = 0.3;
+    bigView.layer.borderWidth = 0.5;
     bigView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bigView];
-    NSArray *titleArray = @[@"全选", @"删除", @"结算"];
-    for (int i = 0; i < 3; i++) {
+    NSArray *titleArray = @[@"全选", @"删除"];
+    for (int i = 0; i < 2; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = i;
-        button.frame = CGRectMake(i*kScreenW/3, 0, kScreenW/3, 50*kZGY);
+        button.frame = CGRectMake(i*2*kScreenW/3, 0, kScreenW/3, 50*kZGY);
         [button setTitle:titleArray[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(actionOfBottom:) forControlEvents:UIControlEventTouchUpInside];
@@ -85,17 +85,18 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
             allSelectView = [[UIImageView alloc] initWithFrame:CGRectMake(15*kZGY, 15*kZGY, 20*kZGY, 20*kZGY)];
             allSelectView.image = [UIImage imageNamed:@"ShopCarNoSelect"];
             [button1 addSubview:allSelectView];
+
         } else if (button.tag == 1) {
             button2 = button;
             button2.backgroundColor = [UIColor colorWithRed:135.0/255.0 green:135.0/255.0 blue:135.0/255.0 alpha:1.0];
             button2.hidden = YES;
-        } else if (button.tag == 2) {
-            button3 = button;
-            button3.backgroundColor = [UIColor colorWithRed:72.0/255.0 green:126.0/255.0 blue:207.0/255.0 alpha:1.0];
         }
         [bigView addSubview:button];
     }
+
 }
+
+
 - (void)creatTableView {
     self.myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 50*kZGY)];
     self.myTableView.dataSource = self;
@@ -117,7 +118,7 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ShoppingCarCell *cell = [tableView dequeueReusableCellWithIdentifier:shopCarCellIdentifier forIndexPath:indexPath];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     ShopCarModel *shopCar = self.shoppingCarArray[indexPath.row];
     
     cell.selectButton.tag = 222 + indexPath.row;
@@ -158,10 +159,12 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
         cell.shopCarColor.frame = CGRectMake(135*kZGY, 45*kZGY, kScreenW - 155*kZGY, 25*kZGY);
         cell.shopCarColor.text = [NSString stringWithFormat:@"数量：%@ ；颜色：%@", shopCar.shopCarNumber, shopCar.shopCarColor];
     }
-    
-    cell.photoView.image = [UIImage imageNamed:@"5.jpg"];
+    if ([shopCar.photoUrl isEqualToString:@"默认图片"]) {
+        cell.photoView.image = [UIImage imageNamed:@"默认图片"];
+    } else {
+        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,shopCar.photoUrl]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+    }
     cell.shopCarTitle.text = shopCar.shopCarTitle;
-    
     cell.shopCarPrice.text = [NSString stringWithFormat:@"￥ %@", shopCar.shopCarPrice];
     
     
@@ -174,9 +177,22 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
     return 105*kZGY;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (isEdit == YES) {
+        //编辑状态下不能点进去
+    } else {
+        materialShopDetailController *shopDetailVC = [[materialShopDetailController alloc] init];
+        ShopCarModel *shopCarModel = self.shoppingCarArray[indexPath.row];
+        shopDetailVC.shopID = shopCarModel.shoppingID;
+        shopDetailVC.myAmount = [shopCarModel.shopCarNumber integerValue];
+        shopDetailVC.myColorString = shopCarModel.shopCarColor;
+        [self.navigationController pushViewController:shopDetailVC animated:YES];
+ 
+    }
 }
 
+
+
+#pragma mark - 底部按钮
 - (void)actionOfBottom:(UIButton *)button {
     if (button.tag == 0) {
         DLog(@"全选");
@@ -203,11 +219,7 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
         for (int i = 0; i < self.shoppingCarArray.count; i++) {
             ShopCarModel *shopCar = self.shoppingCarArray[i];
             if (shopCar.isSelect == YES) {
-//                [self.shoppingCarArray removeObject:shopCar];
                 [dataBaseHandle deleteShoppingCarWithID:shopCar.ID];
-                
-//                        DetailCar *car = dataBaseHandle.shoppingCarArray[indexPath.row];
-//                        [dataBaseHandle deleteCarWithID:car.ID];
             }
         }
         self.dataBasaHandle = [DataBaseHandle mainDataBaseHandle];
@@ -219,16 +231,8 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
             [self.shoppingCarArray addObject:selectModel];
         }
 
-        
         [self.myTableView reloadData];
-//        DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
-//        DetailCar *car = dataBaseHandle.shoppingCarArray[indexPath.row];
-//        [dataBaseHandle deleteCarWithID:car.ID];
-        
 
-        
-    } else if (button.tag == 2) {
-        DLog(@"结算");
     }
 }
 

@@ -40,7 +40,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 //    }];
     
     _dataArrayOne = [@[] mutableCopy];
-    [HttpClient getUserShopWithUserID:_userID page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient getMyShopWithUserID:_userID page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         _dataArrayOne = dictionary[@"message"];
         [self.tableView reloadData];
     }];
@@ -127,7 +127,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         // 刷新店铺
         _refreshCountOne++;
         DLog(@"_refreshCountOne==%d",_refreshCountOne);
-        [HttpClient getUserShopWithUserID:_userID page:@(_refreshCountOne) WithCompletionBlock:^(NSDictionary *dictionary){
+        [HttpClient getMyShopWithUserID:_userID page:@(_refreshCountOne) WithCompletionBlock:^(NSDictionary *dictionary){
             
             NSArray *array = dictionary[@"message"];
             

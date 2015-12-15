@@ -15,13 +15,15 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 10)];
-        lineView.backgroundColor = [UIColor lightGrayColor];
+        lineView.backgroundColor = [UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0];
         [self addSubview:lineView];
         self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, kScreenW, 30)];
         self.timeLabel.textColor = [UIColor lightGrayColor];
         self.timeLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:self.timeLabel];
         self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.timeLabel.frame), 80, 60)];
+        self.photoView.layer.cornerRadius = 5;
+        self.photoView.clipsToBounds = YES;
         [self addSubview:self.photoView];
         self.orderTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.photoView.frame) + 10, CGRectGetMaxY(self.timeLabel.frame), kScreenW - 20 - 70 - 80, 20)];
         self.orderTitleLabel.font = [UIFont systemFontOfSize:15];
@@ -44,7 +46,7 @@
         self.numberLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:self.numberLabel];
         
-        self.totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.photoView.frame) + 10, CGRectGetMaxY(self.numberLabel.frame), kScreenW - 20 - 80, 30)];
+        self.totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.photoView.frame) + 10, CGRectGetMaxY(self.numberLabel.frame), kScreenW - 20 - 80 - 10, 30)];
         self.totalPriceLabel.textAlignment = NSTextAlignmentRight;
         self.totalPriceLabel.textColor = [UIColor grayColor];
         self.totalPriceLabel.font = [UIFont systemFontOfSize:14];

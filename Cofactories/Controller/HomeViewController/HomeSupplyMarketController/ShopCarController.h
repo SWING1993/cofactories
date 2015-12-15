@@ -10,7 +10,4 @@
 
 @interface ShopCarController : UIViewController
 
-
-
-
 @end
