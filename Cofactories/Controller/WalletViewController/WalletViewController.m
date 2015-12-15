@@ -50,7 +50,9 @@
         }
         else {
             NSString * message = [responseDictionary objectForKey:@"message"];
-            kTipAlert(@"%@(错误码：%ld)",message,(long)statusCode);
+            DLog(@"%@(错误码：%ld)",message,(long)statusCode);
+//            kTipAlert(@"%@(错误码：%ld)",message,(long)statusCode);
+            _myLabel2.text = @"网络无连接";
         }
     }];
 }

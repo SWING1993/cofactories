@@ -13,6 +13,7 @@
 
 @interface WalletHistoryViewController () {
     NSInteger        _refrushCount;
+    UILabel * footerLabel;
 }
 
 
@@ -37,6 +38,13 @@
     self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.rowHeight = 70.0f;
+    
+    footerLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 40)];
+    footerLabel.text = @"没有更多数据";
+    footerLabel.font = kFont;
+    footerLabel.textColor = [UIColor grayColor];
+    footerLabel.textAlignment = NSTextAlignmentCenter;
+    
     [self setupRefresh];
     
     [HttpClient walletHistoryWithPage:@1 WithBlock:^(NSDictionary *responseDictionary) {
@@ -44,6 +52,9 @@
         if (statusCode == 200) {
             self.modelArray = [[responseDictionary objectForKey:@"ModelArray"] mutableCopy];
             DLog(@"第一页有%lu条数据",(unsigned long)[self.modelArray count]);
+            if (self.modelArray.count < 20) {
+                self.tableView.tableFooterView = footerLabel;
+            }
             [self.tableView reloadData];
         }
         else {
@@ -76,7 +87,9 @@
             if ([array count] == 0) {
                 kTipAlert(@"已经没有更多的数据了 。。。 ");
                 DLog(@"共有%lu条数据",(unsigned long)[self.modelArray count]);
-
+                
+                self.tableView.tableFooterView = footerLabel;
+                
             }else {
                 [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     WalletHistoryModel *model = array[idx];
