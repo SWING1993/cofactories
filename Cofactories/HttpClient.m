@@ -47,17 +47,19 @@
 #define API_uploadPhoto @"/upload/user"
 #define API_config @"/config/ad/:"
 
-#define API_Publish_Machine_Market   @"/market/machine/add"
-#define API_Publish_Design_Market    @"/market/design/add"
-#define API_Publish_Accessory_Market @"/market/accessory/add"
-#define API_Publish_Fabric_Market    @"/market/fabric/add"
+//#define API_Publish_Machine_Market   @"/market/machine/add"
+//#define API_Publish_Design_Market    @"/market/design/add"
+//#define API_Publish_Accessory_Market @"/market/accessory/add"
+//#define API_Publish_Fabric_Market    @"/market/fabric/add"
 
 #define API_Publish_Market_Publish   @"/market/add"
 
-#define API_Search_Machine_Market   @"/market/machine/Search"
-#define API_Search_Design_Market    @"/market/design/Search"
-#define API_Search_Accessory_Market @"/market/accessory/Search"
-#define API_Search_Fabric_Market    @"/market/fabric/Search"
+//#define API_Search_Machine_Market   @"/market/machine/Search"
+//#define API_Search_Design_Market    @"/market/design/Search"
+//#define API_Search_Accessory_Market @"/market/accessory/Search"
+//#define API_Search_Fabric_Market    @"/market/fabric/Search"
+
+#define API_Search_Market_Search   @"/market/search"
 
 #define API_Piblish_Supplier_Order @"/order/supplier/add"
 #define API_Piblish_Factory_Order  @"/order/factory/add"
@@ -951,57 +953,17 @@
     
 }
 
-// 搜索机械设备（市场）
-+ (void)searchMachineWithType:(NSString *)aType price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
-    
-    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-    if (credential) {
-        NSMutableDictionary * parametersDictionary = [@{} mutableCopy];
-        if (aType) {
-            [parametersDictionary setObject:aType forKey:@"type"];
-        }
-        if (aPrice) {
-            [parametersDictionary setObject:aPrice forKey:@"price"];
-        }
-        if (aPriceOrder) {
-            [parametersDictionary setObject:aPriceOrder forKey:@"priceOrder"];
-        }
-        if (aProvince) {
-            [parametersDictionary setObject:aProvince forKey:@"province"];
-        }
-        if (aKeyword) {
-            [parametersDictionary setObject:aKeyword forKey:@"keyword"];
-        }
-        if (aCity) {
-            [parametersDictionary setObject:aCity forKey:@"city"];
-        }
-        if (aPage) {
-            [parametersDictionary setObject:aPage forKey:@"page"];
-        }
-        
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager GET:API_Search_Machine_Market parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            
-            DLog(@"responseObject == %@",responseObject);
-        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-            DLog(@"error == %@",error);
-            
-        }];
-        
-    }else{
-        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
-    }
-}
 
 // 搜索设计（市场）
-+ (void)searchDesignWithType:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)searchDesignWithMarket:(NSString *)aMarket type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity country:(NSString *)aCountry page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
     if (credential) {
         NSMutableDictionary * parametersDictionary = [@{} mutableCopy];
+        if (aMarket) {
+            [parametersDictionary setObject:aMarket forKey:@"market"];
+        }
         if (aType) {
             [parametersDictionary setObject:aType forKey:@"type"];
         }
@@ -1017,57 +979,23 @@
         if (aKeyword) {
             [parametersDictionary setObject:aKeyword forKey:@"keyword"];
         }
-        if (aPage) {
-            [parametersDictionary setObject:aPage forKey:@"page"];
-        }
-        
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager GET:API_Search_Design_Market parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            
-            DLog(@"responseObject == %@",responseObject);
-        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-            DLog(@"error == %@",error);
-            
-        }];
-        
-    }else{
-        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
-    }
-    
-}
-
-// 搜索辅料（市场）
-+ (void)searchAccessoryWithPrice:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
-    
-    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-    if (credential) {
-        NSMutableDictionary * parametersDictionary = [@{} mutableCopy];
-        
-        if (aPrice) {
-            [parametersDictionary setObject:aPrice forKey:@"price"];
-        }
-        if (aPriceOrder) {
-            [parametersDictionary setObject:aPriceOrder forKey:@"priceOrder"];
-        }
         if (aProvince) {
             [parametersDictionary setObject:aProvince forKey:@"province"];
-        }
-        if (aKeyword) {
-            [parametersDictionary setObject:aKeyword forKey:@"keyword"];
         }
         if (aCity) {
             [parametersDictionary setObject:aCity forKey:@"city"];
         }
+        if (aCountry) {
+            [parametersDictionary setObject:aCountry forKey:@"country"];
+        }
         if (aPage) {
             [parametersDictionary setObject:aPage forKey:@"page"];
         }
         
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager GET:API_Search_Accessory_Market parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            
+        [manager GET:API_Search_Market_Search parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            completionBlock(@{@"statusCode": @"200", @"message": responseObject});
             DLog(@"responseObject == %@",responseObject);
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
@@ -1080,7 +1008,8 @@
     
 }
 
-// 搜索面料（市场）
+
+// 搜索面料、辅料、机械设备（商城）
 + (void)searchFabricWithMarket:(NSString *)aMarket type:(NSString *)aType price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
@@ -1114,8 +1043,8 @@
         
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager GET:API_Search_Fabric_Market parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            
+        [manager GET:API_Search_Market_Search parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            completionBlock(@{@"statusCode": @"200", @"message": responseObject});
             DLog(@"responseObject == %@",responseObject);
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
@@ -1128,69 +1057,6 @@
     
 }
 
-// 获取机械设备详情
-//+ (void)getMachineDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
-//    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
-//    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-//    if (credential) {
-//        
-//        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-//        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-//        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/market/machine/",aID];
-//        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-//            // DLog(@"responseObject == %@",responseObject);
-//            completionBlock(responseObject);
-//        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-//            DLog(@"error == %@",error);
-//        }];
-//    }else{
-//        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
-//    }
-//}
-
-// 获取设计详情
-//+ (void)getDesignDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
-//    
-//    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
-//    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-//    if (credential) {
-//        
-//        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-//        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-//        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/market/design/",aID];
-//        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-//            //  DLog(@"responseObject == %@",responseObject);
-//            completionBlock(responseObject);
-//        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-//            DLog(@"error == %@",error);
-//        }];
-//    }else{
-//        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
-//    }
-//    
-//}
-
-// 获取辅料详情
-//+ (void)getAccessoryDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
-//    
-//    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
-//    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-//    if (credential) {
-//        
-//        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-//        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-//        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/market/accessory/",aID];
-//        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-//            // DLog(@"responseObject == %@",responseObject);
-//            completionBlock(responseObject);
-//        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-//            DLog(@"error == %@",error);
-//        }];
-//    }else{
-//        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
-//    }
-//    
-//}
 // 获取面料详情
 + (void)getFabricDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
@@ -1891,14 +1757,14 @@
 
         [manger GET:urlString parameters:@{@"page":aPage} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
              //DLog(@"responseObject == %@",responseObject);
-            NSArray *array = responseObject;
-            NSMutableArray *dataArray = [@[] mutableCopy];
-            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSDictionary *dic = (NSDictionary *)obj;
-                PersonalShop_Model *model = [PersonalShop_Model getPersonalShopModelWithDictionary:dic];
-                [dataArray addObject:model];
-            }];
-            completionBlock(@{@"statusCode": @"200", @"message": dataArray});
+//            NSArray *array = responseObject;
+//            NSMutableArray *dataArray = [@[] mutableCopy];
+//            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                NSDictionary *dic = (NSDictionary *)obj;
+//                PersonalShop_Model *model = [PersonalShop_Model getPersonalShopModelWithDictionary:dic];
+//                [dataArray addObject:model];
+//            }];
+            completionBlock(@{@"statusCode": @"200", @"message": responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
@@ -1907,7 +1773,28 @@
     }
     
 }
++ (void)deleteUserShopWithShopID:(NSString *)aShopID withCompletionBlock:(void(^)(int statusCode))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        
+        NSString *url = [[NSString alloc] initWithFormat:@"%@%@", @"/market/", aShopID];
+        [manager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            block((int)[operation.response statusCode]);
+        }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    block((int)[operation.response statusCode]);
+                    DLog(@"error%@",error);
+                }];
+    }
+    else {
+        block(404);// access_token不存在
+    }
 
+}
 
 + (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
@@ -1974,13 +1861,9 @@
             upYun1.bucket = bucketAPI;//图片测试
             upYun1.expiresIn = 600;// 10分钟
             [upYun1 uploadImage:idCardImage policy:responseObject[@"data"][@"idCard"][@"policy"] signature:responseObject[@"data"][@"idCard"][@"signature"]];
-//            UpYun *upYun2 = [[UpYun alloc] init];
-//            upYun2.bucket = bucketAPI;//图片测试
-//            upYun2.expiresIn = 600;// 10分钟
+
             [upYun1 uploadImage:idCardBackImage policy:responseObject[@"data"][@"idCardBack"][@"policy"] signature:responseObject[@"data"][@"idCardBack"][@"signature"]];
-//            UpYun *upYun3 = [[UpYun alloc] init];
-//            upYun3.bucket = bucketAPI;//图片测试
-//            upYun3.expiresIn = 600;// 10分钟
+
             [upYun1 uploadImage:licenseImage policy:responseObject[@"data"][@"license"][@"policy"] signature:responseObject[@"data"][@"license"][@"signature"]];
             DLog(@"图片上传成功");
             block(2000);

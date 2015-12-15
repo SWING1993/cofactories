@@ -13,7 +13,7 @@
 #import "SystemSetViewController/SystemSetViewController.h"
 #import "MeShopController.h"//店铺
 #import "ShopCarController.h"//购物车
-
+#import "MeHistoryOrderList_VC.h"//历史订单
 
 @interface MeViewController ()
 
@@ -98,6 +98,9 @@
     }
     if (Btn.tag == 2) {
         DLog(@"我的订单");
+        MeHistoryOrderList_VC *historyVC = [[MeHistoryOrderList_VC alloc] init];
+        historyVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:historyVC animated:YES];
     }
 }
 

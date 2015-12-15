@@ -18,6 +18,9 @@
 #import "ShopCarModel.h"
 #import "DataBaseHandle.h"
 #import "ShoppingOrderController.h"
+#import "FabricMarketModel.h"
+
+#define kImageViewHeight kScreenW -40
 
 static NSString *shopCellIdentifier = @"shopCell";
 static NSString *selectCellIdentifier = @"selectCell";
@@ -27,16 +30,14 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     UIScrollView  *_scrollView;
     UIView        *_headView;
     UIPageControl *pageControl;
-    NSString      *string;
     UIView        *backGroundView;
     UIView        *popView;
     ZGYSelectNumberView *numberView;
-    NSArray *selectArray;
     NSString *selectString;
     NSString *selectColorString;
+    FabricMarketModel *marketDetailModel;
 }
 @property (nonatomic, strong) UITableView *myTableView;
-@property (nonatomic, strong) NSArray *photoArray;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *colorSelectArray;
 @end
@@ -47,17 +48,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.photoArray = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流"];
-    selectArray = @[@"蓝色x半米", @"白色x半米", @"棕色x半米", @"绿色x半米", @"黑色x半米"];
     selectString = @"请选择颜色分类";
-    self.colorSelectArray = [NSMutableArray arrayWithCapacity:0];
-    for (int i = 0; i < selectArray.count; i++) {
-        SelectColorModel *selectModel = [[SelectColorModel alloc] init];
-        selectModel.colorText = selectArray[i];
-        selectModel.isSelect = NO;
-        [self.colorSelectArray addObject:selectModel];
-    }
-    DLog(@"^^^^^^^^^^^^^^%@", self.colorSelectArray);
+        DLog(@"^^^^^^^^^^^^^^%@", self.colorSelectArray);
     [self creatTableView];
     [self creatGobackButton];
     [self creatBottomView];
@@ -80,32 +72,76 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [self.navigationController.navigationBar setHidden:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (void)creatTableView {
+    self.myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -20, kScreenW, kScreenH - 30)];
+    self.myTableView.dataSource = self;
+    self.myTableView.delegate = self;
+    [self.view addSubview:self.myTableView];
+    [self.myTableView registerClass:[MaterialShopDetailCell class] forCellReuseIdentifier:shopCellIdentifier];
+    [self.myTableView registerClass:[MaterialAbstractCell class] forCellReuseIdentifier:abstractCellIdentifier];
+    [self.myTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:selectCellIdentifier];
+    _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kImageViewHeight)];
+    self.myTableView.tableHeaderView = _headView;
+    
+    [HttpClient getFabricDetailWithId:self.shopID WithCompletionBlock:^(NSDictionary *dictionary) {
+        int statusCode = [dictionary[@"statusCode"] intValue];
+        if (statusCode == 200) {
+            marketDetailModel = (FabricMarketModel *)dictionary[@"model"];
+            if (marketDetailModel.photoArray.count == 0) {
+                UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kImageViewHeight)];
+                bgImageView.image = [UIImage imageNamed:@"默认图片"];
+                bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+                bgImageView.clipsToBounds = YES;                [_headView addSubview:bgImageView];
+                
+            }else{
+                [self creatScrollView];
+            }
+            
+            //选择分类的数组
+            self.colorSelectArray = [NSMutableArray arrayWithCapacity:0];
+            for (int i = 0; i < marketDetailModel.catrgoryArray.count; i++) {
+                SelectColorModel *selectModel = [[SelectColorModel alloc] init];
+                selectModel.colorText = marketDetailModel.catrgoryArray[i];
+                selectModel.isSelect = NO;
+                [self.colorSelectArray addObject:selectModel];
+            }
+
+            DLog(@"%@", marketDetailModel);
+            [self.myTableView reloadData];
+        }
+    }];
+    
+    
+}
 
 
 #pragma mark - 顶部图片
 - (void)creatScrollView{
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, (kScreenH)/2.0-80)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kImageViewHeight)];
     _scrollView.pagingEnabled = YES;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.delegate = self;
     [_headView addSubview:_scrollView];
     
-    _scrollView.contentSize = CGSizeMake(kScreenW * self.photoArray.count, (kScreenH)/2.0-80);
-    for (int i = 0; i < self.photoArray.count; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [button sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,self.photoArray[i]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@""]];
-        [button setImage:[UIImage imageNamed:self.photoArray[i]] forState:UIControlStateNormal];
-        button.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        [button setFrame:CGRectMake(i * kScreenW, 0, kScreenW, (kScreenH)/2.0-80)];
-        [button addTarget:self action:@selector(MJPhotoBrowserClick:) forControlEvents:UIControlEventTouchUpInside];
-        button.tag = i;
-        [_scrollView addSubview:button];
+    _scrollView.contentSize = CGSizeMake(kScreenW * marketDetailModel.photoArray.count, kImageViewHeight);
+
+    for (int i = 0; i < marketDetailModel.photoArray.count; i++) {
+        UIImageView *goodsImage = [[UIImageView alloc] initWithFrame:CGRectMake(i * kScreenW, 0, kScreenW, kImageViewHeight)];
+        goodsImage.userInteractionEnabled = YES;
+        goodsImage.contentMode = UIViewContentModeScaleAspectFill;
+        goodsImage.clipsToBounds = YES;
+        goodsImage.tag = 10000 + i;
+        [goodsImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,marketDetailModel.photoArray[i]]]  placeholderImage:[UIImage imageNamed:@"默认图片"]];
+        //添加手势
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(MJPhotoBrowserClick:)];
+        [goodsImage addGestureRecognizer:tap];
+        [_scrollView addSubview:goodsImage];
         
     }
+
     pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_scrollView.frame) - 40, kScreenW - 40, 40)];
-//    pageControl.backgroundColor = [UIColor blackColor];
-    pageControl.numberOfPages = self.photoArray.count;
+    pageControl.numberOfPages = marketDetailModel.photoArray.count;
     [pageControl addTarget:self action:@selector(changePage) forControlEvents:UIControlEventValueChanged];
     [_headView addSubview:pageControl];
 }
@@ -118,47 +154,24 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [_scrollView setContentOffset:CGPointMake(pageControl.currentPage * 375, 0) animated:YES];
 }
 
-- (void)MJPhotoBrowserClick:(id)sender{
-    
-    UIButton *button = (UIButton *)sender;
-    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:[self.photoArray count]];
-    [self.photoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+- (void)MJPhotoBrowserClick:(UITapGestureRecognizer *)tap{
+    NSInteger number = tap.view.tag - 10000;
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:[marketDetailModel.photoArray count]];
+    [marketDetailModel.photoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         MJPhoto *photo = [[MJPhoto alloc] init];
-        photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,self.photoArray[idx]]];
+        photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,marketDetailModel.photoArray[idx]]];
         [photos addObject:photo];
     }];
     
     MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    browser.currentPhotoIndex = button.tag;
+    browser.currentPhotoIndex = number;
     browser.photos = photos;
     [browser show];
     
 }
 
 
-#pragma mark - 商品详情
-- (void)creatTableView {
-    self.myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -20, kScreenW, kScreenH - 30)];
-    self.myTableView.dataSource = self;
-    self.myTableView.delegate = self;
-    [self.view addSubview:self.myTableView];
-    [self.myTableView registerClass:[MaterialShopDetailCell class] forCellReuseIdentifier:shopCellIdentifier];
-    [self.myTableView registerClass:[MaterialAbstractCell class] forCellReuseIdentifier:abstractCellIdentifier];
-    [self.myTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:selectCellIdentifier];
-    _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, (kScreenH)/2.0-80)];
-    self.myTableView.tableHeaderView = _headView;
-    
-    if (self.photoArray.count == 0) {
-        UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:_headView.frame];
-        bgImageView.image = [UIImage imageNamed:@"没有上传图片"];
-        [_headView addSubview:bgImageView];
-        
-    }else{
-        [self creatScrollView];
-    }
-
-}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -172,14 +185,15 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     if (indexPath.section == 0) {
         MaterialShopDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:shopCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.materialLabel.text = @"太空棉布料面料";
-        cell.priceLeftLabel.text = @"售价 ￥ 39.50";
-        cell.priceRightLabel.text = @"￥ 36.5";
-        cell.stylePhoto.image = [UIImage imageNamed:@"企业用户"];
+        cell.materialLabel.text = marketDetailModel.name;
+        cell.priceLeftLabel.text = [NSString stringWithFormat:@"售价￥ %@", marketDetailModel.price];
+
         cell.marketPriceLeftLabel.text = @"市场价";
-        cell.marketPriceRightLabel.text = @"￥ 69";
-        cell.leaveCountLabel.text = @"库存 1000 件";
-        
+        CGSize size = [Tools getSize:[NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice] andFontOfSize:15];
+        cell.marketPriceRightLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceLeftLabel.frame), CGRectGetMaxY(cell.priceLeftLabel.frame), size.width, 30);
+        cell.leaveCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceRightLabel.frame) + 10, CGRectGetMaxY(cell.priceLeftLabel.frame), kScreenW - 30 - CGRectGetWidth(cell.marketPriceLeftLabel.frame) - CGRectGetWidth(cell.marketPriceRightLabel.frame), 30);
+        cell.marketPriceRightLabel.text = [NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice];
+        cell.leaveCountLabel.text = [NSString stringWithFormat:@"库存 %@ 件", marketDetailModel.amount];
         return cell;
   
     } else if (indexPath.section == 1){
@@ -194,10 +208,9 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         MaterialAbstractCell *cell = [tableView dequeueReusableCellWithIdentifier:abstractCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.AbstractTitleLabel.text = @"商品简介：";
-        string = @"针织物与梭织物区别 针织物与梭织物由于在编织上方法各异，在加工工艺上，布面结构上，织物特性上，成品用途上，都有自己独特的特色，在此作一些比较。 (一) 织物组织的构成： (1) 针织物：是由纱线顺序弯曲成线圈，而线圈相互串套而形成织物，而纱线形成线圈的过程，可以横向或纵向地进行，横向编织称为纬编织物，而纵向编织称为经编织物。 (2) 梭织物：是由两条或两组以上的相互垂直纱线，以90度角作经纬交织而成织物，纵向的纱线叫经纱，横向的纱线叫纬纱。(二) 织物组织基本单元： (1) 针织物：线圈就是针织物的最小基本单元，而线圈由圈干和延展线呈一空间曲线所组成。 (2) 梭织物：经纱和纬纱之间的每一个相交点称为组织点，是梭织物的最小基本单元。(三) 织物组织特性： (1) 针织物：因线圈是纱线在空间弯曲而成，而每个线圈均由一根纱线组成，当针织物受外来张力，如纵向拉伸时，线圈的弯曲发生变化，而线圈的高度亦增加，同时线圈的宽度却减少，如张力是横向拉伸，情况则相反，线圈的高度和宽度在不同张力条件下，明显是可以互相转换的，因此针织物的延伸性大。 (2) 梭织物：因经纱与纬纱交织的地方有些弯曲，而且袛在垂直于织物平面的方向内弯曲，其弯曲程度和经纬纱之间的相互张力，以及纱线刚度有关，当梭织物受外来张力，如以纵向拉伸时，经纱的张力增加，弯曲则减少，而纬纱的弯曲增加，如纵向拉伸不停，直至经纱完全伸直为止，同时织物呈横向收缩。当梭织物受外来张力以横向拉伸时，纬纱的张力增加，弯曲则减少，而经纱弯曲增加，如横向拉伸不停，直至纬纱完全伸直为止，同时织物呈纵向收缩。而经，纬纱不会发生转换，与针织物不同。(四) 织物组织的特征： (1) 针织物：能在各个方向延伸，弹性好，因针织物是由孔状线圈形成，有较大的透气性能，手感松软。 (2) 梭织物：因梭织物经，纬纱延伸与收缩关系不大，亦不发生转换，因此织物一般比较紧密，挺硬。(五) 织物组织的物理机械性： (1) 针织物：织物的物理机械性，包括纵密、横密、平方米克重、延伸性能、弹性、断裂强度、耐磨性、卷边性、厚度、脱散性、收缩性、覆盖性、体积密度。 (2) 梭织物：梭织物的物理机械性，包括经纱与纬纱的纱线密度、布边、正面和反面、顺逆毛方向、织物覆盖度。";
-        CGSize size = [Tools getSize:string andFontOfSize:13 andWidthMake:kScreenW - 60];
+                CGSize size = [Tools getSize:marketDetailModel.descriptions andFontOfSize:13 andWidthMake:kScreenW - 60];
         cell.AbstractDetailLabel.frame = CGRectMake(30, 45, kScreenW - 60, size.height);
-        cell.AbstractDetailLabel.text = string;
+        cell.AbstractDetailLabel.text = marketDetailModel.descriptions;
         
         return cell;
 
@@ -214,7 +227,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     } else if (indexPath.section == 1) {
         return 60;
     } else {
-        CGSize size = [Tools getSize:string andFontOfSize:13 andWidthMake:kScreenW - 60];
+        CGSize size = [Tools getSize:marketDetailModel.descriptions andFontOfSize:13 andWidthMake:kScreenW - 60];
         
         return size.height + 50;
     }
@@ -291,11 +304,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         button.tag = 1000 + i;
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         [button addTarget:self action:@selector(actionOfPopBuy:) forControlEvents:UIControlEventTouchUpInside];
-//        if (i == 0) {
-//            button.backgroundColor = [UIColor colorWithRed:193.0/255.0 green:193.0/255.0 blue:193.0/255.0 alpha:1.0];
-//        } else {
-//            button.backgroundColor = [UIColor colorWithRed:72.0/255.0 green:126.0/255.0 blue:207.0/255.0 alpha:1.0];
-//        }
+
         [popView addSubview:button];
     }
 }
@@ -321,9 +330,10 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         } else {
             //加入购物车
             DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
+            [dataBaseHandle searchAllShoppingCar];
             BOOL flag = YES;
             for (ShopCarModel *shopCar in dataBaseHandle.shoppingCarArray) {
-                if (shopCar.ID == 22) {
+                if ([shopCar.shoppingID integerValue] == [self.shopID integerValue]) {
                     flag = NO;
                     break;
                 }
@@ -333,16 +343,16 @@ static NSString *popViewCellIdentifier = @"popViewCell";
                 kTipAlert(@"购物车里已有该商品");
             } else {
                 ShopCarModel *shopCarModel = [[ShopCarModel alloc] init];
-                [dataBaseHandle searchAllShoppingCar];
-                shopCarModel.ID = 22;
-                shopCarModel.shoppingID = @"22";
-                shopCarModel.shopCarTitle = @"22棉麻布料";
-                shopCarModel.shopCarPrice = @"122";
+                shopCarModel.ID = [self.shopID integerValue];
+                shopCarModel.shoppingID = self.shopID;
+                shopCarModel.shopCarTitle = marketDetailModel.name;
+                shopCarModel.shopCarPrice = marketDetailModel.price;
                 shopCarModel.shopCarColor = selectColorString;
                 shopCarModel.shopCarNumber = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
                 shopCarModel.photoUrl = @"www22";
                 [dataBaseHandle addShoppingCar:shopCarModel];
                 selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", selectColorString, numberView.timeAmount];
+                kTipAlert(@"加入购物车成功");
                 [backGroundView removeFromSuperview];
                 [popView removeFromSuperview];
                 NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
@@ -383,7 +393,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     //创建CollectionView
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 15*kZGY;
-    layout.minimumInteritemSpacing = 0;
+    layout.minimumInteritemSpacing = 5*kZGY;
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(20*kZGY, 50*kZGY, popView.frame.size.width - 40*kZGY, 80*kZGY) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -470,6 +480,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     lineView.backgroundColor = kLineGrayCorlor;
     [bigView addSubview:lineView];
 }
+
+
 - (void)actionOfBuy:(UIButton *)button {
     BOOL selectFlag = YES;
     for (int i = 0; i < self.colorSelectArray.count; i++) {
@@ -483,12 +495,40 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     if (selectFlag == YES) {
         DLog(@"请选择颜色");
         kTipAlert(@"请选择颜色");
+        
+        
     } else {
     if (button.tag == 222) {
         DLog(@"底部 + 加入购物车");
-        
-//            ShopCarController *shopCarVC = [[ShopCarController alloc] init];
-//            [self.navigationController pushViewController:shopCarVC animated:YES];
+        //加入购物车
+        DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
+        [dataBaseHandle searchAllShoppingCar];
+        BOOL flag = YES;
+        for (ShopCarModel *shopCar in dataBaseHandle.shoppingCarArray) {
+            if ([shopCar.shoppingID integerValue] == [self.shopID integerValue]) {
+                flag = NO;
+                break;
+            }
+        }
+        if (flag == NO) {
+            DLog(@"购物车里已有该商品");
+            kTipAlert(@"购物车里已有该商品");
+        } else {
+            ShopCarModel *shopCarModel = [[ShopCarModel alloc] init];
+            shopCarModel.ID = [self.shopID integerValue];
+            shopCarModel.shoppingID = self.shopID;
+            shopCarModel.shopCarTitle = marketDetailModel.name;
+            shopCarModel.shopCarPrice = marketDetailModel.price;
+            shopCarModel.shopCarColor = selectColorString;
+            shopCarModel.shopCarNumber = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
+            shopCarModel.photoUrl = @"www22";
+            [dataBaseHandle addShoppingCar:shopCarModel];
+
+            kTipAlert(@"加入购物车成功");
+
+        }
+
+
         } else if (button.tag == 223){
         DLog(@"底部 + 立即购买");
         ShoppingOrderController *shoppingVC = [[ShoppingOrderController alloc] init];

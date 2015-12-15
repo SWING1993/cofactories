@@ -174,8 +174,6 @@
                 AccessoryShop_VC *accessoryVC = [[AccessoryShop_VC alloc] initWithSubrole:@"辅料商城" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:2]];
                 [self.navigationController pushViewController:accessoryVC animated:YES];
  
-                
-                
             }
                 
                 break;
