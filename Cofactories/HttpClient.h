@@ -347,5 +347,7 @@
 
 + (void)getIMTokenWithBlock:(void (^)(NSDictionary *))block;
 
+// 获取店铺(我的店铺)
++ (void)getMyShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
 @end

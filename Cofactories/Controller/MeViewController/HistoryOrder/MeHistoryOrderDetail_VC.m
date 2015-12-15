@@ -1,31 +1,29 @@
 //
-//  MeHistoryOrderList_VC.m
+//  MeHistoryOrderDetail_VC.m
 //  Cofactories
 //
-//  Created by 赵广印 on 15/12/14.
-//  Copyright © 2015年 宋国华. All rights reserved.
+//  Created by 赵广印 on 15/12/15.
+//  Copyright © 2015年 Cofactorios. All rights reserved.
 //
 
-#import "MeHistoryOrderList_VC.h"
-#import "HistoryOrderListCell.h"
 #import "MeHistoryOrderDetail_VC.h"
+#import "HistoryOrderListCell.h"
+#import "HistoryOrderAddressCell.h"
 
-static NSString *historyOrderCellIdentifier = @"historyCell";
-@interface MeHistoryOrderList_VC ()
+static NSString *orderDetailCellIdentifier = @"orderDetailCell";
+static NSString *addressCellIdentifier = @"addressCell";
+@interface MeHistoryOrderDetail_VC ()
 
 @end
 
-@implementation MeHistoryOrderList_VC
+@implementation MeHistoryOrderDetail_VC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self.tableView registerClass:[HistoryOrderListCell class] forCellReuseIdentifier:historyOrderCellIdentifier];
+    [self.tableView registerClass:[HistoryOrderListCell class] forCellReuseIdentifier:orderDetailCellIdentifier];
+    [self.tableView registerClass:[HistoryOrderAddressCell class] forCellReuseIdentifier:addressCellIdentifier];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,40 +34,56 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return 1;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HistoryOrderListCell *cell = [tableView dequeueReusableCellWithIdentifier:historyOrderCellIdentifier forIndexPath:indexPath];
-    cell.timeLabel.text = @"2015-12-09";
-    cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
-    cell.orderTitleLabel.text = @"太空棉布料面料";
-    cell.categoryLabel.text = @"分类：蓝色*半米";
-    cell.priceLabel.text = @"￥19.80";
-    cell.numberLabel.text = @"X3";
-    cell.totalPriceLabel.text = @"共3件商品 合计：59.40";
+    if (indexPath.section == 0) {
+        HistoryOrderListCell *cell = [tableView dequeueReusableCellWithIdentifier:orderDetailCellIdentifier forIndexPath:indexPath];
+        cell.timeLabel.text = @"2015-12-09";
+        cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
+        cell.orderTitleLabel.text = @"太空棉布料面料";
+        cell.categoryLabel.text = @"分类：蓝色*半米";
+        cell.priceLabel.text = @"￥19.80";
+        cell.numberLabel.text = @"X3";
+        cell.totalPriceLabel.text = @"共3件商品 合计：59.40";
+        return cell;
+    } else if (indexPath.section == 1) {
+        HistoryOrderAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:addressCellIdentifier forIndexPath:indexPath];
+        cell.personName.text = @"收货人：朕真帅啊";
+        cell.personPhoneNumber.text = @"157****6409";
+        cell.personAddress.text = @"收货地址：浙江省 杭州市 江干区 白杨街道 下沙**************号楼";
+        
+        return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        
+        return cell;
+    }
     
-    return cell;
 }
-
-
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 110;
+    if (indexPath.section == 0) {
+        return 110;
+    } else if (indexPath.section == 1) {
+        return 100;
+    } else {
+        return 60;
+    }
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MeHistoryOrderDetail_VC *detailVC = [[MeHistoryOrderDetail_VC alloc] init];
-    [self.navigationController pushViewController:detailVC animated:YES];
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.5;
 }
-
-
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 10;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

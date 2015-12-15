@@ -31,7 +31,7 @@
     self.navigationItem.title = @"设计市场";
     
     self.view.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
-    NSArray *photoArray = @[@"3.jpg", @"4.jpg", @"5.jpg"];
+    NSArray *photoArray = @[@"Market-版型购买", @"Market-流行资讯", @"Market-设计者汇总"];
     NSArray *titleArray = @[@"版型购买", @"流行资讯", @"设计者汇总"];
     NSArray *detailTitleArray = @[@"最全版型聚集地", @"最全流行资讯聚集地", @"最全潮流设计师聚集地"];
     ZGYSupplyMarketView *designView = [[ZGYSupplyMarketView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 370) photoArray:photoArray titleArray:titleArray detailTitleArray:detailTitleArray];

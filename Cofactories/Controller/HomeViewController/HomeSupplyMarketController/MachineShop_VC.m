@@ -30,16 +30,21 @@ static NSString *materialCellIdentifier = @"materialCell";
 @property (nonatomic, strong) UICollectionView *myCollectionView;
 @property (nonatomic, strong) NSMutableArray *goodsArray;
 @property (nonatomic)NSInteger page;
+@property (nonatomic,copy)NSString *userBusinessName;
 
 @end
 
 @implementation MachineShop_VC
-
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController.navigationBar setHidden:NO];
+}
 - (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary{
     
     if (self = [super init]) {
         _subrole = subrole;
         _selectDataDictionary = dictionary;
+        [self customSearchBar];
+
     }
     return self;
 }
@@ -93,6 +98,51 @@ static NSString *materialCellIdentifier = @"materialCell";
         }
         [self.myCollectionView reloadData];
     }];
+}
+#pragma mark - 搜索框
+- (void)customSearchBar{
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    searchBar.delegate = self;
+    searchBar.placeholder = @"请输入商品名称";
+    [searchBar setShowsCancelButton:YES];
+    self.navigationItem.titleView = searchBar;
+    
+    for (UIView *view in [[searchBar.subviews lastObject] subviews]) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            UIButton *cancelBtn = (UIButton *)view;
+            [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        }
+    }
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
+    NSLog(@"%@",searchBar.text);
+    
+    self.page = 1;
+    _userBusinessName = searchBar.text;
+    _userCity = nil;
+    _userProvince = nil;
+    _userType = nil;
+    
+    DLog(@"==%@,==%@,==%@,==%@",_userProvince,_userCity,_userBusinessName,_userType);
+    [HttpClient searchFabricWithMarket:@"machine" type:self.userType price:nil priceOrder:self.userPrice keyword:self.userBusinessName province:self.userProvince city:self.userCity page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+        [self.goodsArray removeAllObjects];
+        NSArray *array = dictionary[@"message"];
+        for (NSDictionary *myDic in array) {
+            SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
+            [self.goodsArray addObject:searchModel];
+        }
+        [self.myCollectionView reloadData];
+        
+    }];
+    
+    
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
+    [self.view endEditing:YES];
 }
 
 #pragma mark - 选择器方法
@@ -305,7 +355,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     self.page = 1;
     DLog(@"==%@,==%@,==%@,==%@",_userType,_userPrice,_userProvince,_userCity);
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
-    [HttpClient searchFabricWithMarket:@"machine" type:self.userType price:nil priceOrder:self.userPrice keyword:nil province:self.userProvince city:self.userCity page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient searchFabricWithMarket:@"machine" type:self.userType price:nil priceOrder:self.userPrice keyword:self.userBusinessName province:self.userProvince city:self.userCity page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         for (NSDictionary *myDic in array) {
             SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];

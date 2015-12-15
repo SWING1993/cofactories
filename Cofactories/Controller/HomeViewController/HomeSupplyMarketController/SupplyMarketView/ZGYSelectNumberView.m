@@ -14,16 +14,16 @@
 }
 
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame WithAmount:(NSInteger)aAmount{
     if (self = [super initWithFrame:frame]) {
         
         self.layer.masksToBounds = YES;
         self.layer.borderWidth = 0.5;
         self.layer.borderColor = [UIColor grayColor].CGColor;
 //        self.layer.cornerRadius = 5;
-        _amount = 1;
+        _amount = aAmount;
         [self addButtonAndAmountViewWithFram:frame];
-        self.timeAmount = 1;
+        self.timeAmount = aAmount;
     }
     return self;
 }

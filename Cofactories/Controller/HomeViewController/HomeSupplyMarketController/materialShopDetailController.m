@@ -20,7 +20,7 @@
 #import "ShoppingOrderController.h"
 #import "FabricMarketModel.h"
 
-#define kImageViewHeight kScreenW -40
+#define kImageViewHeight kScreenW - 80
 
 static NSString *shopCellIdentifier = @"shopCell";
 static NSString *selectCellIdentifier = @"selectCell";
@@ -34,7 +34,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     UIView        *popView;
     ZGYSelectNumberView *numberView;
     NSString *selectString;
-    NSString *selectColorString;
+    NSString *selectColorString;//选择的分类
+    NSInteger selectAmount;//选择的数量
     FabricMarketModel *marketDetailModel;
 }
 @property (nonatomic, strong) UITableView *myTableView;
@@ -48,7 +49,14 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    selectString = @"请选择颜色分类";
+    
+    if (self.myAmount > 0) {
+        selectAmount = self.myAmount;
+        selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", self.myColorString, self.myAmount];
+    } else {
+        selectAmount = 1;
+        selectString = @"请选择颜色分类";
+    }
         DLog(@"^^^^^^^^^^^^^^%@", self.colorSelectArray);
     [self creatTableView];
     [self creatGobackButton];
@@ -102,7 +110,12 @@ static NSString *popViewCellIdentifier = @"popViewCell";
             for (int i = 0; i < marketDetailModel.catrgoryArray.count; i++) {
                 SelectColorModel *selectModel = [[SelectColorModel alloc] init];
                 selectModel.colorText = marketDetailModel.catrgoryArray[i];
-                selectModel.isSelect = NO;
+                if (self.myColorString.length > 0 && [selectModel.colorText isEqualToString:self.myColorString]) {
+                    selectModel.isSelect = YES;
+                } else {
+                    selectModel.isSelect = NO;
+                }
+                
                 [self.colorSelectArray addObject:selectModel];
             }
 
@@ -147,11 +160,11 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 }
 //代理要实现的方法: 切换页面后, 下面的页码控制器也跟着变化
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView {
-    pageControl.currentPage = _scrollView.contentOffset.x / 375;
+    pageControl.currentPage = _scrollView.contentOffset.x /kScreenW;
 }
 
 - (void)changePage {
-    [_scrollView setContentOffset:CGPointMake(pageControl.currentPage * 375, 0) animated:YES];
+    [_scrollView setContentOffset:CGPointMake(pageControl.currentPage * kScreenW, 0) animated:YES];
 }
 
 - (void)MJPhotoBrowserClick:(UITapGestureRecognizer *)tap{
@@ -191,8 +204,10 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         cell.marketPriceLeftLabel.text = @"市场价";
         CGSize size = [Tools getSize:[NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice] andFontOfSize:15];
         cell.marketPriceRightLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceLeftLabel.frame), CGRectGetMaxY(cell.priceLeftLabel.frame), size.width, 30);
-        cell.leaveCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceRightLabel.frame) + 10, CGRectGetMaxY(cell.priceLeftLabel.frame), kScreenW - 30 - CGRectGetWidth(cell.marketPriceLeftLabel.frame) - CGRectGetWidth(cell.marketPriceRightLabel.frame), 30);
+        cell.lineView.frame = CGRectMake(cell.marketPriceRightLabel.frame.origin.x, cell.marketPriceRightLabel.frame.origin.y + cell.marketPriceRightLabel.frame.size.height/2.0, size.width, 1);
         cell.marketPriceRightLabel.text = [NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice];
+        cell.leaveCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceRightLabel.frame) + 10, CGRectGetMaxY(cell.priceLeftLabel.frame), kScreenW - 30 - CGRectGetWidth(cell.marketPriceLeftLabel.frame) - CGRectGetWidth(cell.marketPriceRightLabel.frame), 30);
+        
         cell.leaveCountLabel.text = [NSString stringWithFormat:@"库存 %@ 件", marketDetailModel.amount];
         return cell;
   
@@ -287,7 +302,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     
     
     //筛选价格
-    numberView = [[ZGYSelectNumberView alloc] initWithFrame:CGRectMake(popView.frame.size.width - 30*kZGY - 125*kZGY, 150*kZGY, 125*kZGY, 25*kZGY)];
+    numberView = [[ZGYSelectNumberView alloc] initWithFrame:CGRectMake(popView.frame.size.width - 30*kZGY - 125*kZGY, 150*kZGY, 125*kZGY, 25*kZGY)WithAmount:selectAmount];
     [popView addSubview:numberView];
     
     
@@ -349,9 +364,14 @@ static NSString *popViewCellIdentifier = @"popViewCell";
                 shopCarModel.shopCarPrice = marketDetailModel.price;
                 shopCarModel.shopCarColor = selectColorString;
                 shopCarModel.shopCarNumber = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
-                shopCarModel.photoUrl = @"www22";
+                if (marketDetailModel.photoArray.count == 0) {
+                    shopCarModel.photoUrl = @"默认图片";
+                } else {
+                    shopCarModel.photoUrl = marketDetailModel.photoArray[0];
+                }
                 [dataBaseHandle addShoppingCar:shopCarModel];
                 selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", selectColorString, numberView.timeAmount];
+                selectAmount = numberView.timeAmount;
                 kTipAlert(@"加入购物车成功");
                 [backGroundView removeFromSuperview];
                 [popView removeFromSuperview];
@@ -380,6 +400,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         } else {
             selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", selectColorString, numberView.timeAmount];
         }
+        selectAmount = numberView.timeAmount;
         [backGroundView removeFromSuperview];
         [popView removeFromSuperview];
         NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
@@ -519,9 +540,16 @@ static NSString *popViewCellIdentifier = @"popViewCell";
             shopCarModel.shoppingID = self.shopID;
             shopCarModel.shopCarTitle = marketDetailModel.name;
             shopCarModel.shopCarPrice = marketDetailModel.price;
+            if (marketDetailModel.photoArray.count == 0) {
+                shopCarModel.photoUrl = @"默认图片";
+            } else {
+                shopCarModel.photoUrl = marketDetailModel.photoArray[0];
+            }
+
             shopCarModel.shopCarColor = selectColorString;
             shopCarModel.shopCarNumber = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
-            shopCarModel.photoUrl = @"www22";
+            DLog(@"^^^^^^^^^^^^%ld", marketDetailModel.photoArray.count);
+            
             [dataBaseHandle addShoppingCar:shopCarModel];
 
             kTipAlert(@"加入购物车成功");
