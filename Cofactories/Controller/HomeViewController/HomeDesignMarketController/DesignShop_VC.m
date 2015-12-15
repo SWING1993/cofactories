@@ -1,12 +1,12 @@
 //
-//  FabricShop_VC.m
+//  DesignShop_VC.m
 //  Cofactories
 //
-//  Created by 赵广印 on 15/12/12.
+//  Created by 赵广印 on 15/12/14.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "FabricShop_VC.h"
+#import "DesignShop_VC.h"
 #import "DOPDropDownMenu.h"
 #import "MaterialShopCell.h"
 #import "materialShopDetailController.h"
@@ -14,16 +14,20 @@
 #import "SearchShopMarketModel.h"
 
 static NSString *materialCellIdentifier = @"materialCell";
-@interface FabricShop_VC ()<DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>{
+
+@interface DesignShop_VC ()<DOPDropDownMenuDataSource,DOPDropDownMenuDelegate, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>{
     NSString        *_subrole;
     NSDictionary    *_selectDataDictionary;
     DOPDropDownMenu *_dropDownMenu;
+    NSArray         *_maleArray, *_femaleArray, *_boyArray, *_girlArray;
     NSArray         *_zhejiangArray;
     NSArray         *_anhuiArray;
     NSArray         *_guangdongArray;
     
+    
 }
 @property (nonatomic,copy)NSString *userType;
+@property (nonatomic,copy)NSString *userPart;
 @property (nonatomic,copy)NSString *userPrice;
 @property (nonatomic,copy)NSString *userProvince;
 @property (nonatomic,copy)NSString *userCity;
@@ -32,11 +36,9 @@ static NSString *materialCellIdentifier = @"materialCell";
 @property (nonatomic, strong) NSMutableArray *goodsArray;
 @property (nonatomic)NSInteger page;
 
-
 @end
 
-@implementation FabricShop_VC
-
+@implementation DesignShop_VC
 - (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary{
     
     if (self = [super init]) {
@@ -48,14 +50,19 @@ static NSString *materialCellIdentifier = @"materialCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     self.view.backgroundColor = [UIColor whiteColor];
     [self creatCollectionView];
+
     
     _zhejiangArray = @[@"浙江不限",@"湖州(含织里)",@"杭州",@"宁波",@"浙江其他"];
     _anhuiArray = @[@"安徽不限",@"宣城(含广德)",@"安徽其他"];
     _guangdongArray = @[@"广东不限",@"广州(含新塘)",@"广东其他"];
+    
+    _maleArray = @[@"男装不限", @"上衣", @"下衣", @"套装"];
+    _femaleArray = @[@"女装不限", @"上衣", @"下衣", @"套装"];
+    _boyArray = @[@"男童不限", @"上衣", @"下衣", @"套装"];
+    _girlArray = @[@"女童不限", @"上衣", @"下衣", @"套装"];
+    
     _dropDownMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
     _dropDownMenu.delegate = self;
     _dropDownMenu.dataSource = self;
@@ -66,7 +73,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     [self.myCollectionView addInfiniteScrollingWithActionHandler:^{
         weakSelf.page++;
         DLog(@"^^^^^^^^^^^^^^^^^^^^^^^");
-        [HttpClient searchFabricWithMarket:@"fabric" type:weakSelf.userType price:nil priceOrder:weakSelf.userPrice keyword:nil province:weakSelf.userProvince city:weakSelf.userCity page:@(weakSelf.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+        [HttpClient searchDesignWithMarket:@"design" type:weakSelf.userType part:weakSelf.userPart price:nil priceOrder:weakSelf.userPrice keyword:nil province:weakSelf.userProvince city:weakSelf.userCity country:nil page:@(weakSelf.page) WithCompletionBlock:^(NSDictionary *dictionary) {
             NSArray *array = dictionary[@"message"];
             for (NSDictionary *myDic in array) {
                 SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
@@ -74,23 +81,24 @@ static NSString *materialCellIdentifier = @"materialCell";
             }
             [weakSelf.myCollectionView.infiniteScrollingView stopAnimating];
             [weakSelf.myCollectionView reloadData];
-
+            
         }];
+
     }];
     
     [self netWork];
-    
-}
 
+}
 - (void)netWork {
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
-    [HttpClient searchFabricWithMarket:@"fabric" type:nil price:nil priceOrder:nil keyword:nil province:nil city:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient searchDesignWithMarket:@"design" type:nil part:nil price:nil priceOrder:nil keyword:nil province:nil city:nil country:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         for (NSDictionary *myDic in array) {
             SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
             [self.goodsArray addObject:searchModel];
         }
         [self.myCollectionView reloadData];
+
     }];
 }
 
@@ -137,9 +145,31 @@ static NSString *materialCellIdentifier = @"materialCell";
 }
 
 - (NSInteger)menu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column{
-    
-    if (column == 2) {
+    if (column == 0) {
         switch (row) {
+                case 0:
+                return 0;
+                break;
+            case 1:
+                return _maleArray.count;
+                break;
+            case 2:
+                return _femaleArray.count;
+                break;
+            case 3:
+                return _boyArray.count;
+                break;
+            case 4:
+                return _girlArray.count;
+                break;
+            default:
+                break;
+        }
+    } else if (column == 2) {
+        switch (row) {
+            case 0:
+                return 0;
+                break;
             case 1:
                 return _zhejiangArray.count;
                 break;
@@ -160,7 +190,27 @@ static NSString *materialCellIdentifier = @"materialCell";
 }
 
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath{
-    if (indexPath.column == 2) {
+    if (indexPath.column == 0) {
+        switch (indexPath.row) {
+            case 1:
+                return _maleArray[indexPath.item];
+                break;
+                
+            case 2:
+                return _femaleArray[indexPath.item];
+                break;
+            case 3:
+                return _boyArray[indexPath.item];
+                break;
+            case 4:
+                return _girlArray[indexPath.item];
+                break;
+
+            default:
+                break;
+        }
+
+    } else if (indexPath.column == 2) {
         switch (indexPath.row) {
             case 1:
                 return _zhejiangArray[indexPath.item];
@@ -189,15 +239,83 @@ static NSString *materialCellIdentifier = @"materialCell";
             switch (indexPath.row) {
                 case 0:
                     _userType = nil;
+                    _userPart = nil;
                     break;
                 case 1:
-                    _userType = @"knit";
+                    _userType = @"male";
+                    switch (indexPath.item) {
+                        case 0:
+                            _userPart = nil;
+                            break;
+                        case 1:
+                            _userPart = @"top";
+                            break;
+                        case 2:
+                            _userPart = @"bottom";
+                            break;
+                        case 3:
+                            _userPart = @"suit";
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case 2:
-                    _userType = @"woven";
+                    _userType = @"female";
+                    switch (indexPath.item) {
+                        case 0:
+                            _userPart = nil;
+                            break;
+                        case 1:
+                            _userPart = @"top";
+                            break;
+                        case 2:
+                            _userPart = @"bottom";
+                            break;
+                        case 3:
+                            _userPart = @"suit";
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case 3:
-                    _userType = @"special";
+                    _userType = @"boy";
+                    switch (indexPath.item) {
+                        case 0:
+                            _userPart = nil;
+                            break;
+                        case 1:
+                            _userPart = @"top";
+                            break;
+                        case 2:
+                            _userPart = @"bottom";
+                            break;
+                        case 3:
+                            _userPart = @"suit";
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 4:
+                    _userType = @"girl";
+                    switch (indexPath.item) {
+                        case 0:
+                            _userPart = nil;
+                            break;
+                        case 1:
+                            _userPart = @"top";
+                            break;
+                        case 2:
+                            _userPart = @"bottom";
+                            break;
+                        case 3:
+                            _userPart = @"suit";
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;
@@ -304,9 +422,9 @@ static NSString *materialCellIdentifier = @"materialCell";
     }
     
     self.page = 1;
-    DLog(@"==%@,==%@,==%@,==%@",_userType,_userPrice,_userProvince,_userCity);
+    DLog(@"==%@,==%@,==%@,==%@,==%@",_userType, _userPart, _userPrice,_userProvince,_userCity);
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
-    [HttpClient searchFabricWithMarket:@"fabric" type:self.userType price:nil priceOrder:self.userPrice keyword:nil province:self.userProvince city:self.userCity page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient searchDesignWithMarket:@"design" type:_userType part:_userPart price:nil priceOrder:_userPrice keyword:nil province:_userProvince city:_userCity country:nil page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         for (NSDictionary *myDic in array) {
             SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
@@ -316,9 +434,8 @@ static NSString *materialCellIdentifier = @"materialCell";
         
     }];
     
-    
-    
 }
+
 - (void)creatCollectionView {
     //创建CollectionView
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -332,7 +449,6 @@ static NSString *materialCellIdentifier = @"materialCell";
     
     [self.myCollectionView registerClass:[MaterialShopCell class] forCellWithReuseIdentifier:materialCellIdentifier];
 }
-
 
 #pragma mark - UICollectionViewDataSource
 
@@ -349,6 +465,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MaterialShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:materialCellIdentifier forIndexPath:indexPath];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
+    //    cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
     if (myModel.photoArray.count > 0) {
         [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     } else {
@@ -363,10 +480,11 @@ static NSString *materialCellIdentifier = @"materialCell";
 }
 
 
+
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    [self removeSearchBar];
+    //    [self removeSearchBar];
     materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
     materialShopVC.shopID = myModel.ID;
@@ -383,6 +501,8 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
+
+
 
 
 - (void)didReceiveMemoryWarning {

@@ -11,6 +11,7 @@
 #import "MeAddSupply_VC.h"//添加商品
 #import "MeDetailSupply_VC.h"//商品详情页
 #import "MeAddDesign_VC.h"
+#import "SVPullToRefresh.h"
 
 #import "FabricMarketModel.h"
 
@@ -26,6 +27,8 @@ static NSString *shopCellIdentifier = @"shopCell";
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @property (nonatomic, strong) NSMutableArray *myShopGoodsArray;
+
+@property (nonatomic)NSInteger page;
 
 @end
 
@@ -45,15 +48,44 @@ static NSString *shopCellIdentifier = @"shopCell";
     [addButton setImage:[UIImage imageNamed:@"MeShop-加号"] forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(actionOfAdd:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:addButton];
+    
+    self.page = 1;
+    //上拉加载更多数据
+    __weak typeof(self) weakSelf = self;
+    [self.collectionView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.page++;
+        DLog(@"^^^^^^^^^^^^^^^^^^^^^^^");
+        [HttpClient getUserShopWithUserID:weakSelf.MyProfile.uid page:@(weakSelf.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+            int statusCode = [dictionary[@"statusCode"] intValue];
+            if (statusCode == 200) {
+                NSArray *array = dictionary[@"message"];
+                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSDictionary *dic = (NSDictionary *)obj;
+                    PersonalShop_Model *model = [PersonalShop_Model getPersonalShopModelWithDictionary:dic];
+                    [weakSelf.myShopGoodsArray addObject:model];
+                }];
+                [weakSelf.collectionView.infiniteScrollingView stopAnimating];
+                [weakSelf.collectionView reloadData];
+            }
+            
+        }];
+        
+    }];
+
     [self netWork];
 }
 
 - (void)netWork {
-    
+    self.myShopGoodsArray = [NSMutableArray arrayWithCapacity:0];
     [HttpClient getUserShopWithUserID:self.MyProfile.uid page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         int statusCode = [dictionary[@"statusCode"] intValue];
         if (statusCode == 200) {
-            self.myShopGoodsArray = dictionary[@"message"];
+            NSArray *array = dictionary[@"message"];
+            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary *dic = (NSDictionary *)obj;
+                PersonalShop_Model *model = [PersonalShop_Model getPersonalShopModelWithDictionary:dic];
+                [self.myShopGoodsArray addObject:model];
+            }];
             [self.collectionView reloadData];
         }
         
@@ -91,7 +123,7 @@ static NSString *shopCellIdentifier = @"shopCell";
     
     if (isEdit == YES) {
         cell.deleteButton.hidden = NO;
-        cell.deleteButton.tag = 222 + indexPath.row;
+        cell.deleteButton.tag = 222                         + indexPath.row;
         [cell.deleteButton setImage:[UIImage imageNamed:@"删除图片"] forState:UIControlStateNormal];
         [cell.deleteButton addTarget: self action:@selector(actionOfDeleteItem:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -144,11 +176,18 @@ static NSString *shopCellIdentifier = @"shopCell";
 
 #pragma mark - 删除商品
 - (void)actionOfDeleteItem:(UIButton *)button {
-    [self.myShopGoodsArray removeObjectAtIndex:button.tag - 222];
+    
     //删除商品
+    PersonalShop_Model *myShopModel = self.myShopGoodsArray[button.tag - 222];
+    [self.myShopGoodsArray removeObjectAtIndex:button.tag - 222];
+    [HttpClient deleteUserShopWithShopID:myShopModel.goodsID withCompletionBlock:^(int statusCode) {
+        DLog(@"^^^^^^^^^^^^^^^^%d", statusCode);
+        if (statusCode == 200) {
+            [self.collectionView reloadData];
+        }
+    }];
     
     
-    [self.collectionView reloadData];
 }
 
 

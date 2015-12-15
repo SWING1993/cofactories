@@ -17,6 +17,7 @@
 #import "PlaceholderTextView.h"
 #import "DOPDropDownMenu.h"
 static NSString *TFCellIdentifier = @"TFCell";
+static NSString *nameTFCellIdentifier = @"nameTFCell";
 static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 @interface MeAddDesign_VC ()<UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, JKImagePickerControllerDelegate, UIAlertViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate> {
     UITextField *nameTF, *salePriceTF, *marketPriceTF, *amountTF;
@@ -59,7 +60,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
     self.collectionImage = [[NSMutableArray alloc]initWithCapacity:9];
     self.categoryArray = [NSMutableArray arrayWithCapacity:0];
     
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"发表" style:UIBarButtonItemStylePlain target:self action:@selector(pressRightItem)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(pressRightItem)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     _addImageBtn = [[UIButton alloc]init];
@@ -151,6 +152,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //    self.myTableView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.myTableView];
+    [self.myTableView registerClass:[MeTextFieldCell class] forCellReuseIdentifier:nameTFCellIdentifier];
     [self.myTableView registerClass:[MeTextFieldCell class] forCellReuseIdentifier:TFCellIdentifier];
     [self.myTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 160)];
@@ -191,7 +193,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        MeTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:TFCellIdentifier forIndexPath:indexPath];
+        MeTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:nameTFCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.myLabel.text = @"商品名称";
         nameTF = cell.myTextField;
@@ -686,7 +688,6 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
     }
     
     DLog(@"leftString = %@, rightString = %@", leftTypeString, rightTypeString);
-    //    DLog(@"%ld,%ld",(long)indexPath.row,(long)indexPath.item);
 }
 
 /*

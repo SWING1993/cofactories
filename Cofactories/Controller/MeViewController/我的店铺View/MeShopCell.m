@@ -17,6 +17,8 @@
         self.layer.borderColor = kLineGrayCorlor.CGColor;
         self.layer.borderWidth = 0.5;
         self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (kScreenW - 10*kZGY)/3, (kScreenW - 10*kZGY)/3)];
+        self.photoView.contentMode = UIViewContentModeScaleAspectFill;
+        self.photoView.clipsToBounds = YES;
         [self addSubview:self.photoView];
         self.shopTitle = [[UILabel alloc] initWithFrame:CGRectMake(5*kZGY, CGRectGetMaxY(self.photoView.frame), self.frame.size.width - 10*kZGY, 40*kZGY)];
         self.shopTitle.numberOfLines = 2;

@@ -46,9 +46,9 @@
         self.descriptions = dictionary[@"description"];
         self.ID = [NSString stringWithFormat:@"%@", dictionary[@"id"]];
         self.name = dictionary[@"name"];
-        self.price = [NSString stringWithFormat:@"%@", dictionary[@"price"]];
-        self.marketPrice = [NSString stringWithFormat:@"%@", dictionary[@"marketPrice"]];
-        self.enterPrisePrice = [NSString stringWithFormat:@"%@", dictionary[@"enterprisePrice"]];
+        self.price = [NSString stringWithFormat:@"%.2f", [dictionary[@"price"] floatValue]];
+        self.marketPrice = [NSString stringWithFormat:@"%.2f", [dictionary[@"marketPrice"] floatValue]];
+        self.enterPrisePrice = [NSString stringWithFormat:@"%.2f", [dictionary[@"enterprisePrice"] floatValue]];
         self.photoArray = dictionary[@"photo"];
         self.catrgoryArray = dictionary[@"category"];
         

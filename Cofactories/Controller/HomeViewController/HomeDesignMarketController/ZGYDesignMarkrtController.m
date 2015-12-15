@@ -9,10 +9,13 @@
 #import "ZGYDesignMarkrtController.h"
 #import "PopularMessageController.h"
 #import "ZGYSupplyMarketView.h"
-#import "IMChatViewController.h"
+//#import "IMChatViewController.h"
 #import "AllDesignController.h"
-#import "UMSocial.h"
-@interface ZGYDesignMarkrtController ()<ZGYSupplyMarketViewDelegate, UMSocialUIDelegate>
+//#import "UMSocial.h"
+#import "DesignShop_VC.h"
+
+
+@interface ZGYDesignMarkrtController ()<ZGYSupplyMarketViewDelegate>
 @property(nonatomic,strong)UserModel *userModel;
 @end
 
@@ -44,6 +47,10 @@
 - (void)supplyMarketView:(ZGYSupplyMarketView *)supplyMarketView supplyMarketButtonTag:(NSInteger)supplyMarketButtonTag {
     switch (supplyMarketButtonTag) {
         case 0:{
+            DesignShop_VC *designShopVC = [[DesignShop_VC alloc] initWithSubrole:@"设计者" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:4]];
+            [self.navigationController pushViewController:designShopVC animated:YES];
+            
+            
 //            IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
 //            conversationVC.conversationType = ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
 //            conversationVC.targetId = @"4"; // 接收者的 targetId，这里为举例。
@@ -54,23 +61,23 @@
 //            [self.navigationController.navigationBar setHidden:NO];
 //            [self.navigationController pushViewController:conversationVC animated:YES];
             //分享多个
-            [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://baidu.com";//微信好友
-            [UMSocialData defaultData].extConfig.wechatSessionData.title = @"微信好友title";
-            
-            [UMSocialData defaultData].extConfig.wechatTimelineData.url = @"http://baidu.com";//微信朋友圈
-            
-            [UMSocialData defaultData].extConfig.wechatTimelineData.title = @"微信朋友圈title";
-            [UMSocialData defaultData].extConfig.qqData.url = @"http://baidu.com";//QQ好友
-            [UMSocialData defaultData].extConfig.qqData.title = @"QQ分享title";
-            
-            [UMSocialData defaultData].extConfig.qzoneData.url = @"http://baidu.com";//QQ空间
-            [UMSocialData defaultData].extConfig.qzoneData.title = @"Qzone分享title";
-            [UMSocialSnsService presentSnsIconSheetView:self
-                                                 appKey:@"55e03514e0f55a390f003db7"
-                                              shareText:@"来自聚工厂的分享"
-                                             shareImage:[UIImage imageNamed:@"5.jpg"]
-                                        shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]
-                                               delegate:self];
+//            [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://baidu.com";//微信好友
+//            [UMSocialData defaultData].extConfig.wechatSessionData.title = @"微信好友title";
+//            
+//            [UMSocialData defaultData].extConfig.wechatTimelineData.url = @"http://baidu.com";//微信朋友圈
+//            
+//            [UMSocialData defaultData].extConfig.wechatTimelineData.title = @"微信朋友圈title";
+//            [UMSocialData defaultData].extConfig.qqData.url = @"http://baidu.com";//QQ好友
+//            [UMSocialData defaultData].extConfig.qqData.title = @"QQ分享title";
+//            
+//            [UMSocialData defaultData].extConfig.qzoneData.url = @"http://baidu.com";//QQ空间
+//            [UMSocialData defaultData].extConfig.qzoneData.title = @"Qzone分享title";
+//            [UMSocialSnsService presentSnsIconSheetView:self
+//                                                 appKey:@"55e03514e0f55a390f003db7"
+//                                              shareText:@"来自聚工厂的分享"
+//                                             shareImage:[UIImage imageNamed:@"5.jpg"]
+//                                        shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]
+//                                               delegate:self];
         }
             break;
         case 1:{

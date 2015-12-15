@@ -18,6 +18,8 @@
         self.layer.borderColor = kLineGrayCorlor.CGColor;
         self.layer.borderWidth = 0.3;
         self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.width)];
+        self.photoView.contentMode = UIViewContentModeScaleAspectFill;
+        self.photoView.clipsToBounds = YES;
         [self addSubview:self.photoView];
         self.materialTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.photoView.frame) + 5, self.frame.size.width - 10, 40)];
         self.materialTitle.numberOfLines = 2;
