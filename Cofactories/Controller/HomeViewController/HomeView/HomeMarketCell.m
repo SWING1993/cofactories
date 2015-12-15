@@ -27,10 +27,10 @@
             [self addSubview:marketButton];
         }
         UILabel *horizontalLabel = [[UILabel alloc] initWithFrame:CGRectMake(5*kZGY, 80*kZGY, kScreenW - 10*kZGY, 0.3)];
-        horizontalLabel.backgroundColor = [UIColor lightGrayColor];
+        horizontalLabel.backgroundColor = kLineGrayCorlor;
         [self addSubview:horizontalLabel];
         UILabel *verticalLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW/2, 5*kZGY, 0.3, 150*kZGY)];
-        verticalLabel.backgroundColor = [UIColor lightGrayColor];
+        verticalLabel.backgroundColor = kLineGrayCorlor;
         [self addSubview:verticalLabel];
     }
     return self;

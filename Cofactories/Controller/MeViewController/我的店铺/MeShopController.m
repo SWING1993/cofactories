@@ -55,7 +55,7 @@ static NSString *shopCellIdentifier = @"shopCell";
     [self.collectionView addInfiniteScrollingWithActionHandler:^{
         weakSelf.page++;
         DLog(@"^^^^^^^^^^^^^^^^^^^^^^^");
-        [HttpClient getUserShopWithUserID:weakSelf.MyProfile.uid page:@(weakSelf.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+        [HttpClient getMyShopWithUserID:weakSelf.MyProfile.uid page:@(weakSelf.page) WithCompletionBlock:^(NSDictionary *dictionary) {
             int statusCode = [dictionary[@"statusCode"] intValue];
             if (statusCode == 200) {
                 NSArray *array = dictionary[@"message"];
@@ -77,7 +77,7 @@ static NSString *shopCellIdentifier = @"shopCell";
 
 - (void)netWork {
     self.myShopGoodsArray = [NSMutableArray arrayWithCapacity:0];
-    [HttpClient getUserShopWithUserID:self.MyProfile.uid page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient getMyShopWithUserID:self.MyProfile.uid page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         int statusCode = [dictionary[@"statusCode"] intValue];
         if (statusCode == 200) {
             NSArray *array = dictionary[@"message"];

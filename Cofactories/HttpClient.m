@@ -1756,15 +1756,15 @@
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/market/shop/",aUserID];
 
         [manger GET:urlString parameters:@{@"page":aPage} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-             //DLog(@"responseObject == %@",responseObject);
-//            NSArray *array = responseObject;
-//            NSMutableArray *dataArray = [@[] mutableCopy];
-//            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                NSDictionary *dic = (NSDictionary *)obj;
-//                PersonalShop_Model *model = [PersonalShop_Model getPersonalShopModelWithDictionary:dic];
-//                [dataArray addObject:model];
-//            }];
-            completionBlock(@{@"statusCode": @"200", @"message": responseObject});
+             DLog(@"responseObject == %@",responseObject);
+            NSArray *array = responseObject;
+            NSMutableArray *dataArray = [@[] mutableCopy];
+            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary *dic = (NSDictionary *)obj;
+                PersonalShop_Model *model = [PersonalShop_Model getPersonalShopModelWithDictionary:dic];
+                [dataArray addObject:model];
+            }];
+            completionBlock(@{@"statusCode": @"200", @"message": dataArray});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
