@@ -257,7 +257,6 @@
 		70F4A7771C12CF4E000DF7E7 /* CompletionOrder_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A7761C12CF4E000DF7E7 /* CompletionOrder_TVC.m */; };
 		70F4A7811C12E2C9000DF7E7 /* MarkOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A7801C12E2C9000DF7E7 /* MarkOrder_VC.m */; };
 		70F4AFB81C18249C00615A7E /* PersonalMessage_Design_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4AFB71C18249C00615A7E /* PersonalMessage_Design_VC.m */; };
-		70F50D6F1C069B0600920F63 /* AccessoryMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D6E1C069B0600920F63 /* AccessoryMarketModel.m */; };
 		70F50D731C06D1F900920F63 /* FabricMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D721C06D1F900920F63 /* FabricMarketModel.m */; };
 		70F50D771C06FB0200920F63 /* SupplierOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D761C06FB0200920F63 /* SupplierOrderModel.m */; };
 		70F50D7A1C06FB1500920F63 /* FactoryOrderMOdel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F50D791C06FB1500920F63 /* FactoryOrderMOdel.m */; };
@@ -272,8 +271,6 @@
 		70F6D1F61C1697D000E23166 /* Business_Supplier_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1F51C1697D000E23166 /* Business_Supplier_Model.m */; };
 		70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */; };
 		70F6D2071C16CD7E00E23166 /* Business_Cloth_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */; };
-		70F7E36A1C05BF3900DD661E /* MachineMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E3691C05BF3900DD661E /* MachineMarketModel.m */; };
-		70F7E36D1C05CB7100DD661E /* DesignMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */; };
 		70FA60E31C09425400EA84FD /* Comment_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60E21C09425400EA84FD /* Comment_TVC.m */; };
 		70FA60EF1C098DE400EA84FD /* ZFPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60EA1C098DE400EA84FD /* ZFPopupMenu.m */; };
 		70FA60F01C098DE400EA84FD /* ZFPopupMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60EC1C098DE400EA84FD /* ZFPopupMenuItem.m */; };
@@ -300,6 +297,9 @@
 		7D34E4381C199D0F0049D9C7 /* MeDetailSupply_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34E4371C199D0F0049D9C7 /* MeDetailSupply_VC.m */; };
 		7D41C8A71C0EEAF800703869 /* AllDesignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D41C8A61C0EEAF800703869 /* AllDesignCell.m */; };
 		7D43078A1C10271E00C4A3FF /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4307891C10271E00C4A3FF /* libiconv.tbd */; };
+		7D45D0D61C224C9100FC2988 /* MeHistoryOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */; };
+		7D45D0D91C225D0600FC2988 /* HistoryOrderThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45D0D81C225D0600FC2988 /* HistoryOrderThirdCell.m */; };
+		7D45D0DC1C225FA500FC2988 /* HistoryOrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45D0DB1C225FA500FC2988 /* HistoryOrderDetailCell.m */; };
 		7D4D06BF1C0ED39200BF49D9 /* ClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06B91C0ED39200BF49D9 /* ClassCell.m */; };
 		7D4D06C01C0ED39200BF49D9 /* LMDownMenuView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06BB1C0ED39200BF49D9 /* LMDownMenuView2.m */; };
 		7D4D06C11C0ED39200BF49D9 /* ZGYSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06BD1C0ED39200BF49D9 /* ZGYSelectView.m */; };
@@ -324,6 +324,7 @@
 		7D665EA81C0C60EE00C7C7BF /* IMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */; };
 		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
 		7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6DB64D1C05BB9D00BF396E /* 身份证.png */; };
+		7D70BACA1C21852A00920EE3 /* MeOrderSelect_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D70BAC91C21852A00920EE3 /* MeOrderSelect_VC.m */; };
 		7D71D1081C1AC68A00CF324E /* MeTextLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D71D1071C1AC68A00CF324E /* MeTextLabelCell.m */; };
 		7D7DD3511C1C21DB00424C08 /* SearchShopMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD3501C1C21DB00424C08 /* SearchShopMarketModel.m */; };
 		7D8B338A1C11884800616C1F /* materialShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8B33891C11884800616C1F /* materialShopViewController.m */; };
@@ -365,6 +366,10 @@
 		7DC13EE21C15646500304364 /* ZGYSelectNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC13EE11C15646500304364 /* ZGYSelectNumberView.m */; };
 		7DC2A7681C2010700005CAFD /* MeHistoryOrderDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2A7671C2010700005CAFD /* MeHistoryOrderDetail_VC.m */; };
 		7DC2A76B1C2010AB0005CAFD /* HistoryOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */; };
+		7DCCC2A01C20FDB6002BF795 /* PopularNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */; };
+		7DCCC2A31C210B7B002BF795 /* PopularNewsDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCCC2A21C210B7B002BF795 /* PopularNewsDetail_VC.m */; };
+		7DD483501C226820006D0FF6 /* MeHistoryBuy_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4834F1C226820006D0FF6 /* MeHistoryBuy_VC.m */; };
+		7DD483531C22683F006D0FF6 /* MeHistorySell_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD483521C22683F006D0FF6 /* MeHistorySell_VC.m */; };
 		7DDBC9FF1C15A4F3008FD2E0 /* ShopCarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDBC9FE1C15A4F3008FD2E0 /* ShopCarController.m */; };
 		7DE36D221C0809A70090BF5D /* PopularCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
@@ -942,8 +947,6 @@
 		70F4A7801C12E2C9000DF7E7 /* MarkOrder_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkOrder_VC.m; sourceTree = "<group>"; };
 		70F4AFB61C18249C00615A7E /* PersonalMessage_Design_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalMessage_Design_VC.h; sourceTree = "<group>"; };
 		70F4AFB71C18249C00615A7E /* PersonalMessage_Design_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalMessage_Design_VC.m; sourceTree = "<group>"; };
-		70F50D6D1C069B0600920F63 /* AccessoryMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccessoryMarketModel.h; path = ../AccessoryMarketModel.h; sourceTree = "<group>"; };
-		70F50D6E1C069B0600920F63 /* AccessoryMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccessoryMarketModel.m; path = ../AccessoryMarketModel.m; sourceTree = "<group>"; };
 		70F50D711C06D1F900920F63 /* FabricMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FabricMarketModel.h; sourceTree = "<group>"; };
 		70F50D721C06D1F900920F63 /* FabricMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FabricMarketModel.m; sourceTree = "<group>"; };
 		70F50D751C06FB0200920F63 /* SupplierOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplierOrderModel.h; sourceTree = "<group>"; };
@@ -972,10 +975,6 @@
 		70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Factory_VC.m; sourceTree = "<group>"; };
 		70F6D2051C16CD7E00E23166 /* Business_Cloth_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Cloth_VC.h; sourceTree = "<group>"; };
 		70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Cloth_VC.m; sourceTree = "<group>"; };
-		70F7E3681C05BF3900DD661E /* MachineMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MachineMarketModel.h; path = ../MachineMarketModel.h; sourceTree = "<group>"; };
-		70F7E3691C05BF3900DD661E /* MachineMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MachineMarketModel.m; path = ../MachineMarketModel.m; sourceTree = "<group>"; };
-		70F7E36B1C05CB7100DD661E /* DesignMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesignMarketModel.h; path = ../DesignMarketModel.h; sourceTree = "<group>"; };
-		70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DesignMarketModel.m; path = ../DesignMarketModel.m; sourceTree = "<group>"; };
 		70FA60E11C09425400EA84FD /* Comment_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment_TVC.h; sourceTree = "<group>"; };
 		70FA60E21C09425400EA84FD /* Comment_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment_TVC.m; sourceTree = "<group>"; };
 		70FA60E91C098DE400EA84FD /* ZFPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPopupMenu.h; sourceTree = "<group>"; };
@@ -1027,6 +1026,12 @@
 		7D41C8A51C0EEAF800703869 /* AllDesignCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllDesignCell.h; sourceTree = "<group>"; };
 		7D41C8A61C0EEAF800703869 /* AllDesignCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllDesignCell.m; sourceTree = "<group>"; };
 		7D4307891C10271E00C4A3FF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		7D45D0D41C224C9100FC2988 /* MeHistoryOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistoryOrderModel.h; sourceTree = "<group>"; };
+		7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistoryOrderModel.m; sourceTree = "<group>"; };
+		7D45D0D71C225D0600FC2988 /* HistoryOrderThirdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOrderThirdCell.h; sourceTree = "<group>"; };
+		7D45D0D81C225D0600FC2988 /* HistoryOrderThirdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderThirdCell.m; sourceTree = "<group>"; };
+		7D45D0DA1C225FA500FC2988 /* HistoryOrderDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOrderDetailCell.h; sourceTree = "<group>"; };
+		7D45D0DB1C225FA500FC2988 /* HistoryOrderDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderDetailCell.m; sourceTree = "<group>"; };
 		7D4D06B81C0ED39200BF49D9 /* ClassCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCell.h; sourceTree = "<group>"; };
 		7D4D06B91C0ED39200BF49D9 /* ClassCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCell.m; sourceTree = "<group>"; };
 		7D4D06BA1C0ED39200BF49D9 /* LMDownMenuView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMDownMenuView2.h; sourceTree = "<group>"; };
@@ -1063,6 +1068,8 @@
 		7D6DB64A1C05AEE300BF396E /* AuthenticationPhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationPhotoController.h; sourceTree = "<group>"; };
 		7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPhotoController.m; sourceTree = "<group>"; };
 		7D6DB64D1C05BB9D00BF396E /* 身份证.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "身份证.png"; sourceTree = "<group>"; };
+		7D70BAC81C21852A00920EE3 /* MeOrderSelect_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeOrderSelect_VC.h; sourceTree = "<group>"; };
+		7D70BAC91C21852A00920EE3 /* MeOrderSelect_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeOrderSelect_VC.m; sourceTree = "<group>"; };
 		7D71D1061C1AC68A00CF324E /* MeTextLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeTextLabelCell.h; sourceTree = "<group>"; };
 		7D71D1071C1AC68A00CF324E /* MeTextLabelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeTextLabelCell.m; sourceTree = "<group>"; };
 		7D7DD34F1C1C21DB00424C08 /* SearchShopMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchShopMarketModel.h; sourceTree = "<group>"; };
@@ -1146,6 +1153,14 @@
 		7DC2A7671C2010700005CAFD /* MeHistoryOrderDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistoryOrderDetail_VC.m; sourceTree = "<group>"; };
 		7DC2A7691C2010AB0005CAFD /* HistoryOrderAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOrderAddressCell.h; sourceTree = "<group>"; };
 		7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderAddressCell.m; sourceTree = "<group>"; };
+		7DCCC29E1C20FDB6002BF795 /* PopularNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsModel.h; sourceTree = "<group>"; };
+		7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsModel.m; sourceTree = "<group>"; };
+		7DCCC2A11C210B7B002BF795 /* PopularNewsDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsDetail_VC.h; sourceTree = "<group>"; };
+		7DCCC2A21C210B7B002BF795 /* PopularNewsDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsDetail_VC.m; sourceTree = "<group>"; };
+		7DD4834E1C226820006D0FF6 /* MeHistoryBuy_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistoryBuy_VC.h; sourceTree = "<group>"; };
+		7DD4834F1C226820006D0FF6 /* MeHistoryBuy_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistoryBuy_VC.m; sourceTree = "<group>"; };
+		7DD483511C22683F006D0FF6 /* MeHistorySell_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistorySell_VC.h; sourceTree = "<group>"; };
+		7DD483521C22683F006D0FF6 /* MeHistorySell_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistorySell_VC.m; sourceTree = "<group>"; };
 		7DDBC9FD1C15A4F3008FD2E0 /* ShopCarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarController.h; sourceTree = "<group>"; };
 		7DDBC9FE1C15A4F3008FD2E0 /* ShopCarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarController.m; sourceTree = "<group>"; };
 		7DE36D201C0809A70090BF5D /* PopularCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1460,6 +1475,8 @@
 		03571B571BE84E4100900EF9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7D45D0D31C224C5B00FC2988 /* MeHistoryOrderModel */,
+				7DCCC29D1C20FD8B002BF795 /* PopularNewsModel */,
 				705679D71C19526600ACA494 /* Shop_Cell(店铺,作品，交易评论) */,
 				70F6D1F31C1697A300E23166 /* Business */,
 				7D06AFA61C168E8800EE7102 /* ShoppingCarModel */,
@@ -2383,12 +2400,6 @@
 		70F50D701C069B1000920F63 /* MarketModel */ = {
 			isa = PBXGroup;
 			children = (
-				70F7E3681C05BF3900DD661E /* MachineMarketModel.h */,
-				70F7E3691C05BF3900DD661E /* MachineMarketModel.m */,
-				70F7E36B1C05CB7100DD661E /* DesignMarketModel.h */,
-				70F7E36C1C05CB7100DD661E /* DesignMarketModel.m */,
-				70F50D6D1C069B0600920F63 /* AccessoryMarketModel.h */,
-				70F50D6E1C069B0600920F63 /* AccessoryMarketModel.m */,
 				70F50D711C06D1F900920F63 /* FabricMarketModel.h */,
 				70F50D721C06D1F900920F63 /* FabricMarketModel.m */,
 				7DBDC8E41C15848B00D682D3 /* SelectColorModel.h */,
@@ -2580,6 +2591,15 @@
 			path = "我的店铺View";
 			sourceTree = "<group>";
 		};
+		7D45D0D31C224C5B00FC2988 /* MeHistoryOrderModel */ = {
+			isa = PBXGroup;
+			children = (
+				7D45D0D41C224C9100FC2988 /* MeHistoryOrderModel.h */,
+				7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */,
+			);
+			path = MeHistoryOrderModel;
+			sourceTree = "<group>";
+		};
 		7D5BDB781BFF0E8400FC8054 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2634,14 +2654,24 @@
 		7D9E1E5F1C1E6C34007A4B6B /* HistoryOrder */ = {
 			isa = PBXGroup;
 			children = (
+				7D70BAC81C21852A00920EE3 /* MeOrderSelect_VC.h */,
+				7D70BAC91C21852A00920EE3 /* MeOrderSelect_VC.m */,
+				7DD4834E1C226820006D0FF6 /* MeHistoryBuy_VC.h */,
+				7DD4834F1C226820006D0FF6 /* MeHistoryBuy_VC.m */,
+				7DD483511C22683F006D0FF6 /* MeHistorySell_VC.h */,
+				7DD483521C22683F006D0FF6 /* MeHistorySell_VC.m */,
 				7D9E1E601C1E6C73007A4B6B /* MeHistoryOrderList_VC.h */,
 				7D9E1E611C1E6C73007A4B6B /* MeHistoryOrderList_VC.m */,
 				7DC2A7661C2010700005CAFD /* MeHistoryOrderDetail_VC.h */,
 				7DC2A7671C2010700005CAFD /* MeHistoryOrderDetail_VC.m */,
 				7D9E1E631C1E6D16007A4B6B /* HistoryOrderListCell.h */,
 				7D9E1E641C1E6D16007A4B6B /* HistoryOrderListCell.m */,
+				7D45D0DA1C225FA500FC2988 /* HistoryOrderDetailCell.h */,
+				7D45D0DB1C225FA500FC2988 /* HistoryOrderDetailCell.m */,
 				7DC2A7691C2010AB0005CAFD /* HistoryOrderAddressCell.h */,
 				7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */,
+				7D45D0D71C225D0600FC2988 /* HistoryOrderThirdCell.h */,
+				7D45D0D81C225D0600FC2988 /* HistoryOrderThirdCell.m */,
 			);
 			path = HistoryOrder;
 			sourceTree = "<group>";
@@ -2744,6 +2774,15 @@
 			path = SVPullToRefresh;
 			sourceTree = "<group>";
 		};
+		7DCCC29D1C20FD8B002BF795 /* PopularNewsModel */ = {
+			isa = PBXGroup;
+			children = (
+				7DCCC29E1C20FDB6002BF795 /* PopularNewsModel.h */,
+				7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */,
+			);
+			path = PopularNewsModel;
+			sourceTree = "<group>";
+		};
 		7DE8C1941C04458E00E0917D /* WalletView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2767,6 +2806,8 @@
 				7D31998E1C1EA6E900A713DF /* DesignShop_VC.m */,
 				7D5005661C098E230034BE03 /* PopularMessageController.h */,
 				7D5005671C098E230034BE03 /* PopularMessageController.m */,
+				7DCCC2A11C210B7B002BF795 /* PopularNewsDetail_VC.h */,
+				7DCCC2A21C210B7B002BF795 /* PopularNewsDetail_VC.m */,
 				7D4D06C31C0ED48900BF49D9 /* AllDesignController.h */,
 				7D4D06C41C0ED48900BF49D9 /* AllDesignController.m */,
 			);
@@ -3064,6 +3105,7 @@
 				7D2BE73A1C1918FA00CE4138 /* MeShopCell.m in Sources */,
 				70F50D7D1C06FB3000920F63 /* DesignOrderModel.m in Sources */,
 				7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */,
+				7D45D0D61C224C9100FC2988 /* MeHistoryOrderModel.m in Sources */,
 				03571C421BE85C3700900EF9 /* UIImage+Common.m in Sources */,
 				032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */,
 				7D9E1E621C1E6C73007A4B6B /* MeHistoryOrderList_VC.m in Sources */,
@@ -3073,6 +3115,7 @@
 				03571C051BE85C0800900EF9 /* UIImageView+HighlightedWebCache.m in Sources */,
 				03571BA91BE85B8F00900EF9 /* NSData+Utils.m in Sources */,
 				03571BD11BE85BDB00900EF9 /* AFOAuth2Manager.m in Sources */,
+				7DCCC2A01C20FDB6002BF795 /* PopularNewsModel.m in Sources */,
 				03B455A11C17FCB6002F1A81 /* WalletHistoryTableViewCell.m in Sources */,
 				032D90261C1C1B5E00603AF5 /* AboutWalletViewController.m in Sources */,
 				03ACD19E1C081826003AB7CF /* RevisePasswordViewController.m in Sources */,
@@ -3088,11 +3131,11 @@
 				032554A61BFDC92E003B2E76 /* SecondRegisterViewController.m in Sources */,
 				03571B9F1BE85B8200900EF9 /* MJPhotoProgressView.m in Sources */,
 				035CC5281C06DCF000998FBD /* JKPhotoBrowser.m in Sources */,
+				7D45D0D91C225D0600FC2988 /* HistoryOrderThirdCell.m in Sources */,
 				7DEB8F951C06F13C00B98912 /* ZGYDesignMarkrtController.m in Sources */,
 				03571C871BE85D9C00900EF9 /* IQNSArray+Sort.m in Sources */,
 				035CC52D1C06DCF000998FBD /* UIView+JKPicker.m in Sources */,
 				03FF450D1BFEE74000D81DCE /* AFURLRequestSerialization.m in Sources */,
-				70F7E36D1C05CB7100DD661E /* DesignMarketModel.m in Sources */,
 				7DC13EE21C15646500304364 /* ZGYSelectNumberView.m in Sources */,
 				035CC5DB1C070ECB00998FBD /* UMChatTableViewCell.m in Sources */,
 				705421F41C0D3AA100BD2B47 /* OthersUserModel.m in Sources */,
@@ -3117,6 +3160,7 @@
 				7D06AF9A1C166BD200EE7102 /* ShoppingCarCell.m in Sources */,
 				035CC5341C070BC600998FBD /* SystemSetViewController.m in Sources */,
 				032554A01BFDC26D003B2E76 /* tablleHeaderView.m in Sources */,
+				7DCCC2A31C210B7B002BF795 /* PopularNewsDetail_VC.m in Sources */,
 				03FF44EC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				70FBE0A21C115FB700B15513 /* BidManage_Factory_TVC.m in Sources */,
 				03571C011BE85C0800900EF9 /* UIButton+WebCache.m in Sources */,
@@ -3152,6 +3196,7 @@
 				0395D2F61BFC65EA0009AABC /* CYLTabBarControllerConfig.m in Sources */,
 				70FA60F11C098DE400EA84FD /* ZFPopupOverlayView.m in Sources */,
 				03571C921BE85D9C00900EF9 /* IQToolbar.m in Sources */,
+				7D45D0DC1C225FA500FC2988 /* HistoryOrderDetailCell.m in Sources */,
 				7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */,
 				035CC5261C06DCF000998FBD /* JKAssetsViewCell.m in Sources */,
 				035CC5DD1C070ECB00998FBD /* UMFullScreenPhotoView.m in Sources */,
@@ -3167,7 +3212,6 @@
 				03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */,
 				03662CE31C12E0FD00AEEF48 /* base64.m in Sources */,
 				03662CE41C12E0FD00AEEF48 /* DataSigner.m in Sources */,
-				70F50D6F1C069B0600920F63 /* AccessoryMarketModel.m in Sources */,
 				035CC5221C06DCF000998FBD /* JKAssetsCollectionFooterView.m in Sources */,
 				7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */,
 				7DBD04F51C1C0FEB00FD318B /* FabricShop_VC.m in Sources */,
@@ -3225,11 +3269,13 @@
 				7D31998F1C1EA6E900A713DF /* DesignShop_VC.m in Sources */,
 				7DEB8FE71C072E3700B98912 /* PopularNewsCell.m in Sources */,
 				7D2BE73D1C19272B00CE4138 /* MeAddSupply_VC.m in Sources */,
+				7DD483531C22683F006D0FF6 /* MeHistorySell_VC.m in Sources */,
 				03571C8F1BE85D9C00900EF9 /* IQTextView.m in Sources */,
 				03FF45081BFEE74000D81DCE /* AFHTTPRequestOperationManager.m in Sources */,
 				7D665EA71C0C60EE00C7C7BF /* IMChatListViewController.m in Sources */,
 				7DA5E6981C0D4CDD00736C10 /* SelectOrder_VC.m in Sources */,
 				03571C901BE85D9C00900EF9 /* IQBarButtonItem.m in Sources */,
+				7DD483501C226820006D0FF6 /* MeHistoryBuy_VC.m in Sources */,
 				035CC52B1C06DCF000998FBD /* JKUtil.m in Sources */,
 				70F5EF771C0BE159008878B4 /* SearchOrder_Designer_VC.m in Sources */,
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
@@ -3267,6 +3313,7 @@
 				03B5697B1C02ADD000F89CDA /* StoreUserValue.m in Sources */,
 				03571C031BE85C0800900EF9 /* UIImage+MultiFormat.m in Sources */,
 				7D06AFA91C168EB000EE7102 /* DataBaseManager.m in Sources */,
+				7D70BACA1C21852A00920EE3 /* MeOrderSelect_VC.m in Sources */,
 				035CC5241C06DCF000998FBD /* JKAssetsGroupsView.m in Sources */,
 				70EB7EE71C15697E009E19F9 /* Business_Supplier_VC.m in Sources */,
 				7DF1C1C61C005F2200460DB7 /* HomeActivityCell.m in Sources */,
@@ -3298,7 +3345,6 @@
 				03662CE91C12E0FD00AEEF48 /* RSADataSigner.m in Sources */,
 				7D8E703E1C0FEA06004A7E2C /* ProcessMarketListCell.m in Sources */,
 				03882C4F1BEC951B0094524A /* HttpClient.m in Sources */,
-				70F7E36A1C05BF3900DD661E /* MachineMarketModel.m in Sources */,
 				705422011C0DB36F00BD2B47 /* OrderBid_Supplier_VC.m in Sources */,
 				03571BA41BE85B8200900EF9 /* YLGIFImage.m in Sources */,
 				7D2BE7401C192FF700CE4138 /* MeTextFieldCell.m in Sources */,

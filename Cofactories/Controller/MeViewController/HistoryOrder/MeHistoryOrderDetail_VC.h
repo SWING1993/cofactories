@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MeHistoryOrderModel.h"
 
 @interface MeHistoryOrderDetail_VC : UITableViewController
+
+@property (nonatomic, strong) MeHistoryOrderModel *orderModel;
 
 @end

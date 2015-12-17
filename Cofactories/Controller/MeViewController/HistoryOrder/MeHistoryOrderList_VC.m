@@ -9,9 +9,12 @@
 #import "MeHistoryOrderList_VC.h"
 #import "HistoryOrderListCell.h"
 #import "MeHistoryOrderDetail_VC.h"
+#import "MeHistoryOrderModel.h"
 
 static NSString *historyOrderCellIdentifier = @"historyCell";
 @interface MeHistoryOrderList_VC ()
+
+@property (nonatomic, strong) NSMutableArray *historyOrderArray;
 
 @end
 
@@ -19,13 +22,22 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.title = @"购买记录";
     [self.tableView registerClass:[HistoryOrderListCell class] forCellReuseIdentifier:historyOrderCellIdentifier];
+    
+    [HttpClient getMyGoodsBuyHistoryWithBlock:^(NSDictionary *dictionary) {
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        self.historyOrderArray = [NSMutableArray arrayWithCapacity:0];
+        if (statusCode == 200) {
+            for (NSDictionary *myDic in dictionary[@"responseArray"]) {
+                MeHistoryOrderModel *historyOrderModel = [MeHistoryOrderModel getMeHistoryOrderModelWithDictionary:myDic];
+                [self.historyOrderArray addObject:historyOrderModel];
+            }
+            [self.tableView reloadData];
+        } else {
+            kTipAlert(@"请求失败");
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,20 +52,31 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.historyOrderArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HistoryOrderListCell *cell = [tableView dequeueReusableCellWithIdentifier:historyOrderCellIdentifier forIndexPath:indexPath];
-    cell.timeLabel.text = @"2015-12-09";
-    cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
-    cell.orderTitleLabel.text = @"太空棉布料面料";
-    cell.categoryLabel.text = @"分类：蓝色*半米";
-    cell.priceLabel.text = @"￥19.80";
-    cell.numberLabel.text = @"X3";
-    cell.totalPriceLabel.text = @"共3件商品 合计：59.40";
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    MeHistoryOrderModel *historyOrderModel = self.historyOrderArray[indexPath.row];
+    cell.timeLabel.text = historyOrderModel.creatTime;
+    cell.payStatus.text = historyOrderModel.payType;
+    if ([historyOrderModel.payType isEqualToString:@"已付款"]) {
+        cell.payStatus.textColor = [UIColor greenColor];
+    } else if ([historyOrderModel.payType isEqualToString:@"待付款"]) {
+        cell.payStatus.textColor = [UIColor redColor];
+    }
+    if (historyOrderModel.photoArray.count > 0) {
+        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, historyOrderModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+    } else {
+        cell.photoView.image = [UIImage imageNamed:@"默认图片"];
+    }
+    cell.orderTitleLabel.text = historyOrderModel.name;
+    cell.categoryLabel.text = historyOrderModel.category;
+    cell.priceLabel.text = historyOrderModel.price;
+    cell.numberLabel.text = [NSString stringWithFormat:@"X%@", historyOrderModel.amount];
+    cell.totalPriceLabel.text = [NSString stringWithFormat:@"共%@件商品 合计：%@", historyOrderModel.amount, historyOrderModel.totalPrice];
     return cell;
 }
 
@@ -65,7 +88,13 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MeHistoryOrderModel *myModel = self.historyOrderArray[indexPath.row];
     MeHistoryOrderDetail_VC *detailVC = [[MeHistoryOrderDetail_VC alloc] init];
+    detailVC.orderModel = myModel;
+    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+    backItem.title=@"返回";
+    backItem.tintColor=[UIColor whiteColor];
+    self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

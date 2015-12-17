@@ -349,5 +349,18 @@
 
 // 获取店铺(我的店铺)
 + (void)getMyShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+//获取两篇置顶文章
++ (void)getPopularNewsWithBlock:(void (^)(NSDictionary *dictionary))block;
+//根据分类获取六篇显示的文章
++ (void)getSixPopularNewsListWithCategory:(NSInteger)category withBlock:(void (^)(NSDictionary *dictionary))block;
+
+//买买买
++ (void)buyGoodsWithDictionary:(NSData *)addressDic WithBlock:(void(^)(NSDictionary *dictionary))block;
+
+//购买记录
++ (void)getMyGoodsBuyHistoryWithBlock:(void(^)(NSDictionary *dictionary))block;
+
+//出售记录
++ (void)getMyGoodsSellHistoryWithBlock:(void(^)(NSDictionary *dictionary))block;
 
 @end

@@ -121,6 +121,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 
             DLog(@"%@", marketDetailModel);
             [self.myTableView reloadData];
+        } else {
+            kTipAlert(@"该商品已被下架");
         }
     }];
     
@@ -379,16 +381,20 @@ static NSString *popViewCellIdentifier = @"popViewCell";
                 [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }
-        
-        
     } else if (button.tag == 1001) {
         if (selectFlag == YES) {
             DLog(@"请选择颜色");
             kTipAlert(@"请选择颜色");
         } else {
             //立即购买
-            DLog(@"*********%ld", numberView.timeAmount);
+            DLog(@"^^^^^%@, %@", [NSString stringWithFormat:@"%ld", selectAmount], selectColorString)
+            NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", numberView.timeAmount], @"category":selectColorString};
+            NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithCapacity:0];
+            [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
+            
+            DLog(@"**********%@", buyGoodsDic);
             ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
+            shopOrderVC.goodsDic = buyGoodsDic;
             [self.navigationController pushViewController:shopOrderVC animated:YES];
 
         }
@@ -559,8 +565,16 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 
         } else if (button.tag == 223){
         DLog(@"底部 + 立即购买");
-        ShoppingOrderController *shoppingVC = [[ShoppingOrderController alloc] init];
-        [self.navigationController pushViewController:shoppingVC animated:YES];
+            DLog(@"$#$#$#$$$$#%ld", numberView.timeAmount);
+            NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", selectAmount], @"category":selectColorString};
+            NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:marketDetailModel.ID, @"address", nil];
+            [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
+            
+            DLog(@"**********%@", buyGoodsDic);
+            ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
+            shopOrderVC.goodsDic = buyGoodsDic;
+            [self.navigationController pushViewController:shopOrderVC animated:YES];
+
         
     }
     }
