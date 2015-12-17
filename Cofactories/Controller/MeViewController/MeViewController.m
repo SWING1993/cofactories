@@ -32,14 +32,15 @@
     
     
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.MyProfile = [[UserModel alloc]getMyProfile];
+    myProfileLabel.text = [NSString stringWithFormat:@"%@\n%@",self.MyProfile.name,[UserModel getRoleWith:self.MyProfile.UserType]];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.MyProfile = [[UserModel alloc]getMyProfile];
     [self initView];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    DLog(@"%@",paths);
-    DLog(@"type = %ld",self.MyProfile.UserType);
 }
 
 - (void)initView {
@@ -50,7 +51,7 @@
     myProfileLabel.numberOfLines = 2;
     myProfileLabel.textAlignment = NSTextAlignmentCenter;
     myProfileLabel.textColor = [UIColor whiteColor];
-    myProfileLabel.text = [NSString stringWithFormat:@"%@\n%@",self.MyProfile.name,[UserModel getRoleWith:self.MyProfile.UserType]];
+ 
     
     _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _leftBtn.tag = 1;
@@ -75,7 +76,6 @@
     [_tableHeadView addSubview:myProfileLabel];
     
     self.tableView.tableHeaderView = _tableHeadView;
-
 }
 
 - (void)setButtonClicked {
