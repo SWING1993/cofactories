@@ -13,7 +13,8 @@
 #import "SystemSetViewController/SystemSetViewController.h"
 #import "MeShopController.h"//店铺
 #import "ShopCarController.h"//购物车
-#import "MeHistoryOrderList_VC.h"//历史订单
+#import "MeHistoryOrderList_VC.h"
+#import "MeOrderSelect_VC.h"
 
 @interface MeViewController ()
 
@@ -98,9 +99,24 @@
     }
     if (Btn.tag == 2) {
         DLog(@"我的订单");
-        MeHistoryOrderList_VC *historyVC = [[MeHistoryOrderList_VC alloc] init];
-        historyVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:historyVC animated:YES];
+        if (self.MyProfile.UserType == UserType_designer || self.MyProfile.UserType == UserType_supplier) {
+            MeOrderSelect_VC *meOrder_VC = [[MeOrderSelect_VC alloc] init];
+            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+            backItem.title=@"返回";
+            backItem.tintColor=[UIColor whiteColor];
+            self.navigationItem.backBarButtonItem = backItem;
+            meOrder_VC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:meOrder_VC animated:YES];
+        } else {
+            MeHistoryOrderList_VC *historyVC = [[MeHistoryOrderList_VC alloc] init];
+            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+            backItem.title=@"返回";
+            backItem.tintColor=[UIColor whiteColor];
+            self.navigationItem.backBarButtonItem = backItem;
+            historyVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:historyVC animated:YES];
+        }
+
     }
 }
 

@@ -7,11 +7,13 @@
 //
 
 #import "MeHistoryOrderDetail_VC.h"
-#import "HistoryOrderListCell.h"
+#import "HistoryOrderDetailCell.h"
 #import "HistoryOrderAddressCell.h"
+#import "HistoryOrderThirdCell.h"
 
 static NSString *orderDetailCellIdentifier = @"orderDetailCell";
 static NSString *addressCellIdentifier = @"addressCell";
+static NSString *thirdCellIdentifier = @"thirdCell";
 @interface MeHistoryOrderDetail_VC ()
 
 @end
@@ -20,10 +22,11 @@ static NSString *addressCellIdentifier = @"addressCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.tableView registerClass:[HistoryOrderListCell class] forCellReuseIdentifier:orderDetailCellIdentifier];
+    self.navigationItem.title = @"订单详情";
+    self.tableView.backgroundColor = [UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0];
+    [self.tableView registerClass:[HistoryOrderDetailCell class] forCellReuseIdentifier:orderDetailCellIdentifier];
     [self.tableView registerClass:[HistoryOrderAddressCell class] forCellReuseIdentifier:addressCellIdentifier];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
+    [self.tableView registerClass:[HistoryOrderThirdCell class] forCellReuseIdentifier:thirdCellIdentifier];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,25 +47,33 @@ static NSString *addressCellIdentifier = @"addressCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        HistoryOrderListCell *cell = [tableView dequeueReusableCellWithIdentifier:orderDetailCellIdentifier forIndexPath:indexPath];
-        cell.timeLabel.text = @"2015-12-09";
-        cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
-        cell.orderTitleLabel.text = @"太空棉布料面料";
-        cell.categoryLabel.text = @"分类：蓝色*半米";
-        cell.priceLabel.text = @"￥19.80";
-        cell.numberLabel.text = @"X3";
-        cell.totalPriceLabel.text = @"共3件商品 合计：59.40";
+        HistoryOrderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:orderDetailCellIdentifier forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (self.orderModel.photoArray.count > 0) {
+            [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, self.orderModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+        } else {
+            cell.photoView.image = [UIImage imageNamed:@"默认图片"];
+        }
+        cell.orderTitleLabel.text = self.orderModel.name;
+        cell.categoryLabel.text = [NSString stringWithFormat:@"分类：%@", self.orderModel.category];
+        cell.priceLabel.text = [NSString stringWithFormat:@"￥%@", self.orderModel.price];
+        cell.numberLabel.text = [NSString stringWithFormat:@"X%@", self.orderModel.amount];
+        cell.totalPriceLabel.text = [NSString stringWithFormat:@"共%@件商品 合计：%@", self.orderModel.amount, self.orderModel.totalPrice];
         return cell;
     } else if (indexPath.section == 1) {
         HistoryOrderAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:addressCellIdentifier forIndexPath:indexPath];
-        cell.personName.text = @"收货人：朕真帅啊";
-        cell.personPhoneNumber.text = @"157****6409";
-        cell.personAddress.text = @"收货地址：浙江省 杭州市 江干区 白杨街道 下沙**************号楼";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.personName.text = [NSString stringWithFormat:@"收货人：%@", self.orderModel.personName];
+        cell.personPhoneNumber.text = [NSString stringWithFormat:@"电话：%@", self.orderModel.personPhone];
+        cell.personAddress.text = [NSString stringWithFormat:@"收货地址：%@", self.orderModel.personAddress];
         
         return cell;
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        
+        HistoryOrderThirdCell *cell = [tableView dequeueReusableCellWithIdentifier:thirdCellIdentifier forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.creatTime.text = [NSString stringWithFormat:@"创建时间：%@", self.orderModel.creatTime];
+        cell.orderNum.text = [NSString stringWithFormat:@"订单编号：%@", self.orderModel.orderNumber];
+        cell.payType.text = [NSString stringWithFormat:@"付款状态：%@", self.orderModel.payType];
         return cell;
     }
     
@@ -71,18 +82,18 @@ static NSString *addressCellIdentifier = @"addressCell";
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 110;
+        return 80;
     } else if (indexPath.section == 1) {
         return 100;
     } else {
-        return 60;
+        return 80;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.5;
+    return 10;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 10;
+    return 0.5;
 }
 /*
 // Override to support conditional editing of the table view.

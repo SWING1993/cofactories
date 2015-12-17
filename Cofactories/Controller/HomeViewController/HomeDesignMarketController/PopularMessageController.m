@@ -12,6 +12,9 @@
 #import "ZGYSelectButtonView.h"
 #import "PopularCollectionViewCell.h"
 #import "ZGYTitleView.h"
+#import "PopularNewsModel.h"
+#import "PopularNewsDetail_VC.h"
+
 #define kSearchFrameLong CGRectMake(50, 30, kScreenW-50, 25)
 #define kSearchFrameShort CGRectMake(50, 30, kScreenW-100, 25)
 
@@ -25,12 +28,22 @@ static NSString *popularCellIdentifier = @"popularCell";
 }
 @property (nonatomic,strong) NSMutableArray *firstViewImageArray;
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSMutableArray *searchArray;
+@property (nonatomic, strong) NSMutableArray *searchArray;//搜索数组
 @property (nonatomic, strong) UITableView *popularTableView;
+@property (nonatomic, strong) NSMutableArray *popularTopNewsArray;
+@property (nonatomic, strong) NSMutableArray *popularNewsListArray;
+@property (nonatomic, assign) NSInteger categoryNum;
 
 @end
 
 @implementation PopularMessageController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self creatSearchBar];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+}
+
 -(void)viewWillDisappear:(BOOL)animated {
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
@@ -40,12 +53,10 @@ static NSString *popularCellIdentifier = @"popularCell";
     [super viewDidLoad];
     [self creatTableView];
     arr = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流", ];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.categoryNum = 0;
     self.popularTableView.userInteractionEnabled = YES;
     self.popularTableView.backgroundColor = [UIColor whiteColor];
     [self.popularTableView registerClass:[PopularNewsCell class] forCellReuseIdentifier:newsCellIdentifier];
-    [self creatSearchBar];
     [self creatHeaderView];
     [self creatFooterView];
     self.popularTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -55,7 +66,34 @@ static NSString *popularCellIdentifier = @"popularCell";
     temporaryBarButtonItem.action = @selector(back);
     self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
 
+    [HttpClient getPopularNewsWithBlock:^(NSDictionary *dictionary) {
+        DLog(@"&&&&&&&%@", dictionary[@"responseArray"]);
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        self.popularTopNewsArray = [NSMutableArray arrayWithCapacity:0];
+        if (statusCode == 200) {
+            for (NSDictionary *myDic in dictionary[@"responseArray"]) {
+                PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
+                [self.popularTopNewsArray addObject:popularNewsModel];
+            }
+            [self.popularTableView reloadData];
+        }
+        
+    }];
+    
+    [HttpClient getSixPopularNewsListWithCategory:0 withBlock:^(NSDictionary *dictionary) {
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        self.popularNewsListArray = [NSMutableArray arrayWithCapacity:0];
+        if (statusCode == 200) {
+            for (NSDictionary *myDic in dictionary[@"responseArray"]) {
+                PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
+                [self.popularNewsListArray addObject:popularNewsModel];
+            }
+            [self.collectionView reloadData];
+        }
+        
+    }];
 
+    
 }
 
 - (void)creatTableView {
@@ -228,6 +266,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.scrollEnabled = NO;
     [self.view addSubview:self.collectionView];
     
     [self.collectionView registerClass:[PopularCollectionViewCell class] forCellWithReuseIdentifier:popularCellIdentifier];
@@ -241,16 +280,16 @@ static NSString *popularCellIdentifier = @"popularCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return self.popularTopNewsArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PopularNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:newsCellIdentifier forIndexPath:indexPath];
-    
-    cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
-    cell.newstitle.text = @"黑白经典中的时尚男装";
-    cell.newsDetail.text = @"型男不容错过的市场款";
+    PopularNewsModel *popularNewsModel = self.popularTopNewsArray[indexPath.row];
+    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@""]];
+    cell.newstitle.text = popularNewsModel.newsTitle;
+    cell.newsDetail.text = popularNewsModel.newsAuthor;
     
     return cell;
 }
@@ -272,6 +311,18 @@ static NSString *popularCellIdentifier = @"popularCell";
 #pragma mark - 换一批
 - (void)actionOfChang:(UIButton *)button {
     DLog(@"换一批");
+    [HttpClient getSixPopularNewsListWithCategory:self.categoryNum withBlock:^(NSDictionary *dictionary) {
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        self.popularNewsListArray = [NSMutableArray arrayWithCapacity:0];
+        if (statusCode == 200) {
+            for (NSDictionary *myDic in dictionary[@"responseArray"]) {
+                PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
+                [self.popularNewsListArray addObject:popularNewsModel];
+            }
+            [self.collectionView reloadData];
+        }
+
+    }];
 }
 #pragma mark -WKFCircularSlidingViewDelegate轮播图
 - (void)clickCircularSlidingView:(int)tag{
@@ -282,33 +333,53 @@ static NSString *popularCellIdentifier = @"popularCell";
 #pragma mark - ZGYSelectButtonViewDelegata
 
 - (void)selectButtonView:(ZGYSelectButtonView *)selectButtonView selectButtonTag:(NSInteger)selectButtonTag {
-    
-    switch (selectButtonTag) {
-        case 1:{
-            DLog(@"男装");
+    DLog(@"^^^^^^^^^%ld", selectButtonTag);
+    self.categoryNum = selectButtonTag - 1;
+    [HttpClient getSixPopularNewsListWithCategory:self.categoryNum withBlock:^(NSDictionary *dictionary) {
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        self.popularNewsListArray = [NSMutableArray arrayWithCapacity:0];
+        if (statusCode == 200) {
+            for (NSDictionary *myDic in dictionary[@"responseArray"]) {
+                PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
+                [self.popularNewsListArray addObject:popularNewsModel];
+            }
+            [self.collectionView reloadData];
+        } else {
+            kTipAlert(@"请求失败");
         }
-            break;
-        case 2:{
-            DLog(@"女装");
-        }
-            break;
-        case 3:{
-            DLog(@"童装");
-        }
-            break;
-        case 4:{
-            DLog(@"面料");
-        }
-            break;
-            
-        default:
-            break;
-    }
+
+    }];
+//    switch (selectButtonTag) {
+//        case 1:{
+//            DLog(@"男装");
+//        }
+//            break;
+//        case 2:{
+//            DLog(@"女装");
+//        }
+//            break;
+//        case 3:{
+//            DLog(@"童装");
+//        }
+//            break;
+//        case 4:{
+//            DLog(@"面料");
+//        }
+//            break;
+//            
+//        default:
+//            break;
+//    }
 }
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    DLog(@"第 %d 个新闻", indexPath.row + 1);
+    PopularNewsModel *popularNewsModel = self.popularNewsListArray[indexPath.row];
+    PopularNewsDetail_VC *popularVC = [[PopularNewsDetail_VC alloc] init];
+    popularVC.newsID = popularNewsModel.newsID;
+    [self.navigationController pushViewController:popularVC animated:YES];
+    [_searchBar removeFromSuperview];
+
 }
 
 
@@ -320,18 +391,22 @@ static NSString *popularCellIdentifier = @"popularCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 6;
+    return self.popularNewsListArray.count;
     
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PopularCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:popularCellIdentifier forIndexPath:indexPath];
-    cell.photoView.image = [UIImage imageNamed:@"5.jpg"];
-    cell.newsTitle.text = @"春夏东京男装发布会最IN";
-    cell.likeCountLabel.text = @"2345";
-    cell.commentCountLabel.text = @"评论数：999+";
+    PopularNewsModel *popularNewsModel = self.popularNewsListArray[indexPath.row];
+    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@""]];
+    cell.newsTitle.text = popularNewsModel.newsTitle;
+    cell.likeCountLabel.text = popularNewsModel.likeNum;
+    cell.commentCountLabel.text = [NSString stringWithFormat:@"评论数：%@", popularNewsModel.commentNum];
     return cell;
 }
+
+
+
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 //item大小
@@ -342,6 +417,10 @@ static NSString *popularCellIdentifier = @"popularCell";
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(10*kZGY, 10*kZGY, 10*kZGY, 10*kZGY);
 }
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

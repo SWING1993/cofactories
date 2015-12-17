@@ -105,9 +105,7 @@
             sunbBtn.selected = NO;
         }
     }
-    [UIView animateWithDuration:0.2 animations:^{
-        selectLine.frame = CGRectMake(button.frame.origin.x + kScreenW/8, 44- 2.5, kScreenW/4, 2.5);
-    }];
+
     [myScrollView setContentOffset:CGPointMake((button.tag - 222) * kScreenW, 0) animated:YES];//有动画效果
     
 }
@@ -115,17 +113,31 @@
 #pragma mark - UIScrollViewDelegate
 
 //代理要实现的方法: 切换页面后, 下面的页码控制器也跟着变化
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView {
-    NSInteger btnTag = myScrollView.contentOffset.x / kScreenW;
-    UIButton *button = [btnArray objectAtIndex:btnTag];
-    button.selected = YES;
-    for (UIButton *sunbBtn in btnArray) {
-        if (sunbBtn != button) {
-            sunbBtn.selected = NO;
-        }
-    }
-    [UIView animateWithDuration:0.2 animations:^{
-        selectLine.frame = CGRectMake(button.frame.origin.x + kScreenW/8, 44- 2.5, kScreenW/4, 2.5);
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+ {
+     NSInteger btnTag = 0;
+     if (scrollView.contentOffset.x == 0) {
+         btnTag = 0;
+         UIButton *button = [btnArray objectAtIndex:btnTag];
+         button.selected = YES;
+         for (UIButton *sunbBtn in btnArray) {
+             if (sunbBtn != button) {
+                 sunbBtn.selected = NO;
+             }
+         }
+
+     } else if(scrollView.contentOffset.x == scrollView.frame.size.width){
+         btnTag = 1;
+         UIButton *button = [btnArray objectAtIndex:btnTag];
+         button.selected = YES;
+         for (UIButton *sunbBtn in btnArray) {
+             if (sunbBtn != button) {
+                 sunbBtn.selected = NO;
+             }
+         }
+     }
+        [UIView animateWithDuration:0.1 animations:^{
+        selectLine.frame = CGRectMake(kScreenW/8+(scrollView.contentOffset.x/scrollView.frame.size.width)*kScreenW/2, 44- 2.5, kScreenW/4, 2.5);
     }];
 }
 

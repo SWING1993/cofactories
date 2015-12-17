@@ -47,19 +47,12 @@
 #define API_uploadPhoto @"/upload/user"
 #define API_config @"/config/ad/:"
 
-//#define API_Publish_Machine_Market   @"/market/machine/add"
-//#define API_Publish_Design_Market    @"/market/design/add"
-//#define API_Publish_Accessory_Market @"/market/accessory/add"
-//#define API_Publish_Fabric_Market    @"/market/fabric/add"
 
 #define API_Publish_Market_Publish   @"/market/add"
 
-//#define API_Search_Machine_Market   @"/market/machine/Search"
-//#define API_Search_Design_Market    @"/market/design/Search"
-//#define API_Search_Accessory_Market @"/market/accessory/Search"
-//#define API_Search_Fabric_Market    @"/market/fabric/Search"
-
 #define API_Search_Market_Search   @"/market/search"
+
+#define API_Buy_market_Buy @"/market/buy"
 
 #define API_Piblish_Supplier_Order @"/order/supplier/add"
 #define API_Piblish_Factory_Order  @"/order/factory/add"
@@ -71,6 +64,15 @@
 
 #define API_GetIMToken @"/im/token"//获取融云token
 #define API_SearchBusiness @"/user/search"
+
+#define kPopularBaseUrl @"http://lo.news.mxd.moe"
+
+#define kPopular_News_Top @"/api/getTop"
+#define kPopular_News_List @"/api/getList"
+
+#define API_Goods_Buy_History @"/market/buy"
+#define API_Goods_Sell_History @"/market/sell"
+
 @implementation HttpClient
 
 /*User**********************************************************************************************************************************************/
@@ -1935,7 +1937,158 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
+}
+
+//获取两篇置顶文章
++ (void)getPopularNewsWithBlock:(void (^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, kPopular_News_Top];
+        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"^^^^^^^^^^^^%@", responseObject);
+            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            switch ([operation.response statusCode]) {
+                case 400:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
+                    break;
+                case 401:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
+                    break;
+                    
+                default:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
+                    break;
+            }
+        }];
+    } else {
+        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
+    }
+}
+//随机获取六篇文章
++ (void)getSixPopularNewsListWithCategory:(NSInteger)category withBlock:(void (^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, kPopular_News_List];
+//        NSString*token = credential.accessToken;
+        [manager GET:urlString parameters:@{@"category":[NSString stringWithFormat:@"%ld", category]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"^^^^^^^^^^^^%@", responseObject);
+            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            switch ([operation.response statusCode]) {
+                case 400:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
+                    break;
+                case 401:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
+                    break;
+                    
+                default:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
+                    break;
+            }
+        }];
+    } else {
+        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
+    }
+
+}
+
+//买买买
++ (void)buyGoodsWithDictionary:(NSData *)addressDic WithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager POST:API_Buy_market_Buy parameters:addressDic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            block(@{@"statusCode": @([operation.response statusCode]), @"responseObject":responseObject});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"error == %@",error);
+            
+        }];
+        
+    }else{
+        block(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
     
 }
+
+//购买记录
++ (void)getMyGoodsBuyHistoryWithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        //        NSString*token = credential.accessToken;
+        [manager GET:API_Goods_Buy_History parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"^^^^^^^^^^^^%@", responseObject);
+            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            switch ([operation.response statusCode]) {
+                case 400:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
+                    break;
+                case 401:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
+                    break;
+                    
+                default:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
+                    break;
+            }
+        }];
+    } else {
+        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
+    }
+
+    
+}
+//出售记录
++ (void)getMyGoodsSellHistoryWithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        //        NSString*token = credential.accessToken;
+        [manager GET:API_Goods_Sell_History parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"^^^^^^^^^^^^%@", responseObject);
+            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            switch ([operation.response statusCode]) {
+                case 400:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
+                    break;
+                case 401:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
+                    break;
+                    
+                default:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
+                    break;
+            }
+        }];
+    } else {
+        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
+    }
+
+}
+
 
 @end

@@ -11,6 +11,7 @@
 #import "PersonalWorks_TVC.h"
 #import "DealComment_TVC.h"
 #import "MJRefresh.h"
+#import "materialShopDetailController.h"
 @interface PersonalMessage_Design_VC (){
     NSInteger              _selectedIndex;
     NSMutableArray        *_dataArrayOne;      // 个人店铺
@@ -290,12 +291,10 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     UIButton *button = (UIButton *)sender;
     NSLog(@"%d",button.tag);
     
-    if ([_userModel.role isEqualToString:@"设计者"]) {
-        
-    }else if ([_userModel.role isEqualToString:@"供应商"]){
-        
-    }
-    
+    PersonalShop_Model *model = _dataArrayOne[button.tag];
+    materialShopDetailController *vc = [materialShopDetailController new];
+    vc.shopID = model.goodsID;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - 导航pop

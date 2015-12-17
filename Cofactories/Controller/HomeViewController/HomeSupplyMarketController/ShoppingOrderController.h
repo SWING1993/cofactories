@@ -21,5 +21,7 @@
     NSString *addressString;
 }
 
+@property (nonatomic, strong) NSMutableDictionary *goodsDic;//商品分类和数量的数组
+
 
 @end
