@@ -47,6 +47,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController.navigationBar setHidden:YES];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

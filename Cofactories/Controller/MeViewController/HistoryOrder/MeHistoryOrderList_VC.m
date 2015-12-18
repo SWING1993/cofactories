@@ -10,9 +10,12 @@
 #import "HistoryOrderListCell.h"
 #import "MeHistoryOrderDetail_VC.h"
 #import "MeHistoryOrderModel.h"
+#import "MJRefresh.h"
 
 static NSString *historyOrderCellIdentifier = @"historyCell";
-@interface MeHistoryOrderList_VC ()
+@interface MeHistoryOrderList_VC () {
+    NSInteger        _refrushCount;
+}
 
 @property (nonatomic, strong) NSMutableArray *historyOrderArray;
 
@@ -26,7 +29,8 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
     [self.tableView registerClass:[HistoryOrderListCell class] forCellReuseIdentifier:historyOrderCellIdentifier];
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.backgroundColor = [UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0];
-    [HttpClient getMyGoodsBuyHistoryWithBlock:^(NSDictionary *dictionary) {
+    _refrushCount = 1;
+    [HttpClient getMyGoodsBuyHistoryWithPage:@1 WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         self.historyOrderArray = [NSMutableArray arrayWithCapacity:0];
         if (statusCode == 200) {
@@ -39,6 +43,32 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
             kTipAlert(@"请求失败");
         }
     }];
+    [self setupRefresh];
+}
+- (void)setupRefresh{
+    [self.tableView addFooterWithTarget:self action:@selector(footerRereshing)];
+    self.tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    self.tableView.footerRefreshingText = @"加载中...";
+}
+
+- (void)footerRereshing{
+    _refrushCount++;
+    DLog(@"_refrushCount==%d",_refrushCount);
+    [HttpClient getMyGoodsBuyHistoryWithPage:@(_refrushCount) WithBlock:^(NSDictionary *dictionary) {
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        if (statusCode == 200) {
+            for (NSDictionary *myDic in dictionary[@"responseArray"]) {
+                MeHistoryOrderModel *historyOrderModel = [MeHistoryOrderModel getMeHistoryOrderModelWithDictionary:myDic];
+                [self.historyOrderArray addObject:historyOrderModel];
+            }
+            [self.tableView reloadData];
+        } else {
+            kTipAlert(@"请求失败");
+        }
+    }];
+    [self.tableView footerEndRefreshing];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,6 +122,7 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
     MeHistoryOrderModel *myModel = self.historyOrderArray[indexPath.row];
     MeHistoryOrderDetail_VC *detailVC = [[MeHistoryOrderDetail_VC alloc] init];
     detailVC.orderModel = myModel;
+    detailVC.isBuy = YES;
     UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
     backItem.title=@"返回";
     backItem.tintColor=[UIColor whiteColor];

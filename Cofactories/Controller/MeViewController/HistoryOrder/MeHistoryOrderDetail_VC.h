@@ -12,5 +12,5 @@
 @interface MeHistoryOrderDetail_VC : UITableViewController
 
 @property (nonatomic, strong) MeHistoryOrderModel *orderModel;
-
+@property (nonatomic, assign) BOOL isBuy;
 @end

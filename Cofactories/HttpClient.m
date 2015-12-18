@@ -2025,7 +2025,7 @@
 }
 
 //购买记录
-+ (void)getMyGoodsBuyHistoryWithBlock:(void(^)(NSDictionary *dictionary))block {
++ (void)getMyGoodsBuyHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -2033,7 +2033,7 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         //        NSString*token = credential.accessToken;
-        [manager GET:API_Goods_Buy_History parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager GET:API_Goods_Buy_History parameters:@{@"page":aPage} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             DLog(@"^^^^^^^^^^^^%@", responseObject);
             block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
             
@@ -2058,7 +2058,7 @@
     
 }
 //出售记录
-+ (void)getMyGoodsSellHistoryWithBlock:(void(^)(NSDictionary *dictionary))block {
++ (void)getMyGoodsSellHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -2066,7 +2066,7 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         //        NSString*token = credential.accessToken;
-        [manager GET:API_Goods_Sell_History parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager GET:API_Goods_Sell_History parameters:@{@"page":aPage} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             DLog(@"^^^^^^^^^^^^%@", responseObject);
             block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
             
