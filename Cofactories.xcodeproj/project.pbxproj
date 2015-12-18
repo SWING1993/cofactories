@@ -47,7 +47,6 @@
 		03571BAD1BE85BCB00900EF9 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 03571BAC1BE85BCB00900EF9 /* MF_Base64Additions.m */; };
 		03571BD01BE85BDB00900EF9 /* AFHTTPRequestSerializer+OAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = 03571BCD1BE85BDB00900EF9 /* AFHTTPRequestSerializer+OAuth2.m */; };
 		03571BD11BE85BDB00900EF9 /* AFOAuth2Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03571BCF1BE85BDB00900EF9 /* AFOAuth2Manager.m */; };
-		03571BD51BE85BEA00900EF9 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571BD41BE85BEA00900EF9 /* Bugly.framework */; };
 		03571BF81BE85C0800900EF9 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 03571BD81BE85C0800900EF9 /* MKAnnotationView+WebCache.m */; };
 		03571BF91BE85C0800900EF9 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 03571BDA1BE85C0800900EF9 /* NSData+ImageContentType.m */; };
 		03571BFA1BE85C0800900EF9 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 03571BDC1BE85C0800900EF9 /* SDImageCache.m */; };
@@ -181,6 +180,7 @@
 		03927D781BEC86D90087A2FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03927D771BEC86D90087A2FD /* Images.xcassets */; };
 		03927D7E1BEC8CF50087A2FD /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03927D7D1BEC8CF50087A2FD /* MeViewController.m */; };
 		03927D841BEC8D1E0087A2FD /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03927D831BEC8D1E0087A2FD /* HomeViewController.m */; };
+		039586571C23EC5800CBFBEA /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039586561C23EC5800CBFBEA /* Bugly.framework */; };
 		0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2E81BFC65920009AABC /* CYLPlusButton.m */; };
 		0395D2EF1BFC65920009AABC /* CYLTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2EA1BFC65920009AABC /* CYLTabBar.m */; };
 		0395D2F01BFC65920009AABC /* CYLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2EC1BFC65920009AABC /* CYLTabBarController.m */; };
@@ -564,7 +564,6 @@
 		03571BCD1BE85BDB00900EF9 /* AFHTTPRequestSerializer+OAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestSerializer+OAuth2.m"; sourceTree = "<group>"; };
 		03571BCE1BE85BDB00900EF9 /* AFOAuth2Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOAuth2Manager.h; sourceTree = "<group>"; };
 		03571BCF1BE85BDB00900EF9 /* AFOAuth2Manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuth2Manager.m; sourceTree = "<group>"; };
-		03571BD41BE85BEA00900EF9 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		03571BD71BE85C0800900EF9 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		03571BD81BE85C0800900EF9 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		03571BD91BE85C0800900EF9 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -792,6 +791,7 @@
 		03927D7D1BEC8CF50087A2FD /* MeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeViewController.m; sourceTree = "<group>"; };
 		03927D821BEC8D1E0087A2FD /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		03927D831BEC8D1E0087A2FD /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		039586561C23EC5800CBFBEA /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		0395D2E71BFC65920009AABC /* CYLPlusButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLPlusButton.h; sourceTree = "<group>"; };
 		0395D2E81BFC65920009AABC /* CYLPlusButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLPlusButton.m; sourceTree = "<group>"; };
 		0395D2E91BFC65920009AABC /* CYLTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLTabBar.h; sourceTree = "<group>"; };
@@ -1203,6 +1203,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D665EA01C0C4AED00C7C7BF /* libc++.tbd in Frameworks */,
+				03571D3D1BE8606F00900EF9 /* libz.tbd in Frameworks */,
+				03571D4A1BE8612300900EF9 /* Security.framework in Frameworks */,
+				03571D3B1BE8604100900EF9 /* SystemConfiguration.framework in Frameworks */,
 				7DA950171C1298AF00BFCB31 /* libSocialQQ.a in Frameworks */,
 				7D43078A1C10271E00C4A3FF /* libiconv.tbd in Frameworks */,
 				7D665EA21C0C4B1400C7C7BF /* MapKit.framework in Frameworks */,
@@ -1215,8 +1219,6 @@
 				03662C6A1C12C3B900AEEF48 /* CoreText.framework in Frameworks */,
 				03571D4E1BE8615800900EF9 /* QuartzCore.framework in Frameworks */,
 				03571D5C1BE861D100900EF9 /* CoreTelephony.framework in Frameworks */,
-				03571D3B1BE8604100900EF9 /* SystemConfiguration.framework in Frameworks */,
-				7D665EA01C0C4AED00C7C7BF /* libc++.tbd in Frameworks */,
 				7D665EA21C0C4B1400C7C7BF /* MapKit.framework in Frameworks */,
 				03662C7C1C12E0D700AEEF48 /* libssl.a in Frameworks */,
 				7D665E9E1C0C4A9B00C7C7BF /* CoreLocation.framework in Frameworks */,
@@ -1233,10 +1235,10 @@
 				03571D541BE8617A00900EF9 /* AVFoundation.framework in Frameworks */,
 				03571D521BE8616C00900EF9 /* CoreFoundation.framework in Frameworks */,
 				03571D501BE8616200900EF9 /* CoreGraphics.framework in Frameworks */,
+				039586571C23EC5800CBFBEA /* Bugly.framework in Frameworks */,
 				03571D4E1BE8615800900EF9 /* QuartzCore.framework in Frameworks */,
 				03571D4C1BE8614200900EF9 /* CFNetwork.framework in Frameworks */,
 				035CC5DA1C070ECB00998FBD /* libUMOpus.a in Frameworks */,
-				03571D4A1BE8612300900EF9 /* Security.framework in Frameworks */,
 				7D665E9A1C0C49AD00C7C7BF /* RongIMLib.framework in Frameworks */,
 				03571D481BE8611500900EF9 /* OpenGLES.framework in Frameworks */,
 				035CC5C91C070ECB00998FBD /* libUMFeedback.a in Frameworks */,
@@ -1245,10 +1247,8 @@
 				03571D411BE8609700900EF9 /* libstdc++.tbd in Frameworks */,
 				03662C7B1C12E0D700AEEF48 /* libcrypto.a in Frameworks */,
 				03571D3F1BE8608400900EF9 /* libxml2.tbd in Frameworks */,
-				03571D3D1BE8606F00900EF9 /* libz.tbd in Frameworks */,
 				03662C7A1C12E0D700AEEF48 /* AlipaySDK.framework in Frameworks */,
 				7D665E961C0C49AD00C7C7BF /* libopencore-amrnb.a in Frameworks */,
-				03571BD51BE85BEA00900EF9 /* Bugly.framework in Frameworks */,
 				7D665E991C0C49AD00C7C7BF /* RongIMKit.framework in Frameworks */,
 				03571D091BE85DDE00900EF9 /* libMobClickLibrary.a in Frameworks */,
 			);
@@ -1647,17 +1647,9 @@
 		03571BD21BE85BEA00900EF9 /* Bugly */ = {
 			isa = PBXGroup;
 			children = (
-				03571BD31BE85BEA00900EF9 /* Bugly_libc++ */,
+				039586551C23EC5800CBFBEA /* libc++ */,
 			);
 			path = Bugly;
-			sourceTree = "<group>";
-		};
-		03571BD31BE85BEA00900EF9 /* Bugly_libc++ */ = {
-			isa = PBXGroup;
-			children = (
-				03571BD41BE85BEA00900EF9 /* Bugly.framework */,
-			);
-			path = "Bugly_libc++";
 			sourceTree = "<group>";
 		};
 		03571BD61BE85C0800900EF9 /* SDWebImage */ = {
@@ -2111,6 +2103,14 @@
 				03A3C8DB1C0429C2007BD9B8 /* SetViewController */,
 			);
 			path = MeViewController;
+			sourceTree = "<group>";
+		};
+		039586551C23EC5800CBFBEA /* libc++ */ = {
+			isa = PBXGroup;
+			children = (
+				039586561C23EC5800CBFBEA /* Bugly.framework */,
+			);
+			path = "libc++";
 			sourceTree = "<group>";
 		};
 		0395D2E51BFC65690009AABC /* CYLTabBar */ = {
@@ -3539,6 +3539,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
+					"$(PROJECT_DIR)/Cofactories/Utils/Bugly/libc++",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Cofactories/Cofactories_iOS-Prefix.pch";
@@ -3565,7 +3566,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriessongs;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesso;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
@@ -3591,6 +3592,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
+					"$(PROJECT_DIR)/Cofactories/Utils/Bugly/libc++",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Cofactories/Cofactories_iOS-Prefix.pch";
@@ -3617,7 +3619,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriessongs;
+				PRODUCT_BUNDLE_IDENTIFIER = Cofactory.Cofactoriesso;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
