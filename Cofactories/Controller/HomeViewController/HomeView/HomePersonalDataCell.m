@@ -17,7 +17,8 @@
     if (self) {
         self.personalDataLeftImage = [[UIImageView alloc] initWithFrame:CGRectMake(10*kZGY, 15*kZGY, 50*kZGY, 50*kZGY)];
         self.personalDataLeftImage.layer.cornerRadius = 25*kZGY;
-        self.personalDataLeftImage.layer.masksToBounds = YES;
+        self.personalDataLeftImage.contentMode = UIViewContentModeScaleAspectFill;
+        self.personalDataLeftImage.clipsToBounds = YES;
         [self addSubview:self.personalDataLeftImage];
         
         self.personNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.personalDataLeftImage.frame) + 15*kZGY, 15*kZGY, kScreenW/2 - 75*kZGY, 20*kZGY)];
@@ -36,15 +37,11 @@
         [self addSubview:self.personWalletLeft];
         
         self.personAddressButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.personAddressButton.frame = CGRectMake(10*kZGY, CGRectGetMaxY(self.personWalletLeft.frame) + 2.5*kZGY, kScreenW/2 - 10*kZGY, 25*kZGY);
+        self.personAddressButton.frame = CGRectMake(10*kZGY, CGRectGetMaxY(self.personWalletLeft.frame) + 2.5*kZGY, kScreenW/2 - 20*kZGY, 25*kZGY);
         self.personAddressButton.titleLabel.font = [UIFont systemFontOfSize:11*kZGY];
         [self.personAddressButton setTitleColor:[UIColor colorWithRed:112.0f/255.0f green:112.0f/255.0f blue:112.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
         
         [self addSubview:self.personAddressButton];
-//        self.personAddressLabel = [[UILabel alloc] initWithFrame:CGRectMake(10*kZGY, CGRectGetMaxY(self.personWalletLeft.frame) + 2.5*kZGY, kScreenW/2 - 10*kZGY, 25*kZGY)];
-//        self.personAddressLabel.font = [UIFont systemFontOfSize:11*kZGY];
-//        self.personAddressLabel.textColor = [UIColor colorWithRed:112.0f/255.0f green:112.0f/255.0f blue:112.0f/255.0f alpha:1.0f];
-//        [self addSubview:self.personAddressLabel];
         
         self.personStyleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW/2 + 10*kZGY, 20*kZGY, kScreenW/4 - 20*kZGY, 20*kZGY)];
         self.personStyleLabel.textAlignment = NSTextAlignmentCenter;
@@ -53,11 +50,15 @@
         self.personStyleLabel.textColor = [UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
         [self addSubview:self.personStyleLabel];
         self.personalDataMiddleImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW/2 + 20*kZGY, CGRectGetMaxY(self.personStyleLabel.frame) + 15*kZGY, kScreenW/4 - 40*kZGY, 18*kZGY)];
+        self.personalDataMiddleImage.contentMode = UIViewContentModeScaleAspectFill;
+        self.personalDataMiddleImage.clipsToBounds = YES;
         [self addSubview:self.personalDataMiddleImage];
         
         self.personalDataRightImage = [[UIImageView alloc] initWithFrame:CGRectMake(3*kScreenW/4 + 30*kZGY, 20*kZGY, kScreenW/4 - 60*kZGY, 40*kZGY)];
         
         self.personalDataRightImage.image = [UIImage imageNamed:@"Home-聚"];
+        self.personalDataRightImage.contentMode = UIViewContentModeScaleAspectFill;
+        self.personalDataRightImage.clipsToBounds = YES;
         [self addSubview:self.personalDataRightImage];
         self.authenticationLabel = [[UILabel alloc] initWithFrame:CGRectMake(3*kScreenW/4 + 10*kZGY, 70*kZGY, kScreenW/4 - 20*kZGY, 20*kZGY)];
         self.authenticationLabel.font = [UIFont systemFontOfSize:11*kZGY];
@@ -69,10 +70,10 @@
         [self addSubview:self.authenticationButton];
         
         UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW / 2, 20*kZGY, 0.3, 65*kZGY)];
-        leftLabel.backgroundColor = [UIColor grayColor];
+        leftLabel.backgroundColor = kLineGrayCorlor;
         [self addSubview:leftLabel];
         UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(3*kScreenW / 4, 20*kZGY, 0.3, 65*kZGY)];
-        rightLabel.backgroundColor = [UIColor grayColor];
+        rightLabel.backgroundColor = kLineGrayCorlor;
         [self addSubview:rightLabel];
     }
     return self;

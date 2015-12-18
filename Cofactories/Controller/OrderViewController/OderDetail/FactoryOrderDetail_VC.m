@@ -12,6 +12,7 @@
 #import "IMChatViewController.h"
 #import "BidManage_Factory_VC.h"
 #import "MarkOrder_VC.h"
+
 @interface FactoryOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;
@@ -149,6 +150,16 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
     if (button.tag == 1) {
         // 聊天
+        IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
+        conversationVC.conversationType = ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
+        conversationVC.targetId = self.otherUserModel.uid; // 接收者的 targetId，这里为举例。
+        conversationVC.userName = self.otherUserModel.name; // 接受者的 username，这里为举例。
+        conversationVC.title = self.otherUserModel.name; // 会话的 title。
+        conversationVC.hidesBottomBarWhenPushed=YES;
+        
+        [self.navigationController.navigationBar setHidden:NO];
+        [self.navigationController pushViewController:conversationVC animated:YES];
+
     }else if (button.tag == 2){
         // 投标
         

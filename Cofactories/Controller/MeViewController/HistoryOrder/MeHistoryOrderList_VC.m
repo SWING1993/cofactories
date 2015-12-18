@@ -24,7 +24,8 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
     [super viewDidLoad];
     self.navigationItem.title = @"购买记录";
     [self.tableView registerClass:[HistoryOrderListCell class] forCellReuseIdentifier:historyOrderCellIdentifier];
-    
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    self.tableView.backgroundColor = [UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0];
     [HttpClient getMyGoodsBuyHistoryWithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         self.historyOrderArray = [NSMutableArray arrayWithCapacity:0];
@@ -63,7 +64,7 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
     cell.timeLabel.text = historyOrderModel.creatTime;
     cell.payStatus.text = historyOrderModel.payType;
     if ([historyOrderModel.payType isEqualToString:@"已付款"]) {
-        cell.payStatus.textColor = [UIColor greenColor];
+        cell.payStatus.textColor = kGreen;
     } else if ([historyOrderModel.payType isEqualToString:@"待付款"]) {
         cell.payStatus.textColor = [UIColor redColor];
     }

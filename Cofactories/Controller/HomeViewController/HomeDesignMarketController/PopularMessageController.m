@@ -13,7 +13,7 @@
 #import "PopularCollectionViewCell.h"
 #import "ZGYTitleView.h"
 #import "PopularNewsModel.h"
-#import "PopularNewsDetail_VC.h"
+#import "PopularNewsDetails_VC.h"
 
 #define kSearchFrameLong CGRectMake(50, 30, kScreenW-50, 25)
 #define kSearchFrameShort CGRectMake(50, 30, kScreenW-100, 25)
@@ -25,6 +25,8 @@ static NSString *popularCellIdentifier = @"popularCell";
     ZGYSelectButtonView *selectBtnView;
     UISearchBar *_searchBar;
     UIView *bigView;
+    UIButton *changeBtn;
+    MBProgressHUD *hud;
 }
 @property (nonatomic,strong) NSMutableArray *firstViewImageArray;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -51,6 +53,8 @@ static NSString *popularCellIdentifier = @"popularCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    hud = [Tools createHUD];
+    hud.labelText = @"加载中...";
     [self creatTableView];
     arr = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流", ];
     self.categoryNum = 0;
@@ -88,6 +92,7 @@ static NSString *popularCellIdentifier = @"popularCell";
                 PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
                 [self.popularNewsListArray addObject:popularNewsModel];
             }
+            [hud hide:YES];
             [self.collectionView reloadData];
         }
         
@@ -232,18 +237,23 @@ static NSString *popularCellIdentifier = @"popularCell";
     self.popularTableView.tableHeaderView = headerView;
 }
 - (void)creatFooterView {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 80 + ((kScreenW - 30)/3 + 60)*2 + 30)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 80 + ((kScreenW - 30)/3 + 60)*2 + 20)];
     footerView.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
+    
     //流行导读
     ZGYTitleView *title2 = [[ZGYTitleView alloc] initWithFrame:CGRectMake(0, 20, kScreenW, 25) Title:@"流行导读" leftLabelColor:[UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f]];
     [footerView addSubview:title2];
     
+    NSTimer *myTimer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(actionOfTimer) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:myTimer forMode:NSDefaultRunLoopMode];
+    
+    
     //换一批
-    UIButton *changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     changeBtn.frame = CGRectMake(kScreenW - 60, 20, 60, 30);
     [changeBtn setTitle:@"换一批" forState:UIControlStateNormal];
     [changeBtn setTitleColor:[UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-    changeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    changeBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [changeBtn addTarget:self action:@selector(actionOfChang:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:changeBtn];
     
@@ -307,6 +317,11 @@ static NSString *popularCellIdentifier = @"popularCell";
 #pragma mark - 设计师Lijo
 - (void)actionOfdesign:(UIButton *)button {
     DLog(@"设计师Lijo");
+    
+    PopularNewsDetails_VC *popularVC = [[PopularNewsDetails_VC alloc] init];
+    popularVC.lijoString = @"http://lo.test.mxd.moe/cofactories-3/%E8%AE%BE%E8%AE%A1%E5%B8%88%E4%B8%AA%E4%BA%BA%E8%B5%84%E6%96%99/";
+    [self.navigationController pushViewController:popularVC animated:YES];
+    [_searchBar removeFromSuperview];
 }
 #pragma mark - 换一批
 - (void)actionOfChang:(UIButton *)button {
@@ -375,14 +390,22 @@ static NSString *popularCellIdentifier = @"popularCell";
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PopularNewsModel *popularNewsModel = self.popularNewsListArray[indexPath.row];
-    PopularNewsDetail_VC *popularVC = [[PopularNewsDetail_VC alloc] init];
+    PopularNewsDetails_VC *popularVC = [[PopularNewsDetails_VC alloc] init];
     popularVC.newsID = popularNewsModel.newsID;
     [self.navigationController pushViewController:popularVC animated:YES];
     [_searchBar removeFromSuperview];
 
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    //xy方向缩放的初始值为0.5
+    cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1);
+    //设置动画时间为0.25秒,xy方向缩放的最终值为1
+    [UIView animateWithDuration:0.5 animations:^{
+        cell.layer.transform = CATransform3DMakeScale(1, 1, 1);
+    }];
 
+}
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -398,7 +421,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PopularCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:popularCellIdentifier forIndexPath:indexPath];
     PopularNewsModel *popularNewsModel = self.popularNewsListArray[indexPath.row];
-    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@""]];
+    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", @"http://lo.news.mxd.moe/", popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@""]];
     cell.newsTitle.text = popularNewsModel.newsTitle;
     cell.likeCountLabel.text = popularNewsModel.likeNum;
     cell.commentCountLabel.text = [NSString stringWithFormat:@"评论数：%@", popularNewsModel.commentNum];
@@ -419,8 +442,16 @@ static NSString *popularCellIdentifier = @"popularCell";
 }
 
 
-
-
+- (void)actionOfTimer {
+    [changeBtn setTitleColor:[UIColor randomColor] forState:UIControlStateNormal];
+    
+}
++ (UIColor *) randomColor {
+    CGFloat hue = ( arc4random() % 256 / 256.0 ); //0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5; // 0.5 to 1.0,away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5; //0.5 to 1.0,away from black
+    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

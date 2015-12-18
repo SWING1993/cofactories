@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *category;
 @property (nonatomic, strong) NSString *amount;//购买数量
 @property (nonatomic, strong) NSString *totalPrice;
+@property (nonatomic, strong) NSString *descriptions;
 
 @property (nonatomic, strong) NSString *personName;
 @property (nonatomic, strong) NSString *personPhone;

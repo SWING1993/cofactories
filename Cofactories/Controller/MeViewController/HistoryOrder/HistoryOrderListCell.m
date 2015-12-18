@@ -22,11 +22,12 @@
         self.timeLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:self.timeLabel];
         self.payStatus = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW - 70, 10, 60, 30)];
-        self.payStatus.font = [UIFont systemFontOfSize:14];
+        self.payStatus.font = [UIFont boldSystemFontOfSize:14];
         self.payStatus.textAlignment = NSTextAlignmentRight;
         [self addSubview:self.payStatus];
         self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.timeLabel.frame), 80, 60)];
         self.photoView.layer.cornerRadius = 5;
+        self.photoView.contentMode = UIViewContentModeScaleAspectFill;
         self.photoView.clipsToBounds = YES;
         [self addSubview:self.photoView];
         self.orderTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.photoView.frame) + 10, CGRectGetMaxY(self.timeLabel.frame), kScreenW - 20 - 70 - 80, 20)];

@@ -10,13 +10,15 @@
 #import "AuthenticationCell.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "AlipayHeader.h"
+#import "MeHistoryOrderList_VC.h"
+#import "MeOrderSelect_VC.h"
 
 #define PROVINCE_COMPONENT  0
 #define CITY_COMPONENT      1
 #define DISTRICT_COMPONENT  2
 
 static NSString *OrderCellIdentifier = @"OrderCell";
-@interface ShoppingOrderController ()<UIPickerViewDataSource,UIPickerViewDelegate> {
+@interface ShoppingOrderController ()<UIPickerViewDataSource,UIPickerViewDelegate, UIAlertViewDelegate> {
     UITextField *personNameTF, *phoneNumberTF, *youBianTF, *addressTF, *detailAddressTF;
     NSArray *titleArray;
     UIButton *lastButton;
@@ -26,6 +28,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
 }
 @property (nonatomic,strong) UIPickerView *addressPicker;
 @property (nonatomic,strong) UIToolbar *addressToolbar;
+@property (nonatomic,retain)UserModel * MyProfile;
 
 @end
 
@@ -33,6 +36,8 @@ static NSString *OrderCellIdentifier = @"OrderCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController.navigationBar setHidden:NO];
+    self.MyProfile = [[UserModel alloc]getMyProfile];
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -218,17 +223,37 @@ static NSString *OrderCellIdentifier = @"OrderCell";
         [self.goodsDic setObject:addressDic forKey:@"address"];
         
         if ([selectPayStyle isEqualToString:@"账户余额"]) {
-            [self.goodsDic setObject:@"wallet" forKey:@"payment"];
-            NSData *myData = [self DataTOjsonString:self.goodsDic];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定付款" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alert.tag = 222;
+            [alert show];
+        }
+        if ([selectPayStyle isEqualToString:@"支付宝"]) {
+            DLog(@"^^^^^^^^^^^^^^^^^^^^^");
+            [self.goodsDic setObject:@"alipay" forKey:@"payment"];
             DLog(@"^^^^^^^^^^^^^^^%@", self.goodsDic);
+            NSData *myData = [self DataTOjsonString:self.goodsDic];
             [HttpClient buyGoodsWithDictionary:myData WithBlock:^(NSDictionary *dictionary) {
                 NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
                 switch (statusCode) {
-                    case 200:
-                        kTipAlert(@"下单成功");
+                    case 200: {
+                        DLog(@"#######%@", dictionary[@"statusCode"]);
+                        DLog(@"#############%@", dictionary[@"responseObject"]);
+                        
+                        NSString *tradeNO = dictionary[@"responseObject"][@"out_trade_no"];
+                        NSString *descriptionStr = dictionary[@"responseObject"][@"body"];
+                        NSString *subject = dictionary[@"responseObject"][@"subject"];
+                        NSString *amountStr = [NSString stringWithFormat:@"%@", dictionary[@"responseObject"][@"fee"]];
+                        DLog(@"amountPrice = %@", amountStr);
+                        if (tradeNO && descriptionStr && subject) {
+                            [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
+                        } else {
+                            kTipAlert(@"生成订单信息失败");
+                        }
+                    }
                         break;
                     case 402:
-                        kTipAlert(@"付款失败，钱包余额不足");
+                        kTipAlert(@"付款失败，钱包余额不足，请去充值");
                         break;
                     case 403:
                         kTipAlert(@"付款失败，不能购买自己的商品");
@@ -245,41 +270,66 @@ static NSString *OrderCellIdentifier = @"OrderCell";
                     default:
                         break;
                 }
-            
-            
-            }];
-            
-        }
-        if ([selectPayStyle isEqualToString:@"支付宝"]) {
-            DLog(@"^^^^^^^^^^^^^^^^^^^^^");
-            [self.goodsDic setObject:@"alipay" forKey:@"payment"];
-            DLog(@"^^^^^^^^^^^^^^^%@", self.goodsDic);
-            NSData *myData = [self DataTOjsonString:self.goodsDic];
-            [HttpClient buyGoodsWithDictionary:myData WithBlock:^(NSDictionary *dictionary) {
-                NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
-                if (statusCode == 200) {
-                    DLog(@"#######%@", dictionary[@"statusCode"]);
-                    DLog(@"#############%@", dictionary[@"responseObject"]);
-                    
-                    NSString *tradeNO = dictionary[@"responseObject"][@"out_trade_no"];
-                    NSString *descriptionStr = dictionary[@"responseObject"][@"body"];
-                    NSString *subject = dictionary[@"responseObject"][@"subject"];
-                    NSString *amountStr = [NSString stringWithFormat:@"%@", dictionary[@"responseObject"][@"fee"]];
-                    DLog(@"amountPrice = %@", amountStr);
-                    if (tradeNO && descriptionStr && subject) {
-                        [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
-                    } else {
-                        kTipAlert(@"生成订单信息失败");
-                    }
-                    
-                }
-                
+
             }];
 
         }
         
     }
     
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 222) {
+        if (buttonIndex == 1) {
+            DLog(@"去付款");
+            [self.goodsDic setObject:@"wallet" forKey:@"payment"];
+            NSData *myData = [self DataTOjsonString:self.goodsDic];
+            DLog(@"^^^^^^^^^^^^^^^%@", self.goodsDic);
+            [HttpClient buyGoodsWithDictionary:myData WithBlock:^(NSDictionary *dictionary) {
+                NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+                switch (statusCode) {
+                    case 200: {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"购买成功，是否查看订单" message:nil delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+                        alert.tag = 223;
+                        [alert show];
+                    }
+                        break;
+                    case 402:
+                        kTipAlert(@"付款失败，钱包余额不足，请去充值");
+                        break;
+                    case 403:
+                        kTipAlert(@"付款失败，不能购买自己的商品");
+                        break;
+                    case 404:
+                        kTipAlert(@"付款失败，该商品可能已下架或无货");
+                        break;
+                    case 405:
+                        kTipAlert(@"付款失败，不能跨店铺购买");
+                        break;
+                    case 401:
+                        kTipAlert(@"付款失败，请重新登录");
+                        break;
+                    default:
+                        break;
+                }
+            }];
+        }
+    } else if (alertView.tag == 223) {
+        if (buttonIndex == 1) {
+            if (self.MyProfile.UserType == UserType_designer || self.MyProfile.UserType == UserType_supplier) {
+                MeOrderSelect_VC *meOrder_VC = [[MeOrderSelect_VC alloc] init];
+                meOrder_VC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:meOrder_VC animated:YES];
+            } else {
+                MeHistoryOrderList_VC *historyVC = [[MeHistoryOrderList_VC alloc] init];
+                historyVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:historyVC animated:YES];
+            }
+
+        }
+    }
 }
 
 

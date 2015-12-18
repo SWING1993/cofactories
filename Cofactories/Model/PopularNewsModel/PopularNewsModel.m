@@ -11,7 +11,7 @@
 @implementation PopularNewsModel
 - (instancetype)initPopularNewsModelWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
-        self.newsID = [NSString stringWithFormat:@"%@", dictionary[@"id"]];
+        self.newsID = [NSString stringWithFormat:@"%@", dictionary[@"_id"]];
         self.newsTitle = dictionary[@"title"];
         self.newsAuthor = dictionary[@"author"];
         self.newsImage = dictionary[@"sImg"];

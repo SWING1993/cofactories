@@ -15,6 +15,7 @@
     if (self) {
         self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 80, 60)];
         self.photoView.layer.cornerRadius = 5;
+        self.photoView.contentMode = UIViewContentModeScaleAspectFill;
         self.photoView.clipsToBounds = YES;
         [self addSubview:self.photoView];
         self.orderTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.photoView.frame) + 10, 10, kScreenW - 20 - 70 - 80, 20)];

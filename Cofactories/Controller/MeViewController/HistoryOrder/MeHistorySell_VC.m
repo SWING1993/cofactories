@@ -62,7 +62,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
     cell.timeLabel.text = historyOrderModel.creatTime;
     cell.payStatus.text = historyOrderModel.payType;
     if ([historyOrderModel.payType isEqualToString:@"已付款"]) {
-        cell.payStatus.textColor = [UIColor greenColor];
+        cell.payStatus.textColor = kGreen;
     } else if ([historyOrderModel.payType isEqualToString:@"待付款"]) {
         cell.payStatus.textColor = [UIColor redColor];
     }
