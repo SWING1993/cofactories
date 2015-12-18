@@ -19,7 +19,7 @@
 #import "DataBaseHandle.h"
 #import "MeShopController.h"
 #import "WalletModel.h"
-
+#import "HomeActivityList_VC.h"
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -36,7 +36,8 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 @implementation HomeViewController
 
-- (void)viewWillAppear:(BOOL)animated {
+
+-(void)viewDidAppear:(BOOL)animated {
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
@@ -225,7 +226,9 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2) {
         DLog(@"第%ld个活动", indexPath.row + 1);
-        
+        HomeActivityList_VC *activityListVC = [[HomeActivityList_VC alloc] init];
+        activityListVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:activityListVC animated:YES];
     }
 }
 

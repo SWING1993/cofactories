@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PopularNewsModel.h"
 
 @interface PopularNewsDetails_VC : UIViewController
 @property (nonatomic, strong) NSString *newsID;
 @property (nonatomic, strong) NSString *lijoString;
+@property (nonatomic, strong) PopularNewsModel *popularNewsModel;
 
 @end

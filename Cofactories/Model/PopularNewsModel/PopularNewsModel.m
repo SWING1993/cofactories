@@ -15,6 +15,7 @@
         self.newsTitle = dictionary[@"title"];
         self.newsAuthor = dictionary[@"author"];
         self.newsImage = dictionary[@"sImg"];
+        self.discriptions = dictionary[@"discription"];
         self.likeNum = [NSString stringWithFormat:@"%@", dictionary[@"likeNum"]];
         self.commentNum = [NSString stringWithFormat:@"%@", dictionary[@"commentNum"]];
         }

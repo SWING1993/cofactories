@@ -94,6 +94,8 @@ static NSString *popularCellIdentifier = @"popularCell";
             }
             [hud hide:YES];
             [self.collectionView reloadData];
+        } else {
+            [hud hide:YES];
         }
         
     }];
@@ -114,6 +116,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [[UISearchBar alloc] initWithFrame:kSearchFrameLong];
     _searchBar.delegate = self;
+//    self.navigationItem.titleView = _searchBar;
     [self.navigationController.view addSubview:_searchBar];
     [_searchBar setBackgroundImage:[[UIImage alloc] init] ];
     _searchBar.placeholder = @"搜索文章、图片、作者";
@@ -244,16 +247,16 @@ static NSString *popularCellIdentifier = @"popularCell";
     ZGYTitleView *title2 = [[ZGYTitleView alloc] initWithFrame:CGRectMake(0, 20, kScreenW, 25) Title:@"流行导读" leftLabelColor:[UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f]];
     [footerView addSubview:title2];
     
-    NSTimer *myTimer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(actionOfTimer) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:myTimer forMode:NSDefaultRunLoopMode];
+//    NSTimer *myTimer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(actionOfTimer) userInfo:nil repeats:YES];
+//    [[NSRunLoop currentRunLoop] addTimer:myTimer forMode:NSDefaultRunLoopMode];
     
     
     //换一批
     changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    changeBtn.frame = CGRectMake(kScreenW - 60, 20, 60, 30);
+    changeBtn.frame = CGRectMake(kScreenW - 65, 20, 65, 30);
     [changeBtn setTitle:@"换一批" forState:UIControlStateNormal];
     [changeBtn setTitleColor:[UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-    changeBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+    changeBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [changeBtn addTarget:self action:@selector(actionOfChang:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:changeBtn];
     
@@ -326,6 +329,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 #pragma mark - 换一批
 - (void)actionOfChang:(UIButton *)button {
     DLog(@"换一批");
+    button.userInteractionEnabled = NO;
     [HttpClient getSixPopularNewsListWithCategory:self.categoryNum withBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         self.popularNewsListArray = [NSMutableArray arrayWithCapacity:0];
@@ -334,7 +338,10 @@ static NSString *popularCellIdentifier = @"popularCell";
                 PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
                 [self.popularNewsListArray addObject:popularNewsModel];
             }
+            button.userInteractionEnabled = YES;
             [self.collectionView reloadData];
+        } else {
+            button.userInteractionEnabled = YES;
         }
 
     }];
@@ -392,6 +399,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     PopularNewsModel *popularNewsModel = self.popularNewsListArray[indexPath.row];
     PopularNewsDetails_VC *popularVC = [[PopularNewsDetails_VC alloc] init];
     popularVC.newsID = popularNewsModel.newsID;
+    popularVC.popularNewsModel = popularNewsModel;
     [self.navigationController pushViewController:popularVC animated:YES];
     [_searchBar removeFromSuperview];
 
@@ -442,16 +450,16 @@ static NSString *popularCellIdentifier = @"popularCell";
 }
 
 
-- (void)actionOfTimer {
-    [changeBtn setTitleColor:[UIColor randomColor] forState:UIControlStateNormal];
-    
-}
-+ (UIColor *) randomColor {
-    CGFloat hue = ( arc4random() % 256 / 256.0 ); //0.0 to 1.0
-    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5; // 0.5 to 1.0,away from white
-    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5; //0.5 to 1.0,away from black
-    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-}
+//- (void)actionOfTimer {
+//    [changeBtn setTitleColor:[UIColor randomColor] forState:UIControlStateNormal];
+//    
+//}
+//+ (UIColor *) randomColor {
+//    CGFloat hue = ( arc4random() % 256 / 256.0 ); //0.0 to 1.0
+//    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5; // 0.5 to 1.0,away from white
+//    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5; //0.5 to 1.0,away from black
+//    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

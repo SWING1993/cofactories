@@ -38,6 +38,7 @@
     [super viewDidAppear:animated];
     self.MyProfile = [[UserModel alloc]getMyProfile];
     myProfileLabel.text = [NSString stringWithFormat:@"%@\n%@",self.MyProfile.name,[UserModel getRoleWith:self.MyProfile.UserType]];
+    [self.tableView reloadData];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -125,6 +126,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     switch (self.MyProfile.UserType) {
+            DLog(@"^^^^^^^^^^%ld", (long)self.MyProfile.UserType);
         case UserType_designer:
             //设计者
             return 3;

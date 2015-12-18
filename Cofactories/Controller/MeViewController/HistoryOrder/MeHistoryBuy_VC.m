@@ -10,10 +10,13 @@
 #import "HistoryOrderListCell.h"
 #import "MeHistoryOrderDetail_VC.h"
 #import "MeHistoryOrderModel.h"
+#import "MJRefresh.h"
 
 static NSString *reuseIdentifier = @"reuseIdentifier";
 @interface MeHistoryBuy_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView     *_tableView;
+    NSInteger        _refrushCount;
+
 }
 @property (nonatomic, strong) NSMutableArray *historyBuyArray;
 
@@ -24,7 +27,8 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initTableView];
-    [HttpClient getMyGoodsBuyHistoryWithBlock:^(NSDictionary *dictionary) {
+    _refrushCount = 1;
+    [HttpClient getMyGoodsBuyHistoryWithPage:@1 WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         self.historyBuyArray = [NSMutableArray arrayWithCapacity:0];
         if (statusCode == 200) {
@@ -38,7 +42,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
         }
     }];
 
-
+    [self setupRefresh];
 }
 - (void)initTableView{
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH-44-64) style:UITableViewStylePlain];
@@ -49,6 +53,36 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
     [_tableView registerClass:[HistoryOrderListCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:_tableView];
 }
+- (void)setupRefresh{
+    [_tableView addFooterWithTarget:self action:@selector(footerRereshing)];
+    _tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    _tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    _tableView.footerRefreshingText = @"加载中...";
+}
+
+- (void)footerRereshing{
+    _refrushCount++;
+    DLog(@"_refrushCount==%d",_refrushCount);
+    [HttpClient getMyGoodsBuyHistoryWithPage:@(_refrushCount) WithBlock:^(NSDictionary *dictionary) {
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        if (statusCode == 200) {
+            for (NSDictionary *myDic in dictionary[@"responseArray"]) {
+                MeHistoryOrderModel *historyOrderModel = [MeHistoryOrderModel getMeHistoryOrderModelWithDictionary:myDic];
+                [self.historyBuyArray addObject:historyOrderModel];
+            }
+            [_tableView reloadData];
+        } else {
+            kTipAlert(@"请求失败");
+        }
+    }];
+    [_tableView footerEndRefreshing];
+    
+}
+
+
+
+
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -89,6 +123,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
     MeHistoryOrderModel *myModel = self.historyBuyArray[indexPath.row];
     MeHistoryOrderDetail_VC *detailVC = [[MeHistoryOrderDetail_VC alloc] init];
     detailVC.orderModel = myModel;
+    detailVC.isBuy = YES;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

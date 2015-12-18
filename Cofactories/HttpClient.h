@@ -358,9 +358,9 @@
 + (void)buyGoodsWithDictionary:(NSData *)addressDic WithBlock:(void(^)(NSDictionary *dictionary))block;
 
 //购买记录
-+ (void)getMyGoodsBuyHistoryWithBlock:(void(^)(NSDictionary *dictionary))block;
++ (void)getMyGoodsBuyHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
 
 //出售记录
-+ (void)getMyGoodsSellHistoryWithBlock:(void(^)(NSDictionary *dictionary))block;
++ (void)getMyGoodsSellHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
 
 @end

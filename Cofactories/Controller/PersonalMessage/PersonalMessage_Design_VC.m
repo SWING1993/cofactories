@@ -26,6 +26,9 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2"; // 作品集合
 static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 
 @implementation PersonalMessage_Design_VC
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController.navigationBar setHidden:NO];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -7,10 +7,15 @@
 //
 
 #import "PopularNewsDetails_VC.h"
+#import "UMSocial.h"
+#import <TencentOpenAPI/QQApiInterface.h>
+#import "WXApi.h"
+
 #define kPopularNewsDeatil @"http://lo.news.mxd.moe/details/"
 
-@interface PopularNewsDetails_VC ()<UIWebViewDelegate> {
-    NSURL *url;
+@interface PopularNewsDetails_VC ()<UIWebViewDelegate, UMSocialUIDelegate> {
+    NSString *urlString;
+    UIWebView * webView;
     MBProgressHUD *hud;
 }
 
@@ -20,9 +25,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"文章详情";
     hud = [Tools createHUD];
     hud.labelText = @"加载中...";
-    UIWebView * webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
+    
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(pressRightItem)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    
+    webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
     //添加access_token
@@ -32,11 +48,12 @@
     NSString*token = credential.accessToken;
 
     if (self.lijoString.length == 0) {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?access_token=%@", kPopularNewsDeatil, self.newsID, token]];
+        urlString = [NSString stringWithFormat:@"%@%@?access_token=%@", kPopularNewsDeatil, self.newsID, token];
     } else {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?access_token=%@", self.lijoString, token]];
+        urlString = [NSString stringWithFormat:@"%@?access_token=%@", self.lijoString, token];
     }
-    DLog(@"______%@", url);
+    DLog(@"______%@", urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
     [self.view addSubview:webView];
     [webView loadRequest:request];}
@@ -45,6 +62,58 @@
 #pragma mark - UIWebViewDelegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [hud hide:YES];
+}
+
+#pragma mark - 分享
+- (void)pressRightItem {
+    
+    if ( [WXApi isWXAppInstalled] == NO &&[QQApiInterface isQQInstalled] == NO) {
+        DLog(@"微信和QQ都没安装");
+        [UMSocialSnsService presentSnsIconSheetView:self
+                                             appKey:Appkey_Umeng
+                                          shareText:[NSString stringWithFormat:@"%@, %@", self.popularNewsModel.newsTitle, urlString]
+                                         shareImage:nil
+                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToSms,nil]
+                                           delegate:self];
+    } else {
+        DLog(@"^^^^^^^urlString = %@", urlString);
+        //分享多个
+        [UMSocialData defaultData].extConfig.wechatSessionData.url = urlString;//微信好友
+        [UMSocialData defaultData].extConfig.wechatSessionData.title = self.popularNewsModel.newsTitle;
+        
+        [UMSocialData defaultData].extConfig.wechatTimelineData.url = urlString;//微信朋友圈
+        
+        [UMSocialData defaultData].extConfig.wechatTimelineData.title = self.popularNewsModel.newsTitle;
+        
+        [UMSocialData defaultData].extConfig.qqData.url = urlString;//QQ好友
+        [UMSocialData defaultData].extConfig.qqData.title = self.popularNewsModel.newsTitle;
+        
+        [UMSocialData defaultData].extConfig.qzoneData.url = urlString;//QQ空间
+        [UMSocialData defaultData].extConfig.qzoneData.title = self.popularNewsModel.newsTitle;
+        [UMSocialSnsService presentSnsIconSheetView:self
+                                             appKey:Appkey_Umeng
+                                          shareText:self.popularNewsModel.discriptions
+                                         shareImage:[UIImage imageNamed:@"Home-icon"]
+                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]
+                                           delegate:self];
+        
+    }
+
+}
+
+
+
+
+- (void) back
+{
+    if ([webView canGoBack]) {
+        [webView goBack];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }
 }
 
 
