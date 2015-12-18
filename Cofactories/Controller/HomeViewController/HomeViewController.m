@@ -18,6 +18,7 @@
 #import "Business_Cloth_VC.h"
 #import "DataBaseHandle.h"
 #import "MeShopController.h"
+#import "WalletModel.h"
 
 
 static NSString *marketCellIdentifier = @"marketCell";
@@ -28,6 +29,8 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 @property (nonatomic,strong)NSMutableArray *firstViewImageArray;
 @property (nonatomic,retain)UserModel * MyProfile;
+@property (nonatomic,retain)WalletModel * walletModel;
+
 
 @end
 
@@ -37,16 +40,25 @@ static NSString *activityCellIdentifier = @"activityCell";
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
+    [HttpClient getwalletWithBlock:^(NSDictionary *responseDictionary) {
+        NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
+        if (statusCode == 200) {
+            self.walletModel = [responseDictionary objectForKey:@"model"];
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
+            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }];
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
         
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
         if (statusCode == 200) {
-            self.MyProfile = [responseDictionary objectForKey:@"model"];            
-            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
-            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            self.MyProfile = [responseDictionary objectForKey:@"model"];
+            DLog(@"^^^^^%@", self.MyProfile);
         } else {
             self.MyProfile = [[UserModel alloc]getMyProfile];
         }
+        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
+        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
 
 }
@@ -137,16 +149,16 @@ static NSString *activityCellIdentifier = @"activityCell";
     if (indexPath.section == 0) {
          HomePersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:personalDataCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;//去掉选中背景色
-        cell.personalDataLeftImage.image = [UIImage imageNamed:@"2.jpg"];
+        [cell.personalDataLeftImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI, self.MyProfile.uid]] placeholderImage:[UIImage imageNamed:@"headBtn"]];
         cell.personNameLabel.text = self.MyProfile.name;
         //用户类型
-        if ([self.MyProfile.verified isEqualToString:@"尚未填写"] || [self.MyProfile.verified isEqualToString:@"0"]) {
+        if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
             cell.personStatusLabel.text = @"注册用户";
         } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
             cell.personStatusLabel.text = @"认证用户";
         }
         //钱包余额
-        cell.personWalletLeft.text = @"余额：0元";
+        cell.personWalletLeft.text = [NSString stringWithFormat:@"余额：%.2f元",self.walletModel.money];
         
         //用户身份
         if (self.MyProfile.UserType == UserType_designer) {
@@ -161,7 +173,7 @@ static NSString *activityCellIdentifier = @"activityCell";
             cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服务商"];
         }
         //地址
-        if ([self.MyProfile.address isEqualToString:@"尚未填写"] || self.MyProfile.address.length == 0) {
+        if ([self.MyProfile.address isEqualToString:@"暂无"] || self.MyProfile.address.length == 0) {
             [cell.personAddressButton setTitle:@"地址暂无，点击完善资料" forState: UIControlStateNormal];
             [cell.personAddressButton addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
         } else {

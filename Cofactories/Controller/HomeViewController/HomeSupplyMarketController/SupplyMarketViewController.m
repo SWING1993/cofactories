@@ -8,7 +8,6 @@
 
 #import "SupplyMarketViewController.h"
 #import "ZGYSupplyMarketView.h"
-#import "materialShopViewController.h"
 #import "Business_Supplier_VC.h"
 #import "FabricShop_VC.h"//面料商城
 #import "AccessoryShop_VC.h"//辅料商城

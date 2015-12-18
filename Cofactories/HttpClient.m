@@ -1075,7 +1075,7 @@
             completionBlock(@{@"statusCode": @"200", @"model": marketModel});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
-            
+            completionBlock(@{@"statusCode": @([operation.response statusCode]), @"model": @"请求失败"});
         }];
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
@@ -2015,11 +2015,11 @@
             block(@{@"statusCode": @([operation.response statusCode]), @"responseObject":responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
-            
+            block(@{@"statusCode": @([operation.response statusCode]), @"responseObject": @"请求失败"});
         }];
         
     }else{
-        block(@{@"statusCode": @(404), @"message": @"token不存在"});
+//        block(@{@"statusCode": @(410), @"message": @"token不存在"});
     }
     
 }

@@ -19,6 +19,8 @@
         self.category = dictionary[@"products"][0][@"category"];
         self.amount = [NSString stringWithFormat:@"%ld", [dictionary[@"products"][0][@"amount"] integerValue]];
         self.totalPrice = [NSString stringWithFormat:@"%.2f", [dictionary[@"fee"] floatValue]];
+        self.descriptions = dictionary[@"products"][0][@"description"];
+        
         self.personName = dictionary[@"products"][0][@"name"];
         self.personPhone = [NSString stringWithFormat:@"%@", dictionary[@"address"][@"phone"]];
         self.personAddress = [NSString stringWithFormat:@"%@ %@ %@ %@", dictionary[@"address"][@"province"], dictionary[@"address"][@"city"], dictionary[@"address"][@"district"], dictionary[@"address"][@"address"]];

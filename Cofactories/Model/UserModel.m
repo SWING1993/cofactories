@@ -137,7 +137,7 @@ static NSString * placeholderString = @"暂无";
                 _scale = self.scaleArr[seletecdInt];
             }
             else {
-                kTipAlert(@"数组越界 然后爆炸");
+//                kTipAlert(@"数组越界 然后爆炸");
                 _scale = placeholderString;
             }
         }

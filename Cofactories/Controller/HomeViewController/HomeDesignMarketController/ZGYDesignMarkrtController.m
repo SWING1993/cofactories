@@ -9,7 +9,6 @@
 #import "ZGYDesignMarkrtController.h"
 #import "PopularMessageController.h"
 #import "ZGYSupplyMarketView.h"
-//#import "IMChatViewController.h"
 #import "AllDesignController.h"
 //#import "UMSocial.h"
 #import "DesignShop_VC.h"
@@ -50,16 +49,6 @@
             DesignShop_VC *designShopVC = [[DesignShop_VC alloc] initWithSubrole:@"设计者" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:4]];
             [self.navigationController pushViewController:designShopVC animated:YES];
             
-            
-//            IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
-//            conversationVC.conversationType = ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
-//            conversationVC.targetId = @"4"; // 接收者的 targetId，这里为举例。
-//            conversationVC.userName = @"IVERSON"; // 接受者的 username，这里为举例。
-//            conversationVC.title = @"IVERSON"; // 会话的 title。
-//            conversationVC.hidesBottomBarWhenPushed=YES;
-//
-//            [self.navigationController.navigationBar setHidden:NO];
-//            [self.navigationController pushViewController:conversationVC animated:YES];
             //分享多个
 //            [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://baidu.com";//微信好友
 //            [UMSocialData defaultData].extConfig.wechatSessionData.title = @"微信好友title";
