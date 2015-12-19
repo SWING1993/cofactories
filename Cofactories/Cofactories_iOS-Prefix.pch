@@ -40,7 +40,8 @@
 //#define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
 //#define bucketAPI  @"cofactories-test"
 //#define kNotifyURL @"https://pay.cofactories.com/alipay/test"  //支付宝服务器通知URL
-
+//#define kClientID  @"123"
+//#define kSecret    @"123"
 
 /**
  *  远程测试环境：
@@ -50,7 +51,8 @@
 #define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
 #define bucketAPI  @"cofactories-test"
 #define kNotifyURL @"https://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
-
+#define kClientID  @"D7rcnkjxDA2pr8X7"
+#define kSecret    @"E7ppyb5AaQ7FZWc9SASs2baT6m4ACvbyWsqekRWzDzA7pBwCdEryeqvaQg2Crys7"
 
 
 
@@ -65,9 +67,6 @@
 
 
 #pragma mark - key
-
-#define kClientID @"123"
-#define kSecret @"123"
 
 #define kUserProtocolUrl @"http://lo.test.mxd.moe/cofactories-3-html5/eula/eula.html"
 #define kAboutWallet @"http://lo.test.mxd.moe/wallet/index.html"
