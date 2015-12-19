@@ -53,12 +53,6 @@
 #define kSellerAccount @"admin@cofactories.com"
 
 /**
- *  支付宝服务器主动通知商户 网站里指定的页面 http 路径。
- */
-#define kNotifyURL @"https://pay.cofactories.com/alipay/test"
-
-
-/**
  *  appSckeme:应用注册scheme,在Info.plist定义URLtypes，处理支付宝回调
  */
 #define kAppScheme @"123"

@@ -33,21 +33,23 @@
  *  本地开发环境：
  *
  */
+//#define kAuthUrl   @"http://auth.lo.cofactories.com"           //认证服务器
+//#define kBaseUrl   @"https://lo.cofactories.com"               //后端服务器
+//#define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
+//#define bucketAPI  @"cofactories-test"
+//#define kNotifyURL @"https://pay.cofactories.com/alipay/test"  //支付宝服务器通知URL
 
-//#define kAuthUrl @"http://auth.lo.cofactories.com/authorise" //认证服务器
-//#define kBaseUrl @"https://lo.cofactories.com" //后端服务器
-//#define PhotoAPI @"http://cofactories-test.b0.upaiyun.com"
-//#define bucketAPI @"cofactories-test"
 
 /**
  *  远程测试环境：
  *
-  */
+ */
+#define kAuthUrl   @"http://auth.test.cofactories.com"         //认证服务器
+#define kBaseUrl   @"https://test.cofactories.com"             //后端服务器
+#define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
+#define bucketAPI  @"cofactories-test"
+#define kNotifyURL @"https://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
 
-#define kAuthUrl @"http://auth.test.cofactories.com/authorise"   //认证服务器
-#define kBaseUrl @"https://test.cofactories.com"   //后端服务器
-#define PhotoAPI @"http://cofactories-test.b0.upaiyun.com"
-#define bucketAPI @"cofactories-test"
 
 
 
@@ -55,11 +57,13 @@
  *  正式环境：
  *
  */
+//#define kAuthUrl   @"http://auth.cofactories.com"  //认证服务器
+//#define kBaseUrl   @"http://app.cofactories.com"   //后端服务器
+//#define PhotoAPI   @"http://cdn.cofactories.com"
+//#define bucketAPI  @"cofactories"
+//#define kNotifyURL @"https://"  //支付宝服务器通知URL
 
-//#define kAuthUrl @"http://auth.cofactories.com/authorise"  //认证服务器
-//#define kBaseUrl @"http://app.cofactories.com"   //后端服务器
-//#define PhotoAPI @"http://cdn.cofactories.com"
-//#define bucketAPI @"cofactories"
+
 
 #import "HttpClient.h" 
 #import "Tools.h"
