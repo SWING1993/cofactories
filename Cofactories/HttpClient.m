@@ -18,8 +18,6 @@
 
 #pragma mark - 服务器
 
-#define kClientID @"123"
-#define kSecret @"123"
 
 #define kTimeoutInterval 10.f
 
@@ -382,6 +380,7 @@
         [manager PUT:API_inviteCode parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             block (200);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            DLog(@"%@",error);
             block ([operation.response statusCode]);
         }];
     } else {
