@@ -52,7 +52,7 @@
 #define kBaseUrl   @"https://test.cofactories.com"             //后端服务器
 #define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
 #define bucketAPI  @"cofactories-test"
-#define kNotifyURL @"https://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
+#define kNotifyURL @"http://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
 #define kPopularBaseUrl @"http://news.test.cofactories.com"//流行资讯
 #define kClientID  @"D7rcnkjxDA2pr8X7"
 #define kSecret    @"E7ppyb5AaQ7FZWc9SASs2baT6m4ACvbyWsqekRWzDzA7pBwCdEryeqvaQg2Crys7"

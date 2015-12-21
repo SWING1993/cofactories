@@ -322,6 +322,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     PopularNewsModel *popularNewsModel = self.popularTopNewsArray[indexPath.row];
     PopularNewsDetails_VC *popularVC = [[PopularNewsDetails_VC alloc] init];
     popularVC.newsID = popularNewsModel.newsID;
+    popularVC.popularNewsModel = popularNewsModel;
     [self.navigationController pushViewController:popularVC animated:YES];
     [_searchBar removeFromSuperview];
 

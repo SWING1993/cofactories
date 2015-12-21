@@ -21,17 +21,20 @@
         self.personalDataLeftImage.clipsToBounds = YES;
         [self addSubview:self.personalDataLeftImage];
         
-        self.personNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.personalDataLeftImage.frame) + 15*kZGY, 15*kZGY, kScreenW/2 - 75*kZGY, 20*kZGY)];
+        self.personStatusImage = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.personalDataLeftImage.frame) + 10*kZGY, 15*kZGY, 20*kZGY, 20*kZGY)];
+        
+        [self addSubview:self.personStatusImage];
+        self.personNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.personStatusImage.frame) + 5*kZGY, 15*kZGY, kScreenW/2 - 95*kZGY, 20*kZGY)];
         self.personNameLabel.font = [UIFont boldSystemFontOfSize:14*kZGY];
         self.personNameLabel.textColor = [UIColor colorWithRed:68.0f/255.0f green:68.0f/255.0f blue:68.0f/255.0f alpha:1.0f];
         [self addSubview:self.personNameLabel];
         
-        self.personStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.personNameLabel.frame.origin.x, CGRectGetMaxY(self.personNameLabel.frame) + 2.5*kZGY, 200*kZGY, 15*kZGY)];
-        self.personStatusLabel.font = [UIFont systemFontOfSize:10*kZGY];
-        self.personStatusLabel.textColor = [UIColor colorWithRed:167.0f/255.0f green:167.0f/255.0f blue:167.0f/255.0f alpha:1.0f];
-        [self addSubview:self.personStatusLabel];
+        self.personScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.personStatusImage.frame.origin.x, CGRectGetMaxY(self.personNameLabel.frame) + 2.5*kZGY, kScreenW/2 - 70*kZGY, 15*kZGY)];
+        self.personScoreLabel.font = [UIFont systemFontOfSize:10*kZGY];
+        self.personScoreLabel.textColor = [UIColor colorWithRed:167.0f/255.0f green:167.0f/255.0f blue:167.0f/255.0f alpha:1.0f];
+        [self addSubview:self.personScoreLabel];
         
-        self.personWalletLeft = [[UILabel alloc] initWithFrame:CGRectMake(self.personNameLabel.frame.origin.x, CGRectGetMaxY(self.personStatusLabel.frame), 200*kZGY, 15*kZGY)];
+        self.personWalletLeft = [[UILabel alloc] initWithFrame:CGRectMake(self.personStatusImage.frame.origin.x, CGRectGetMaxY(self.personScoreLabel.frame), kScreenW/2 - 70*kZGY, 15*kZGY)];
         self.personWalletLeft.font = [UIFont systemFontOfSize:10*kZGY];
         self.personWalletLeft.textColor = [UIColor colorWithRed:167.0f/255.0f green:167.0f/255.0f blue:167.0f/255.0f alpha:1.0f];
         [self addSubview:self.personWalletLeft];
