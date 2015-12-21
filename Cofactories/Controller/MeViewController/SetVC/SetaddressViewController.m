@@ -10,6 +10,8 @@
 #import "HttpClient.h"
 #import "SetaddressViewController.h"
 
+static NSString * CellIdentifier = @"CellIdentifier";
+
 #define PROVINCE_COMPONENT  0
 #define CITY_COMPONENT      1
 #define DISTRICT_COMPONENT  2

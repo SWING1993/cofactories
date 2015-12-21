@@ -20,6 +20,9 @@ static NSString *TFCellIdentifier = @"TFCell";
 static NSString *nameTFCellIdentifier = @"nameTFCell";
 static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 
+
+static NSString * CellIdentifier = @"CellIdentifier";
+
 @interface MeAddSupply_VC ()<UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, JKImagePickerControllerDelegate, UIAlertViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate> {
     UITextField *nameTF, *salePriceTF, *marketPriceTF, *amountTF, *unitTF;
     NSArray *labelArray, *placeHolderArray;
@@ -501,7 +504,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
                     cutString = tf.text;
                 }
                 [self.categoryArray addObject:cutString];
-                DLog(@"%ld", self.categoryArray.count);
+                DLog(@"%ld", (unsigned long)self.categoryArray.count);
                 [self.collectionView1 reloadData];
                 NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:3];
                 [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -532,7 +535,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 
 #pragma mark - 发表商品
 - (void)pressRightItem:(UINavigationItem *)item {
-    DLog(@"leftTypeString = %@, rightTypeString = %@, name = %@, photoNumber = %ld, salePrice = %@, marketPrice = %@, unit = %@, amount = %@, categoryCount = %ld, description  = %@",leftTypeString, rightTypeString, nameTF.text, self.collectionImage.count, salePriceTF.text, marketPriceTF.text, unitTF.text, amountTF.text, self.categoryArray.count, descriptionTV.text);
+    DLog(@"leftTypeString = %@, rightTypeString = %@, name = %@, photoNumber = %ld, salePrice = %@, marketPrice = %@, unit = %@, amount = %@, categoryCount = %ld, description  = %@",leftTypeString, rightTypeString, nameTF.text, (unsigned long)self.collectionImage.count, salePriceTF.text, marketPriceTF.text, unitTF.text, amountTF.text, (unsigned long)self.categoryArray.count, descriptionTV.text);
     
     
     if ([leftTypeString isEqualToString:@"accessory"]) {
@@ -566,7 +569,7 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 
 
 - (void)publishShoppingMarket {
-    NSString *myAmount = [NSString stringWithFormat:@"%ld", [amountTF.text integerValue]];
+    NSString *myAmount = [NSString stringWithFormat:@"%d", [amountTF.text integerValue]];
     [HttpClient publishFabricWithMarket:leftTypeString name:nameTF.text type:rightTypeString price:salePriceTF.text marketPrice:marketPriceTF.text amount:myAmount unit:unitTF.text description:descriptionTV.text category:self.categoryArray WithCompletionBlock:^(NSDictionary *dictionary) {
         int statusCode = [dictionary[@"statusCode"] intValue];
         if (statusCode==200) {

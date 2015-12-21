@@ -10,6 +10,8 @@
 #import "HttpClient.h"
 #import "DescriptionViewController.h"
 
+static NSString * CellIdentifier = @"CellIdentifier";
+
 @interface DescriptionViewController () {
 
     UITextView*descriptionTV;

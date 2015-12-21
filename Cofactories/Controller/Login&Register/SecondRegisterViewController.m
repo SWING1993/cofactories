@@ -14,6 +14,8 @@
 #import "SecondRegisterViewController.h"
 #import "RootViewController.h"
 
+static NSString * const CellIdentifier = @"CellIdentifier";
+
 @interface SecondRegisterViewController ()<UIAlertViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource> {
 
     UITextField * _UserNameTF;//工厂名称

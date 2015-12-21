@@ -12,6 +12,8 @@
 
 #define PROVINCE_COMPONENT  0
 
+static NSString * CellIdentifier = @"CellIdentifier";
+
 
 @interface ScaleViewController () <UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>{
     UITextField*SizeTF;
