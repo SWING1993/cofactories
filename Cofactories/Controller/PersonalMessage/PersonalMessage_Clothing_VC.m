@@ -28,9 +28,15 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 
 @implementation PersonalMessage_Clothing_VC
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    _view.hidden = NO;
+}
+
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [_view removeFromSuperview];
+    
+    _view.hidden = YES;
 }
 
 - (void)viewDidLoad {

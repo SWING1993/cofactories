@@ -30,12 +30,14 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 
 @implementation PersonalMessage_Design_VC
 - (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController.navigationBar setHidden:NO];
+    [super viewWillAppear:YES];
+    _view.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [_view removeFromSuperview];
+    
+    _view.hidden = YES;
 }
 
 - (void)viewDidLoad {
