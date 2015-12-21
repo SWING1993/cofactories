@@ -349,6 +349,9 @@
 
 // 获取店铺(我的店铺)
 + (void)getMyShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+//获取搜索内容
++ (void)searchPopularNewsWithKeyword:(NSString *)keyWord WithBlock:(void (^)(NSDictionary *dictionary))block;
+
 //获取两篇置顶文章
 + (void)getPopularNewsWithBlock:(void (^)(NSDictionary *dictionary))block;
 //根据分类获取六篇显示的文章

@@ -10,13 +10,16 @@
 #import "PersonalWorks_TVC.h"
 #import "DealComment_TVC.h"
 #import "MJRefresh.h"
+#import "IMChatViewController.h"
+
 
 
 @interface PersonalMessage_Clothing_VC (){
     NSInteger              _selectedIndex;
     NSMutableArray        *_dataArrayThree;    // 交易评论
     NSInteger              _refreshCountThree; // 交易评论
-    
+    UIView                *_view;
+
 }
 
 @end
@@ -25,9 +28,22 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 
 @implementation PersonalMessage_Clothing_VC
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    _view.hidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    _view.hidden = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self creatChatAndPhone];
+
     [super viewDidLoad];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigator_btn_back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBackClick)];
@@ -45,6 +61,53 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     _refreshCountThree = 1;
     [self setupRefresh];
 }
+
+#pragma mark - 聊天和打电话
+
+- (void)creatChatAndPhone{
+    
+    _view = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenH-50, kScreenW, 50)];
+    _view.backgroundColor = [UIColor whiteColor];
+    
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    [window.rootViewController.view addSubview:_view];
+    
+    NSArray *array = @[@"聊天",@"致电"];
+    for (int i=0; i<array.count; i++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(i*kScreenW/2.f, 0, kScreenW/2.f, 50);
+        [button setTitle:array[i] forState:UIControlStateNormal];
+        [button setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
+        button.tag = i;
+        [button addTarget:self action:@selector(chatClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_view addSubview:button];
+    }
+    
+    CALayer *line = [CALayer layer];
+    line.frame = CGRectMake(kScreenW/2.f, 10, 0.5, 30);
+    line.backgroundColor = [UIColor grayColor].CGColor;
+    [_view.layer addSublayer:line];
+}
+
+- (void)chatClick:(UIButton *)button{
+    if (button.tag == 0) {
+        // 聊天
+        IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
+        conversationVC.conversationType = ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
+        conversationVC.targetId = self.userModel.uid; // 接收者的 targetId，这里为举例。
+        conversationVC.userName = self.userModel.name; // 接受者的 username，这里为举例。
+        conversationVC.title = self.userModel.name; // 会话的 title。
+        conversationVC.hidesBottomBarWhenPushed=YES;
+        
+        [self.navigationController.navigationBar setHidden:NO];
+        [self.navigationController pushViewController:conversationVC animated:YES];
+
+    }else if (button.tag == 1){
+        NSString *str = [NSString stringWithFormat:@"telprompt://%@", _userModel.phone];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    }
+}
+
 
 #pragma mark - 表头
 - (void)creatHeader{
@@ -119,7 +182,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     }else if (_selectedIndex == 2){
         // 刷新评论
         _refreshCountThree++;
-        DLog(@"_refreshCountThree==%d",_refreshCountThree);
+        DLog(@"_refreshCountThree==%ld",(long)_refreshCountThree);
         [HttpClient getUserCommentWithUserID:_userID page:@(_refreshCountThree) WithCompletionBlock:^(NSDictionary *dictionary){
             
             NSArray *array = dictionary[@"message"];
@@ -225,7 +288,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 - (void)buttonClick:(id)sender{
     UIButton *button = (UIButton *)sender;
     _selectedIndex = button.tag;
-    DLog(@"==%d",_refreshCountThree);
+    DLog(@"==%ld",(long)_refreshCountThree);
     
     _refreshCountThree = 1;
     [self.tableView reloadData];
