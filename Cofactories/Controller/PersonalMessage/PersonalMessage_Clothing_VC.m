@@ -10,6 +10,8 @@
 #import "PersonalWorks_TVC.h"
 #import "DealComment_TVC.h"
 #import "MJRefresh.h"
+#import "IMChatViewController.h"
+
 
 
 @interface PersonalMessage_Clothing_VC (){
@@ -83,7 +85,17 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 
 - (void)chatClick:(UIButton *)button{
     if (button.tag == 0) {
+        // 聊天
+        IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
+        conversationVC.conversationType = ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
+        conversationVC.targetId = self.userModel.uid; // 接收者的 targetId，这里为举例。
+        conversationVC.userName = self.userModel.name; // 接受者的 username，这里为举例。
+        conversationVC.title = self.userModel.name; // 会话的 title。
+        conversationVC.hidesBottomBarWhenPushed=YES;
         
+        [self.navigationController.navigationBar setHidden:NO];
+        [self.navigationController pushViewController:conversationVC animated:YES];
+
     }else if (button.tag == 1){
         NSString *str = [NSString stringWithFormat:@"telprompt://%@", _userModel.phone];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
