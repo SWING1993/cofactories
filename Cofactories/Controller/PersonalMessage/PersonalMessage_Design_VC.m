@@ -18,6 +18,7 @@
     NSMutableArray        *_dataArrayThree;    // 交易评论
     NSInteger              _refreshCountOne;   // 个人店铺
     NSInteger              _refreshCountThree; // 交易评论
+    UIView                *_view;
 }
 
 @end
@@ -30,8 +31,16 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     [self.navigationController.navigationBar setHidden:NO];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [_view removeFromSuperview];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self creatChatAndPhone];
+
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigator_btn_back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBackClick)];
@@ -39,10 +48,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     
     _selectedIndex = 1;
     [self creatHeader];
-//    [HttpClient publishDesignWithName:@"uwrvchgy" country:@"jp" type:@"female" part:@"suit" price:@"156" marketPrice:@"897" amount:@"134" description:@"asfdojnvdfnehnfoiahreiofoeijh" category:@[@"无色无味"] WithCompletionBlock:^(NSDictionary *dictionary) {
-//        
-//    }];
-    
+
     _dataArrayOne = [@[] mutableCopy];
     [HttpClient getUserShopWithUserID:_userID page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         _dataArrayOne = dictionary[@"message"];
@@ -58,6 +64,42 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     _refreshCountOne = 1;
     _refreshCountThree = 1;
     [self setupRefresh];
+}
+
+#pragma mark - 聊天和打电话
+
+- (void)creatChatAndPhone{
+    
+    _view = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenH-50, kScreenW, 50)];
+    _view.backgroundColor = [UIColor whiteColor];
+    
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    [window.rootViewController.view addSubview:_view];
+    
+    NSArray *array = @[@"聊天",@"致电"];
+    for (int i=0; i<array.count; i++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(i*kScreenW/2.f, 0, kScreenW/2.f, 50);
+        [button setTitle:array[i] forState:UIControlStateNormal];
+        [button setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
+        button.tag = i;
+        [button addTarget:self action:@selector(chatClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_view addSubview:button];
+    }
+    
+    CALayer *line = [CALayer layer];
+    line.frame = CGRectMake(kScreenW/2.f, 10, 0.5, 30);
+    line.backgroundColor = [UIColor grayColor].CGColor;
+    [_view.layer addSublayer:line];
+}
+
+- (void)chatClick:(UIButton *)button{
+    if (button.tag == 0) {
+        
+    }else if (button.tag == 1){
+        NSString *str = [NSString stringWithFormat:@"telprompt://%@", _userModel.phone];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    }
 }
 
 #pragma mark - 表头
@@ -130,7 +172,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     if (_selectedIndex == 1) {
         // 刷新店铺
         _refreshCountOne++;
-        DLog(@"_refreshCountOne==%d",_refreshCountOne);
+        DLog(@"_refreshCountOne==%ld",(long)_refreshCountOne);
         [HttpClient getUserShopWithUserID:_userID page:@(_refreshCountOne) WithCompletionBlock:^(NSDictionary *dictionary){
             
             NSArray *array = dictionary[@"message"];
@@ -152,7 +194,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     }else if (_selectedIndex == 3){
         // 刷新评论
         _refreshCountThree++;
-        DLog(@"_refreshCountThree==%d",_refreshCountThree);
+        DLog(@"_refreshCountThree==%ld",(long)_refreshCountThree);
         [HttpClient getUserCommentWithUserID:_userID page:@(_refreshCountThree) WithCompletionBlock:^(NSDictionary *dictionary){
             
             NSArray *array = dictionary[@"message"];
@@ -280,7 +322,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 - (void)buttonClick:(id)sender{
     UIButton *button = (UIButton *)sender;
     _selectedIndex = button.tag;
-    DLog(@"==%d",_refreshCountOne);
+    DLog(@"==%ld",(long)_refreshCountOne);
 
         _refreshCountOne = 1;
         _refreshCountThree = 1;
@@ -292,7 +334,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 
 - (void)personalShopClick:(id)sender{
     UIButton *button = (UIButton *)sender;
-    NSLog(@"%d",button.tag);
+    NSLog(@"%ld",(long)button.tag);
     
     PersonalShop_Model *model = _dataArrayOne[button.tag];
     materialShopDetailController *vc = [materialShopDetailController new];
