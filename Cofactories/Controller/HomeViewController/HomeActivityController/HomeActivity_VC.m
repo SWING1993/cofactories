@@ -22,11 +22,12 @@
     webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
-    NSString *url = @"http://www.baidu.com";
+    NSString *url = @"http://lo.test.mxd.moe/cofactories-3/%E6%B4%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E6%B5%8B%E8%AF%95/index_ios.html";
     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.view addSubview:webView];
     [webView loadRequest:request];
 
+    [webView stringByEvaluatingJavaScriptFromString:@"myFunction();"];
     // 注入js
     
     NSString *p = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"js"];
@@ -45,9 +46,10 @@
     
     
     NSArray *components = [requestString componentsSeparatedByString:@":"];
-    if ([components count] > 1 && [(NSString *)[components objectAtIndex:0] isEqualToString:@"testapp"]) {
+    if ([components count] > 1 && [(NSString *)[components objectAtIndex:0] isEqualToString:@"cofactories"]) {
         if([(NSString *)[components objectAtIndex:1] isEqualToString:@"alert"])
         {
+            
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"alert from html" message:[components objectAtIndex:2]
                                   delegate:self cancelButtonTitle:nil
