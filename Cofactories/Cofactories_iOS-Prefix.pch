@@ -59,9 +59,9 @@
 /**
  *  正式环境：
  */
-//#define kAuthUrl   @"http://auth.cofactories.com"  //认证服务器
-//#define kBaseUrl   @"http://app.cofactories.com"   //后端服务器
-//#define PhotoAPI   @"http://cdn.cofactories.com"
+//#define kAuthUrl   @"https://auth.cofactories.com"  //认证服务器
+//#define kBaseUrl   @"https://app.cofactories.com"   //后端服务器
+//#define PhotoAPI   @"https://cdn.cofactories.com"
 //#define bucketAPI  @"cofactories"
 //#define kNotifyURL @"https://"  //支付宝服务器通知URL
 
