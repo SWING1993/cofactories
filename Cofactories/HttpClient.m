@@ -65,8 +65,7 @@
 #define API_GetIMToken @"/im/token"//获取融云token
 #define API_SearchBusiness @"/user/search"
 
-#define kPopularBaseUrl @"http://lo.news.mxd.moe"
-
+#define kPopular_News_Search @"/api/search"
 #define kPopular_News_Top @"/api/getTop"
 #define kPopular_News_List @"/api/getList"
 
@@ -1938,7 +1937,39 @@
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
 }
+//获取搜索内容
++ (void)searchPopularNewsWithKeyword:(NSString *)keyWord WithBlock:(void (^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString *url = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, kPopular_News_Search];
+        NSString *urlString = [url stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+        [manager GET:urlString parameters:@{@"keyWord":keyWord} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            DLog(@"^^^^^^^^^^^^%@", responseObject);
+            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            switch ([operation.response statusCode]) {
+                case 400:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
+                    break;
+                case 401:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
+                    break;
+                    
+                default:
+                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
+                    break;
+            }
+        }];
+    } else {
+        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
+    }
 
+}
 //获取两篇置顶文章
 + (void)getPopularNewsWithBlock:(void (^)(NSDictionary *dictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];

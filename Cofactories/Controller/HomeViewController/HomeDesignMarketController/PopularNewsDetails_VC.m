@@ -11,7 +11,6 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 
-#define kPopularNewsDeatil @"http://lo.news.mxd.moe/details/"
 
 @interface PopularNewsDetails_VC ()<UIWebViewDelegate, UMSocialUIDelegate> {
     NSString *urlString;
@@ -48,7 +47,7 @@
     NSString*token = credential.accessToken;
 
     if (self.lijoString.length == 0) {
-        urlString = [NSString stringWithFormat:@"%@%@?access_token=%@", kPopularNewsDeatil, self.newsID, token];
+        urlString = [NSString stringWithFormat:@"%@%@%@?access_token=%@", kPopularBaseUrl, @"/details/", self.newsID, token];
     } else {
         urlString = [NSString stringWithFormat:@"%@?access_token=%@", self.lijoString, token];
     }

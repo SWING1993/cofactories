@@ -35,6 +35,10 @@ static NSString *popularNewsCellIdentifier = @"popularNewsCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PopularNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:popularNewsCellIdentifier forIndexPath:indexPath];
+    PopularNewsModel *popularNewsModel = self.popularNewsArray[indexPath.row];
+    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+    cell.newstitle.text = popularNewsModel.newsTitle;
+    cell.newsDetail.text = popularNewsModel.newsAuthor;
     return cell;
 }
 

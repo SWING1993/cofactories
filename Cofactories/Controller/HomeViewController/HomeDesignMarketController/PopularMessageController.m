@@ -14,6 +14,7 @@
 #import "ZGYTitleView.h"
 #import "PopularNewsModel.h"
 #import "PopularNewsDetails_VC.h"
+#import "PopularNewsList_VC.h"
 
 #define kSearchFrameLong CGRectMake(50, 30, kScreenW-50, 25)
 #define kSearchFrameShort CGRectMake(50, 30, kScreenW-100, 25)
@@ -142,26 +143,25 @@ static NSString *popularCellIdentifier = @"popularCell";
     [searchBar resignFirstResponder];
     [bigView removeFromSuperview];
     _searchBar.frame = kSearchFrameLong;
-    self.searchArray = [NSMutableArray arrayWithCapacity:0];
-    //    [HttpClient getInfomationWithKind:[NSString stringWithFormat:@"s=%@", searchBar.text] page:1 andBlock:^(NSDictionary *responseDictionary){
-    //        NSArray *jsonArray = responseDictionary[@"responseArray"];
-    //        for (NSDictionary *dictionary in jsonArray) {
-    //            InformationModel *information = [[InformationModel alloc] initModelWith:dictionary];
-    //
-    //            [self.searchArray addObject:information];
-    //        }
-    //        if (self.searchArray.count == 0) {
-    //            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"搜索结果为空" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-    //            [alertView show];
-    //
-    //        } else {
-    //            [self removeSearchBar];
-    //            PMSearchViewController *PMSearchVC = [[PMSearchViewController alloc] init];
-    //            //            PMSearchVC.searchArray = [NSMutableArray arrayWithArray:self.searchArray];
-    //            PMSearchVC.searchText = searchBar.text;
-    //            [self.navigationController pushViewController:PMSearchVC animated:YES];
-    //        }
-    //    }];
+    [HttpClient searchPopularNewsWithKeyword:_searchBar.text WithBlock:^(NSDictionary *dictionary) {
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        self.searchArray = [NSMutableArray arrayWithCapacity:0];
+        if (statusCode == 200) {
+            for (NSDictionary *myDic in dictionary[@"responseArray"]) {
+                PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
+                [self.searchArray addObject:popularNewsModel];
+            }
+            if (self.searchArray.count == 0) {
+                kTipAlert(@"搜索结果为空");
+            } else {
+                [self removeSearchBar];
+                PopularNewsList_VC *popularNewsList_VC = [[PopularNewsList_VC alloc] init];
+                popularNewsList_VC.popularNewsArray = self.searchArray;
+                [self.navigationController pushViewController:popularNewsList_VC animated:YES];
+            }
+        }
+
+    }];
 }
 
 
@@ -300,7 +300,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PopularNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:newsCellIdentifier forIndexPath:indexPath];
     PopularNewsModel *popularNewsModel = self.popularTopNewsArray[indexPath.row];
-    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@""]];
+    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     cell.newstitle.text = popularNewsModel.newsTitle;
     cell.newsDetail.text = popularNewsModel.newsAuthor;
     
@@ -371,27 +371,7 @@ static NSString *popularCellIdentifier = @"popularCell";
         }
 
     }];
-//    switch (selectButtonTag) {
-//        case 1:{
-//            DLog(@"男装");
-//        }
-//            break;
-//        case 2:{
-//            DLog(@"女装");
-//        }
-//            break;
-//        case 3:{
-//            DLog(@"童装");
-//        }
-//            break;
-//        case 4:{
-//            DLog(@"面料");
-//        }
-//            break;
-//            
-//        default:
-//            break;
-//    }
+
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -429,7 +409,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PopularCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:popularCellIdentifier forIndexPath:indexPath];
     PopularNewsModel *popularNewsModel = self.popularNewsListArray[indexPath.row];
-    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", @"http://lo.news.mxd.moe/", popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@""]];
+    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@""]];
     cell.newsTitle.text = popularNewsModel.newsTitle;
     cell.likeCountLabel.text = popularNewsModel.likeNum;
     cell.commentCountLabel.text = [NSString stringWithFormat:@"评论数：%@", popularNewsModel.commentNum];
