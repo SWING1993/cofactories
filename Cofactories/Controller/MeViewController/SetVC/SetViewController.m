@@ -18,6 +18,8 @@
 #import "ScaleViewController.h"
 #import "PhotoViewController.h"
 
+static NSString * CellIdentifier = @"CellIdentifier";
+
 
 @interface SetViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 

@@ -16,6 +16,8 @@
 #import "MeHistoryOrderList_VC.h"
 #import "MeOrderSelect_VC.h"
 
+static NSString * const CellIdentifier = @"CellIdentifier";
+
 @interface MeViewController ()
 
 @property (nonatomic,retain)UserModel * MyProfile;

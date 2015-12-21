@@ -18,6 +18,9 @@ static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
 
 static NSString *abstractCellIdentifier = @"abstractCell";
 static NSString *myTextCellIdentifier = @"myTextCell";
+
+static NSString * CellIdentifier = @"CellIdentifier";
+
 @interface MeDetailSupply_VC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
     NSArray *myTitleArray;
     FabricMarketModel *marketDetailModel;

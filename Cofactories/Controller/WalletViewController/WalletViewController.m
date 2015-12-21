@@ -18,6 +18,7 @@
 
 #define kHeaderHeight kScreenW*0.47
 
+static NSString * const CellIdentifier = @"CellIdentifier";
 
 @interface WalletViewController () {
     UIButton * _leftBtn;

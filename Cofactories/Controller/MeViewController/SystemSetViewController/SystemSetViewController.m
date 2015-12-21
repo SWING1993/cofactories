@@ -14,6 +14,7 @@
 #import "RevisePasswordViewController.h"
 #import "UserProtocolViewController.h"
 
+static NSString * const CellIdentifier = @"CellIdentifier";
 
 
 @interface SystemSetViewController ()<UIAlertViewDelegate,UMSocialUIDelegate>

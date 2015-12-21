@@ -3578,10 +3578,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMAnalytics_Sdk_3.6.5",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_Extra_Frameworks/Sina",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMessage_Sdk_1.2.0",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_4.3",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK",
@@ -3631,10 +3627,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMAnalytics_Sdk_3.6.5",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_Extra_Frameworks/Sina",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMessage_Sdk_1.2.0",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_4.3",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK",

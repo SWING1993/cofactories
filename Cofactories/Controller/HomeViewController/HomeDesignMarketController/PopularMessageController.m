@@ -162,7 +162,7 @@ static NSString *popularCellIdentifier = @"popularCell";
             }
         } else {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
-            DLog(@"请求失败，statusCode = %ld", statusCode);
+            DLog(@"请求失败，statusCode = %ld", (long)statusCode);
         }
 
     }];

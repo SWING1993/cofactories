@@ -12,6 +12,9 @@
 #import "tablleHeaderView.h"
 #import "ResetPasswordViewController.h"
 
+static NSString * const CellIdentifier = @"CellIdentifier";
+
+
 @interface ResetPasswordViewController () <UIAlertViewDelegate>
 
 @end

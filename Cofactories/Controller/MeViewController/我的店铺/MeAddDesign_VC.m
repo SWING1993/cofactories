@@ -19,6 +19,8 @@
 static NSString *TFCellIdentifier = @"TFCell";
 static NSString *nameTFCellIdentifier = @"nameTFCell";
 static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
+static NSString * CellIdentifier = @"CellIdentifier";
+
 @interface MeAddDesign_VC ()<UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, JKImagePickerControllerDelegate, UIAlertViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate> {
     UITextField *nameTF, *salePriceTF, *marketPriceTF, *amountTF;
     NSArray *labelArray, *placeHolderArray;
