@@ -1866,7 +1866,6 @@
 
             [upYun1 uploadImage:licenseImage policy:responseObject[@"data"][@"license"][@"policy"] signature:responseObject[@"data"][@"license"][@"signature"]];
             DLog(@"图片上传成功");
-            block(2000);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             block([operation.response statusCode]);
         }];
@@ -1946,23 +1945,12 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString *url = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, kPopular_News_Search];
         NSString *urlString = [url stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
-        [manager GET:urlString parameters:@{@"keyWord":keyWord} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager GET:urlString parameters:@{@"keyword":keyWord} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             DLog(@"^^^^^^^^^^^^%@", responseObject);
             block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            switch ([operation.response statusCode]) {
-                case 400:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
-                    break;
-                case 401:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
-                    break;
-                    
-                default:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
-                    break;
-            }
+            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": @"没有数据"});
         }];
     } else {
         block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在

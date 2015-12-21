@@ -109,6 +109,7 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
         case 3:
         {
             idCardTextField = cell.myTextField;
+            //身份证号可能带x，所以弹出默认键盘
 //            cell.myTextField.keyboardType = UIKeyboardTypeNumberPad;
         }
             break;

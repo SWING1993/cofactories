@@ -80,27 +80,28 @@ static NSString *popularCellIdentifier = @"popularCell";
                 PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
                 [self.popularTopNewsArray addObject:popularNewsModel];
             }
-            [self.popularTableView reloadData];
+            [HttpClient getSixPopularNewsListWithCategory:0 withBlock:^(NSDictionary *dictionary) {
+                NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+                self.popularNewsListArray = [NSMutableArray arrayWithCapacity:0];
+                if (statusCode == 200) {
+                    for (NSDictionary *myDic in dictionary[@"responseArray"]) {
+                        PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
+                        [self.popularNewsListArray addObject:popularNewsModel];
+                    }
+                    [hud hide:YES];
+                    [self.collectionView reloadData];
+                    [self.popularTableView reloadData];
+                } else {
+                    [hud hide:YES];
+                }
+                
+            }];
+            
         }
         
     }];
     
-    [HttpClient getSixPopularNewsListWithCategory:0 withBlock:^(NSDictionary *dictionary) {
-        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
-        self.popularNewsListArray = [NSMutableArray arrayWithCapacity:0];
-        if (statusCode == 200) {
-            for (NSDictionary *myDic in dictionary[@"responseArray"]) {
-                PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
-                [self.popularNewsListArray addObject:popularNewsModel];
-            }
-            [hud hide:YES];
-            [self.collectionView reloadData];
-        } else {
-            [hud hide:YES];
-        }
-        
-    }];
-
+    
     
 }
 
@@ -117,7 +118,6 @@ static NSString *popularCellIdentifier = @"popularCell";
     self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [[UISearchBar alloc] initWithFrame:kSearchFrameLong];
     _searchBar.delegate = self;
-//    self.navigationItem.titleView = _searchBar;
     [self.navigationController.view addSubview:_searchBar];
     [_searchBar setBackgroundImage:[[UIImage alloc] init] ];
     _searchBar.placeholder = @"搜索文章、图片、作者";
@@ -139,6 +139,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 
 //点击搜索出结果
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    DLog(@"chisdjovcjdsopvjopsdj");
     //搜索完移除view改变searchBar的大小
     [searchBar resignFirstResponder];
     [bigView removeFromSuperview];
@@ -159,6 +160,9 @@ static NSString *popularCellIdentifier = @"popularCell";
                 popularNewsList_VC.popularNewsArray = self.searchArray;
                 [self.navigationController pushViewController:popularNewsList_VC animated:YES];
             }
+        } else {
+            NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+            DLog(@"请求失败，statusCode = %ld", statusCode);
         }
 
     }];
@@ -299,6 +303,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PopularNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:newsCellIdentifier forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     PopularNewsModel *popularNewsModel = self.popularTopNewsArray[indexPath.row];
     [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     cell.newstitle.text = popularNewsModel.newsTitle;
@@ -314,6 +319,12 @@ static NSString *popularCellIdentifier = @"popularCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DLog(@"第 %ld 条资讯", indexPath.row + 1);
+    PopularNewsModel *popularNewsModel = self.popularTopNewsArray[indexPath.row];
+    PopularNewsDetails_VC *popularVC = [[PopularNewsDetails_VC alloc] init];
+    popularVC.newsID = popularNewsModel.newsID;
+    [self.navigationController pushViewController:popularVC animated:YES];
+    [_searchBar removeFromSuperview];
+
 }
 
 
@@ -409,7 +420,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PopularCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:popularCellIdentifier forIndexPath:indexPath];
     PopularNewsModel *popularNewsModel = self.popularNewsListArray[indexPath.row];
-    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@""]];
+    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     cell.newsTitle.text = popularNewsModel.newsTitle;
     cell.likeCountLabel.text = popularNewsModel.likeNum;
     cell.commentCountLabel.text = [NSString stringWithFormat:@"评论数：%@", popularNewsModel.commentNum];
