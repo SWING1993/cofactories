@@ -154,10 +154,13 @@ static NSString *activityCellIdentifier = @"activityCell";
         cell.personNameLabel.text = self.MyProfile.name;
         //用户类型
         if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
-            cell.personStatusLabel.text = @"注册用户";
+            cell.personStatusImage.image = [UIImage imageNamed:@"Design-like"];
         } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
-            cell.personStatusLabel.text = @"认证用户";
+            cell.personStatusImage.image = [UIImage imageNamed:@"证"];
+        } else {
+            cell.personStatusImage.image = [UIImage imageNamed:@"企"];
         }
+        cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", self.MyProfile.score];
         //钱包余额
         cell.personWalletLeft.text = [NSString stringWithFormat:@"余额：%.2f元",self.walletModel.money];
         

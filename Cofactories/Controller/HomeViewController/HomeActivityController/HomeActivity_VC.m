@@ -49,7 +49,7 @@
     if ([components count] > 1 && [(NSString *)[components objectAtIndex:0] isEqualToString:@"cofactories"]) {
         if([(NSString *)[components objectAtIndex:1] isEqualToString:@"alert"])
         {
-            
+            DLog(@"^^^^^^^^^^ = %@", [components objectAtIndex:2]);
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"alert from html" message:[components objectAtIndex:2]
                                   delegate:self cancelButtonTitle:nil
@@ -64,6 +64,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+
 
 /*
 #pragma mark - Navigation

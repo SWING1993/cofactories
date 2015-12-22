@@ -396,6 +396,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
             DLog(@"**********%@", buyGoodsDic);
             ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
             shopOrderVC.goodsDic = buyGoodsDic;
+            shopOrderVC.goodsID = self.shopID;
+            shopOrderVC.goodsNumber = numberView.timeAmount;
             [self.navigationController pushViewController:shopOrderVC animated:YES];
 
         }
@@ -566,7 +568,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 
         } else if (button.tag == 223){
         DLog(@"底部 + 立即购买");
-            DLog(@"$#$#$#$$$$#%ld", numberView.timeAmount);
             NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", selectAmount], @"category":selectColorString};
             NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:marketDetailModel.ID, @"address", nil];
             [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
@@ -574,6 +575,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
             DLog(@"**********%@", buyGoodsDic);
             ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
             shopOrderVC.goodsDic = buyGoodsDic;
+            shopOrderVC.goodsID = self.shopID;
+            shopOrderVC.goodsNumber = selectAmount;
             [self.navigationController pushViewController:shopOrderVC animated:YES];
 
         

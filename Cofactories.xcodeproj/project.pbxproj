@@ -186,7 +186,6 @@
 		0395D2F01BFC65920009AABC /* CYLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2EC1BFC65920009AABC /* CYLTabBarController.m */; };
 		0395D2F31BFC65B80009AABC /* CYLPlusButtonSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2F21BFC65B80009AABC /* CYLPlusButtonSubclass.m */; };
 		0395D2F61BFC65EA0009AABC /* CYLTabBarControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2F51BFC65EA0009AABC /* CYLTabBarControllerConfig.m */; };
-		0395D2FC1BFC69740009AABC /* post_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0395D2FB1BFC69740009AABC /* post_normal@2x.png */; };
 		0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0395D2FF1BFC6D970009AABC /* LoginViewController.m */; };
 		03A1A0CE1C00080500FBEDE8 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A1A0CD1C00080500FBEDE8 /* UserModel.m */; };
 		03ACD19E1C081826003AB7CF /* RevisePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ACD19C1C081826003AB7CF /* RevisePasswordViewController.m */; };
@@ -806,7 +805,6 @@
 		0395D2F21BFC65B80009AABC /* CYLPlusButtonSubclass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLPlusButtonSubclass.m; sourceTree = "<group>"; };
 		0395D2F41BFC65EA0009AABC /* CYLTabBarControllerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLTabBarControllerConfig.h; sourceTree = "<group>"; };
 		0395D2F51BFC65EA0009AABC /* CYLTabBarControllerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLTabBarControllerConfig.m; sourceTree = "<group>"; };
-		0395D2FB1BFC69740009AABC /* post_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "post_normal@2x.png"; sourceTree = "<group>"; };
 		0395D2FE1BFC6D970009AABC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0395D2FF1BFC6D970009AABC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		03A1A0CC1C00080500FBEDE8 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserModel.h; path = ../Model/UserModel.h; sourceTree = "<group>"; };
@@ -1389,7 +1387,6 @@
 		03571B221BE84BA100900EF9 /* Cofactories */ = {
 			isa = PBXGroup;
 			children = (
-				0395D2FB1BFC69740009AABC /* post_normal@2x.png */,
 				7DF1C1BC1C00590100460DB7 /* 服装平台.png */,
 				7DF1C1BD1C00590100460DB7 /* 男装新潮流.png */,
 				7DF1C1BE1C00590100460DB7 /* 女装新潮流.png */,
@@ -3082,7 +3079,6 @@
 				035CC5201C06DCF000998FBD /* ImagesPicker.xcassets in Resources */,
 				03571B7F1BE85B7900900EF9 /* pageDot.png in Resources */,
 				035CC5D01C070ECB00998FBD /* ToolViewInputVoice@2x.png in Resources */,
-				0395D2FC1BFC69740009AABC /* post_normal@2x.png in Resources */,
 				03571C9E1BE85DAC00900EF9 /* icon_chose_bottom@2x.png in Resources */,
 				7DF1C1CC1C0062B300460DB7 /* 1.jpg in Resources */,
 				7DF1C1CD1C0062B300460DB7 /* 2.jpg in Resources */,

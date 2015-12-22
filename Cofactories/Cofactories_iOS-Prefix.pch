@@ -62,7 +62,7 @@
 #define kAuthUrl   @"http://auth.test.cofactories.com"         //认证服务器
 #define kBaseUrl   @"https://test.cofactories.com"             //后端服务器
 #define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
-#define kNotifyURL @"https://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
+#define kNotifyURL @"http://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
 #define kPopularBaseUrl @"http://news.test.cofactories.com"//流行资讯
 
 #define kUserProtocolUrl @"http://h5.test.cofactories.com/eula/"
