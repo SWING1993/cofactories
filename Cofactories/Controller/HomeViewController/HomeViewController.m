@@ -154,7 +154,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         cell.personNameLabel.text = self.MyProfile.name;
         //用户类型
         if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
-            cell.personStatusImage.image = [UIImage imageNamed:@"Design-like"];
+            cell.personStatusImage.image = [UIImage imageNamed:@"注"];
         } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
             cell.personStatusImage.image = [UIImage imageNamed:@"证"];
         } else {
