@@ -8,7 +8,9 @@
 
 #import "AllDesignCell.h"
 
-@implementation AllDesignCell
+@implementation AllDesignCell{
+    UILabel *_businessLB;
+}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -25,24 +27,27 @@
         self.levelPhoto.clipsToBounds = YES;
         [self addSubview:self.levelPhoto];
         
-        self.designTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.designPhoto.frame) + 15, 15, kScreenW - 15 - 35 - 20 - 90, 25)];
-//        self.designTitle.backgroundColor = [UIColor grayColor];
-        self.designTitle.font = [UIFont systemFontOfSize:15];
+        self.designTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.designPhoto.frame) + 15, 10, kScreenW - 15 - 35 - 20 - 90, 25)];
+        self.designTitle.font = [UIFont systemFontOfSize:12.f];
         self.designTitle.textColor = [UIColor colorWithRed:38.0f/255.0f green:38.0f/255.0f blue:38.0f/255.0f alpha:1.0f];
         [self addSubview:self.designTitle];
         
         self.classTitle = [[UILabel alloc] initWithFrame:CGRectMake(self.designTitle.frame.origin.x, CGRectGetMaxY(self.designTitle.frame), 80, 25)];
-        self.classTitle.font = [UIFont systemFontOfSize:13];
+        self.classTitle.font = [UIFont systemFontOfSize:12.f];
         self.classTitle.textColor = [UIColor colorWithRed:158.0f/255.0f green:158.0f/255.0f blue:158.0f/255.0f alpha:1.0f];
         [self addSubview:self.classTitle];
         
-        self.addressTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.classTitle.frame), self.classTitle.frame.origin.y, kScreenW - 80 - 80 - 15 - 35 - 20 - 10, 25)];
-//        self.addressTitle.backgroundColor = [UIColor grayColor];
-        self.addressTitle.font = [UIFont systemFontOfSize:13];
+        self.addressTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.classTitle.frame), self.classTitle.frame.origin.y, kScreenW - 80 - 80 - 15 - 35 - 20 - 10-5, 25)];
+        self.addressTitle.font = [UIFont systemFontOfSize:12.f];
         self.addressTitle.textColor = [UIColor colorWithRed:158.0f/255.0f green:158.0f/255.0f blue:158.0f/255.0f alpha:1.0f];
         [self addSubview:self.addressTitle];
+        
+        _businessLB = [[UILabel alloc] initWithFrame:CGRectMake(self.designTitle.frame.origin.x, CGRectGetMaxY(self.designTitle.frame)+25, 120, 25)];
+        _businessLB.font = [UIFont systemFontOfSize:12.f];
+        _businessLB.textColor = [UIColor grayColor];
+        [self.contentView addSubview:_businessLB];
 
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 80 - 0.3, kScreenW, 0.3)];
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 80 + 15 - 0.3, kScreenW, 0.3)];
         lineView.backgroundColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
         [self addSubview:lineView];
         
@@ -67,7 +72,7 @@
     _designTitle.text = model.businessName;
     _classTitle.text = model.businessSubrole;
     _addressTitle.text = model.businessCity;
-
+   _businessLB.text = [NSString stringWithFormat:@"信用积分:%@",model.businessScore];
 }
 
 
