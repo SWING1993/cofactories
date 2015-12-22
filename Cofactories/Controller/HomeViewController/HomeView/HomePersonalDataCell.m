@@ -21,10 +21,10 @@
         self.personalDataLeftImage.clipsToBounds = YES;
         [self addSubview:self.personalDataLeftImage];
         
-        self.personStatusImage = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.personalDataLeftImage.frame) + 10*kZGY, 15*kZGY, 20*kZGY, 20*kZGY)];
+        self.personStatusImage = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.personalDataLeftImage.frame) + 10*kZGY, 17.5*kZGY, 15*kZGY, 15*kZGY)];
         
         [self addSubview:self.personStatusImage];
-        self.personNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.personStatusImage.frame) + 5*kZGY, 15*kZGY, kScreenW/2 - 95*kZGY, 20*kZGY)];
+        self.personNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.personStatusImage.frame) + 5*kZGY, 15*kZGY, kScreenW/2 - 90*kZGY, 20*kZGY)];
         self.personNameLabel.font = [UIFont boldSystemFontOfSize:14*kZGY];
         self.personNameLabel.textColor = [UIColor colorWithRed:68.0f/255.0f green:68.0f/255.0f blue:68.0f/255.0f alpha:1.0f];
         [self addSubview:self.personNameLabel];
