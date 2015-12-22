@@ -22,7 +22,7 @@
     webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
-    NSString *url = @"http://lo.test.mxd.moe/cofactories-3/%E6%B4%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E6%B5%8B%E8%AF%95/index_ios.html";
+    NSString *url = kActivityUrl;
     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.view addSubview:webView];
     [webView loadRequest:request];
