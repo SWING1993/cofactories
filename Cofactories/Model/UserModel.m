@@ -43,12 +43,12 @@ static NSString * placeholderString = @"暂无";
     self = [super init];
     if (self) {
         
-        
         if (![[dictionary objectForKey:@"role"] isEqual:[NSNull null]]) {
             _role = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"role"]];
             if ([_role isEqualToString:@"designer"]) {
                 _UserType = UserType_designer;
-            }else if ([_role isEqualToString:@"clothing"]){
+            }
+            else if ([_role isEqualToString:@"clothing"]){
                 _UserType = UserType_clothing;
                 self.scaleArr = @[@"0万件-10万件",@"10万件-40万件", @"40万件-100万件", @"100万件--200万件", @"200万件以上"];
             }
@@ -62,6 +62,9 @@ static NSString * placeholderString = @"暂无";
             }
             else if ([_role isEqualToString:@"facilitator"]){
                 _UserType = UserType_facilitator;
+            }
+            else {
+                _UserType = UserType_Null;
             }
         }
         
@@ -130,10 +133,10 @@ static NSString * placeholderString = @"暂无";
         }else {
             NSInteger seletecdInt = [[dictionary objectForKey:@"scale"] integerValue] - 1;
 
-            if (_UserType == UserType_clothing && seletecdInt < 4) {
+            if (_UserType == UserType_clothing && seletecdInt < 5) {
                 _scale = self.scaleArr[seletecdInt];
             }
-            else if (_UserType == UserType_processing && seletecdInt < 3) {
+            else if (_UserType == UserType_processing && seletecdInt < 4) {
                 _scale = self.scaleArr[seletecdInt];
             }
             else {

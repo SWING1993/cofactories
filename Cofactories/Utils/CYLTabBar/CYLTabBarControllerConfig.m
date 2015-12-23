@@ -52,10 +52,10 @@
         }
         
         else if ([kBaseUrl isEqualToString:@"https://lo.cofactories.com"]) {
-            firstViewController.title = @"聚工厂（内网）";
+            firstViewController.title = @"聚工厂（本地测试）";
         }
         else if ([kBaseUrl isEqualToString:@"https://test.cofactories.com"]) {
-            firstViewController.title = @"聚工厂（测试）";
+            firstViewController.title = @"聚工厂（远程测试）";
         }
         
         secondViewController.title = @"";

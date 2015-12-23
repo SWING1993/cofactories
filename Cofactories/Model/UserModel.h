@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, UserType) {
     UserType_processing,  //加工配套
     UserType_supplier,    //供应商
     UserType_facilitator, //服务商
+    UserType_Null,        //null
 };
 
 @interface UserModel : NSObject

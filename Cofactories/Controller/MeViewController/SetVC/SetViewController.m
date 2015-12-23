@@ -87,7 +87,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
             break;
             
         default:
-            self.UbRoleArray = @[@"暂无"];
+            self.UbRoleArray = @[@"该身份暂无二级身份"];
             break;
     }
     

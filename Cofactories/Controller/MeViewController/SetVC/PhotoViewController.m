@@ -16,7 +16,7 @@
 
 #import "PhotoViewController.h"
 
-@interface PhotoViewController () <UIImagePickerControllerDelegate, UICollectionViewDelegate,JKImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
+@interface PhotoViewController () <UIImagePickerControllerDelegate, UICollectionViewDelegate,JKImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIAlertViewDelegate> {
     
     UIView*view;
 }
@@ -93,7 +93,12 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                     [HttpClient uploadPhotoWithType:@"photo" WithImage:newImage andBlock:^(NSInteger statusCode) {
                         if (statusCode == 200) {
                             if (idx == [assets count]-1) {
-                                kTipAlert(@"图片上传成功！");
+                                
+                                UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"图片正在上传，根据网速不同，请稍后查看。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+                                alertView.tag = 201;
+                                [alertView show];
+                                
+//                                kTipAlert(@"图片正在上传，根据网速不同，请稍后查看。");
                             }
                         }
                     }];
@@ -114,6 +119,13 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     }];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 201) {
+        if (buttonIndex == 0) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }
+}
 
 
 #define kSizeThumbnailCollectionView  ([UIScreen mainScreen].bounds.size.width-10)/4
