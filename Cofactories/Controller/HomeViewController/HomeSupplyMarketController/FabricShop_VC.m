@@ -407,7 +407,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     }
     
     cell.materialTitle.text = myModel.name;
-    cell.priceLabel.text = [NSString stringWithFormat:@"￥ %@", myModel.price];
+    cell.priceLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"￥ %@", myModel.price]];
     cell.saleLabel.text = [NSString stringWithFormat:@"已售 %@ 件", myModel.sales];
     cell.placeLabel.text = myModel.city;
     return cell;
@@ -435,6 +435,15 @@ static NSString *materialCellIdentifier = @"materialCell";
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
+- (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
+    
+    //设置尺寸
+    
+    [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(2, myString.length - 5)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
+    
+    return attributedString;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

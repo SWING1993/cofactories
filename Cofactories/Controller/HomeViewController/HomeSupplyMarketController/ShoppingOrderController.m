@@ -235,7 +235,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
                     
                     if ([selectPayStyle isEqualToString:@"账户余额"]) {
                         
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定付款" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定用余额付款" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                         alert.tag = 222;
                         [alert show];
                     }

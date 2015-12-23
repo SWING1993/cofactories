@@ -127,6 +127,12 @@ static NSString * CellIdentifier = @"CellIdentifier";
         if (statusCode == 200) {
             kTipAlert(@"提交认证成功, 可能需要几分钟的等待时间上传图片！");
             doneButton.userInteractionEnabled = YES;
+            double delayInSeconds = 1.0f;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                NSArray *navArray = self.navigationController.viewControllers;
+                [self.navigationController popToViewController:navArray[0] animated:YES];
+            });
         } else {
             kTipAlert(@"提交认证失败");
             doneButton.userInteractionEnabled = YES;

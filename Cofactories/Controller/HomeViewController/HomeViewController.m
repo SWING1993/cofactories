@@ -46,7 +46,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         if (statusCode == 200) {
             self.walletModel = [responseDictionary objectForKey:@"model"];
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
-            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         }
     }];
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
@@ -59,7 +59,7 @@ static NSString *activityCellIdentifier = @"activityCell";
             self.MyProfile = [[UserModel alloc]getMyProfile];
         }
         NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
-        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     }];
 
 }
@@ -306,9 +306,14 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 #pragma mark - 地址没有，去完善资料
 - (void)actionOfEdit:(UIButton *)button {
-    SetViewController *setVC = [[SetViewController alloc] init];
-    setVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:setVC animated:YES];
+    if ([self.MyProfile.address isEqualToString:@"暂无"] || self.MyProfile.address.length == 0) {
+        SetViewController *setVC = [[SetViewController alloc] init];
+        setVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:setVC animated:YES];
+    } else {
+        DLog(@"有地址");
+    }
+    
 }
 
 #pragma mark - Action
