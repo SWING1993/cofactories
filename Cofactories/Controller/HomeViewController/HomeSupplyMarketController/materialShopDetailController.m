@@ -202,7 +202,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         MaterialShopDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:shopCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.materialLabel.text = marketDetailModel.name;
-        cell.priceLeftLabel.text = [NSString stringWithFormat:@"售价￥ %@", marketDetailModel.price];
+        cell.priceLeftLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"售价￥ %@", marketDetailModel.price] andRange:2];
 
         cell.marketPriceLeftLabel.text = @"市场价";
         CGSize size = [Tools getSize:[NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice] andFontOfSize:15];
@@ -578,11 +578,23 @@ static NSString *popViewCellIdentifier = @"popViewCell";
             shopOrderVC.goodsID = self.shopID;
             shopOrderVC.goodsNumber = selectAmount;
             [self.navigationController pushViewController:shopOrderVC animated:YES];
-
         
     }
     }
     
+}
+- (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString andRange:(NSInteger)myRange {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
+    //设置颜色
+    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(myRange, myString.length - myRange)]; // 0为起始位置 length是从起始位置开始 设置指定颜色的长度
+    
+    //设置尺寸
+    
+    [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(myRange + 2, myString.length - 5 - myRange)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
+    
+    //这段代码必须要写 否则没效果
+    
+    return attributedString;
 }
 
 - (void)didReceiveMemoryWarning {
