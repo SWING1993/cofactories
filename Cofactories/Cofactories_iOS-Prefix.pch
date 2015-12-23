@@ -48,7 +48,8 @@
 //
 //#define kUserProtocolUrl @"http://h5.lo.cofactories.com/eula/"
 //#define kAboutWallet @"http://h5.lo.cofactories.com/wallet/"
-
+//#define kAboutDesignUrl @"http://h5.lo.cofactories.com/about-designer/"
+//#define kActivityUrl @"http://h5.lo.cofactories.com/party/"
 /**
  *  远程测试环境：
  */
@@ -65,7 +66,8 @@
 
 #define kUserProtocolUrl @"http://h5.test.cofactories.com/eula/"
 #define kAboutWallet @"http://h5.test.cofactories.com/wallet/"
-
+#define kAboutDesignUrl @"http://h5.test.cofactories.com/about-designer/" 
+#define kActivityUrl @"http://h5.test.cofactories.com/party/"
 /**
  *  正式环境：
  */
@@ -81,7 +83,8 @@
 //
 //#define kUserProtocolUrl @"http://h5.cofactories.com/eula/"
 //#define kAboutWallet @"http://h5.cofactories.com/wallet/"
-
+//#define kAboutDesignUrl @"http://h5.cofactories.com/about-designer/"
+//#define kActivityUrl @"http://h5.cofactories.com/party/"
 
 #pragma mark - key
 

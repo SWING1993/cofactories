@@ -209,6 +209,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     //personNameTF, *phoneNumberTF, *youBianTF, *addressTF, *detailAddressTF
     if (personNameTF.text.length == 0 || phoneNumberTF.text.length == 0 || youBianTF.text.length == 0 || addressTF.text.length == 0 || detailAddressTF.text.length == 0) {
         DLog(@"信息不完整");
+        kTipAlert(@"订单信息填写不完整！");
     } else {
         
         DLog(@"信息已完整");

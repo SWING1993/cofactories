@@ -16,6 +16,7 @@
     NSString *urlString;
     UIWebView * webView;
     MBProgressHUD *hud;
+    UIImage *shareImage;
 }
 
 @end
@@ -88,12 +89,17 @@
         } else {
             discriptions = self.popularNewsModel.discriptions;
         }
+        
+        if (self.popularNewsModel.newsImage.length == 0) {
+            shareImage = [UIImage imageNamed:@"Home-icon"];
+        } else {
+            shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, self.popularNewsModel.newsImage]]]];
+        }
         //分享多个
         [UMSocialData defaultData].extConfig.wechatSessionData.url = urlString;//微信好友
         [UMSocialData defaultData].extConfig.wechatSessionData.title = title;
         
         [UMSocialData defaultData].extConfig.wechatTimelineData.url = urlString;//微信朋友圈
-        
         [UMSocialData defaultData].extConfig.wechatTimelineData.title = title;
         
         [UMSocialData defaultData].extConfig.qqData.url = urlString;//QQ好友
@@ -104,7 +110,7 @@
         [UMSocialSnsService presentSnsIconSheetView:self
                                              appKey:Appkey_Umeng
                                           shareText:discriptions
-                                         shareImage:[UIImage imageNamed:@"Home-icon"]
+                                         shareImage:shareImage
                                     shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]
                                            delegate:self];
         

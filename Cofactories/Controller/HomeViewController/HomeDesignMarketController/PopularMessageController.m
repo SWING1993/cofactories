@@ -334,7 +334,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     DLog(@"设计师Lijo");
     
     PopularNewsDetails_VC *popularVC = [[PopularNewsDetails_VC alloc] init];
-    popularVC.lijoString = @"http://lo.test.mxd.moe/cofactories-3/%E8%AE%BE%E8%AE%A1%E5%B8%88%E4%B8%AA%E4%BA%BA%E8%B5%84%E6%96%99/";
+    popularVC.lijoString = kAboutDesignUrl;
     [self.navigationController pushViewController:popularVC animated:YES];
     [_searchBar removeFromSuperview];
 }
