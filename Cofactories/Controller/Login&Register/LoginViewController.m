@@ -117,7 +117,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             [button setEnabled:NO];
             if (_passwordTF.text.length == 0||_usernameTF.text.length == 0) {
                 [button setEnabled:YES];
-                kTipAlert(@"请您填写账号以及密码后登陆!");
+                [hud hide:YES];
+                kTipAlert(@"请您填写账号以及密码后登录!");
             }else{
                 [HttpClient loginWithUsername:_usernameTF.text password:_passwordTF.text andBlock:^(NSInteger statusCode) {
                     switch (statusCode) {
@@ -130,7 +131,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         case 200:{
                             [hud hide:YES];
 
-                            DLog(@"登陆成功");
+                            DLog(@"登录成功");
                             [button setEnabled:YES];
                             [RootViewController setupTabarController];
 

@@ -318,7 +318,6 @@
 		7D665E9C1C0C4A8500C7C7BF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D665E9B1C0C4A8500C7C7BF /* CoreAudio.framework */; };
 		7D665E9E1C0C4A9B00C7C7BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D665E9D1C0C4A9B00C7C7BF /* CoreLocation.framework */; };
 		7D665EA01C0C4AED00C7C7BF /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D665E9F1C0C4AED00C7C7BF /* libc++.tbd */; };
-		7D665EA21C0C4B1400C7C7BF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D665EA11C0C4B1400C7C7BF /* MapKit.framework */; };
 		7D665EA71C0C60EE00C7C7BF /* IMChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665EA41C0C60EE00C7C7BF /* IMChatListViewController.m */; };
 		7D665EA81C0C60EE00C7C7BF /* IMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */; };
 		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
@@ -1049,7 +1048,6 @@
 		7D665E9B1C0C4A8500C7C7BF /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		7D665E9D1C0C4A9B00C7C7BF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7D665E9F1C0C4AED00C7C7BF /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		7D665EA11C0C4B1400C7C7BF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7D665EA31C0C60EE00C7C7BF /* IMChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMChatListViewController.h; sourceTree = "<group>"; };
 		7D665EA41C0C60EE00C7C7BF /* IMChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMChatListViewController.m; sourceTree = "<group>"; };
 		7D665EA51C0C60EE00C7C7BF /* IMChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMChatViewController.h; sourceTree = "<group>"; };
@@ -1195,7 +1193,6 @@
 				03571D3B1BE8604100900EF9 /* SystemConfiguration.framework in Frameworks */,
 				7DA950171C1298AF00BFCB31 /* libSocialQQ.a in Frameworks */,
 				7D43078A1C10271E00C4A3FF /* libiconv.tbd in Frameworks */,
-				7D665EA21C0C4B1400C7C7BF /* MapKit.framework in Frameworks */,
 				7DA950181C1298AF00BFCB31 /* TencentOpenAPI.framework in Frameworks */,
 				03571D581BE861BD00900EF9 /* CoreMotion.framework in Frameworks */,
 				03571D4C1BE8614200900EF9 /* CFNetwork.framework in Frameworks */,
@@ -1205,7 +1202,6 @@
 				03662C6A1C12C3B900AEEF48 /* CoreText.framework in Frameworks */,
 				03571D4E1BE8615800900EF9 /* QuartzCore.framework in Frameworks */,
 				03571D5C1BE861D100900EF9 /* CoreTelephony.framework in Frameworks */,
-				7D665EA21C0C4B1400C7C7BF /* MapKit.framework in Frameworks */,
 				03662C7C1C12E0D700AEEF48 /* libssl.a in Frameworks */,
 				7D665E9E1C0C4A9B00C7C7BF /* CoreLocation.framework in Frameworks */,
 				7DA9500D1C1298AF00BFCB31 /* libUMSocial_Sdk_4.4.a in Frameworks */,
@@ -1824,7 +1820,6 @@
 				7D4307891C10271E00C4A3FF /* libiconv.tbd */,
 				03662C691C12C3B900AEEF48 /* CoreText.framework */,
 				03662C6B1C12C3D800AEEF48 /* Foundation.framework */,
-				7D665EA11C0C4B1400C7C7BF /* MapKit.framework */,
 				7D665E9F1C0C4AED00C7C7BF /* libc++.tbd */,
 				7D665E9D1C0C4A9B00C7C7BF /* CoreLocation.framework */,
 				7D665E9B1C0C4A8500C7C7BF /* CoreAudio.framework */,
@@ -2955,6 +2950,11 @@
 					03571B1F1BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 23L882L49W;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					03571B381BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
@@ -3542,9 +3542,9 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jugongchang.cofactory;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "562148d7-860a-45a2-9b1d-ab3d593bfd03";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3591,9 +3591,9 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jugongchang.cofactory;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "562148d7-860a-45a2-9b1d-ab3d593bfd03";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
