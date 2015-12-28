@@ -22,6 +22,8 @@
     NSArray             *_bidAmountArray;
     UIImageView         *_orderImageOne;
     UIImageView         *_orderImageTwo;
+    UIImageView         *_orderImageThree;
+    CGSize               _descriptionSize;
 
 }
 @property(nonatomic,strong)UserModel *userModel;
@@ -74,6 +76,8 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     self.navigationItem.title = @"订单详情";
     self.view.backgroundColor = [UIColor whiteColor];
 
+    _descriptionSize = [Tools getSize:_dataModel.descriptions andFontOfSize:12 andWidthMake:kScreenW-90];
+    DLog(@"+++++++++++++=======%f",_descriptionSize.width);
     [self initTableView];
 
 }
@@ -253,20 +257,20 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 170+10;
+    return 146+_descriptionSize.height+30;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 170+10)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 146+_descriptionSize.height+30)];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 20, 25)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 15, 20)];
     imageView.image = [UIImage imageNamed:@"dd.png"];
     [view addSubview:imageView];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 100, 25)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50-2, 18, 100, 25)];
     label.textColor = MAIN_COLOR;
     label.textAlignment = NSTextAlignmentLeft;
-    label.font = [UIFont systemFontOfSize:16];
+    label.font = [UIFont systemFontOfSize:14];
     label.text = @"订单信息";
     [view addSubview:label];
     
@@ -289,7 +293,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [view addSubview:orderPhotoLB];
 
 
-    for (int i = 0; i<2; i++) {
+    for (int i = 0; i<3; i++) {
         UIImageView *orderImage = [[UIImageView alloc] initWithFrame:CGRectMake(80+i*82, 80, 72, 54)];
         orderImage.layer.masksToBounds = YES;
         orderImage.layer.cornerRadius = 5;
@@ -297,11 +301,14 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
         if (i == 0) {
             _orderImageOne = orderImage;
-        }else{
+        }else if (i == 1){
             _orderImageTwo = orderImage;
+        }else{
+            _orderImageThree = orderImage;
         }
     }
     
+    DLog(@">>>>++%lu",(unsigned long)_dataModel.photoArray.count);
     switch (_dataModel.photoArray.count) {
         case 0:
             _orderImageOne.image = [UIImage imageNamed:@"placeHolderImage"];
@@ -311,18 +318,30 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             [_orderImageOne sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
             _orderImageTwo.image = nil;
             break;
+            case 2:
+            [_orderImageOne sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+            [_orderImageTwo sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[1]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+            
+            break;
           default:
             [_orderImageOne sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
             [_orderImageTwo sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[1]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+                [_orderImageThree sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[2]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
             break;
     }
 
-    UILabel *commentLB = [[UILabel alloc]initWithFrame:CGRectMake(20, 138, kScreenW-30, 32)];
+    UILabel *co = [[UILabel alloc]initWithFrame:CGRectMake(20, 138, 40, 30)];
+    co.font = [UIFont systemFontOfSize:12];
+    co.text = @"备注";
+    [view addSubview:co];
+    
+    UILabel *commentLB = [[UILabel alloc] initWithFrame:CGRectMake(80, 146, kScreenW - 90, _descriptionSize.height)];
     commentLB.font = [UIFont systemFontOfSize:12];
-    commentLB.text = [NSString stringWithFormat:@"备注          %@",_dataModel.descriptions];
+    commentLB.numberOfLines = 0;
+    commentLB.text = _dataModel.descriptions;
     [view addSubview:commentLB];
     
-    UILabel *lineLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, kScreenW, 10)];
+    UILabel *lineLB = [[UILabel alloc] initWithFrame:CGRectMake(0, view.frame.size.height - 20, kScreenW, 10)];
     lineLB.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     [view addSubview:lineLB];
 

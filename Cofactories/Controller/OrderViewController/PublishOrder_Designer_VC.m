@@ -136,12 +136,17 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 }
 
 - (void)publishClick{
-    if (_titleTF.text.length > 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
-        alertView.tag = 100;
-        [alertView show];
-    }else{
+ 
+    if (_titleTF.text.length == 0 || [Tools isBlankString:_titleTF.text] == YES){
         kTipAlert(@"请填写必填信息，再发布订单!");
+    }else{
+        if (_titleTF.text.length > 20) {
+            kTipAlert(@"标题字符长度不得超过20个字符!");
+        }else{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
+            alertView.tag = 100;
+            [alertView show];
+        }
     }
 }
 
