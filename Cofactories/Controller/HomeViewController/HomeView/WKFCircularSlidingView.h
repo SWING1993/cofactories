@@ -24,6 +24,6 @@
 @property (nonatomic,assign) CGFloat scrollWidth;
 
 @property (nonatomic,weak)id<WKFCircularSlidingViewDelegate>delegate;
-
+- (instancetype)initWithFrame:(CGRect)frame isNetwork:(BOOL)isNetwork;
 
 @end

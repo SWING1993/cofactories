@@ -373,21 +373,15 @@
 		7DDBC9FF1C15A4F3008FD2E0 /* ShopCarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDBC9FE1C15A4F3008FD2E0 /* ShopCarController.m */; };
 		7DE36D221C0809A70090BF5D /* PopularCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
-		7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */; };
 		7DEB8F951C06F13C00B98912 /* ZGYDesignMarkrtController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */; };
 		7DEB8FE71C072E3700B98912 /* PopularNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */; };
 		7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */; };
-		7DEEA5631C054A2D009143C6 /* WalletSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5621C054A2D009143C6 /* WalletSelectView.m */; };
 		7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */; };
 		7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */; };
 		7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFFE871C094A8200102C98 /* ZGYTitleView.m */; };
 		7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */; };
 		7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */; };
 		7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */; };
-		7DF1C1C01C00590100460DB7 /* 服装平台.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BC1C00590100460DB7 /* 服装平台.png */; };
-		7DF1C1C11C00590100460DB7 /* 男装新潮流.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BD1C00590100460DB7 /* 男装新潮流.png */; };
-		7DF1C1C21C00590100460DB7 /* 女装新潮流.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BE1C00590100460DB7 /* 女装新潮流.png */; };
-		7DF1C1C31C00590100460DB7 /* 童装设计潮流趋势.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BF1C00590100460DB7 /* 童装设计潮流趋势.png */; };
 		7DF1C1C61C005F2200460DB7 /* HomeActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */; };
 		7DFEBE3C1C0C18F200B2D2D5 /* SupplyMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFEBE3B1C0C18F200B2D2D5 /* SupplyMarketButton.m */; };
 /* End PBXBuildFile section */
@@ -1164,16 +1158,12 @@
 		7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularCollectionViewCell.m; sourceTree = "<group>"; };
 		7DE8C1911C043CA600E0917D /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
 		7DE8C1921C043CA600E0917D /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
-		7DE8C1951C0445AF00E0917D /* ZhiFuBaoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhiFuBaoCell.h; sourceTree = "<group>"; };
-		7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhiFuBaoCell.m; sourceTree = "<group>"; };
 		7DEB8F931C06F13C00B98912 /* ZGYDesignMarkrtController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYDesignMarkrtController.h; sourceTree = "<group>"; };
 		7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYDesignMarkrtController.m; sourceTree = "<group>"; };
 		7DEB8FE51C072E3700B98912 /* PopularNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsCell.h; sourceTree = "<group>"; };
 		7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsCell.m; sourceTree = "<group>"; };
 		7DEEA55E1C05479C009143C6 /* WalletHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryViewController.h; sourceTree = "<group>"; };
 		7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryViewController.m; sourceTree = "<group>"; };
-		7DEEA5611C054A2D009143C6 /* WalletSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletSelectView.h; sourceTree = "<group>"; };
-		7DEEA5621C054A2D009143C6 /* WalletSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletSelectView.m; sourceTree = "<group>"; };
 		7DEEA5C91C058B81009143C6 /* AuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationController.h; sourceTree = "<group>"; };
 		7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationController.m; sourceTree = "<group>"; };
 		7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationCell.m; sourceTree = "<group>"; };
@@ -1186,10 +1176,6 @@
 		7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePersonalDataCell.m; sourceTree = "<group>"; };
 		7DF1C1B91C0056B400460DB7 /* WKFCircularSlidingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKFCircularSlidingView.h; sourceTree = "<group>"; };
 		7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKFCircularSlidingView.m; sourceTree = "<group>"; };
-		7DF1C1BC1C00590100460DB7 /* 服装平台.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "服装平台.png"; sourceTree = "<group>"; };
-		7DF1C1BD1C00590100460DB7 /* 男装新潮流.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "男装新潮流.png"; sourceTree = "<group>"; };
-		7DF1C1BE1C00590100460DB7 /* 女装新潮流.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "女装新潮流.png"; sourceTree = "<group>"; };
-		7DF1C1BF1C00590100460DB7 /* 童装设计潮流趋势.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "童装设计潮流趋势.png"; sourceTree = "<group>"; };
 		7DF1C1C41C005F2200460DB7 /* HomeActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeActivityCell.h; sourceTree = "<group>"; };
 		7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeActivityCell.m; sourceTree = "<group>"; };
 		7DFEBE3A1C0C18F200B2D2D5 /* SupplyMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplyMarketButton.h; sourceTree = "<group>"; };
@@ -1373,10 +1359,6 @@
 		03571B221BE84BA100900EF9 /* Cofactories */ = {
 			isa = PBXGroup;
 			children = (
-				7DF1C1BC1C00590100460DB7 /* 服装平台.png */,
-				7DF1C1BD1C00590100460DB7 /* 男装新潮流.png */,
-				7DF1C1BE1C00590100460DB7 /* 女装新潮流.png */,
-				7DF1C1BF1C00590100460DB7 /* 童装设计潮流趋势.png */,
 				7D6DB64D1C05BB9D00BF396E /* 身份证.png */,
 				03571B5F1BE8546300900EF9 /* Cofactories_iOS-Prefix.pch */,
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
@@ -2785,10 +2767,6 @@
 			children = (
 				03B4559F1C17FCB6002F1A81 /* WalletHistoryTableViewCell.h */,
 				03B455A01C17FCB6002F1A81 /* WalletHistoryTableViewCell.m */,
-				7DE8C1951C0445AF00E0917D /* ZhiFuBaoCell.h */,
-				7DE8C1961C0445AF00E0917D /* ZhiFuBaoCell.m */,
-				7DEEA5611C054A2D009143C6 /* WalletSelectView.h */,
-				7DEEA5621C054A2D009143C6 /* WalletSelectView.m */,
 			);
 			path = WalletView;
 			sourceTree = "<group>";
@@ -3015,7 +2993,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DA950191C1298AF00BFCB31 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				7DF1C1C01C00590100460DB7 /* 服装平台.png in Resources */,
 				03571B7B1BE85B7900900EF9 /* 02.png in Resources */,
 				7DA950131C1298AF00BFCB31 /* UMSLoginViewController.xib in Resources */,
 				035CC5D21C070ECB00998FBD /* umeng_add_photo@2x.png in Resources */,
@@ -3038,8 +3015,6 @@
 				03927D781BEC86D90087A2FD /* Images.xcassets in Resources */,
 				7DA950141C1298AF00BFCB31 /* UMSnsAccountViewController.xib in Resources */,
 				7DA950111C1298AF00BFCB31 /* UMShareEditViewController.xib in Resources */,
-				7DF1C1C11C00590100460DB7 /* 男装新潮流.png in Resources */,
-				7DF1C1C31C00590100460DB7 /* 童装设计潮流趋势.png in Resources */,
 				03B120C71C05B1E60023F362 /* Areas.plist in Resources */,
 				7D4D06C21C0ED39200BF49D9 /* ZGYSelectView.xib in Resources */,
 				035CC5D81C070ECB00998FBD /* umeng_fb_audio_play_default@2x.png in Resources */,
@@ -3069,7 +3044,6 @@
 				7DA950151C1298AF00BFCB31 /* UMSShareListController.xib in Resources */,
 				03571C9D1BE85DAC00900EF9 /* icon_chose_arrow_sel@2x.png in Resources */,
 				035CC5D71C070ECB00998FBD /* umeng_fb_audio_play_03@2x.png in Resources */,
-				7DF1C1C21C00590100460DB7 /* 女装新潮流.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3219,7 +3193,6 @@
 				70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */,
 				03571BFD1BE85C0800900EF9 /* SDWebImageDownloader.m in Sources */,
 				03571C5E1BE85D8C00900EF9 /* MJRefreshHeaderView.m in Sources */,
-				7DE8C1971C0445AF00E0917D /* ZhiFuBaoCell.m in Sources */,
 				03571BFE1BE85C0800900EF9 /* SDWebImageDownloaderOperation.m in Sources */,
 				03571C601BE85D8C00900EF9 /* UIScrollView+MJRefresh.m in Sources */,
 				70F4A7741C128A06000DF7E7 /* BidManage_Design_Model.m in Sources */,
@@ -3315,7 +3288,6 @@
 				7DF1C1C61C005F2200460DB7 /* HomeActivityCell.m in Sources */,
 				7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */,
 				7D743A0F1C23E879006AEA07 /* HomeActivity_VC.m in Sources */,
-				7DEEA5631C054A2D009143C6 /* WalletSelectView.m in Sources */,
 				03571C5C1BE85D8C00900EF9 /* MJRefreshConst.m in Sources */,
 				03FF45091BFEE74000D81DCE /* AFHTTPSessionManager.m in Sources */,
 				705B25641C09B29400CCA619 /* SearchOrder_Supplier_VC.m in Sources */,
