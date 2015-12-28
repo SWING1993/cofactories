@@ -33,7 +33,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     UILabel * myProfileLabel;
     
-    
 }
 -(void)viewDidAppear:(BOOL)animated
 {

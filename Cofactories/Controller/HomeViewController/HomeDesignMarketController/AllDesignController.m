@@ -55,7 +55,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.rowHeight = 80;
+    _tableView.rowHeight = 80+30;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerClass:[AllDesignCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:_tableView];
@@ -87,7 +87,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)footerRereshing{
     _refrushCount++;
-    DLog(@"_refrushCount==%d",_refrushCount);
+    DLog(@"_refrushCount==%ld",(long)_refrushCount);
     [HttpClient searchBusinessWithRole:@"designer" scale:nil province:_userProvince city:_userCity subRole:_userSubrole keyWord:_userBusinessName verified:_userType page:@(_refrushCount) WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

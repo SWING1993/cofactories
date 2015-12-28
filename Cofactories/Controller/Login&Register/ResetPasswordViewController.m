@@ -91,7 +91,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         _passwordTF = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-15, 44)];
         _passwordTF.clearButtonMode=UITextFieldViewModeWhileEditing;
         _passwordTF.secureTextEntry=YES;
-        _passwordTF.placeholder=@"新密码";
+        _passwordTF.placeholder=@"新密码（6位及以上）";
     }
 
 

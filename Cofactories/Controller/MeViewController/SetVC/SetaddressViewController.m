@@ -117,7 +117,8 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
 - (void)buttonClicked {
 
-    if ([addressTF1.text isEqualToString:@""]  || [addressTF2.text isEqualToString:@""]) {
+    
+    if ([addressTF1.text isEqualToString:@""]  || [addressTF2.text isEqualToString:@""] || [Tools isBlankString:addressTF2.text]) {
         UIAlertView*alertView =[[UIAlertView alloc]initWithTitle:@"公司地址不能为空!" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alertView show];
     }else{
@@ -141,9 +142,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         [parametersDic setObject:provinceStr forKey:@"province"];
         [parametersDic setObject:cityStr forKey:@"city"];
         [parametersDic setObject:districtStr forKey:@"district"];
-
-        NSString * addressStr = [NSString stringWithFormat:@"%@%@%@%@",provinceStr,cityStr,districtStr,addressTF2.text];
-        [parametersDic setObject:addressStr forKey:@"address"];
+        [parametersDic setObject:addressTF2.text forKey:@"address"];
 
         [HttpClient postMyProfileWithDic:parametersDic andBlock:^(NSInteger statusCode) {
             if (statusCode == 200) {
@@ -294,8 +293,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
 
-    DLog(@"- (void)pickerView:(UIPickerView *)");
-
     if (component == PROVINCE_COMPONENT) {
         selectedProvince = [province objectAtIndex: row];
         NSDictionary *tmp = [NSDictionary dictionaryWithDictionary: [areaDic objectForKey: [NSString stringWithFormat:@"%ld", (long)row]]];
@@ -351,6 +348,20 @@ static NSString * CellIdentifier = @"CellIdentifier";
         [self.addressPicker selectRow: 0 inComponent: DISTRICT_COMPONENT animated: YES];
         [self.addressPicker reloadComponent: DISTRICT_COMPONENT];
     }
+    
+    [self chooseAddressPicker];
+}
+
+- (void)chooseAddressPicker {
+    NSInteger provinceIndex = [self.addressPicker selectedRowInComponent: PROVINCE_COMPONENT];
+    NSInteger cityIndex = [self.addressPicker selectedRowInComponent: CITY_COMPONENT];
+    NSInteger districtIndex = [self.addressPicker selectedRowInComponent: DISTRICT_COMPONENT];
+    
+    NSString *provinceStr = [province objectAtIndex: provinceIndex];
+    NSString *cityStr = [city objectAtIndex: cityIndex];
+    NSString *districtStr = [district objectAtIndex:districtIndex];
+    
+    addressTF1.text = [NSString stringWithFormat: @"%@%@%@", provinceStr, cityStr, districtStr];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
