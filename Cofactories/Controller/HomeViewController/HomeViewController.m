@@ -38,7 +38,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 
 -(void)viewDidAppear:(BOOL)animated {
-    [self viewDidAppear:animated];
+    [super viewDidAppear:animated];
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
