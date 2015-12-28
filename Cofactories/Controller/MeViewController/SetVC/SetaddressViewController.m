@@ -294,8 +294,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
 
-    DLog(@"- (void)pickerView:(UIPickerView *)");
-
     if (component == PROVINCE_COMPONENT) {
         selectedProvince = [province objectAtIndex: row];
         NSDictionary *tmp = [NSDictionary dictionaryWithDictionary: [areaDic objectForKey: [NSString stringWithFormat:@"%ld", (long)row]]];
@@ -351,6 +349,20 @@ static NSString * CellIdentifier = @"CellIdentifier";
         [self.addressPicker selectRow: 0 inComponent: DISTRICT_COMPONENT animated: YES];
         [self.addressPicker reloadComponent: DISTRICT_COMPONENT];
     }
+    
+    [self chooseAddressPicker];
+}
+
+- (void)chooseAddressPicker {
+    NSInteger provinceIndex = [self.addressPicker selectedRowInComponent: PROVINCE_COMPONENT];
+    NSInteger cityIndex = [self.addressPicker selectedRowInComponent: CITY_COMPONENT];
+    NSInteger districtIndex = [self.addressPicker selectedRowInComponent: DISTRICT_COMPONENT];
+    
+    NSString *provinceStr = [province objectAtIndex: provinceIndex];
+    NSString *cityStr = [city objectAtIndex: cityIndex];
+    NSString *districtStr = [district objectAtIndex:districtIndex];
+    
+    addressTF1.text = [NSString stringWithFormat: @"%@%@%@", provinceStr, cityStr, districtStr];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component

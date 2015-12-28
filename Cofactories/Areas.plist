@@ -5467,22 +5467,32 @@
 		<dict>
 			<key>0</key>
 			<dict>
-				<key>香港特别行政区</key>
+				<key>香港岛</key>
 				<array>
-					<string>香港特别行政区</string>
+					<string>中西区</string>
+					<string>湾仔</string>
+					<string>东区</string>
+					<string>南区</string>
 				</array>
-			</dict>
-		</dict>
-	</dict>
-	<key>33</key>
-	<dict>
-		<key>澳门特别行政区</key>
-		<dict>
-			<key>0</key>
-			<dict>
-				<key>澳门特别行政区</key>
+				<key>新界</key>
 				<array>
-					<string>澳门特别行政区</string>
+					<string>北区</string>
+					<string>大浦区</string>
+					<string>沙田区</string>
+					<string>西贡区</string>
+					<string>元朗区</string>
+					<string>屯门区</string>
+					<string>荃湾区</string>
+					<string>离岛区</string>
+					<string>葵青区</string>
+				</array>
+				<key>九龙</key>
+				<array>
+					<string>九龙城</string>
+					<string>油尖旺区</string>
+					<string>深水埗区</string>
+					<string>黄大仙区</string>
+					<string>观塘区</string>
 				</array>
 			</dict>
 		</dict>

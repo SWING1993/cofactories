@@ -71,7 +71,6 @@
 
 + (NSString *)getUTCFormateDate:(NSString *)newsDate;
 
-
 // 检查网络环境
 + (void)AFNetworkReachabilityStatusReachableVia ;
 
@@ -82,11 +81,14 @@
  @param string 文本
  */
 + (CGSize)getSize:(NSString *)string andFontOfSize:(CGFloat)fontSize;
+
 + (CGSize)getSize:(NSString *)string andFontOfSize:(CGFloat)fontSize andWidthMake:(CGFloat)width;//自适应高度
+
 /**
  *  清除缓存
  */
 + (void)removeAllCached;
+
 /**
  *  图片旋转
  */
@@ -95,8 +97,18 @@
 
 // 商家汇总筛选条件
 + (NSDictionary *)returenSelectDataDictionaryWithIndex:(NSInteger)index;
+
 // 商品购买筛选条件
 + (NSDictionary *)goodsSelectDataDictionaryWithIndex:(NSInteger)index;
 
+
+/**
+ *  判断字符串为空和只为空格解决办法
+ *
+ *  @param string String
+ *
+ *  @return BOOL
+ */
++ (BOOL)isBlankString:(NSString *)string;
 
 @end
