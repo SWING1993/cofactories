@@ -95,7 +95,7 @@ static NSString * placeholderString = @"暂无";
             _province = placeholderString;
         }else {
             _province = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"province"]];
-
+            
         }
         
         if ([[dictionary objectForKey:@"city"] isEqual:[NSNull null]]) {
@@ -111,12 +111,12 @@ static NSString * placeholderString = @"暂无";
             _district = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"district"]];
         }
         
-
+        
         if ([[dictionary objectForKey:@"address"] isEqual:[NSNull null]]) {
             _address = placeholderString;
         }else {
             _address =  [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"address"]];
-
+            
         }
         
         
