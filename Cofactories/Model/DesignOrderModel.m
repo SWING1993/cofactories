@@ -18,11 +18,13 @@
         self.createdAt = (NSString *)[creatArray firstObject];
         
         NSString *saleString = [NSString stringWithFormat:@"%@",dictionary[@"description"]];
-        if ([saleString isEqualToString:@"<null>"]){
+        if ([saleString isEqualToString:@"<null>"] || saleString.length == 0){
             self.descriptions = @"商家未填写备注";
         }else{
             self.descriptions = dictionary[@"description"];
         }
+        
+        DLog(@"salestring====%@",saleString);
         
         self.ID = dictionary[@"id"];
         self.name = dictionary[@"name"];

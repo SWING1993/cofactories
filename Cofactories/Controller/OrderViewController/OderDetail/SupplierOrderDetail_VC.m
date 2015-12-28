@@ -286,14 +286,14 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     lineLayer.frame = CGRectMake(0,0, kScreenW, 10);
     [view.layer addSublayer:lineLayer];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 20, 25)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 15, 20)];
     imageView.image = [UIImage imageNamed:@"dd.png"];
     [view addSubview:imageView];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 100, 25)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50-2, 18, 100, 25)];
     label.textColor = MAIN_COLOR;
     label.textAlignment = NSTextAlignmentLeft;
-    label.font = [UIFont systemFontOfSize:16];
+    label.font = [UIFont systemFontOfSize:14];
     label.text = @"订单信息";
     [view addSubview:label];
     
