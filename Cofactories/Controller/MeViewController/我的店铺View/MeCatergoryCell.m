@@ -23,7 +23,7 @@
         self.catergoryLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.catergoryLabel];
         
-        self.deleteImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width -17, -3, 20, 20)];
+        self.deleteImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width -15, -3, 20, 20)];
         self.deleteImage.image = [UIImage imageNamed:@"删除图片"];
         [self addSubview:self.deleteImage];
         self.shanChuButton = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -147,8 +147,7 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 
 
 - (void)infoAction {
-    DLog(@"gfiuhshfolsjfpspi");
-    if (priseNameTextField.text.length != 0 && priseAddressTextField.text.length != 0 && personNameTextField.text.length != 0 && idCardTextField.text.length == 18 ) {
+    if (priseNameTextField.text.length != 0 && priseAddressTextField.text.length != 0 && personNameTextField.text.length != 0 && (idCardTextField.text.length == 18 || idCardTextField.text.length == 19 || idCardTextField.text.length == 20) ) {
         DLog(@"去认证");
         lastButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
         [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

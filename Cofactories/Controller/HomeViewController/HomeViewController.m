@@ -38,6 +38,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 
 -(void)viewDidAppear:(BOOL)animated {
+    [self viewDidAppear:animated];
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
@@ -158,9 +159,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
             cell.personStatusImage.image = [UIImage imageNamed:@"证"];
         }
-//        else {
-//            cell.personStatusImage.image = [UIImage imageNamed:@"企"];
-//        }
+
         cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", self.MyProfile.score];
         //钱包余额
         cell.personWalletLeft.text = [NSString stringWithFormat:@"余额：%.2f元",self.walletModel.money];

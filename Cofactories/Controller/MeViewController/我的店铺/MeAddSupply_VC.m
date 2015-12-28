@@ -384,7 +384,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     } else {
         //计算宽度
         CGSize size = [Tools getSize:self.categoryArray[indexPath.row] andFontOfSize:14];
-        return CGSizeMake(size.width + 100, 30);
+        return CGSizeMake(size.width + 25, 30);
     }
     
 }
@@ -430,7 +430,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         cell.catergoryLabel.text = self.categoryArray[indexPath.row];
         cell.shanChuButton.tag = indexPath.row + 1000;
         [cell.shanChuButton addTarget:self action:@selector(deleteCatergory:) forControlEvents:UIControlEventTouchUpInside];
-        cell.deleteImage.frame = CGRectMake(cell.frame.size.width -17, -3, 20, 20);
+        cell.deleteImage.frame = CGRectMake(cell.frame.size.width -15, -3, 20, 20);
         cell.shanChuButton.frame = CGRectMake(cell.frame.size.width/2, 0, cell.frame.size.width/2, cell.frame.size.height);
         
         return cell;
