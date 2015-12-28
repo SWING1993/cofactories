@@ -17,11 +17,21 @@ static NSString * CellIdentifier = @"CellIdentifier";
 #define DISTRICT_COMPONENT  2
 
 @interface SetaddressViewController () <UIPickerViewDataSource,UIPickerViewDelegate> {
-    UILabel*label1;
-    UITextField*addressTF1;
-    UILabel*label2;
-    UITextField*addressTF2;
-
+    
+    UILabel *  label1;
+    UITextField * addressTF1;
+    UILabel * label2;
+    UITextField * addressTF2;
+    
+    UIPickerView *picker;
+    
+    NSDictionary *areaDic;
+    NSArray *province;
+    NSArray *city;
+    NSArray *district;
+    
+    NSString *selectedProvince;
+//    NSString *addressString;
 }
 
 
@@ -30,10 +40,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
 @end
 
-@implementation SetaddressViewController{
-    BOOL _wasKeyboardManagerEnabled;
-    
-}
+@implementation SetaddressViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -138,7 +145,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         [parametersDic setObject:provinceStr forKey:@"province"];
         [parametersDic setObject:cityStr forKey:@"city"];
         [parametersDic setObject:districtStr forKey:@"district"];
-        [parametersDic setObject:[NSString stringWithFormat:@"%@%@",addressTF1.text,addressTF2.text] forKey:@"address"];
+        [parametersDic setObject:[NSString stringWithFormat:@"%@%@%@%@",provinceStr,cityStr,districtStr,addressTF2.text] forKey:@"address"];
         
         //DLog(@"provinceStr == %@,cityStr == %@,districtStr == %@",provinceStr,cityStr,districtStr);
         DLog(@"Address == %@",[NSString stringWithFormat:@"%@%@",addressTF1.text,addressTF2.text]);
@@ -230,8 +237,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 
 -(void)addressCancel{
-
-    addressString = nil;
     addressTF1.text = nil;
     [addressTF1 endEditing:YES];
 }
@@ -247,9 +252,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     NSString *districtStr = [district objectAtIndex:districtIndex];
 
 
-    addressString = [NSString stringWithFormat: @"%@%@%@", provinceStr, cityStr, districtStr];
-    addressTF1.text = addressString;
-    addressString = nil;
+    addressTF1.text = [NSString stringWithFormat: @"%@%@%@", provinceStr, cityStr, districtStr];
     [addressTF1 endEditing:YES];
 }
 
