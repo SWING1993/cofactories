@@ -130,11 +130,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         NSString *cityStr = [city objectAtIndex: cityIndex];
         NSString *districtStr = [district objectAtIndex:districtIndex];
         
-        DLog(@"provinceStr == %@,cityStr == %@,districtStr == %@",provinceStr,cityStr,districtStr);
-        DLog(@"FactoryAddress == %@",[NSString stringWithFormat:@"%@%@",addressTF1.text,addressTF2.text]);
-
-
-        
+ 
         MBProgressHUD *hud = [Tools createHUD];
         hud.labelText = @"正在修改地址！";
         
@@ -142,7 +138,10 @@ static NSString * CellIdentifier = @"CellIdentifier";
         [parametersDic setObject:provinceStr forKey:@"province"];
         [parametersDic setObject:cityStr forKey:@"city"];
         [parametersDic setObject:districtStr forKey:@"district"];
-        [parametersDic setObject:addressTF2.text forKey:@"address"];
+        [parametersDic setObject:[NSString stringWithFormat:@"%@%@",addressTF1.text,addressTF2.text] forKey:@"address"];
+        
+        //DLog(@"provinceStr == %@,cityStr == %@,districtStr == %@",provinceStr,cityStr,districtStr);
+        DLog(@"Address == %@",[NSString stringWithFormat:@"%@%@",addressTF1.text,addressTF2.text]);
 
         [HttpClient postMyProfileWithDic:parametersDic andBlock:^(NSInteger statusCode) {
             if (statusCode == 200) {
