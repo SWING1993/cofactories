@@ -127,9 +127,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
     else if (btn.tag == 2) {
         
-        if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
+        if (self.MyProfile.verify_status == 0) {
             kTipAlert(@"提现请先实名认证。");
-        } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
+        }else if (self.MyProfile.verify_status == 1){
+            kTipAlert(@"您的认证正在审核中。");
+        }else {
             WithdrawalViewController * vc2 = [[WithdrawalViewController alloc]init];
             vc2.title = @"提现";
             vc2.money = [NSString stringWithFormat:@"%.2f",self.walletModel.maxWithDraw];
@@ -211,14 +213,13 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             historyVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:historyVC animated:NO];
             
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 1) {        
             //实名认证
-            if (self.MyProfile.status == 0) {
+            if (self.MyProfile.verify_status == 0) {
                 AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
                 authenticationVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:authenticationVC animated:YES];
-                
-            }else if (self.MyProfile.status == 1){
+            }else if (self.MyProfile.verify_status == 1){
                 kTipAlert(@"您的认证正在审核中！");
             }else{
                 kTipAlert(@"您已实名认证！");

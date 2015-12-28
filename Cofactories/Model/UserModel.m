@@ -216,31 +216,32 @@ static NSString * placeholderString = @"暂无";
             DLog(@"认证字典为空");
         } else {
             DLog(@"认证字典");
-            _enterpriseName = _verifyDic[@"enterpriseName"];
-            if ([_enterpriseName isEqualToString:@"<null>"]) {
-                _enterpriseName = placeholderString;
+            _verify_enterpriseName = _verifyDic[@"enterpriseName"];
+            if ([_verify_enterpriseName isEqualToString:@"<null>"]) {
+                _verify_enterpriseName = placeholderString;
             }
-            _personName = _verifyDic[@"personName"];
-            if ([_personName isEqualToString:@"<null>"]) {
-                _personName = placeholderString;
+            _verify_personName = _verifyDic[@"personName"];
+            if ([_verify_personName isEqualToString:@"<null>"]) {
+                _verify_personName = placeholderString;
             }
-            _idCard = _verifyDic[@"idCard"];
-            if ([_idCard isEqualToString:@"<null>"]) {
-                _idCard = placeholderString;
+            _verify_idCard = _verifyDic[@"idCard"];
+            if ([_verify_idCard isEqualToString:@"<null>"]) {
+                _verify_idCard = placeholderString;
             }
-            _enterpriseAddress = _verifyDic[@"enterpriseAddress"];
-            if ([_enterpriseAddress isEqualToString:@"<null>"]) {
-                _enterpriseAddress = placeholderString;
+            _verify_enterpriseAddress = _verifyDic[@"enterpriseAddress"];
+            if ([_verify_enterpriseAddress isEqualToString:@"<null>"]) {
+                _verify_enterpriseAddress = placeholderString;
             }
-            _status = [_verifyDic[@"status"] integerValue];
+            
+            _verify_status = [_verifyDic[@"status"] integerValue];
 
-            _verifyCreatedAt = _verifyDic[@"createdAt"];
-            if ([_verifyCreatedAt isEqualToString:@"<null>"]) {
-                _verifyCreatedAt = placeholderString;
+            _verify_CreatedAt = _verifyDic[@"createdAt"];
+            if ([_verify_CreatedAt isEqualToString:@"<null>"]) {
+                _verify_CreatedAt = placeholderString;
             }
-            _verifyUpdatedAt = _verifyDic[@"updatedAt"];
-            if ([_verifyUpdatedAt isEqualToString:@"<null>"]) {
-                _verifyUpdatedAt = placeholderString;
+            _verify_UpdatedAt = _verifyDic[@"updatedAt"];
+            if ([_verify_UpdatedAt isEqualToString:@"<null>"]) {
+                _verify_UpdatedAt = placeholderString;
             }
         }
     }
@@ -279,7 +280,7 @@ static NSString * placeholderString = @"暂无";
 }
 
 - (NSString *)description {
-    return [[NSString alloc] initWithFormat:@"\nrole: %@\nUserType: %ld\nuid: %@\nphone: %@\nname: %@\nprovince: %@\ncity: %@\ndistrict: %@\naddress: %@\nsubRole: %@\nscale: %@\ninviteCode: %@\nrongToken: %@\nverified: %@\nenterprise: %@\nscore:%@\nlastActivity:%@\ndescriptionString:%@\ncreatedAt:%@\nupdatedAt:%@\nphotoArray:%@\nverifyDic:%@\nenterpriseName:%@\npersonName:%@\nidCard:%@\nenterpriseAddress:%@\nstatus:%ld\nverifyCreatedAt:%@\nverifyUpdatedAt:%@", _role, (long)_UserType, _uid, _phone, _name, _province, _city, _district, _address, _subRole, _scale, _inviteCode, _rongToken, _verified, _enterprise, _score, _lastActivity, _descriptionString, _createdAt, _updatedAt, _photoArray, _verifyDic, _enterpriseName, _personName, _idCard, _enterpriseAddress, _status, _verifyCreatedAt, _verifyUpdatedAt];
+    return [[NSString alloc] initWithFormat:@"\nrole: %@\nUserType: %ld\nuid: %@\nphone: %@\nname: %@\nprovince: %@\ncity: %@\ndistrict: %@\naddress: %@\nsubRole: %@\nscale: %@\ninviteCode: %@\nrongToken: %@\nverified: %@\nenterprise: %@\nscore:%@\nlastActivity:%@\ndescriptionString:%@\ncreatedAt:%@\nupdatedAt:%@\nphotoArray:%@\nverifyDic:%@\nenterpriseName:%@\npersonName:%@\nidCard:%@\nenterpriseAddress:%@\nstatus:%ld\nverifyCreatedAt:%@\nverifyUpdatedAt:%@", _role, (long)_UserType, _uid, _phone, _name, _province, _city, _district, _address, _subRole, _scale, _inviteCode, _rongToken, _verified, _enterprise, _score, _lastActivity, _descriptionString, _createdAt, _updatedAt, _photoArray, _verifyDic, _verify_enterpriseName, _verify_personName, _verify_idCard, _verify_enterpriseAddress, _verify_status, _verify_CreatedAt, _verify_UpdatedAt];
 }
 
 

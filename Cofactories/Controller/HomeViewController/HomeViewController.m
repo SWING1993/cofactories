@@ -186,13 +186,13 @@ static NSString *activityCellIdentifier = @"activityCell";
         
         [cell.authenticationButton addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
         //认证状态
-        if (self.MyProfile.status == 0) {
+        if (self.MyProfile.verify_status == 0) {
             cell.authenticationLabel.text = @"前往认证";
         }
-        if (self.MyProfile.status == 1) {
+        if (self.MyProfile.verify_status == 1) {
             cell.authenticationLabel.text = @"认证中";
         }
-        if (self.MyProfile.status == 2) {
+        if (self.MyProfile.verify_status == 2) {
             cell.authenticationLabel.text = @"已认证";
         }
         return cell;
@@ -297,7 +297,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)authenticationAction:(UIButton *)button {
     DLog(@"前往认证");
     //未认证
-    if (self.MyProfile.status == 0) {
+    if (self.MyProfile.verify_status == 0) {
         AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
         authenticationVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:authenticationVC animated:YES];
