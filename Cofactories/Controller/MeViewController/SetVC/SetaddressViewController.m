@@ -117,7 +117,8 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
 - (void)buttonClicked {
 
-    if ([addressTF1.text isEqualToString:@""]  || [addressTF2.text isEqualToString:@""]) {
+    
+    if ([addressTF1.text isEqualToString:@""]  || [addressTF2.text isEqualToString:@""] || [Tools isBlankString:addressTF2.text]) {
         UIAlertView*alertView =[[UIAlertView alloc]initWithTitle:@"公司地址不能为空!" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alertView show];
     }else{
@@ -141,9 +142,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         [parametersDic setObject:provinceStr forKey:@"province"];
         [parametersDic setObject:cityStr forKey:@"city"];
         [parametersDic setObject:districtStr forKey:@"district"];
-
-        NSString * addressStr = [NSString stringWithFormat:@"%@%@%@%@",provinceStr,cityStr,districtStr,addressTF2.text];
-        [parametersDic setObject:addressStr forKey:@"address"];
+        [parametersDic setObject:addressTF2.text forKey:@"address"];
 
         [HttpClient postMyProfileWithDic:parametersDic andBlock:^(NSInteger statusCode) {
             if (statusCode == 200) {
