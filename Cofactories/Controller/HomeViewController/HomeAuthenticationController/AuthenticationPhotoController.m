@@ -9,6 +9,8 @@
 #import "AuthenticationPhotoController.h"
 #import "AuthenticationController.h"
 
+static NSString * CellIdentifier = @"CellIdentifier";
+
 @interface AuthenticationPhotoController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, assign) NSInteger imageType;
@@ -125,11 +127,17 @@
         if (statusCode == 200) {
             kTipAlert(@"提交认证成功, 可能需要几分钟的等待时间上传图片！");
             doneButton.userInteractionEnabled = YES;
+            double delayInSeconds = 1.0f;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                NSArray *navArray = self.navigationController.viewControllers;
+                [self.navigationController popToViewController:navArray[0] animated:YES];
+            });
         } else {
             kTipAlert(@"提交认证失败");
             doneButton.userInteractionEnabled = YES;
         }
-        DLog(@"%ld", statusCode);
+        DLog(@"%ld", (long)statusCode);
     }];
 }
 
@@ -285,7 +293,7 @@
     if (self.imageType == 3) {
         [self.licenseImageArray addObject:newImage];
     }
-    DLog(@"idCard = %ld, idCardBack = %ld, license = %ld", self.idCardImageArray.count, self.idCardBackImageArray.count, self.licenseImageArray.count);
+    DLog(@"idCard = %ld, idCardBack = %ld, license = %ld", (unsigned long)self.idCardImageArray.count, (unsigned long)self.idCardBackImageArray.count, (unsigned long)self.licenseImageArray.count);
     DLog(@"self.imageArray.count%lu",(unsigned long)self.imageArray.count);
     if (self.idCardImageArray.count == 0 || self.idCardBackImageArray.count == 0 || self.licenseImageArray.count == 0) {
         doneButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];

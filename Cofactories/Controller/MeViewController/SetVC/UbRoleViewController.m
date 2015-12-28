@@ -11,6 +11,7 @@
 
 #define PROVINCE_COMPONENT  0
 
+static NSString * CellIdentifier = @"CellIdentifier";
 
 @interface UbRoleViewController () <UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 

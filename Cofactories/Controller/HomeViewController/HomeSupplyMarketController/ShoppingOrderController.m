@@ -12,6 +12,8 @@
 #import "AlipayHeader.h"
 #import "MeHistoryOrderList_VC.h"
 #import "MeOrderSelect_VC.h"
+#import "FabricMarketModel.h"
+
 
 #define PROVINCE_COMPONENT  0
 #define CITY_COMPONENT      1
@@ -207,73 +209,87 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     //personNameTF, *phoneNumberTF, *youBianTF, *addressTF, *detailAddressTF
     if (personNameTF.text.length == 0 || phoneNumberTF.text.length == 0 || youBianTF.text.length == 0 || addressTF.text.length == 0 || detailAddressTF.text.length == 0) {
         DLog(@"信息不完整");
+        kTipAlert(@"订单信息填写不完整！");
     } else {
+        
         DLog(@"信息已完整");
-        NSInteger provinceIndex = [self.addressPicker selectedRowInComponent: PROVINCE_COMPONENT];
-        NSInteger cityIndex = [self.addressPicker selectedRowInComponent: CITY_COMPONENT];
-        NSInteger districtIndex = [self.addressPicker selectedRowInComponent: DISTRICT_COMPONENT];
-        
-        NSString *provinceStr = [province objectAtIndex: provinceIndex];
-        NSString *cityStr = [city objectAtIndex: cityIndex];
-        NSString *districtStr = [district objectAtIndex:districtIndex];
-        
-        DLog(@"provinceStr == %@,cityStr == %@,districtStr == %@",provinceStr,cityStr,districtStr);
-        
-        NSDictionary *addressDic = @{@"province":provinceStr, @"city":cityStr, @"district":districtStr, @"address":detailAddressTF.text, @"name":personNameTF.text, @"phone":phoneNumberTF.text, @"post":youBianTF.text};
-        [self.goodsDic setObject:addressDic forKey:@"address"];
-        
-        if ([selectPayStyle isEqualToString:@"账户余额"]) {
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定付款" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            alert.tag = 222;
-            [alert show];
-        }
-        if ([selectPayStyle isEqualToString:@"支付宝"]) {
-            DLog(@"^^^^^^^^^^^^^^^^^^^^^");
-            [self.goodsDic setObject:@"alipay" forKey:@"payment"];
-            DLog(@"^^^^^^^^^^^^^^^%@", self.goodsDic);
-            NSData *myData = [self DataTOjsonString:self.goodsDic];
-            [HttpClient buyGoodsWithDictionary:myData WithBlock:^(NSDictionary *dictionary) {
-                NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
-                switch (statusCode) {
-                    case 200: {
-                        DLog(@"#######%@", dictionary[@"statusCode"]);
-                        DLog(@"#############%@", dictionary[@"responseObject"]);
+        [HttpClient getFabricDetailWithId:self.goodsID WithCompletionBlock:^(NSDictionary *dictionary) {
+            int statusCode = [dictionary[@"statusCode"] intValue];
+            if (statusCode == 200) {
+                FabricMarketModel *marketDetailModel = (FabricMarketModel *)dictionary[@"model"];
+                if ([marketDetailModel.amount integerValue] < self.goodsNumber) {
+                    kTipAlert(@"库存不够！订单生成失败！");
+                } else {
+                    NSInteger provinceIndex = [self.addressPicker selectedRowInComponent: PROVINCE_COMPONENT];
+                    NSInteger cityIndex = [self.addressPicker selectedRowInComponent: CITY_COMPONENT];
+                    NSInteger districtIndex = [self.addressPicker selectedRowInComponent: DISTRICT_COMPONENT];
+                    
+                    NSString *provinceStr = [province objectAtIndex: provinceIndex];
+                    NSString *cityStr = [city objectAtIndex: cityIndex];
+                    NSString *districtStr = [district objectAtIndex:districtIndex];
+                    
+                    DLog(@"provinceStr == %@,cityStr == %@,districtStr == %@",provinceStr,cityStr,districtStr);
+                    
+                    NSDictionary *addressDic = @{@"province":provinceStr, @"city":cityStr, @"district":districtStr, @"address":detailAddressTF.text, @"name":personNameTF.text, @"phone":phoneNumberTF.text, @"post":youBianTF.text};
+                    [self.goodsDic setObject:addressDic forKey:@"address"];
+                    
+                    if ([selectPayStyle isEqualToString:@"账户余额"]) {
                         
-                        NSString *tradeNO = dictionary[@"responseObject"][@"out_trade_no"];
-                        NSString *descriptionStr = dictionary[@"responseObject"][@"body"];
-                        NSString *subject = dictionary[@"responseObject"][@"subject"];
-                        NSString *amountStr = [NSString stringWithFormat:@"%@", dictionary[@"responseObject"][@"fee"]];
-                        DLog(@"amountPrice = %@", amountStr);
-                        if (tradeNO && descriptionStr && subject) {
-                            [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
-                        } else {
-                            kTipAlert(@"生成订单信息失败");
-                        }
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定用余额付款" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                        alert.tag = 222;
+                        [alert show];
                     }
-                        break;
-                    case 402:
-                        kTipAlert(@"付款失败，钱包余额不足，请去充值");
-                        break;
-                    case 403:
-                        kTipAlert(@"付款失败，不能购买自己的商品");
-                        break;
-                    case 404:
-                        kTipAlert(@"付款失败，该商品可能已下架或无货");
-                        break;
-                    case 405:
-                        kTipAlert(@"付款失败，不能跨店铺购买");
-                        break;
-                    case 401:
-                        kTipAlert(@"付款失败，请重新登录");
-                        break;
-                    default:
-                        break;
+                    if ([selectPayStyle isEqualToString:@"支付宝"]) {
+                        DLog(@"^^^^^^^^^^^^^^^^^^^^^");
+                        [self.goodsDic setObject:@"alipay" forKey:@"payment"];
+                        DLog(@"^^^^^^^^^^^^^^^%@", self.goodsDic);
+                        NSData *myData = [self DataTOjsonString:self.goodsDic];
+                        [HttpClient buyGoodsWithDictionary:myData WithBlock:^(NSDictionary *dictionary) {
+                            NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+                            switch (statusCode) {
+                                case 200: {
+                                    DLog(@"#######%@", dictionary[@"statusCode"]);
+                                    DLog(@"#############%@", dictionary[@"responseObject"]);
+                                    
+                                    NSString *tradeNO = dictionary[@"responseObject"][@"out_trade_no"];
+                                    NSString *descriptionStr = dictionary[@"responseObject"][@"body"];
+                                    NSString *subject = dictionary[@"responseObject"][@"subject"];
+                                    NSString *amountStr = [NSString stringWithFormat:@"%@", dictionary[@"responseObject"][@"fee"]];
+                                    DLog(@"amountPrice = %@", amountStr);
+                                    if (tradeNO && descriptionStr && subject) {
+                                        [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
+                                    } else {
+                                        kTipAlert(@"生成订单信息失败");
+                                    }
+                                }
+                                    break;
+                                case 402:
+                                    kTipAlert(@"付款失败，钱包余额不足，请去充值");
+                                    break;
+                                case 403:
+                                    kTipAlert(@"付款失败，不能购买自己的商品");
+                                    break;
+                                case 404:
+                                    kTipAlert(@"付款失败，该商品可能已下架或无货");
+                                    break;
+                                case 405:
+                                    kTipAlert(@"付款失败，不能跨店铺购买");
+                                    break;
+                                case 401:
+                                    kTipAlert(@"付款失败，请重新登录");
+                                    break;
+                                default:
+                                    break;
+                            }
+                            
+                        }];
+                        
+                    }
                 }
+            }
 
-            }];
-
-        }
+        }];
+        
         
     }
     

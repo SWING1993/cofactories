@@ -46,7 +46,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         if (statusCode == 200) {
             self.walletModel = [responseDictionary objectForKey:@"model"];
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
-            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         }
     }];
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
@@ -59,7 +59,7 @@ static NSString *activityCellIdentifier = @"activityCell";
             self.MyProfile = [[UserModel alloc]getMyProfile];
         }
         NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
-        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     }];
 
 }
@@ -154,10 +154,13 @@ static NSString *activityCellIdentifier = @"activityCell";
         cell.personNameLabel.text = self.MyProfile.name;
         //用户类型
         if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
-            cell.personStatusLabel.text = @"注册用户";
+            cell.personStatusImage.image = [UIImage imageNamed:@"注"];
         } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
-            cell.personStatusLabel.text = @"认证用户";
+            cell.personStatusImage.image = [UIImage imageNamed:@"证"];
+        } else {
+            cell.personStatusImage.image = [UIImage imageNamed:@"企"];
         }
+        cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", self.MyProfile.score];
         //钱包余额
         cell.personWalletLeft.text = [NSString stringWithFormat:@"余额：%.2f元",self.walletModel.money];
         
@@ -303,9 +306,14 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 #pragma mark - 地址没有，去完善资料
 - (void)actionOfEdit:(UIButton *)button {
-    SetViewController *setVC = [[SetViewController alloc] init];
-    setVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:setVC animated:YES];
+    if ([self.MyProfile.address isEqualToString:@"暂无"] || self.MyProfile.address.length == 0) {
+        SetViewController *setVC = [[SetViewController alloc] init];
+        setVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:setVC animated:YES];
+    } else {
+        DLog(@"有地址");
+    }
+    
 }
 
 #pragma mark - Action

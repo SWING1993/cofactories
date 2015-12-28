@@ -10,6 +10,9 @@
 #import "blueButton.h"
 #import "RevisePasswordViewController.h"
 
+
+static NSString * CellIdentifier = @"CellIdentifier";
+
 @interface RevisePasswordViewController (){
 
     UITextField*oldPasswordTF;

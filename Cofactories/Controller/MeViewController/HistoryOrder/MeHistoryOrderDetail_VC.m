@@ -31,9 +31,9 @@ static NSString *thirdCellIdentifier = @"thirdCell";
     [self.tableView registerClass:[HistoryOrderDetailCell class] forCellReuseIdentifier:orderDetailCellIdentifier];
     [self.tableView registerClass:[HistoryOrderAddressCell class] forCellReuseIdentifier:addressCellIdentifier];
     [self.tableView registerClass:[HistoryOrderThirdCell class] forCellReuseIdentifier:thirdCellIdentifier];
-    if ([self.orderModel.payType isEqualToString:@"待付款"] && self.isBuy == YES) {
-        [self creatTableViewFooterView];
-    }
+//    if ([self.orderModel.payType isEqualToString:@"待付款"] && self.isBuy == YES) {
+//        [self creatTableViewFooterView];
+//    }
 }
 
 - (void)creatTableViewFooterView {

@@ -16,6 +16,7 @@
     NSString *urlString;
     UIWebView * webView;
     MBProgressHUD *hud;
+    UIImage *shareImage;
 }
 
 @end
@@ -76,23 +77,40 @@
                                            delegate:self];
     } else {
         DLog(@"^^^^^^^urlString = %@", urlString);
+        NSString *title = @"";
+        if (self.popularNewsModel.newsTitle.length == 0) {
+            title = @"来自于聚工厂《流行资讯》的分享";
+        } else {
+            title = self.popularNewsModel.newsTitle;
+        }
+        NSString *discriptions = @"";
+        if (self.popularNewsModel.discriptions.length == 0) {
+            discriptions = @"来自于聚工厂《流行资讯》的分享";
+        } else {
+            discriptions = self.popularNewsModel.discriptions;
+        }
+        
+        if (self.popularNewsModel.newsImage.length == 0) {
+            shareImage = [UIImage imageNamed:@"Home-icon"];
+        } else {
+            shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, self.popularNewsModel.newsImage]]]];
+        }
         //分享多个
         [UMSocialData defaultData].extConfig.wechatSessionData.url = urlString;//微信好友
-        [UMSocialData defaultData].extConfig.wechatSessionData.title = self.popularNewsModel.newsTitle;
+        [UMSocialData defaultData].extConfig.wechatSessionData.title = title;
         
         [UMSocialData defaultData].extConfig.wechatTimelineData.url = urlString;//微信朋友圈
-        
-        [UMSocialData defaultData].extConfig.wechatTimelineData.title = self.popularNewsModel.newsTitle;
+        [UMSocialData defaultData].extConfig.wechatTimelineData.title = title;
         
         [UMSocialData defaultData].extConfig.qqData.url = urlString;//QQ好友
-        [UMSocialData defaultData].extConfig.qqData.title = self.popularNewsModel.newsTitle;
+        [UMSocialData defaultData].extConfig.qqData.title = title;
         
         [UMSocialData defaultData].extConfig.qzoneData.url = urlString;//QQ空间
-        [UMSocialData defaultData].extConfig.qzoneData.title = self.popularNewsModel.newsTitle;
+        [UMSocialData defaultData].extConfig.qzoneData.title = title;
         [UMSocialSnsService presentSnsIconSheetView:self
                                              appKey:Appkey_Umeng
-                                          shareText:self.popularNewsModel.discriptions
-                                         shareImage:[UIImage imageNamed:@"Home-icon"]
+                                          shareText:discriptions
+                                         shareImage:shareImage
                                     shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]
                                            delegate:self];
         
@@ -105,14 +123,14 @@
 
 - (void) back
 {
-    if ([webView canGoBack]) {
-        [webView goBack];
-    }
-    else
-    {
+//    if ([webView canGoBack]) {
+//        [webView goBack];
+//    }
+//    else
+//    {
         [self.navigationController popViewControllerAnimated:YES];
         
-    }
+//    }
 }
 
 

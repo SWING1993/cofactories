@@ -14,6 +14,8 @@
 #import "SecondRegisterViewController.h"
 #import "UserProtocolViewController.h"
 
+static NSString * const CellIdentifier = @"CellIdentifier";
+
 @interface RegisterViewController () {
 
 }

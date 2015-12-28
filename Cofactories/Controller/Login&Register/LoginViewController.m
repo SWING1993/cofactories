@@ -13,6 +13,9 @@
 #import "ResetPasswordViewController.h"
 #import "RegisterViewController.h"
 #import "RootViewController.h"
+
+static NSString * const CellIdentifier = @"CellIdentifier";
+
 @interface LoginViewController () <UIAlertViewDelegate>{
     UITextField*_usernameTF;
 

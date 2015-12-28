@@ -141,7 +141,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         }else if ([dataModel.orderType isEqualToString:@"投标订单"]) {
             
             // 自己中标
-            DLog(@"==>>%d",_userModel.UserType);
+            DLog(@"==>>%ld",_userModel.UserType);
             
             switch (_userModel.UserType) {
                 case UserType_supplier:{

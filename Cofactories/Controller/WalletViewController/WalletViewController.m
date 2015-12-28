@@ -18,6 +18,7 @@
 
 #define kHeaderHeight kScreenW*0.47
 
+static NSString * const CellIdentifier = @"CellIdentifier";
 
 @interface WalletViewController () {
     UIButton * _leftBtn;
@@ -43,7 +44,7 @@
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
             self.walletModel = [responseDictionary objectForKey:@"model"];
-            _myLabel1.text = [NSString stringWithFormat:@"\n%.2f",self.walletModel.money];
+            _myLabel1.text = [NSString stringWithFormat:@"%.2f",self.walletModel.money];
             _myLabel2.text = [NSString stringWithFormat:@"余额(元)\n\n冻结金额 %.2f元",self.walletModel.freeze];
             
             // \n\n可提现额度 %.2f元,self.walletModel.maxWithDraw
@@ -85,9 +86,9 @@
     _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_rightBtn addTarget:self action:@selector(clickHeaderBtnInSection:) forControlEvents:UIControlEventTouchUpInside];
     
-    _myLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47/4, kScreenW, kScreenW*0.47*1/4)];
+    _myLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47/3, kScreenW, kScreenW*0.47*1/4)];
     _myLabel1.font = [UIFont boldSystemFontOfSize:16.0f];
-    _myLabel1.numberOfLines = 2;
+    _myLabel1.numberOfLines = 1;
     _myLabel1.textAlignment = NSTextAlignmentCenter;
     _myLabel1.textColor = [UIColor whiteColor];
     
@@ -125,12 +126,16 @@
         [self.navigationController pushViewController:vc1 animated:NO];
     }
     else if (btn.tag == 2) {
-        WithdrawalViewController * vc2 = [[WithdrawalViewController alloc]init];
-        vc2.title = @"提现";
-        vc2.money = [NSString stringWithFormat:@"%.2f",self.walletModel.maxWithDraw];
-        vc2.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc2 animated:NO];
-    
+        
+        if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
+            kTipAlert(@"提现请先实名认证。");
+        } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
+            WithdrawalViewController * vc2 = [[WithdrawalViewController alloc]init];
+            vc2.title = @"提现";
+            vc2.money = [NSString stringWithFormat:@"%.2f",self.walletModel.maxWithDraw];
+            vc2.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc2 animated:NO];
+        }
     }
 }
 

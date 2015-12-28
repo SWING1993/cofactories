@@ -18,6 +18,8 @@
 #import "ScaleViewController.h"
 #import "PhotoViewController.h"
 
+static NSString * CellIdentifier = @"CellIdentifier";
+
 
 @interface SetViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
@@ -85,7 +87,7 @@
             break;
             
         default:
-            self.UbRoleArray = @[@"暂无"];
+            self.UbRoleArray = @[@"该身份暂无二级身份"];
             break;
     }
     

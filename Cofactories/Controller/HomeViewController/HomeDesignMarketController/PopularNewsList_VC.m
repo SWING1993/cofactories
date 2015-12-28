@@ -22,8 +22,14 @@ static NSString *popularNewsCellIdentifier = @"popularNewsCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = @"搜索结果";
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
     [self.tableView registerClass:[PopularNewsCell class] forCellReuseIdentifier:popularNewsCellIdentifier];
-    
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 
@@ -53,6 +59,11 @@ static NSString *popularNewsCellIdentifier = @"popularNewsCell";
     [self.navigationController pushViewController:popularVC animated:YES];
 
 }
+
+- (void) back {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

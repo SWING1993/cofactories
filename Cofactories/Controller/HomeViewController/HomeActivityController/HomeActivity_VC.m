@@ -22,11 +22,12 @@
     webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
-    NSString *url = @"http://www.baidu.com";
+    NSString *url = kActivityUrl;
     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.view addSubview:webView];
     [webView loadRequest:request];
 
+    [webView stringByEvaluatingJavaScriptFromString:@"myFunction();"];
     // 注入js
     
     NSString *p = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"js"];
@@ -45,9 +46,10 @@
     
     
     NSArray *components = [requestString componentsSeparatedByString:@":"];
-    if ([components count] > 1 && [(NSString *)[components objectAtIndex:0] isEqualToString:@"testapp"]) {
+    if ([components count] > 1 && [(NSString *)[components objectAtIndex:0] isEqualToString:@"cofactories"]) {
         if([(NSString *)[components objectAtIndex:1] isEqualToString:@"alert"])
         {
+            DLog(@"^^^^^^^^^^ = %@", [components objectAtIndex:2]);
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"alert from html" message:[components objectAtIndex:2]
                                   delegate:self cancelButtonTitle:nil
@@ -62,6 +64,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+
 
 /*
 #pragma mark - Navigation

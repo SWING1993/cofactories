@@ -8,6 +8,8 @@
 
 #import "WalletHistoryInfoViewController.h"
 
+static NSString * const CellIdentifier = @"CellIdentifier";
+
 @interface WalletHistoryInfoViewController ()
 @end
 

@@ -22,6 +22,7 @@
 }
 
 @property (nonatomic, strong) NSMutableDictionary *goodsDic;//商品分类和数量的数组
-
+@property (nonatomic, strong) NSString *goodsID;//来判断剩余多少件商品
+@property (nonatomic, assign) NSInteger goodsNumber;//购买商品数量
 
 @end

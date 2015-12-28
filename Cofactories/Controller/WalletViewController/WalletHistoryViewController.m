@@ -11,6 +11,8 @@
 #import "WalletHistoryTableViewCell.h"
 #import "WalletHistoryInfoViewController.h"
 
+static NSString * const CellIdentifier = @"CellIdentifier";
+
 @interface WalletHistoryViewController () {
     NSInteger        _refrushCount;
     UILabel * footerLabel;
@@ -77,13 +79,13 @@
 - (void)footerRereshing
 {
     _refrushCount++;
-    DLog(@"加载第%ld页",_refrushCount);
+    DLog(@"加载第%ld页",(long)_refrushCount);
     NSNumber * pageNumber = [[NSNumber alloc]initWithInteger:_refrushCount];
     [HttpClient walletHistoryWithPage:pageNumber WithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
             NSArray *array = [[responseDictionary objectForKey:@"ModelArray"] mutableCopy];
-            DLog(@"第%lu页有%lu条数据",_refrushCount,(unsigned long)[array count]);
+            DLog(@"第%lu页有%lu条数据",(long)_refrushCount,(unsigned long)[array count]);
             if ([array count] == 0) {
                 kTipAlert(@"已经没有更多的数据了 。。。 ");
                 DLog(@"共有%lu条数据",(unsigned long)[self.modelArray count]);

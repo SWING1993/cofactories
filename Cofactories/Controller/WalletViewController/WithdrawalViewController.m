@@ -8,7 +8,7 @@
 
 #import "WithdrawalViewController.h"
 
-static NSString *cellIdentifier = @"cellIdentifier";
+static NSString * const CellIdentifier = @"CellIdentifier";
 
 
 @interface WithdrawalViewController ()<UITextFieldDelegate> {
@@ -142,7 +142,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
 
     UITableViewCell*cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.font = kFont;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setAccessoryType:UITableViewCellAccessoryNone];

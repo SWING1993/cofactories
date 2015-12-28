@@ -35,44 +35,59 @@
 /**
  *  本地开发环境：
  */
+//#define bucketAPI  @"cofactories-test"
+//
+//#define kClientID  @"123"
+//#define kSecret    @"123"
+//
 //#define kAuthUrl   @"http://auth.lo.cofactories.com"           //认证服务器
 //#define kBaseUrl   @"https://lo.cofactories.com"               //后端服务器
 //#define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
-//#define bucketAPI  @"cofactories-test"
 //#define kNotifyURL @"https://pay.cofactories.com/alipay/test"  //支付宝服务器通知URL
 //#define kPopularBaseUrl @"http://lo.news.mxd.moe"//流行资讯
-
-//#define kClientID  @"123"
-//#define kSecret    @"123"
-
+//
+//#define kUserProtocolUrl @"http://h5.lo.cofactories.com/eula/"
+//#define kAboutWallet @"http://h5.lo.cofactories.com/wallet/"
+//#define kAboutDesignUrl @"http://h5.lo.cofactories.com/about-designer/"
+//#define kActivityUrl @"http://h5.lo.cofactories.com/party/"
 /**
  *  远程测试环境：
  */
-#define kAuthUrl   @"http://auth.test.cofactories.com"         //认证服务器
-#define kBaseUrl   @"https://test.cofactories.com"             //后端服务器
-#define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
 #define bucketAPI  @"cofactories-test"
-#define kNotifyURL @"https://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
-#define kPopularBaseUrl @"http://news.test.cofactories.com"//流行资讯
+
 #define kClientID  @"D7rcnkjxDA2pr8X7"
 #define kSecret    @"E7ppyb5AaQ7FZWc9SASs2baT6m4ACvbyWsqekRWzDzA7pBwCdEryeqvaQg2Crys7"
 
+#define kAuthUrl   @"http://auth.test.cofactories.com"         //认证服务器
+#define kBaseUrl   @"https://test.cofactories.com"             //后端服务器
+#define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
+#define kNotifyURL @"http://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
+#define kPopularBaseUrl @"http://news.test.cofactories.com"//流行资讯
 
-
+#define kUserProtocolUrl @"http://h5.test.cofactories.com/eula/"
+#define kAboutWallet @"http://h5.test.cofactories.com/wallet/"
+#define kAboutDesignUrl @"http://h5.test.cofactories.com/about-designer/" 
+#define kActivityUrl @"http://h5.test.cofactories.com/party/"
 /**
  *  正式环境：
  */
+//#define bucketAPI  @"cofactories"
+
+//#define kClientID  @""
+//#define kSecret    @""
+
 //#define kAuthUrl   @"https://auth.cofactories.com"  //认证服务器
 //#define kBaseUrl   @"https://app.cofactories.com"   //后端服务器
 //#define PhotoAPI   @"https://cdn.cofactories.com"
-//#define bucketAPI  @"cofactories"
-//#define kNotifyURL @"https://"  //支付宝服务器通知URL
-
+//#define kNotifyURL @"https://pay.cofactories.com/alipay"  //支付宝服务器通知URL
+//
+//#define kUserProtocolUrl @"http://h5.cofactories.com/eula/"
+//#define kAboutWallet @"http://h5.cofactories.com/wallet/"
+//#define kAboutDesignUrl @"http://h5.cofactories.com/about-designer/"
+//#define kActivityUrl @"http://h5.cofactories.com/party/"
 
 #pragma mark - key
 
-#define kUserProtocolUrl @"http://lo.test.mxd.moe/cofactories-3-html5/eula/eula.html"
-#define kAboutWallet @"http://lo.test.mxd.moe/wallet/index.html"
 #define kCustomerServicePhone @"4006400391"
 
 #pragma mark - 第三方key
@@ -124,7 +139,6 @@
 
 #define kStatusBarHeight 20
 #define kNavigationBarHeight 44
-#define CellIdentifier @"Cell"
 #define kZGY [[UIScreen mainScreen] bounds].size.width / 375
 //登录注册 tableHeaderView 高度
 #define tableHeaderView_height 120
