@@ -94,7 +94,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
     [self.tableView reloadData];
     
-    DLog(@"%d",_selectedIndex);
+    DLog(@"%ld",(long)_selectedIndex);
     
 }
 

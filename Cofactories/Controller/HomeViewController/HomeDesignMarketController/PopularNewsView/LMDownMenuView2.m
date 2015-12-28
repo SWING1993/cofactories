@@ -203,7 +203,7 @@ static NSString *placeCellIdentifier = @"placeCell";
 
 - (void)placeView {
     
-    NSString *type = [[NSUserDefaults standardUserDefaults] objectForKey:@"ZGYLevelType"];//工厂类型
+//    NSString *type = [[NSUserDefaults standardUserDefaults] objectForKey:@"ZGYLevelType"];//工厂类型
     float hh = 44*placeArray.count + 20 - 0.3;
     
     UITableView* rootableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, selectView.bounds.size.width/3, hh-20)];

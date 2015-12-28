@@ -9,7 +9,7 @@
 #import "Order.h"
 
 #import "RechargeViewController.h"
-#import "ZhiFuBaoCell.h"
+//#import "ZhiFuBaoCell.h"
 #import <AlipaySDK/AlipaySDK.h>
 
 #import "AlipayHeader.h"

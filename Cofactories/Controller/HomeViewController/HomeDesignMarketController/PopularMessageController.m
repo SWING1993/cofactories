@@ -57,7 +57,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     hud = [Tools createHUD];
     hud.labelText = @"加载中...";
     [self creatTableView];
-    arr = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流", ];
+    arr = @[@"PopularNews-男装", @"PopularNews-女装", @"PopularNews-童装", @"PopularNews-面辅料"];
     self.categoryNum = 0;
     self.popularTableView.userInteractionEnabled = YES;
     self.popularTableView.backgroundColor = [UIColor whiteColor];
@@ -97,6 +97,8 @@ static NSString *popularCellIdentifier = @"popularCell";
                 
             }];
             
+        } else {
+            [hud hide:YES];
         }
         
     }];
@@ -202,7 +204,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     //第一个scrollView
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640 + 5 + 80 + 20 + 25 + 5)];
         headerView.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
-    WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)];
+    WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:NO];
     firstView.delegate=self;
     self.firstViewImageArray = [NSMutableArray arrayWithArray:arr];
     firstView.imagesArray = self.firstViewImageArray;
