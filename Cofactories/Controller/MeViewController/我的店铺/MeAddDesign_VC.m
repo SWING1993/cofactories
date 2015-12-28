@@ -35,7 +35,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     NSArray         *womenTypeArray;
     NSArray         *boyTypeArray;
     NSArray         *girlTypeArray;
-    
     NSString *leftTypeString, *rightTypeString;
     
 }
@@ -45,8 +44,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UICollectionView *collectionView1;
 @property (nonatomic, strong) NSMutableArray *categoryArray;//商品分类
-
-
 
 @end
 
@@ -105,9 +102,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     _dropDownMenu.delegate = self;
     _dropDownMenu.dataSource = self;
     [self.view addSubview:_dropDownMenu];
-    
-    
-    
+
 }
 - (UICollectionView *)collectionView{
     if (!_collectionView) {
@@ -176,10 +171,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     
     self.myTableView.tableFooterView = footerView;
 }
-
-
-
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -398,9 +389,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     return UIEdgeInsetsMake(2, 2, 2, 2);
 }
 
-
-
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (collectionView.tag == 222) {
         return [self.collectionImage count];
@@ -458,8 +446,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     } else {
         
     }
-    
-    
 }
 
 - (void)deleteCell:(UIButton*)sender {

@@ -107,7 +107,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
     }];
 
-    arr = @[@"男装新潮流", @"服装平台", @"童装设计潮流趋势", @"女装新潮流"];
+    arr = @[@"PopularNews-男装", @"PopularNews-女装", @"PopularNews-童装", @"PopularNews-面辅料"];
     [self creatTableView];
     [self creatTableHeaderView];
     [self creatShoppingCarTable];
@@ -128,7 +128,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (void)creatTableHeaderView {
     //第一个scrollView
-    WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)];
+    WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:NO];
     firstView.delegate=self;
     self.firstViewImageArray = [NSMutableArray arrayWithArray:arr];
     firstView.imagesArray = self.firstViewImageArray;
@@ -157,9 +157,10 @@ static NSString *activityCellIdentifier = @"activityCell";
             cell.personStatusImage.image = [UIImage imageNamed:@"注"];
         } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
             cell.personStatusImage.image = [UIImage imageNamed:@"证"];
-        } else {
-            cell.personStatusImage.image = [UIImage imageNamed:@"企"];
         }
+//        else {
+//            cell.personStatusImage.image = [UIImage imageNamed:@"企"];
+//        }
         cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", self.MyProfile.score];
         //钱包余额
         cell.personWalletLeft.text = [NSString stringWithFormat:@"余额：%.2f元",self.walletModel.money];
@@ -186,13 +187,13 @@ static NSString *activityCellIdentifier = @"activityCell";
         
         [cell.authenticationButton addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
         //认证状态
-        if (self.MyProfile.status == 0) {
+        if (self.MyProfile.verify_status == 0) {
             cell.authenticationLabel.text = @"前往认证";
         }
-        if (self.MyProfile.status == 1) {
+        if (self.MyProfile.verify_status == 1) {
             cell.authenticationLabel.text = @"认证中";
         }
-        if (self.MyProfile.status == 2) {
+        if (self.MyProfile.verify_status == 2) {
             cell.authenticationLabel.text = @"已认证";
         }
         return cell;
@@ -297,7 +298,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)authenticationAction:(UIButton *)button {
     DLog(@"前往认证");
     //未认证
-    if (self.MyProfile.status == 0) {
+    if (self.MyProfile.verify_status == 0) {
         AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
         authenticationVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:authenticationVC animated:YES];

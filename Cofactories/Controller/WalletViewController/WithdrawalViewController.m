@@ -84,17 +84,19 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 - (void)infoActionWithdrawal {
     DLog(@"输入的金额：%@",priceTextField.text);
-    if (priceTextField.text.length == 0) {
+    if (priceTextField.text.length == 0 || [priceTextField.text floatValue] == 0 ) {
         lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
         [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
         lastButton.userInteractionEnabled = NO;
-    } else {
-        if (([priceTextField.text floatValue]<[self.money floatValue] || [priceTextField.text floatValue]==[self.money floatValue]) && bankcardTextField.text.length>0) {
+    }
+    else {
+        if (([priceTextField.text floatValue]<[self.money floatValue] || [priceTextField.text floatValue]==[self.money floatValue]) && bankcardTextField.text.length>12) {
             lastButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
             [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             lastButton.userInteractionEnabled = YES;
 
-        }else {
+        }
+        else {
             DLog(@"提现金额太大");
             lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
             [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];

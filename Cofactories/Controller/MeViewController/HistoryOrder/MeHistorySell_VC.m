@@ -61,7 +61,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
 
 - (void)footerRereshing{
     _refrushCount++;
-    DLog(@"_refrushCount==%d",_refrushCount);
+    DLog(@"_refrushCount==%ld",_refrushCount);
     [HttpClient getMyGoodsSellHistoryWithPage:@(_refrushCount) WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         if (statusCode == 200) {

@@ -48,13 +48,13 @@ typedef NS_ENUM(NSInteger, UserType) {
 @property (nonatomic, retain) NSDictionary * verifyDic;
 
 
-@property (nonatomic, retain) NSString *enterpriseName;
-@property (nonatomic, retain) NSString *personName;
-@property (nonatomic, retain) NSString *idCard;
-@property (nonatomic, retain) NSString *enterpriseAddress;
-@property (nonatomic, assign) NSInteger status;
-@property (nonatomic, retain) NSString *verifyCreatedAt;
-@property (nonatomic, retain) NSString *verifyUpdatedAt;
+@property (nonatomic, retain) NSString *verify_enterpriseName;
+@property (nonatomic, retain) NSString *verify_personName;
+@property (nonatomic, retain) NSString *verify_idCard;
+@property (nonatomic, retain) NSString *verify_enterpriseAddress;
+@property (nonatomic, assign) NSInteger verify_status;
+@property (nonatomic, retain) NSString *verify_CreatedAt;
+@property (nonatomic, retain) NSString *verify_UpdatedAt;
 
 @property (nonatomic, copy)   NSArray  *scaleArr;
 

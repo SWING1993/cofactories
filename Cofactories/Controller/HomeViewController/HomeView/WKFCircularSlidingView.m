@@ -19,13 +19,16 @@
 
 @property (nonatomic,strong)NSTimer *myTimer;
 
+@property (nonatomic, assign)BOOL isNetwork;
+
 @end
 
 @implementation WKFCircularSlidingView
 
 
--(instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame isNetwork:(BOOL)isNetwork{
   if (self = [super initWithFrame:frame]) {
+      self.isNetwork = isNetwork;
     //创建子控件
     [self setupChildViews];
   }
@@ -159,20 +162,24 @@
 -(void)setupScrollViewSubviews{
   
   //给scrollView添加图片
-  for (int i = 0; i < self.myImagesArray.count; i++) {
-    
-    UIImageView *myImageView = [[UIImageView alloc]init];
-    
-    NSString *imageName = self.myImagesArray[i];
-      myImageView.image = [UIImage imageNamed:imageName];
-//    [myImageView sd_setImageWithURL:[NSURL URLWithString:imageName] placeholderImage:nil];
-    myImageView.userInteractionEnabled=YES;
-    myImageView.tag=i+100;
-    [self.myScrollView addSubview:myImageView];
-    
-    //添加手势
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickScrollViewImage:)];
-    [myImageView addGestureRecognizer:tap];
+    for (int i = 0; i < self.myImagesArray.count; i++) {
+        
+        UIImageView *myImageView = [[UIImageView alloc]init];
+        
+        NSString *imageName = self.myImagesArray[i];
+        
+        if (self.isNetwork) {
+            [myImageView sd_setImageWithURL:[NSURL URLWithString:imageName] placeholderImage:nil];
+        } else {
+            myImageView.image = [UIImage imageNamed:imageName];
+        }
+        myImageView.userInteractionEnabled=YES;
+        myImageView.tag=i+100;
+        [self.myScrollView addSubview:myImageView];
+        
+        //添加手势
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickScrollViewImage:)];
+        [myImageView addGestureRecognizer:tap];
   }
   
   if (self.myImagesArray.count==1) {

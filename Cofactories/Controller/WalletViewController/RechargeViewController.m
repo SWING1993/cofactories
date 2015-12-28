@@ -9,7 +9,7 @@
 #import "Order.h"
 
 #import "RechargeViewController.h"
-#import "ZhiFuBaoCell.h"
+//#import "ZhiFuBaoCell.h"
 #import <AlipaySDK/AlipaySDK.h>
 
 #import "AlipayHeader.h"
@@ -80,7 +80,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 - (void)infoActionRecharge {
     DLog(@"输入的金额：%@",priceTextField.text);
-    if (priceTextField.text.length == 0) {
+    if (priceTextField.text.length == 0 || priceTextField.text.length > 12) {
         lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
         [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
         lastButton.userInteractionEnabled = NO;

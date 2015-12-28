@@ -41,7 +41,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:activityCellIdentifier forIndexPath:indexPath];
-    cell.photoView.image = [UIImage imageNamed:@"男装新潮流"];
+    cell.photoView.image = [UIImage imageNamed:@"PopularNews-男装"];
     
     return cell;
 }

@@ -149,7 +149,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     self.myTableView.dataSource = self;
     self.myTableView.delegate = self;
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    self.myTableView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.myTableView];
     [self.myTableView registerClass:[MeTextFieldCell class] forCellReuseIdentifier:nameTFCellIdentifier];
     [self.myTableView registerClass:[MeTextFieldCell class] forCellReuseIdentifier:TFCellIdentifier];
@@ -173,10 +172,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     
     self.myTableView.tableFooterView = footerView;
 }
-
-
-
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -389,7 +384,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     } else {
         //计算宽度
         CGSize size = [Tools getSize:self.categoryArray[indexPath.row] andFontOfSize:14];
-        return CGSizeMake(size.width + 20, 30);
+        return CGSizeMake(size.width + 100, 30);
     }
     
 }
@@ -564,12 +559,11 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
     }
     
-    
     }
 
 
 - (void)publishShoppingMarket {
-    NSString *myAmount = [NSString stringWithFormat:@"%d", [amountTF.text integerValue]];
+    NSString *myAmount = [NSString stringWithFormat:@"%ld", [amountTF.text integerValue]];
     [HttpClient publishFabricWithMarket:leftTypeString name:nameTF.text type:rightTypeString price:salePriceTF.text marketPrice:marketPriceTF.text amount:myAmount unit:unitTF.text description:descriptionTV.text category:self.categoryArray WithCompletionBlock:^(NSDictionary *dictionary) {
         int statusCode = [dictionary[@"statusCode"] intValue];
         if (statusCode==200) {
@@ -699,7 +693,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     }
     
     DLog(@"leftString = %@, rightString = %@", leftTypeString, rightTypeString);
-//    DLog(@"%ld,%ld",(long)indexPath.row,(long)indexPath.item);
 }
 /*
 #pragma mark - Navigation
