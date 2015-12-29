@@ -198,7 +198,7 @@
 		03B4559B1C17EDE6002F1A81 /* WalletModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B4559A1C17EDE6002F1A81 /* WalletModel.m */; };
 		03B4559E1C17EE1E002F1A81 /* WalletHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B4559D1C17EE1E002F1A81 /* WalletHistoryModel.m */; };
 		03B455A11C17FCB6002F1A81 /* WalletHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B455A01C17FCB6002F1A81 /* WalletHistoryTableViewCell.m */; };
-		03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B569761C02A4CC00F89CDA /* FastCoder.m */; };
+		03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B569761C02A4CC00F89CDA /* FastCoder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		03B5697B1C02ADD000F89CDA /* StoreUserValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697A1C02ADD000F89CDA /* StoreUserValue.m */; };
 		03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */; };
 		03B8973E1C151EC100DB8E4E /* WithdrawalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */; };
@@ -3525,30 +3525,27 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cofactories/Utils/Bugly/Bugly_libc++",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 					"$(PROJECT_DIR)/Cofactories/Utils/Bugly/libc++",
+					"\"$(SRCROOT)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Cofactories/Cofactories_iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Cofactories/Utils/AlipaySDK\"";
 				INFOPLIST_FILE = Cofactories/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMAnalytics_Sdk_3.6.5",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMessage_Sdk_1.2.0",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_4.3",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK/UMOpus",
 					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_4.4",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_4.4",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
@@ -3574,30 +3571,27 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cofactories/Utils/Bugly/Bugly_libc++",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 					"$(PROJECT_DIR)/Cofactories/Utils/Bugly/libc++",
+					"\"$(SRCROOT)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Cofactories/Cofactories_iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Cofactories/Utils/AlipaySDK\"";
 				INFOPLIST_FILE = Cofactories/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMAnalytics_Sdk_3.6.5",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMessage_Sdk_1.2.0",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMSocial_Sdk_4.3",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK/UMOpus",
 					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_4.4",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_4.4",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
