@@ -51,6 +51,8 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
     [self creatBottomView];
 
 }
+
+
 - (void)pressItem:(UIBarButtonItem *)item {
     if ([item.title isEqualToString:@"编辑"]) {
         item.title = @"完成";

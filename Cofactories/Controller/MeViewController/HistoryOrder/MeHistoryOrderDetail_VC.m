@@ -27,7 +27,7 @@ static NSString *thirdCellIdentifier = @"thirdCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"订单详情";
-    self.tableView.backgroundColor = [UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0];
+//    self.tableView.backgroundColor = [UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0];
     [self.tableView registerClass:[HistoryOrderDetailCell class] forCellReuseIdentifier:orderDetailCellIdentifier];
     [self.tableView registerClass:[HistoryOrderAddressCell class] forCellReuseIdentifier:addressCellIdentifier];
     [self.tableView registerClass:[HistoryOrderThirdCell class] forCellReuseIdentifier:thirdCellIdentifier];
@@ -125,7 +125,7 @@ static NSString *thirdCellIdentifier = @"thirdCell";
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
+    return 5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.5;
