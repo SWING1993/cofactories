@@ -1383,11 +1383,11 @@
 		03571B231BE84BA100900EF9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				03927D771BEC86D90087A2FD /* Images.xcassets */,
-				03B120C61C05B1E60023F362 /* Areas.plist */,
-				03927D731BEC81E20087A2FD /* LaunchScreen.xib */,
 				03571B341BE84BA100900EF9 /* Info.plist */,
+				03B120C61C05B1E60023F362 /* Areas.plist */,
 				03571B241BE84BA100900EF9 /* main.m */,
+				03927D731BEC81E20087A2FD /* LaunchScreen.xib */,
+				03927D771BEC86D90087A2FD /* Images.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -3542,9 +3542,9 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosappijijiojiobu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "562148d7-860a-45a2-9b1d-ab3d593bfd03";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3591,9 +3591,9 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosappijijiojiobu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "562148d7-860a-45a2-9b1d-ab3d593bfd03";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

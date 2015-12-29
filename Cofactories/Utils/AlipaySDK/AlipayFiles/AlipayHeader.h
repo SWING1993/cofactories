@@ -55,7 +55,7 @@
 /**
  *  appSckeme:应用注册scheme,在Info.plist定义URLtypes，处理支付宝回调
  */
-#define kAppScheme @"123"
+#define kAppScheme @"cofactories10446627"
 
 
 /**
