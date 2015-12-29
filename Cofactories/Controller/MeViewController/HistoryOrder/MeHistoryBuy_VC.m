@@ -121,7 +121,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MeHistoryOrderModel *myModel = self.historyBuyArray[indexPath.row];
-    MeHistoryOrderDetail_VC *detailVC = [[MeHistoryOrderDetail_VC alloc] init];
+    MeHistoryOrderDetail_VC *detailVC = [[MeHistoryOrderDetail_VC alloc] initWithStyle:UITableViewStyleGrouped];
     detailVC.orderModel = myModel;
     detailVC.isBuy = YES;
     [self.navigationController pushViewController:detailVC animated:YES];

@@ -75,6 +75,7 @@ static NSString *shopCellIdentifier = @"shopCell";
     [self netWork];
 }
 
+
 - (void)netWork {
     self.myShopGoodsArray = [NSMutableArray arrayWithCapacity:0];
     [HttpClient getMyShopWithUserID:self.MyProfile.uid page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {

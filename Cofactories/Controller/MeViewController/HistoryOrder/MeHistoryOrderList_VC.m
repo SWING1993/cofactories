@@ -120,7 +120,7 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MeHistoryOrderModel *myModel = self.historyOrderArray[indexPath.row];
-    MeHistoryOrderDetail_VC *detailVC = [[MeHistoryOrderDetail_VC alloc] init];
+    MeHistoryOrderDetail_VC *detailVC = [[MeHistoryOrderDetail_VC alloc] initWithStyle:UITableViewStyleGrouped];
     detailVC.orderModel = myModel;
     detailVC.isBuy = YES;
     UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];

@@ -19,7 +19,8 @@
 #import "DataBaseHandle.h"
 #import "MeShopController.h"
 #import "WalletModel.h"
-#import "HomeActivityList_VC.h"
+#import "ActivityList_VC.h"
+#import "Verified_VC.h"
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -108,7 +109,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
     }];
 
-    arr = @[@"PopularNews-男装", @"PopularNews-女装", @"PopularNews-童装", @"PopularNews-面辅料"];
+    arr = @[@"公告", @"首页图1", @"首页图2", @"首页图3"];
     [self creatTableView];
     [self creatTableHeaderView];
     [self creatShoppingCarTable];
@@ -190,7 +191,7 @@ static NSString *activityCellIdentifier = @"activityCell";
             cell.authenticationLabel.text = @"前往认证";
         }
         if (self.MyProfile.verify_status == 1) {
-            cell.authenticationLabel.text = @"认证中";
+            cell.authenticationLabel.text = @"正在审核";
         }
         if (self.MyProfile.verify_status == 2) {
             cell.authenticationLabel.text = @"已认证";
@@ -229,7 +230,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2) {
         DLog(@"第%ld个活动", indexPath.row + 1);
-        HomeActivityList_VC *activityListVC = [[HomeActivityList_VC alloc] init];
+        ActivityList_VC *activityListVC = [[ActivityList_VC alloc] init];
         activityListVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:activityListVC animated:YES];
     }
@@ -301,6 +302,20 @@ static NSString *activityCellIdentifier = @"activityCell";
         AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
         authenticationVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:authenticationVC animated:YES];
+    }
+    if (self.MyProfile.verify_status == 1) {
+        Verified_VC *verifiedVC = [[Verified_VC alloc] init];
+        verifiedVC.verifiedModel = self.MyProfile;
+        verifiedVC.status = @"正在审核";
+        verifiedVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:verifiedVC animated:YES];
+    }
+    if (self.MyProfile.verify_status == 2) {
+        Verified_VC *verifiedVC = [[Verified_VC alloc] init];
+        verifiedVC.verifiedModel = self.MyProfile;
+        verifiedVC.status = @"认证成功";
+        verifiedVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:verifiedVC animated:YES];
     }
 }
 
