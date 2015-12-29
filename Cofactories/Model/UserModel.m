@@ -92,36 +92,31 @@ static NSString * placeholderString = @"暂无";
         
 
         if ([[dictionary objectForKey:@"province"] isEqual:[NSNull null]]) {
-            _province = @"";
+            _province = placeholderString;
         }else {
             _province = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"province"]];
-
+            
         }
         
         if ([[dictionary objectForKey:@"city"] isEqual:[NSNull null]]) {
-            _city = @"";
+            _city = placeholderString;
         }else {
             _city = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"city"]];
         }
         
         
         if ([[dictionary objectForKey:@"district"] isEqual:[NSNull null]]) {
-            _district = @"";
+            _district = placeholderString;
         }else {
             _district = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"district"]];
         }
         
-
+        
         if ([[dictionary objectForKey:@"address"] isEqual:[NSNull null]]) {
-            _address = @"";
+            _address = placeholderString;
         }else {
             _address =  [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"address"]];
-
-        }
-        
-        _generalAddress = [NSString stringWithFormat:@"%@%@%@%@",_province,_city,_district,_address];
-        if ([_generalAddress isEqualToString:@""]) {
-            _generalAddress = placeholderString;
+            
         }
         
         
@@ -285,7 +280,7 @@ static NSString * placeholderString = @"暂无";
 }
 
 - (NSString *)description {
-    return [[NSString alloc] initWithFormat:@"\nrole: %@\nUserType: %ld\nuid: %@\nphone: %@\nname: %@\nprovince: %@\ncity: %@\ndistrict: %@\naddress: %@\ngeneralAddress:%@\nsubRole: %@\nscale: %@\ninviteCode: %@\nrongToken: %@\nverified: %@\nenterprise: %@\nscore:%@\nlastActivity:%@\ndescriptionString:%@\ncreatedAt:%@\nupdatedAt:%@\nphotoArray:%@\nverifyDic:%@\nenterpriseName:%@\npersonName:%@\nidCard:%@\nenterpriseAddress:%@\nstatus:%ld\nverifyCreatedAt:%@\nverifyUpdatedAt:%@", _role, (long)_UserType, _uid, _phone, _name, _province, _city, _district, _address,_generalAddress, _subRole, _scale, _inviteCode, _rongToken, _verified, _enterprise, _score, _lastActivity, _descriptionString, _createdAt, _updatedAt, _photoArray, _verifyDic, _verify_enterpriseName, _verify_personName, _verify_idCard, _verify_enterpriseAddress, _verify_status, _verify_CreatedAt, _verify_UpdatedAt];
+    return [[NSString alloc] initWithFormat:@"\nrole: %@\nUserType: %ld\nuid: %@\nphone: %@\nname: %@\nprovince: %@\ncity: %@\ndistrict: %@\naddress: %@\nsubRole: %@\nscale: %@\ninviteCode: %@\nrongToken: %@\nverified: %@\nenterprise: %@\nscore:%@\nlastActivity:%@\ndescriptionString:%@\ncreatedAt:%@\nupdatedAt:%@\nphotoArray:%@\nverifyDic:%@\nenterpriseName:%@\npersonName:%@\nidCard:%@\nenterpriseAddress:%@\nstatus:%ld\nverifyCreatedAt:%@\nverifyUpdatedAt:%@", _role, (long)_UserType, _uid, _phone, _name, _province, _city, _district, _address, _subRole, _scale, _inviteCode, _rongToken, _verified, _enterprise, _score, _lastActivity, _descriptionString, _createdAt, _updatedAt, _photoArray, _verifyDic, _verify_enterpriseName, _verify_personName, _verify_idCard, _verify_enterpriseAddress, _verify_status, _verify_CreatedAt, _verify_UpdatedAt];
 }
 
 

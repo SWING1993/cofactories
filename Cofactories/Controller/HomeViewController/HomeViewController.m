@@ -178,11 +178,11 @@ static NSString *activityCellIdentifier = @"activityCell";
             cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服务商"];
         }
         //地址
-        if ([self.MyProfile.generalAddress isEqualToString:@"暂无"] || self.MyProfile.generalAddress.length == 0) {
+        if ([self.MyProfile.address isEqualToString:@"暂无"] || self.MyProfile.address.length == 0) {
             [cell.personAddressButton setTitle:@"地址暂无，点击完善资料" forState: UIControlStateNormal];
             [cell.personAddressButton addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
         } else {
-            [cell.personAddressButton setTitle:self.MyProfile.generalAddress forState: UIControlStateNormal];
+            [cell.personAddressButton setTitle:self.MyProfile.address forState: UIControlStateNormal];
         }
         
         [cell.authenticationButton addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];

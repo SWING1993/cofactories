@@ -143,11 +143,29 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 }
 
 - (void)publishClick{
-    if (_titleTF.text.length > 0 && _amountTF.text.length > 0 && _unitTF.text.length > 0) {
-        _isAblePublish = YES;
-    }else{
+
+    if (_titleTF.text.length == 0 || [Tools isBlankString:_titleTF.text] == YES || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || _unitTF.text.length == 0 || [Tools isBlankString:_unitTF.text] == YES) {
         _isAblePublish = NO;
         kTipAlert(@"请填写必填信息，再发布订单!");
+    }else{
+        if (_titleTF.text.length > 20) {
+            _isAblePublish = NO;
+            kTipAlert(@"标题字符长度不得超过20个字符!");
+        }else{
+            if ([_amountTF.text isEqualToString:@"0"]) {
+                _isAblePublish = NO;
+                kTipAlert(@"订单数量不得为0!");
+            }else{
+                if (_unitTF.text.length > 3) {
+                    _isAblePublish = NO;
+                    kTipAlert(@"单位字符长度不得超过3个字符!");
+                }else{
+                    _isAblePublish = YES;
+                }
+            }
+          
+        }
+        
     }
     
     if (_isAblePublish) {
@@ -155,6 +173,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         alertView.tag = 100;
         [alertView show];
     }
+    
 }
 
 //点击发布订单

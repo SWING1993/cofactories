@@ -25,7 +25,7 @@
         _labelImage.image = [UIImage imageNamed:@"labelImage"];
         [self.contentView addSubview:_labelImage];
         
-        _creatTimeLB = [[UILabel alloc] initWithFrame:CGRectMake(33, 0, 70, 25)];
+        _creatTimeLB = [[UILabel alloc] initWithFrame:CGRectMake(33, 0, 200, 25)];
         _creatTimeLB.textColor = [UIColor colorWithRed:177/255.0 green:177/255.0 blue:177/255.0 alpha:1.0];
         _creatTimeLB.font = [UIFont systemFontOfSize:11];
         [self.contentView addSubview:_creatTimeLB];

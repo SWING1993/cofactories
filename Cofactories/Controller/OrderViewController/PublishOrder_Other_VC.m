@@ -255,16 +255,19 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 
 - (void)publishClick{
-    if (_amountTF.text.length > 0) {
-        
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
-        alertView.tag = 100;
-        [alertView show];
-        
-    }else{
+
+    if (_amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES) {
         kTipAlert(@"请填写必填信息，再发布订单!");
+    }else{
+        if ([_amountTF.text isEqualToString:@"0"]) {
+            kTipAlert(@"订单数量不得为0!");
+        }else{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
+            alertView.tag = 100;
+            [alertView show];
+        }
     }
-    
+
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

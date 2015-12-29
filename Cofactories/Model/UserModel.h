@@ -32,7 +32,6 @@ typedef NS_ENUM(NSInteger, UserType) {
 @property (nonatomic, retain) NSString * city;
 @property (nonatomic, retain) NSString * district;
 @property (nonatomic, retain) NSString * address;
-@property (nonatomic, retain) NSString * generalAddress;
 @property (nonatomic, retain) NSString * subRole;
 @property (nonatomic, retain) NSString * scale;
 @property (nonatomic, retain) NSString * inviteCode;

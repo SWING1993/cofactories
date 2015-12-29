@@ -187,7 +187,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
                         break;
                     case 2:
                         cell.textLabel.text = @"地址";
-                        cell.detailTextLabel.text = self.MyProfile.generalAddress;
+                        cell.detailTextLabel.text = self.MyProfile.address;
                         break;
                     case 3:
                         cell.textLabel.text = @"二级身份";
