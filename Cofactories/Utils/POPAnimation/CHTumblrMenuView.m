@@ -167,6 +167,7 @@
 
 - (void)dismiss:(id)sender
 {
+    [sender removeTarget:self action:@selector(dismiss:)];
     [self dropAnimation];
     double delayInSeconds = CHTumblrMenuViewAnimationTime  + CHTumblrMenuViewAnimationInterval * (buttons_.count + 1);
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));

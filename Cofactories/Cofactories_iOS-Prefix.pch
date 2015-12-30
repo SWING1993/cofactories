@@ -73,8 +73,8 @@
  */
 //#define bucketAPI  @"cofactories"
 
-//#define kClientID  @""
-//#define kSecret    @""
+//#define kClientID  @"kpJ2HSYc2PMSUwWypKfQktbPSbUzJ8D4"
+//#define kSecret    @"pnguPF3tQTCFUUevG3zBZ3EjR95QX8925Q5TBUucF2XhtA9uGAU6pSVnRdQTY6cR"
 
 //#define kAuthUrl   @"https://auth.cofactories.com"  //认证服务器
 //#define kBaseUrl   @"https://app.cofactories.com"   //后端服务器
