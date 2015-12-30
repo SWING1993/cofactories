@@ -259,6 +259,8 @@
     _pageControl.defersCurrentPageDisplay = YES;
     _pageControl.numberOfPages = _pages.count;
     _pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+//    _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+//    _pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
     [_pageControl addTarget:self action:@selector(showPanelAtPageControl) forControlEvents:UIControlEventValueChanged];
 }
 

@@ -13,6 +13,7 @@
 #import "SystemSetViewController.h"
 #import "RevisePasswordViewController.h"
 #import "UserProtocolViewController.h"
+#import "WelcomePageViewController.h"
 
 static NSString * const CellIdentifier = @"CellIdentifier";
 
@@ -114,7 +115,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 3;
+        return 4;
     }
     else if (section == 1) {
         return 3;
@@ -147,15 +148,21 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             case 0:{
                 switch (indexPath.row) {
                     case 0:{
+                        cell.textLabel.text=@"欢迎页";
+                        
+                    }
+                        break;
+                        
+                    case 1:{
                         cell.textLabel.text=@"去评分";
 
                     }
                         break;
-                    case 1:{
+                    case 2:{
                         cell.textLabel.text = @"去分享";
                     }
                         break;
-                    case 2:{
+                    case 3:{
                         cell.textLabel.text=@"邀请码";
                     }
                         break;
@@ -209,11 +216,18 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         case 0:{
             switch (indexPath.row) {
                 case 0:{
+                    WelcomePageViewController * vc = [[WelcomePageViewController alloc]init];
+                    vc.modalPresentationStyle = UIModalPresentationCustom;                    
+                    [self presentViewController:vc animated:NO completion:nil];
+                }
+                    break;
+
+                case 1:{
                     NSString *str = kAppReviewURL;
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
                 }
                     break;
-                case 1:{
+                case 2:{
                     [UMSocialSnsService presentSnsIconSheetView:self
                                                          appKey:Appkey_Umeng
                                                       shareText:@"推荐一款非常好用的app——聚工厂，大家快来试试。下载链接：https://itunes.apple.com/cn/app/ju-gong-chang/id1015359842?mt=8"
@@ -222,7 +236,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                                                        delegate:self];
                 }
                     break;
-                case 2:{
+                case 3:{
                     [inviteCodeAlert show];
                 }
                     break;

@@ -102,7 +102,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         _passwordTF.placeholder=@"密码";
 
     }
-
 }
 
 - (void)clickbBtn:(UIButton*)sender{

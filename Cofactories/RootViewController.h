@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface RootViewController : UIViewController
+
 //主页
 +(void)setupTabarController;
 
 //登录注册
 + (void)setupLoginViewController;
-
 
 @end
 
