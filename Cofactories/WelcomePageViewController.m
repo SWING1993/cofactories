@@ -34,8 +34,6 @@
 - (void)introDidFinish:(EAIntroView *)introView {
     
     [self dismissViewControllerAnimated:NO completion:nil];
-
-    
 }
 
 - (void)showIntroWithCrossDissolve {

@@ -127,7 +127,6 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
     
     intro.skipButton.alpha = 0.f;
     intro.skipButton.enabled = NO;
-    intro.pageControlY = 250.f;
 
     
     page5.onPageDidAppear = ^{
