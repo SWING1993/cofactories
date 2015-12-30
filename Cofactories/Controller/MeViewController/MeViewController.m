@@ -15,6 +15,7 @@
 #import "ShopCarController.h"//购物车
 #import "MeHistoryOrderList_VC.h"
 #import "MeOrderSelect_VC.h"
+#import "PublishPopularNews_VC.h"
 
 static NSString * const CellIdentifier = @"CellIdentifier";
 
@@ -146,11 +147,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 2;
-    }else {
-        return 1;
-    }
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -164,14 +161,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         cell.textLabel.font = kFont;
         switch (indexPath.section) {
             case 0:
-                switch (indexPath.row) {
-                    case 0:
-                        cell.textLabel.text = @"购物车";
-                        break;
-                    case 1:
-                        cell.textLabel.text = @"我的活动";
-                        break;
-                }
+                cell.textLabel.text = @"购物车";
                 break;
              
             case 1:
@@ -219,21 +209,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-            case 0:
-            switch (indexPath.row) {
-                case 0: {
-                    DLog("购物车");
-                    ShopCarController *shopCarVC = [[ShopCarController alloc] init];
-                    shopCarVC.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:shopCarVC animated:YES];
-                }
-                    
-                    break;
-                case 1:
-                    DLog(@"我的活动");
-                    
-                    break;
-            }
+        case 0: {
+            DLog("购物车");
+            ShopCarController *shopCarVC = [[ShopCarController alloc] init];
+            shopCarVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:shopCarVC animated:YES];
+        }
             break;
             
         case 1: {
@@ -256,8 +237,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             
             break;
             
-            case 2:
+        case 2: {
             DLog(@"流行资讯发布");
+            PublishPopularNews_VC *publishVC = [[PublishPopularNews_VC alloc] init];
+            publishVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:publishVC animated:YES];
+        }
+            
+            
             break;
     }
 }

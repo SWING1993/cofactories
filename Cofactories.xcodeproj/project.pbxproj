@@ -308,6 +308,9 @@
 		7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5005671C098E230034BE03 /* PopularMessageController.m */; };
 		7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
+		7D6568881C337E6F0066C82D /* IndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6568871C337E6F0066C82D /* IndexModel.m */; };
+		7D65688C1C3389D80066C82D /* PublishPopularNews_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D65688B1C3389D80066C82D /* PublishPopularNews_VC.m */; };
+		7D65688F1C3397680066C82D /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D65688E1C3397680066C82D /* ActivityModel.m */; };
 		7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665E881C0C1C9000C7C7BF /* ZGYSupplyMarketView.m */; };
 		7D665E941C0C49AD00C7C7BF /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D665E8B1C0C49AD00C7C7BF /* Emoji.plist */; };
 		7D665E951C0C49AD00C7C7BF /* RongCloudKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D665E8C1C0C49AD00C7C7BF /* RongCloudKit.strings */; };
@@ -322,7 +325,6 @@
 		7D665EA71C0C60EE00C7C7BF /* IMChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665EA41C0C60EE00C7C7BF /* IMChatListViewController.m */; };
 		7D665EA81C0C60EE00C7C7BF /* IMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */; };
 		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
-		7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6DB64D1C05BB9D00BF396E /* 身份证.png */; };
 		7D70BACA1C21852A00920EE3 /* MeOrderSelect_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D70BAC91C21852A00920EE3 /* MeOrderSelect_VC.m */; };
 		7D71D1081C1AC68A00CF324E /* MeTextLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D71D1071C1AC68A00CF324E /* MeTextLabelCell.m */; };
 		7D743A051C23A00B006AEA07 /* PopularNewsDetails_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D743A041C23A00B006AEA07 /* PopularNewsDetails_VC.m */; };
@@ -355,8 +357,6 @@
 		7DA9501E1C12AFEE00BFCB31 /* MaterialShopDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9501D1C12AFEE00BFCB31 /* MaterialShopDetailCell.m */; };
 		7DA950231C12ED2E00BFCB31 /* MaterialAbstractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA950221C12ED2E00BFCB31 /* MaterialAbstractCell.m */; };
 		7DADF0B21C1AB48A0093ABFF /* MeAddDesign_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADF0B11C1AB48A0093ABFF /* MeAddDesign_VC.m */; };
-		7DB677531C32234500E4BE52 /* ActivityList_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB677521C32234500E4BE52 /* ActivityList_VC.m */; };
-		7DB677561C32240A00E4BE52 /* ActivityListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB677551C32240A00E4BE52 /* ActivityListCell.m */; };
 		7DB677591C32327800E4BE52 /* HomeShopList_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB677581C32327800E4BE52 /* HomeShopList_VC.m */; };
 		7DBD04E91C1BE73600FD318B /* MeGoodsCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBD04E81C1BE73600FD318B /* MeGoodsCategoryCell.m */; };
 		7DBD04EF1C1C0A2000FD318B /* AccessoryShop_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBD04EE1C1C0A2000FD318B /* AccessoryShop_VC.m */; };
@@ -1039,6 +1039,12 @@
 		7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplyMarketViewController.m; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
+		7D6568861C337E6F0066C82D /* IndexModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexModel.h; sourceTree = "<group>"; };
+		7D6568871C337E6F0066C82D /* IndexModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexModel.m; sourceTree = "<group>"; };
+		7D65688A1C3389D80066C82D /* PublishPopularNews_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishPopularNews_VC.h; sourceTree = "<group>"; };
+		7D65688B1C3389D80066C82D /* PublishPopularNews_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishPopularNews_VC.m; sourceTree = "<group>"; };
+		7D65688D1C3397680066C82D /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
+		7D65688E1C3397680066C82D /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
 		7D665E871C0C1C9000C7C7BF /* ZGYSupplyMarketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSupplyMarketView.h; sourceTree = "<group>"; };
 		7D665E881C0C1C9000C7C7BF /* ZGYSupplyMarketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSupplyMarketView.m; sourceTree = "<group>"; };
 		7D665E8B1C0C49AD00C7C7BF /* Emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoji.plist; sourceTree = "<group>"; };
@@ -1058,7 +1064,6 @@
 		7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMChatViewController.m; sourceTree = "<group>"; };
 		7D6DB64A1C05AEE300BF396E /* AuthenticationPhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationPhotoController.h; sourceTree = "<group>"; };
 		7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPhotoController.m; sourceTree = "<group>"; };
-		7D6DB64D1C05BB9D00BF396E /* 身份证.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "身份证.png"; sourceTree = "<group>"; };
 		7D70BAC81C21852A00920EE3 /* MeOrderSelect_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeOrderSelect_VC.h; sourceTree = "<group>"; };
 		7D70BAC91C21852A00920EE3 /* MeOrderSelect_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeOrderSelect_VC.m; sourceTree = "<group>"; };
 		7D71D1061C1AC68A00CF324E /* MeTextLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeTextLabelCell.h; sourceTree = "<group>"; };
@@ -1123,10 +1128,6 @@
 		7DA950221C12ED2E00BFCB31 /* MaterialAbstractCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaterialAbstractCell.m; sourceTree = "<group>"; };
 		7DADF0B01C1AB48A0093ABFF /* MeAddDesign_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeAddDesign_VC.h; sourceTree = "<group>"; };
 		7DADF0B11C1AB48A0093ABFF /* MeAddDesign_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeAddDesign_VC.m; sourceTree = "<group>"; };
-		7DB677511C32234500E4BE52 /* ActivityList_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityList_VC.h; sourceTree = "<group>"; };
-		7DB677521C32234500E4BE52 /* ActivityList_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityList_VC.m; sourceTree = "<group>"; };
-		7DB677541C32240A00E4BE52 /* ActivityListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityListCell.h; sourceTree = "<group>"; };
-		7DB677551C32240A00E4BE52 /* ActivityListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityListCell.m; sourceTree = "<group>"; };
 		7DB677571C32327800E4BE52 /* HomeShopList_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeShopList_VC.h; sourceTree = "<group>"; };
 		7DB677581C32327800E4BE52 /* HomeShopList_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeShopList_VC.m; sourceTree = "<group>"; };
 		7DBD04E71C1BE73600FD318B /* MeGoodsCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeGoodsCategoryCell.h; sourceTree = "<group>"; };
@@ -1365,7 +1366,6 @@
 		03571B221BE84BA100900EF9 /* Cofactories */ = {
 			isa = PBXGroup;
 			children = (
-				7D6DB64D1C05BB9D00BF396E /* 身份证.png */,
 				03571B5F1BE8546300900EF9 /* Cofactories_iOS-Prefix.pch */,
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
 				03571B271BE84BA100900EF9 /* AppDelegate.m */,
@@ -1457,6 +1457,10 @@
 				70F50D701C069B1000920F63 /* MarketModel */,
 				705421F21C0D3AA100BD2B47 /* OthersUserModel.h */,
 				705421F31C0D3AA100BD2B47 /* OthersUserModel.m */,
+				7D6568861C337E6F0066C82D /* IndexModel.h */,
+				7D6568871C337E6F0066C82D /* IndexModel.m */,
+				7D65688D1C3397680066C82D /* ActivityModel.h */,
+				7D65688E1C3397680066C82D /* ActivityModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2074,6 +2078,7 @@
 			children = (
 				03927D7C1BEC8CF50087A2FD /* MeViewController.h */,
 				03927D7D1BEC8CF50087A2FD /* MeViewController.m */,
+				7D6568891C3389B70066C82D /* PublishPopularNews */,
 				7D9E1E5F1C1E6C34007A4B6B /* HistoryOrder */,
 				7D2BE7331C1910D700CE4138 /* 我的店铺 */,
 				7D2BE7371C1918C900CE4138 /* 我的店铺View */,
@@ -2589,6 +2594,15 @@
 			path = HomeView;
 			sourceTree = "<group>";
 		};
+		7D6568891C3389B70066C82D /* PublishPopularNews */ = {
+			isa = PBXGroup;
+			children = (
+				7D65688A1C3389D80066C82D /* PublishPopularNews_VC.h */,
+				7D65688B1C3389D80066C82D /* PublishPopularNews_VC.m */,
+			);
+			path = PublishPopularNews;
+			sourceTree = "<group>";
+		};
 		7D665E8A1C0C49AD00C7C7BF /* Rong_Cloud_iOS_SDK_v2_3_8_stable */ = {
 			isa = PBXGroup;
 			children = (
@@ -2608,10 +2622,6 @@
 			children = (
 				7D743A0D1C23E879006AEA07 /* HomeActivity_VC.h */,
 				7D743A0E1C23E879006AEA07 /* HomeActivity_VC.m */,
-				7DB677511C32234500E4BE52 /* ActivityList_VC.h */,
-				7DB677521C32234500E4BE52 /* ActivityList_VC.m */,
-				7DB677541C32240A00E4BE52 /* ActivityListCell.h */,
-				7DB677551C32240A00E4BE52 /* ActivityListCell.m */,
 				7DB677571C32327800E4BE52 /* HomeShopList_VC.h */,
 				7DB677581C32327800E4BE52 /* HomeShopList_VC.m */,
 			);
@@ -2959,7 +2969,7 @@
 				TargetAttributes = {
 					03571B1F1BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 23L882L49W;
+						DevelopmentTeam = WPXQYZSK2Q;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 0;
@@ -3032,7 +3042,6 @@
 				03571B801BE85B7900900EF9 /* pageDot@2x.png in Resources */,
 				03571B7C1BE85B7900900EF9 /* 03.png in Resources */,
 				7DA9500C1C1298AF00BFCB31 /* UMSocialLocalizable.strings in Resources */,
-				7D6DB64E1C05BB9D00BF396E /* 身份证.png in Resources */,
 				035CC5CF1C070ECB00998FBD /* ToolViewInputTextHL@2x.png in Resources */,
 				035CC5CD1C070ECB00998FBD /* save@2x.png in Resources */,
 				7D665E951C0C49AD00C7C7BF /* RongCloudKit.strings in Resources */,
@@ -3081,6 +3090,7 @@
 				03FF450C1BFEE74000D81DCE /* AFURLConnectionOperation.m in Sources */,
 				7DC2A76B1C2010AB0005CAFD /* HistoryOrderAddressCell.m in Sources */,
 				7D2BE73A1C1918FA00CE4138 /* MeShopCell.m in Sources */,
+				7D65688F1C3397680066C82D /* ActivityModel.m in Sources */,
 				70F50D7D1C06FB3000920F63 /* DesignOrderModel.m in Sources */,
 				7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */,
 				7D45D0D61C224C9100FC2988 /* MeHistoryOrderModel.m in Sources */,
@@ -3095,7 +3105,6 @@
 				03571BD11BE85BDB00900EF9 /* AFOAuth2Manager.m in Sources */,
 				7DCCC2A01C20FDB6002BF795 /* PopularNewsModel.m in Sources */,
 				03B455A11C17FCB6002F1A81 /* WalletHistoryTableViewCell.m in Sources */,
-				7DB677561C32240A00E4BE52 /* ActivityListCell.m in Sources */,
 				032D90261C1C1B5E00603AF5 /* AboutWalletViewController.m in Sources */,
 				03ACD19E1C081826003AB7CF /* RevisePasswordViewController.m in Sources */,
 				7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */,
@@ -3133,6 +3142,7 @@
 				705679E01C1952CC00ACA494 /* DealComment_Model.m in Sources */,
 				705679D21C194C2E00ACA494 /* PersonalWorks_TVC.m in Sources */,
 				7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */,
+				7D6568881C337E6F0066C82D /* IndexModel.m in Sources */,
 				035CC5271C06DCF000998FBD /* JKImagePickerController.m in Sources */,
 				035CC5E01C070ECB00998FBD /* UMTextView.m in Sources */,
 				70A784F71C085C1A003D1892 /* PublishOrder_Designer_VC.m in Sources */,
@@ -3221,6 +3231,7 @@
 				7D34E4351C197B140049D9C7 /* PlaceholderTextView.m in Sources */,
 				03571C9B1BE85DAC00900EF9 /* DOPDropDownMenu.m in Sources */,
 				7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */,
+				7D65688C1C3389D80066C82D /* PublishPopularNews_VC.m in Sources */,
 				705421FB1C0D983900BD2B47 /* Order_Supplier_TVC.m in Sources */,
 				03571BA01BE85B8200900EF9 /* MJPhotoToolbar.m in Sources */,
 				03571C881BE85D9C00900EF9 /* IQUITextFieldView+Additions.m in Sources */,
@@ -3243,7 +3254,6 @@
 				70F50D731C06D1F900920F63 /* FabricMarketModel.m in Sources */,
 				03571BD01BE85BDB00900EF9 /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
 				7D8B338D1C118FC300616C1F /* MaterialShopCell.m in Sources */,
-				7DB677531C32234500E4BE52 /* ActivityList_VC.m in Sources */,
 				70EB7EE61C15697E009E19F9 /* Business_Supplier_TVC.m in Sources */,
 				7DBD04E91C1BE73600FD318B /* MeGoodsCategoryCell.m in Sources */,
 				03B120C21C05B1AD0023F362 /* SetaddressViewController.m in Sources */,

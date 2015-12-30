@@ -201,6 +201,8 @@
 
 + (void)getConfigWithType:(NSString *)type WithBlock:(void (^)(NSDictionary *responseDictionary))block;
 
+//获取活动列表
++ (void)getActivityWithBlock:(void (^)(NSDictionary *responseDictionary))block;
 
 
 // 获取用户评论

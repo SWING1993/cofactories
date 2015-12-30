@@ -46,9 +46,9 @@
 //#define kNotifyURL @"https://pay.cofactories.com/alipay/test"  //支付宝服务器通知URL
 //#define kPopularBaseUrl @"http://lo.news.mxd.moe"//流行资讯
 //
-//#define kUserProtocolUrl @"http://h5.lo.cofactories.com/eula/"
-//#define kAboutWallet @"http://h5.lo.cofactories.com/wallet/"
-//#define kAboutDesignUrl @"http://h5.lo.cofactories.com/about-designer/"
+//#define kUserProtocolUrl @"http://h5.lo.cofactories.com/announcement/eula/"
+//#define kAboutWallet @"http://h5.lo.cofactories.com/info/wallet/"
+//#define kAboutDesignUrl @"http://h5.lo.cofactories.com/info/about-designer/"
 //#define kActivityUrl @"http://h5.lo.cofactories.com/party/"
 /**
  *  远程测试环境：
@@ -64,9 +64,9 @@
 #define kNotifyURL @"http://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
 #define kPopularBaseUrl @"http://news.test.cofactories.com"//流行资讯
 
-#define kUserProtocolUrl @"http://h5.test.cofactories.com/eula/"
-#define kAboutWallet @"http://h5.test.cofactories.com/wallet/"
-#define kAboutDesignUrl @"http://h5.test.cofactories.com/about-designer/" 
+#define kUserProtocolUrl @"http://h5.test.cofactories.com/announcement/eula/"
+#define kAboutWallet @"http://h5.test.cofactories.com/info/wallet/"
+#define kAboutDesignUrl @"http://h5.test.cofactories.com/info/about-designer/"
 #define kActivityUrl @"http://h5.test.cofactories.com/party/"
 /**
  *  正式环境：
@@ -80,10 +80,10 @@
 //#define kBaseUrl   @"https://app.cofactories.com"   //后端服务器
 //#define PhotoAPI   @"https://cdn.cofactories.com"
 //#define kNotifyURL @"https://pay.cofactories.com/alipay"  //支付宝服务器通知URL
-//
-//#define kUserProtocolUrl @"http://h5.cofactories.com/eula/"
-//#define kAboutWallet @"http://h5.cofactories.com/wallet/"
-//#define kAboutDesignUrl @"http://h5.cofactories.com/about-designer/"
+//#define kPopularBaseUrl @"http://news.cofactories.com"
+//#define kUserProtocolUrl @"http://h5.cofactories.com/announcement/eula/"
+//#define kAboutWallet @"http://h5.cofactories.com/info/wallet/"
+//#define kAboutDesignUrl @"http://h5.cofactories.com/info/about-designer/"
 //#define kActivityUrl @"http://h5.cofactories.com/party/"
 
 #pragma mark - key

@@ -19,8 +19,10 @@
 #import "DataBaseHandle.h"
 #import "MeShopController.h"
 #import "WalletModel.h"
-#import "ActivityList_VC.h"
 #import "Verified_VC.h"
+#import "HomeActivity_VC.h"
+#import "IndexModel.h"
+#import "ActivityModel.h"
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -29,6 +31,8 @@ static NSString *activityCellIdentifier = @"activityCell";
     NSArray *arr;
 }
 @property (nonatomic,strong)NSMutableArray *firstViewImageArray;
+@property (nonatomic,strong)NSMutableArray *bannerArray;
+@property (nonatomic,strong)NSMutableArray *activityArray;
 @property (nonatomic,retain)UserModel * MyProfile;
 @property (nonatomic,retain)WalletModel * walletModel;
 
@@ -43,6 +47,7 @@ static NSString *activityCellIdentifier = @"activityCell";
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
+    
     [HttpClient getwalletWithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
@@ -63,7 +68,18 @@ static NSString *activityCellIdentifier = @"activityCell";
         NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
         [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     }];
-
+    [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        NSArray *jsonArray = responseDictionary[@"responseArray"];
+        self.activityArray = [NSMutableArray arrayWithCapacity:0];
+        for (NSDictionary *dictionary in jsonArray) {
+            ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
+            [self.activityArray addObject:activityModel];
+        }
+        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
+        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 #pragma mark - RCIMUserInfoDataSource
 
@@ -116,7 +132,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 - (void)creatTableView {
-    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 44) style:UITableViewStyleGrouped];
+    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 50) style:UITableViewStyleGrouped];
     self.automaticallyAdjustsScrollViewInsets = YES;// 自动调整视图关闭
     self.homeTableView.showsVerticalScrollIndicator = NO;// 竖直滚动条不显示
     self.homeTableView.delegate = self;
@@ -129,12 +145,25 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 - (void)creatTableHeaderView {
-    //第一个scrollView
-    WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:NO];
-    firstView.delegate=self;
-    self.firstViewImageArray = [NSMutableArray arrayWithArray:arr];
-    firstView.imagesArray = self.firstViewImageArray;
-    self.homeTableView.tableHeaderView = firstView;
+    [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode111 = %d", statusCode);
+        NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
+        self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
+        self.bannerArray = [NSMutableArray arrayWithCapacity:0];
+        for (NSDictionary *dictionary in jsonArray) {
+            IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
+            [self.bannerArray addObject:bannerModel];
+            [self.firstViewImageArray addObject:bannerModel.img];
+        }
+        DLog(@"nvgjdfljgfdjpk%ld", self.firstViewImageArray.count)
+        //第一个scrollView
+        WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
+        firstView.delegate=self;
+        firstView.imagesArray = self.firstViewImageArray;
+        self.homeTableView.tableHeaderView = firstView;
+    }];
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -143,7 +172,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 2) {
-        return arr.count;
+        return self.activityArray.count;
     }
     return 1;
 }
@@ -204,7 +233,8 @@ static NSString *activityCellIdentifier = @"activityCell";
     } else {
         HomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:activityCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.activityPhoto.image = [UIImage imageNamed:arr[indexPath.row]];
+        ActivityModel *activityModel = self.activityArray[indexPath.row];
+        [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@""]];
         return cell;
     }
 }
@@ -213,26 +243,30 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 105*kZGY;
+        return 100*kZGY;
     } else if (indexPath.section == 1) {
         return 160*kZGY;
+    } else {
+        return 0.4*kScreenW;
     }
-    return 0.4*kScreenW;
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 8;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.5;
+    
+    return 0.01;
 }
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2) {
-        DLog(@"第%ld个活动", indexPath.row + 1);
-        ActivityList_VC *activityListVC = [[ActivityList_VC alloc] init];
-        activityListVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:activityListVC animated:YES];
+        HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
+        ActivityModel *activityModel = self.activityArray[indexPath.row];
+        activityVC.urlString = activityModel.url;
+        activityVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:activityVC animated:YES];
     }
 }
 
@@ -293,6 +327,13 @@ static NSString *activityCellIdentifier = @"activityCell";
 #pragma mark -WKFCircularSlidingViewDelegate
 -(void)clickCircularSlidingView:(int)tag{
     DLog(@"点击了第  %d  张图", tag);
+    HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
+    IndexModel *bannerModel = self.bannerArray[tag - 1];
+    activityVC.urlString = bannerModel.url;
+    DLog(@"ciusduhnsdhnvodsviodsjv^^^^%@", bannerModel.url);
+    activityVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:activityVC animated:YES];
+
 }
 #pragma mark - Action认证
 - (void)authenticationAction:(UIButton *)button {

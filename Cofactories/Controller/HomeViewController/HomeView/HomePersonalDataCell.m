@@ -40,7 +40,7 @@
         [self addSubview:self.personWalletLeft];
         
         self.personAddressButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.personAddressButton.frame = CGRectMake(10*kZGY, CGRectGetMaxY(self.personWalletLeft.frame) + 2.5*kZGY, kScreenW/2 - 20*kZGY, 25*kZGY);
+        self.personAddressButton.frame = CGRectMake(10*kZGY, CGRectGetMaxY(self.personWalletLeft.frame) , kScreenW/2 - 20*kZGY, 25*kZGY);
         self.personAddressButton.titleLabel.font = [UIFont systemFontOfSize:11*kZGY];
         [self.personAddressButton setTitleColor:[UIColor colorWithRed:112.0f/255.0f green:112.0f/255.0f blue:112.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
         
@@ -69,7 +69,7 @@
         self.authenticationLabel.textColor = [UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
         [self addSubview:self.authenticationLabel];
         self.authenticationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.authenticationButton.frame = CGRectMake(3*kScreenW/4, 0, kScreenW/4, 105*kZGY);
+        self.authenticationButton.frame = CGRectMake(3*kScreenW/4, 0, kScreenW/4, 100*kZGY);
         [self addSubview:self.authenticationButton];
         
         UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW / 2, 20*kZGY, 0.3, 65*kZGY)];

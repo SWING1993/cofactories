@@ -43,8 +43,8 @@
 #define API_verify @"/user/verify"
 #define API_userProfile @"/user/profile"
 #define API_uploadPhoto @"/upload/user"
-#define API_config @"/config/ad/:"
-
+#define API_config @"/config/ad/"
+#define API_activity @"/config/activity"
 
 #define API_Publish_Market_Publish   @"/market/add"
 
@@ -774,8 +774,7 @@
     NSString * GetUrl = [NSString stringWithFormat:@"%@%@",API_config,type];
     
     [manager GET:GetUrl parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-        DLog(@"responseObject = %@",responseObject);
-        block(@{@"statusCode": @(200), @"model": @"model"});
+        block(@{@"statusCode": @(200), @"responseArray": responseObject});
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
         DLog(@"获取验证码的statusCode = %ld",(long)statusCode);
@@ -792,7 +791,33 @@
         }
     }];
 }
++ (void)getActivityWithBlock:(void (^)(NSDictionary *responseDictionary))block {
+    AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    //设置超时时间
+    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+    manager.requestSerializer.timeoutInterval = kTimeoutInterval;
+    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    
+    [manager GET:API_activity parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        DLog(@"responseObjectfsdfdsf = %@",responseObject);
+        block(@{@"statusCode": @(200), @"responseArray": responseObject});
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+        DLog(@"获取验证码的statusCode = %ld",(long)statusCode);
+        switch (statusCode) {
+            case 400:
+                block(@{@"statusCode": @(400), @"message": @"failure"});
+                break;
+            case 409:
+                block(@{@"statusCode": @(409), @"message": @"failure"});
+                break;
+            default:
+                block(@{@"statusCode": @(502), @"message": @"failure"});
+                break;
+        }
+    }];
 
+}
 // 获取用户评论
 + (void)getUserCommentWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     

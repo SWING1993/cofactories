@@ -16,6 +16,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.activityPhoto = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 0.4*kScreenW)];
+        self.activityPhoto.contentMode = UIViewContentModeScaleAspectFill;
+        self.activityPhoto.clipsToBounds = YES;
         self.activityPhoto.userInteractionEnabled = YES;
         [self addSubview:self.activityPhoto];
     }

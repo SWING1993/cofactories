@@ -8,6 +8,9 @@
 
 #import "IMChatViewController.h"
 #import "IQKeyboardManager.h"
+#import "PersonalMessage_Design_VC.h"
+#import "PersonalMessage_Clothing_VC.h"
+#import "PersonalMessage_Factory_VC.h"
 
 @interface IMChatViewController ()
 
@@ -73,19 +76,28 @@
         DLog(@"对方的uid = %@", userId);
         //解析工厂信息
         DLog(@"看对方的资料");
-//        [HttpClient getUserProfileWithUid:[userId intValue] andBlock:^(NSDictionary *responseDictionary) {
-//            _userModel = (FactoryModel *)responseDictionary[@"model"];
-//            CooperationInfoViewController *vc = [CooperationInfoViewController new];
-//            vc.factoryModel = _userModel;
-//            vc.IMFlag = YES;
-//            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-//            backItem.title=@"返回";
-//            self.navigationItem.backBarButtonItem = backItem;
-//            [self.navigationController.navigationBar setHidden:NO];
-//            [self.navigationController pushViewController:vc animated:YES];
-//            
-//        }];
-
+        [HttpClient getOtherIndevidualsInformationWithUserID:userId WithCompletionBlock:^(NSDictionary *dictionary) {
+            OthersUserModel *model = dictionary[@"message"];
+            if ([model.role isEqualToString:@"设计者"] || [model.role isEqualToString:@"供应商"]) {
+                PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
+                vc.userID = userId;
+                vc.userModel = model;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            if ([model.role isEqualToString:@"服装企业"]) {
+                PersonalMessage_Clothing_VC *vc = [PersonalMessage_Clothing_VC new];
+                vc.userID = userId;
+                vc.userModel = model;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            if ([model.role isEqualToString:@"加工配套"]) {
+                PersonalMessage_Factory_VC *vc = [PersonalMessage_Factory_VC new];
+                vc.userID = userId;
+                vc.userModel = model;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            
+        }];
     }
     
 }

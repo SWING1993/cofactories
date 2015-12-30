@@ -26,76 +26,38 @@
     webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
-    NSString *url = @"http://h5.test.cofactories.com/hanguodaigou-party/";
-    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]];
     [self.view addSubview:webView];
     [webView loadRequest:request];
-
-//    [webView stringByEvaluatingJavaScriptFromString:@"myFunction();"];
-//    // 注入js
-//    
-//    NSString *p = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"js"];
-//    NSString *js = [NSString stringWithContentsOfFile:p encoding:NSUTF8StringEncoding error:nil];
-//    [webView stringByEvaluatingJavaScriptFromString:js];
-    
 }
-//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-//    
-//    NSString *requestString = [[request URL] absoluteString];
-//    
-//    // 中文乱码转换
-//    NSLog(@"pre:%@",requestString);// pre:testapp:alert:%E4%BD%A0%E5%A5%BD%E5%90%97%EF%BC%9F
-//    requestString = [requestString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    NSLog(@"cov:%@",requestString);// cov:testapp:alert:你好吗？
-//    
-//    
-//    NSArray *components = [requestString componentsSeparatedByString:@":"];
-//    if ([components count] > 1 && [(NSString *)[components objectAtIndex:0] isEqualToString:@"cofactories"]) {
-//        if([(NSString *)[components objectAtIndex:1] isEqualToString:@"alert"])
-//        {
-//            DLog(@"^^^^^^^^^^ = %@", [components objectAtIndex:2]);
-//            UIAlertView *alert = [[UIAlertView alloc]
-//                                  initWithTitle:@"alert from html" message:[components objectAtIndex:2]
-//                                  delegate:self cancelButtonTitle:nil
-//                                  otherButtonTitles:@"OK", nil];
-//            [alert show];
-//        }
-//        return NO;
-//    }
-//    return YES;
-//}
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *requestString = [[request URL] absoluteString];
-    NSString *headerString = [requestString substringToIndex:14];
-    DLog(@"#####%@", headerString);
+    DLog(@"^^^^^^^^%@", requestString);
+    NSString *headerString = nil;
+    if (requestString.length >11) {
+        NSString *headerString = [requestString substringToIndex:12];
+        DLog(@"#####%@", headerString);
+    }
+    
+    //判断点的链接是不是电话
+//    NSString *telString = [requestString substringToIndex:4];
+//    if ([telString isEqualToString:@"tel:"]) {
+//        NSString *phoneString = [requestString substringFromIndex:4];
+//        DLog(@"phone = %@", phoneString);
+//        NSString *str = [NSString stringWithFormat:@"telprompt://%@", phoneString];
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+//    }
     //判断是不是点击链接
-    if ([headerString isEqualToString:@"cofactories://"]) {
-        DLog(@"+++++%@", requestString);
-        NSString *bigString = [requestString substringFromIndex:14];
-        DLog(@"^^^^^^%@", bigString);
-        NSArray *array = [bigString componentsSeparatedByString:@","];
-        NSString *actionString = nil;
-        for (NSString *string in array) {
-            if ([string rangeOfString:@"action:"].location != NSNotFound) {
-                actionString = string;
-            }
-        }
-        //进商店
-        if ([actionString rangeOfString:@"actio3n:GET%20OUT"].location != NSNotFound) {
-            DLog(@"^^^^^^^^^^^#######");
+    if ([headerString isEqualToString:@"cofactories:"]) {
+        
+        if ([requestString rangeOfString:@"shop"].location != NSNotFound) {
             HomeShopList_VC *myShopVC = [[HomeShopList_VC alloc] init];
             [self.navigationController pushViewController:myShopVC animated:YES];
         }
-        //进版型购买
-        if ([actionString rangeOfString:@"action:GET%20OUT%20!"].location != NSNotFound) {
-            NSString *uidString = nil;
-            for (NSString *string in array) {
-                if ([string rangeOfString:@"uid:"].location != NSNotFound) {
-                    uidString = [string substringFromIndex:4];
-                }
-            }
-            DLog(@"$$$$$$$$%@", uidString);
+        if ([requestString rangeOfString:@"userInfo"].location != NSNotFound) {
+            NSArray *userInfoArray = [requestString componentsSeparatedByString:@"?"];
+            NSString *uidString = [[userInfoArray lastObject] substringFromIndex:4];
             [HttpClient getOtherIndevidualsInformationWithUserID:uidString WithCompletionBlock:^(NSDictionary *dictionary) {
                 OthersUserModel *model = dictionary[@"message"];
                 if ([model.role isEqualToString:@"设计者"] || [model.role isEqualToString:@"供应商"]) {
@@ -118,38 +80,8 @@
                 }
                 
             }];
-        }
 
-//        if ([requestString rangeOfString:@"cofactories://shop:"].location !=NSNotFound) {
-//            HomeShopList_VC *myShopVC = [[HomeShopList_VC alloc] init];
-//            [self.navigationController pushViewController:myShopVC animated:YES];
-//            
-//        } else {
-//            
-//            [HttpClient getOtherIndevidualsInformationWithUserID:@"6" WithCompletionBlock:^(NSDictionary *dictionary) {
-//                OthersUserModel *model = dictionary[@"message"];
-//                if ([model.role isEqualToString:@"设计者"] || [model.role isEqualToString:@"供应商"]) {
-//                    PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
-//                    vc.userID = @"6";
-//                    vc.userModel = model;
-//                    [self.navigationController pushViewController:vc animated:YES];
-//                }
-//                if ([model.role isEqualToString:@"服装企业"]) {
-//                    PersonalMessage_Clothing_VC *vc = [PersonalMessage_Clothing_VC new];
-//                    vc.userID = @"6";
-//                    vc.userModel = model;
-//                    [self.navigationController pushViewController:vc animated:YES];
-//                }
-//                if ([model.role isEqualToString:@"加工配套"]) {
-//                    PersonalMessage_Factory_VC *vc = [PersonalMessage_Factory_VC new];
-//                    vc.userID = @"6";
-//                    vc.userModel = model;
-//                    [self.navigationController pushViewController:vc animated:YES];
-//                }
-//                
-//            }];
-//        }
-        
+        }
         
     } else {
         DLog(@"不需要的参数");
@@ -160,10 +92,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-
 
 /*
 #pragma mark - Navigation

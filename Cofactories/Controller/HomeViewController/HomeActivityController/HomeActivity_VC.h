@@ -10,4 +10,6 @@
 
 @interface HomeActivity_VC : UIViewController
 
+@property (nonatomic, strong) NSString *urlString;
+
 @end
