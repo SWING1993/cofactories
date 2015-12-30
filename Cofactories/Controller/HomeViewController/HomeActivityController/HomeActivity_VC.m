@@ -36,7 +36,7 @@
     DLog(@"^^^^^^^^%@", requestString);
     NSString *headerString = nil;
     if (requestString.length >11) {
-        NSString *headerString = [requestString substringToIndex:12];
+        headerString = [requestString substringToIndex:12];
         DLog(@"#####%@", headerString);
     }
     

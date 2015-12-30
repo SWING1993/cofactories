@@ -27,9 +27,8 @@
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
 static NSString *activityCellIdentifier = @"activityCell";
-@interface HomeViewController () {
-    NSArray *arr;
-}
+@interface HomeViewController ()
+
 @property (nonatomic,strong)NSMutableArray *firstViewImageArray;
 @property (nonatomic,strong)NSMutableArray *bannerArray;
 @property (nonatomic,strong)NSMutableArray *activityArray;
@@ -125,7 +124,6 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
     }];
 
-    arr = @[@"首页图2", @"首页图3", @"公告"];
     [self creatTableView];
     [self creatTableHeaderView];
     [self creatShoppingCarTable];
@@ -234,6 +232,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         HomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:activityCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         ActivityModel *activityModel = self.activityArray[indexPath.row];
+        DLog(@"^^^^^^^^^^dsbbcbb %@", activityModel.banner);
         [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@""]];
         return cell;
     }
