@@ -28,6 +28,7 @@
         [self addSubview:self.selectButton];
         self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(40*kZGY, 20*kZGY, 85*kZGY, 75*kZGY)];
         self.photoView.layer.cornerRadius = 5*kZGY;
+        self.photoView.contentMode = UIViewContentModeScaleAspectFill;
         self.photoView.clipsToBounds = YES;
         [self addSubview:self.photoView];
         self.shopCarTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.photoView.frame) + 10*kZGY, 20*kZGY, kScreenW - 155*kZGY, 25*kZGY)];
