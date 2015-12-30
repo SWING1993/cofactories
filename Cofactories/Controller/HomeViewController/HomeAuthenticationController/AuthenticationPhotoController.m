@@ -59,13 +59,13 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 
 - (void)creatHeaderView {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 1.4*kScreenW)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, kScreenW + (kScreenW - 30)*256/640)];
     headerView.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
 //    headerView.backgroundColor = [UIColor redColor];
     headerView.userInteractionEnabled = YES;
     //事例图片
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, kScreenW - 30, 0.5*kScreenW)];
-    imageView.image = [UIImage imageNamed:@"身份证"];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, kScreenW - 30, (kScreenW - 30)*256/640)];
+    imageView.image = [UIImage imageNamed:@"Home-身份证"];
     imageView.layer.cornerRadius = 8;
     imageView.clipsToBounds = YES;
     imageView.layer.borderColor = [UIColor grayColor].CGColor;
@@ -91,9 +91,9 @@ static NSString * CellIdentifier = @"CellIdentifier";
     [headerView addSubview:bigPhotoView];
     
     //上传说明
-    UILabel *explainLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, CGRectGetMaxY(bigPhotoView.frame), kScreenW - 30, 30)];
+    UILabel *explainLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, CGRectGetMaxY(bigPhotoView.frame), kScreenW - 30, 50)];
     explainLabel.textAlignment = NSTextAlignmentCenter;
-    explainLabel.text = @"身份证照片需与本人身份相符，照片要求无水印";
+    explainLabel.text = @"身份证照片需与本人身份相符，若无营业执照请上传手持身份证（设计师可选择上传）";
     explainLabel.numberOfLines = 0;
     explainLabel.font = [UIFont systemFontOfSize:14*kZGY];
     [headerView addSubview:explainLabel];

@@ -9,7 +9,7 @@
 #import "ActivityList_VC.h"
 #import "ActivityListCell.h"
 #import "HomeActivity_VC.h"
-
+#import "HomeShopList_VC.h"
 static NSString *activityCellIdentifier = @"activityCell";
 @interface ActivityList_VC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
     NSArray *titleArray;
@@ -24,6 +24,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     titleArray = @[@"织里小李广童裤样品店", @"织里四眼精品屋样品店", @"织里阿丽样品店"];
     detailArray = @[@"主营：男女童样裤版型", @"主营：男女童版型 套装版型", @"主营：男女童样衣版型"];
     photoArray = @[@"公告", @"首页图2", @"首页图3"];
@@ -66,6 +67,8 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
     [self.navigationController pushViewController:activityVC animated:YES];
+//    HomeShopList_VC *myShopVC = [[HomeShopList_VC alloc] init];
+//    [self.navigationController pushViewController:myShopVC animated:YES];
 
     
 }

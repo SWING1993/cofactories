@@ -109,7 +109,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
     }];
 
-    arr = @[@"公告", @"首页图1", @"首页图2", @"首页图3"];
+    arr = @[@"首页图2", @"首页图3", @"公告"];
     [self creatTableView];
     [self creatTableHeaderView];
     [self creatShoppingCarTable];
@@ -143,7 +143,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 2) {
-        return 4;
+        return arr.count;
     }
     return 1;
 }

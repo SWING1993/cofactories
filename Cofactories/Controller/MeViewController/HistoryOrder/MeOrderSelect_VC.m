@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"购买和出售记录";
+    self.navigationItem.title = @"历史订单";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     _viewControllesArray = [@[] mutableCopy];
