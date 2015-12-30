@@ -42,7 +42,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView.tableHeaderView = tableHeaderView;
 
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 80)];
-    UIButton*loginBtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 15, (kScreenW-40), 35)];
+    UIButton*loginBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    loginBtn.frame =  CGRectMake(20, 15, (kScreenW-40), 35);
     loginBtn.tag=0;
     loginBtn.layer.cornerRadius=5.0f;
     loginBtn.layer.masksToBounds=YES;
@@ -56,7 +57,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 
     //注册 button
-    UIButton*registerBtn=[[UIButton alloc]initWithFrame:CGRectMake((kScreenW-40)/2+40, 60, (kScreenW-40)/2-20, 40)];
+    UIButton*registerBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+      registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 60, (kScreenW-40)/2-20, 40);
 //        registerBtn.backgroundColor = [UIColor redColor];
     registerBtn.tag=1;
     registerBtn.titleLabel.font=[UIFont systemFontOfSize:15];
@@ -66,7 +68,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [registerBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:registerBtn];
 
-    UIButton*forgetBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, 60, (kScreenW-40)/2-20, 40)];
+    UIButton*forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    forgetBtn.frame = CGRectMake(20, 60, (kScreenW-40)/2-20, 40);
     forgetBtn.tag=2;
     forgetBtn.titleLabel.font=[UIFont systemFontOfSize:15];
     forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

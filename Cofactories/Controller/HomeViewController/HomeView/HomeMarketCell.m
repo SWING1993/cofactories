@@ -12,7 +12,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    NSArray *titleArray = @[@"设计市场", @"服装市场", @"供应市场", @"加工配套"];
+    NSArray *titleArray = @[@"设计市场", @"服装企业", @"供应市场", @"加工配套"];
     NSArray *detailArray = @[@"版型设计师一体收纳", @"服装企业大汇总", @"面辅机械一网打尽", @"一站式加工服务"];
     NSArray *photoArray = @[@"Home_market_design", @"Home_market_cloth", @"Home_market_supply", @"Home_market_processed"];
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

@@ -220,7 +220,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 authenticationVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:authenticationVC animated:YES];
             }else if (self.MyProfile.verify_status == 1){
-                kTipAlert(@"您的认证正在审核中！");
+                kTipAlert(@"您的认证正在审核中。");
             }else{
                 kTipAlert(@"您已实名认证！");
             }

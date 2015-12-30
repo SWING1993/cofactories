@@ -96,7 +96,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [headerView addSubview:_typeLabel];
     
     UIButton *selectedButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    selectedButton.frame = CGRectMake(kScreenW-50, 45+10, 20, 20);
+    selectedButton.frame = CGRectMake(kScreenW-45, 45, 40, 40);
     [selectedButton setBackgroundImage:[UIImage imageNamed:@"三角形.png"] forState:UIControlStateNormal];
     [selectedButton addTarget:self action:@selector(selectedButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:selectedButton];
