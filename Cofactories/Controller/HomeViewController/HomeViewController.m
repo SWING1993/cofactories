@@ -145,7 +145,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)creatTableHeaderView {
     [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
         int statusCode = [responseDictionary[@"statusCode"] intValue];
-        DLog(@"statusCode111 = %d", statusCode);
+        DLog(@"statusCode = %d", statusCode);
         NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
         self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
         self.bannerArray = [NSMutableArray arrayWithCapacity:0];
@@ -154,7 +154,6 @@ static NSString *activityCellIdentifier = @"activityCell";
             [self.bannerArray addObject:bannerModel];
             [self.firstViewImageArray addObject:bannerModel.img];
         }
-        DLog(@"nvgjdfljgfdjpk%ld", self.firstViewImageArray.count)
         //第一个scrollView
         WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
         firstView.delegate=self;
@@ -232,8 +231,11 @@ static NSString *activityCellIdentifier = @"activityCell";
         HomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:activityCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         ActivityModel *activityModel = self.activityArray[indexPath.row];
-        DLog(@"^^^^^^^^^^dsbbcbb %@", activityModel.banner);
-        [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@""]];
+        if (activityModel.banner.length == 0) {
+            cell.activityPhoto.image = [UIImage imageNamed:@"默认图片"];
+        } else {
+            [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+        }
         return cell;
     }
 }
