@@ -165,7 +165,8 @@
     for (int i = 0; i < self.myImagesArray.count; i++) {
         
         UIImageView *myImageView = [[UIImageView alloc]init];
-        
+        myImageView.contentMode = UIViewContentModeScaleAspectFill;
+        myImageView.clipsToBounds = YES;
         NSString *imageName = self.myImagesArray[i];
         
         if (self.isNetwork) {

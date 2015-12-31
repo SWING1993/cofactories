@@ -24,14 +24,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    hud = [Tools createHUD];
-    hud.labelText = @"加载中...";
     webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]];
     [self.view addSubview:webView];
     [webView loadRequest:request];
+    
+    hud = [Tools createHUDWithView:self.view];
+    hud.labelText = @"加载中...";
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {

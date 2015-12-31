@@ -26,8 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"文章详情";
-    hud = [Tools createHUD];
-    hud.labelText = @"加载中...";
     
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
     temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
@@ -56,7 +54,12 @@
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
     [self.view addSubview:webView];
-    [webView loadRequest:request];}
+    [webView loadRequest:request];
+
+    hud = [Tools createHUDWithView:self.view];
+    hud.labelText = @"加载中...";
+
+}
 
 
 #pragma mark - UIWebViewDelegate

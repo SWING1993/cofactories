@@ -38,6 +38,7 @@
  */
 + (MBProgressHUD *)createHUD;
 
++ (MBProgressHUD *)createHUDWithView:(UIView *)bigView;
 
 + (NSString *)SizeWith:(NSString *)sizeString;
 

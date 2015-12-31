@@ -54,8 +54,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    hud = [Tools createHUD];
-//    hud.labelText = @"加载中...";
+
     [self creatTableView];
     arr = @[@"PopularNews-男装", @"PopularNews-女装", @"PopularNews-童装", @"PopularNews-面辅料"];
     self.categoryNum = 0;
@@ -88,23 +87,24 @@ static NSString *popularCellIdentifier = @"popularCell";
                         PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
                         [self.popularNewsListArray addObject:popularNewsModel];
                     }
-//                    [hud hide:YES];
+                    [hud hide:YES];
                     [self.collectionView reloadData];
                     [self.popularTableView reloadData];
                 } else {
-//                    [hud hide:YES];
+                    [hud hide:YES];
                 }
                 
             }];
             
         } else {
-//            [hud hide:YES];
+            [hud hide:YES];
         }
         
     }];
     
     
-    
+    hud = [Tools createHUDWithView:self.view];
+    hud.labelText = @"加载中...";
 }
 
 - (void)creatTableView {

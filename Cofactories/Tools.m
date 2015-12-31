@@ -82,6 +82,14 @@
     return hud;
 }
 
++ (MBProgressHUD *)createHUDWithView:(UIView *)bigView {
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:bigView];
+    
+    [bigView addSubview:hud];
+    [hud show:YES];
+    
+    return hud;
+}
 + (NSString *)SizeWith:(NSString *)sizeString {
     NSString*string;
     if ([sizeString rangeOfString:@"万件以上"].location !=NSNotFound) {
