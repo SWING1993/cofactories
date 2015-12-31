@@ -72,7 +72,7 @@
 + (NSString *)getUTCFormateDate:(NSString *)newsDate;
 
 // 检查网络环境
-+ (void)AFNetworkReachabilityStatusReachableVia ;
++ (void)AFNetworkReachabilityStatusReachableVia;
 
 
 /*!

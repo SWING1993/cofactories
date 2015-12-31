@@ -14,6 +14,7 @@
 
 @interface HomeActivity_VC ()<UIWebViewDelegate> {
     UIWebView * webView;
+    MBProgressHUD *hud;
 }
 
 
@@ -23,6 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    hud = [Tools createHUD];
+    hud.labelText = @"加载中...";
     webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
@@ -88,6 +91,11 @@
     }
     return YES;
 }
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [hud hide:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

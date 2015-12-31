@@ -799,7 +799,6 @@
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
     [manager GET:API_activity parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-        DLog(@"responseObjectfsdfdsf = %@",responseObject);
         block(@{@"statusCode": @(200), @"responseArray": responseObject});
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];

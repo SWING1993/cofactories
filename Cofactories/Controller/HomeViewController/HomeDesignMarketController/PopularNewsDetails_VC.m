@@ -118,9 +118,6 @@
 
 }
 
-
-
-
 - (void) back
 {
 //    if ([webView canGoBack]) {

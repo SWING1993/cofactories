@@ -282,6 +282,7 @@
                 break;
             case AFNetworkReachabilityStatusNotReachable:
 //                [WSProgressHUD showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
+                kTipAlert(@"您的网络状态不太顺畅哦！");
                 DLog(@"没有网络");
                 break;
             case AFNetworkReachabilityStatusUnknown:

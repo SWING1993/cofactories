@@ -46,7 +46,9 @@ static NSString *activityCellIdentifier = @"activityCell";
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
-    
+    //检查网络
+    [Tools AFNetworkReachabilityStatusReachableVia];
+    //钱包余额
     [HttpClient getwalletWithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
@@ -55,6 +57,7 @@ static NSString *activityCellIdentifier = @"activityCell";
             [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         }
     }];
+    //个人信息
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
         
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
@@ -67,6 +70,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
         [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     }];
+    //活动列表
     [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
         int statusCode = [responseDictionary[@"statusCode"] intValue];
         DLog(@"statusCode = %d", statusCode);
