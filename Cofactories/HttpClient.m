@@ -102,7 +102,7 @@
 + (void)postVerifyCodeWithPhone:(NSString *)phoneNumber andBlock:(void (^)(NSDictionary *responseDictionary))block {
     NSParameterAssert(phoneNumber);
     if (phoneNumber.length != 11) {
-        block(@{@"statusCode": @(400), @"message": @"手机号码格式错误！"});// 手机格式不正确
+        block(@{@"statusCode": @(400), @"message": @"手机号码格式错误 "});// 手机格式不正确
         return;
     }
     AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
@@ -113,19 +113,19 @@
     
     [manager POST:API_verifyCode parameters:@{@"phone": phoneNumber} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         DLog(@"responseObject = %@",responseObject);
-        block(@{@"statusCode": @(200), @"message": @"发送成功，十分钟内有效！"});
+        block(@{@"statusCode": @(200), @"message": @"发送成功，十分钟内有效 "});
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
         DLog(@"获取验证码的statusCode = %ld",(long)statusCode);
         switch (statusCode) {
             case 400:
-                block(@{@"statusCode": @(400), @"message": @"手机格式不正确！"});
+                block(@{@"statusCode": @(400), @"message": @"手机格式不正确 "});
                 break;
             case 409:
-                block(@{@"statusCode": @(409), @"message": @"需要等待冷却！"});
+                block(@{@"statusCode": @(409), @"message": @"需要等待冷却 "});
                 break;
             default:
-                block(@{@"statusCode": @(502), @"message": @"发送错误！"});
+                block(@{@"statusCode": @(statusCode), @"message": @"发送错误 "});
                 break;
         }
     }];
@@ -156,21 +156,21 @@
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
     [manager POST:API_register parameters:@{@"phone": username, @"password": password,@"code": code, @"role": role, @"name": name} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-        block(@{@"statusCode": @(200), @"message": @"注册成功!"});
+        block(@{@"statusCode": @(200), @"message": @"注册成功 "});
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
         DLog(@"error = %@", error);
         DLog(@"error = %ld",(long)statusCode);
         switch (statusCode) {
             case 401:
-                block(@{@"statusCode": @(401), @"message": @"验证码错误!"});
+                block(@{@"statusCode": @(401), @"message": @"验证码错误 "});
                 break;
             case 409:
-                block(@{@"statusCode": @(409), @"message": @"该手机已经注册过!"});
+                block(@{@"statusCode": @(409), @"message": @"该手机已经注册过 "});
                 break;
                 
             default:
-                block(@{@"statusCode": @(statusCode), @"message": @"注册错误!"});
+                block(@{@"statusCode": @(statusCode), @"message": @"注册错误 "});
                 break;
         }
     }];

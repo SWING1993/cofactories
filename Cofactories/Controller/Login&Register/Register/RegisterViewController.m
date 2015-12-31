@@ -164,7 +164,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
             }else{
 //                [Tools showErrorWithStatus:message];
-                kTipAlert(@"%@", message);
+                kTipAlert(@"%@ （错误码：%ld）", message,(long)statusCode);
                 [authcodeBtn setEnabled:YES];
             }
         }];

@@ -127,7 +127,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         case 0:{
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@"您的网络状态不太顺畅哦！");
+                            kTipAlert(@"您的网络状态不太顺畅哦");
                         }
                             break;
                         case 200:{
@@ -143,7 +143,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                             [hud hide:YES];
 
                             [button setEnabled:YES];
-                            kTipAlert(@"用户名或密码错误！");
+                            kTipAlert(@"用户名或密码错误");
                         }
                             break;
                             
@@ -151,7 +151,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                             [hud hide:YES];
 
                             [button setEnabled:YES];
-                            kTipAlert(@"登录失败！(错误码：%ld)",(long)statusCode);
+                            kTipAlert(@"登录失败 (错误码：%ld)",(long)statusCode);
                             break;
                     }
                 }];

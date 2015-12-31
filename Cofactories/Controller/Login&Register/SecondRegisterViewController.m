@@ -126,7 +126,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                break;
                
            default:
-               kTipAlert(@"登录失败！(错误码：%ld)",(long)statusCode);
+               kTipAlert(@"登录失败 (错误码：%ld)",(long)statusCode);
                break;
        }
    }];

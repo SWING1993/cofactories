@@ -54,39 +54,39 @@
 /**
  *  远程测试环境：
  */
-#define bucketAPI  @"cofactories-test"
-
-#define kClientID  @"D7rcnkjxDA2pr8X7"
-#define kSecret    @"E7ppyb5AaQ7FZWc9SASs2baT6m4ACvbyWsqekRWzDzA7pBwCdEryeqvaQg2Crys7"
-
-#define kAuthUrl   @"http://auth.test.cofactories.com"         //认证服务器
-#define kBaseUrl   @"https://test.cofactories.com"             //后端服务器
-#define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
-#define kNotifyURL @"http://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
-#define kPopularBaseUrl @"http://news.test.cofactories.com"//流行资讯
-
-#define kUserProtocolUrl @"http://h5.test.cofactories.com/announcement/eula/"
-#define kAboutWallet @"http://h5.test.cofactories.com/info/wallet/"
-#define kAboutDesignUrl @"http://h5.test.cofactories.com/info/about-designer/"
-#define RONGCLOUD_IM_APPKEY @"pwe86ga5edfp6"
+//#define bucketAPI  @"cofactories-test"
+//
+//#define kClientID  @"D7rcnkjxDA2pr8X7"
+//#define kSecret    @"E7ppyb5AaQ7FZWc9SASs2baT6m4ACvbyWsqekRWzDzA7pBwCdEryeqvaQg2Crys7"
+//
+//#define kAuthUrl   @"http://auth.test.cofactories.com"         //认证服务器
+//#define kBaseUrl   @"https://test.cofactories.com"             //后端服务器
+//#define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
+//#define kNotifyURL @"http://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
+//#define kPopularBaseUrl @"http://news.test.cofactories.com"//流行资讯
+//
+//#define kUserProtocolUrl @"http://h5.test.cofactories.com/announcement/eula/"
+//#define kAboutWallet @"http://h5.test.cofactories.com/info/wallet/"
+//#define kAboutDesignUrl @"http://h5.test.cofactories.com/info/about-designer/"
+//#define RONGCLOUD_IM_APPKEY @"pwe86ga5edfp6"
 
 /**
  *  正式环境：
  */
-//#define bucketAPI  @"cofactories"
+#define bucketAPI  @"cofactories"
 
-//#define kClientID  @"kpJ2HSYc2PMSUwWypKfQktbPSbUzJ8D4"
-//#define kSecret    @"pnguPF3tQTCFUUevG3zBZ3EjR95QX8925Q5TBUucF2XhtA9uGAU6pSVnRdQTY6cR"
+#define kClientID  @"kpJ2HSYc2PMSUwWypKfQktbPSbUzJ8D4"
+#define kSecret    @"pnguPF3tQTCFUUevG3zBZ3EjR95QX8925Q5TBUucF2XhtA9uGAU6pSVnRdQTY6cR"
 
-//#define kAuthUrl   @"https://auth.cofactories.com"  //认证服务器
-//#define kBaseUrl   @"https://app.cofactories.com"   //后端服务器
-//#define PhotoAPI   @"https://cdn.cofactories.com"
-//#define kNotifyURL @"https://pay.cofactories.com/alipay"  //支付宝服务器通知URL
-//#define kPopularBaseUrl @"http://news.cofactories.com"
-//#define kUserProtocolUrl @"http://h5.cofactories.com/announcement/eula/"
-//#define kAboutWallet @"http://h5.cofactories.com/info/wallet/"
-//#define kAboutDesignUrl @"http://h5.cofactories.com/info/about-designer/"
-//#define RONGCLOUD_IM_APPKEY @"4z3hlwrv3iult"
+#define kAuthUrl   @"https://auth.cofactories.com"  //认证服务器
+#define kBaseUrl   @"https://app.cofactories.com"   //后端服务器
+#define PhotoAPI   @"https://cdn.cofactories.com"
+#define kNotifyURL @"https://pay.cofactories.com/alipay"  //支付宝服务器通知URL
+#define kPopularBaseUrl @"http://news.cofactories.com"
+#define kUserProtocolUrl @"http://h5.cofactories.com/announcement/eula/"
+#define kAboutWallet @"http://h5.cofactories.com/info/wallet/"
+#define kAboutDesignUrl @"http://h5.cofactories.com/info/about-designer/"
+#define RONGCLOUD_IM_APPKEY @"4z3hlwrv3iult"
 
 #pragma mark - key
 
