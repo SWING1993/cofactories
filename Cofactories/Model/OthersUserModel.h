@@ -23,7 +23,7 @@
 @property (nonatomic, retain) NSString * score;
 @property (nonatomic, retain) NSString * verified;
 @property (nonatomic, retain) NSString * enterprise;
-@property (nonatomic, copy)   NSMutableArray *photoArray;
+@property (nonatomic, copy)   NSArray  *photoArray;
 @property (nonatomic, copy)   NSString *descriptions;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;

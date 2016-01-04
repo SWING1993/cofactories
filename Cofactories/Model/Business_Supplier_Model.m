@@ -16,7 +16,7 @@
         self.businessName = [NSString stringWithFormat:@"%@",dictionary[@"name"]];
         
         NSString *enterpriseString = [NSString stringWithFormat:@"%@",dictionary[@"enterprise"]];
-        if ([enterpriseString isEqualToString:@"<null>"] || enterpriseString == nil) {
+        if ([enterpriseString isEqualToString:@"<null>"] || enterpriseString == nil || [enterpriseString isEqualToString:@"0"]) {
             self.businessEnterprise = @"非企业用户";
         }else{
             self.businessEnterprise = @"企业用户";
@@ -26,7 +26,7 @@
             self.businessVerified = @"认证用户";
         }else{
             NSString *verifiedString = [NSString stringWithFormat:@"%@",dictionary[@"verified"]];
-            if ([verifiedString isEqualToString:@"<null>"] || verifiedString == nil) {
+            if ([verifiedString isEqualToString:@"<null>"] || verifiedString == nil || [verifiedString isEqualToString:@"0"]) {
                 self.businessVerified = @"非认证用户";
             }else{
                 self.businessVerified = @"认证用户";

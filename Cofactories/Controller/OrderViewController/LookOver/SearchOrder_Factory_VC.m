@@ -179,10 +179,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             OthersUserModel *model = dictionary[@"message"];
             vc.otherUserModel = model;
             [self.navigationController pushViewController:vc animated:YES];
-               
+            
         }];
     }];
-    
 }
 
 - (void)imageDetailClick:(id)sender{

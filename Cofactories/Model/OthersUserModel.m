@@ -67,8 +67,8 @@
         
         
         NSString *scaleString = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"scale"]];
-        
-        if ([scaleString isEqualToString:@"<null>"]) {
+        DLog(@"scaleString===%@",scaleString);
+        if ([scaleString isEqualToString:@"<null>"] || [scaleString isEqualToString:@"0"]) {
             _scale = @"规模未填写";
         }else{
             
@@ -82,10 +82,7 @@
                 _scale = scaleArray[index-1];
             }
             
-
         }
-
-        
         
         _verified = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"verified"]];
         if ([_verified isEqualToString:@"<null>"]) {
@@ -103,7 +100,6 @@
         if ([_descriptions isEqualToString:@"<null>"]) {
             _descriptions = @"用户介绍暂无";
         }
-        _photoArray = [[NSMutableArray alloc]initWithCapacity:0];
         _photoArray = [dictionary objectForKey:@"photo"];
     }
     return self;
