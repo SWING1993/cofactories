@@ -89,7 +89,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     imageButton.layer.masksToBounds = YES;
     imageButton.layer.cornerRadius = 5;
     if (_dataModel.photoArray.count > 0) {
-        [imageButton sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[0]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+        [imageButton sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,[_dataModel.photoArray firstObject]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     }else{
         [imageButton setBackgroundImage:[UIImage imageNamed:@"placeHolderImage"] forState:UIControlStateNormal];
     }
@@ -261,7 +261,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 break;
         }
         return cell;
-
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
