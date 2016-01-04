@@ -67,6 +67,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     [super viewDidLoad];
     [self creatTableView];
+    
+    
 }
 
 

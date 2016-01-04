@@ -123,6 +123,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     else{
         [HttpClient postResetPasswordWithPhone:_usernameTF.text code:_codeTF.text password:_passwordTF.text andBlock:^(NSInteger statusCode) {
             switch (statusCode) {
+                case 0:
+                {
+                    kTipAlert(@"您的网络状态不太顺畅哦！");
+                }
+                    break;
+                    
                 case 200:
                 {
                     UIAlertView*alertView = [[UIAlertView alloc]initWithTitle:@"密码重置成功" message:nil
@@ -131,19 +137,22 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                     [alertView show];
                 }
                     break;
-                case 400:
-                {
-                    kTipAlert(@"没有这个用户！");
-                }
-                    break;
+                    
+               
                 case 403:
                 {
                     kTipAlert(@"验证码错误！");
                 }
                     break;
                     
+                case 404:
+                {
+                    kTipAlert(@"没有这个用户！");
+                }
+                    break;
+                    
                 default:
-                    kTipAlert(@"您的网络状态不太顺畅哦！");
+                    kTipAlert(@"重置密码失败 （错误码：%ld）",(long)statusCode);
                     break;
             }
         }];

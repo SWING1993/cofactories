@@ -12,6 +12,6 @@
 
 @property (nonatomic,copy) NSString * placeholder;
 
-@property(nonatomic,retain)NSArray*cellPickList;
+@property(nonatomic,retain) NSArray * cellPickList;
 
 @end
