@@ -381,7 +381,9 @@ static NSString *popularCellIdentifier = @"popularCell";
             }
             [self.collectionView reloadData];
         } else {
-            kTipAlert(@"请求失败");
+            NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+            DLog(@"请求失败，statusCode = %ld", (long)statusCode);
+            
         }
 
     }];
