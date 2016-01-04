@@ -114,9 +114,15 @@ static NSString *popViewCellIdentifier = @"popViewCell";
             
             //选择分类的数组
             self.colorSelectArray = [NSMutableArray arrayWithCapacity:0];
-            for (int i = 0; i < marketDetailModel.catrgoryArray.count; i++) {
+            NSMutableArray *myColorArray = [NSMutableArray arrayWithCapacity:0];
+            if (marketDetailModel.catrgoryArray.count == 0) {
+                myColorArray = [NSMutableArray arrayWithArray:@[@"默认"]];
+            } else {
+                myColorArray = [NSMutableArray arrayWithArray:marketDetailModel.catrgoryArray];
+            }
+            for (int i = 0; i < myColorArray.count; i++) {
                 SelectColorModel *selectModel = [[SelectColorModel alloc] init];
-                selectModel.colorText = marketDetailModel.catrgoryArray[i];
+                selectModel.colorText = myColorArray[i];
                 if (self.myColorString.length > 0 && [selectModel.colorText isEqualToString:self.myColorString]) {
                     selectModel.isSelect = YES;
                 } else {
@@ -216,8 +222,12 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         cell.lineView.frame = CGRectMake(cell.marketPriceRightLabel.frame.origin.x, cell.marketPriceRightLabel.frame.origin.y + cell.marketPriceRightLabel.frame.size.height/2.0, size.width, 1);
         cell.marketPriceRightLabel.text = [NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice];
         cell.leaveCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceRightLabel.frame) + 10, CGRectGetMaxY(cell.priceLeftLabel.frame), kScreenW - 30 - CGRectGetWidth(cell.marketPriceLeftLabel.frame) - CGRectGetWidth(cell.marketPriceRightLabel.frame), 30);
+        if ([marketDetailModel.amount isEqualToString:@"库存暂无"]) {
+            cell.leaveCountLabel.text = @"库存暂无";
+        } else {
+            cell.leaveCountLabel.text = [NSString stringWithFormat:@"库存 %@ 件", marketDetailModel.amount];
+        }
         
-        cell.leaveCountLabel.text = [NSString stringWithFormat:@"库存 %@ 件", marketDetailModel.amount];
         return cell;
   
     } else if (indexPath.section == 1){
@@ -235,7 +245,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
                 CGSize size = [Tools getSize:marketDetailModel.descriptions andFontOfSize:13 andWidthMake:kScreenW - 60];
         cell.AbstractDetailLabel.frame = CGRectMake(30, 45, kScreenW - 60, size.height);
         cell.AbstractDetailLabel.text = marketDetailModel.descriptions;
-        
         return cell;
 
     }
