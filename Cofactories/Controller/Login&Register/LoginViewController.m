@@ -28,12 +28,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    //判断网络状态 给用户相应提示
-    [Tools AFNetworkReachabilityStatusReachableVia];
     
     self.title=@"登录";
-    self.view.backgroundColor=[UIColor whiteColor];
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
@@ -103,7 +99,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         _passwordTF.secureTextEntry=YES;
         _passwordTF.clearButtonMode=UITextFieldViewModeWhileEditing;
         _passwordTF.placeholder=@"密码";
-
     }
 }
 
