@@ -34,21 +34,8 @@ static NSString *shopCellIdentifier = @"shopCell";
 
 @implementation MeShopController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.navigationItem.title = @"我的店铺";
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(pressItem:)];
-    self.navigationItem.rightBarButtonItem = rightItem;
-    isEdit = NO;
-    [self creatCollectionView];
-    self.MyProfile = [[UserModel alloc]getMyProfile];
-    //加号按钮
-    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    addButton.frame = CGRectMake(kScreenW - 70, kScreenH - 70, 50, 50);
-    [addButton setImage:[UIImage imageNamed:@"MeShop-加号"] forState:UIControlStateNormal];
-    [addButton addTarget:self action:@selector(actionOfAdd:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:addButton];
-    
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     self.page = 1;
     //上拉加载更多数据
     __weak typeof(self) weakSelf = self;
@@ -71,10 +58,24 @@ static NSString *shopCellIdentifier = @"shopCell";
         }];
         
     }];
-
+    
     [self netWork];
 }
-
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = @"我的店铺";
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(pressItem:)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    isEdit = NO;
+    [self creatCollectionView];
+    self.MyProfile = [[UserModel alloc]getMyProfile];
+    //加号按钮
+    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    addButton.frame = CGRectMake(kScreenW - 70, kScreenH - 70, 50, 50);
+    [addButton setImage:[UIImage imageNamed:@"MeShop-加号"] forState:UIControlStateNormal];
+    [addButton addTarget:self action:@selector(actionOfAdd:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:addButton];
+}
 
 - (void)netWork {
     self.myShopGoodsArray = [NSMutableArray arrayWithCapacity:0];
