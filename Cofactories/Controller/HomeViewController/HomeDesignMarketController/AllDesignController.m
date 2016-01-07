@@ -396,7 +396,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Business_Supplier_Model *model = _dataArray[indexPath.row];
     PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
-    vc.userID = model.businessUid;
     [HttpClient getOtherIndevidualsInformationWithUserID:model.businessUid WithCompletionBlock:^(NSDictionary *dictionary) {
         OthersUserModel *model = dictionary[@"message"];
         vc.userModel = model;

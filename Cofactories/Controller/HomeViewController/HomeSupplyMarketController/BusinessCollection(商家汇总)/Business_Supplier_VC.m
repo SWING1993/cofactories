@@ -90,7 +90,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)footerRereshing{
     _refrushCount++;
-    DLog(@"_refrushCount==%d",_refrushCount);
+    DLog(@"_refrushCount==%ld",(long)_refrushCount);
     [HttpClient searchBusinessWithRole:@"supplier" scale:nil province:_userProvince city:_userCity subRole:_subrole keyWord:_userBusinessName verified:_userType page:@(_refrushCount) WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -383,11 +383,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Business_Supplier_Model *model = _dataArray[indexPath.row];
     PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
-    vc.userID = model.businessUid;
     [HttpClient getOtherIndevidualsInformationWithUserID:model.businessUid WithCompletionBlock:^(NSDictionary *dictionary) {
         OthersUserModel *model = dictionary[@"message"];
         vc.userModel = model;
         [self.navigationController pushViewController:vc animated:YES];
     }];
 }
+
+
 @end

@@ -12,7 +12,9 @@
 #import "BidManage_Design_VC.h"
 #import "MarkOrder_VC.h"
 #import "IMChatViewController.h"
-
+#import "PersonalMessage_Design_VC.h"
+#import "PersonalMessage_Factory_VC.h"
+#import "PersonalMessage_Clothing_VC.h"
 @interface DesignOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;
@@ -91,7 +93,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:_tableView];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 126+10)];
+    UIButton *headerView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 126+10)];
+    headerView.userInteractionEnabled = YES;
+    [headerView addTarget:self action:@selector(userDetailClick) forControlEvents:UIControlEventTouchUpInside];
     _tableView.tableHeaderView = headerView;
     
     UIButton *imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -157,6 +161,26 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     UILabel *lineLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 126, kScreenW, 10)];
     lineLB.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     [headerView addSubview:lineLB];
+}
+
+- (void)userDetailClick{
+    NSLog(@"325435");
+
+    if ([_otherUserModel.role isEqualToString:@"加工配套"]) {
+        PersonalMessage_Factory_VC *vc = [PersonalMessage_Factory_VC new];
+        vc.userModel = _otherUserModel;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if ([_otherUserModel.role isEqualToString:@"服装企业"]){
+        PersonalMessage_Clothing_VC *vc = [PersonalMessage_Clothing_VC new];
+        vc.userModel = _otherUserModel;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        // 设计师、供应商
+        PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
+        vc.userModel = _otherUserModel;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+
 }
 
 - (void)chatBidClick:(id)sender{

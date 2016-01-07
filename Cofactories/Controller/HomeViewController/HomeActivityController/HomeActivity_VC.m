@@ -66,19 +66,17 @@
                 OthersUserModel *model = dictionary[@"message"];
                 if ([model.role isEqualToString:@"设计者"] || [model.role isEqualToString:@"供应商"]) {
                     PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
-                    vc.userID = uidString;
                     vc.userModel = model;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                 if ([model.role isEqualToString:@"服装企业"]) {
                     PersonalMessage_Clothing_VC *vc = [PersonalMessage_Clothing_VC new];
-                    vc.userID = uidString;
                     vc.userModel = model;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                 if ([model.role isEqualToString:@"加工配套"]) {
                     PersonalMessage_Factory_VC *vc = [PersonalMessage_Factory_VC new];
-                    vc.userID = uidString;
+//                    vc.userID = uidString;
                     vc.userModel = model;
                     [self.navigationController pushViewController:vc animated:YES];
                 }

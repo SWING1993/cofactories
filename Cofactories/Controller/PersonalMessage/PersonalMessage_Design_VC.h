@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PersonalMessage_Design_VC : UITableViewController
-@property (nonatomic,copy)NSString *userID;
 @property (nonatomic,strong)OthersUserModel *userModel;
 @end

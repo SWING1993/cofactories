@@ -54,13 +54,13 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     [self creatHeader];
 
     _dataArrayOne = [@[] mutableCopy];
-    [HttpClient getUserShopWithUserID:_userID page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient getUserShopWithUserID:_userModel.uid page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         _dataArrayOne = dictionary[@"message"];
         [self.tableView reloadData];
     }];
     
     _dataArrayThree = [@[] mutableCopy];
-    [HttpClient getUserCommentWithUserID:_userID page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+    [HttpClient getUserCommentWithUserID:_userModel.uid page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         _dataArrayThree = dictionary[@"message"];
         [self.tableView reloadData];
     }];
@@ -124,7 +124,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     UIImageView *bgImage = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 60, 60)];
     bgImage.layer.masksToBounds = YES;
     bgImage.layer.cornerRadius = 30;
-    [bgImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,_userID]] placeholderImage:[UIImage imageNamed:@"headBtn.png"]];
+    [bgImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,_userModel.uid]] placeholderImage:[UIImage imageNamed:@"headBtn.png"]];
     [headerView addSubview:bgImage];
     
     UILabel *nameLB = [[UILabel alloc] init];
@@ -187,7 +187,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         // 刷新店铺
         _refreshCountOne++;
         DLog(@"_refreshCountOne==%ld",(long)_refreshCountOne);
-        [HttpClient getUserShopWithUserID:_userID page:@(_refreshCountOne) WithCompletionBlock:^(NSDictionary *dictionary){
+        [HttpClient getUserShopWithUserID:_userModel.uid page:@(_refreshCountOne) WithCompletionBlock:^(NSDictionary *dictionary){
             
             NSArray *array = dictionary[@"message"];
             
@@ -209,7 +209,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         // 刷新评论
         _refreshCountThree++;
         DLog(@"_refreshCountThree==%ld",(long)_refreshCountThree);
-        [HttpClient getUserCommentWithUserID:_userID page:@(_refreshCountThree) WithCompletionBlock:^(NSDictionary *dictionary){
+        [HttpClient getUserCommentWithUserID:_userModel.uid page:@(_refreshCountThree) WithCompletionBlock:^(NSDictionary *dictionary){
             
             NSArray *array = dictionary[@"message"];
             

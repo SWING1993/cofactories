@@ -12,7 +12,9 @@
 #import "IMChatViewController.h"
 #import "BidManage_Factory_VC.h"
 #import "MarkOrder_VC.h"
-
+#import "PersonalMessage_Design_VC.h"
+#import "PersonalMessage_Factory_VC.h"
+#import "PersonalMessage_Clothing_VC.h"
 @interface FactoryOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;
@@ -81,7 +83,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:_tableView];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 126)];
+    UIButton *headerView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 126)];
+    headerView.userInteractionEnabled = YES;
+    [headerView addTarget:self action:@selector(userDetailClick) forControlEvents:UIControlEventTouchUpInside];
     _tableView.tableHeaderView = headerView;
     
     UIButton *imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -145,6 +149,25 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
 }
 
+- (void)userDetailClick{
+    if ([_otherUserModel.role isEqualToString:@"加工配套"]) {
+        PersonalMessage_Factory_VC *vc = [PersonalMessage_Factory_VC new];
+        vc.userModel = _otherUserModel;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if ([_otherUserModel.role isEqualToString:@"服装企业"]){
+        PersonalMessage_Clothing_VC *vc = [PersonalMessage_Clothing_VC new];
+        vc.userModel = _otherUserModel;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        // 设计师、供应商
+        PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
+        vc.userModel = _otherUserModel;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+
+
+}
+
 - (void)chatBidClick:(id)sender{
     UIButton *button = (UIButton *)sender;
 
@@ -182,7 +205,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 }else{
                     kTipAlert(@"不可投标自己的订单");
                 }
-
             }
                 break;
                 
