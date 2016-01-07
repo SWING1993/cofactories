@@ -55,10 +55,11 @@
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
     [self.view addSubview:webView];
     [webView loadRequest:request];
-
+    
+    NSArray *loadingTextArray = @[@"点击文章右上角分享到微信朋友圈", @"文章最下方可与其他用户评论交流" , @"每天12点和18点都会有最新鲜的流行资讯发布" , @"点击文章列表换一批可以刷新文章列表", @"个人资料完善二级身份可以获得更多关注"];
     hud = [Tools createHUDWithView:self.view];
-    hud.labelText = @"加载中...";
-
+    int x = arc4random() % 5;
+    hud.detailsLabelText = loadingTextArray[x];
 }
 
 

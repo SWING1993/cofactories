@@ -17,7 +17,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
 @interface ScaleViewController () <UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>{
     UITextField*SizeTF;
-    NSString *_tmpPickerName;
+//    NSString *_tmpPickerName;
     
 }
 
@@ -169,20 +169,20 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    _tmpPickerName = [self pickerView:pickerView titleForRow:row forComponent:component];
+    SizeTF.text = [self pickerView:pickerView titleForRow:row forComponent:component];
 }
 -(void)ensure{
     
     NSInteger provinceIndex = [self.orderPicker selectedRowInComponent: PROVINCE_COMPONENT];
     self.seletectStr = [NSString stringWithFormat:@"%ld",(long)provinceIndex + 1];
-    _tmpPickerName = [self.cellPickList objectAtIndex: provinceIndex];
-    SizeTF.text = _tmpPickerName;
-    _tmpPickerName = nil;
+    SizeTF.text = [self.cellPickList objectAtIndex: provinceIndex];
+//    SizeTF.text = _tmpPickerName;
+//    _tmpPickerName = nil;
     [SizeTF endEditing:YES];
 }
 -(void)cancel{
     
-    _tmpPickerName = nil;
+//    _tmpPickerName = nil;
     [SizeTF endEditing:YES];
 }
 

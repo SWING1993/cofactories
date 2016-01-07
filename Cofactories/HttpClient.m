@@ -1020,7 +1020,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager GET:API_Search_Market_Search parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             completionBlock(@{@"statusCode": @"200", @"message": responseObject});
-            DLog(@"responseObject == %@",responseObject);
+//            DLog(@"responseObject == %@",responseObject);
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
             

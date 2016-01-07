@@ -84,7 +84,7 @@
 
 + (MBProgressHUD *)createHUDWithView:(UIView *)bigView {
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:bigView];
-    
+    hud.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     [bigView addSubview:hud];
     [hud show:YES];
     
@@ -290,7 +290,6 @@
                 break;
             case AFNetworkReachabilityStatusNotReachable:
 //                [WSProgressHUD showErrorWithStatus:@"您的网络状态不太顺畅哦！"];
-                kTipAlert(@"您的网络状态不太顺畅哦！");
                 DLog(@"没有网络");
                 break;
             case AFNetworkReachabilityStatusUnknown:
@@ -356,7 +355,9 @@
                         
         @{@"accountType":@[@"全部设备",@"机械设备",@"配件"],@"scale":@[@"价格不限",@"从低到高",@"从高到低"],@"area":@[@"地区不限",@"浙江",@"安徽",@"广东",@"福建",@"江苏",@"其他"]},
                         
-        @{@"accountType":@[@"不限",@"男装",@"女装",@"男童",@"女童"],@"scale":@[@"价格不限",@"从低到高",@"从高到低"],@"area":@[@"地区不限",@"浙江",@"安徽",@"广东",@"福建",@"江苏",@"其他"]}];
+        @{@"accountType":@[@"不限",@"男装",@"女装",@"男童",@"女童"],@"scale":@[@"价格不限",@"从低到高",@"从高到低"],@"area":@[@"地区不限",@"浙江",@"安徽",@"广东",@"福建",@"江苏",@"其他"]},
+                        
+        @{@"accountType":@[@"不限",@"男装",@"女装",@"男童",@"女童"],@"scale":@[@"价格不限",@"从低到高",@"从高到低"]}];
     
     return [array objectAtIndex:index-1];
 }

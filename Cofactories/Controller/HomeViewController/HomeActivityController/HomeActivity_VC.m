@@ -10,13 +10,13 @@
 #import "PersonalMessage_Design_VC.h"
 #import "PersonalMessage_Clothing_VC.h"
 #import "PersonalMessage_Factory_VC.h"
-#import "HomeShopList_VC.h"
+#import "HomeKoreaShopList_VC.h"
+#import "PopularMessageController.h"
 
 @interface HomeActivity_VC ()<UIWebViewDelegate> {
     UIWebView * webView;
     MBProgressHUD *hud;
 }
-
 
 @end
 
@@ -32,6 +32,7 @@
     [webView loadRequest:request];
     
     hud = [Tools createHUDWithView:self.view];
+    hud.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     hud.labelText = @"加载中...";
 }
 
@@ -56,12 +57,18 @@
     if ([headerString isEqualToString:@"cofactories:"]) {
         
         if ([requestString rangeOfString:@"shop"].location != NSNotFound) {
-            HomeShopList_VC *myShopVC = [[HomeShopList_VC alloc] init];
-            [self.navigationController pushViewController:myShopVC animated:YES];
+            HomeKoreaShopList_VC *designShopVC = [[HomeKoreaShopList_VC alloc] initWithSubrole:@"设计者" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:5]];
+            [self.navigationController pushViewController:designShopVC animated:YES];
+        }
+        if ([requestString rangeOfString:@"news"].location != NSNotFound) {
+            PopularMessageController *popularVC = [[PopularMessageController alloc] init];
+            popularVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:popularVC animated:YES];
         }
         if ([requestString rangeOfString:@"userInfo"].location != NSNotFound) {
             NSArray *userInfoArray = [requestString componentsSeparatedByString:@"?"];
             NSString *uidString = [[userInfoArray lastObject] substringFromIndex:4];
+            DLog(@"#######uid=%@###", uidString);
             [HttpClient getOtherIndevidualsInformationWithUserID:uidString WithCompletionBlock:^(NSDictionary *dictionary) {
                 OthersUserModel *model = dictionary[@"message"];
                 if ([model.role isEqualToString:@"设计者"] || [model.role isEqualToString:@"供应商"]) {

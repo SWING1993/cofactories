@@ -84,7 +84,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     
     tiShiYuLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 70, kScreenW - 30, 40)];
     tiShiYuLabel.numberOfLines = 0;
-    tiShiYuLabel.text = @"注：各个商品分类属性以空格隔开，单个属性20个字以内";
+    tiShiYuLabel.text = @"注：各个商品分类属性20个字以内,可以添加多个分类属性";
     tiShiYuLabel.font = [UIFont systemFontOfSize:14];
     tiShiYuLabel.textColor = [UIColor lightGrayColor];
     
@@ -465,7 +465,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 
 - (void)addCatergoryBtn {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"商品分类" message:@"注：各个商品分类属性以空格隔开，单个属性20个字以内" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"商品分类" message:@"注：各个商品分类属性20个字以内" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
     alert.tag = 555;
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert show];

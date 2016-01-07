@@ -12,7 +12,12 @@
 
 - (instancetype)initFabricMarketModelWithDictionary:(NSDictionary *)dictionary{
     if (self = [super init]) {
-        self.amount = [NSString stringWithFormat:@"%@", dictionary[@"amount"]];
+        NSString *amountAtring = [NSString stringWithFormat:@"%@", dictionary[@"amount"]];
+        if ([amountAtring isEqualToString:@"<null>"]) {
+            self.amount = @"库存暂无";
+        } else {
+            self.amount = amountAtring;
+        }
         
         NSString *creatString = dictionary[@"createdAt"];
         NSArray *creatArray = [Tools WithTime:creatString];

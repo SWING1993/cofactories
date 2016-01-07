@@ -23,7 +23,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 @implementation UbRoleViewController {
     UILabel * label;
     UITextField * textField;
-    NSString *_tmpPickerName;
+//    NSString *_tmpPickerName;
 }
 
 - (void)viewDidLoad {
@@ -172,19 +172,21 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    _tmpPickerName = [self pickerView:pickerView titleForRow:row forComponent:component];
+    textField.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+//    textField.text = _tmpPickerName;
+
 }
 -(void)ensure{
     
     NSInteger provinceIndex = [self.orderPicker selectedRowInComponent: PROVINCE_COMPONENT];
-    _tmpPickerName = [self.cellPickList objectAtIndex: provinceIndex];
-    textField.text = _tmpPickerName;
-    _tmpPickerName = nil;
+    textField.text = [self.cellPickList objectAtIndex: provinceIndex];
+//    textField.text = _tmpPickerName;
+//    _tmpPickerName = nil;
     [textField endEditing:YES];
 }
 -(void)cancel{
     
-    _tmpPickerName = nil;
+//    _tmpPickerName = nil;
     [textField endEditing:YES];
 }
 
