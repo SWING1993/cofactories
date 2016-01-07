@@ -192,11 +192,6 @@
                 MachineShop_VC *machineVC = [[MachineShop_VC alloc] initWithSubrole:@"机械设备" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:3]];
                 [self.navigationController pushViewController:machineVC animated:YES];
                 
-                
-//                //面料商城
-//                materialShopViewController *materialShopVC = [[materialShopViewController alloc] init];
-//                materialShopVC.number = supplyMarketButtonTag + 1;
-//                [self.navigationController pushViewController:materialShopVC animated:YES];
             }
                 
                 break;

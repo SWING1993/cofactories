@@ -507,17 +507,18 @@ static NSString * CellIdentifier = @"CellIdentifier";
         }
         
     }
-    
 }
 
 #pragma mark - 发表商品
 - (void)pressRightItem {
     DLog(@"leftTypeString = %@, rightTypeString = %@, name = %@, photoNumber = %ld, salePrice = %@, marketPrice = %@, amount = %@, categoryCount = %ld, description  = %@",leftTypeString, rightTypeString, nameTF.text, self.collectionImage.count, salePriceTF.text, marketPriceTF.text, amountTF.text, self.categoryArray.count, descriptionTV.text);
     if (rightTypeString.length == 0) {
-        kTipAlert(@"请选择上装、下装或套装");
+        kTipAlert(@"请选择上衣、下衣或套装");
     } else {
-        if ([Tools isBlankString:nameTF.text] == YES || self.collectionImage.count == 0 || [Tools isBlankString:salePriceTF.text] == YES || [Tools isBlankString:marketPriceTF.text] == YES || [Tools isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [Tools isBlankString:descriptionTV.text] == YES) {
+        if ([Tools isBlankString:nameTF.text] == YES || [Tools isBlankString:salePriceTF.text] == YES || [Tools isBlankString:marketPriceTF.text] == YES || [Tools isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [Tools isBlankString:descriptionTV.text] == YES) {
             kTipAlert(@"商品信息填写不完整");
+        } else if (self.collectionImage.count == 0 ) {
+            kTipAlert(@"请添加图片");
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认发布" message:nil delegate:self cancelButtonTitle:@"放弃" otherButtonTitles:@"确定", nil];
             alert.tag = 666;
@@ -559,9 +560,9 @@ static NSString * CellIdentifier = @"CellIdentifier";
             }
             
         } else {
-            kTipAlert(@"发布失败");
+            kTipAlert(@"发布失败 (错误码：%d)", statusCode);
+
         }
-        
         
     }];
 }

@@ -132,23 +132,17 @@
     [_window makeKeyAndVisible];
     
     //修改app默认UA
-    @autoreleasepool {
-        UIWebView* tempWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
-        NSString* userAgent = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-                DLog(@"------%@",userAgent);
-
-        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-        NSString *app_build = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-        NSString *ua = [NSString stringWithFormat:@"%@ CoFactories-iOS-%@",
-                        userAgent,
-                        app_build];
-                DLog(@"------%@",ua);
-        
-        [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent" : ua, @"User-Agent" : ua}];
-#if !__has_feature(objc_arc)
-        [tempWebView release];
-#endif
-    }
+    UIWebView* tempWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    NSString* userAgent = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    DLog(@"------%@",userAgent);
+    
+    NSString *ua = [NSString stringWithFormat:@"%@ CoFactories-iOS-%@",
+                    userAgent,
+                    kVersion_Cofactories];
+    DLog(@"------%@",ua);
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent" : ua, @"User-Agent" : ua}];
+    
     return YES;
 }
 /**
