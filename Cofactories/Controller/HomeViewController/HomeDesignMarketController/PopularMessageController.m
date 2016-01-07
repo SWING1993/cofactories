@@ -42,14 +42,17 @@ static NSString *popularCellIdentifier = @"popularCell";
 @implementation PopularMessageController
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self creatSearchBar];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    [_searchBar removeFromSuperview];
 }
 
 - (void)viewDidLoad {
@@ -91,17 +94,18 @@ static NSString *popularCellIdentifier = @"popularCell";
                     [self.collectionView reloadData];
                     [self.popularTableView reloadData];
                 } else {
+                    DLog(@"男装请求失败，statusCode = %ld", (long)statusCode);
                     [hud hide:YES];
                 }
                 
             }];
             
         } else {
+            DLog(@"文章推荐请求失败，statusCode = %ld", (long)statusCode);
             [hud hide:YES];
         }
         
     }];
-    
     
     hud = [Tools createHUDWithView:self.view];
     hud.labelText = @"加载中...";
@@ -191,7 +195,6 @@ static NSString *popularCellIdentifier = @"popularCell";
 
 //返回时移除searchBar
 - (void)back {
-    [_searchBar removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
 }
 //同时移除searchBar和View（在当前页面操作）
@@ -326,8 +329,6 @@ static NSString *popularCellIdentifier = @"popularCell";
     popularVC.newsID = popularNewsModel.newsID;
     popularVC.popularNewsModel = popularNewsModel;
     [self.navigationController pushViewController:popularVC animated:YES];
-    [_searchBar removeFromSuperview];
-
 }
 
 
@@ -338,7 +339,6 @@ static NSString *popularCellIdentifier = @"popularCell";
     PopularNewsDetails_VC *popularVC = [[PopularNewsDetails_VC alloc] init];
     popularVC.lijoString = kAboutDesignUrl;
     [self.navigationController pushViewController:popularVC animated:YES];
-    [_searchBar removeFromSuperview];
 }
 #pragma mark - 换一批
 - (void)actionOfChang:(UIButton *)button {
@@ -380,10 +380,11 @@ static NSString *popularCellIdentifier = @"popularCell";
                 [self.popularNewsListArray addObject:popularNewsModel];
             }
             [self.collectionView reloadData];
+            DLog(@"请求成功，statusCode = %ld", (long)statusCode);
         } else {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
             DLog(@"请求失败，statusCode = %ld", (long)statusCode);
-            
+//            kTipAlert(@"网络不太顺畅哦~");
         }
 
     }];
@@ -397,8 +398,6 @@ static NSString *popularCellIdentifier = @"popularCell";
     popularVC.newsID = popularNewsModel.newsID;
     popularVC.popularNewsModel = popularNewsModel;
     [self.navigationController pushViewController:popularVC animated:YES];
-    [_searchBar removeFromSuperview];
-
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {

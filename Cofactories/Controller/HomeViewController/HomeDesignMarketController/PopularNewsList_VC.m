@@ -57,7 +57,6 @@ static NSString *popularNewsCellIdentifier = @"popularNewsCell";
     PopularNewsDetails_VC *popularVC = [[PopularNewsDetails_VC alloc] init];
     popularVC.newsID = popularNewsModel.newsID;
     [self.navigationController pushViewController:popularVC animated:YES];
-
 }
 
 - (void) back {

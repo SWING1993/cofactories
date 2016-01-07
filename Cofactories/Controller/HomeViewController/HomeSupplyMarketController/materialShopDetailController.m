@@ -160,7 +160,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         goodsImage.contentMode = UIViewContentModeScaleAspectFill;
         goodsImage.clipsToBounds = YES;
         goodsImage.tag = 10000 + i;
-        [goodsImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,marketDetailModel.photoArray[i]]]  placeholderImage:[UIImage imageNamed:@"默认图片"]];
+        NSString* encodedString = [[NSString stringWithFormat:@"%@%@",PhotoAPI,marketDetailModel.photoArray[i]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [goodsImage sd_setImageWithURL:[NSURL URLWithString:encodedString]  placeholderImage:[UIImage imageNamed:@"默认图片"]];
         //添加手势
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(MJPhotoBrowserClick:)];
         [goodsImage addGestureRecognizer:tap];
@@ -188,7 +189,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [marketDetailModel.photoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         MJPhoto *photo = [[MJPhoto alloc] init];
-        photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,marketDetailModel.photoArray[idx]]];
+        NSString* encodedString = [[NSString stringWithFormat:@"%@%@",PhotoAPI,marketDetailModel.photoArray[idx]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        photo.url = [NSURL URLWithString:encodedString];
         [photos addObject:photo];
     }];
     
