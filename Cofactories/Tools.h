@@ -112,4 +112,13 @@
  */
 + (BOOL)isBlankString:(NSString *)string;
 
+
+/**
+ *  ScrollView长截图
+ *
+ *  @param scrollView 视图
+ *
+ *  @return 图片
+ */
++ (UIImage *)captureScrollView:(UIScrollView *)scrollView ;
 @end
