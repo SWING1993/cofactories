@@ -14,6 +14,7 @@
     UIImageView    *_bgImage;
     UILabel        *_typeLB;
     UILabel        *_gpLB;
+    UIImageView    *_restrictImage;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -41,6 +42,11 @@
         _gpLB = [[UILabel alloc] initWithFrame:CGRectMake(115, 50, 120, 25)];
         _gpLB.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_gpLB];
+        
+        _restrictImage = [[UIImageView alloc] init];
+        _restrictImage.frame = CGRectMake(115, 78, 50, 15);
+        _restrictImage.image = [UIImage imageNamed:@"限制订单"];
+        [self.contentView addSubview:_restrictImage];
 
     }
     return self;
@@ -78,6 +84,6 @@
         _gpLB.textColor = [UIColor colorWithRed:30/255.0 green:166/255.0 blue:73/255.0 alpha:1];
     }
     
- 
+    _restrictImage.hidden = NO;
 }
 @end

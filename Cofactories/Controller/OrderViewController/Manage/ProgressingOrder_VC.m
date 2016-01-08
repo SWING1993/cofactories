@@ -63,6 +63,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    
     ProcessingAndComplitonOrderModel *dataModel = _dataArray[indexPath.row];
     
     if ([dataModel.orderType isEqualToString:@"加工订单"]) {
@@ -133,7 +134,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     }else if ([dataModel.orderType isEqualToString:@"投标订单"]) {
         
         // 自己投过标
-        DLog(@"==>>%d",_userModel.UserType);
+        DLog(@"==>>%ld",(long)_userModel.UserType);
         
         switch (_userModel.UserType) {
             case UserType_supplier:{
