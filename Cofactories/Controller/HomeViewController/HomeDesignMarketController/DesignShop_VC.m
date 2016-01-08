@@ -42,10 +42,6 @@ static NSString *materialCellIdentifier = @"materialCell";
 
 @implementation DesignShop_VC
 
-- (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController.navigationBar setHidden:NO];
-}
-
 - (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary{
     
     if (self = [super init]) {
@@ -148,7 +144,6 @@ static NSString *materialCellIdentifier = @"materialCell";
         
     }];
     
-    
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
@@ -249,7 +244,6 @@ static NSString *materialCellIdentifier = @"materialCell";
             case 1:
                 return _maleArray[indexPath.item];
                 break;
-                
             case 2:
                 return _femaleArray[indexPath.item];
                 break;
@@ -259,7 +253,6 @@ static NSString *materialCellIdentifier = @"materialCell";
             case 4:
                 return _girlArray[indexPath.item];
                 break;
-
             default:
                 break;
         }
