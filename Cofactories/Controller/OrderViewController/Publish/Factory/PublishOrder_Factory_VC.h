@@ -2,8 +2,8 @@
 //  PublishOrder_Factory_VC.h
 //  Cofactories
 //
-//  Created by GTF on 15/11/27.
-//  Copyright © 2015年 宋国华. All rights reserved.
+//  Created by GTF on 16/1/8.
+//  Copyright © 2016年 Cofactorios. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

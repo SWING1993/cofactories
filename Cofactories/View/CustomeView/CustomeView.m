@@ -20,9 +20,9 @@
         self.layer.borderWidth = 1;
         self.layer.borderColor = [UIColor grayColor].CGColor;
         self.layer.cornerRadius = 5;
-        _amount = 1;
+        _amount = 0;
         [self addButtonAndAmountViewWithFram:frame];
-        self.timeAmount = 1;
+        self.timeAmount = 0;
     }
     return self;
 }
@@ -36,12 +36,13 @@
         button.backgroundColor = [UIColor grayColor];
         button.tag = i;
         [button setTitle:array[i] forState:UIControlStateNormal];
+        button.enabled = NO;
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
     }
     
-    _amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/6.f, 0, frame.size.width/6.f*4, frame.size.width/6.f)];
-    _amountLabel.text = [NSString stringWithFormat:@"%ld 天",(long)_amount];
+    _amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/6.f, 0, frame.size.width-frame.size.width/3.f, frame.size.width/6.f)];
+    _amountLabel.text = [NSString stringWithFormat:@"%ld 元",(long)_amount];
     _amountLabel.textAlignment = NSTextAlignmentCenter;
     _amountLabel.textColor = [UIColor lightGrayColor];
     [self addSubview:_amountLabel];
@@ -60,7 +61,7 @@
         _amount++;
     }
     
-    _amountLabel.text = [NSString stringWithFormat:@"%ld 天",(long)_amount];
+    _amountLabel.text = [NSString stringWithFormat:@"%ld 元",(long)_amount];
     self.timeAmount = _amount;
 }
 
