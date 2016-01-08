@@ -535,8 +535,10 @@ static NSString * CellIdentifier = @"CellIdentifier";
     
     if ([leftTypeString isEqualToString:@"accessory"]) {
         //辅料
-        if ([Tools isBlankString:nameTF.text] == YES || self.collectionImage.count == 0 || [Tools isBlankString:salePriceTF.text] == YES || [Tools isBlankString:marketPriceTF.text] == YES || [Tools isBlankString:unitTF.text] == YES || [Tools isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [Tools isBlankString:descriptionTV.text] == YES) {
+        if ([Tools isBlankString:nameTF.text] == YES || [Tools isBlankString:salePriceTF.text] == YES || [Tools isBlankString:marketPriceTF.text] == YES || [Tools isBlankString:unitTF.text] == YES || [Tools isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [Tools isBlankString:descriptionTV.text] == YES) {
             kTipAlert(@"商品信息填写不完整");
+        } else if (self.collectionImage.count == 0) {
+            kTipAlert(@"请添加图片");
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认发布" message:nil delegate:self cancelButtonTitle:@"放弃" otherButtonTitles:@"确定", nil];
             alert.tag = 666;
@@ -546,10 +548,12 @@ static NSString * CellIdentifier = @"CellIdentifier";
         
     } else {
         //面料和机械设备
-        if ([Tools isBlankString:nameTF.text] == YES || self.collectionImage.count == 0 || [Tools isBlankString:salePriceTF.text] == YES || [Tools isBlankString:marketPriceTF.text] == YES || [Tools isBlankString:unitTF.text] == YES || [Tools isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [Tools isBlankString:descriptionTV.text] == YES) {
+        if ([Tools isBlankString:nameTF.text] == YES || [Tools isBlankString:salePriceTF.text] == YES || [Tools isBlankString:marketPriceTF.text] == YES || [Tools isBlankString:unitTF.text] == YES || [Tools isBlankString:amountTF.text] == YES || self.categoryArray.count == 0 || [Tools isBlankString:descriptionTV.text] == YES) {
             kTipAlert(@"商品信息填写不完整");
         } else if (rightTypeString.length == 0) {
             kTipAlert(@"面料和机械设备未选择二级身份");
+        } else if (self.collectionImage.count == 0) {
+            kTipAlert(@"请添加图片");
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认发布" message:nil delegate:self cancelButtonTitle:@"放弃" otherButtonTitles:@"确定", nil];
             alert.tag = 777;
@@ -593,7 +597,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
             }
             
         }else {
-            kTipAlert(@"发布失败");
+            kTipAlert(@"发布失败 (错误码：%d)", statusCode);
         }
         
     }];

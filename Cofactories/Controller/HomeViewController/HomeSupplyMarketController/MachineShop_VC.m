@@ -35,9 +35,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 @end
 
 @implementation MachineShop_VC
-- (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController.navigationBar setHidden:NO];
-}
+
 - (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary{
     
     if (self = [super init]) {

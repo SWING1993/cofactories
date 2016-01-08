@@ -916,7 +916,7 @@
 //            DLog(@"responseObject == %@",responseObject);
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
-            
+            completionBlock(@{@"statusCode": @([operation.response statusCode])});
         }];
         
     }else{
@@ -968,7 +968,7 @@
             completionBlock(@{@"statusCode": @([operation.response statusCode]), @"responseObject":responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
-            
+            completionBlock(@{@"statusCode": @([operation.response statusCode])});
         }];
         
     }else{
@@ -1797,6 +1797,8 @@
     }
     
 }
+
+//删除店铺里的商品
 + (void)deleteUserShopWithShopID:(NSString *)aShopID withCompletionBlock:(void(^)(int statusCode))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
@@ -1820,6 +1822,7 @@
 
 }
 
+//获取认证信息
 + (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
@@ -2027,18 +2030,7 @@
             block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            switch ([operation.response statusCode]) {
-                case 400:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
-                    break;
-                case 401:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
-                    break;
-                    
-                default:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
-                    break;
-            }
+            block(@{@"statusCode": @([operation.response statusCode])});
         }];
     } else {
         block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
