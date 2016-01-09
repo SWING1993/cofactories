@@ -125,7 +125,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     doneButton.userInteractionEnabled = NO;
     [HttpClient postVerifyWithenterpriseName:self.priseName withenterpriseAddress:self.priseAddress withpersonName:self.personName withidCard:self.idCard idCardImage:[self.idCardImageArray lastObject] idCardBackImage:[self.idCardBackImageArray lastObject] licenseImage:[self.licenseImageArray lastObject] andBlock:^(NSInteger statusCode) {
         if (statusCode == 200) {
-            kTipAlert(@"提交认证成功, 可能需要几分钟的等待时间上传图片！");
+            kTipAlert(@"提交认证成功, 可能需要几分钟的等待上传图片！");
             doneButton.userInteractionEnabled = YES;
             double delayInSeconds = 1.0f;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -279,10 +279,17 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 #pragma mark <UIImagePickerControllerDelegate>
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage*image;
-    image = info[UIImagePickerControllerOriginalImage];
+    DLog(@"+++++++++++++++++++++++");
+    UIImage*image = info[UIImagePickerControllerOriginalImage];
+    CGSize imagesize = image.size;
+    
+    imagesize.height = image.size.height / 3;
+    imagesize.width = image.size.width / 3;
+    image = [self imageWithImage:image scaledToSize:imagesize];
+    
     NSData *imageData = UIImageJPEGRepresentation(image,0.00001);
     UIImage*newImage = [UIImage imageWithData:imageData];
+    
     [self.imageArray addObject:newImage];
     if (self.imageType == 1) {
         [self.idCardImageArray addObject:newImage];
@@ -313,7 +320,20 @@ static NSString * CellIdentifier = @"CellIdentifier";
 //        [self updatePortrait];
     }];
 }
+-(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
 
+{
+    UIGraphicsBeginImageContext(newSize);
+    
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
