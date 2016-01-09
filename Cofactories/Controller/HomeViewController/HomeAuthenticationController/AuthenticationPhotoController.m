@@ -279,10 +279,18 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 #pragma mark <UIImagePickerControllerDelegate>
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage*image;
-    image = info[UIImagePickerControllerOriginalImage];
-    NSData *imageData = UIImageJPEGRepresentation(image,0.00001);
+    DLog(@"+++++++++++++++++++++++");
+    UIImage*image = info[UIImagePickerControllerOriginalImage];
+    image = [self imageWithImage:image scaledToSize:image.size];
+    NSData *imageData = UIImageJPEGRepresentation(image,0.000000001);
     UIImage*newImage = [UIImage imageWithData:imageData];
+    
+    NSData * data = UIImageJPEGRepresentation(image, 1);
+    NSData * datarrr = UIImageJPEGRepresentation(newImage, 1);
+    CGFloat a = [data length]/1024;
+    CGFloat b =  [imageData length]/1024;
+    CGFloat c = [datarrr length]/1024;
+    DLog(@"%f+++++++%f+++++++%f", a,b,c);
     [self.imageArray addObject:newImage];
     if (self.imageType == 1) {
         [self.idCardImageArray addObject:newImage];
@@ -313,7 +321,41 @@ static NSString * CellIdentifier = @"CellIdentifier";
 //        [self updatePortrait];
     }];
 }
+-(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
 
+{
+    
+    // Create a graphics image context
+    
+    UIGraphicsBeginImageContext(newSize);
+    
+    
+    
+    // Tell the old image to draw in this new context, with the desired
+    
+    // new size
+    
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    
+    
+    
+    // Get the new image from the context
+    
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    
+    
+    // End the context
+    
+    UIGraphicsEndImageContext();
+    
+    
+    
+    // Return the new image.
+    
+    return newImage;
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
