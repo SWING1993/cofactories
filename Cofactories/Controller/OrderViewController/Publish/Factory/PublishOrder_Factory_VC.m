@@ -48,7 +48,7 @@
 }
 
 - (void)initSelectButon{
-    NSArray *array = @[@"普通订单",@"限制订单"];
+    NSArray *array = @[@"普通订单",@"担保订单"];
     for (int i = 0; i<array.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake((kScreenW-200)/3.f+i*(80+(kScreenW-200)/3.f), 0, 100, 42);

@@ -63,7 +63,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
     ProcessingAndComplitonOrderModel *dataModel = _dataArray[indexPath.row];
     
     if ([dataModel.orderType isEqualToString:@"加工订单"]) {

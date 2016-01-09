@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PublishOrder_Factory_Common_VC : UIViewController
-@property (nonatomic,assign) BOOL isCommon;  // 普通订单或是限制订单
+@property (nonatomic,assign) BOOL isCommon;  // 普通订单或是担保订单
 - (void)initTableView;
 @end

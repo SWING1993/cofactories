@@ -12,18 +12,21 @@
 #import "JKImagePickerController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "MJPhotoBrowser.h"
+#import "CalendarHomeViewController.h"
 
 @interface PublishOrder_Other_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate>{
     UITableView    *_tableView;
     UITextField    *_amountTF;
     UITextField    *_commentTF;
-    CustomeView    *_customeView;
     NSInteger       _timeAmount;
     UIButton       *_addButton;
     NSMutableArray   *_imageViewArray;
     UIScrollView     *_scrollView;
+    CalendarHomeViewController *_calendar;
+
 }
 @property (nonatomic, strong) JKAssets  *asset;
+@property (nonatomic, strong) UIButton  *timeButton;
 
 @end
 static NSString *const reuseIdentifier = @"reuseIdentifier";
@@ -86,8 +89,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [attributedTitle2 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,1)];
     timeLabel.attributedText = attributedTitle2;
     
-    _customeView = [[CustomeView alloc] initWithFrame:CGRectMake(115, 45+44+12, kScreenW-200, (kScreenW-200)/6.f)];
-    [headerView addSubview:_customeView];
+    _timeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _timeButton.frame = CGRectMake(115, 45+44+8, kScreenW-200, 30);
+    _timeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_timeButton setTitleColor:GRAYCOLOR(190) forState:UIControlStateNormal];
+    [_timeButton setTitle:@"请选择订单期限" forState:UIControlStateNormal];
+    [_timeButton addTarget:self action:@selector(timeChangeClick) forControlEvents:UIControlEventTouchUpInside];
+    _timeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [headerView addSubview:_timeButton];
+
     
     UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45+44+44, 70, 44)];
     commentLabel.font = [UIFont systemFontOfSize:14];
@@ -120,6 +130,29 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [footerView addSubview:publishButton];
     
 }
+
+- (void)timeChangeClick{
+    if (!_calendar) {
+        NSLog(@"22");
+        
+        _calendar = [[CalendarHomeViewController alloc]init];
+        
+        _calendar.calendartitle = @"空闲日期";
+        
+        [_calendar setAirPlaneToDay:365 ToDateforString:nil];//飞机初始化方法
+        
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    
+    _calendar.calendarblock = ^(CalendarDayModel *model){
+        
+        [weakSelf.timeButton setTitle:[NSString stringWithFormat:@"%@",[model toString]] forState:UIControlStateNormal];
+        
+    };
+    [self presentViewController:_calendar animated:YES completion:nil];
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 0;
@@ -256,7 +289,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)publishClick{
 
-    if (_amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES) {
+    if (_amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES ||[_timeButton.titleLabel.text isEqualToString:@"请选择订单期限"]) {
         kTipAlert(@"请填写必填信息，再发布订单!");
     }else{
         if ([_amountTF.text isEqualToString:@"0"]) {
@@ -273,9 +306,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100) {
         if (buttonIndex == 1) {
-            DLog(@"%@,%ld,%@",_amountTF.text,(long)_customeView.timeAmount,_commentTF.text);
+            DLog(@"%@,%@,%@",_amountTF.text,_timeButton.titleLabel.text,_commentTF.text);
             
-            [HttpClient publishFactoryOrderWithSubrole:@"其他" type:@"" amount:_amountTF.text deadline:[NSString stringWithFormat:@"%ld",(long)_customeView.timeAmount] description:_commentTF.text WithCompletionBlock:^(NSDictionary *dictionary) {
+            [HttpClient publishFactoryOrderWithSubrole:@"其他" type:@"" amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:@"-1" WithCompletionBlock:^(NSDictionary *dictionary) {
                 DLog(@"%@",dictionary);
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发布订单成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];

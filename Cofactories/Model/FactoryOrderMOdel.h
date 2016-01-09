@@ -22,6 +22,7 @@
 @property(nonatomic,copy)NSString *subRole;
 @property(nonatomic,copy)NSString *updatedAt;
 @property(nonatomic,copy)NSString *userUid;
+@property(nonatomic,copy)NSString *credit;
 
 - (instancetype)initSupplierOrderModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getSupplierOrderModelWithDictionary:(NSDictionary *)dictionary;

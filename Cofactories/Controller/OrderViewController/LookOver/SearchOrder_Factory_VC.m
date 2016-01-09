@@ -163,25 +163,29 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     FactoryOrderMOdel *model = _dataArray[indexPath.row];
     
-    FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
-    
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"返回";
-    backItem.tintColor=[UIColor whiteColor];
-    self.navigationItem.backBarButtonItem = backItem;
-    //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
-    [HttpClient getFactoryOrderDetailWithID:model.ID WithCompletionBlock:^(NSDictionary *dictionary) {
-        FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
-        vc.dataModel = dataModel;
-        vc.factoryOrderDetailBidStatus = FactoryOrderDetailBidStatus_Common;
-        [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
-            OthersUserModel *model = dictionary[@"message"];
-            vc.otherUserModel = model;
-            [self.navigationController pushViewController:vc animated:YES];
-            
+    if ([model.credit isEqualToString:@"担保订单"]) {
+        
+    }else{
+        FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
+        
+        UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+        backItem.title=@"返回";
+        backItem.tintColor=[UIColor whiteColor];
+        self.navigationItem.backBarButtonItem = backItem;
+        //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        
+        [HttpClient getFactoryOrderDetailWithID:model.ID WithCompletionBlock:^(NSDictionary *dictionary) {
+            FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
+            vc.dataModel = dataModel;
+            vc.factoryOrderDetailBidStatus = FactoryOrderDetailBidStatus_Common;
+            [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
+                OthersUserModel *model = dictionary[@"message"];
+                vc.otherUserModel = model;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }];
         }];
-    }];
+    }
 }
 
 - (void)imageDetailClick:(id)sender{

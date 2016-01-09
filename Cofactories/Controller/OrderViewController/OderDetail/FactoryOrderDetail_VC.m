@@ -15,6 +15,7 @@
 #import "PersonalMessage_Design_VC.h"
 #import "PersonalMessage_Factory_VC.h"
 #import "PersonalMessage_Clothing_VC.h"
+#import "UILabel+extension.h"
 @interface FactoryOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;
@@ -22,6 +23,7 @@
     BOOL                 _isCompletion;
     BOOL                 _isAlreadyBid;
     NSArray             *_bidAmountArray;
+    NSString            *_descriptionString;
 }
 @property(nonatomic,strong)UserModel *userModel;
 
@@ -70,6 +72,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [super viewDidLoad];
     self.navigationItem.title = @"订单详情";
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    _descriptionString = [NSString stringWithFormat:@"备注信息: %@",_dataModel.descriptions];
+    DLog(@">>>>>>>>>>>>>_descriptionString%@",_descriptionString);
     
     [self initTableView];
 }
@@ -273,10 +278,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %@件",_dataModel.amount];
                 break;
             case 2:
-                cell.textLabel.text = [NSString stringWithFormat:@"  期限:   %@天",_dataModel.deadline];
+                cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
+
                 break;
             case 3:
-                cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
+                cell.textLabel.text = [NSString stringWithFormat:@"  交货日期:   %@",_dataModel.deadline];
+
                 break;
                 
             default:
@@ -339,50 +346,41 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, _sectionFooterHeight-30)];
-    DLog(@">>>>>%@",_dataModel.descriptions);
-    NSString *string = [NSString stringWithFormat:@"备注信息: %@",_dataModel.descriptions];
-    CGSize size = [self returnSizeWithString:string];
-    UILabel *LB1 = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, size.width, size.height+20)];
-    LB1.font = kFont;
+   
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, _sectionFooterHeight)];
+    UILabel *LB1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenW-40, 100)];
+    LB1.font = [UIFont systemFontOfSize:13.f];
     LB1.numberOfLines = 0;
     LB1.textColor = [UIColor grayColor];
-    LB1.text = string;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:LB1.text];;
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    [paragraphStyle setLineSpacing:4];
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, LB1.text.length)];
-    LB1.attributedText = attributedString;
+    LB1.frame = CGRectMake(20, 0, kScreenW-40, _sectionFooterHeight-20);
+    LB1.text = _descriptionString;
+    [LB1 setRowSpace:5];
     [view addSubview:LB1];
-    
+   
     CALayer *lineLayer = [CALayer layer];
     lineLayer.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0].CGColor;
     lineLayer.frame = CGRectMake(0,_sectionFooterHeight-10, kScreenW, 10);
     [view.layer addSublayer:lineLayer];
-
     if (section == 0) {
         return view;
     }
+
     return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+
+    CGSize size = [Tools getSize:_descriptionString andFontOfSize:13.f andWidthMake:kScreenW-40];
+    _sectionFooterHeight = size.height +20 +20;
+
     if (section == 0) {
-        NSString *string = [NSString stringWithFormat:@"备注信息: %@",_dataModel.descriptions];
-        CGSize size = [self returnSizeWithString:string];
-        _sectionFooterHeight = size.height+20+10+20;
         return _sectionFooterHeight;
     }else if (section == 1){
-        return 0.01;
+        return 0.001;
     }
     return 0;
+    
 }
 
-- (CGSize)returnSizeWithString:(NSString *)string{
-    NSDictionary *attribute = @{NSFontAttributeName: kFont};
-    CGSize size = [string boundingRectWithSize:CGSizeMake(kScreenW-30, LONG_MAX) options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading
-                                    attributes:attribute context:nil].size;
-    return size;
-}
 
 @end

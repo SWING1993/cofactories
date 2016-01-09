@@ -192,7 +192,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     break;
                 case UserType_designer:{
                     
-                    
                     DesignOrderDetail_VC *vc = [DesignOrderDetail_VC new];
                     UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
                     backItem.title=@"返回";

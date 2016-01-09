@@ -44,6 +44,14 @@
         }
         
         self.userUid = [NSString stringWithFormat:@"%@",dictionary[@"userUid"]];
+        
+        NSString *creditString = [NSString stringWithFormat:@"%@",dictionary[@"credit"]];
+        DLog(@"---------%@",creditString);
+        if ([creditString isEqualToString:@"-1"] || [creditString isEqualToString:@"<null>"] || [creditString isEqualToString:@"null"] || creditString == nil) {
+            self.credit = @"普通订单";
+        }else{
+            self.credit = @"担保订单";
+        }
     }
     return self;
 }

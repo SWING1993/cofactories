@@ -394,7 +394,18 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
     }else{
         NSLog(@"322223");
-        
+        if (_typeLabel.text.length != 2 || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || [_timeButton.titleLabel.text isEqualToString:@"请选择订单期限"]) {
+            kTipAlert(@"请填写必填信息，再发布订单!");
+        }else{
+            if ([_amountTF.text isEqualToString:@"0"]) {
+                kTipAlert(@"订单数量不得为0!");
+            }else{
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
+                alertView.tag = 200;
+                [alertView show];
+            }
+        }
+
         
     }
     
@@ -403,7 +414,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100) {
         if (buttonIndex == 1) {
-            DLog(@"%@,%@,%ld,%@",_typeLabel.text,_amountTF.text,(long)_customeView.timeAmount,_commentTF.text);
+            DLog(@"%@,%@,%@,%@",_typeLabel.text,_amountTF.text,_timeButton.titleLabel.text,_commentTF.text);
             
             NSString *typeString = @"";
             if ([_typeLabel.text isEqualToString:@"针织"]) {
@@ -413,7 +424,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             }
             
             //  此处要修改
-            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:[NSString stringWithFormat:@"%ld",(long)_customeView.timeAmount] description:_commentTF.text WithCompletionBlock:^(NSDictionary *dictionary) {
+            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:@"-1" WithCompletionBlock:^(NSDictionary *dictionary) {
                 
                 DLog(@"%@",dictionary);
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
@@ -450,6 +461,52 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         if (buttonIndex == 0) {
             [self.navigationController popViewControllerAnimated:YES];
         }
+    }
+    
+    if (alertView.tag == 200) {
+        if (buttonIndex == 1) {
+            DLog(@"%@,%@,%@,%@",_typeLabel.text,_amountTF.text,_timeButton.titleLabel.text,_commentTF.text);
+            
+            NSString *typeString = @"";
+            if ([_typeLabel.text isEqualToString:@"针织"]) {
+                typeString = @"knit";
+            }else{
+                typeString = @"woven";
+            }
+            
+            //  此处要修改
+            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:@"0" WithCompletionBlock:^(NSDictionary *dictionary) {
+                
+                DLog(@"%@",dictionary);
+                if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发布订单成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    alertView.tag = 10086;
+                    [alertView show];
+                    if (_imageViewArray.count>0) {
+                        NSString *policyString = dictionary[@"message"][@"data"][@"policy"];
+                        NSString *signatureString = dictionary[@"message"][@"data"][@"signature"];
+                        UpYun *upYun = [[UpYun alloc] init];
+                        upYun.bucket = bucketAPI;//图片测试
+                        upYun.expiresIn = 600;// 10分钟
+                        
+                        DLog(@"%@",_imageViewArray);
+                        [_imageViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            UIImage *image = (UIImage *)obj;
+                            [upYun uploadImage:image policy:policyString signature:signatureString];
+                        }];
+                        
+                    }else{
+                        // 用户未上传图片
+                    }
+                    
+                }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
+                    kTipAlert(@"发布订单失败，请重新登录");
+                }
+                
+            }];
+            
+        }
+
     }
 }
 

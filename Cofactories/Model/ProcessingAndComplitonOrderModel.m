@@ -33,6 +33,17 @@
         
         self.orderStatus = [NSString stringWithFormat:@"%@",dictionary[@"status"]];
         
+        if ([self.orderType isEqualToString:@"加工订单"]) {
+            NSString *creditString = [NSString stringWithFormat:@"%@",dictionary[@"credit"]];
+            if ([creditString isEqualToString:@"-1"]) {
+                self.creditString = @"普通订单";
+            }else{
+                self.creditString = @"担保订单";
+            }
+        }else{
+            self.creditString = @"普通订单";
+        }
+        
     }return self;
 }
 
