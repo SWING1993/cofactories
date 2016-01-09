@@ -512,7 +512,6 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MaterialShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:materialCellIdentifier forIndexPath:indexPath];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
-    //    cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
     if (myModel.photoArray.count > 0) {
         [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     } else {
@@ -531,7 +530,6 @@ static NSString *materialCellIdentifier = @"materialCell";
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    //    [self removeSearchBar];
     materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
     materialShopVC.shopID = myModel.ID;

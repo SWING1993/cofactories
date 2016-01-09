@@ -32,30 +32,15 @@
     [webView loadRequest:request];
     
     hud = [Tools createHUDWithView:self.view];
-    hud.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     hud.labelText = @"加载中...";
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *requestString = [[request URL] absoluteString];
     DLog(@"^^^^^^^^%@", requestString);
-    NSString *headerString = nil;
-    if (requestString.length >11) {
-        headerString = [requestString substringToIndex:12];
-        DLog(@"#####%@", headerString);
-    }
     
-    //判断点的链接是不是电话
-//    NSString *telString = [requestString substringToIndex:4];
-//    if ([telString isEqualToString:@"tel:"]) {
-//        NSString *phoneString = [requestString substringFromIndex:4];
-//        DLog(@"phone = %@", phoneString);
-//        NSString *str = [NSString stringWithFormat:@"telprompt://%@", phoneString];
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-//    }
     //判断是不是点击链接
-    if ([headerString isEqualToString:@"cofactories:"]) {
-        
+    if ([requestString hasPrefix:@"cofactories:"]) {
         if ([requestString rangeOfString:@"shop"].location != NSNotFound) {
             HomeKoreaShopList_VC *designShopVC = [[HomeKoreaShopList_VC alloc] initWithSubrole:@"设计者" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:5]];
             [self.navigationController pushViewController:designShopVC animated:YES];
