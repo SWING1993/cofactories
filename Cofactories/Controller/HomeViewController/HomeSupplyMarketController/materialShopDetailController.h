@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface materialShopDetailController : UIViewController
+
 @property (nonatomic, strong) NSString *shopID;
 
 @property (nonatomic, assign) NSInteger myAmount;//购物车里选择的数量， 默认1

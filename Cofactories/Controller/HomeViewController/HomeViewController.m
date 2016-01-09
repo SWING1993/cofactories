@@ -70,19 +70,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
         [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     }];
-    //活动列表
-    [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
-        int statusCode = [responseDictionary[@"statusCode"] intValue];
-        DLog(@"statusCode = %d", statusCode);
-        NSArray *jsonArray = responseDictionary[@"responseArray"];
-        self.activityArray = [NSMutableArray arrayWithCapacity:0];
-        for (NSDictionary *dictionary in jsonArray) {
-            ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
-            [self.activityArray addObject:activityModel];
-        }
-        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
-        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-    }];
+    
 }
 #pragma mark - RCIMUserInfoDataSource
 
@@ -131,6 +119,19 @@ static NSString *activityCellIdentifier = @"activityCell";
     [self creatTableView];
     [self creatTableHeaderView];
     [self creatShoppingCarTable];
+    //活动列表
+    [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        NSArray *jsonArray = responseDictionary[@"responseArray"];
+        self.activityArray = [NSMutableArray arrayWithCapacity:0];
+        for (NSDictionary *dictionary in jsonArray) {
+            ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
+            [self.activityArray addObject:activityModel];
+        }
+        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
+        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)creatTableView {

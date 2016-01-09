@@ -343,7 +343,6 @@ static NSString *popularCellIdentifier = @"popularCell";
 #pragma mark - 换一批
 - (void)actionOfChang:(UIButton *)button {
     DLog(@"换一批");
-    button.userInteractionEnabled = NO;
     [HttpClient getSixPopularNewsListWithCategory:self.categoryNum withBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         self.popularNewsListArray = [NSMutableArray arrayWithCapacity:0];
@@ -352,10 +351,8 @@ static NSString *popularCellIdentifier = @"popularCell";
                 PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
                 [self.popularNewsListArray addObject:popularNewsModel];
             }
-            button.userInteractionEnabled = YES;
             [self.collectionView reloadData];
         } else {
-            button.userInteractionEnabled = YES;
         }
 
     }];
@@ -427,7 +424,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     cell.newsTitle.text = popularNewsModel.newsTitle;
     cell.likeCountLabel.text = popularNewsModel.likeNum;
-    cell.commentCountLabel.text = [NSString stringWithFormat:@"评论数：%@", popularNewsModel.commentNum];
+    cell.commentCountLabel.text = [NSString stringWithFormat:@"阅读数：%@", popularNewsModel.commentNum];
     return cell;
 }
 

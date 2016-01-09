@@ -18,7 +18,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     NSString        *_subrole;
     NSDictionary    *_selectDataDictionary;
     DOPDropDownMenu *_dropDownMenu;
-    NSArray         *_maleArray, *_femaleArray, *_boyArray, *_girlArray;
+//    NSArray         *_maleArray, *_femaleArray, *_boyArray, *_girlArray;
 
 }
 @property (nonatomic,copy)NSString *userType;
@@ -53,10 +53,10 @@ static NSString *materialCellIdentifier = @"materialCell";
     self.view.backgroundColor = [UIColor whiteColor];
     [self creatCollectionView];
     
-    _maleArray = @[@"男装不限", @"上衣", @"下衣", @"套装"];
-    _femaleArray = @[@"女装不限", @"上衣", @"下衣", @"套装"];
-    _boyArray = @[@"男童不限", @"上衣", @"下衣", @"套装"];
-    _girlArray = @[@"女童不限", @"上衣", @"下衣", @"套装"];
+//    _maleArray = @[@"男装不限", @"上衣", @"下衣", @"套装"];
+//    _femaleArray = @[@"女装不限", @"上衣", @"下衣", @"套装"];
+//    _boyArray = @[@"男童不限", @"上衣", @"下衣", @"套装"];
+//    _girlArray = @[@"女童不限", @"上衣", @"下衣", @"套装"];
     
     _dropDownMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
     _dropDownMenu.delegate = self;
@@ -179,53 +179,53 @@ static NSString *materialCellIdentifier = @"materialCell";
 }
 
 - (NSInteger)menu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column{
-    if (column == 0) {
-        switch (row) {
-            case 0:
-                return 0;
-                break;
-            case 1:
-                return _maleArray.count;
-                break;
-            case 2:
-                return _femaleArray.count;
-                break;
-            case 3:
-                return _boyArray.count;
-                break;
-            case 4:
-                return _girlArray.count;
-                break;
-            default:
-                break;
-        }
-    }
-    
+//    if (column == 0) {
+//        switch (row) {
+//            case 0:
+//                return 0;
+//                break;
+//            case 1:
+//                return _maleArray.count;
+//                break;
+//            case 2:
+//                return _femaleArray.count;
+//                break;
+//            case 3:
+//                return _boyArray.count;
+//                break;
+//            case 4:
+//                return _girlArray.count;
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+//    
     return 0;
 }
 
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath{
-    if (indexPath.column == 0) {
-        switch (indexPath.row) {
-            case 1:
-                return _maleArray[indexPath.item];
-                break;
-                
-            case 2:
-                return _femaleArray[indexPath.item];
-                break;
-            case 3:
-                return _boyArray[indexPath.item];
-                break;
-            case 4:
-                return _girlArray[indexPath.item];
-                break;
-                
-            default:
-                break;
-        }
-        
-    }
+//    if (indexPath.column == 0) {
+//        switch (indexPath.row) {
+//            case 1:
+//                return _maleArray[indexPath.item];
+//                break;
+//                
+//            case 2:
+//                return _femaleArray[indexPath.item];
+//                break;
+//            case 3:
+//                return _boyArray[indexPath.item];
+//                break;
+//            case 4:
+//                return _girlArray[indexPath.item];
+//                break;
+//                
+//            default:
+//                break;
+//        }
+//        
+//    }
     return nil;
 }
 
@@ -242,79 +242,79 @@ static NSString *materialCellIdentifier = @"materialCell";
                     break;
                 case 1:
                     _userType = @"male";
-                    switch (indexPath.item) {
-                        case 0:
-                            _userPart = nil;
-                            break;
-                        case 1:
-                            _userPart = @"top";
-                            break;
-                        case 2:
-                            _userPart = @"bottom";
-                            break;
-                        case 3:
-                            _userPart = @"suit";
-                            break;
-                        default:
-                            break;
-                    }
+//                    switch (indexPath.item) {
+//                        case 0:
+//                            _userPart = nil;
+//                            break;
+//                        case 1:
+//                            _userPart = @"top";
+//                            break;
+//                        case 2:
+//                            _userPart = @"bottom";
+//                            break;
+//                        case 3:
+//                            _userPart = @"suit";
+//                            break;
+//                        default:
+//                            break;
+//                    }
                     break;
                 case 2:
                     _userType = @"female";
-                    switch (indexPath.item) {
-                        case 0:
-                            _userPart = nil;
-                            break;
-                        case 1:
-                            _userPart = @"top";
-                            break;
-                        case 2:
-                            _userPart = @"bottom";
-                            break;
-                        case 3:
-                            _userPart = @"suit";
-                            break;
-                        default:
-                            break;
-                    }
+//                    switch (indexPath.item) {
+//                        case 0:
+//                            _userPart = nil;
+//                            break;
+//                        case 1:
+//                            _userPart = @"top";
+//                            break;
+//                        case 2:
+//                            _userPart = @"bottom";
+//                            break;
+//                        case 3:
+//                            _userPart = @"suit";
+//                            break;
+//                        default:
+//                            break;
+//                    }
                     break;
                 case 3:
                     _userType = @"boy";
-                    switch (indexPath.item) {
-                        case 0:
-                            _userPart = nil;
-                            break;
-                        case 1:
-                            _userPart = @"top";
-                            break;
-                        case 2:
-                            _userPart = @"bottom";
-                            break;
-                        case 3:
-                            _userPart = @"suit";
-                            break;
-                        default:
-                            break;
-                    }
+//                    switch (indexPath.item) {
+//                        case 0:
+//                            _userPart = nil;
+//                            break;
+//                        case 1:
+//                            _userPart = @"top";
+//                            break;
+//                        case 2:
+//                            _userPart = @"bottom";
+//                            break;
+//                        case 3:
+//                            _userPart = @"suit";
+//                            break;
+//                        default:
+//                            break;
+//                    }
                     break;
                 case 4:
                     _userType = @"girl";
-                    switch (indexPath.item) {
-                        case 0:
-                            _userPart = nil;
-                            break;
-                        case 1:
-                            _userPart = @"top";
-                            break;
-                        case 2:
-                            _userPart = @"bottom";
-                            break;
-                        case 3:
-                            _userPart = @"suit";
-                            break;
-                        default:
-                            break;
-                    }
+//                    switch (indexPath.item) {
+//                        case 0:
+//                            _userPart = nil;
+//                            break;
+//                        case 1:
+//                            _userPart = @"top";
+//                            break;
+//                        case 2:
+//                            _userPart = @"bottom";
+//                            break;
+//                        case 3:
+//                            _userPart = @"suit";
+//                            break;
+//                        default:
+//                            break;
+//                    }
                     break;
                 default:
                     break;
