@@ -125,7 +125,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     doneButton.userInteractionEnabled = NO;
     [HttpClient postVerifyWithenterpriseName:self.priseName withenterpriseAddress:self.priseAddress withpersonName:self.personName withidCard:self.idCard idCardImage:[self.idCardImageArray lastObject] idCardBackImage:[self.idCardBackImageArray lastObject] licenseImage:[self.licenseImageArray lastObject] andBlock:^(NSInteger statusCode) {
         if (statusCode == 200) {
-            kTipAlert(@"提交认证成功, 可能需要几分钟的等待时间上传图片！");
+            kTipAlert(@"提交认证成功, 可能需要几分钟的等待上传图片！");
             doneButton.userInteractionEnabled = YES;
             double delayInSeconds = 1.0f;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -281,16 +281,15 @@ static NSString * CellIdentifier = @"CellIdentifier";
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     DLog(@"+++++++++++++++++++++++");
     UIImage*image = info[UIImagePickerControllerOriginalImage];
-    image = [self imageWithImage:image scaledToSize:image.size];
-    NSData *imageData = UIImageJPEGRepresentation(image,0.000000001);
+    CGSize imagesize = image.size;
+    
+    imagesize.height = image.size.height / 3;
+    imagesize.width = image.size.width / 3;
+    image = [self imageWithImage:image scaledToSize:imagesize];
+    
+    NSData *imageData = UIImageJPEGRepresentation(image,0.00001);
     UIImage*newImage = [UIImage imageWithData:imageData];
     
-    NSData * data = UIImageJPEGRepresentation(image, 1);
-    NSData * datarrr = UIImageJPEGRepresentation(newImage, 1);
-    CGFloat a = [data length]/1024;
-    CGFloat b =  [imageData length]/1024;
-    CGFloat c = [datarrr length]/1024;
-    DLog(@"%f+++++++%f+++++++%f", a,b,c);
     [self.imageArray addObject:newImage];
     if (self.imageType == 1) {
         [self.idCardImageArray addObject:newImage];
@@ -324,34 +323,13 @@ static NSString * CellIdentifier = @"CellIdentifier";
 -(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
 
 {
-    
-    // Create a graphics image context
-    
     UIGraphicsBeginImageContext(newSize);
-    
-    
-    
-    // Tell the old image to draw in this new context, with the desired
-    
-    // new size
     
     [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     
-    
-    
-    // Get the new image from the context
-    
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     
-    
-    
-    // End the context
-    
     UIGraphicsEndImageContext();
-    
-    
-    
-    // Return the new image.
     
     return newImage;
     
