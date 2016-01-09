@@ -147,6 +147,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0) {
+        return 2;
+    }
     return 1;
 }
 
@@ -161,7 +164,22 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         cell.textLabel.font = kFont;
         switch (indexPath.section) {
             case 0:
-                cell.textLabel.text = @"购物车";
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        cell.textLabel.text = @"购物车";
+                    }
+                        break;
+                    case 1:
+                    {
+                        cell.textLabel.text = @"联系客服";
+                    }
+                        break;
+
+                        
+                    default:
+                        break;
+                }
                 break;
              
             case 1:
@@ -210,10 +228,28 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 0: {
-            DLog("购物车");
-            ShopCarController *shopCarVC = [[ShopCarController alloc] init];
-            shopCarVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:shopCarVC animated:YES];
+            switch (indexPath.row) {
+                case 0:
+                {
+                    DLog("购物车");
+                    ShopCarController *shopCarVC = [[ShopCarController alloc] init];
+                    shopCarVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:shopCarVC animated:YES];
+                }
+                    break;
+                    
+                case 1:
+                {
+                    DLog("客服聊天");
+//                    ShopCarController *shopCarVC = [[ShopCarController alloc] init];
+//                    shopCarVC.hidesBottomBarWhenPushed = YES;
+//                    [self.navigationController pushViewController:shopCarVC animated:YES];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
         }
             break;
             
