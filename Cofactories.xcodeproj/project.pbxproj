@@ -357,6 +357,7 @@
 		7DBDC8E31C157E7400D682D3 /* ColorSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDC8E21C157E7400D682D3 /* ColorSelectCell.m */; };
 		7DBDC8E61C15848B00D682D3 /* SelectColorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDC8E51C15848B00D682D3 /* SelectColorModel.m */; };
 		7DC13EE21C15646500304364 /* ZGYSelectNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC13EE11C15646500304364 /* ZGYSelectNumberView.m */; };
+		7DC27B8F1C40B82F006DB851 /* PublicServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27B8E1C40B82F006DB851 /* PublicServiceViewController.m */; };
 		7DC2A7681C2010700005CAFD /* MeHistoryOrderDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2A7671C2010700005CAFD /* MeHistoryOrderDetail_VC.m */; };
 		7DC2A76B1C2010AB0005CAFD /* HistoryOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */; };
 		7DCCC2A01C20FDB6002BF795 /* PopularNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */; };
@@ -1127,6 +1128,8 @@
 		7DBDC8E51C15848B00D682D3 /* SelectColorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectColorModel.m; sourceTree = "<group>"; };
 		7DC13EE01C15646500304364 /* ZGYSelectNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSelectNumberView.h; sourceTree = "<group>"; };
 		7DC13EE11C15646500304364 /* ZGYSelectNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSelectNumberView.m; sourceTree = "<group>"; };
+		7DC27B8D1C40B82F006DB851 /* PublicServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicServiceViewController.h; sourceTree = "<group>"; };
+		7DC27B8E1C40B82F006DB851 /* PublicServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicServiceViewController.m; sourceTree = "<group>"; };
 		7DC2A7661C2010700005CAFD /* MeHistoryOrderDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistoryOrderDetail_VC.h; sourceTree = "<group>"; };
 		7DC2A7671C2010700005CAFD /* MeHistoryOrderDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistoryOrderDetail_VC.m; sourceTree = "<group>"; };
 		7DC2A7691C2010AB0005CAFD /* HistoryOrderAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOrderAddressCell.h; sourceTree = "<group>"; };
@@ -2034,6 +2037,8 @@
 				7D665EA41C0C60EE00C7C7BF /* IMChatListViewController.m */,
 				7D665EA51C0C60EE00C7C7BF /* IMChatViewController.h */,
 				7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */,
+				7DC27B8D1C40B82F006DB851 /* PublicServiceViewController.h */,
+				7DC27B8E1C40B82F006DB851 /* PublicServiceViewController.m */,
 			);
 			path = IMChatViewController;
 			sourceTree = "<group>";
@@ -3090,6 +3095,7 @@
 				70A784F01C081905003D1892 /* PublishOrder_Common_VC.m in Sources */,
 				03571C481BE85CCF00900EF9 /* MBProgressHUD.m in Sources */,
 				70F5EF7D1C0C24F5008878B4 /* Order_Factory_TVC.m in Sources */,
+				7DC27B8F1C40B82F006DB851 /* PublicServiceViewController.m in Sources */,
 				705679E01C1952CC00ACA494 /* DealComment_Model.m in Sources */,
 				705679D21C194C2E00ACA494 /* PersonalWorks_TVC.m in Sources */,
 				7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */,

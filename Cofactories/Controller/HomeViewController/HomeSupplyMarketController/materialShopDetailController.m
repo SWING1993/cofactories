@@ -139,7 +139,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         }
     }];
     
-    
 }
 
 
@@ -221,8 +220,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         cell.marketPriceLeftLabel.text = @"市场价";
         CGSize size = [Tools getSize:[NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice] andFontOfSize:15];
         cell.marketPriceRightLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceLeftLabel.frame), CGRectGetMaxY(cell.priceLeftLabel.frame), size.width, 30);
-        cell.lineView.frame = CGRectMake(cell.marketPriceRightLabel.frame.origin.x, cell.marketPriceRightLabel.frame.origin.y + cell.marketPriceRightLabel.frame.size.height/2.0, size.width, 1);
-        cell.marketPriceRightLabel.text = [NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice];
+        
+        cell.marketPriceRightLabel.attributedText = [self underlineWithString:[NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice]];
         cell.leaveCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceRightLabel.frame) + 10, CGRectGetMaxY(cell.priceLeftLabel.frame), kScreenW - 30 - CGRectGetWidth(cell.marketPriceLeftLabel.frame) - CGRectGetWidth(cell.marketPriceRightLabel.frame), 30);
         if ([marketDetailModel.amount isEqualToString:@"库存暂无"]) {
             cell.leaveCountLabel.text = @"库存暂无";
@@ -434,8 +433,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     }
 }
 
-
-
 - (void)creatCollectionView {
     //创建CollectionView
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -579,9 +576,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
             [dataBaseHandle addShoppingCar:shopCarModel];
 
             kTipAlert(@"加入购物车成功");
-
         }
-
 
         } else if (button.tag == 223){
         DLog(@"底部 + 立即购买");
@@ -595,10 +590,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
             shopOrderVC.goodsID = self.shopID;
             shopOrderVC.goodsNumber = selectAmount;
             [self.navigationController pushViewController:shopOrderVC animated:YES];
-        
+        }
     }
-    }
-    
 }
 - (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString andRange:(NSInteger)myRange {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
@@ -606,12 +599,14 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(myRange, myString.length - myRange)]; // 0为起始位置 length是从起始位置开始 设置指定颜色的长度
     
     //设置尺寸
-    
     [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(myRange + 2, myString.length - 5 - myRange)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
     
-    //这段代码必须要写 否则没效果
-    
     return attributedString;
+}
+- (NSAttributedString *)underlineWithString:(NSString *)labelStr {
+    NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName :[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:labelStr attributes:attribtDic];
+    return attribtStr;
 }
 
 - (void)didReceiveMemoryWarning {

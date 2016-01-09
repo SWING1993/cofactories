@@ -2030,6 +2030,7 @@
             block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            DLog(@"error = %@", error);
             block(@{@"statusCode": @([operation.response statusCode])});
         }];
     } else {
