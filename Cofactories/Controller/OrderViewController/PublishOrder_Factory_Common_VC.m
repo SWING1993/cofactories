@@ -15,7 +15,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "MJPhotoBrowser.h"
 #import "CalendarHomeViewController.h"
-
+#import "UserModel.h"
 @interface PublishOrder_Factory_Common_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate>{
     UITableView    *_tableView;
     UILabel        *_typeLabel;
@@ -31,6 +31,7 @@
 }
 @property (nonatomic, strong) JKAssets  *asset;
 @property (nonatomic, strong) UIButton  *timeButton;
+@property (nonatomic,strong) UserModel *userModel;
 @end
 
 static NSString *const reuseIdentifier = @"reuseIdentifier";
@@ -55,6 +56,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"寻找加工厂";
+    self.userModel = [[UserModel alloc] getMyProfile];
     self.view.backgroundColor = [UIColor whiteColor];
     _imageViewArray = [@[] mutableCopy];
     self.isCommon = YES;
@@ -158,12 +160,11 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
         UILabel *moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 45+44+44+44, 70, 44)];
         moneyLabel.font = [UIFont systemFontOfSize:14];
-        moneyLabel.textColor = [UIColor grayColor];
         [headerView addSubview:moneyLabel];
         
         NSString *string3 = @"* 设保证金";
         NSMutableAttributedString *attributedTitle3 = [[NSMutableAttributedString alloc] initWithString:string3];
-        [attributedTitle3 addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0,1)];
+        [attributedTitle3 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,1)];
         moneyLabel.attributedText = attributedTitle3;
         
         _customeView = [[CustomeView alloc] initWithFrame:CGRectMake(115, 45+44+44+44+12, kScreenW-200, (kScreenW-200)/6.f)];
@@ -457,15 +458,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         }
     }
     
-    if (alertView.tag == 10086) {
+    else if (alertView.tag == 10086) {
         if (buttonIndex == 0) {
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
     
-    if (alertView.tag == 200) {
+    else if (alertView.tag == 200) {
         if (buttonIndex == 1) {
-            DLog(@"%@,%@,%@,%@",_typeLabel.text,_amountTF.text,_timeButton.titleLabel.text,_commentTF.text);
+            DLog(@"%@,%@,%@,%ld,%@",_typeLabel.text,_amountTF.text,_timeButton.titleLabel.text,(long)_customeView.moneyAmount,_commentTF.text);
             
             NSString *typeString = @"";
             if ([_typeLabel.text isEqualToString:@"针织"]) {
@@ -475,7 +476,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             }
             
             //  此处要修改
-            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:@"0" WithCompletionBlock:^(NSDictionary *dictionary) {
+            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:[NSString stringWithFormat:@"%ld",(long)_customeView.moneyAmount] WithCompletionBlock:^(NSDictionary *dictionary) {
                 
                 DLog(@"%@",dictionary);
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
@@ -501,12 +502,37 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     
                 }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
                     kTipAlert(@"发布订单失败，请重新登录");
+                }else if ([dictionary[@"statusCode"] isEqualToString:@"402"]) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"钱包余额小于您设置的保证金额" message:@"请充值" delegate:self cancelButtonTitle:@"暂不充值" otherButtonTitles:@"立即充值", nil];
+                    alert.tag = 402;
+                    [alert show];
+                }else if ([dictionary[@"statusCode"] isEqualToString:@"403"]) {
+                    
+                    if (_userModel.verify_status == 0) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未认证用户" message:nil delegate:self cancelButtonTitle:@"暂不认证" otherButtonTitles:@"立即认证", nil];
+                        alert.tag = 403;
+                        [alert show];
+                    }else if (_userModel.verify_status == 1){
+                        kTipAlert(@"您的认证正在处理，请耐心等待结果!");
+                    }
                 }
                 
             }];
             
         }
 
+    }
+    
+    else if (alertView.tag == 402) {
+        if (buttonIndex == 1) {
+            
+        }
+    }
+    
+    else if (alertView.tag == 403) {
+        if (buttonIndex == 1) {
+            
+        }
     }
 }
 

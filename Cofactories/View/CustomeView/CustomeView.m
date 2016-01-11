@@ -20,9 +20,9 @@
         self.layer.borderWidth = 1;
         self.layer.borderColor = [UIColor grayColor].CGColor;
         self.layer.cornerRadius = 5;
-        _amount = 0;
+        _amount = 1000;
         [self addButtonAndAmountViewWithFram:frame];
-        self.timeAmount = 0;
+        self.moneyAmount = 1000;
     }
     return self;
 }
@@ -36,7 +36,6 @@
         button.backgroundColor = [UIColor grayColor];
         button.tag = i;
         [button setTitle:array[i] forState:UIControlStateNormal];
-        button.enabled = NO;
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
     }
@@ -53,16 +52,16 @@
     UIButton *button = (UIButton *)sender;
     
     if (button.tag == 0) {
-        if (_amount == 1) {
-        }else if (_amount > 1){
-            _amount--;
+        if (_amount == 1000) {
+        }else if (_amount > 1000){
+            _amount-=500;
         }
     }else if (button.tag == 1){
-        _amount++;
+        _amount+=500;
     }
     
     _amountLabel.text = [NSString stringWithFormat:@"%ld 元",(long)_amount];
-    self.timeAmount = _amount;
+    self.moneyAmount = _amount;
 }
 
 

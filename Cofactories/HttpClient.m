@@ -1222,11 +1222,12 @@
             completionBlock(@{@"statusCode": @"200", @"message":responseObject});
 
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-            DLog(@"error == %@",error);
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            completionBlock(@{@"statusCode": [NSString stringWithFormat:@"%ld",(long)statusCode]});
         }];
         
     }else{
-        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+        completionBlock(@{@"statusCode": @"404", @"message": @"token不存在"});
     }
 
 }
