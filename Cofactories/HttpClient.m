@@ -778,17 +778,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
         DLog(@"获取验证码的statusCode = %ld",(long)statusCode);
-        switch (statusCode) {
-            case 400:
-                block(@{@"statusCode": @(400), @"message": @"failure"});
-                break;
-            case 409:
-                block(@{@"statusCode": @(409), @"message": @"failure"});
-                break;
-            default:
-                block(@{@"statusCode": @(502), @"message": @"failure"});
-                break;
-        }
+        block(@{@"statusCode": @(statusCode)});
     }];
 }
 + (void)getActivityWithBlock:(void (^)(NSDictionary *responseDictionary))block {

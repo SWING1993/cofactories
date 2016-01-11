@@ -10,4 +10,6 @@
 
 @interface AuthenticationController : UITableViewController
 
+@property (nonatomic, assign) BOOL homeEnter;//不是首页进入的，传NO
+
 @end

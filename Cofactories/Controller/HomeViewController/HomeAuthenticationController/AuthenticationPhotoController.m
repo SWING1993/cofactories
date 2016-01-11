@@ -127,12 +127,18 @@ static NSString * CellIdentifier = @"CellIdentifier";
         if (statusCode == 200) {
             kTipAlert(@"提交认证成功, 可能需要几分钟的等待上传图片！");
             doneButton.userInteractionEnabled = YES;
-            double delayInSeconds = 1.0f;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                NSArray *navArray = self.navigationController.viewControllers;
-                [self.navigationController popToViewController:navArray[0] animated:YES];
-            });
+            if (self.homeEnter) {
+                double delayInSeconds = 1.0f;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    NSArray *navArray = self.navigationController.viewControllers;
+                    [self.navigationController popToViewController:navArray[0] animated:YES];
+                });
+            } else {
+                //不是首页进入的
+                
+            }
+            
         } else {
             kTipAlert(@"提交认证失败");
             doneButton.userInteractionEnabled = YES;
@@ -280,14 +286,10 @@ static NSString * CellIdentifier = @"CellIdentifier";
 #pragma mark <UIImagePickerControllerDelegate>
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     DLog(@"+++++++++++++++++++++++");
-    UIImage*image = info[UIImagePickerControllerOriginalImage];
-    CGSize imagesize = image.size;
+//    UIImage*image = info[UIImagePickerControllerOriginalImage];
+    UIImage*image = info[UIImagePickerControllerEditedImage];//截取图片
     
-    imagesize.height = image.size.height / 3;
-    imagesize.width = image.size.width / 3;
-    image = [self imageWithImage:image scaledToSize:imagesize];
-    
-    NSData *imageData = UIImageJPEGRepresentation(image,0.00001);
+    NSData *imageData = UIImageJPEGRepresentation(image,0.5);
     UIImage*newImage = [UIImage imageWithData:imageData];
     
     [self.imageArray addObject:newImage];
@@ -320,20 +322,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 //        [self updatePortrait];
     }];
 }
--(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
 
-{
-    UIGraphicsBeginImageContext(newSize);
-    
-    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-    
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
