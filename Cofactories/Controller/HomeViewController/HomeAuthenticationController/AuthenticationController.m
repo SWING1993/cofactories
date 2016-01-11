@@ -140,6 +140,7 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     photoVC.priseAddress = priseAddressTextField.text;
     photoVC.personName = personNameTextField.text;
     photoVC.idCard = idCardTextField.text;
+    photoVC.homeEnter = self.homeEnter;
     [self.navigationController pushViewController:photoVC animated:YES];
     NSLog(@"%@， %@， %@， %@", priseNameTextField.text, priseAddressTextField.text, personNameTextField.text, idCardTextField.text);
     

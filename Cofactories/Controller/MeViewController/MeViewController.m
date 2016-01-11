@@ -16,6 +16,7 @@
 #import "MeHistoryOrderList_VC.h"
 #import "MeOrderSelect_VC.h"
 #import "PublishPopularNews_VC.h"
+#import "PublicServiceViewController.h"
 
 static NSString * const CellIdentifier = @"CellIdentifier";
 
@@ -241,9 +242,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 case 1:
                 {
                     DLog("客服聊天");
-//                    ShopCarController *shopCarVC = [[ShopCarController alloc] init];
-//                    shopCarVC.hidesBottomBarWhenPushed = YES;
-//                    [self.navigationController pushViewController:shopCarVC animated:YES];
+                    PublicServiceViewController *conversationVC = [[PublicServiceViewController alloc] init];
+                    conversationVC.conversationType = ConversationType_APPSERVICE;
+                    conversationVC.targetId = RONGCLOUD_IM_SERVICEID;
+                    conversationVC.userName = @"聚工厂客服";
+                    conversationVC.title = @"聚工厂客服";
+                    conversationVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:conversationVC animated:YES];
+                    
                 }
                     break;
                     

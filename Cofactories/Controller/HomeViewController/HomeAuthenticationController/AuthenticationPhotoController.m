@@ -125,14 +125,20 @@ static NSString * CellIdentifier = @"CellIdentifier";
     doneButton.userInteractionEnabled = NO;
     [HttpClient postVerifyWithenterpriseName:self.priseName withenterpriseAddress:self.priseAddress withpersonName:self.personName withidCard:self.idCard idCardImage:[self.idCardImageArray lastObject] idCardBackImage:[self.idCardBackImageArray lastObject] licenseImage:[self.licenseImageArray lastObject] andBlock:^(NSInteger statusCode) {
         if (statusCode == 200) {
-            kTipAlert(@"提交认证成功, 可能需要几分钟的等待时间上传图片！");
+            kTipAlert(@"提交认证成功, 可能需要几分钟的等待上传图片！");
             doneButton.userInteractionEnabled = YES;
-            double delayInSeconds = 1.0f;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                NSArray *navArray = self.navigationController.viewControllers;
-                [self.navigationController popToViewController:navArray[0] animated:YES];
-            });
+            if (self.homeEnter) {
+                double delayInSeconds = 1.0f;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    NSArray *navArray = self.navigationController.viewControllers;
+                    [self.navigationController popToViewController:navArray[0] animated:YES];
+                });
+            } else {
+                //不是首页进入的
+                
+            }
+            
         } else {
             kTipAlert(@"提交认证失败");
             doneButton.userInteractionEnabled = YES;
@@ -279,10 +285,13 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 #pragma mark <UIImagePickerControllerDelegate>
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage*image;
-    image = info[UIImagePickerControllerOriginalImage];
-    NSData *imageData = UIImageJPEGRepresentation(image,0.00001);
+    DLog(@"+++++++++++++++++++++++");
+//    UIImage*image = info[UIImagePickerControllerOriginalImage];
+    UIImage*image = info[UIImagePickerControllerEditedImage];//截取图片
+    
+    NSData *imageData = UIImageJPEGRepresentation(image,0.5);
     UIImage*newImage = [UIImage imageWithData:imageData];
+    
     [self.imageArray addObject:newImage];
     if (self.imageType == 1) {
         [self.idCardImageArray addObject:newImage];
