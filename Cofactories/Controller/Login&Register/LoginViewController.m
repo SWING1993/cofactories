@@ -38,16 +38,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView.tableHeaderView = tableHeaderView;
 
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 80)];
-    UIButton*loginBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    blueButton*loginBtn=[[blueButton alloc]init];
     loginBtn.frame =  CGRectMake(20, 15, (kScreenW-40), 35);
     loginBtn.tag=0;
-    loginBtn.layer.cornerRadius=5.0f;
-    loginBtn.layer.masksToBounds=YES;
-    loginBtn.layer.borderColor = [UIColor colorWithRed:70.0f/255.0f green:126.0f/255.0f blue:220/255.0f alpha:1.0f].CGColor;
-    loginBtn.layer.borderWidth = 1.0f;
-    loginBtn.backgroundColor = [UIColor whiteColor];
+   
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    [loginBtn setTitleColor:[UIColor colorWithRed:70.0f/255.0f green:126.0f/255.0f blue:220/255.0f alpha:1.0f] forState:UIControlStateNormal];
+
     [loginBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:loginBtn];
 
