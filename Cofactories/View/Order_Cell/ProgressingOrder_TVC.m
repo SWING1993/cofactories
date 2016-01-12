@@ -14,6 +14,7 @@
     UIImageView    *_bgImage;
     UILabel        *_typeLB;
     UILabel        *_gpLB;
+    UILabel        *_restrictLabel;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -41,6 +42,14 @@
         _gpLB = [[UILabel alloc] initWithFrame:CGRectMake(115, 50, 120, 25)];
         _gpLB.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_gpLB];
+        
+        _restrictLabel = [[UILabel alloc] init];
+        _restrictLabel.frame = CGRectMake(115, 78, 45, 15);
+        _restrictLabel.font = [UIFont systemFontOfSize:11];
+        _restrictLabel.textColor = [UIColor whiteColor];
+        _restrictLabel.backgroundColor = [UIColor colorWithRed:203/255.0 green:19/255.0 blue:28/255.0 alpha:1];
+        _restrictLabel.text = @"担保订单";
+        [self.contentView addSubview:_restrictLabel];
 
     }
     return self;
@@ -70,14 +79,21 @@
             default:
                 break;
         }
-        _gpLB.text = @"已投标订单";
+        _gpLB.text = @"投标订单";
         _gpLB.textColor = MAIN_COLOR;
     }else{
         _typeLB.text = [NSString stringWithFormat:@"类型:   %@",dataModel.orderType];
-        _gpLB.text = @"已发布订单";
-        _gpLB.textColor = [UIColor colorWithRed:30/255.0 green:166/255.0 blue:73/255.0 alpha:1];
+        _gpLB.text = @"发布订单";
+        _gpLB.textColor = [UIColor grayColor];
     }
     
- 
+    
+
+    if ([dataModel.creditString isEqualToString:@"担保订单"]) {
+        _restrictLabel.hidden = NO;
+    }else{
+        _restrictLabel.hidden = YES;
+    }
+    
 }
 @end

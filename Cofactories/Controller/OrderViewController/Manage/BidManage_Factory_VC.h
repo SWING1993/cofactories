@@ -10,5 +10,5 @@
 
 @interface BidManage_Factory_VC : UITableViewController
 @property (nonatomic,copy)NSString *orderID;
-
+@property (nonatomic,assign)BOOL    isRestrict;
 @end

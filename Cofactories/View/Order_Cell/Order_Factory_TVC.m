@@ -15,6 +15,7 @@
     UILabel        *_typeLB;
     UILabel        *_amountLB;
     UILabel        *_deadlineLB;
+    UILabel        *_restrictLB;
 
 }
 
@@ -30,8 +31,9 @@
         _creatTimeLB.font = [UIFont systemFontOfSize:11];
         [self.contentView addSubview:_creatTimeLB];
         
-        _statusLB = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW-50, 0, 50, 25)];
+        _statusLB = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW-55, 0, 45, 25)];
         _statusLB.font = [UIFont systemFontOfSize:11];
+        _statusLB.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_statusLB];
         
         self.imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -48,9 +50,16 @@
         _amountLB.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_amountLB];
         
-        _deadlineLB = [[UILabel alloc] initWithFrame:CGRectMake(115, 20+25+25, 120, 25)];
+        _deadlineLB = [[UILabel alloc] initWithFrame:CGRectMake(115, 20+25+25, kScreenW-115, 25)];
         _deadlineLB.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_deadlineLB];
+        
+        _restrictLB = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW-55, 25, 45, 15)];
+        _restrictLB.text = @"担保订单";
+        _restrictLB.textColor = [UIColor whiteColor];
+        _restrictLB.font = [UIFont systemFontOfSize:11];
+        _restrictLB.backgroundColor = [UIColor colorWithRed:203/255.0 green:19/255.0 blue:28/255.0 alpha:1];
+        [self addSubview:_restrictLB];
     }
     return self;
 }
@@ -74,7 +83,12 @@
      _typeLB.text = [NSString stringWithFormat:@"类型   %@",dataModel.type];
     _amountLB.text = [NSString stringWithFormat:@"数量   %@",dataModel.amount];
     _deadlineLB.text = [NSString stringWithFormat:@"期限   %@",dataModel.deadline];
-        
+    
+    if ([dataModel.credit isEqualToString:@"担保订单"]) {
+        _restrictLB.hidden = NO;
+    }else{
+        _restrictLB.hidden = YES;
+    }
 }
 
 @end

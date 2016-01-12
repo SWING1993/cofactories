@@ -148,22 +148,32 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 - (void)creatTableHeaderView {
+    
+    UIImageView *placeHolderView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)];
+    placeHolderView.image = [UIImage imageNamed:@"PopularNews-男装"];
+    self.homeTableView.tableHeaderView = placeHolderView;
+    
     [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
         int statusCode = [responseDictionary[@"statusCode"] intValue];
         DLog(@"statusCode = %d", statusCode);
-        NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
-        self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
-        self.bannerArray = [NSMutableArray arrayWithCapacity:0];
-        for (NSDictionary *dictionary in jsonArray) {
-            IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
-            [self.bannerArray addObject:bannerModel];
-            [self.firstViewImageArray addObject:bannerModel.img];
+        if (statusCode == 200) {
+            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
+            self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
+            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dictionary in jsonArray) {
+                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
+                [self.bannerArray addObject:bannerModel];
+                [self.firstViewImageArray addObject:bannerModel.img];
+            }
+            //第一个scrollView
+            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
+            firstView.delegate=self;
+            firstView.imagesArray = self.firstViewImageArray;
+            self.homeTableView.tableHeaderView = firstView;
+        } else if (statusCode == 0) {
+            kTipAlert(@"您的网络状态不太顺畅哦~");
         }
-        //第一个scrollView
-        WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
-        firstView.delegate=self;
-        firstView.imagesArray = self.firstViewImageArray;
-        self.homeTableView.tableHeaderView = firstView;
+        
     }];
     
 }
@@ -347,6 +357,7 @@ static NSString *activityCellIdentifier = @"activityCell";
     //未认证
     if (self.MyProfile.verify_status == 0) {
         AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
+        authenticationVC.homeEnter = YES;
         authenticationVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:authenticationVC animated:YES];
     }

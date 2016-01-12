@@ -238,12 +238,14 @@
 		70A784F01C081905003D1892 /* PublishOrder_Common_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784EF1C081905003D1892 /* PublishOrder_Common_VC.m */; };
 		70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F31C083390003D1892 /* Order_Common_TVC.m */; };
 		70A784F71C085C1A003D1892 /* PublishOrder_Designer_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F61C085C1A003D1892 /* PublishOrder_Designer_VC.m */; };
-		70A784FA1C085CD3003D1892 /* PublishOrder_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F91C085CD3003D1892 /* PublishOrder_Factory_VC.m */; };
+		70A784FA1C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F91C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m */; };
 		70A784FD1C085D75003D1892 /* PublishOrder_Other_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784FC1C085D75003D1892 /* PublishOrder_Other_VC.m */; };
 		70E9F1831C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F1821C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m */; };
 		70E9F1861C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F1851C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m */; };
 		70EB7EE61C15697E009E19F9 /* Business_Supplier_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EB7EE01C15697E009E19F9 /* Business_Supplier_TVC.m */; };
 		70EB7EE71C15697E009E19F9 /* Business_Supplier_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EB7EE21C15697E009E19F9 /* Business_Supplier_VC.m */; };
+		70F3E7261C40E6480031613F /* UILabel+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F3E7251C40E6480031613F /* UILabel+extension.m */; };
+		70F3E7291C40FC410031613F /* PublishOrder_Factory_Other_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F3E7281C40FC410031613F /* PublishOrder_Factory_Other_VC.m */; };
 		70F4A76B1C128964000DF7E7 /* BidManage_Design_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A76A1C128964000DF7E7 /* BidManage_Design_VC.m */; };
 		70F4A76E1C1289C2000DF7E7 /* BidManage_Design_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A76D1C1289C2000DF7E7 /* BidManage_Design_TVC.m */; };
 		70F4A7711C1289F7000DF7E7 /* BidManage_Factory_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F4A7701C1289F7000DF7E7 /* BidManage_Factory_Model.m */; };
@@ -265,6 +267,17 @@
 		70F6D1F61C1697D000E23166 /* Business_Supplier_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1F51C1697D000E23166 /* Business_Supplier_Model.m */; };
 		70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */; };
 		70F6D2071C16CD7E00E23166 /* Business_Cloth_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */; };
+		70F9AE881C3F48390003489B /* PublishOrder_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AE871C3F48390003489B /* PublishOrder_Factory_VC.m */; };
+		70F9AE8B1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AE8A1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m */; };
+		70F9AEC31C3F70B60003489B /* CalendarDayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB21C3F70B60003489B /* CalendarDayCell.m */; };
+		70F9AEC41C3F70B60003489B /* CalendarDayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB41C3F70B60003489B /* CalendarDayModel.m */; };
+		70F9AEC51C3F70B60003489B /* CalendarHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB61C3F70B60003489B /* CalendarHomeViewController.m */; };
+		70F9AEC61C3F70B60003489B /* CalendarLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB81C3F70B60003489B /* CalendarLogic.m */; };
+		70F9AEC71C3F70B60003489B /* CalendarMonthCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEBA1C3F70B60003489B /* CalendarMonthCollectionViewLayout.m */; };
+		70F9AEC81C3F70B60003489B /* CalendarMonthHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEBC1C3F70B60003489B /* CalendarMonthHeaderView.m */; };
+		70F9AEC91C3F70B60003489B /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEBE1C3F70B60003489B /* CalendarViewController.m */; };
+		70F9AECA1C3F70B60003489B /* chack.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9AEBF1C3F70B60003489B /* chack.png */; };
+		70F9AECB1C3F70B60003489B /* NSDate+WQCalendarLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEC21C3F70B60003489B /* NSDate+WQCalendarLogic.m */; };
 		70FA60E31C09425400EA84FD /* Comment_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60E21C09425400EA84FD /* Comment_TVC.m */; };
 		70FA60EF1C098DE400EA84FD /* ZFPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60EA1C098DE400EA84FD /* ZFPopupMenu.m */; };
 		70FA60F01C098DE400EA84FD /* ZFPopupMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60EC1C098DE400EA84FD /* ZFPopupMenuItem.m */; };
@@ -900,8 +913,8 @@
 		70A784F31C083390003D1892 /* Order_Common_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order_Common_TVC.m; sourceTree = "<group>"; };
 		70A784F51C085C1A003D1892 /* PublishOrder_Designer_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishOrder_Designer_VC.h; path = Cofactories/Controller/OrderViewController/PublishOrder_Designer_VC.h; sourceTree = SOURCE_ROOT; };
 		70A784F61C085C1A003D1892 /* PublishOrder_Designer_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Designer_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Designer_VC.m; sourceTree = SOURCE_ROOT; };
-		70A784F81C085CD3003D1892 /* PublishOrder_Factory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishOrder_Factory_VC.h; path = Cofactories/Controller/OrderViewController/PublishOrder_Factory_VC.h; sourceTree = SOURCE_ROOT; };
-		70A784F91C085CD3003D1892 /* PublishOrder_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Factory_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Factory_VC.m; sourceTree = SOURCE_ROOT; };
+		70A784F81C085CD3003D1892 /* PublishOrder_Factory_Common_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishOrder_Factory_Common_VC.h; path = Cofactories/Controller/OrderViewController/PublishOrder_Factory_Common_VC.h; sourceTree = SOURCE_ROOT; };
+		70A784F91C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Factory_Common_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Factory_Common_VC.m; sourceTree = SOURCE_ROOT; };
 		70A784FB1C085D75003D1892 /* PublishOrder_Other_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishOrder_Other_VC.h; path = Cofactories/Controller/OrderViewController/PublishOrder_Other_VC.h; sourceTree = SOURCE_ROOT; };
 		70A784FC1C085D75003D1892 /* PublishOrder_Other_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Other_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Other_VC.m; sourceTree = SOURCE_ROOT; };
 		70E9F1811C1AA6DA00C13912 /* PersonalMessage_Factory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalMessage_Factory_VC.h; sourceTree = "<group>"; };
@@ -912,6 +925,10 @@
 		70EB7EE11C15697E009E19F9 /* Business_Supplier_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Supplier_VC.h; sourceTree = "<group>"; };
 		70EB7EE21C15697E009E19F9 /* Business_Supplier_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Supplier_VC.m; sourceTree = "<group>"; };
 		70EB7EE51C15697E009E19F9 /* Business_Supplier_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Supplier_TVC.h; sourceTree = "<group>"; };
+		70F3E7241C40E6480031613F /* UILabel+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+extension.h"; sourceTree = "<group>"; };
+		70F3E7251C40E6480031613F /* UILabel+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+extension.m"; sourceTree = "<group>"; };
+		70F3E7271C40FC410031613F /* PublishOrder_Factory_Other_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishOrder_Factory_Other_VC.h; sourceTree = "<group>"; };
+		70F3E7281C40FC410031613F /* PublishOrder_Factory_Other_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishOrder_Factory_Other_VC.m; sourceTree = "<group>"; };
 		70F4A7691C128964000DF7E7 /* BidManage_Design_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Design_VC.h; sourceTree = "<group>"; };
 		70F4A76A1C128964000DF7E7 /* BidManage_Design_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidManage_Design_VC.m; sourceTree = "<group>"; };
 		70F4A76C1C1289C2000DF7E7 /* BidManage_Design_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidManage_Design_TVC.h; sourceTree = "<group>"; };
@@ -954,6 +971,28 @@
 		70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Factory_VC.m; sourceTree = "<group>"; };
 		70F6D2051C16CD7E00E23166 /* Business_Cloth_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Cloth_VC.h; sourceTree = "<group>"; };
 		70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Cloth_VC.m; sourceTree = "<group>"; };
+		70F9AE861C3F48390003489B /* PublishOrder_Factory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishOrder_Factory_VC.h; sourceTree = "<group>"; };
+		70F9AE871C3F48390003489B /* PublishOrder_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishOrder_Factory_VC.m; sourceTree = "<group>"; };
+		70F9AE891C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PublishOrder_Factory_ Restrict_VC.h"; sourceTree = "<group>"; };
+		70F9AE8A1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PublishOrder_Factory_ Restrict_VC.m"; sourceTree = "<group>"; };
+		70F9AEB11C3F70B60003489B /* CalendarDayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayCell.h; sourceTree = "<group>"; };
+		70F9AEB21C3F70B60003489B /* CalendarDayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayCell.m; sourceTree = "<group>"; };
+		70F9AEB31C3F70B60003489B /* CalendarDayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayModel.h; sourceTree = "<group>"; };
+		70F9AEB41C3F70B60003489B /* CalendarDayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayModel.m; sourceTree = "<group>"; };
+		70F9AEB51C3F70B60003489B /* CalendarHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarHomeViewController.h; sourceTree = "<group>"; };
+		70F9AEB61C3F70B60003489B /* CalendarHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarHomeViewController.m; sourceTree = "<group>"; };
+		70F9AEB71C3F70B60003489B /* CalendarLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarLogic.h; sourceTree = "<group>"; };
+		70F9AEB81C3F70B60003489B /* CalendarLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarLogic.m; sourceTree = "<group>"; };
+		70F9AEB91C3F70B60003489B /* CalendarMonthCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarMonthCollectionViewLayout.h; sourceTree = "<group>"; };
+		70F9AEBA1C3F70B60003489B /* CalendarMonthCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarMonthCollectionViewLayout.m; sourceTree = "<group>"; };
+		70F9AEBB1C3F70B60003489B /* CalendarMonthHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarMonthHeaderView.h; sourceTree = "<group>"; };
+		70F9AEBC1C3F70B60003489B /* CalendarMonthHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarMonthHeaderView.m; sourceTree = "<group>"; };
+		70F9AEBD1C3F70B60003489B /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		70F9AEBE1C3F70B60003489B /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		70F9AEBF1C3F70B60003489B /* chack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chack.png; sourceTree = "<group>"; };
+		70F9AEC01C3F70B60003489B /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		70F9AEC11C3F70B60003489B /* NSDate+WQCalendarLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+WQCalendarLogic.h"; sourceTree = "<group>"; };
+		70F9AEC21C3F70B60003489B /* NSDate+WQCalendarLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+WQCalendarLogic.m"; sourceTree = "<group>"; };
 		70FA60E11C09425400EA84FD /* Comment_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment_TVC.h; sourceTree = "<group>"; };
 		70FA60E21C09425400EA84FD /* Comment_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment_TVC.m; sourceTree = "<group>"; };
 		70FA60E91C098DE400EA84FD /* ZFPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPopupMenu.h; sourceTree = "<group>"; };
@@ -1405,6 +1444,7 @@
 		03571B561BE84E1500900EF9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				70F9AEB01C3F70B60003489B /* ZFCalendar */,
 				7DBD04F61C1C120B00FD318B /* SVPullToRefresh */,
 				03662C761C12E0A500AEEF48 /* AlipaySDK */,
 				7D665E8A1C0C49AD00C7C7BF /* Rong_Cloud_iOS_SDK_v2_3_8_stable */,
@@ -1485,6 +1525,8 @@
 			children = (
 				03DA90A31C436C83009E4F22 /* UIButton+CountDown.h */,
 				03DA90A41C436C83009E4F22 /* UIButton+CountDown.m */,
+				70F3E7241C40E6480031613F /* UILabel+extension.h */,
+				70F3E7251C40E6480031613F /* UILabel+extension.m */,
 				03571C361BE85C3700900EF9 /* UIBarButtonItem+Common.h */,
 				03571C371BE85C3700900EF9 /* UIBarButtonItem+Common.m */,
 				03571C381BE85C3700900EF9 /* UIColor+expanded.h */,
@@ -2425,6 +2467,44 @@
 			path = "HomeClothsMarket(服装市场)";
 			sourceTree = "<group>";
 		};
+		70F9AE851C3F47830003489B /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				70F9AE861C3F48390003489B /* PublishOrder_Factory_VC.h */,
+				70F9AE871C3F48390003489B /* PublishOrder_Factory_VC.m */,
+				70A784F81C085CD3003D1892 /* PublishOrder_Factory_Common_VC.h */,
+				70A784F91C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m */,
+				70F9AE891C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.h */,
+				70F9AE8A1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		70F9AEB01C3F70B60003489B /* ZFCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				70F9AEB11C3F70B60003489B /* CalendarDayCell.h */,
+				70F9AEB21C3F70B60003489B /* CalendarDayCell.m */,
+				70F9AEB31C3F70B60003489B /* CalendarDayModel.h */,
+				70F9AEB41C3F70B60003489B /* CalendarDayModel.m */,
+				70F9AEB51C3F70B60003489B /* CalendarHomeViewController.h */,
+				70F9AEB61C3F70B60003489B /* CalendarHomeViewController.m */,
+				70F9AEB71C3F70B60003489B /* CalendarLogic.h */,
+				70F9AEB81C3F70B60003489B /* CalendarLogic.m */,
+				70F9AEB91C3F70B60003489B /* CalendarMonthCollectionViewLayout.h */,
+				70F9AEBA1C3F70B60003489B /* CalendarMonthCollectionViewLayout.m */,
+				70F9AEBB1C3F70B60003489B /* CalendarMonthHeaderView.h */,
+				70F9AEBC1C3F70B60003489B /* CalendarMonthHeaderView.m */,
+				70F9AEBD1C3F70B60003489B /* CalendarViewController.h */,
+				70F9AEBE1C3F70B60003489B /* CalendarViewController.m */,
+				70F9AEBF1C3F70B60003489B /* chack.png */,
+				70F9AEC01C3F70B60003489B /* Color.h */,
+				70F9AEC11C3F70B60003489B /* NSDate+WQCalendarLogic.h */,
+				70F9AEC21C3F70B60003489B /* NSDate+WQCalendarLogic.m */,
+			);
+			path = ZFCalendar;
+			sourceTree = "<group>";
+		};
 		70FA60DE1C093EAD00EA84FD /* Publish */ = {
 			isa = PBXGroup;
 			children = (
@@ -2434,8 +2514,9 @@
 				70A784EF1C081905003D1892 /* PublishOrder_Common_VC.m */,
 				70A784F51C085C1A003D1892 /* PublishOrder_Designer_VC.h */,
 				70A784F61C085C1A003D1892 /* PublishOrder_Designer_VC.m */,
-				70A784F81C085CD3003D1892 /* PublishOrder_Factory_VC.h */,
-				70A784F91C085CD3003D1892 /* PublishOrder_Factory_VC.m */,
+				70F3E7271C40FC410031613F /* PublishOrder_Factory_Other_VC.h */,
+				70F3E7281C40FC410031613F /* PublishOrder_Factory_Other_VC.m */,
+				70F9AE851C3F47830003489B /* Factory */,
 				70A784FB1C085D75003D1892 /* PublishOrder_Other_VC.h */,
 				70A784FC1C085D75003D1892 /* PublishOrder_Other_VC.m */,
 			);
@@ -3018,6 +3099,7 @@
 				035CC5D11C070ECB00998FBD /* ToolViewInputVoiceHL@2x.png in Resources */,
 				035CC5CC1C070ECB00998FBD /* microphone@2x.png in Resources */,
 				035CC5201C06DCF000998FBD /* ImagesPicker.xcassets in Resources */,
+				70F9AECA1C3F70B60003489B /* chack.png in Resources */,
 				035CC5D01C070ECB00998FBD /* ToolViewInputVoice@2x.png in Resources */,
 				03571C9E1BE85DAC00900EF9 /* icon_chose_bottom@2x.png in Resources */,
 				035CC5CA1C070ECB00998FBD /* bubble_min@2x.png in Resources */,
@@ -3090,6 +3172,7 @@
 				7DC13EE21C15646500304364 /* ZGYSelectNumberView.m in Sources */,
 				035CC5DB1C070ECB00998FBD /* UMChatTableViewCell.m in Sources */,
 				705421F41C0D3AA100BD2B47 /* OthersUserModel.m in Sources */,
+				70F9AEC81C3F70B60003489B /* CalendarMonthHeaderView.m in Sources */,
 				0325549D1BFDC22D003B2E76 /* blueButton.m in Sources */,
 				03CB36661C1AC4DE00814CA9 /* UserProtocolViewController.m in Sources */,
 				03DE47211C33796A007A0FA2 /* WelcomePageViewController.m in Sources */,
@@ -3138,6 +3221,7 @@
 				7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */,
 				70FA60E31C09425400EA84FD /* Comment_TVC.m in Sources */,
 				70F4AFB81C18249C00615A7E /* PersonalMessage_Design_VC.m in Sources */,
+				70F9AEC51C3F70B60003489B /* CalendarHomeViewController.m in Sources */,
 				03571BA31BE85B8200900EF9 /* UIImageView+MJWebCache.m in Sources */,
 				7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */,
 				7D8E703A1C0FE894004A7E2C /* ProcessMarketController.m in Sources */,
@@ -3157,9 +3241,11 @@
 				035CC5211C06DCF000998FBD /* JKAssets.m in Sources */,
 				03571BFB1BE85C0800900EF9 /* SDWebImageCompat.m in Sources */,
 				03FF44F21BFEE73400D81DCE /* UIWebView+AFNetworking.m in Sources */,
+				70F9AEC91C3F70B60003489B /* CalendarViewController.m in Sources */,
 				032554A31BFDC2AD003B2E76 /* Tools.m in Sources */,
 				705421FE1C0DA8F600BD2B47 /* SupplierOrderDetail_VC.m in Sources */,
 				03B4559B1C17EDE6002F1A81 /* WalletModel.m in Sources */,
+				70F3E7261C40E6480031613F /* UILabel+extension.m in Sources */,
 				70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */,
 				7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */,
 				03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */,
@@ -3229,17 +3315,21 @@
 				7D665EA71C0C60EE00C7C7BF /* IMChatListViewController.m in Sources */,
 				7DA5E6981C0D4CDD00736C10 /* SelectOrder_VC.m in Sources */,
 				03571C901BE85D9C00900EF9 /* IQBarButtonItem.m in Sources */,
+				70F3E7291C40FC410031613F /* PublishOrder_Factory_Other_VC.m in Sources */,
 				7DD483501C226820006D0FF6 /* MeHistoryBuy_VC.m in Sources */,
 				035CC52B1C06DCF000998FBD /* JKUtil.m in Sources */,
 				7D743A0B1C23DBF6006AEA07 /* PopularNewsList_VC.m in Sources */,
+				70F9AEC41C3F70B60003489B /* CalendarDayModel.m in Sources */,
 				70F5EF771C0BE159008878B4 /* SearchOrder_Designer_VC.m in Sources */,
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
+				70F9AE8B1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m in Sources */,
 				7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */,
 				03B4559E1C17EE1E002F1A81 /* WalletHistoryModel.m in Sources */,
 				70FBE0991C115A8000B15513 /* BidManage_Supplier_VC.m in Sources */,
 				03662CE61C12E0FD00AEEF48 /* MD5DataSigner.m in Sources */,
 				70F50D771C06FB0200920F63 /* SupplierOrderModel.m in Sources */,
+				70F9AE881C3F48390003489B /* PublishOrder_Factory_VC.m in Sources */,
 				035CC5DC1C070ECB00998FBD /* UMChatToolBar.m in Sources */,
 				03571C071BE85C0800900EF9 /* UIView+WebCacheOperation.m in Sources */,
 				03B120BF1C0594720023F362 /* SetViewController.m in Sources */,
@@ -3264,12 +3354,14 @@
 				03571C611BE85D8C00900EF9 /* UIView+MJExtension.m in Sources */,
 				03571BF81BE85C0800900EF9 /* MKAnnotationView+WebCache.m in Sources */,
 				03662CE81C12E0FD00AEEF48 /* openssl_wrapper.m in Sources */,
+				70F9AEC61C3F70B60003489B /* CalendarLogic.m in Sources */,
 				03B5697B1C02ADD000F89CDA /* StoreUserValue.m in Sources */,
 				03571C031BE85C0800900EF9 /* UIImage+MultiFormat.m in Sources */,
 				7D06AFA91C168EB000EE7102 /* DataBaseManager.m in Sources */,
 				7D70BACA1C21852A00920EE3 /* MeOrderSelect_VC.m in Sources */,
 				035CC5241C06DCF000998FBD /* JKAssetsGroupsView.m in Sources */,
 				70EB7EE71C15697E009E19F9 /* Business_Supplier_VC.m in Sources */,
+				70F9AEC31C3F70B60003489B /* CalendarDayCell.m in Sources */,
 				7DF1C1C61C005F2200460DB7 /* HomeActivityCell.m in Sources */,
 				7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */,
 				7D743A0F1C23E879006AEA07 /* HomeActivity_VC.m in Sources */,
@@ -3277,6 +3369,7 @@
 				03FF45091BFEE74000D81DCE /* AFHTTPSessionManager.m in Sources */,
 				705B25641C09B29400CCA619 /* SearchOrder_Supplier_VC.m in Sources */,
 				7DADF0B21C1AB48A0093ABFF /* MeAddDesign_VC.m in Sources */,
+				70F9AECB1C3F70B60003489B /* NSDate+WQCalendarLogic.m in Sources */,
 				0325549A1BFDC1F1003B2E76 /* ResetPasswordViewController.m in Sources */,
 				035CC5DF1C070ECB00998FBD /* UMRadialView.m in Sources */,
 				03571BAD1BE85BCB00900EF9 /* MF_Base64Additions.m in Sources */,
@@ -3297,6 +3390,7 @@
 				03571C041BE85C0800900EF9 /* UIImage+WebP.m in Sources */,
 				03662CE91C12E0FD00AEEF48 /* RSADataSigner.m in Sources */,
 				7D8E703E1C0FEA06004A7E2C /* ProcessMarketListCell.m in Sources */,
+				70F9AEC71C3F70B60003489B /* CalendarMonthCollectionViewLayout.m in Sources */,
 				03882C4F1BEC951B0094524A /* HttpClient.m in Sources */,
 				705422011C0DB36F00BD2B47 /* OrderBid_Supplier_VC.m in Sources */,
 				03571BA41BE85B8200900EF9 /* YLGIFImage.m in Sources */,
@@ -3327,7 +3421,7 @@
 				03571BFA1BE85C0800900EF9 /* SDImageCache.m in Sources */,
 				03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */,
 				7D06AFAC1C168F3A00EE7102 /* DataBaseHandle.m in Sources */,
-				70A784FA1C085CD3003D1892 /* PublishOrder_Factory_VC.m in Sources */,
+				70A784FA1C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m in Sources */,
 				7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */,
 				7DBDC8E61C15848B00D682D3 /* SelectColorModel.m in Sources */,
 				7094D7221BFC825200F7240B /* WalletViewController.m in Sources */,

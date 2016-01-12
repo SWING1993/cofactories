@@ -27,11 +27,11 @@
     [super viewDidLoad];
     self.navigationItem.title = @"文章详情";
     
-//    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-//    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
-//    temporaryBarButtonItem.target = self;
-//    temporaryBarButtonItem.action = @selector(back);
-//    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(pressRightItem)];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -120,17 +120,17 @@
     }
 }
 
-//- (void) back
-//{
-////    if ([webView canGoBack]) {
-////        [webView goBack];
-////    }
-////    else
-////    {
-//        [self.navigationController popViewControllerAnimated:YES];
-//        
-////    }
-//}
+- (void) back
+{
+//    if ([webView canGoBack]) {
+//        [webView goBack];
+//    }
+//    else
+//    {
+        [self.navigationController popViewControllerAnimated:YES];
+        
+//    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

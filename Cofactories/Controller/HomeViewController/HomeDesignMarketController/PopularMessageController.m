@@ -312,7 +312,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     PopularNewsModel *popularNewsModel = self.popularTopNewsArray[indexPath.row];
     [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     cell.newstitle.text = popularNewsModel.newsTitle;
-    cell.newsDetail.text = popularNewsModel.newsAuthor;
+    cell.newsDetail.text = popularNewsModel.discriptions;
     
     return cell;
 }

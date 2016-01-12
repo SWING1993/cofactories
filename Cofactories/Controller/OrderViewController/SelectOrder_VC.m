@@ -12,12 +12,20 @@
 #import "PublishOrder_Designer_VC.h"
 #import "PublishOrder_Factory_VC.h"
 #import "PublishOrder_Other_VC.h"
+#import "PublishOrder_Factory_Other_VC.h"
 
 @interface SelectOrder_VC ()
+@property(nonatomic,strong)UserModel *userModel;
 
 @end
 
 @implementation SelectOrder_VC
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.userModel = [[UserModel alloc] getMyProfile];
+    DLog(@">>>>>++%ld",(long)_userModel.UserType);
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -66,7 +74,13 @@
             [self.navigationController pushViewController:[PublishOrder_Designer_VC new] animated:YES];
             break;
         case 5:
-            [self.navigationController pushViewController:[PublishOrder_Factory_VC new] animated:YES];
+            if (_userModel.UserType == 1) {
+                //服装厂可以发限制加工厂订单
+                [self.navigationController pushViewController:[PublishOrder_Factory_VC new] animated:YES];
+            }else{
+                //其他身份发普通订单
+                [self.navigationController pushViewController:[PublishOrder_Factory_Other_VC new] animated:YES];
+            }
             break;
         case 6:
             [self.navigationController pushViewController:[PublishOrder_Other_VC new] animated:YES];

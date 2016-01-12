@@ -68,6 +68,11 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     if ([dataModel.orderType isEqualToString:@"加工订单"]) {
         
         FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
+        if ([dataModel.creditString isEqualToString:@"担保订单"]) {
+            vc.isRescrit = YES;
+        }else{
+            vc.isRescrit = NO;
+        }
         UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
         backItem.title=@"返回";
         backItem.tintColor=[UIColor whiteColor];
@@ -85,7 +90,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 
             }];
         }];
-
         
     }else if ([dataModel.orderType isEqualToString:@"设计师订单"]) {
         
@@ -133,7 +137,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     }else if ([dataModel.orderType isEqualToString:@"投标订单"]) {
         
         // 自己投过标
-        DLog(@"==>>%d",_userModel.UserType);
+        DLog(@"==>>%ld",(long)_userModel.UserType);
         
         switch (_userModel.UserType) {
             case UserType_supplier:{
@@ -162,6 +166,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 
                 
                 FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
+                if ([dataModel.creditString isEqualToString:@"担保订单"]) {
+                    vc.isRescrit = YES;
+                }else{
+                    vc.isRescrit = NO;
+                }
+
                 UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
                 backItem.title=@"返回";
                 backItem.tintColor=[UIColor whiteColor];

@@ -6,7 +6,7 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "PublishOrder_Factory_VC.h"
+#import "PublishOrder_Factory_Common_VC.h"
 #import "ZFPopupMenu.h"
 #import "ZFPopupMenuItem.h"
 #import "CustomeView.h"
@@ -14,8 +14,11 @@
 #import "JKImagePickerController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "MJPhotoBrowser.h"
-
-@interface PublishOrder_Factory_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate>{
+#import "CalendarHomeViewController.h"
+#import "UserModel.h"
+#import "AuthenticationController.h"
+#import "RechargeViewController.h"
+@interface PublishOrder_Factory_Common_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate>{
     UITableView    *_tableView;
     UILabel        *_typeLabel;
     UITextField    *_amountTF;
@@ -25,13 +28,17 @@
     UIButton       *_addButton;
     NSMutableArray   *_imageViewArray;
     UIScrollView     *_scrollView;
+    CalendarHomeViewController *_calendar;
+
 }
 @property (nonatomic, strong) JKAssets  *asset;
+@property (nonatomic, strong) UIButton  *timeButton;
+@property (nonatomic,strong) UserModel *userModel;
 @end
 
 static NSString *const reuseIdentifier = @"reuseIdentifier";
 
-@implementation PublishOrder_Factory_VC
+@implementation PublishOrder_Factory_Common_VC
 
 -(NSArray *)menuItems
 {
@@ -51,9 +58,10 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"寻找加工厂";
+    self.userModel = [[UserModel alloc] getMyProfile];
     self.view.backgroundColor = [UIColor whiteColor];
     _imageViewArray = [@[] mutableCopy];
-    
+    self.isCommon = YES;
     [self initTableView];
 }
 
@@ -61,11 +69,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _tableView = [[UITableView alloc] initWithFrame:kScreenBounds style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource =self;
-    //_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:_tableView];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44*5)];
+    UIView *headerView = [[UIView alloc] init];
+    if (_isCommon) {
+        headerView.frame = CGRectMake(0, 0, kScreenW, 44*5);
+    }else{
+        headerView.frame = CGRectMake(0, 0, kScreenW, 44*6);
+    }
     _tableView.tableHeaderView = headerView;
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 20)];
     imageView.image = [UIImage imageNamed:@"dd.png"];
@@ -126,18 +138,52 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [attributedTitle2 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,1)];
     timeLabel.attributedText = attributedTitle2;
     
-    _customeView = [[CustomeView alloc] initWithFrame:CGRectMake(115, 45+44+44+12, kScreenW-200, (kScreenW-200)/6.f)];
-    [headerView addSubview:_customeView];
+    _timeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _timeButton.frame = CGRectMake(115, 45+44+44+8, kScreenW-200, 30);
+    _timeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_timeButton setTitleColor:GRAYCOLOR(190) forState:UIControlStateNormal];
+    [_timeButton setTitle:@"请选择订单期限" forState:UIControlStateNormal];
+    [_timeButton addTarget:self action:@selector(timeChangeClick) forControlEvents:UIControlEventTouchUpInside];
+    _timeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [headerView addSubview:_timeButton];
     
-    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45+44+44+44, 70, 44)];
-    commentLabel.font = [UIFont systemFontOfSize:14];
-    commentLabel.text = @"备注";
-    [headerView addSubview:commentLabel];
+    if (_isCommon) {
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45+44+44+44, 70, 44)];
+        commentLabel.font = [UIFont systemFontOfSize:14];
+        commentLabel.text = @"备注";
+        [headerView addSubview:commentLabel];
+        
+        _commentTF = [[UITextField alloc] initWithFrame:CGRectMake(115, 45+44+44+44+7, kScreenW - 120, 30)];
+        _commentTF.font = [UIFont systemFontOfSize:12];
+        _commentTF.placeholder = @"特殊要求填写备注说明";
+        [headerView addSubview:_commentTF];
+        
+    }else{
+        
+        UILabel *moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 45+44+44+44, 70, 44)];
+        moneyLabel.font = [UIFont systemFontOfSize:14];
+        [headerView addSubview:moneyLabel];
+        
+        NSString *string3 = @"* 设保证金";
+        NSMutableAttributedString *attributedTitle3 = [[NSMutableAttributedString alloc] initWithString:string3];
+        [attributedTitle3 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,1)];
+        moneyLabel.attributedText = attributedTitle3;
+        
+        _customeView = [[CustomeView alloc] initWithFrame:CGRectMake(115, 45+44+44+44+12, kScreenW-200, (kScreenW-200)/6.f)];
+        [headerView addSubview:_customeView];
+        
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45+44+44+44+44, 70, 44)];
+        commentLabel.font = [UIFont systemFontOfSize:14];
+        commentLabel.text = @"备注";
+        [headerView addSubview:commentLabel];
+        
+        _commentTF = [[UITextField alloc] initWithFrame:CGRectMake(115, 45+44+44+44+44+7, kScreenW - 120, 30)];
+        _commentTF.font = [UIFont systemFontOfSize:12];
+        _commentTF.placeholder = @"特殊要求填写备注说明";
+        [headerView addSubview:_commentTF];
+        
+    }
     
-    _commentTF = [[UITextField alloc] initWithFrame:CGRectMake(115, 45+44+44+44+7, kScreenW - 120, 30)];
-    _commentTF.font = [UIFont systemFontOfSize:12];
-    _commentTF.placeholder = @"特殊要求填写备注说明";
-    [headerView addSubview:_commentTF];
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 174)];
     _tableView.tableFooterView = footerView;
@@ -179,9 +225,31 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [ZFPopupMenu setMenuBackgroundColorWithRed:0 green:0 blue:0 aphla:0.2];
     [ZFPopupMenu setTextColorWithRed:1 green:1 blue:1 aphla:1.0];
     ZFPopupMenu *popupMenu = [[ZFPopupMenu alloc] initWithItems:[self menuItems]];
-    [popupMenu showInView:self.navigationController.view fromRect:CGRectMake(button.frame.origin.x, button.frame.origin.y+40, 40, 40) layoutType:Vertical];
+    [popupMenu showInView:self.navigationController.view fromRect:CGRectMake(button.frame.origin.x, button.frame.origin.y+80, 40, 40) layoutType:Vertical];
     [self.navigationController.view addSubview:popupMenu];
     
+}
+
+- (void)timeChangeClick{
+    if (!_calendar) {
+        NSLog(@"22");
+        
+        _calendar = [[CalendarHomeViewController alloc]init];
+        
+        _calendar.calendartitle = @"空闲日期";
+        
+        [_calendar setAirPlaneToDay:365 ToDateforString:nil];//飞机初始化方法
+        
+    }
+    
+    __weak typeof(self) weakSelf = self;
+
+    _calendar.calendarblock = ^(CalendarDayModel *model){
+
+    [weakSelf.timeButton setTitle:[NSString stringWithFormat:@"%@",[model toString]] forState:UIControlStateNormal];
+        
+    };
+    [self presentViewController:_calendar animated:YES completion:nil];
 }
 
 -(void)test:(ZFPopupMenuItem *)item{
@@ -314,23 +382,42 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)publishClick{
     
-    if (_typeLabel.text.length != 2 || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES) {
-        kTipAlert(@"请填写必填信息，再发布订单!");
-    }else{
-        if ([_amountTF.text isEqualToString:@"0"]) {
-            kTipAlert(@"订单数量不得为0!");
+    if (_isCommon) {
+        if (_typeLabel.text.length != 2 || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || [_timeButton.titleLabel.text isEqualToString:@"请选择订单期限"]) {
+            kTipAlert(@"请填写必填信息，再发布订单!");
         }else{
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
-            alertView.tag = 100;
-            [alertView show];
+            if ([_amountTF.text isEqualToString:@"0"]) {
+                kTipAlert(@"订单数量不得为0!");
+            }else{
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
+                alertView.tag = 100;
+                [alertView show];
+            }
         }
+        
+    }else{
+        NSLog(@"322223");
+        if (_typeLabel.text.length != 2 || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || [_timeButton.titleLabel.text isEqualToString:@"请选择订单期限"]) {
+            kTipAlert(@"请填写必填信息，再发布订单!");
+        }else{
+            if ([_amountTF.text isEqualToString:@"0"]) {
+                kTipAlert(@"订单数量不得为0!");
+            }else{
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
+                alertView.tag = 200;
+                [alertView show];
+            }
+        }
+
+        
     }
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100) {
         if (buttonIndex == 1) {
-            DLog(@"%@,%@,%ld,%@",_typeLabel.text,_amountTF.text,(long)_customeView.timeAmount,_commentTF.text);
+            DLog(@"%@,%@,%@,%@",_typeLabel.text,_amountTF.text,_timeButton.titleLabel.text,_commentTF.text);
             
             NSString *typeString = @"";
             if ([_typeLabel.text isEqualToString:@"针织"]) {
@@ -339,7 +426,8 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 typeString = @"woven";
             }
             
-            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:[NSString stringWithFormat:@"%ld",(long)_customeView.timeAmount] description:_commentTF.text WithCompletionBlock:^(NSDictionary *dictionary) {
+            //  此处要修改
+            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:@"-1" WithCompletionBlock:^(NSDictionary *dictionary) {
                 
                 DLog(@"%@",dictionary);
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
@@ -372,9 +460,82 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         }
     }
     
-    if (alertView.tag == 10086) {
+    else if (alertView.tag == 10086) {
         if (buttonIndex == 0) {
             [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    
+    else if (alertView.tag == 200) {
+        if (buttonIndex == 1) {
+            DLog(@"%@,%@,%@,%ld,%@",_typeLabel.text,_amountTF.text,_timeButton.titleLabel.text,(long)_customeView.moneyAmount,_commentTF.text);
+            
+            NSString *typeString = @"";
+            if ([_typeLabel.text isEqualToString:@"针织"]) {
+                typeString = @"knit";
+            }else{
+                typeString = @"woven";
+            }
+            
+            //  此处要修改
+            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:[NSString stringWithFormat:@"%ld",(long)_customeView.moneyAmount] WithCompletionBlock:^(NSDictionary *dictionary) {
+                
+                DLog(@"%@",dictionary);
+                if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发布订单成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    alertView.tag = 10086;
+                    [alertView show];
+                    if (_imageViewArray.count>0) {
+                        NSString *policyString = dictionary[@"message"][@"data"][@"policy"];
+                        NSString *signatureString = dictionary[@"message"][@"data"][@"signature"];
+                        UpYun *upYun = [[UpYun alloc] init];
+                        upYun.bucket = bucketAPI;//图片测试
+                        upYun.expiresIn = 600;// 10分钟
+                        
+                        DLog(@"%@",_imageViewArray);
+                        [_imageViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            UIImage *image = (UIImage *)obj;
+                            [upYun uploadImage:image policy:policyString signature:signatureString];
+                        }];
+                        
+                    }else{
+                        // 用户未上传图片
+                    }
+                    
+                }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
+                    kTipAlert(@"发布订单失败，请重新登录");
+                }else if ([dictionary[@"statusCode"] isEqualToString:@"402"]) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"钱包余额小于您设置的保证金额" message:@"请充值" delegate:self cancelButtonTitle:@"暂不充值" otherButtonTitles:@"立即充值", nil];
+                    alert.tag = 402;
+                    [alert show];
+                }else if ([dictionary[@"statusCode"] isEqualToString:@"403"]) {
+                    
+                    if (_userModel.verify_status == 0) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未认证用户" message:nil delegate:self cancelButtonTitle:@"暂不认证" otherButtonTitles:@"立即认证", nil];
+                        alert.tag = 403;
+                        [alert show];
+                    }else if (_userModel.verify_status == 1){
+                        kTipAlert(@"您的认证正在处理，请耐心等待结果!");
+                    }
+                }
+                
+            }];
+            
+        }
+
+    }
+    
+    else if (alertView.tag == 402) {
+        if (buttonIndex == 1) {
+            [self.navigationController pushViewController:[RechargeViewController new] animated:YES];
+        }
+    }
+    
+    else if (alertView.tag == 403) {
+        if (buttonIndex == 1) {
+            AuthenticationController *vc = [AuthenticationController new];
+            vc.homeEnter = NO;
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }

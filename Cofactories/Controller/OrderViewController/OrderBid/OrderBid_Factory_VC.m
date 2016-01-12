@@ -12,7 +12,9 @@
 #import "JKImagePickerController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "MJPhotoBrowser.h"
-
+#import "UserModel.h"
+#import "AuthenticationController.h"
+#import "RechargeViewController.h"
 @interface OrderBid_Factory_VC ()<JKImagePickerControllerDelegate,UIAlertViewDelegate>{
     UITextView       *_commentTV;
     UIButton         *_addButton;
@@ -20,6 +22,7 @@
     UIScrollView     *_scrollView;
 }
 @property (nonatomic, strong) JKAssets  *asset;
+@property (nonatomic,strong) UserModel *userModel;
 
 @end
 static NSString *const reuseIdentifier = @"reuseIdentifier";
@@ -29,7 +32,8 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"投标";
-    
+    self.userModel = [[UserModel alloc] getMyProfile];
+
     _imageViewArray = [@[] mutableCopy];
     self.tableView.rowHeight = kScreenW/2.f-40;
     [self.tableView registerClass:[Comment_TVC class] forCellReuseIdentifier:reuseIdentifier];
@@ -133,7 +137,20 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                         }
                         
                     }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
-                        kTipAlert(@"发布订单失败，请重新登录");
+                        kTipAlert(@"投标，请重新登录");
+                    }else if ([dictionary[@"statusCode"] isEqualToString:@"402"]) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"钱包余额小于您设置的保证金额" message:@"请充值" delegate:self cancelButtonTitle:@"暂不充值" otherButtonTitles:@"立即充值", nil];
+                        alert.tag = 402;
+                        [alert show];
+                    }else if ([dictionary[@"statusCode"] isEqualToString:@"403"]) {
+                        
+                        if (_userModel.verify_status == 0) {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未认证用户" message:nil delegate:self cancelButtonTitle:@"暂不认证" otherButtonTitles:@"立即认证", nil];
+                            alert.tag = 403;
+                            [alert show];
+                        }else if (_userModel.verify_status == 1){
+                            kTipAlert(@"您的认证正在处理，请耐心等待结果!");
+                        }
                     }
                     
                 }];
@@ -173,11 +190,26 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         }
     }
     
-    if (alertView.tag == 10086) {
+    else if (alertView.tag == 10086) {
         if (buttonIndex == 0) {
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
+    
+    else if (alertView.tag == 402) {
+        if (buttonIndex == 1) {
+            [self.navigationController pushViewController:[RechargeViewController new] animated:YES];
+        }
+    }
+    
+    else if (alertView.tag == 403) {
+        if (buttonIndex == 1) {
+            AuthenticationController *vc = [AuthenticationController new];
+            vc.homeEnter = NO;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+
 }
 
 - (void)creatScrollView{

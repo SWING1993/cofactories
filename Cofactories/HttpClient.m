@@ -778,17 +778,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
         DLog(@"获取验证码的statusCode = %ld",(long)statusCode);
-        switch (statusCode) {
-            case 400:
-                block(@{@"statusCode": @(400), @"message": @"failure"});
-                break;
-            case 409:
-                block(@{@"statusCode": @(409), @"message": @"failure"});
-                break;
-            default:
-                block(@{@"statusCode": @(502), @"message": @"failure"});
-                break;
-        }
+        block(@{@"statusCode": @(statusCode)});
     }];
 }
 + (void)getActivityWithBlock:(void (^)(NSDictionary *responseDictionary))block {
@@ -1191,7 +1181,7 @@
 }
 
 // 发布找工厂订单
-+ (void)publishFactoryOrderWithSubrole:(NSString *)aSubrole type:(NSString *)aType amount:(NSString *)aAmount deadline:(NSString *)aDeadline description:(NSString *)aDescription WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)publishFactoryOrderWithSubrole:(NSString *)aSubrole type:(NSString *)aType amount:(NSString *)aAmount deadline:(NSString *)aDeadline description:(NSString *)aDescription credit:(NSString *)aCredit WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -1212,6 +1202,9 @@
         if (aDescription) {
             [parametersDictionary setObject:aDescription forKey:@"description"];
         }
+        if (aCredit) {
+            [parametersDictionary setObject:aCredit forKey:@"credit"];
+        }
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager POST:API_Piblish_Factory_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -1219,11 +1212,12 @@
             completionBlock(@{@"statusCode": @"200", @"message":responseObject});
 
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-            DLog(@"error == %@",error);
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            completionBlock(@{@"statusCode": [NSString stringWithFormat:@"%ld",(long)statusCode]});
         }];
         
     }else{
-        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+        completionBlock(@{@"statusCode": @"404", @"message": @"token不存在"});
     }
 
 }
@@ -1449,10 +1443,11 @@
             DLog(@"responseObject == %@",responseObject);
             completionBlock(@{@"statusCode": @"200", @"message":responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-            DLog(@"error == %@",error);
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            completionBlock(@{@"statusCode": [NSString stringWithFormat:@"%ld",(long)statusCode]});
         }];
     }else{
-        completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+        completionBlock(@{@"statusCode": @"404", @"message": @"token不存在"});
     }
 }
 

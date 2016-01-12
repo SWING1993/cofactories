@@ -14,4 +14,6 @@
 @property (nonatomic, strong) NSString *personName;
 @property (nonatomic, strong) NSString *idCard;
 
+@property (nonatomic, assign) BOOL homeEnter;//判断是不是首页进入的
+
 @end

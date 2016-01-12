@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CustomeView : UIView
-@property(nonatomic,assign)NSInteger timeAmount;
+@property(nonatomic,assign)NSInteger moneyAmount;
 @end
