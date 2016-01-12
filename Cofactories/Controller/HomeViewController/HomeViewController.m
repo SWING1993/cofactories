@@ -9,7 +9,6 @@
 #import "HttpClient.h"
 #import "UserManagerCenter.h"
 #import "HomeViewController.h"
-#import "AuthenticationPhotoController.h"//认证2
 #import "AuthenticationController.h"//认证1
 #import "ZGYDesignMarkrtController.h"//设计市场
 #import "SetViewController.h"//完善资料
@@ -23,6 +22,8 @@
 #import "HomeActivity_VC.h"
 #import "IndexModel.h"
 #import "ActivityModel.h"
+#import "SVPullToRefresh.h"
+
 
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
@@ -48,6 +49,29 @@ static NSString *activityCellIdentifier = @"activityCell";
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
     //检查网络
     [Tools AFNetworkReachabilityStatusReachableVia];
+    //轮播图
+    [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        if (statusCode == 200) {
+            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
+            self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
+            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dictionary in jsonArray) {
+                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
+                [self.bannerArray addObject:bannerModel];
+                [self.firstViewImageArray addObject:bannerModel.img];
+            }
+            //第一个scrollView
+            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
+            firstView.delegate=self;
+            firstView.imagesArray = self.firstViewImageArray;
+            self.homeTableView.tableHeaderView = firstView;
+        } else if (statusCode == 0) {
+            kTipAlert(@"您的网络状态不太顺畅哦~");
+        }
+        
+    }];
     //钱包余额
     [HttpClient getwalletWithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
@@ -68,6 +92,19 @@ static NSString *activityCellIdentifier = @"activityCell";
             self.MyProfile = [[UserModel alloc]getMyProfile];
         }
         NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
+        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+    }];
+    //活动列表
+    [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        NSArray *jsonArray = responseDictionary[@"responseArray"];
+        self.activityArray = [NSMutableArray arrayWithCapacity:0];
+        for (NSDictionary *dictionary in jsonArray) {
+            ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
+            [self.activityArray addObject:activityModel];
+        }
+        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
         [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     }];
     
@@ -119,19 +156,8 @@ static NSString *activityCellIdentifier = @"activityCell";
     [self creatTableView];
     [self creatTableHeaderView];
     [self creatShoppingCarTable];
-    //活动列表
-    [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
-        int statusCode = [responseDictionary[@"statusCode"] intValue];
-        DLog(@"statusCode = %d", statusCode);
-        NSArray *jsonArray = responseDictionary[@"responseArray"];
-        self.activityArray = [NSMutableArray arrayWithCapacity:0];
-        for (NSDictionary *dictionary in jsonArray) {
-            ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
-            [self.activityArray addObject:activityModel];
-        }
-        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
-        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-    }];
+    
+    
 }
 
 - (void)creatTableView {
@@ -150,31 +176,8 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)creatTableHeaderView {
     
     UIImageView *placeHolderView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)];
-    placeHolderView.image = [UIImage imageNamed:@"PopularNews-男装"];
+    placeHolderView.image = [UIImage imageNamed:@"bannerPlaceHolder"];
     self.homeTableView.tableHeaderView = placeHolderView;
-    
-    [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
-        int statusCode = [responseDictionary[@"statusCode"] intValue];
-        DLog(@"statusCode = %d", statusCode);
-        if (statusCode == 200) {
-            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
-            self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
-            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
-            for (NSDictionary *dictionary in jsonArray) {
-                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
-                [self.bannerArray addObject:bannerModel];
-                [self.firstViewImageArray addObject:bannerModel.img];
-            }
-            //第一个scrollView
-            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
-            firstView.delegate=self;
-            firstView.imagesArray = self.firstViewImageArray;
-            self.homeTableView.tableHeaderView = firstView;
-        } else if (statusCode == 0) {
-            kTipAlert(@"您的网络状态不太顺畅哦~");
-        }
-        
-    }];
     
 }
 
@@ -247,9 +250,9 @@ static NSString *activityCellIdentifier = @"activityCell";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         ActivityModel *activityModel = self.activityArray[indexPath.row];
         if (activityModel.banner.length == 0) {
-            cell.activityPhoto.image = [UIImage imageNamed:@"默认图片"];
+            cell.activityPhoto.image = [UIImage imageNamed:@"bannerPlaceHolder"];
         } else {
-            [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+            [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@"bannerPlaceHolder"]];
         }
         return cell;
     }

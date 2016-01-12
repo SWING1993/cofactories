@@ -11,6 +11,7 @@
 #import "MeHistoryOrderDetail_VC.h"
 #import "MeHistoryOrderModel.h"
 #import "MJRefresh.h"
+#import "TableViewHeaderView.h"
 
 static NSString *historyOrderCellIdentifier = @"historyCell";
 @interface MeHistoryOrderList_VC () {
@@ -38,9 +39,13 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
                 MeHistoryOrderModel *historyOrderModel = [MeHistoryOrderModel getMeHistoryOrderModelWithDictionary:myDic];
                 [self.historyOrderArray addObject:historyOrderModel];
             }
-            [self.tableView reloadData];
+            if (self.historyOrderArray.count == 0) {
+                self.tableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64) withImage:@"数据暂无" withLabelText:@"暂无购买记录"];
+            } else {
+                [self.tableView reloadData];
+            }
         } else {
-            kTipAlert(@"请求失败");
+            kTipAlert(@"您的网络有点不太顺畅哦！");
         }
     }];
     [self setupRefresh];
@@ -64,7 +69,7 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
             }
             [self.tableView reloadData];
         } else {
-            kTipAlert(@"请求失败");
+            kTipAlert(@"您的网络有点不太顺畅哦！");
         }
     }];
     [self.tableView footerEndRefreshing];
