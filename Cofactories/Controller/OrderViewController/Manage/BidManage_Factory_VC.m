@@ -8,6 +8,7 @@
 
 #import "BidManage_Factory_VC.h"
 #import "BidManage_Factory_TVC.h"
+#import "OrderContract_First_VC.h"
 
 @interface BidManage_Factory_VC ()<UIAlertViewDelegate>{
     NSMutableArray  *_dataArray;
@@ -143,8 +144,11 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
     if (alertView.tag == 120) {
         if (buttonIndex == 0) {
-            
-            
+            OrderContract_First_VC *vc = [[OrderContract_First_VC alloc] init];
+            vc.orderID = _orderID;
+            vc.webUrlString = @"http://h5.lo.cofactories.com/!%29special/contract/index.html";
+            [self.navigationController pushViewController:vc animated:YES];
+
         }
     }
 }

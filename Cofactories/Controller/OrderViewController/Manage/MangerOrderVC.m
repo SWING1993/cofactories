@@ -9,7 +9,7 @@
 #import "MangerOrderVC.h"
 #import "ProgressingOrder_VC.h"
 #import "CompletionOrder_VC.h"
-
+#import "FillBlanks_VC.h"
 @interface MangerOrderVC ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView   *scrollView;
@@ -27,6 +27,7 @@
     self.navigationItem.title = @"管理订单";
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"ceshi" style:UIBarButtonItemStylePlain target:self action:@selector(gotest)];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     _viewControllesArray = [@[] mutableCopy];
@@ -127,4 +128,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+- (void)gotest{
+    FillBlanks_VC *vc = [[FillBlanks_VC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

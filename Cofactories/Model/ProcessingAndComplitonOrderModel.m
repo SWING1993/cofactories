@@ -34,14 +34,14 @@
         self.orderStatus = [NSString stringWithFormat:@"%@",dictionary[@"status"]];
         
         NSString *creditString = [NSString stringWithFormat:@"%@",dictionary[@"credit"]];
-        if ([creditString isEqualToString:@"-1"] || [creditString isEqualToString:@"null"] || [creditString isEqualToString:@"<null>"]) {
+        if ([creditString isEqualToString:@"-1"] || [creditString isEqualToString:@"null"] || [creditString isEqualToString:@"<null>"] ||  [creditString isEqualToString:@"(null)"]) {
             self.creditString = @"普通订单";
         }else{
             self.creditString = @"担保订单";
         }
         
         NSString *orderWinnerIdString = [NSString stringWithFormat:@"%@",dictionary[@"orderWinnerId"]];
-        if ([orderWinnerIdString isEqualToString:@"<null>"] || [orderWinnerIdString isEqualToString:@"null"] ||[orderWinnerIdString isEqualToString:@"0"] || orderWinnerIdString == nil) {
+        if ([orderWinnerIdString isEqualToString:@"<null>"] || [orderWinnerIdString isEqualToString:@"null"] ||[orderWinnerIdString isEqualToString:@"0"] ||  [orderWinnerIdString isEqualToString:@"(null)"] || orderWinnerIdString == nil) {
             self.orderWinner = @"订单无人中标";
         }else{
             self.orderWinner = @"订单有人中标";
