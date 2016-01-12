@@ -39,92 +39,101 @@
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:kScreenBounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    
-    //初始化融云SDK。
-    [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY];
-    [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
-    
-    [UMSocialData setAppKey:Appkey_Umeng];
-    //设置微信AppId、appSecret，分享url
-    [UMSocialWechatHandler setWXAppId:@"wxdf66977ff3f413e2" appSecret:@"a6e3fe6788a9a523cb6657e0ef7ae9f4" url:@"http://www.umeng.com/social"];
-    //设置分享到QQ/Qzone的应用Id，和分享url 链接
-    [UMSocialQQHandler setQQWithAppId:@"1104779454" appKey:@"VNaZ1cQfyRS2C3I7" url:@"http://www.umeng.com/social"];
-    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline]];
-    /**
-     * 融云推送处理1
-     */
-    if ([application
-         respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings
-                                                settingsForTypes:(UIUserNotificationTypeBadge |
-                                                                  UIUserNotificationTypeSound |
-                                                                  UIUserNotificationTypeAlert)
-                                                categories:nil];
-        [application registerUserNotificationSettings:settings];
-    } else {
-        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge |
-        UIRemoteNotificationTypeAlert |
-        UIRemoteNotificationTypeSound;
-        [application registerForRemoteNotificationTypes:myTypes];
+#pragma mark - 腾讯buglySDK
+    {
+        //关闭友盟bug检测
+        [MobClick setCrashReportEnabled:NO];
+        //开启腾讯Bugly
+        [[CrashReporter sharedInstance] installWithAppId:Appkey_bugly];
     }
 
     
-    //关闭友盟bug检测
-    [MobClick setCrashReportEnabled:NO];
-    //开启腾讯Bugly
-    [[CrashReporter sharedInstance] installWithAppId:Appkey_bugly];
-    
-       // 注册友盟统计 SDK
-    [MobClick startWithAppkey:Appkey_Umeng reportPolicy:SENDDAILY channelId:@"appStore"];// 启动时发送 Log AppStore分发渠道
-    [MobClick setAppVersion:kVersion_Cofactories];
-    
-    // 注册友盟推送服务 SDK
-    //set AppKey and LaunchOptions
-    [UMessage startWithAppkey:Appkey_Umeng launchOptions:launchOptions];
-    
-    
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= _IPHONE80_
-    if(UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
+#pragma mark - 融云SDK
     {
-        //register remoteNotification types
-        UIMutableUserNotificationAction *action1 = [[UIMutableUserNotificationAction alloc] init];
-        action1.identifier = @"action1_identifier";
-        action1.title=@"Accept";
-        action1.activationMode = UIUserNotificationActivationModeForeground;//当点击的时候启动程序
+        //初始化融云SDK。
+        [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY];
+        [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
         
-        UIMutableUserNotificationAction *action2 = [[UIMutableUserNotificationAction alloc] init];  //第二按钮
-        action2.identifier = @"action2_identifier";
-        action2.title=@"Reject";
-        action2.activationMode = UIUserNotificationActivationModeBackground;//当点击的时候不启动程序，在后台处理
-        action2.authenticationRequired = YES;//需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
-        action2.destructive = YES;
+        /**
+         * 融云推送处理1
+         */
+        if ([application
+             respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings
+                                                    settingsForTypes:(UIUserNotificationTypeBadge |
+                                                                      UIUserNotificationTypeSound |
+                                                                      UIUserNotificationTypeAlert)
+                                                    categories:nil];
+            [application registerUserNotificationSettings:settings];
+        } else {
+            UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge |
+            UIRemoteNotificationTypeAlert |
+            UIRemoteNotificationTypeSound;
+            [application registerForRemoteNotificationTypes:myTypes];
+        }
+    }
+    
+#pragma mark - 友盟SDK
+    {
+        // 注册友盟推送服务 SDK
+        //set AppKey and LaunchOptions
+        [UMessage startWithAppkey:Appkey_Umeng launchOptions:launchOptions];
         
-        UIMutableUserNotificationCategory *categorys = [[UIMutableUserNotificationCategory alloc] init];
-        categorys.identifier = @"category1";//这组动作的唯一标示
-        [categorys setActions:@[action1,action2] forContext:(UIUserNotificationActionContextDefault)];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= _IPHONE80_
+        if(UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
+        {
+            //register remoteNotification types
+            UIMutableUserNotificationAction *action1 = [[UIMutableUserNotificationAction alloc] init];
+            action1.identifier = @"action1_identifier";
+            action1.title=@"Accept";
+            action1.activationMode = UIUserNotificationActivationModeForeground;//当点击的时候启动程序
+            
+            UIMutableUserNotificationAction *action2 = [[UIMutableUserNotificationAction alloc] init];  //第二按钮
+            action2.identifier = @"action2_identifier";
+            action2.title=@"Reject";
+            action2.activationMode = UIUserNotificationActivationModeBackground;//当点击的时候不启动程序，在后台处理
+            action2.authenticationRequired = YES;//需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
+            action2.destructive = YES;
+            
+            UIMutableUserNotificationCategory *categorys = [[UIMutableUserNotificationCategory alloc] init];
+            categorys.identifier = @"category1";//这组动作的唯一标示
+            [categorys setActions:@[action1,action2] forContext:(UIUserNotificationActionContextDefault)];
+            
+            UIUserNotificationSettings *userSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeSound|UIUserNotificationTypeAlert
+                                                                                         categories:[NSSet setWithObject:categorys]];
+            [UMessage registerRemoteNotificationAndUserNotificationSettings:userSettings];
+            DLog(@"iOS8");
+        } else{
+            //register remoteNotification types
+            [UMessage registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
+             |UIRemoteNotificationTypeSound
+             |UIRemoteNotificationTypeAlert];
+            DLog(@"iOS7");
+            
+        }
         
-        UIUserNotificationSettings *userSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeSound|UIUserNotificationTypeAlert
-                                                                                     categories:[NSSet setWithObject:categorys]];
-        [UMessage registerRemoteNotificationAndUserNotificationSettings:userSettings];
-        
-    } else{
+#else
         //register remoteNotification types
         [UMessage registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
          |UIRemoteNotificationTypeSound
          |UIRemoteNotificationTypeAlert];
-    }
-#else
-    
-    //register remoteNotification types
-    [UMessage registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
-     |UIRemoteNotificationTypeSound
-     |UIRemoteNotificationTypeAlert];
-    
 #endif
-    
-    //for log
-    [UMessage setLogEnabled:YES];
+        //for log
+        [UMessage setLogEnabled:YES];
+        
+        [UMSocialData setAppKey:Appkey_Umeng];
+        //设置微信AppId、appSecret，分享url
+        [UMSocialWechatHandler setWXAppId:@"wxdf66977ff3f413e2" appSecret:@"a6e3fe6788a9a523cb6657e0ef7ae9f4" url:@"http://www.umeng.com/social"];
+        //设置分享到QQ/Qzone的应用Id，和分享url 链接
+        [UMSocialQQHandler setQQWithAppId:@"1104779454" appKey:@"VNaZ1cQfyRS2C3I7" url:@"http://www.umeng.com/social"];
+        [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline]];
+        
+        //友盟统计 SDK
+        [MobClick startWithAppkey:Appkey_Umeng reportPolicy:SENDDAILY channelId:@"appStore"];// 启动时发送 Log AppStore分发渠道
+        [MobClick setAppVersion:kVersion_Cofactories];
+    }
    
+
     RootViewController *mainVC = [[RootViewController alloc] init];
     self.window.rootViewController = mainVC;
     [self customizeInterface];
@@ -172,6 +181,10 @@
     
     [[RCIMClient sharedRCIMClient] setDeviceToken:token];
 }
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    DLog(@"推送error = %@",error);
+}
+
 - (void)didReceiveMessageNotification:(NSNotification *)notification {
     [UIApplication sharedApplication].applicationIconBadgeNumber =
     [UIApplication sharedApplication].applicationIconBadgeNumber + 1;
@@ -303,7 +316,6 @@
 
     
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
-
 }
 
 

@@ -24,9 +24,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     UITextField*_passwordTF;//密码
     UITextField*_codeTF;//验证码
 
-    NSTimer*timer;
-
-    NSInteger seconds;
+//    NSTimer*timer;
+//    NSInteger seconds;
 
     blueButton*_codeBtn;
 
@@ -174,9 +173,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             
             if (statusCode == 200) {
                 kTipAlert(@"%@", message);
-                [_codeBtn setEnabled:NO];
-                seconds = 60;
-                timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+                [_codeBtn setEnabled:YES];
+//                seconds = 60;
+//                timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+                NSLog(@"clickBtn");
+                [_codeBtn startWithTime:60 title:@"点击重新获取" countDownTitle:@"s"];
                 
             }else{
                 kTipAlert(@"%@", message);
@@ -190,7 +191,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
 }
 
-
+/*
 //倒计时方法验证码实现倒计时60秒，60秒后按钮变换开始的样子
 -(void)timerFireMethod:(NSTimer *)theTimer {
     if (seconds == 1) {
@@ -222,6 +223,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         }
     }
 }
+ */
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 10086) {

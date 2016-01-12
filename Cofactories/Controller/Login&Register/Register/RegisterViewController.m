@@ -28,14 +28,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 @implementation RegisterViewController{
 
-    UITextField*_usernameTF;//账号
-    UITextField*_passwordTF;//密码
+    UITextField * _usernameTF;//账号
+    UITextField * _passwordTF;//密码
    
-    UITextField*_codeTF;//验证码
+    UITextField * _codeTF;//验证码
     
-    NSTimer*timer;
-    NSInteger seconds;
-    UIButton*authcodeBtn;
+//    NSTimer*timer;
+//    NSInteger seconds;
+    blueButton * authcodeBtn;
 
 
 }
@@ -82,6 +82,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [tableFooterView addSubview:nextBtn];
     self.tableView.tableFooterView = tableFooterView;
     [self createUI];
+
 }
 
 - (void)createUI {
@@ -105,6 +106,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         _codeTF.clearButtonMode=UITextFieldViewModeWhileEditing;
         _codeTF.keyboardType = UIKeyboardTypeNumberPad;
         _codeTF.placeholder=@"验证码";
+        
     }
 
     if (!authcodeBtn) {
@@ -118,6 +120,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 }
 
+
+/*
 //倒计时方法验证码实现倒计时60秒，60秒后按钮变换开始的样子
 -(void)timerFireMethod:(NSTimer *)theTimer {
     if (seconds == 1) {
@@ -147,6 +151,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         }
     }
 }
+ 
+ */
 
 - (void)sendCodeBtn{
     [authcodeBtn setEnabled:NO];
@@ -158,12 +164,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             if (statusCode == 200) {
 //                [Tools showSuccessWithStatus:message];
                 kTipAlert(@"%@", message);
-                [authcodeBtn setEnabled:NO];
+                [authcodeBtn setEnabled:YES];
+                [authcodeBtn startWithTime:60 title:@"点击重新获取" countDownTitle:@"s"];
+                /*
                 seconds = 60;
                 timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+                 */
 
             }else{
-//                [Tools showErrorWithStatus:message];
                 kTipAlert(@"%@ （错误码：%ld）", message,(long)statusCode);
                 [authcodeBtn setEnabled:YES];
             }

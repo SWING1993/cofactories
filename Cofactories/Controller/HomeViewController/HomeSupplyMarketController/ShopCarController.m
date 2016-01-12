@@ -11,6 +11,7 @@
 #import "DataBaseHandle.h"
 #import "ShopCarModel.h"
 #import "materialShopDetailController.h"
+#import "TableViewHeaderView.h"
 
 static NSString *shopCarCellIdentifier = @"shopCarCell";
 @interface ShopCarController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
@@ -41,6 +42,7 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
     self.dataBasaHandle = [DataBaseHandle mainDataBaseHandle];
     [self.dataBasaHandle searchAllShoppingCar];
     self.shoppingCarArray = [NSMutableArray arrayWithCapacity:0];
+    
     for (int i = 0; i < self.dataBasaHandle.shoppingCarArray.count; i++) {
         ShopCarModel *selectModel = self.dataBasaHandle.shoppingCarArray[i];
         selectModel.isSelect = NO;
@@ -49,7 +51,9 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
 
     [self creatTableView];
     [self creatBottomView];
-
+    if (self.shoppingCarArray.count == 0) {
+        self.myTableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 50*kZGY) withImage:@"数据暂无2" withLabelText:@"数据暂无"];
+    }
 }
 
 
@@ -232,9 +236,12 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
             selectModel.isSelect = NO;
             [self.shoppingCarArray addObject:selectModel];
         }
-
-        [self.myTableView reloadData];
-
+        if (self.shoppingCarArray.count == 0) {
+            self.myTableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 50*kZGY) withImage:@"数据暂无2" withLabelText:@"数据暂无"];
+            [self.myTableView reloadData];
+        } else {
+            [self.myTableView reloadData];
+        }
     }
 }
 

@@ -197,6 +197,7 @@
 		03B897401C15490400DB8E4E /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */; };
 		03CB36601C1AAEE600814CA9 /* WalletHistoryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB365F1C1AAEE600814CA9 /* WalletHistoryInfoViewController.m */; };
 		03CB36661C1AC4DE00814CA9 /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB36651C1AC4DE00814CA9 /* UserProtocolViewController.m */; };
+		03DA90A51C436C83009E4F22 /* UIButton+CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DA90A41C436C83009E4F22 /* UIButton+CountDown.m */; };
 		03DE47211C33796A007A0FA2 /* WelcomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE47201C33796A007A0FA2 /* WelcomePageViewController.m */; };
 		03EA6CC91C3F461E005B5373 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA6CC81C3F461E005B5373 /* Bugly.framework */; };
 		03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DA1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m */; };
@@ -316,6 +317,7 @@
 		7D4D06C51C0ED48900BF49D9 /* AllDesignController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06C41C0ED48900BF49D9 /* AllDesignController.m */; };
 		7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5005671C098E230034BE03 /* PopularMessageController.m */; };
 		7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */; };
+		7D5063951C43929B00B04498 /* TableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5063941C43929B00B04498 /* TableViewHeaderView.m */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
 		7D6568881C337E6F0066C82D /* IndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6568871C337E6F0066C82D /* IndexModel.m */; };
 		7D65688C1C3389D80066C82D /* PublishPopularNews_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D65688B1C3389D80066C82D /* PublishPopularNews_VC.m */; };
@@ -834,6 +836,8 @@
 		03CB365F1C1AAEE600814CA9 /* WalletHistoryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryInfoViewController.m; sourceTree = "<group>"; };
 		03CB36641C1AC4DE00814CA9 /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
 		03CB36651C1AC4DE00814CA9 /* UserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
+		03DA90A31C436C83009E4F22 /* UIButton+CountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CountDown.h"; sourceTree = "<group>"; };
+		03DA90A41C436C83009E4F22 /* UIButton+CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CountDown.m"; sourceTree = "<group>"; };
 		03DE471F1C33796A007A0FA2 /* WelcomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomePageViewController.h; sourceTree = "<group>"; };
 		03DE47201C33796A007A0FA2 /* WelcomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomePageViewController.m; sourceTree = "<group>"; };
 		03EA6CC81C3F461E005B5373 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
@@ -1073,6 +1077,8 @@
 		7D5005671C098E230034BE03 /* PopularMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularMessageController.m; sourceTree = "<group>"; };
 		7D50056D1C09A9040034BE03 /* SupplyMarketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplyMarketViewController.h; sourceTree = "<group>"; };
 		7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplyMarketViewController.m; sourceTree = "<group>"; };
+		7D5063931C43929B00B04498 /* TableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewHeaderView.h; sourceTree = "<group>"; };
+		7D5063941C43929B00B04498 /* TableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewHeaderView.m; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
 		7D6568861C337E6F0066C82D /* IndexModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexModel.h; sourceTree = "<group>"; };
@@ -1538,6 +1544,8 @@
 		03571B5A1BE84EA700900EF9 /* OC_Category */ = {
 			isa = PBXGroup;
 			children = (
+				03DA90A31C436C83009E4F22 /* UIButton+CountDown.h */,
+				03DA90A41C436C83009E4F22 /* UIButton+CountDown.m */,
 				70F3E7241C40E6480031613F /* UILabel+extension.h */,
 				70F3E7251C40E6480031613F /* UILabel+extension.m */,
 				03571C361BE85C3700900EF9 /* UIBarButtonItem+Common.h */,
@@ -2758,6 +2766,8 @@
 				7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */,
 				7D45D0D71C225D0600FC2988 /* HistoryOrderThirdCell.h */,
 				7D45D0D81C225D0600FC2988 /* HistoryOrderThirdCell.m */,
+				7D5063931C43929B00B04498 /* TableViewHeaderView.h */,
+				7D5063941C43929B00B04498 /* TableViewHeaderView.m */,
 			);
 			path = HistoryOrder;
 			sourceTree = "<group>";
@@ -3056,6 +3066,9 @@
 							com.apple.Maps.iOS = {
 								enabled = 0;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 					03571B381BE84BA100900EF9 = {
@@ -3284,6 +3297,7 @@
 				03662CE31C12E0FD00AEEF48 /* base64.m in Sources */,
 				03662CE41C12E0FD00AEEF48 /* DataSigner.m in Sources */,
 				035CC5221C06DCF000998FBD /* JKAssetsCollectionFooterView.m in Sources */,
+				03DA90A51C436C83009E4F22 /* UIButton+CountDown.m in Sources */,
 				7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */,
 				7DBD04F51C1C0FEB00FD318B /* FabricShop_VC.m in Sources */,
 				70EFA1F41C44E02700C9F6A5 /* BlankThird_TVC.m in Sources */,
@@ -3359,6 +3373,7 @@
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
 				70F9AE8B1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m in Sources */,
+				7D5063951C43929B00B04498 /* TableViewHeaderView.m in Sources */,
 				7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */,
 				03B4559E1C17EE1E002F1A81 /* WalletHistoryModel.m in Sources */,
 				70FBE0991C115A8000B15513 /* BidManage_Supplier_VC.m in Sources */,

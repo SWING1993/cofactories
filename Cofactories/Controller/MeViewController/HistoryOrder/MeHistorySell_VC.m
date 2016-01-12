@@ -11,6 +11,7 @@
 #import "MeHistoryOrderDetail_VC.h"
 #import "MeHistoryOrderModel.h"
 #import "MJRefresh.h"
+#import "TableViewHeaderView.h"
 
 static NSString *reuseIdentifier = @"reuseIdentifier";
 @interface MeHistorySell_VC ()<UITableViewDataSource,UITableViewDelegate>{
@@ -35,9 +36,14 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
                 MeHistoryOrderModel *historyOrderModel = [MeHistoryOrderModel getMeHistoryOrderModelWithDictionary:myDic];
                 [self.historySellArray addObject:historyOrderModel];
             }
-            [_tableView reloadData];
+            if (self.historySellArray.count == 0) {
+                _tableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64) withImage:@"数据暂无" withLabelText:@"暂无出售记录"];
+            } else {
+                [_tableView reloadData];
+            }
+
         } else {
-            kTipAlert(@"请求失败");
+            kTipAlert(@"您的网络有点不太顺畅哦！");
         }
     }];
     [self setupRefresh];
@@ -71,7 +77,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
             }
             [_tableView reloadData];
         } else {
-            kTipAlert(@"请求失败");
+            kTipAlert(@"您的网络有点不太顺畅哦！");
         }
     }];
     [_tableView footerEndRefreshing];
