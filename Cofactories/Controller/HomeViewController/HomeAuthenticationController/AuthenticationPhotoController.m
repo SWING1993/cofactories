@@ -136,7 +136,8 @@ static NSString * CellIdentifier = @"CellIdentifier";
                 });
             } else {
                 //不是首页进入的
-                
+                NSArray *navArray = self.navigationController.viewControllers;
+                [self.navigationController popToViewController:navArray[0] animated:YES];
             }
             
         } else {

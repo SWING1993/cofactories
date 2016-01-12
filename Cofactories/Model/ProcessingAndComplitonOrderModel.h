@@ -15,7 +15,7 @@
 @property(nonatomic,strong)NSArray *photoArray;
 @property(nonatomic,copy)NSString  *orderStatus;
 @property(nonatomic,copy)NSString  *creditString;
-
+@property(nonatomic,copy)NSString  *orderWinner;
 - (instancetype)initProcessingAndComplitonOrderModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getProcessingAndComplitonOrderModelWithDictionary:(NSDictionary *)dictionary;
 @end

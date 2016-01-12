@@ -87,6 +87,8 @@
         _gpLB.textColor = [UIColor grayColor];
     }
     
+    
+
     if ([dataModel.creditString isEqualToString:@"担保订单"]) {
         _restrictLabel.hidden = NO;
     }else{

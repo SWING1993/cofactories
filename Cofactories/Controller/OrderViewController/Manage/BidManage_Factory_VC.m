@@ -115,9 +115,18 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             [HttpClient closeFactoryOrderWithOrderID:_orderID winnerUserID:model.userID WithCompletionBlock:^(NSDictionary *dictionary) {
                 DLog(@"%@",dictionary);
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"订单完成" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
-                    alert.tag = 110;
-                    [alert show];
+                    
+                    if (_isRestrict) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请签订担保协议" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                        alert.tag = 120;
+                        [alert show];
+
+                    }else{
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"订单完成" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
+                        alert.tag = 110;
+                        [alert show];
+                    }
+                    
                 }else{
                     kTipAlert(@"操作失败请检查网络");
                 }
@@ -129,6 +138,13 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     if (alertView.tag == 110) {
         if (buttonIndex == 0) {
             [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+    
+    if (alertView.tag == 120) {
+        if (buttonIndex == 0) {
+            
+            
         }
     }
 }

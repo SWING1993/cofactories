@@ -16,6 +16,8 @@
 #import "MJPhotoBrowser.h"
 #import "CalendarHomeViewController.h"
 #import "UserModel.h"
+#import "AuthenticationController.h"
+#import "RechargeViewController.h"
 @interface PublishOrder_Factory_Common_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate>{
     UITableView    *_tableView;
     UILabel        *_typeLabel;
@@ -525,13 +527,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
     else if (alertView.tag == 402) {
         if (buttonIndex == 1) {
-            
+            [self.navigationController pushViewController:[RechargeViewController new] animated:YES];
         }
     }
     
     else if (alertView.tag == 403) {
         if (buttonIndex == 1) {
-            
+            AuthenticationController *vc = [AuthenticationController new];
+            vc.homeEnter = NO;
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }

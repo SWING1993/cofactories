@@ -46,12 +46,23 @@
         self.userUid = [NSString stringWithFormat:@"%@",dictionary[@"userUid"]];
         
         NSString *creditString = [NSString stringWithFormat:@"%@",dictionary[@"credit"]];
-        DLog(@"---------%@",creditString);
+//        DLog(@"---------%@",creditString);
         if ([creditString isEqualToString:@"-1"] || [creditString isEqualToString:@"<null>"] || [creditString isEqualToString:@"null"] || creditString == nil) {
             self.credit = @"普通订单";
         }else{
             self.credit = @"担保订单";
         }
+        
+        self.creditMoney = creditString;
+        
+        NSString *winnerUid = [NSString stringWithFormat:@"%@",dictionary[@"orderWinnerUid"]];
+        if ([winnerUid isEqualToString:@"<null>"] || [winnerUid isEqualToString:@"null"] || winnerUid == nil) {
+            _orderWinner = @"无人中标";
+        }else{
+            _orderWinner = @"有人中标";
+        }
+        
+        DLog(@"++++====%@",_orderWinner);
     }
     return self;
 }

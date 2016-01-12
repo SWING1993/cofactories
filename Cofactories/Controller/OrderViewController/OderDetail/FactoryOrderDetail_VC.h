@@ -20,4 +20,5 @@ typedef NS_ENUM(NSInteger, FactoryOrderDetailBidStatus) {
 @property (nonatomic,strong)FactoryOrderMOdel  *dataModel;
 @property (nonatomic,strong)OthersUserModel    *otherUserModel;
 @property (nonatomic,assign)FactoryOrderDetailBidStatus factoryOrderDetailBidStatus;
+@property (nonatomic,assign)BOOL               isRescrit; // 是否为限制订单
 @end

@@ -43,9 +43,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         _isMyselfOrder = NO;
     }
 
-    if ([_dataModel.status isEqualToString:@"0"]) {
+    if ([_dataModel.orderWinner isEqualToString:@"无人中标"]) {
         _isCompletion = NO;
-    }else if ([_dataModel.status isEqualToString:@"1"]){
+    }else if ([_dataModel.orderWinner isEqualToString:@"有人中标"]){
         _isCompletion = YES;
     }
     
@@ -221,9 +221,14 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 if ([_dataModel.bidCount isEqualToString:@"0"]) {
                     kTipAlert(@"该订单暂无商家投标");
                 }else{
-                    BidManage_Factory_VC *vc = [BidManage_Factory_VC new];
-                    vc.orderID = _dataModel.ID;
-                    [self.navigationController pushViewController:vc animated:YES];
+                    if (_isCompletion) {
+                        kTipAlert(@"该订单已完成投标");
+                    }else{
+                        BidManage_Factory_VC *vc = [BidManage_Factory_VC new];
+                        vc.orderID = _dataModel.ID;
+                        vc.isRestrict = YES;   //限制订单投标管理
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
                 }
             }
                 break;
@@ -259,7 +264,11 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return 4;
+        if (_isRescrit) {
+            return 5;
+        }else{
+            return 4;
+        }
     }
     return 1;
 }
@@ -285,7 +294,13 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 cell.textLabel.text = [NSString stringWithFormat:@"  交货日期:   %@",_dataModel.deadline];
 
                 break;
-                
+            case 4:
+                if (_isRescrit) {
+                    cell.textLabel.text = [NSString stringWithFormat:@"  担保金额:   %@元",_dataModel.creditMoney];
+                }else{
+                    
+                }
+                break;
             default:
                 break;
         }
