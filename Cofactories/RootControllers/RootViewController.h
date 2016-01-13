@@ -10,6 +10,8 @@
 
 @interface RootViewController : UIViewController
 
++ (void)handleNotificationInfo:(NSDictionary *)userInfo applicationState:(UIApplicationState)applicationState;
+
 //主页
 +(void)setupTabarController;
 

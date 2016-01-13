@@ -6,12 +6,13 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "Login.h"
 #import "HttpClient.h"
 #import "RootViewController.h"
 #import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "CYLTabBarControllerConfig.h"
-
+#import "BaseNavigationController.h"
 
 #import "EAIntroPage.h"
 #import "EAIntroView.h"
@@ -42,7 +43,6 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
     }else {
         [self showIntroWithCrossDissolve];
     }
-    
 }
 
 - (void)setupRootViewController {
@@ -51,8 +51,7 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
     DLog(@"\n accessToken = %@ \n refreshToken = %@ \n credential.expired = %d",credential.accessToken,credential.refreshToken,credential.expired);
      */
     
-    if ([HttpClient getToken]) {
-        DLog(@"用户已登录，判断Token是否过期！");
+    if ([Login isLogin]) {
         [HttpClient validateOAuthWithBlock:^(NSInteger statusCode) {
             if (statusCode == 200) {
                 [RootViewController setupTabarController];
@@ -61,7 +60,6 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
             }
         }];
     }else{
-        DLog(@"用户未登录,去登录！");
         [RootViewController setupLoginViewController];
     }
 }
@@ -80,6 +78,60 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
     AppDelegate *app =(AppDelegate*)[UIApplication sharedApplication].delegate;
     app.window.rootViewController = tabBarControllerConfig.tabBarController;
 }
+
+#pragma mark Notification
++ (void)handleNotificationInfo:(NSDictionary *)userInfo applicationState:(UIApplicationState)applicationState{
+    if ([Login isLogin]) {
+        //已登录
+    }
+    if (applicationState == UIApplicationStateInactive) {
+        //If the application state was inactive, this means the user pressed an action button from a notification.
+//        UserProtocolViewController * vc = [[UserProtocolViewController alloc]init];
+//        [self presentVC:vc];
+        
+    }else if (applicationState == UIApplicationStateActive){
+//        UserProtocolViewController * vc = [[UserProtocolViewController alloc]init];
+//        [self presentVC:vc];
+    }
+}
++ (UIViewController *)presentingVC{
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    UIViewController *result = window.rootViewController;
+    while (result.presentedViewController) {
+        result = result.presentedViewController;
+    }
+    if ([result isKindOfClass:[CYLTabBarController class]]) {
+        result = [(CYLTabBarController *)result selectedViewController];
+    }
+    if ([result isKindOfClass:[UINavigationController class]]) {
+        result = [(UINavigationController *)result topViewController];
+    }
+    return result;
+}
+
++ (void)presentVC:(UIViewController *)viewController{
+    if (!viewController) {
+        return;
+    }
+    UINavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:viewController];
+    if (!viewController.navigationItem.leftBarButtonItem) {
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:viewController action:@selector(dismissModalViewControllerAnimated:)];
+    }
+    [[self presentingVC] presentViewController:nav animated:YES completion:nil];
+}
+
 
 #pragma mark - EAIntroView delegate
 

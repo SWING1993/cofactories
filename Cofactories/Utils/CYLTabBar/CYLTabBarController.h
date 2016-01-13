@@ -27,6 +27,8 @@ extern NSUInteger CYLTabbarItemsCount;
  */
 @property (nonatomic, readwrite, copy) IBOutletCollection(NSDictionary) NSArray *tabBarItemsAttributes;
 
+- (UIViewController *)selectedViewController;
+
 @end
 
 @interface UIViewController (CYLTabBarController)

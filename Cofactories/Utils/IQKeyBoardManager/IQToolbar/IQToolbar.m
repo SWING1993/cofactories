@@ -115,7 +115,7 @@
 {
     CGSize sizeThatFit = [super sizeThatFits:size];
 
-    sizeThatFit.height = 44;
+    sizeThatFit.height = 30;
     
     return sizeThatFit;
 }

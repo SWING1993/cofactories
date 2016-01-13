@@ -6,20 +6,23 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "Login.h"
 #import "UserModel.h"
 #import "StoreUserValue.h"
 
 static NSString * placeholderString = @"暂无";
 
 @implementation UserModel
-
-- (instancetype)getMyProfile {
++ (UserModel*)User {
+    UserModel * model  = [[StoreUserValue sharedInstance] valueWithKey:@"MyProfile"];
+    return model;
+}
+- (UserModel*)getMyProfile {
     UserModel * model  = [[StoreUserValue sharedInstance] valueWithKey:@"MyProfile"];
     return model;
 }
 
 + (void)removeMyProfile {
-
     [[StoreUserValue sharedInstance] removeObjectForKey:@"MyProfile"];
 }
 /*
@@ -140,7 +143,6 @@ static NSString * placeholderString = @"暂无";
                 _scale = self.scaleArr[seletecdInt];
             }
             else {
-//                kTipAlert(@"数组越界 然后爆炸");
                 _scale = placeholderString;
             }
         }

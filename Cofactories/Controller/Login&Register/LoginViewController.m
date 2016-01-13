@@ -5,6 +5,8 @@
 //  Created by Mr.song on 15/7/9.
 //  Copyright (c) 2015年 聚工科技. All rights reserved.
 //
+
+#import "Input_OnlyText_Cell.h"
 #import "Tools.h"
 #import "HttpClient.h"
 #import "blueButton.h"
@@ -13,26 +15,60 @@
 #import "ResetPasswordViewController.h"
 #import "RegisterViewController.h"
 #import "RootViewController.h"
-
+#import "EaseInputTipsView.h"
+#import "Login.h"
 static NSString * const CellIdentifier = @"CellIdentifier";
 
-@interface LoginViewController () <UIAlertViewDelegate>{
-    UITextField*_usernameTF;
+@interface LoginViewController () <UIAlertViewDelegate,UITextFieldDelegate>
 
-    UITextField*_passwordTF;
-}
+@property (nonatomic, strong) Login *myLogin;
+@property (strong, nonatomic) EaseInputTipsView *inputTipsView;
+
 
 @end
 
 @implementation LoginViewController
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+}
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if (!_inputTipsView) {
+        _inputTipsView = ({
+            EaseInputTipsView *tipsView = [EaseInputTipsView tipsViewWithType:EaseInputTipsViewTypeLogin];
+            tipsView.valueStr = nil;
+            
+            __weak typeof(self) weakSelf = self;
+            tipsView.selectedStringBlock = ^(NSString *valueStr){
+                [weakSelf.view endEditing:YES];
+                weakSelf.myLogin.phone = valueStr;
+                [weakSelf refreshIconUserImageWithKey:valueStr];
+                [weakSelf.tableView reloadData];
+            };
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+           
+            [tipsView setY:CGRectGetMaxY(cell.frame) - 0.5];
+            [self.tableView addSubview:tipsView];
+            tipsView;
+        });
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.myLogin = [[Login alloc] init];
+    self.myLogin.phone = [Login preUserPhone];
+
+
     self.title=@"登录";
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
+    
+    [self.tableView registerClass:[Input_OnlyText_Cell class] forCellReuseIdentifier:kCellIdentifier_Input_OnlyText_Cell_Text];
+
 
     tablleHeaderView*tableHeaderView = [[tablleHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, tableHeaderView_height)];
     self.tableView.tableHeaderView = tableHeaderView;
@@ -41,17 +77,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     blueButton*loginBtn=[[blueButton alloc]init];
     loginBtn.frame =  CGRectMake(20, 15, (kScreenW-40), 35);
     loginBtn.tag=0;
-   
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-
     [loginBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:loginBtn];
 
 
     //注册 button
-    UIButton*registerBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton*registerBtn=[UIButton buttonWithType:UIButtonTypeSystem];
       registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 60, (kScreenW-40)/2-20, 40);
-//        registerBtn.backgroundColor = [UIColor redColor];
     registerBtn.tag=1;
     registerBtn.titleLabel.font=[UIFont systemFontOfSize:15];
     registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
@@ -60,7 +93,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [registerBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:registerBtn];
 
-    UIButton*forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton*forgetBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     forgetBtn.frame = CGRectMake(20, 60, (kScreenW-40)/2-20, 40);
     forgetBtn.tag=2;
     forgetBtn.titleLabel.font=[UIFont systemFontOfSize:15];
@@ -71,49 +104,25 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [tableFooterView addSubview:forgetBtn];
 
     self.tableView.tableFooterView = tableFooterView;
-    [self createUI];
-}
-- (void)createUI {
-    if (!_usernameTF) {
-        UIImageView*userTFView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 23)];
-        userTFView.image = [UIImage imageNamed:@"login_user"];
-        _usernameTF.font = [UIFont systemFontOfSize:15.0f];
-        _usernameTF = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-15, 44)];
-        _usernameTF.leftView = userTFView;
-        _usernameTF.leftViewMode = UITextFieldViewModeAlways;
-        _usernameTF.clearButtonMode=UITextFieldViewModeWhileEditing;
-        _usernameTF.placeholder=@"手机号";
-        _usernameTF.keyboardType = UIKeyboardTypeNumberPad;
-    }
-
-    if (!_passwordTF) {
-        UIImageView*passTFView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 23)];
-        passTFView.image = [UIImage imageNamed:@"login_key"];
-        _passwordTF = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-15, 44)];
-        _passwordTF.leftView = passTFView;
-        _passwordTF.leftViewMode = UITextFieldViewModeAlways;
-        _passwordTF.secureTextEntry=YES;
-        _passwordTF.clearButtonMode=UITextFieldViewModeWhileEditing;
-        _passwordTF.placeholder=@"密码";
-    }
+    [self refreshIconUserImageWithKey:self.myLogin.phone];
 }
 
 - (void)clickbBtn:(UIButton*)sender{
+    DLog(@"%@,%@",self.myLogin.phone,self.myLogin.password);
     UIButton*button=(UIButton*)sender;
     switch (button.tag) {
         case 0:{
             DLog(@"登录");
             MBProgressHUD *hud = [Tools createHUD];
             hud.labelText = @"登录中...";
-            
-
+    
             [button setEnabled:NO];
-            if (_passwordTF.text.length == 0||_usernameTF.text.length == 0) {
+            if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
                 [button setEnabled:YES];
                 [hud hide:YES];
                 kTipAlert(@"请您填写账号以及密码后登录!");
             }else{
-                [HttpClient loginWithUsername:_usernameTF.text password:_passwordTF.text andBlock:^(NSInteger statusCode) {
+                [HttpClient loginWithUsername:self.myLogin.phone password:self.myLogin.password andBlock:^(NSInteger statusCode) {
                     switch (statusCode) {
                         case 0:{
                             [hud hide:YES];
@@ -126,13 +135,18 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
                             DLog(@"登录成功");
                             [button setEnabled:YES];
+                            [Login setPreUserPhone:self.myLogin.phone];//记住登录账号
                             [RootViewController setupTabarController];
+                            double delayInSeconds = 15.0;
+                            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                                [Login saveLoginData];
+                            });
 
                         }
                             break;
                         case 401:{
                             [hud hide:YES];
-
                             [button setEnabled:YES];
                             kTipAlert(@"用户名或密码错误");
                         }
@@ -140,7 +154,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                             
                         default:
                             [hud hide:YES];
-
                             [button setEnabled:YES];
                             kTipAlert(@"登录失败 (错误码：%ld)",(long)statusCode);
                             break;
@@ -170,21 +183,19 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             break;
     }
 }
-
+- (void)refreshIconUserImageWithKey:(NSString *)phone{
+    if (phone.length == 0) {
+        [tablleHeaderView changeImageWithUid:nil];
+    }else {
+        NSString * uid = [[Login readLoginDataList]objectForKey:phone];
+        [tablleHeaderView changeImageWithUid:uid];
+    }
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - Table view data source
 
@@ -197,20 +208,36 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    Input_OnlyText_Cell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Input_OnlyText_Cell_Text forIndexPath:indexPath];
+    cell.isForLoginVC = YES;
 
-    UITableViewCell*cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    __weak typeof(self) weakSelf = self;
+    if (indexPath.row == 0) {
+        cell.textField.keyboardType = UIKeyboardTypeNumberPad;
+        [cell setPlaceholder:@" 手机号码" value:self.myLogin.phone];
+        cell.textValueChangedBlock = ^(NSString *valueStr){
+            weakSelf.inputTipsView.valueStr = valueStr;
+            weakSelf.inputTipsView.active = YES;
+            weakSelf.myLogin.phone = valueStr;
+            [weakSelf refreshIconUserImageWithKey:valueStr];
+        };
+        cell.editDidBeginBlock = ^(NSString *valueStr){
+            weakSelf.inputTipsView.valueStr = valueStr;
+            weakSelf.inputTipsView.active = YES;
+        };
+        cell.editDidEndBlock = ^(NSString *textStr){
+            weakSelf.inputTipsView.active = NO;
+            [weakSelf refreshIconUserImageWithKey:textStr];
 
-        if (indexPath.row == 0) {
-            [cell addSubview:_usernameTF];
-        }
-        if (indexPath.row == 1) {
-            [cell addSubview:_passwordTF];
-        }
+        };
+    }else if (indexPath.row == 1){
+        [cell setPlaceholder:@" 密码" value:self.myLogin.password];
+        cell.textField.secureTextEntry = YES;
+        cell.textValueChangedBlock = ^(NSString *valueStr){
+            weakSelf.myLogin.password = valueStr;
+        };
     }
-
     return cell;
 }
 

@@ -127,7 +127,6 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     //获取融云的token
     [HttpClient getIMTokenWithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [responseDictionary[@"statusCode"]integerValue];
