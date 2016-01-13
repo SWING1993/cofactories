@@ -20,6 +20,8 @@
         self.ID = dictionary[@"id"];
         self.photoArray = dictionary[@"photo"];
         
+        _contractStaus = @"普通订单,没有担保合同";
+
         NSString *orderTypeString = [NSString stringWithFormat:@"%@",dictionary[@"orderType"]];
         if ([orderTypeString isEqualToString:@"factory"]) {
             self.orderType = @"加工订单";
@@ -29,8 +31,20 @@
             self.orderType = @"供应商订单";
         }else {
             self.orderType = @"投标订单";
+            NSString *string = [NSString stringWithFormat:@"%@",dictionary[@"contract"]];
+            if ([string isEqualToString:@"0"]) {
+                _contractStaus = @"没有合同";
+            }else if ([string isEqualToString:@"1"]){
+                _contractStaus = @"甲方签署合同";
+            }else if ([string isEqualToString:@"2"]){
+                _contractStaus = @"双方签署合同";
+            }
+            
+            //DLog(@"》》》》++++ ===== %ld >>>>++ %@",(long)contractStatus,string);
         }
         
+           DLog(@">>>>++ %@",_contractStaus);
+
         self.orderStatus = [NSString stringWithFormat:@"%@",dictionary[@"status"]];
         
         NSString *creditString = [NSString stringWithFormat:@"%@",dictionary[@"credit"]];

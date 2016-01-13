@@ -13,13 +13,14 @@
     UILabel             *_selectLabelOne;
     UILabel             *_selectLabelTwo;
     NSMutableArray      *_container;
-    NSIndexPath         *_indexPath;
+    NSString            *_deliveryString;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        _selectedIndex = 0;
+        _deliveryString = @"once";
+        [[NSUserDefaults standardUserDefaults] setObject:_deliveryString forKey:@"selectedIndexOne"];
         _container = [@[] mutableCopy];
         
         _titleLB = [[UILabel alloc] initWithFrame:CGRectMake(18, 0, 100, 44)];
@@ -62,7 +63,6 @@
     _titleLB.text = titleString;
     _selectLabelOne.text = selectArray[0];
     _selectLabelTwo.text = selectArray[1];
-    _indexPath = indexPath;
 }
 
 - (void)buttonClick:(id)sender{
@@ -75,18 +75,14 @@
     [_container removeAllObjects];
     [_container addObject:button];
     
-    _selectedIndex = button.tag;
-    
+    if (button.tag == 0) {
+        _deliveryString = @"once";
+    }else if (button.tag == 1){
+        _deliveryString = @"batch";
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:_deliveryString forKey:@"selectedIndexOne"];
 }
 
-- (void)awakeFromNib {
-    // Initialization code
-}
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
-}
 
 @end

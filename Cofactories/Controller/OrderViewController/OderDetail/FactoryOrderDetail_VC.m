@@ -16,6 +16,8 @@
 #import "PersonalMessage_Factory_VC.h"
 #import "PersonalMessage_Clothing_VC.h"
 #import "UILabel+extension.h"
+#import "Contract_VC.h"
+
 @interface FactoryOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;
@@ -88,6 +90,32 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:_tableView];
     
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 120)];
+    footerView.backgroundColor = GRAYCOLOR(242);
+    _tableView.tableFooterView = footerView;
+    if ([_contractStatus isEqualToString:@"甲方签署合同"]) {
+        footerView.hidden = NO;
+    }else{
+        footerView.hidden = YES;
+    }
+    
+    UILabel *infoLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, kScreenW, 25)];
+    infoLB.text = @"恭喜您已中标,请签署担保协议";
+    infoLB.textAlignment = NSTextAlignmentCenter;
+    infoLB.font = [UIFont systemFontOfSize:13];
+    infoLB.textColor = MAIN_COLOR;
+    [footerView addSubview:infoLB];
+    
+    UIButton *signContractButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    signContractButton.frame = CGRectMake(15, 60, kScreenW-30, 40);
+    signContractButton.backgroundColor = MAIN_COLOR;
+    [signContractButton setTitle:@"确定" forState:UIControlStateNormal];
+    signContractButton.layer.masksToBounds = YES;
+    signContractButton.layer.cornerRadius = 5;
+    [signContractButton addTarget:self action:@selector(signClick) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:signContractButton];
+    
     UIButton *headerView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 126)];
     headerView.userInteractionEnabled = YES;
     [headerView addTarget:self action:@selector(userDetailClick) forControlEvents:UIControlEventTouchUpInside];
@@ -151,7 +179,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         }
 
     }
+}
+
+- (void)signClick{
+    NSLog(@"11111111");
     
+    Contract_VC *vc = [[Contract_VC alloc] init];
+    vc.isClothing = NO;
+    vc.orderID = _dataModel.ID;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)userDetailClick{

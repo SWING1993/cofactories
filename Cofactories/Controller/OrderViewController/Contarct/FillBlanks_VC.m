@@ -12,17 +12,18 @@
 #import "BlankThird_TVC.h"
 #import "BlankFourth_TVC.h"
 #import "CalendarHomeViewController.h"
+#import "Contract_VC.h"
 
-@interface FillBlanks_VC ()<UITableViewDataSource,UITableViewDelegate>{
+@interface FillBlanks_VC ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,SignContractDelgate>{
     NSString *_name;
     NSString *_amount;
     NSString *_fee;
     NSString *_address;
     NSString *_payStartFee;
     NSString *_payEndDay;
-    NSInteger _selectedIndexOne;
-    NSInteger _selectedIndexTwo;
-
+    NSString *_delivery;
+    NSString *_carriage;
+    
 }
 
 @property (nonatomic,strong)UITableView  *tableView;
@@ -32,7 +33,7 @@
 @property (nonatomic,strong)NSMutableArray      *containerOne;
 @property (nonatomic,strong)NSMutableArray      *containerTwo;
 @property (nonatomic,strong)CalendarHomeViewController *calendar;
-
+@property (nonatomic,strong)NSData       *imageData;
 @property (nonatomic,copy)NSString *deadline;
 @property (nonatomic,copy)NSString *payStartDate;
 @property (nonatomic,copy)NSString *payEndDate;
@@ -50,16 +51,16 @@ static NSString *const reuseIdentifier4 = @"reuseIdentifier4";
     self.navigationItem.title = @"担保协议";
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确认签署" style:UIBarButtonItemStylePlain target:self action:@selector(signConfirmClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(signConfirmClick)];
     _titleStringArray = @[@"品名",@"总数量(件)",@"总价(元)"];
     _placeHolderArray = @[@"请填写加工品名",@"请填写加工数量",@"请填写加工费用"];
     _dateArray = @[@"交货期限",@"首款期限",@"尾款期限"];
     _deadline = [NSString stringWithFormat:@"请点击选择%@",_dateArray[0]];
-    _payStartDate = [NSString stringWithFormat:@"请点击选择%@",_dateArray[0]];
-    _payEndDate = [NSString stringWithFormat:@"请点击选择%@",_dateArray[0]];
+    _payStartDate = [NSString stringWithFormat:@"请点击选择%@",_dateArray[1]];
+    _payEndDate = [NSString stringWithFormat:@"请点击选择%@",_dateArray[2]];
     _containerOne = [@[] mutableCopy];
     _containerTwo = [@[] mutableCopy];
-
+    
     [self initTable];
 }
 
@@ -90,7 +91,7 @@ static NSString *const reuseIdentifier4 = @"reuseIdentifier4";
     
     if (indexPath.section == 0) {
         BlankFirst_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier1 forIndexPath:indexPath];
-
+        
         [cell loadWithIndexPath:indexPath titleString:_titleStringArray[indexPath.row] placeHolderString:_placeHolderArray[indexPath.row]];
         switch (indexPath.row) {
             case 0:
@@ -102,7 +103,7 @@ static NSString *const reuseIdentifier4 = @"reuseIdentifier4";
             case 2:
                 _fee = cell.dataTF.text;
                 break;
-
+                
             default:
                 break;
         }
@@ -112,7 +113,6 @@ static NSString *const reuseIdentifier4 = @"reuseIdentifier4";
             case 0:{
                 BlankSecond_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier2 forIndexPath:indexPath];
                 [cell loadDataWithIndexpath:indexPath titleString:@"交货方式" selectArray:@[@"一次性交货",@"分批交货"]];
-                _selectedIndexOne = cell.selectedIndex;
                 return cell;
             }
                 break;
@@ -141,7 +141,6 @@ static NSString *const reuseIdentifier4 = @"reuseIdentifier4";
             case 7:{
                 BlankFourth_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier4  forIndexPath:indexPath];
                 [cell loadDataWithIndexpath:indexPath titleString:@"运费承担方" selectArray:@[@"甲方",@"乙方"]];
-                _selectedIndexTwo = cell.selectedIndex;
                 return cell;
             }
                 break;
@@ -256,31 +255,50 @@ static NSString *const reuseIdentifier4 = @"reuseIdentifier4";
         [view addSubview:label];
         
         return view;
-
+        
     }
     return nil;
 }
 
-- (void)waySelectClick:(UIButton *)button{
-    
-}
-
-- (void)moneySelectClick:(UIButton *)button{
-    
-}
-
 - (void)signConfirmClick{
-
     
-    [_tableView reloadData];
-    DLog("%ld,%ld",(long)_selectedIndexOne,(long)_selectedIndexTwo);
-
+    _delivery = (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"selectedIndexOne"];
+    _carriage = (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"selectedIndexTwo"];
+    
+    DLog("%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@",_name,_amount,_fee,_delivery,_deadline,_address,_payStartDate,_payStartFee,_payEndDay,_payEndDate,_carriage);
+    
+    if (_name.length == 0 || _amount.length == 0 || _fee.length == 0 || [_deadline isEqualToString:@"请点击选择交货期限"] || _address.length == 0 || [_payStartDate isEqualToString:@"请点击选择首款期限"] || _payStartFee.length == 0 || _payEndDay.length == 0 || [_payStartDate isEqualToString:@"请点击选择尾款期限"]) {
+        kTipAlert(@"请完善协议信息");
+    }else{
+        [HttpClient signContractWithName:_name fee:_fee amount:_amount delivery:_delivery deadline:_deadline address:_address carriage:_carriage payStartDate:_payStartDate payStartFee:_payStartFee payEndDate:_payEndDate payEndDay:_payEndDay orderID:_orderID preview:@"true" WithCompletionBlock:^(NSDictionary *dictionary) {
+            if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
+                _imageData = dictionary[@"message"];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提交成功,确定信息无误后签署合同" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                alert.tag = 100;
+                [alert show];
+            }else{
+                kTipAlert(@"提交合同失败,请检查网络并重新提交");
+            }
+        }];
+    }
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 100) {
+        if (buttonIndex == 0) {
+            Contract_VC *vc = [[Contract_VC alloc] init];
+            vc.orderID = _orderID;
+            vc.imageData = _imageData;
+            vc.isClothing = YES;
+            vc.signContractDelegate = self;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
 }
 
+- (void)signContract{
+    [HttpClient signContractWithName:_name fee:_fee amount:_amount delivery:_delivery deadline:_deadline address:_address carriage:_carriage payStartDate:_payStartDate payStartFee:_payStartFee payEndDate:_payEndDate payEndDay:_payEndDay orderID:_orderID preview:@"false" WithCompletionBlock:^(NSDictionary *dictionary) {
+    }];
+
+}
 @end

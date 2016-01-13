@@ -235,6 +235,9 @@
 		705B25671C09B31600CCA619 /* MangerOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 705B25661C09B31600CCA619 /* MangerOrderVC.m */; };
 		7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */; };
 		7094D7221BFC825200F7240B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D7211BFC825200F7240B /* WalletViewController.m */; };
+		70A63EA91C45ED1000B68839 /* Contract_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A63EA81C45ED1000B68839 /* Contract_VC.m */; };
+		70A63EAD1C4638AD00B68839 /* ContractFactoryDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A63EAC1C4638AD00B68839 /* ContractFactoryDetail_VC.m */; };
+		70A63EB01C4638D400B68839 /* ContractClothingDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A63EAF1C4638D400B68839 /* ContractClothingDetail_VC.m */; };
 		70A784F01C081905003D1892 /* PublishOrder_Common_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784EF1C081905003D1892 /* PublishOrder_Common_VC.m */; };
 		70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F31C083390003D1892 /* Order_Common_TVC.m */; };
 		70A784F71C085C1A003D1892 /* PublishOrder_Designer_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F61C085C1A003D1892 /* PublishOrder_Designer_VC.m */; };
@@ -914,6 +917,12 @@
 		7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTumblrMenuView.m; sourceTree = "<group>"; };
 		7094D7201BFC825200F7240B /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
 		7094D7211BFC825200F7240B /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
+		70A63EA71C45ED1000B68839 /* Contract_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contract_VC.h; sourceTree = "<group>"; };
+		70A63EA81C45ED1000B68839 /* Contract_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contract_VC.m; sourceTree = "<group>"; };
+		70A63EAB1C4638AD00B68839 /* ContractFactoryDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContractFactoryDetail_VC.h; sourceTree = "<group>"; };
+		70A63EAC1C4638AD00B68839 /* ContractFactoryDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContractFactoryDetail_VC.m; sourceTree = "<group>"; };
+		70A63EAE1C4638D400B68839 /* ContractClothingDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContractClothingDetail_VC.h; sourceTree = "<group>"; };
+		70A63EAF1C4638D400B68839 /* ContractClothingDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContractClothingDetail_VC.m; sourceTree = "<group>"; };
 		70A784EE1C081905003D1892 /* PublishOrder_Common_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishOrder_Common_VC.h; path = Cofactories/Controller/OrderViewController/PublishOrder_Common_VC.h; sourceTree = SOURCE_ROOT; };
 		70A784EF1C081905003D1892 /* PublishOrder_Common_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Common_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Common_VC.m; sourceTree = SOURCE_ROOT; };
 		70A784F21C083390003D1892 /* Order_Common_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order_Common_TVC.h; sourceTree = "<group>"; };
@@ -2352,6 +2361,17 @@
 			path = WalletViewController;
 			sourceTree = "<group>";
 		};
+		70A63EAA1C46385200B68839 /* Contract_Factory */ = {
+			isa = PBXGroup;
+			children = (
+				70A63EAB1C4638AD00B68839 /* ContractFactoryDetail_VC.h */,
+				70A63EAC1C4638AD00B68839 /* ContractFactoryDetail_VC.m */,
+				70A63EAE1C4638D400B68839 /* ContractClothingDetail_VC.h */,
+				70A63EAF1C4638D400B68839 /* ContractClothingDetail_VC.m */,
+			);
+			path = Contract_Factory;
+			sourceTree = "<group>";
+		};
 		70A784F11C083336003D1892 /* Order_Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2397,6 +2417,8 @@
 				70EFA1EA1C449ADA00C9F6A5 /* OrderContract_First_VC.m */,
 				70EFA1EC1C44CA2D00C9F6A5 /* FillBlanks_VC.h */,
 				70EFA1ED1C44CA2D00C9F6A5 /* FillBlanks_VC.m */,
+				70A63EA71C45ED1000B68839 /* Contract_VC.h */,
+				70A63EA81C45ED1000B68839 /* Contract_VC.m */,
 				70EFA1EF1C44CF8B00C9F6A5 /* BlankFirst_TVC.h */,
 				70EFA1F01C44CF8B00C9F6A5 /* BlankFirst_TVC.m */,
 				70EFA1F51C44E03D00C9F6A5 /* BlankSecond_TVC.h */,
@@ -2477,6 +2499,7 @@
 				70F5EF801C0C4B49008878B4 /* FactoryOrderDetail_VC.m */,
 				70F5729B1C0EB04B005957CB /* DesignOrderDetail_VC.h */,
 				70F5729C1C0EB04B005957CB /* DesignOrderDetail_VC.m */,
+				70A63EAA1C46385200B68839 /* Contract_Factory */,
 			);
 			path = OderDetail;
 			sourceTree = "<group>";
@@ -3247,6 +3270,7 @@
 				70FBE0A21C115FB700B15513 /* BidManage_Factory_TVC.m in Sources */,
 				03571C011BE85C0800900EF9 /* UIButton+WebCache.m in Sources */,
 				03FF450E1BFEE74000D81DCE /* AFURLResponseSerialization.m in Sources */,
+				70A63EA91C45ED1000B68839 /* Contract_VC.m in Sources */,
 				03571B281BE84BA100900EF9 /* AppDelegate.m in Sources */,
 				7DA9501E1C12AFEE00BFCB31 /* MaterialShopDetailCell.m in Sources */,
 				03571C8C1BE85D9C00900EF9 /* IQKeyboardManager.m in Sources */,
@@ -3279,6 +3303,7 @@
 				0395D2F61BFC65EA0009AABC /* CYLTabBarControllerConfig.m in Sources */,
 				70FA60F11C098DE400EA84FD /* ZFPopupOverlayView.m in Sources */,
 				03571C921BE85D9C00900EF9 /* IQToolbar.m in Sources */,
+				70A63EB01C4638D400B68839 /* ContractClothingDetail_VC.m in Sources */,
 				7D45D0DC1C225FA500FC2988 /* HistoryOrderDetailCell.m in Sources */,
 				7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */,
 				035CC5261C06DCF000998FBD /* JKAssetsViewCell.m in Sources */,
@@ -3324,6 +3349,7 @@
 				03FF450B1BFEE74000D81DCE /* AFSecurityPolicy.m in Sources */,
 				03571C8B1BE85D9C00900EF9 /* IQUIWindow+Hierarchy.m in Sources */,
 				70037F031C1021F40086267C /* ProgressingOrder_VC.m in Sources */,
+				70A63EAD1C4638AD00B68839 /* ContractFactoryDetail_VC.m in Sources */,
 				7D34E4351C197B140049D9C7 /* PlaceholderTextView.m in Sources */,
 				03571C9B1BE85DAC00900EF9 /* DOPDropDownMenu.m in Sources */,
 				7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */,

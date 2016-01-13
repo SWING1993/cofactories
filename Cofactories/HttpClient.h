@@ -307,6 +307,16 @@
 // 评价设计订单
 + (void)judgeDesignOrderWithOrderID:(NSString *)aOrderID score:(NSString *)aScore comment:(NSString *)aComment WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
+// 签署协议
++ (void)signContractWithName:(NSString *)name fee:(NSString *)fee amount:(NSString *)amount delivery:(NSString *)delivery deadline:(NSString *)deadline  address:(NSString *)address  carriage:(NSString *)carriage  payStartDate:(NSString *)payStartDate  payStartFee:(NSString *)payStartFee  payEndDate:(NSString *)payEndDate  payEndDay:(NSString *)payEndDay orderID:(NSString *)orderID preview:(NSString *)preview WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 获取合同图片
++ (void)getContractImageWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(UIImage *image))completionBlock;
+
+// 加工厂同意签署协议
++ (void)factorySignContractWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+
 // 获取店铺
 + (void)getUserShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 //删除店铺里的商品

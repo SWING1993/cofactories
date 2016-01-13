@@ -27,7 +27,6 @@
     self.navigationItem.title = @"管理订单";
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"ceshi" style:UIBarButtonItemStylePlain target:self action:@selector(gotest)];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     _viewControllesArray = [@[] mutableCopy];
@@ -129,8 +128,5 @@
 }
 
 
-- (void)gotest{
-    FillBlanks_VC *vc = [[FillBlanks_VC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
+
 @end

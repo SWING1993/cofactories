@@ -15,12 +15,14 @@
 
 @implementation OrderContract_First_VC
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     [self loadWeb];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"签署合同" style:UIBarButtonItemStylePlain target:self action:@selector(signClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"填写合同" style:UIBarButtonItemStylePlain target:self action:@selector(signClick)];
 }
 
 - (void)loadWeb{
@@ -35,4 +37,6 @@
     vc.orderID = _orderID;
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+
 @end

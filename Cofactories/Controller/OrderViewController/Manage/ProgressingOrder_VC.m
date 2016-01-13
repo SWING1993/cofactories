@@ -17,10 +17,16 @@
     NSMutableArray  *_dataArray;
 }
 @property(nonatomic,strong)UserModel *userModel;
+@property(nonatomic,copy)NSString    *contractStatus;
 @end
 static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 @implementation ProgressingOrder_VC
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [_tableView reloadData];
+}
 
 
 - (void)viewDidLoad {
@@ -164,31 +170,38 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 break;
             case UserType_processing:{
                 
+                _contractStatus = dataModel.contractStaus;  // 合同的状态
+                DLog(@"_contractStatus == %@",_contractStatus);
                 
-                FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
-                if ([dataModel.creditString isEqualToString:@"担保订单"]) {
-                    vc.isRescrit = YES;
+                if ([_contractStatus isEqualToString:@"双方签署合同"]) {
+                    
                 }else{
-                    vc.isRescrit = NO;
-                }
-
-                UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-                backItem.title=@"返回";
-                backItem.tintColor=[UIColor whiteColor];
-                self.navigationItem.backBarButtonItem = backItem;
-                //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-                
-                [HttpClient getFactoryOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
-                    FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
-                    vc.dataModel = dataModel;
-                    vc.factoryOrderDetailBidStatus = FactoryOrderDetailBidStatus_BidOver;
-                    [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
-                        OthersUserModel *model = dictionary[@"message"];
-                        vc.otherUserModel = model;
-                        [self.navigationController pushViewController:vc animated:YES];
-                        
+                    
+                    FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
+                    vc.contractStatus = _contractStatus;
+                    if ([dataModel.creditString isEqualToString:@"担保订单"]) {
+                        vc.isRescrit = YES;
+                    }else{
+                        vc.isRescrit = NO;
+                    }
+                    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+                    backItem.title=@"返回";
+                    backItem.tintColor=[UIColor whiteColor];
+                    self.navigationItem.backBarButtonItem = backItem;
+                    [HttpClient getFactoryOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
+                        FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
+                        vc.dataModel = dataModel;
+                        vc.factoryOrderDetailBidStatus = FactoryOrderDetailBidStatus_BidOver;
+                        [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
+                            OthersUserModel *model = dictionary[@"message"];
+                            vc.otherUserModel = model;
+                            [self.navigationController pushViewController:vc animated:YES];
+                            
+                        }];
                     }];
-                }];
+
+                }
+              
             }
 
                 break;
