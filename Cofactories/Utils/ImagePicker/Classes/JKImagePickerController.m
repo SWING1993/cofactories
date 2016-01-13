@@ -96,7 +96,6 @@ ALAssetsFilter * ALAssetsFilterFromJKImagePickerControllerFilterType(JKImagePick
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -190,12 +189,14 @@ ALAssetsFilter * ALAssetsFilterFromJKImagePickerControllerFilterType(JKImagePick
 
 - (void)browerPhotoes:(NSArray *)array page:(NSInteger)page
 {
+#warning photoBorwser show
+    self.collectionView.userInteractionEnabled = YES;
     JKPhotoBrowser  *photoBorwser = [[JKPhotoBrowser alloc] initWithFrame:[UIScreen mainScreen].bounds];
     photoBorwser.delegate = self;
     photoBorwser.pickerController = self;
     photoBorwser.currentPage = page;
     photoBorwser.assetsArray = [NSMutableArray arrayWithArray:array];
-    [photoBorwser show:YES];
+    [photoBorwser show:NO];
 }
 
 #pragma mark - Managing Assets
@@ -550,6 +551,8 @@ static NSString *kJKAssetsFooterViewIdentifier = @"kJKAssetsFooterViewIdentifier
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+#warning 点击collectionView
+    self.collectionView.userInteractionEnabled = NO;
     [self browerPhotoes:self.assetsArray page:[indexPath row]-1];
 }
 

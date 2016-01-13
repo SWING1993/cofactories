@@ -34,6 +34,11 @@ NSUInteger CYLTabbarItemsCount = 0;
 }
 
 #pragma mark -
+
+- (UIViewController *)selectedViewController {
+    return [[self viewControllers] firstObject];
+//    return [[self viewControllers] objectAtIndex:0];
+}
 #pragma mark - Private Methods
 
 /**
@@ -125,5 +130,7 @@ NSUInteger CYLTabbarItemsCount = 0;
     
     return tabBarController;
 }
+
+
 
 @end

@@ -155,14 +155,15 @@ static NSString * const CellIdentifier = @"CellIdentifier";
  */
 
 - (void)sendCodeBtn{
+    MBProgressHUD *hud = [Tools createHUD];
+    hud.labelText = @"验证码发送中...";
     [authcodeBtn setEnabled:NO];
     if (_usernameTF.text.length==11) {
         [HttpClient postVerifyCodeWithPhone:_usernameTF.text andBlock:^(NSDictionary *responseDictionary) {
             NSInteger  statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
             NSString * message = [responseDictionary objectForKey:@"message"];
-            
             if (statusCode == 200) {
-//                [Tools showSuccessWithStatus:message];
+                [hud  hide:YES];
                 kTipAlert(@"%@", message);
                 [authcodeBtn setEnabled:YES];
                 [authcodeBtn startWithTime:60 title:@"点击重新获取" countDownTitle:@"s"];
@@ -172,12 +173,13 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                  */
 
             }else{
+                [hud  hide:YES];
                 kTipAlert(@"%@ （错误码：%ld）", message,(long)statusCode);
                 [authcodeBtn setEnabled:YES];
             }
         }];
     }else{
-//                [Tools showErrorWithStatus:@"您输入的是一个无效的手机号码!"];
+        [hud  hide:YES];
         kTipAlert(@"您输入的是一个无效的手机号码!");
         [authcodeBtn setEnabled:YES];
     }

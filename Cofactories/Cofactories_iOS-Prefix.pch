@@ -157,17 +157,19 @@
 //字体 Font
 //Nav字体大小
 #define kNavTitleFontSize 17.0f
-#define kLargeFont  [UIFont systemFontOfSize:16.0f]
-#define kFont [UIFont systemFontOfSize:14.0f]
+#define kLargeFont  [UIFont boldSystemFontOfSize:16.0f]
+#define kFont [UIFont systemFontOfSize:14.5f]
 #define kSmallFont  [UIFont systemFontOfSize:12.0f]
 
 #define kTipAlert(_S_, ...)     [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:(_S_), ##__VA_ARGS__] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show]
 
 #define kKeyWindow [UIApplication sharedApplication].keyWindow
+#define kLoginPaddingLeftWidth 18.0
 
 
 #import "HttpClient.h"
 #import "Tools.h"
+#import "Masonry.h"
 
 #pragma mark - 第三方框架
 /*!
@@ -179,6 +181,12 @@
 #import "UIImageView+Common.h"
 #import "UINavigationBar+Awesome.h"
 #import "UIButton+CountDown.h"
+#import "UITableView+Common.h"
+#import "NSString+Common.h"
+#import "UIDevice+Info.h"
+#import "NSObject+ObjectMap.h"
+#import "UIView+Common.h"
+
 
 #import "UserManagerCenter.h"
 #import "UIButton+WebCache.h"//SDWebImage

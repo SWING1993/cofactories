@@ -6,6 +6,7 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "Login.h"
 #import "HttpClient.h"
 #import "AFHTTPRequestSerializer+OAuth2.h"
 #import "UpYun.h"
@@ -19,7 +20,7 @@
 #pragma mark - 服务器
 
 
-#define kTimeoutInterval 10.f
+#define kTimeoutInterval 7.f
 
 #define API_launch @"/user/launch" //启动
 
@@ -124,8 +125,10 @@
             case 409:
                 block(@{@"statusCode": @(409), @"message": @"需要等待冷却 "});
                 break;
-            default:
-                block(@{@"statusCode": @(statusCode), @"message": @"发送错误 "});
+            default:{
+                NSString * error = [NSString stringWithFormat:@"发送错误 (错误码:%ld)",(long)statusCode];
+                block(@{@"statusCode": @(statusCode), @"message": error});
+            }
                 break;
         }
     }];
@@ -452,9 +455,9 @@
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         [manager GET:API_userProfile parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            DLog(@"userModel = %@",responseObject);
             UserModel *userModel = [[UserModel alloc] initWithDictionary:responseObject];
-            [userModel storeValueWithKey:@"MyProfile"];
+            [userModel storeValueWithKey:@"MyProfile"];            
+//            DLog(@"userModel = %@",responseObject);
 //            DLog(@"userModel.description = %@",userModel.description);
             block(@{@"statusCode": @(200), @"model": userModel});
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

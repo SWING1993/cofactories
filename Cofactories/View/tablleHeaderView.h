@@ -12,4 +12,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
++ (void)changeImageWithUid:(NSString *)uid;
+
 @end

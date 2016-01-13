@@ -104,7 +104,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
     if (!_codeBtn) {
         _codeBtn=[[blueButton alloc]initWithFrame:CGRectMake(kScreenW-100, 7, 90, 30)];
-
         _codeBtn.titleLabel.font=[UIFont systemFontOfSize:14.0f];
         [_codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_codeBtn addTarget:self action:@selector(sendCodeBtn) forControlEvents:UIControlEventTouchUpInside];
@@ -163,15 +162,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)sendCodeBtn{
     [_codeBtn setEnabled:NO];
-
     if (_usernameTF.text.length==11) {
-        
+        MBProgressHUD *hud = [Tools createHUD];
+        hud.labelText = @"验证码发送中...";
         [HttpClient postVerifyCodeWithPhone:_usernameTF.text andBlock:^(NSDictionary *responseDictionary) {
-            
             NSInteger  statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
             NSString * message = [responseDictionary objectForKey:@"message"];
-            
             if (statusCode == 200) {
+                [hud hide:YES];
                 kTipAlert(@"%@", message);
                 [_codeBtn setEnabled:YES];
 //                seconds = 60;
@@ -180,6 +178,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 [_codeBtn startWithTime:60 title:@"点击重新获取" countDownTitle:@"s"];
                 
             }else{
+                [hud hide:YES];
                 kTipAlert(@"%@", message);
                 [_codeBtn setEnabled:YES];
             }
