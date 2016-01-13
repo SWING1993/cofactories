@@ -91,7 +91,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     registerBtn.tag=1;
     registerBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16];
     registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
+    [registerBtn setTitle:@"去注册" forState:UIControlStateNormal];
     [registerBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:registerBtn];

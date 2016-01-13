@@ -322,6 +322,9 @@
 
     
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    
+    [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
+
 }
 
 
