@@ -1,28 +1,21 @@
 //
 //  Input_OnlyText_Cell.h
-//  Coding_iOS
+//  Cofactories
 //
-//  Created by 王 原闯 on 14-8-4.
-//  Copyright (c) 2014年 Coding. All rights reserved.
+//  Created by 宋国华 on 15/11/27.
+//  Copyright © 2015年 宋国华. All rights reserved.
 //
 
 #define kCellIdentifier_Input_OnlyText_Cell_Text @"Input_OnlyText_Cell_Text"
-//#define kCellIdentifier_Input_OnlyText_Cell_Captcha @"Input_OnlyText_Cell_Captcha"
 
 #import <UIKit/UIKit.h>
-//#import "UITapImageView.h"
-//#import "PhoneCodeButton.h"
 
 @interface Input_OnlyText_Cell : UITableViewCell
 @property (strong, nonatomic, readonly) UITextField *textField;
-//@property (strong, nonatomic, readonly) PhoneCodeButton *verify_codeBtn;
-
-@property (assign, nonatomic) BOOL isForLoginVC;
 
 @property (nonatomic,copy) void(^textValueChangedBlock)(NSString *);
 @property (nonatomic,copy) void(^editDidBeginBlock)(NSString *);
 @property (nonatomic,copy) void(^editDidEndBlock)(NSString *);
-//@property (nonatomic,copy) void(^phoneCodeBtnClckedBlock)(PhoneCodeButton *);
 
 - (void)setPlaceholder:(NSString *)phStr value:(NSString *)valueStr;
 + (NSString *)randomCellIdentifierOfPhoneCodeType;

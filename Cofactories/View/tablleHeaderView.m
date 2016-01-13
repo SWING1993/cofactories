@@ -17,7 +17,7 @@ UIImageView*logoImage;
     if (self) {
 
         // 背景色
-        [self setBackgroundColor:[UIColor whiteColor]];
+//        [self setBackgroundColor:[UIColor clearColor]];
 
         logoImage = [[UIImageView alloc]initWithFrame:CGRectMake(frame.size.width/2-40, 10, 80, 80)];
         logoImage.image= [UIImage imageNamed:@"login_logo"];
@@ -27,7 +27,7 @@ UIImageView*logoImage;
 
         UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 95, self.frame.size.width, 20)];
         label.text = @"聚工厂";
-        label.font = [UIFont systemFontOfSize:14.0f];
+        label.font = [UIFont boldSystemFontOfSize:16.0f];
         label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:label];
     }

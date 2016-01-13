@@ -25,17 +25,20 @@
 }
 
 - (instancetype)initWithTipsType:(EaseInputTipsViewType)type{
-    CGFloat padingWith = type == 18.0;
-    self = [super initWithFrame:CGRectMake(padingWith, 0, kScreenW-2*padingWith, 110)];
+    CGFloat padingWith = 0.0;
+    self = [super initWithFrame:CGRectMake(padingWith, 2, kScreenW-2*padingWith, 115)];
     if (self) {
-        [self addRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(2, 2)];
+        [self addRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(0, 0)];
         [self setClipsToBounds:YES];
         _myTableView = ({
             UITableView *tableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain];
-            tableView.backgroundColor = [UIColor colorWithWhite:5.0 alpha:0.95];
+            tableView.backgroundColor = [UIColor whiteColor];
+            //[UIColor colorWithWhite:0.965 alpha:1.000];
+            //[UIColor colorWithWhite:1.0 alpha:0.95];
+            //[UIColor colorWithWhite:0.01 alpha:0.800];
             tableView.dataSource = self;
             tableView.delegate = self;
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             [self addSubview:tableView];
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
@@ -43,6 +46,8 @@
             tableView.tableFooterView = [UIView new];
             tableView;
         });
+        self.layer.cornerRadius=5.0f;
+        self.layer.masksToBounds=YES;
         _type = type;
         _active = YES;
     }
@@ -112,14 +117,15 @@
     }
     
     UILabel *label = (UILabel *)[cell.contentView viewWithTag:labelTag];
-    label.textColor = [UIColor colorWithHexString:@"0x222222"];
+    label.textColor = [UIColor blackColor];
+    //[UIColor colorWithHexString:@"0x222222"];
     label.text = [_dataList objectAtIndex:indexPath.row];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:18.0 hasSectionLine:NO];
-}
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:18.0 hasSectionLine:NO];
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

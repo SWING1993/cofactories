@@ -185,6 +185,7 @@
 #import "NSString+Common.h"
 #import "UIDevice+Info.h"
 #import "NSObject+ObjectMap.h"
+#import "UIView+Common.h"
 
 
 #import "UserManagerCenter.h"

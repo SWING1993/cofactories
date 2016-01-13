@@ -51,7 +51,7 @@
         
         if (IQ_IS_IOS7_OR_GREATER)
         {
-            [_titleLabel setTextColor:[UIColor lightGrayColor]];
+            [_titleLabel setTextColor:[UIColor blackColor]];
         }
         else
         {
@@ -62,7 +62,7 @@
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
         [_titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [self setTitle:title];
-        [self setFont:[UIFont boldSystemFontOfSize:12.0]];
+        [self setFont:[UIFont boldSystemFontOfSize:14.0]];
         [_titleView addSubview:_titleLabel];
         
         self.customView = _titleView;

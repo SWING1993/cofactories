@@ -23,6 +23,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 @property (nonatomic, strong) Login *myLogin;
 @property (strong, nonatomic) EaseInputTipsView *inputTipsView;
+@property (strong, nonatomic) UIImageView *bgBlurredView;
 
 
 @end
@@ -66,7 +67,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
-    
+//    self.tableView.backgroundView = self.bgBlurredView;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     [self.tableView registerClass:[Input_OnlyText_Cell class] forCellReuseIdentifier:kCellIdentifier_Input_OnlyText_Cell_Text];
 
 
@@ -77,16 +80,16 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     blueButton*loginBtn=[[blueButton alloc]init];
     loginBtn.frame =  CGRectMake(20, 15, (kScreenW-40), 35);
     loginBtn.tag=0;
+    loginBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16.5];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:loginBtn];
 
-
     //注册 button
     UIButton*registerBtn=[UIButton buttonWithType:UIButtonTypeSystem];
-      registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 60, (kScreenW-40)/2-20, 40);
+      registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 60, (kScreenW-40)/2-20, 45);
     registerBtn.tag=1;
-    registerBtn.titleLabel.font=[UIFont systemFontOfSize:15];
+    registerBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16];
     registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     [registerBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -94,11 +97,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [tableFooterView addSubview:registerBtn];
 
     UIButton*forgetBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    forgetBtn.frame = CGRectMake(20, 60, (kScreenW-40)/2-20, 40);
+    forgetBtn.frame = CGRectMake(20, 60, (kScreenW-40)/2-20, 45);
     forgetBtn.tag=2;
-    forgetBtn.titleLabel.font=[UIFont systemFontOfSize:15];
+    forgetBtn.titleLabel.font=[UIFont boldSystemFontOfSize:14.5];
     forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+    [forgetBtn setTitle:@"忘记密码?" forState:UIControlStateNormal];
     [forgetBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [forgetBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:forgetBtn];
@@ -190,8 +193,27 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         NSString * uid = [[Login readLoginDataList]objectForKey:phone];
         [tablleHeaderView changeImageWithUid:uid];
     }
-    
 }
+
+- (UIImageView *)bgBlurredView{
+    if (!_bgBlurredView) {
+        //背景图片
+        UIImageView *bgView = [[UIImageView alloc] initWithFrame:kScreenBounds];
+        bgView.contentMode = UIViewContentModeScaleAspectFill;
+        UIImage *bgImage = [UIImage imageNamed:@"bk"];
+        bgView.image = bgImage;
+
+        //黑色遮罩
+        UIColor *blackColor = [UIColor blackColor];
+        [bgView addGradientLayerWithColors:@[(id)[blackColor colorWithAlphaComponent:0.3].CGColor,
+                                             (id)[blackColor colorWithAlphaComponent:0.3].CGColor]
+                                 locations:nil
+                                startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
+        _bgBlurredView = bgView;
+    }
+    return _bgBlurredView;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -210,7 +232,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     Input_OnlyText_Cell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Input_OnlyText_Cell_Text forIndexPath:indexPath];
-    cell.isForLoginVC = YES;
 
     __weak typeof(self) weakSelf = self;
     if (indexPath.row == 0) {
