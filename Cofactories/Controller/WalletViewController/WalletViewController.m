@@ -89,7 +89,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [_rightBtn addTarget:self action:@selector(clickHeaderBtnInSection:) forControlEvents:UIControlEventTouchUpInside];
     
     _myLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47/3, kScreenW, kScreenW*0.47*1/4)];
-    _myLabel1.font = [UIFont boldSystemFontOfSize:16.0f];
+    _myLabel1.font = [UIFont boldSystemFontOfSize:17.0f];
     _myLabel1.numberOfLines = 1;
     _myLabel1.textAlignment = NSTextAlignmentCenter;
     _myLabel1.textColor = [UIColor whiteColor];

@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 
-
 #import "UMessage.h"
 #import "MobClick.h"
 
@@ -132,13 +131,20 @@
         [MobClick startWithAppkey:Appkey_Umeng reportPolicy:SENDDAILY channelId:@"appStore"];// 启动时发送 Log AppStore分发渠道
         [MobClick setAppVersion:kVersion_Cofactories];
     }
-   
-
     RootViewController *mainVC = [[RootViewController alloc] init];
     self.window.rootViewController = mainVC;
     [self customizeInterface];
     [_window makeKeyAndVisible];
     
+    
+    
+    if (launchOptions != nil) {
+        NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (userInfo != nil) {
+            NSLog(@"remote notification:%@",userInfo);
+            [RootViewController handleNotificationInfo:userInfo applicationState:UIApplicationStateInactive];
+        }
+    }
     //修改app默认UA
     UIWebView* tempWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
     NSString* userAgent = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
@@ -192,7 +198,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     [UMessage didReceiveRemoteNotification:userInfo];
-   
+    [RootViewController handleNotificationInfo:userInfo applicationState:[application applicationState]];
 }
 
 
@@ -316,6 +322,9 @@
 
     
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    
+    [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
+
 }
 
 

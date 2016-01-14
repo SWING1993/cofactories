@@ -6,6 +6,7 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "Login.h"
 #import "HttpClient.h"
 #import "AFHTTPRequestSerializer+OAuth2.h"
 #import "UpYun.h"
@@ -19,7 +20,7 @@
 #pragma mark - 服务器
 
 
-#define kTimeoutInterval 10.f
+#define kTimeoutInterval 7.f
 
 #define API_launch @"/user/launch" //启动
 
@@ -124,8 +125,10 @@
             case 409:
                 block(@{@"statusCode": @(409), @"message": @"需要等待冷却 "});
                 break;
-            default:
-                block(@{@"statusCode": @(statusCode), @"message": @"发送错误 "});
+            default:{
+                NSString * error = [NSString stringWithFormat:@"发送错误 (错误码:%ld)",(long)statusCode];
+                block(@{@"statusCode": @(statusCode), @"message": error});
+            }
                 break;
         }
     }];
@@ -322,6 +325,8 @@
     manager.requestSerializer.timeoutInterval = kTimeoutInterval;
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
+
+    
     [manager POST:API_login parameters:@{@"refreshToken":refreshToken} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         //        DLog(@"sucess data = %@",responseObject);
         block(200);
@@ -450,9 +455,9 @@
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         [manager GET:API_userProfile parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            DLog(@"userModel = %@",responseObject);
             UserModel *userModel = [[UserModel alloc] initWithDictionary:responseObject];
-            [userModel storeValueWithKey:@"MyProfile"];
+            [userModel storeValueWithKey:@"MyProfile"];            
+//            DLog(@"userModel = %@",responseObject);
 //            DLog(@"userModel.description = %@",userModel.description);
             block(@{@"statusCode": @(200), @"model": userModel});
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1749,6 +1754,110 @@
         }];
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
+    }
+
+}
+
+// 签署协议
++ (void)signContractWithName:(NSString *)name fee:(NSString *)fee amount:(NSString *)amount delivery:(NSString *)delivery deadline:(NSString *)deadline  address:(NSString *)address  carriage:(NSString *)carriage  payStartDate:(NSString *)payStartDate  payStartFee:(NSString *)payStartFee  payEndDate:(NSString *)payEndDate  payEndDay:(NSString *)payEndDay orderID:(NSString *)orderID preview:(NSString *)preview WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        NSMutableDictionary * parametersDictionary = [@{} mutableCopy];
+        if (name) {
+            [parametersDictionary setObject:name forKeyedSubscript:@"name"];
+        }
+        if (fee) {
+            [parametersDictionary setObject:fee forKeyedSubscript:@"fee"];
+        }
+        if (amount) {
+            [parametersDictionary setObject:amount forKeyedSubscript:@"amount"];
+        }
+        if (delivery) {
+            [parametersDictionary setObject:delivery forKeyedSubscript:@"delivery"];
+        }
+        if (deadline) {
+            [parametersDictionary setObject:deadline forKeyedSubscript:@"deadline"];
+        }
+        if (address) {
+            [parametersDictionary setObject:address forKeyedSubscript:@"address"];
+        }
+        if (carriage) {
+            [parametersDictionary setObject:carriage forKeyedSubscript:@"carriage"];
+        }
+        if (payStartDate) {
+            [parametersDictionary setObject:payStartDate forKeyedSubscript:@"payStartDate"];
+        }
+        if (payStartFee) {
+            [parametersDictionary setObject:payStartFee forKeyedSubscript:@"payStartFee"];
+        }
+        if (payEndDate) {
+            [parametersDictionary setObject:payEndDate forKeyedSubscript:@"payEndDate"];
+        }
+        if (payEndDay) {
+            [parametersDictionary setObject:payEndDay forKeyedSubscript:@"payEndDay"];
+        }
+        if (preview) {
+            [parametersDictionary setObject:preview forKeyedSubscript:@"preview"];
+        }
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/contract/",orderID];
+        [manager PUT:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @"500", @"message": responseObject});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            NSData *data = [[NSData alloc] init];
+            data = [error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"];
+            DLog(@"data == %@",data);
+
+            completionBlock(@{@"statusCode": @"200", @"message": data});
+        }];
+    }else{
+        completionBlock(@{@"statusCode": @"404", @"message": @"token不存在"});
+    }
+}
+
+// 获取合同图片
++ (void)getContractImageWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(UIImage *image))completionBlock{
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manger.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/contract/",orderID];
+        [manger GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            
+            DLog(@">>>>>>>>>>%@",responseObject);
+            completionBlock(responseObject);
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"++++++++++%@",error);
+            
+        }];
+    }
+}
+
+// 加工厂同意签署协议
++ (void)factorySignContractWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manger.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/contract/",orderID];
+        [manger PATCH:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            
+            DLog(@">>>>>>>>>>%@",responseObject);
+            completionBlock(@{@"statusCode":@"200"});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"++++++++++%@",error);
+            completionBlock(@{@"statusCode":@"500"});
+        }];
+    }else{
+        completionBlock(@{@"statusCode":@"404"});
     }
 
 }

@@ -25,15 +25,10 @@
     [self.view addSubview:webView];
     
     //返回Btn
-    UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
-    self.navigationItem.rightBarButtonItem = setButton;
+    UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(dismissModalViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = setButton;
 
 }
-
-- (void)buttonClicked {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

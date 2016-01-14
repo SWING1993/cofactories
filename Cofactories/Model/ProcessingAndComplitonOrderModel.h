@@ -16,6 +16,7 @@
 @property(nonatomic,copy)NSString  *orderStatus;
 @property(nonatomic,copy)NSString  *creditString;
 @property(nonatomic,copy)NSString  *orderWinner;
+@property(nonatomic,copy)NSString  *contractStaus;
 - (instancetype)initProcessingAndComplitonOrderModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getProcessingAndComplitonOrderModelWithDictionary:(NSDictionary *)dictionary;
 @end

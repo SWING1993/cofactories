@@ -22,49 +22,47 @@ typedef NS_ENUM(NSInteger, UserType) {
 @property (nonatomic, strong) NSArray * UserTypeListArray;
 @property (nonatomic, strong) NSArray * UserTypeArray;
 
-@property (nonatomic, retain) NSString * role;
-@property (nonatomic, assign) UserType UserType;
+@property (nonatomic, retain ,readonly) NSString * role;
+@property (nonatomic, assign ,readonly) UserType UserType;
 
-@property (nonatomic, retain) NSString * uid;
-@property (nonatomic, retain) NSString * phone;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * province;
-@property (nonatomic, retain) NSString * city;
-@property (nonatomic, retain) NSString * district;
-@property (nonatomic, retain) NSString * address;
-@property (nonatomic, retain) NSString * subRole;
-@property (nonatomic, retain) NSString * scale;
-@property (nonatomic, retain) NSString * inviteCode;
-@property (nonatomic, retain) NSString * rongToken;
-@property (nonatomic, retain) NSString * verified;
-@property (nonatomic, retain) NSString * enterprise;
-@property (nonatomic, retain) NSString * score;
-@property (nonatomic, retain) NSString * lastActivity;
-@property (nonatomic, retain) NSString * descriptionString;
-@property (nonatomic, retain) NSString * createdAt;
-@property (nonatomic, retain) NSString * updatedAt;
+@property (nonatomic, retain ,readonly) NSString * uid;
+@property (nonatomic, retain ,readwrite) NSString * phone;
+@property (nonatomic, retain ,readonly) NSString * name;
+@property (nonatomic, retain ,readonly) NSString * province;
+@property (nonatomic, retain ,readonly) NSString * city;
+@property (nonatomic, retain ,readonly) NSString * district;
+@property (nonatomic, retain ,readonly) NSString * address;
+@property (nonatomic, retain ,readonly) NSString * subRole;
+@property (nonatomic, retain ,readonly) NSString * scale;
+@property (nonatomic, retain ,readonly) NSString * inviteCode;
+@property (nonatomic, retain ,readonly) NSString * rongToken;
+@property (nonatomic, retain ,readonly) NSString * verified;
+@property (nonatomic, retain ,readonly) NSString * enterprise;
+@property (nonatomic, retain ,readonly) NSString * score;
+@property (nonatomic, retain ,readonly) NSString * lastActivity;
+@property (nonatomic, retain ,readonly) NSString * descriptionString;
+@property (nonatomic, retain ,readonly) NSString * createdAt;
+@property (nonatomic, retain ,readonly) NSString * updatedAt;
 @property (nonatomic, copy)   NSMutableArray * photoArray;
 
 @property (nonatomic, retain) NSDictionary * verifyDic;
 
-
-@property (nonatomic, retain) NSString *verify_enterpriseName;
-@property (nonatomic, retain) NSString *verify_personName;
-@property (nonatomic, retain) NSString *verify_idCard;
-@property (nonatomic, retain) NSString *verify_enterpriseAddress;
-@property (nonatomic, assign) NSInteger verify_status;
-@property (nonatomic, retain) NSString *verify_CreatedAt;
-@property (nonatomic, retain) NSString *verify_UpdatedAt;
+@property (nonatomic, retain ,readonly) NSString *verify_enterpriseName;
+@property (nonatomic, retain ,readonly) NSString *verify_personName;
+@property (nonatomic, retain ,readonly) NSString *verify_idCard;
+@property (nonatomic, retain ,readonly) NSString *verify_enterpriseAddress;
+@property (nonatomic, assign ,readonly) NSInteger verify_status;
+@property (nonatomic, retain ,readonly) NSString *verify_CreatedAt;
+@property (nonatomic, retain ,readonly) NSString *verify_UpdatedAt;
 
 @property (nonatomic, copy)   NSArray  *scaleArr;
 
-
-- (instancetype)getMyProfile;
++ (UserModel*)User;
+- (UserModel*)getMyProfile;
 + (void)removeMyProfile;
 - (instancetype)initWithArray;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 + (NSString *)getRoleWith:(UserType )type;
-
 
 @end

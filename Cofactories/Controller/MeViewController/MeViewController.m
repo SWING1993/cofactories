@@ -120,7 +120,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             historyVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:historyVC animated:YES];
         }
-
     }
 }
 
