@@ -200,7 +200,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         //背景图片
         UIImageView *bgView = [[UIImageView alloc] initWithFrame:kScreenBounds];
         bgView.contentMode = UIViewContentModeScaleAspectFill;
-        UIImage *bgImage = [UIImage imageNamed:@"bk"];
+        UIImage *bgImage = [UIImage imageNamed:@"bgg"];
         bgView.image = bgImage;
 
         //黑色遮罩
@@ -271,7 +271,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (void)dealloc {
-    DLog(@"登录dealloc");
     self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
 }
