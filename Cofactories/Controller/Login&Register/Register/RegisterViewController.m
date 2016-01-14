@@ -8,8 +8,8 @@
 
 #import "Tools.h"
 #import "HttpClient.h"
-#import "blueButton.h"
-#import "tablleHeaderView.h"
+#import "LoginButton.h"
+#import "LoginTableHeaderView.h"
 #import "RegisterViewController.h"
 #import "SecondRegisterViewController.h"
 #import "UserProtocolViewController.h"
@@ -35,7 +35,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
 //    NSTimer*timer;
 //    NSInteger seconds;
-    blueButton * authcodeBtn;
+    LoginButton * authcodeBtn;
 
 
 }
@@ -53,7 +53,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
 
-    tablleHeaderView*tableHeaderView = [[tablleHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, tableHeaderView_height)];
+    LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
     self.tableView.tableHeaderView = tableHeaderView;
 
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 100)];
@@ -76,7 +76,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [btn addTarget:self action:@selector(clickRightBtn) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:btn];
 
-    blueButton*nextBtn=[[blueButton alloc]initWithFrame:CGRectMake(20, 50, kScreenW-40, 35)];;
+    LoginButton*nextBtn=[[LoginButton alloc]initWithFrame:CGRectMake(20, 50, kScreenW-40, 35)];;
     [nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:nextBtn];
@@ -110,7 +110,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
 
     if (!authcodeBtn) {
-        authcodeBtn=[[blueButton alloc]initWithFrame:CGRectMake(kScreenW-100, 7, 90, 30)];
+        authcodeBtn=[[LoginButton alloc]initWithFrame:CGRectMake(kScreenW-100, 7, 90, 30)];
 
         authcodeBtn.titleLabel.font=[UIFont systemFontOfSize:14.0f];
         [authcodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];

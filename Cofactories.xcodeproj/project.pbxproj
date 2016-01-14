@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032554961BFDC1F1003B2E76 /* RegisterViewController.m */; };
 		0325549A1BFDC1F1003B2E76 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032554981BFDC1F1003B2E76 /* ResetPasswordViewController.m */; };
-		0325549D1BFDC22D003B2E76 /* blueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0325549C1BFDC22D003B2E76 /* blueButton.m */; };
-		032554A01BFDC26D003B2E76 /* tablleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0325549F1BFDC26D003B2E76 /* tablleHeaderView.m */; };
 		032554A31BFDC2AD003B2E76 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 032554A21BFDC2AD003B2E76 /* Tools.m */; };
 		032554A61BFDC92E003B2E76 /* SecondRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032554A51BFDC92E003B2E76 /* SecondRegisterViewController.m */; };
 		032D90261C1C1B5E00603AF5 /* AboutWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032D90251C1C1B5E00603AF5 /* AboutWalletViewController.m */; };
@@ -156,7 +154,6 @@
 		03623FB51C44D8900083044A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03623FB41C44D8900083044A /* RootViewController.m */; };
 		03623FBA1C44D8C70083044A /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03623FB71C44D8C70083044A /* BaseNavigationController.m */; };
 		03623FBB1C44D8C70083044A /* WelcomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03623FB91C44D8C70083044A /* WelcomePageViewController.m */; };
-		03623FC11C44E3D60083044A /* EaseInputTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03623FC01C44E3D60083044A /* EaseInputTipsView.m */; };
 		03623FE21C44E5FB0083044A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03623FC81C44E5FB0083044A /* Info.plist */; };
 		03623FE31C44E5FB0083044A /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 03623FCA1C44E5FB0083044A /* MASCompositeConstraint.m */; };
 		03623FE41C44E5FB0083044A /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 03623FCD1C44E5FB0083044A /* MASConstraint.m */; };
@@ -220,6 +217,9 @@
 		03CB36661C1AC4DE00814CA9 /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB36651C1AC4DE00814CA9 /* UserProtocolViewController.m */; };
 		03DA90A51C436C83009E4F22 /* UIButton+CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DA90A41C436C83009E4F22 /* UIButton+CountDown.m */; };
 		03EA6CC91C3F461E005B5373 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA6CC81C3F461E005B5373 /* Bugly.framework */; };
+		03F846FD1C47740600F4EC00 /* LoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F846F81C47740600F4EC00 /* LoginButton.m */; };
+		03F846FE1C47740600F4EC00 /* EaseInputTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F846FA1C47740600F4EC00 /* EaseInputTipsView.m */; };
+		03F846FF1C47740600F4EC00 /* LoginTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F846FC1C47740600F4EC00 /* LoginTableHeaderView.m */; };
 		03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DA1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m */; };
 		03FF44EC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m */; };
 		03FF44ED1BFEE73400D81DCE /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44DE1BFEE73400D81DCE /* UIAlertView+AFNetworking.m */; };
@@ -521,10 +521,6 @@
 		032554961BFDC1F1003B2E76 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = Register/RegisterViewController.m; sourceTree = "<group>"; };
 		032554971BFDC1F1003B2E76 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		032554981BFDC1F1003B2E76 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
-		0325549B1BFDC22D003B2E76 /* blueButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blueButton.h; sourceTree = "<group>"; };
-		0325549C1BFDC22D003B2E76 /* blueButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = blueButton.m; sourceTree = "<group>"; };
-		0325549E1BFDC26D003B2E76 /* tablleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tablleHeaderView.h; sourceTree = "<group>"; };
-		0325549F1BFDC26D003B2E76 /* tablleHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tablleHeaderView.m; sourceTree = "<group>"; };
 		032554A11BFDC2AD003B2E76 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		032554A21BFDC2AD003B2E76 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		032554A41BFDC92E003B2E76 /* SecondRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondRegisterViewController.h; sourceTree = "<group>"; };
@@ -784,8 +780,6 @@
 		03623FB71C44D8C70083044A /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		03623FB81C44D8C70083044A /* WelcomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomePageViewController.h; sourceTree = "<group>"; };
 		03623FB91C44D8C70083044A /* WelcomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomePageViewController.m; sourceTree = "<group>"; };
-		03623FBF1C44E3D60083044A /* EaseInputTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseInputTipsView.h; sourceTree = "<group>"; };
-		03623FC01C44E3D60083044A /* EaseInputTipsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EaseInputTipsView.m; sourceTree = "<group>"; };
 		03623FC81C44E5FB0083044A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03623FC91C44E5FB0083044A /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		03623FCA1C44E5FB0083044A /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
@@ -897,8 +891,8 @@
 		03B569781C02A57C00F89CDA /* UserManagerCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManagerCenter.h; sourceTree = "<group>"; };
 		03B569791C02ADD000F89CDA /* StoreUserValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreUserValue.h; sourceTree = "<group>"; };
 		03B5697A1C02ADD000F89CDA /* StoreUserValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreUserValue.m; sourceTree = "<group>"; };
-		03B5697C1C02AE3000F89CDA /* NSObject+StoreValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+StoreValue.h"; sourceTree = "<group>"; };
-		03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+StoreValue.m"; sourceTree = "<group>"; };
+		03B5697C1C02AE3000F89CDA /* NSObject+StoreValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+StoreValue.h"; path = "../UserManagerCenter/NSObject+StoreValue.h"; sourceTree = "<group>"; };
+		03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+StoreValue.m"; path = "../UserManagerCenter/NSObject+StoreValue.m"; sourceTree = "<group>"; };
 		03B8973C1C151EC100DB8E4E /* WithdrawalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithdrawalViewController.h; sourceTree = "<group>"; };
 		03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithdrawalViewController.m; sourceTree = "<group>"; };
 		03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
@@ -909,6 +903,12 @@
 		03DA90A31C436C83009E4F22 /* UIButton+CountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CountDown.h"; sourceTree = "<group>"; };
 		03DA90A41C436C83009E4F22 /* UIButton+CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CountDown.m"; sourceTree = "<group>"; };
 		03EA6CC81C3F461E005B5373 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
+		03F846F71C47740600F4EC00 /* LoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginButton.h; sourceTree = "<group>"; };
+		03F846F81C47740600F4EC00 /* LoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginButton.m; sourceTree = "<group>"; };
+		03F846F91C47740600F4EC00 /* EaseInputTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseInputTipsView.h; sourceTree = "<group>"; };
+		03F846FA1C47740600F4EC00 /* EaseInputTipsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EaseInputTipsView.m; sourceTree = "<group>"; };
+		03F846FB1C47740600F4EC00 /* LoginTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableHeaderView.h; sourceTree = "<group>"; };
+		03F846FC1C47740600F4EC00 /* LoginTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableHeaderView.m; sourceTree = "<group>"; };
 		03FF44D91BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		03FF44DA1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		03FF44DB1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -1588,16 +1588,11 @@
 		03571B581BE84E6200900EF9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				03623FBF1C44E3D60083044A /* EaseInputTipsView.h */,
-				03623FC01C44E3D60083044A /* EaseInputTipsView.m */,
+				03F846F61C4773CD00F4EC00 /* LoginView */,
 				705679CC1C19494000ACA494 /* Shop_Cell(店铺,作品，交易评论) */,
 				70FA60F51C09A38E00EA84FD /* CustomeView */,
 				70FA60E81C098DE400EA84FD /* ZFPopupMenu */,
 				70A784F11C083336003D1892 /* Order_Cell */,
-				0325549E1BFDC26D003B2E76 /* tablleHeaderView.h */,
-				0325549F1BFDC26D003B2E76 /* tablleHeaderView.m */,
-				0325549B1BFDC22D003B2E76 /* blueButton.h */,
-				0325549C1BFDC22D003B2E76 /* blueButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1619,6 +1614,8 @@
 		03571B5A1BE84EA700900EF9 /* OC_Category */ = {
 			isa = PBXGroup;
 			children = (
+				03B5697C1C02AE3000F89CDA /* NSObject+StoreValue.h */,
+				03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */,
 				03623FF91C44EDFE0083044A /* NSObject+ObjectMap.h */,
 				03623FFA1C44EDFE0083044A /* NSObject+ObjectMap.m */,
 				03623FF61C44E9FB0083044A /* UIDevice+Info.h */,
@@ -2358,8 +2355,6 @@
 				03A1A0CD1C00080500FBEDE8 /* UserModel.m */,
 				03B569791C02ADD000F89CDA /* StoreUserValue.h */,
 				03B5697A1C02ADD000F89CDA /* StoreUserValue.m */,
-				03B5697C1C02AE3000F89CDA /* NSObject+StoreValue.h */,
-				03B5697D1C02AE3000F89CDA /* NSObject+StoreValue.m */,
 			);
 			path = UserManagerCenter;
 			sourceTree = "<group>";
@@ -2371,6 +2366,19 @@
 				03B569761C02A4CC00F89CDA /* FastCoder.m */,
 			);
 			path = FastCoder;
+			sourceTree = "<group>";
+		};
+		03F846F61C4773CD00F4EC00 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				03F846F71C47740600F4EC00 /* LoginButton.h */,
+				03F846F81C47740600F4EC00 /* LoginButton.m */,
+				03F846F91C47740600F4EC00 /* EaseInputTipsView.h */,
+				03F846FA1C47740600F4EC00 /* EaseInputTipsView.m */,
+				03F846FB1C47740600F4EC00 /* LoginTableHeaderView.h */,
+				03F846FC1C47740600F4EC00 /* LoginTableHeaderView.m */,
+			);
+			path = LoginView;
 			sourceTree = "<group>";
 		};
 		03FF44D81BFEE73400D81DCE /* UIKit+AFNetworking */ = {
@@ -3338,7 +3346,6 @@
 				7D45D0D61C224C9100FC2988 /* MeHistoryOrderModel.m in Sources */,
 				03571C421BE85C3700900EF9 /* UIImage+Common.m in Sources */,
 				032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */,
-				03623FC11C44E3D60083044A /* EaseInputTipsView.m in Sources */,
 				7D9E1E621C1E6C73007A4B6B /* MeHistoryOrderList_VC.m in Sources */,
 				03662CE71C12E0FD00AEEF48 /* NSDataEx.m in Sources */,
 				03662CE51C12E0FD00AEEF48 /* DataVerifier.m in Sources */,
@@ -3373,7 +3380,6 @@
 				035CC5DB1C070ECB00998FBD /* UMChatTableViewCell.m in Sources */,
 				705421F41C0D3AA100BD2B47 /* OthersUserModel.m in Sources */,
 				70F9AEC81C3F70B60003489B /* CalendarMonthHeaderView.m in Sources */,
-				0325549D1BFDC22D003B2E76 /* blueButton.m in Sources */,
 				03CB36661C1AC4DE00814CA9 /* UserProtocolViewController.m in Sources */,
 				70EFA1EB1C449ADA00C9F6A5 /* OrderContract_First_VC.m in Sources */,
 				03571C061BE85C0800900EF9 /* UIImageView+WebCache.m in Sources */,
@@ -3398,7 +3404,6 @@
 				03571B9B1BE85B8200900EF9 /* MJPhoto.m in Sources */,
 				7D06AF9A1C166BD200EE7102 /* ShoppingCarCell.m in Sources */,
 				035CC5341C070BC600998FBD /* SystemSetViewController.m in Sources */,
-				032554A01BFDC26D003B2E76 /* tablleHeaderView.m in Sources */,
 				03FF44EC1BFEE73400D81DCE /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				70FBE0A21C115FB700B15513 /* BidManage_Factory_TVC.m in Sources */,
 				03571C011BE85C0800900EF9 /* UIButton+WebCache.m in Sources */,
@@ -3432,6 +3437,7 @@
 				7D8E703A1C0FE894004A7E2C /* ProcessMarketController.m in Sources */,
 				03662CE21C12E0FD00AEEF48 /* Order.m in Sources */,
 				03FF44F11BFEE73400D81DCE /* UIRefreshControl+AFNetworking.m in Sources */,
+				03F846FD1C47740600F4EC00 /* LoginButton.m in Sources */,
 				03B8973E1C151EC100DB8E4E /* WithdrawalViewController.m in Sources */,
 				035CC52A1C06DCF000998FBD /* JKPromptView.m in Sources */,
 				0395D2EF1BFC65920009AABC /* CYLTabBar.m in Sources */,
@@ -3451,6 +3457,7 @@
 				032554A31BFDC2AD003B2E76 /* Tools.m in Sources */,
 				705421FE1C0DA8F600BD2B47 /* SupplierOrderDetail_VC.m in Sources */,
 				03B4559B1C17EDE6002F1A81 /* WalletModel.m in Sources */,
+				03F846FF1C47740600F4EC00 /* LoginTableHeaderView.m in Sources */,
 				70F3E7261C40E6480031613F /* UILabel+extension.m in Sources */,
 				70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */,
 				7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */,
@@ -3590,6 +3597,7 @@
 				03571C5C1BE85D8C00900EF9 /* MJRefreshConst.m in Sources */,
 				03FF45091BFEE74000D81DCE /* AFHTTPSessionManager.m in Sources */,
 				705B25641C09B29400CCA619 /* SearchOrder_Supplier_VC.m in Sources */,
+				03F846FE1C47740600F4EC00 /* EaseInputTipsView.m in Sources */,
 				7DADF0B21C1AB48A0093ABFF /* MeAddDesign_VC.m in Sources */,
 				70F9AECB1C3F70B60003489B /* NSDate+WQCalendarLogic.m in Sources */,
 				0325549A1BFDC1F1003B2E76 /* ResetPasswordViewController.m in Sources */,

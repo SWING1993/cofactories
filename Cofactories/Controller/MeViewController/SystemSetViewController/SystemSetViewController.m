@@ -6,7 +6,6 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "blueButton.h"
 #import "UMSocial.h"
 #import "UMFeedback.h"
 #import "RootViewController.h"

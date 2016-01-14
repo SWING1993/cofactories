@@ -8,30 +8,23 @@
 
 #import "HttpClient.h"
 #import "Tools.h"
-#import "blueButton.h"
-#import "tablleHeaderView.h"
+#import "LoginButton.h"
+#import "LoginTableHeaderView.h"
 #import "ResetPasswordViewController.h"
 
 static NSString * const CellIdentifier = @"CellIdentifier";
-
 
 @interface ResetPasswordViewController () <UIAlertViewDelegate>
 
 @end
 
-@implementation ResetPasswordViewController {
-    UITextField*_usernameTF;//账号
-    UITextField*_passwordTF;//密码
-    UITextField*_codeTF;//验证码
-
-//    NSTimer*timer;
-//    NSInteger seconds;
-
-    blueButton*_codeBtn;
+@implementation ResetPasswordViewController
+UITextField*_usernameTF;//账号
+UITextField*_passwordTF;//密码
+UITextField*_codeTF;//验证码
+LoginButton*_codeBtn;
 
 //    BOOL _wasKeyboardManagerEnabled;
-
-}
 
 //-(void)viewDidAppear:(BOOL)animated
 //{
@@ -57,12 +50,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
 
-    tablleHeaderView*tableHeaderView = [[tablleHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, tableHeaderView_height)];
+    LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
     self.tableView.tableHeaderView = tableHeaderView;
 
     UIView*tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70)];
     tableFooterView.backgroundColor = [UIColor clearColor];
-    blueButton*nextBtn=[[blueButton alloc]initWithFrame:CGRectMake(20, 20, kScreenW-40, 35)];
+    LoginButton*nextBtn=[[LoginButton alloc]initWithFrame:CGRectMake(20, 20, kScreenW-40, 35)];
     [nextBtn setTitle:@"重置密码" forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextBtn) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:nextBtn];
@@ -77,14 +70,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (void)createUI {
-
     if (!_usernameTF) {
         _usernameTF = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-15, 44)];
         _usernameTF.clearButtonMode=UITextFieldViewModeWhileEditing;
         _usernameTF.keyboardType = UIKeyboardTypeNumberPad;
         _usernameTF.placeholder=@"手机号";
     }
-
 
     if (!_passwordTF) {
         _passwordTF = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-15, 44)];
@@ -93,17 +84,15 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         _passwordTF.placeholder=@"新密码（6位及以上）";
     }
 
-
     if (!_codeTF) {
         _codeTF = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-118, 44)];
         _codeTF.clearButtonMode=UITextFieldViewModeWhileEditing;
         _codeTF.keyboardType = UIKeyboardTypeNumberPad;
         _codeTF.placeholder=@"验证码";
-
     }
 
     if (!_codeBtn) {
-        _codeBtn=[[blueButton alloc]initWithFrame:CGRectMake(kScreenW-100, 7, 90, 30)];
+        _codeBtn=[[LoginButton alloc]initWithFrame:CGRectMake(kScreenW-100, 7, 90, 30)];
         _codeBtn.titleLabel.font=[UIFont systemFontOfSize:14.0f];
         [_codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_codeBtn addTarget:self action:@selector(sendCodeBtn) forControlEvents:UIControlEventTouchUpInside];
@@ -172,9 +161,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 [hud hide:YES];
                 kTipAlert(@"%@", message);
                 [_codeBtn setEnabled:YES];
-//                seconds = 60;
-//                timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
-                NSLog(@"clickBtn");
+                
                 [_codeBtn startWithTime:60 title:@"点击重新获取" countDownTitle:@"s"];
                 
             }else{
@@ -189,40 +176,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         [_codeBtn setEnabled:YES];
     }
 }
-
-/*
-//倒计时方法验证码实现倒计时60秒，60秒后按钮变换开始的样子
--(void)timerFireMethod:(NSTimer *)theTimer {
-    if (seconds == 1) {
-
-        [theTimer invalidate];
-        seconds = 60;
-        _codeBtn.titleLabel.text = @"重新获取";
-        [_codeBtn setTitle:@"重新获取" forState: UIControlStateNormal];
-        [_codeBtn setEnabled:YES];
-    }else{
-        seconds--;
-        [_codeBtn setEnabled:NO];
-        NSString *title = [NSString stringWithFormat:@"倒计时%lds",(long)seconds];
-        [_codeBtn.titleLabel sizeToFit];
-        _codeBtn.titleLabel.text = title;
-        [_codeBtn setTitle:title forState:UIControlStateNormal];
-//        DLog(@"%@",_codeBtn.titleLabel.text);
-    }
-}
-
-//如果登陆成功，停止验证码的倒数，
-- (void)releaseTImer {
-    if (timer) {
-        if ([timer respondsToSelector:@selector(isValid)]) {
-            if ([timer isValid]) {
-                [timer invalidate];
-                seconds = 60;
-            }
-        }
-    }
-}
- */
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 10086) {
@@ -280,7 +233,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 
 - (void)dealloc {
-    DLog(@"找回密码dealloc");
     self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
 }

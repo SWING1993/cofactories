@@ -9,8 +9,8 @@
 #import "HttpClient.h"
 #import "Tools.h"
 #import "UserModel.h"
-#import "blueButton.h"
-#import "tablleHeaderView.h"
+#import "LoginButton.h"
+#import "LoginTableHeaderView.h"
 #import "SecondRegisterViewController.h"
 #import "RootViewController.h"
 
@@ -49,10 +49,10 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
     
-    tablleHeaderView*tableHeaderView = [[tablleHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, tableHeaderView_height)];
+    LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
     self.tableView.tableHeaderView = tableHeaderView;
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 60)];
-    blueButton*nextBtn=[[blueButton alloc]initWithFrame:CGRectMake(20, 15, kScreenW-40, 35)];;
+    LoginButton*nextBtn=[[LoginButton alloc]initWithFrame:CGRectMake(20, 15, kScreenW-40, 35)];;
     [nextBtn setTitle:@"注册" forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:nextBtn];

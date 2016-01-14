@@ -2,12 +2,12 @@
 //  RevisePasswordViewController.m
 //  cofactory-1.1
 //
-//  Created by 唐佳诚 on 15/7/16.
+//  Created by 宋国华 on 15/7/16.
 //  Copyright (c) 2015年 聚工科技. All rights reserved.
 //
 
 #import "HttpClient.h"
-#import "blueButton.h"
+#import "LoginButton.h"
 #import "RevisePasswordViewController.h"
 
 
@@ -47,7 +47,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
     UIView*tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70)];
     tableFooterView.backgroundColor = [UIColor clearColor];
-    blueButton*nextBtn=[[blueButton alloc]initWithFrame:CGRectMake(20, 20, kScreenW-40, 35)];
+    LoginButton*nextBtn=[[LoginButton alloc]initWithFrame:CGRectMake(20, 20, kScreenW-40, 35)];
     [nextBtn setTitle:@"确定" forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(RevisePasswordBtn) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:nextBtn];

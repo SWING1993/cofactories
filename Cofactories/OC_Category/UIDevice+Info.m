@@ -188,7 +188,6 @@
         modelNameString = [modelNameArray objectAtIndex:modelIndex];
     }
     
-    
     DLog(@"----设备类型---%@",modelNameString);
     return modelNameString;
 }
