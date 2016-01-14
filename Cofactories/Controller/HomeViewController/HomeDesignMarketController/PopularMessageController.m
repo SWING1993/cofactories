@@ -415,7 +415,6 @@ static NSString *popularCellIdentifier = @"popularCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.popularNewsListArray.count;
-    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -424,7 +423,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     cell.newsTitle.text = popularNewsModel.newsTitle;
     cell.likeCountLabel.text = popularNewsModel.likeNum;
-    cell.commentCountLabel.text = [NSString stringWithFormat:@"阅读数：%@", popularNewsModel.commentNum];
+    cell.commentCountLabel.text = [NSString stringWithFormat:@"阅读数：%@", popularNewsModel.clickNum];
     return cell;
 }
 

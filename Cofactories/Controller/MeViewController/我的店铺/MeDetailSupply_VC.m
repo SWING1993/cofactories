@@ -15,10 +15,8 @@
 #import "MeGoodsCategoryCell.h"
 
 static NSString *MeCatergoryCellIdentifier = @"MeCatergoryCell";
-
 static NSString *abstractCellIdentifier = @"abstractCell";
 static NSString *myTextCellIdentifier = @"myTextCell";
-
 static NSString * CellIdentifier = @"CellIdentifier";
 
 @interface MeDetailSupply_VC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
@@ -193,14 +191,9 @@ static NSString * CellIdentifier = @"CellIdentifier";
     if (section == 0 || section == 2 || section == 4) {
         return 0.5;
     } else {
-        return 10;
+        return 5;
     }
 }
-
-
-
-
-
 
 - (UICollectionView *)collectionView{
     if (!_collectionView) {

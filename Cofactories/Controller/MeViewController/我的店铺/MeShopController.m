@@ -9,17 +9,17 @@
 #import "MeShopController.h"
 #import "MeShopCell.h"
 #import "MeAddSupply_VC.h"//添加商品
-#import "MeDetailSupply_VC.h"//商品详情页
 #import "MeAddDesign_VC.h"
 #import "SVPullToRefresh.h"
-
+#import "CollectionViewHeaderView.h"
 #import "FabricMarketModel.h"
+#import "MeDetailSupply_VC.h"//商品详情页
 
 static NSString *shopCellIdentifier = @"shopCell";
-
+static NSString *headerIdentifier = @"header";
 @interface MeShopController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
     BOOL isEdit;
-
+    BOOL isReload;
 }
 
 @property (nonatomic,retain)UserModel * MyProfile;
@@ -54,9 +54,7 @@ static NSString *shopCellIdentifier = @"shopCell";
                 [weakSelf.collectionView.infiniteScrollingView stopAnimating];
                 [weakSelf.collectionView reloadData];
             }
-            
         }];
-        
     }];
     
     [self netWork];
@@ -75,6 +73,9 @@ static NSString *shopCellIdentifier = @"shopCell";
     [addButton setImage:[UIImage imageNamed:@"MeShop-加号"] forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(actionOfAdd:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:addButton];
+    
+    [self.collectionView registerClass:[CollectionViewHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerIdentifier];
+
 }
 
 - (void)netWork {
@@ -88,6 +89,7 @@ static NSString *shopCellIdentifier = @"shopCell";
                 PersonalShop_Model *model = [PersonalShop_Model getPersonalShopModelWithDictionary:dic];
                 [self.myShopGoodsArray addObject:model];
             }];
+            isReload = YES;
             [self.collectionView reloadData];
         }
         
@@ -119,13 +121,21 @@ static NSString *shopCellIdentifier = @"shopCell";
     return self.myShopGoodsArray.count;
     
 }
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    CollectionViewHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerIdentifier forIndexPath:indexPath];
+    headerView.photoView.image = [UIImage imageNamed:@"数据暂无"];
+    headerView.myLabel.text = @"店铺空空如也，点击加号上传商品吧";
+    return headerView;
+}
+
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MeShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:shopCellIdentifier forIndexPath:indexPath];
     
     if (isEdit == YES) {
         cell.deleteButton.hidden = NO;
-        cell.deleteButton.tag = 222                         + indexPath.row;
+        cell.deleteButton.tag = 222 + indexPath.row;
         [cell.deleteButton setImage:[UIImage imageNamed:@"删除图片"] forState:UIControlStateNormal];
         [cell.deleteButton addTarget: self action:@selector(actionOfDeleteItem:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -146,11 +156,12 @@ static NSString *shopCellIdentifier = @"shopCell";
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     MeDetailSupply_VC *medetailSupplyVC = [[MeDetailSupply_VC alloc] initWithStyle:UITableViewStyleGrouped];
     PersonalShop_Model *myShopModel = self.myShopGoodsArray[indexPath.row];
     medetailSupplyVC.goodsID = myShopModel.goodsID;
     [self.navigationController pushViewController:medetailSupplyVC animated:YES];
-
+    
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -163,9 +174,20 @@ static NSString *shopCellIdentifier = @"shopCell";
     return UIEdgeInsetsMake(3*kZGY, 3*kZGY, 3*kZGY, 3*kZGY);
 }
 
+//设置某个分区的区头大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    if (self.myShopGoodsArray.count == 0 && isReload == YES) {
+        isReload = NO;
+        return CGSizeMake(kScreenW, kScreenH - 64 - 70);
+    } else {
+        return CGSizeMake(0, 0);
+    }
+}
+
 
 #pragma mark - 编辑按钮
 - (void)pressItem:(UIBarButtonItem *)item {
+    isReload = YES;
     if ([item.title isEqualToString:@"编辑"]) {
         item.title = @"完成";
         isEdit = YES;
@@ -185,13 +207,37 @@ static NSString *shopCellIdentifier = @"shopCell";
     [HttpClient deleteUserShopWithShopID:myShopModel.goodsID withCompletionBlock:^(int statusCode) {
         DLog(@"^^^^^^^^^^^^^^^^%d", statusCode);
         if (statusCode == 200) {
-            [self.collectionView reloadData];
+            
+            NSIndexPath *index = [NSIndexPath indexPathForItem:button.tag - 222 inSection:0];
+            NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
+            [indexPaths addObject:index];
+            [self performBatchUpdatesWithAction:UICollectionUpdateActionDelete indexPaths:indexPaths animated:isEdit];
         }
     }];
-    
-    
 }
 
+- (void)performBatchUpdatesWithAction:(UICollectionUpdateAction)action indexPaths:(NSArray *)indexPaths animated:(BOOL)animated {
+    if (!animated) {
+        [UIView setAnimationsEnabled:NO];
+    }
+    [self.collectionView performBatchUpdates:^{
+        switch (action) {
+            case UICollectionUpdateActionInsert:
+                [self.collectionView insertItemsAtIndexPaths:indexPaths];
+                break;
+            case UICollectionUpdateActionDelete:
+                [self.collectionView deleteItemsAtIndexPaths:indexPaths];
+            default:
+                break;
+        }
+    } completion:^(BOOL finished) {
+        if (!animated) {
+            [UIView setAnimationsEnabled:YES];
+        }
+        isReload = YES;
+        [self.collectionView reloadData];
+    }];
+}
 
 #pragma mark - 添加产品
 - (void)actionOfAdd:(UIButton *)button {
@@ -206,6 +252,7 @@ static NSString *shopCellIdentifier = @"shopCell";
         [self.navigationController pushViewController:meAddVC animated:YES];
     }
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -39,6 +39,7 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
     self.navigationItem.rightBarButtonItem = rightItem;
     isEdit = NO;
     button1.selected = NO;
+    
     self.dataBasaHandle = [DataBaseHandle mainDataBaseHandle];
     [self.dataBasaHandle searchAllShoppingCar];
     self.shoppingCarArray = [NSMutableArray arrayWithCapacity:0];
@@ -52,10 +53,9 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
     [self creatTableView];
     [self creatBottomView];
     if (self.shoppingCarArray.count == 0) {
-        self.myTableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 50*kZGY) withImage:@"数据暂无2" withLabelText:@"数据暂无"];
+        self.myTableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 50*kZGY) withImage:@"数据暂无2" withLabelText:@"购物车空空如也"];
     }
 }
-
 
 - (void)pressItem:(UIBarButtonItem *)item {
     if ([item.title isEqualToString:@"编辑"]) {
@@ -67,6 +67,7 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
         isEdit = NO;
         button2.hidden = YES;
     }
+    
     [self.myTableView reloadData];
 }
 
@@ -237,7 +238,7 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
             [self.shoppingCarArray addObject:selectModel];
         }
         if (self.shoppingCarArray.count == 0) {
-            self.myTableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 50*kZGY) withImage:@"数据暂无2" withLabelText:@"数据暂无"];
+            self.myTableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 50*kZGY) withImage:@"数据暂无2" withLabelText:@"购物车空空如也"];
             [self.myTableView reloadData];
         } else {
             [self.myTableView reloadData];
@@ -309,8 +310,6 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
     }
     shopCarModel.shopCarNumber = textField.text;
     [self.myTableView reloadData];
-
-
 }
 
 

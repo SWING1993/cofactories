@@ -19,7 +19,7 @@
         self.myTextField = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.myLabel.frame) + 5, 0, kScreenW - 110, 40)];
         self.myTextField.textAlignment = NSTextAlignmentLeft;
         self.myTextField.clearButtonMode=UITextFieldViewModeWhileEditing;
-        self.myTextField.font = [UIFont systemFontOfSize:15];
+        self.myTextField.font = [UIFont systemFontOfSize:14];
         [self addSubview:self.myTextField];
     }
     return self;

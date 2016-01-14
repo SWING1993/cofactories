@@ -27,7 +27,9 @@ static NSString * CellIdentifier = @"CellIdentifier";
     PlaceholderTextView *descriptionTV;
     
     UIButton * _addImageBtn;
+    UILabel *_addImageLabel;
     UIButton * _addCatergoryBtn;
+    UILabel *_addCatergoryLabel;
     UILabel  * tiShiYuLabel;
     DOPDropDownMenu *_dropDownMenu;
     NSArray         *allTypeArray;
@@ -62,25 +64,36 @@ static NSString * CellIdentifier = @"CellIdentifier";
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(pressRightItem)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
+    _addImageLabel = [[UILabel alloc] init];
+    _addImageLabel.frame = CGRectMake(15, 7, 70, 30);
+    _addImageLabel.text = @"商品展示";
+    _addImageLabel.font = [UIFont systemFontOfSize:15];
+    
     _addImageBtn = [[UIButton alloc]init];
-    _addImageBtn.frame=CGRectMake(30, 7, kScreenW-60, 30);
+    _addImageBtn.frame=CGRectMake(kScreenW - 115, 7, 100, 30);
     [_addImageBtn setTitle:@"添加图片" forState:UIControlStateNormal];
     [_addImageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _addImageBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     _addImageBtn.layer.masksToBounds = YES;
     _addImageBtn.layer.cornerRadius = 3;
-    _addImageBtn.backgroundColor = [UIColor colorWithRed:72.0/255.0 green:126.0/255.0 blue:207.0/255.0 alpha:1.0];
+    _addImageBtn.backgroundColor = kLightBlue;
     [_addImageBtn addTarget:self action:@selector(addImageBtn) forControlEvents:UIControlEventTouchUpInside];
     
+    _addCatergoryLabel = [[UILabel alloc] init];
+    _addCatergoryLabel.frame = CGRectMake(15, 7, 70, 30);
+    _addCatergoryLabel.text = @"商品分类";
+    _addCatergoryLabel.font = [UIFont systemFontOfSize:15];
+    
     _addCatergoryBtn = [[UIButton alloc]init];
-    _addCatergoryBtn.frame=CGRectMake(30, 7, kScreenW-60, 30);
+    _addCatergoryBtn.frame=CGRectMake(kScreenW - 115, 7, 100, 30);
     [_addCatergoryBtn setTitle:@"添加分类" forState:UIControlStateNormal];
     [_addCatergoryBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _addCatergoryBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     _addCatergoryBtn.layer.masksToBounds = YES;
     _addCatergoryBtn.layer.cornerRadius = 3;
-    _addCatergoryBtn.backgroundColor = [UIColor colorWithRed:72.0/255.0 green:126.0/255.0 blue:207.0/255.0 alpha:1.0];
+    _addCatergoryBtn.backgroundColor = kLightBlue;
     [_addCatergoryBtn addTarget:self action:@selector(addCatergoryBtn) forControlEvents:UIControlEventTouchUpInside];
+    
     
     tiShiYuLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 70, kScreenW - 30, 40)];
     tiShiYuLabel.numberOfLines = 0;
@@ -147,7 +160,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     self.myTableView.dataSource = self;
     self.myTableView.delegate = self;
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //    self.myTableView.backgroundColor = [UIColor redColor];
+//        self.myTableView.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:251.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
     [self.view addSubview:self.myTableView];
     [self.myTableView registerClass:[MeTextFieldCell class] forCellReuseIdentifier:nameTFCellIdentifier];
     [self.myTableView registerClass:[MeTextFieldCell class] forCellReuseIdentifier:TFCellIdentifier];
@@ -166,7 +179,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     descriptionTV.layer.borderColor = kLineGrayCorlor.CGColor;
     descriptionTV.layer.borderWidth = 0.5;
     descriptionTV.placeholder = @"请输入商品简介";
-    descriptionTV.placeholderFont = [UIFont systemFontOfSize:15];
+    descriptionTV.placeholderFont = [UIFont systemFontOfSize:14];
     [footerView addSubview:descriptionTV];
     
     self.myTableView.tableFooterView = footerView;
@@ -196,6 +209,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if (indexPath.row == 0) {
+            [cell addSubview:_addImageLabel];
             [cell addSubview:_addImageBtn];
             if ([self.collectionImage count]==0) {
                 
@@ -235,6 +249,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        [cell addSubview:_addCatergoryLabel];
         [cell addSubview:_addCatergoryBtn];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if ([self.categoryArray count]==0) {
@@ -244,19 +259,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
             tiShiYuLabel.hidden = YES;
             [cell addSubview:self.collectionView1];
         }
-        
         return cell;
-    }
-    
-}
-
-- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
-        return @"商品展示";
-    } else if (section == 3) {
-        return @"商品分类";
-    } else {
-        return nil;
     }
 }
 
@@ -286,18 +289,11 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1 || section == 3 ) {
-        return 30;
-    } else {
-        return 0.5;
-    }
+    return 0.01f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 0 || section == 2) {
-        return 0.5;
-    } else {
-        return 10;
-    }
+    
+    return 5.0f;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -535,33 +531,28 @@ static NSString * CellIdentifier = @"CellIdentifier";
         int statusCode = [dictionary[@"statusCode"] intValue];
         if (statusCode == 200) {
             kTipAlert(@"发布成功");
-            if (self.collectionImage.count > 0) {
-                NSDictionary *myDic = dictionary[@"responseObject"];
-                NSString *policyString = myDic[@"data"][@"policy"];
-                NSString *signatureString = myDic[@"data"][@"signature"];
-                UpYun *upYun = [[UpYun alloc] init];
-                upYun.bucket = bucketAPI;//图片测试
-                upYun.expiresIn = 600;// 10分钟
-                
-                DLog(@"%@",self.collectionImage);
-                [self.collectionImage enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    UIImage *image = (UIImage *)obj;
-                    [upYun uploadImage:image policy:policyString signature:signatureString];
-                }];
-                double delayInSeconds = 1.0f;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    NSArray *navArray = self.navigationController.viewControllers;
-                    [self.navigationController popToViewController:navArray[1] animated:YES];
-                });
-            }else{
-                // 用户未上传图片
-                kTipAlert(@"未上传图片");
-            }
+            NSDictionary *myDic = dictionary[@"responseObject"];
+            NSString *policyString = myDic[@"data"][@"policy"];
+            NSString *signatureString = myDic[@"data"][@"signature"];
+            UpYun *upYun = [[UpYun alloc] init];
+            upYun.bucket = bucketAPI;//图片测试
+            upYun.expiresIn = 600;// 10分钟
+            
+            DLog(@"%@",self.collectionImage);
+            [self.collectionImage enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                UIImage *image = (UIImage *)obj;
+                [upYun uploadImage:image policy:policyString signature:signatureString];
+            }];
+            double delayInSeconds = 1.0f;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                NSArray *navArray = self.navigationController.viewControllers;
+                [self.navigationController popToViewController:navArray[1] animated:YES];
+            });
             
         } else {
             kTipAlert(@"发布失败 (错误码：%d)", statusCode);
-
+            
         }
         
     }];

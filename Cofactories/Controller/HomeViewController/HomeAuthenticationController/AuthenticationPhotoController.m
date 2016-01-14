@@ -120,35 +120,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     self.tableView.tableHeaderView = headerView;
 }
 
-- (void)actionOfDoneButton:(UIButton *)button {
-    DLog(@"提交认证");
-    doneButton.userInteractionEnabled = NO;
-    [HttpClient postVerifyWithenterpriseName:self.priseName withenterpriseAddress:self.priseAddress withpersonName:self.personName withidCard:self.idCard idCardImage:[self.idCardImageArray lastObject] idCardBackImage:[self.idCardBackImageArray lastObject] licenseImage:[self.licenseImageArray lastObject] andBlock:^(NSInteger statusCode) {
-        if (statusCode == 200) {
-            kTipAlert(@"提交认证成功, 可能需要几分钟的等待上传图片！");
-            doneButton.userInteractionEnabled = YES;
-            if (self.homeEnter) {
-                double delayInSeconds = 1.0f;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    NSArray *navArray = self.navigationController.viewControllers;
-                    [self.navigationController popToViewController:navArray[0] animated:YES];
-                });
-            } else {
-                //不是首页进入的
-                NSArray *navArray = self.navigationController.viewControllers;
-                [self.navigationController popToViewController:navArray[0] animated:YES];
-            }
-            
-        } else {
-            kTipAlert(@"提交认证失败");
-            doneButton.userInteractionEnabled = YES;
-        }
-        DLog(@"%ld", (long)statusCode);
-    }];
-}
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -310,7 +281,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         [doneButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
         doneButton.userInteractionEnabled = NO;
     } else {
-        doneButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+        doneButton.backgroundColor = kLightBlue;
         [doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         doneButton.userInteractionEnabled = YES;
 
@@ -323,6 +294,38 @@ static NSString * CellIdentifier = @"CellIdentifier";
 //        [self updatePortrait];
     }];
 }
+
+#pragma mark - 提交认证
+
+- (void)actionOfDoneButton:(UIButton *)button {
+    DLog(@"提交认证");
+    doneButton.userInteractionEnabled = NO;
+    [HttpClient postVerifyWithenterpriseName:self.priseName withenterpriseAddress:self.priseAddress withpersonName:self.personName withidCard:self.idCard idCardImage:[self.idCardImageArray lastObject] idCardBackImage:[self.idCardBackImageArray lastObject] licenseImage:[self.licenseImageArray lastObject] andBlock:^(NSInteger statusCode) {
+        if (statusCode == 200) {
+            kTipAlert(@"提交认证成功, 可能需要几分钟的等待上传图片！");
+            doneButton.userInteractionEnabled = YES;
+            if (self.homeEnter) {
+                double delayInSeconds = 1.0f;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    NSArray *navArray = self.navigationController.viewControllers;
+                    [self.navigationController popToViewController:navArray[0] animated:YES];
+                });
+            } else {
+                //不是首页进入的
+                NSArray *navArray = self.navigationController.viewControllers;
+                [self.navigationController popToViewController:navArray[0] animated:YES];
+            }
+            
+        } else {
+            kTipAlert(@"提交认证失败");
+            doneButton.userInteractionEnabled = YES;
+        }
+        DLog(@"%ld", (long)statusCode);
+    }];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

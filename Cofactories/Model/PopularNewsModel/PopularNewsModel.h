@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *newsImage;
 @property (nonatomic, strong) NSString *likeNum;
 @property (nonatomic, strong) NSString *commentNum;
+@property (nonatomic, strong) NSString *clickNum;
 
 - (instancetype)initPopularNewsModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getPopularNewsModelWithDictionary:(NSDictionary *)dictionary;

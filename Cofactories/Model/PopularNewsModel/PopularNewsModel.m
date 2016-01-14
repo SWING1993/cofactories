@@ -17,6 +17,7 @@
         self.newsImage = dictionary[@"sImg"];
         self.discriptions = dictionary[@"discription"];
         self.likeNum = [NSString stringWithFormat:@"%@", dictionary[@"likeNum"]];
+        self.clickNum = [NSString stringWithFormat:@"%@", dictionary[@"clickNum"]];
         self.commentNum = [NSString stringWithFormat:@"%@", dictionary[@"commentNum"]];
         }
     return self;

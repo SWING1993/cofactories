@@ -12,6 +12,7 @@
 #import "PersonalMessage_Factory_VC.h"
 #import "HomeKoreaShopList_VC.h"
 #import "PopularMessageController.h"
+#import "materialShopDetailController.h"
 
 @interface HomeActivity_VC ()<UIWebViewDelegate> {
     UIWebView * webView;
@@ -41,15 +42,44 @@
     
     //判断是不是点击链接
     if ([requestString hasPrefix:@"cofactories:"]) {
-        if ([requestString rangeOfString:@"shop"].location != NSNotFound) {
-            HomeKoreaShopList_VC *designShopVC = [[HomeKoreaShopList_VC alloc] initWithSubrole:@"设计者" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:5]];
-            [self.navigationController pushViewController:designShopVC animated:YES];
+        //判断是不是直接进入商城
+        if ([requestString hasPrefix:@"cofactories:shop"]) {
+            if ([requestString hasPrefix:@"cofactories:shop?"]) {
+                //打开韩国版型购买商城，并按照时间搜索
+                if ([requestString rangeOfString:@"time"].location != NSNotFound) {
+                    NSArray *timeArray = [requestString componentsSeparatedByString:@"?"];
+                    NSString *timeString = [[timeArray lastObject] substringFromIndex:5];
+                    DLog(@"####time=%@###", timeString);
+                    
+                    
+                    
+                }
+                //打开某个商品的详情页
+                if ([requestString rangeOfString:@"id"].location != NSNotFound) {
+                    NSArray *goodsArray = [requestString componentsSeparatedByString:@"?"];
+                    NSString *goodsString = [[goodsArray lastObject] substringFromIndex:3];
+                    DLog(@"####time=%@###", goodsString);
+                    
+                    materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
+                    materialShopVC.shopID = goodsString;
+                    [self.navigationController pushViewController:materialShopVC animated:YES];
+                }
+                
+            } else {
+                //直接进入韩国版型购买商城
+                HomeKoreaShopList_VC *designShopVC = [[HomeKoreaShopList_VC alloc] initWithSubrole:@"设计者" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:5]];
+                [self.navigationController pushViewController:designShopVC animated:YES];
+            }
         }
+        
+        //流行资讯
         if ([requestString rangeOfString:@"news"].location != NSNotFound) {
             PopularMessageController *popularVC = [[PopularMessageController alloc] init];
             popularVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:popularVC animated:YES];
         }
+        
+        //用户信息
         if ([requestString rangeOfString:@"userInfo"].location != NSNotFound) {
             NSArray *userInfoArray = [requestString componentsSeparatedByString:@"?"];
             NSString *uidString = [[userInfoArray lastObject] substringFromIndex:4];

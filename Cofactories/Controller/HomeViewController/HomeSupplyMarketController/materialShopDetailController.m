@@ -218,10 +218,10 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         cell.priceLeftLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"售价￥ %@", marketDetailModel.price] andRange:2];
 
         cell.marketPriceLeftLabel.text = @"市场价";
-        CGSize size = [Tools getSize:[NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice] andFontOfSize:15];
+        CGSize size = [Tools getSize:[NSString stringWithFormat:@" %@ ", marketDetailModel.marketPrice] andFontOfSize:15];
         cell.marketPriceRightLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceLeftLabel.frame), CGRectGetMaxY(cell.priceLeftLabel.frame), size.width, 30);
         
-        cell.marketPriceRightLabel.attributedText = [self underlineWithString:[NSString stringWithFormat:@"￥ %@", marketDetailModel.marketPrice]];
+        cell.marketPriceRightLabel.attributedText = [self underlineWithString:[NSString stringWithFormat:@" %@ ", marketDetailModel.marketPrice]];
         cell.leaveCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceRightLabel.frame) + 10, CGRectGetMaxY(cell.priceLeftLabel.frame), kScreenW - 30 - CGRectGetWidth(cell.marketPriceLeftLabel.frame) - CGRectGetWidth(cell.marketPriceRightLabel.frame), 30);
         if ([marketDetailModel.amount isEqualToString:@"库存暂无"]) {
             cell.leaveCountLabel.text = @"库存暂无";
