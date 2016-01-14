@@ -9,8 +9,8 @@
 #import "Input_OnlyText_Cell.h"
 #import "Tools.h"
 #import "HttpClient.h"
-#import "blueButton.h"
-#import "tablleHeaderView.h"
+#import "LoginButton.h"
+#import "LoginTableHeaderView.h"
 #import "LoginViewController.h"
 #import "ResetPasswordViewController.h"
 #import "RegisterViewController.h"
@@ -73,11 +73,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [self.tableView registerClass:[Input_OnlyText_Cell class] forCellReuseIdentifier:kCellIdentifier_Input_OnlyText_Cell_Text];
 
 
-    tablleHeaderView*tableHeaderView = [[tablleHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, tableHeaderView_height)];
+    LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
     self.tableView.tableHeaderView = tableHeaderView;
 
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 80)];
-    blueButton*loginBtn=[[blueButton alloc]init];
+    LoginButton*loginBtn=[[LoginButton alloc]init];
     loginBtn.frame =  CGRectMake(20, 15, (kScreenW-40), 35);
     loginBtn.tag=0;
     loginBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16.5];
@@ -188,10 +188,10 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 - (void)refreshIconUserImageWithKey:(NSString *)phone{
     if (phone.length == 0) {
-        [tablleHeaderView changeImageWithUid:nil];
+        [LoginTableHeaderView changeImageWithUid:nil];
     }else {
         NSString * uid = [[Login readLoginDataList]objectForKey:phone];
-        [tablleHeaderView changeImageWithUid:uid];
+        [LoginTableHeaderView changeImageWithUid:uid];
     }
 }
 
@@ -200,7 +200,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         //背景图片
         UIImageView *bgView = [[UIImageView alloc] initWithFrame:kScreenBounds];
         bgView.contentMode = UIViewContentModeScaleAspectFill;
-        UIImage *bgImage = [UIImage imageNamed:@"bk"];
+        UIImage *bgImage = [UIImage imageNamed:@"bgg"];
         bgView.image = bgImage;
 
         //黑色遮罩
@@ -271,7 +271,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (void)dealloc {
-    DLog(@"登录dealloc");
     self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
 }

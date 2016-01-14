@@ -52,7 +52,7 @@
         self.personStyleLabel.text = @"个人身份";
         self.personStyleLabel.textColor = [UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
         [self addSubview:self.personStyleLabel];
-        self.personalDataMiddleImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW/2 + 20*kZGY, CGRectGetMaxY(self.personStyleLabel.frame) + 15*kZGY, kScreenW/4 - 40*kZGY, 18*kZGY)];
+        self.personalDataMiddleImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW/2 + 18*kZGY, CGRectGetMaxY(self.personStyleLabel.frame) + 15*kZGY, kScreenW/4 - 36*kZGY, 18*kZGY)];
         self.personalDataMiddleImage.contentMode = UIViewContentModeScaleAspectFill;
         self.personalDataMiddleImage.clipsToBounds = YES;
         [self addSubview:self.personalDataMiddleImage];

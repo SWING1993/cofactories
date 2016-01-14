@@ -22,7 +22,6 @@
 #import "HomeActivity_VC.h"
 #import "IndexModel.h"
 #import "ActivityModel.h"
-#import "SVPullToRefresh.h"
 
 
 static NSString *marketCellIdentifier = @"marketCell";
@@ -39,7 +38,11 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 @end
 
-@implementation HomeViewController
+@implementation HomeViewController {
+    NSString *nameString;
+    NSString *scoreString;
+    CGFloat wallet;
+}
 
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -72,40 +75,50 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
         
     }];
-    //钱包余额
-    [HttpClient getwalletWithBlock:^(NSDictionary *responseDictionary) {
-        NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
-        if (statusCode == 200) {
-            self.walletModel = [responseDictionary objectForKey:@"model"];
-            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
-            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-        }
-    }];
-    //个人信息
+        //个人信息
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
-        
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
         if (statusCode == 200) {
             self.MyProfile = [responseDictionary objectForKey:@"model"];
-            DLog(@"^^^^^%@", self.MyProfile);
+            //钱包余额
+            [HttpClient getwalletWithBlock:^(NSDictionary *responseDictionary) {
+                NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
+                if (statusCode == 200) {
+                    self.walletModel = [responseDictionary objectForKey:@"model"];
+                    nameString = self.MyProfile.name;
+                    scoreString = self.MyProfile.score;
+                    wallet = self.walletModel.money;
+//                    double delayInSeconds = 1.0f;
+//                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
+                        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+//                    });
+
+                }
+            }];
+
         } else {
             self.MyProfile = [[UserModel alloc]getMyProfile];
         }
-        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
-        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+       
     }];
     //活动列表
     [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
         int statusCode = [responseDictionary[@"statusCode"] intValue];
         DLog(@"statusCode = %d", statusCode);
-        NSArray *jsonArray = responseDictionary[@"responseArray"];
-        self.activityArray = [NSMutableArray arrayWithCapacity:0];
-        for (NSDictionary *dictionary in jsonArray) {
-            ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
-            [self.activityArray addObject:activityModel];
+        if (statusCode == 200) {
+            NSArray *jsonArray = responseDictionary[@"responseArray"];
+            self.activityArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dictionary in jsonArray) {
+                ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
+                [self.activityArray addObject:activityModel];
+            }
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
+            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        } else if (statusCode == 0) {
+            kTipAlert(@"您的网络状态不太顺畅哦~");
         }
-        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
-        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     }];
     
 }
@@ -113,7 +126,6 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 //获取IM用户信息
 - (void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
-    DLog(@"**************************");
     //解析工厂信息
     [HttpClient getOtherIndevidualsInformationWithUserID:userId WithCompletionBlock:^(NSDictionary *dictionary) {
         OthersUserModel *otherModel = (OthersUserModel *)dictionary[@"message"];
@@ -152,11 +164,12 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
     }];
 
+    nameString = @"";
+    scoreString = @"";
+    wallet = 0;
     [self creatTableView];
     [self creatTableHeaderView];
     [self creatShoppingCarTable];
-    
-    
 }
 
 - (void)creatTableView {
@@ -195,30 +208,40 @@ static NSString *activityCellIdentifier = @"activityCell";
     if (indexPath.section == 0) {
          HomePersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:personalDataCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;//去掉选中背景色
+        //用户头像
         [cell.personalDataLeftImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI, self.MyProfile.uid]] placeholderImage:[UIImage imageNamed:@"headBtn"]];
-        cell.personNameLabel.text = self.MyProfile.name;
+        //用户名字
+        cell.personNameLabel.text = nameString;
+        //用户积分
+        cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", scoreString];
+        //钱包余额
+        cell.personWalletLeft.text = [NSString stringWithFormat:@"余额：%.2f元", wallet];
         //用户类型
         if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
             cell.personStatusImage.image = [UIImage imageNamed:@"注"];
         } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
             cell.personStatusImage.image = [UIImage imageNamed:@"证"];
         }
-
-        cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", self.MyProfile.score];
-        //钱包余额
-        cell.personWalletLeft.text = [NSString stringWithFormat:@"余额：%.2f元",self.walletModel.money];
         
         //用户身份
-        if (self.MyProfile.UserType == UserType_designer) {
-            cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-设计者"];
-        } else if (self.MyProfile.UserType == UserType_clothing) {
-            cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服装企业"];
-        } else if (self.MyProfile.UserType == UserType_processing) {
-            cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-加工企业"];
-        } else if (self.MyProfile.UserType == UserType_supplier) {
-            cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-供应商"];
-        } else if (self.MyProfile.UserType == UserType_facilitator) {
-            cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服务商"];
+        switch (self.MyProfile.UserType) {
+            case UserType_designer:
+                cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-设计者"];
+                break;
+            case UserType_clothing:
+                cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服装企业"];
+                break;
+            case UserType_processing:
+                cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-加工企业"];
+                break;
+            case UserType_supplier:
+                cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-供应商"];
+                break;
+            case UserType_facilitator:
+                cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服务商"];
+                break;
+            default:
+                break;
         }
         //地址
         if ([self.MyProfile.address isEqualToString:@"暂无"] || self.MyProfile.address.length == 0) {
@@ -230,14 +253,18 @@ static NSString *activityCellIdentifier = @"activityCell";
         
         [cell.authenticationButton addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
         //认证状态
-        if (self.MyProfile.verify_status == 0) {
-            cell.authenticationLabel.text = @"前往认证";
-        }
-        if (self.MyProfile.verify_status == 1) {
-            cell.authenticationLabel.text = @"正在审核";
-        }
-        if (self.MyProfile.verify_status == 2) {
-            cell.authenticationLabel.text = @"已认证";
+        switch (self.MyProfile.verify_status) {
+            case 0:
+                cell.authenticationLabel.text = @"前往认证";
+                break;
+            case 1:
+                cell.authenticationLabel.text = @"正在审核";
+                break;
+            case 2:
+                cell.authenticationLabel.text = @"已认证";
+                break;
+            default:
+                break;
         }
         return cell;
     } else if (indexPath.section == 1) {
@@ -251,7 +278,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         if (activityModel.banner.length == 0) {
             cell.activityPhoto.image = [UIImage imageNamed:@"bannerPlaceHolder"];
         } else {
-            [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@"bannerPlaceHolder"]];
+            [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@""]];
         }
         return cell;
     }
@@ -279,6 +306,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //活动点击事件
     if (indexPath.section == 2) {
         HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
         ActivityModel *activityModel = self.activityArray[indexPath.row];
@@ -343,15 +371,15 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 #pragma mark -WKFCircularSlidingViewDelegate
+
 -(void)clickCircularSlidingView:(int)tag{
     DLog(@"点击了第  %d  张图", tag);
+    //点击了第几张轮播图
     HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
     IndexModel *bannerModel = self.bannerArray[tag - 1];
     activityVC.urlString = bannerModel.url;
-    DLog(@"ciusduhnsdhnvodsviodsjv^^^^%@", bannerModel.url);
     activityVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:activityVC animated:YES];
-
 }
 #pragma mark - Action认证
 - (void)authenticationAction:(UIButton *)button {

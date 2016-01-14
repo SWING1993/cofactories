@@ -5,6 +5,7 @@
 //  Created by 赵广印 on 15/11/25.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
+#import "TableViewHeaderView.h"
 #import "MJRefresh.h"
 #import "WalletHistoryModel.h"
 #import "WalletHistoryViewController.h"
@@ -29,7 +30,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
 }
 
 
@@ -40,6 +40,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.rowHeight = 70.0f;
+    
+  
     
     footerLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 40)];
     footerLabel.text = @"没有更多数据";
@@ -55,7 +57,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             self.modelArray = [[responseDictionary objectForKey:@"ModelArray"] mutableCopy];
             DLog(@"第一页有%lu条数据",(unsigned long)[self.modelArray count]);
             if (self.modelArray.count < 20) {
-                self.tableView.tableFooterView = footerLabel;
+                if (self.modelArray.count == 0) {
+                    TableViewHeaderView * view = [[TableViewHeaderView alloc]initWithFrame:kScreenBounds withImage:@"数据暂无2" withLabelText:@"暂无数据"];
+                    self.tableView.backgroundView = view;
+                }else {
+                    self.tableView.tableFooterView = footerLabel;
+                }
             }
             [self.tableView reloadData];
         }

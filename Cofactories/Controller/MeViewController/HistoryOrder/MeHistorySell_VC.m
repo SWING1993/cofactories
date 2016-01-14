@@ -37,7 +37,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
                 [self.historySellArray addObject:historyOrderModel];
             }
             if (self.historySellArray.count == 0) {
-                _tableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64) withImage:@"数据暂无" withLabelText:@"暂无出售记录"];
+                _tableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"暂无出售记录"];
             } else {
                 [_tableView reloadData];
             }

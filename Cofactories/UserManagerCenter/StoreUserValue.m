@@ -14,15 +14,11 @@ static StoreUserValue * storeValue = nil;
 @implementation StoreUserValue
 
 + (StoreUserValue *)sharedInstance {
-    
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
-        
         storeValue = (StoreUserValue *)@"StoreUserValue";
         storeValue = [[StoreUserValue alloc] init];
     });
-    
-    
     // 防止子类使用
     NSString *classString = NSStringFromClass([self class]);
     if ([classString isEqualToString:@"StoreUserValue"] == NO) {
@@ -34,15 +30,11 @@ static StoreUserValue * storeValue = nil;
     
     NSString *string = (NSString *)storeValue;
     if ([string isKindOfClass:[NSString class]] == YES && [string isEqualToString:@"StoreUserValue"]) {
-        
         self = [super init];
-        
         if (self) {
-            
             // 防止子类使用
             NSString *classString = NSStringFromClass([self class]);
             if ([classString isEqualToString:@"StoreUserValue"] == NO) {
-                
                 NSParameterAssert(nil);
             }
         }
@@ -66,7 +58,6 @@ static StoreUserValue * storeValue = nil;
     NSParameterAssert(key);
     
     NSData *data = [[NSUserDefaults standardUserDefaults] valueForKey:key];
-    
     return [FastCoder objectWithData:data];
 }
 
@@ -74,7 +65,7 @@ static StoreUserValue * storeValue = nil;
     NSParameterAssert(key);
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    DLog(@"删除用户数据（BOOL）= %d",[[NSUserDefaults standardUserDefaults] synchronize]);
+    DLog(@"删除数据（BOOL）= %d",[[NSUserDefaults standardUserDefaults] synchronize]);
 }
 
 
