@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ContractFactoryDetail_VC : UIViewController
-
+@property (nonatomic,copy)NSString *modelID;
 @end

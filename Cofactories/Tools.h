@@ -121,4 +121,8 @@
  *  @return 图片
  */
 + (UIImage *)captureScrollView:(UIScrollView *)scrollView ;
+
+
+
++ (void)saveImageToMyAlbumWithOrderID:(NSString *)orderID;
 @end

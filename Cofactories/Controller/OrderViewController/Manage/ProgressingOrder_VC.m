@@ -12,6 +12,8 @@
 #import "FactoryOrderDetail_VC.h"
 #import "DesignOrderDetail_VC.h"
 #import "ContractClothingDetail_VC.h"
+#import "ContractFactoryDetail_VC.h"
+
 @interface ProgressingOrder_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView     *_tableView;
     NSMutableArray  *_dataArray;
@@ -184,6 +186,14 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 
                 if ([_contractStatus isEqualToString:@"双方签署合同"]) {
                     
+                    ContractFactoryDetail_VC *vc = [[ContractFactoryDetail_VC alloc] init];
+                    vc.modelID = dataModel.ID;
+                    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+                    backItem.title=@"返回";
+                    backItem.tintColor=[UIColor whiteColor];
+                    self.navigationItem.backBarButtonItem = backItem;
+                    
+                    [self.navigationController pushViewController:vc animated:YES];
                 }else{
                     
                     FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];

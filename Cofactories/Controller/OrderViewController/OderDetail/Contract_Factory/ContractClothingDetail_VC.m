@@ -15,7 +15,7 @@
 #import "UILabel+extension.h"
 #import "TimeAxis_TVC.h"
 #import "AddOrderMessage_VC.h"
-@interface ContractClothingDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
+@interface ContractClothingDetail_VC ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>{
     UITableView         *_tableView;
     NSString            *_descriptionString;
     NSInteger            _sectionFooterHeight;
@@ -23,6 +23,7 @@
 }
 @property (nonatomic,strong)FactoryOrderMOdel  *dataModel;
 @property (nonatomic,strong)OthersUserModel    *otherUserModel;
+@property (nonatomic,assign)BOOL                isDriveContract;   // 是否导出合同
 @end
 static NSString *const reuseIdentifier1 = @"reuseIdentifier1";
 static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
@@ -291,7 +292,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         return _sectionFooterHeight;
     }
     
-    return 140;
+    return 120;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -315,23 +316,55 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         return view;
     }
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 140)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 120)];
     view.backgroundColor = [UIColor whiteColor];
     
     CALayer *lineLayer1 = [CALayer layer];
     lineLayer1.backgroundColor = GRAYCOLOR(200).CGColor;
     lineLayer1.frame = CGRectMake(0,0, kScreenW, 0.5);
     [view.layer addSublayer:lineLayer1];
-
+    
+    UIButton *contractButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    contractButton.frame = CGRectMake(20, 20, 20, 20);
+    contractButton.layer.cornerRadius = 10;
+    contractButton.layer.borderWidth = 1;
+    [contractButton addTarget:self action:@selector(contractClick:) forControlEvents:UIControlEventTouchUpInside];
+    contractButton.layer.borderColor = [[UIColor grayColor] CGColor];
+    [view addSubview:contractButton];
+    
+    UILabel *contractLB = [[UILabel alloc] initWithFrame:CGRectMake(45, 20, 100, 20)];
+    contractLB.text = @"《用户担保协议》";
+    contractLB.font = [UIFont systemFontOfSize:12];
+    [view addSubview:contractLB];
+    
+    UIButton *driveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    driveButton.frame = CGRectMake(145, 10, 40, 40);
+    driveButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [driveButton setTitle:@"导出" forState:UIControlStateNormal];
+    [driveButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [driveButton addTarget:self action:@selector(driveClick) forControlEvents:UIControlEventTouchUpInside];
+    driveButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [view addSubview:driveButton];
+    
+    NSArray *array = @[@"付款",@"订单完成"];
+    for (int i = 0; i<array.count; i++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake((kScreenW-240)/3.f+i*(120+(kScreenW-240)/3.f), 60, 120,40);
+        [button setTitle:array[i] forState:UIControlStateNormal];
+        button.backgroundColor = MAIN_COLOR;
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        button.tag = i+1;
+        button.layer.cornerRadius = 5;
+        [button addTarget:self action:@selector(payAndConfirmClick:) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:button];
+    }
     return view;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
         if (indexPath.row == _timeAxisMutableArray.count - 1) {
-//            [HttpClient addOrderMessageWithOrderID:_dataModel.ID message:@"么么么么我是你大爷" WithCompletionBlock:^(NSDictionary *dictionary) {
-//                
-//            }];
+            
             AddOrderMessage_VC *vc = [AddOrderMessage_VC new];
             vc.isClothingEnter = YES;
             vc.orderID = _dataModel.ID;
@@ -339,5 +372,63 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         }
     }
 }
+
+- (void)payAndConfirmClick:(UIButton *)button{
+    NSLog(@"%ld",(long)button.tag);
+    if (button.tag == 1) {
+        // 付款
+    }else if (button.tag == 2){
+        // 确定完成
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"货物已收完全收到?双方订单完成并评分后,保证金将返还到双方钱包!" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        
+    }else if (buttonIndex == 1){
+        //  发送确认成功的请求
+        DLog(@"34543");
+    }
+}
+
+- (void)contractClick:(UIButton *)button{
+    
+    _isDriveContract = !_isDriveContract;
+    if (_isDriveContract) {
+        [button setBackgroundImage:[UIImage imageNamed:@"leftBtn_Selected.png"] forState:UIControlStateNormal];
+    }else{
+        [button setBackgroundImage:nil forState:UIControlStateNormal];
+    }
+}
+
+- (void)driveClick{
+    if (_isDriveContract) {
+        NSLog(@"243423");
+        [self saveImageToMyAlbumWithOrderID:_dataModel.ID];
+    }else{
+        kTipAlert(@"请勾选左侧合同导出按钮!");
+    }
+    
+}
+
+- (void)saveImageToMyAlbumWithOrderID:(NSString *)orderID{
+    
+    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@%@%@",kBaseUrl,@"/order/factory/contract/",orderID,@"?access_token=",[HttpClient getToken].accessToken]]];
+    DLog(@"%@",[NSString stringWithFormat:@"%@%@%@%@%@",kBaseUrl,@"/order/factory/contract/",orderID,@"?access_token=",[HttpClient getToken].accessToken]);
+    UIImage *image = [UIImage imageWithData:data];
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    if (error) {
+        kTipAlert(@"保存失败,请检查你的网络!");
+    }else{
+        kTipAlert(@"保存成功,请自行去相册查看!");
+    }
+}
+
 
 @end
