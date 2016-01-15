@@ -20,6 +20,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     NSArray         *_zhejiangArray;
     NSArray         *_anhuiArray;
     NSArray         *_guangdongArray;
+    UISearchBar     *mySearchBar;
+    UIButton        *backgroundView;
 }
 @property (nonatomic,copy)NSString *userType;
 @property (nonatomic,copy)NSString *userPrice;
@@ -50,14 +52,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
-    temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(back);
-    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
     
     [self creatCollectionView];
 
@@ -89,6 +84,11 @@ static NSString *materialCellIdentifier = @"materialCell";
     }];
     
     [self netWork];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickBackgroundViewAction) name:UIKeyboardWillHideNotification object:nil];
+    
+    [self creatBackgroundView];
+
 }
 
 - (void)netWork {
@@ -102,24 +102,57 @@ static NSString *materialCellIdentifier = @"materialCell";
         [self.myCollectionView reloadData];
     }];
 }
+
+#pragma mark - 遮盖层
+- (void)creatBackgroundView {
+    backgroundView = [UIButton buttonWithType:UIButtonTypeCustom];
+    backgroundView.frame = CGRectMake(0, 64, kScreenW, kScreenH);
+    backgroundView.backgroundColor = [UIColor blackColor];
+    backgroundView.alpha = 0.0f;
+    [backgroundView addTarget:self action:@selector(clickBackgroundViewAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backgroundView];
+}
+
+- (void) clickBackgroundViewAction {
+    [self controlBackgroundView:0];
+}
+
+- (void)controlBackgroundView:(float)alphaValue {
+    [UIView animateWithDuration:0.2 animations:^{
+        backgroundView.alpha = alphaValue;
+        if (alphaValue <= 0) {
+            [mySearchBar resignFirstResponder];
+            [mySearchBar setShowsCancelButton:NO animated:YES];
+        }
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+
 #pragma mark - 搜索框
 - (void)customSearchBar{
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
-    searchBar.delegate = self;
-    searchBar.placeholder = @"请输入商品名称";
-    [searchBar setShowsCancelButton:YES];
-    searchBar.tintColor = kDeepBlue;
-    [searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"SearchBarBackgroundColor"] forState:UIControlStateNormal];
-    self.navigationItem.titleView = searchBar;
+    mySearchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    mySearchBar.delegate = self;
+    mySearchBar.placeholder = @"请输入商品名称";
+    mySearchBar.tintColor = kDeepBlue;
+    [mySearchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"SearchBarBackgroundColor"] forState:UIControlStateNormal];
+    mySearchBar.backgroundColor = [UIColor clearColor];
+    [mySearchBar setShowsCancelButton:NO];
+    self.navigationItem.titleView = mySearchBar;
     
-    for (UIView *view in [[searchBar.subviews lastObject] subviews]) {
+    for (UIView *view in [[mySearchBar.subviews lastObject] subviews]) {
         if ([view isKindOfClass:[UIButton class]]) {
             UIButton *cancelBtn = (UIButton *)view;
             [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         }
     }
 }
-
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:YES animated:YES];
+    [self.view bringSubviewToFront:backgroundView];
+    [self controlBackgroundView:0.3];
+}
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
     NSLog(@"%@",searchBar.text);
@@ -138,6 +171,7 @@ static NSString *materialCellIdentifier = @"materialCell";
             SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
             [self.goodsArray addObject:searchModel];
         }
+        [self controlBackgroundView:0];
         [self.myCollectionView reloadData];
         
     }];
@@ -146,9 +180,10 @@ static NSString *materialCellIdentifier = @"materialCell";
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    [searchBar resignFirstResponder];
+    [self controlBackgroundView:0];
     [self.view endEditing:YES];
 }
+
 
 #pragma mark - 选择器方法
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu{
@@ -447,10 +482,11 @@ static NSString *materialCellIdentifier = @"materialCell";
     
     return attributedString;
 }
-
-- (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
