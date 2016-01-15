@@ -84,7 +84,6 @@
 		03571C941BE85D9C00900EF9 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 03571C861BE85D9C00900EF9 /* IQKeyboardManager.bundle */; };
 		03571C9B1BE85DAC00900EF9 /* DOPDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 03571C971BE85DAC00900EF9 /* DOPDropDownMenu.m */; };
 		03571C9C1BE85DAC00900EF9 /* icon_chose_arrow_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03571C981BE85DAC00900EF9 /* icon_chose_arrow_nor@2x.png */; };
-		03571C9D1BE85DAC00900EF9 /* icon_chose_arrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03571C991BE85DAC00900EF9 /* icon_chose_arrow_sel@2x.png */; };
 		03571C9E1BE85DAC00900EF9 /* icon_chose_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03571C9A1BE85DAC00900EF9 /* icon_chose_bottom@2x.png */; };
 		03571D091BE85DDE00900EF9 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571CA11BE85DDE00900EF9 /* libMobClickLibrary.a */; };
 		03571D391BE8602E00900EF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D381BE8602E00900EF9 /* UIKit.framework */; };
@@ -345,6 +344,7 @@
 		7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */; };
 		7D5063951C43929B00B04498 /* TableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5063941C43929B00B04498 /* TableViewHeaderView.m */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
+		7D5C482C1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5C482B1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png */; };
 		7D6568881C337E6F0066C82D /* IndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6568871C337E6F0066C82D /* IndexModel.m */; };
 		7D65688C1C3389D80066C82D /* PublishPopularNews_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D65688B1C3389D80066C82D /* PublishPopularNews_VC.m */; };
 		7D65688F1C3397680066C82D /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D65688E1C3397680066C82D /* ActivityModel.m */; };
@@ -678,7 +678,6 @@
 		03571C961BE85DAC00900EF9 /* DOPDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOPDropDownMenu.h; sourceTree = "<group>"; };
 		03571C971BE85DAC00900EF9 /* DOPDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOPDropDownMenu.m; sourceTree = "<group>"; };
 		03571C981BE85DAC00900EF9 /* icon_chose_arrow_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_nor@2x.png"; sourceTree = "<group>"; };
-		03571C991BE85DAC00900EF9 /* icon_chose_arrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_sel@2x.png"; sourceTree = "<group>"; };
 		03571C9A1BE85DAC00900EF9 /* icon_chose_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_bottom@2x.png"; sourceTree = "<group>"; };
 		03571CA11BE85DDE00900EF9 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		03571CA21BE85DDE00900EF9 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
@@ -1162,6 +1161,7 @@
 		7D5063941C43929B00B04498 /* TableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewHeaderView.m; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
+		7D5C482B1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_sel@2x.png"; sourceTree = "<group>"; };
 		7D6568861C337E6F0066C82D /* IndexModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexModel.h; sourceTree = "<group>"; };
 		7D6568871C337E6F0066C82D /* IndexModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexModel.m; sourceTree = "<group>"; };
 		7D65688A1C3389D80066C82D /* PublishPopularNews_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishPopularNews_VC.h; sourceTree = "<group>"; };
@@ -1921,7 +1921,7 @@
 				03571C961BE85DAC00900EF9 /* DOPDropDownMenu.h */,
 				03571C971BE85DAC00900EF9 /* DOPDropDownMenu.m */,
 				03571C981BE85DAC00900EF9 /* icon_chose_arrow_nor@2x.png */,
-				03571C991BE85DAC00900EF9 /* icon_chose_arrow_sel@2x.png */,
+				7D5C482B1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png */,
 				03571C9A1BE85DAC00900EF9 /* icon_chose_bottom@2x.png */,
 			);
 			path = "DOPDropDownMenu ";
@@ -3287,6 +3287,7 @@
 				035CC5D61C070ECB00998FBD /* umeng_fb_audio_play_02@2x.png in Resources */,
 				035CC5C81C070ECB00998FBD /* UMFeedbackLocalizable.strings in Resources */,
 				035CC51F1C06DCF000998FBD /* JKImagePickerController.strings in Resources */,
+				7D5C482C1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png in Resources */,
 				035CC5D31C070ECB00998FBD /* umeng_fb_audio_dialog_cancel@2x.png in Resources */,
 				03571C9C1BE85DAC00900EF9 /* icon_chose_arrow_nor@2x.png in Resources */,
 				03B897401C15490400DB8E4E /* AlipaySDK.bundle in Resources */,
@@ -3320,7 +3321,6 @@
 				7DA950161C1298AF00BFCB31 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				035CC5CE1C070ECB00998FBD /* ToolViewInputText@2x.png in Resources */,
 				7DA950151C1298AF00BFCB31 /* UMSShareListController.xib in Resources */,
-				03571C9D1BE85DAC00900EF9 /* icon_chose_arrow_sel@2x.png in Resources */,
 				035CC5D71C070ECB00998FBD /* umeng_fb_audio_play_03@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

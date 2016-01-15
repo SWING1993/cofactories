@@ -45,13 +45,13 @@ static NSString *popularCellIdentifier = @"popularCell";
     [super viewWillAppear:animated];
     [self creatSearchBar];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:65.0f/255.0f green:145.0f/255.0f blue:228.0f/255.0f alpha:1.0f];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
     [_searchBar removeFromSuperview];
 }
 
