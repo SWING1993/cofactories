@@ -37,8 +37,9 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
                 [self.historySellArray addObject:historyOrderModel];
             }
             if (self.historySellArray.count == 0) {
-                _tableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"暂无出售记录"];
+                _tableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"暂无出售记录"];
             } else {
+                [self setupRefresh];
                 [_tableView reloadData];
             }
 
@@ -46,7 +47,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
             kTipAlert(@"您的网络有点不太顺畅哦！");
         }
     }];
-    [self setupRefresh];
+    
 }
 - (void)initTableView{
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH-44-64) style:UITableViewStylePlain];
@@ -63,6 +64,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
     _tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
     _tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
     _tableView.footerRefreshingText = @"加载中...";
+    
 }
 
 - (void)footerRereshing{

@@ -28,6 +28,12 @@ static NSString *processCellIdentifier = @"processCell";
 
     self.navigationItem.title = @"加工配套市场";
     
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
     photoArray = @[@"Process-加工厂", @"Process-锁眼钉扣", @"Process-代裁", @"Process-后整包装", @"Process-砂洗水洗", @"Process-绣花厂", @"Procss-印染厂", @"Process-印花厂", @"Process-其他特种工艺"];
     titleArray = @[@"加工厂", @"锁眼钉扣", @"代裁", @"后整包装", @"砂洗水洗", @"印花厂", @"印染厂", @"绣花厂", @"其他特种工艺"];
     [self creatCollectionView];
@@ -117,6 +123,9 @@ static NSString *processCellIdentifier = @"processCell";
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

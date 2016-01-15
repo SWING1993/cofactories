@@ -38,8 +38,9 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
                 [self.historyBuyArray addObject:historyOrderModel];
             }
             if (self.historyBuyArray.count == 0) {
-                _tableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"暂无购买记录"];
+                _tableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"暂无购买记录"];
             } else {
+                [self setupRefresh];
                 [_tableView reloadData];
             }
 
@@ -48,7 +49,6 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
         }
     }];
 
-    [self setupRefresh];
 }
 - (void)initTableView{
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH-44-64) style:UITableViewStylePlain];
@@ -64,6 +64,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
     _tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
     _tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
     _tableView.footerRefreshingText = @"加载中...";
+    
 }
 
 - (void)footerRereshing{

@@ -964,7 +964,7 @@
 
 
 // 搜索设计（市场）
-+ (void)searchDesignWithMarket:(NSString *)aMarket type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity country:(NSString *)aCountry page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)searchDesignWithMarket:(NSString *)aMarket type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity country:(NSString *)aCountry aCreatedAt:(NSString *)aCreatedAt page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -997,6 +997,10 @@
         if (aCountry) {
             [parametersDictionary setObject:aCountry forKey:@"country"];
         }
+        if (aCreatedAt) {
+            [parametersDictionary setObject:aCountry forKey:@"createdAt"];
+        }
+
         if (aPage) {
             [parametersDictionary setObject:aPage forKey:@"page"];
         }

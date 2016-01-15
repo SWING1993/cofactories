@@ -29,6 +29,13 @@
 
     self.navigationItem.title = @"供应市场";
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
     [self creatScrollView];
     [self creatSelectView];
 }
@@ -184,14 +191,13 @@
                 //辅料商城
                 AccessoryShop_VC *accessoryVC = [[AccessoryShop_VC alloc] initWithSubrole:@"辅料商城" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:2]];
                 [self.navigationController pushViewController:accessoryVC animated:YES];
- 
             }
                 
                 break;
             case 2: {
+                //机械设备商城
                 MachineShop_VC *machineVC = [[MachineShop_VC alloc] initWithSubrole:@"机械设备" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:3]];
                 [self.navigationController pushViewController:machineVC animated:YES];
-                
             }
                 
                 break;
@@ -199,6 +205,10 @@
                 break;
         }
     }
+}
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

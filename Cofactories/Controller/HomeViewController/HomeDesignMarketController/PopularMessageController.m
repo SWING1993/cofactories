@@ -124,6 +124,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [[UISearchBar alloc] initWithFrame:kSearchFrameLong];
     _searchBar.delegate = self;
+    _searchBar.tintColor = kDeepBlue;
     [self.navigationController.view addSubview:_searchBar];
     [_searchBar setBackgroundImage:[[UIImage alloc] init] ];
     _searchBar.placeholder = @"搜索文章、图片、作者";

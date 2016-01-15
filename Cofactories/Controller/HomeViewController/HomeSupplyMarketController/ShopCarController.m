@@ -53,7 +53,7 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
     [self creatTableView];
     [self creatBottomView];
     if (self.shoppingCarArray.count == 0) {
-        self.myTableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 50*kZGY) withImage:@"数据暂无2" withLabelText:@"购物车空空如也"];
+        self.myTableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 50*kZGY) withImage:@"数据暂无2" withLabelText:@"购物车空空如也"];
     }
 }
 
@@ -238,7 +238,7 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
             [self.shoppingCarArray addObject:selectModel];
         }
         if (self.shoppingCarArray.count == 0) {
-            self.myTableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 50*kZGY) withImage:@"数据暂无2" withLabelText:@"购物车空空如也"];
+            self.myTableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 50*kZGY) withImage:@"数据暂无2" withLabelText:@"购物车空空如也"];
             [self.myTableView reloadData];
         } else {
             [self.myTableView reloadData];

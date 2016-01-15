@@ -407,7 +407,6 @@
 		7DCCC2A01C20FDB6002BF795 /* PopularNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */; };
 		7DD483501C226820006D0FF6 /* MeHistoryBuy_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4834F1C226820006D0FF6 /* MeHistoryBuy_VC.m */; };
 		7DD483531C22683F006D0FF6 /* MeHistorySell_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD483521C22683F006D0FF6 /* MeHistorySell_VC.m */; };
-		7DD6251D1C44E92300FBEA7A /* CollectionViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6251C1C44E92300FBEA7A /* CollectionViewHeaderView.m */; };
 		7DDBC9FF1C15A4F3008FD2E0 /* ShopCarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDBC9FE1C15A4F3008FD2E0 /* ShopCarController.m */; };
 		7DE36D221C0809A70090BF5D /* PopularCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
@@ -1277,8 +1276,6 @@
 		7DD4834F1C226820006D0FF6 /* MeHistoryBuy_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistoryBuy_VC.m; sourceTree = "<group>"; };
 		7DD483511C22683F006D0FF6 /* MeHistorySell_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistorySell_VC.h; sourceTree = "<group>"; };
 		7DD483521C22683F006D0FF6 /* MeHistorySell_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistorySell_VC.m; sourceTree = "<group>"; };
-		7DD6251B1C44E92300FBEA7A /* CollectionViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewHeaderView.h; sourceTree = "<group>"; };
-		7DD6251C1C44E92300FBEA7A /* CollectionViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewHeaderView.m; sourceTree = "<group>"; };
 		7DDBC9FD1C15A4F3008FD2E0 /* ShopCarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarController.h; sourceTree = "<group>"; };
 		7DDBC9FE1C15A4F3008FD2E0 /* ShopCarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarController.m; sourceTree = "<group>"; };
 		7DE36D201C0809A70090BF5D /* PopularCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2793,8 +2790,6 @@
 				7DADF0B11C1AB48A0093ABFF /* MeAddDesign_VC.m */,
 				7D34E4361C199D0F0049D9C7 /* MeDetailSupply_VC.h */,
 				7D34E4371C199D0F0049D9C7 /* MeDetailSupply_VC.m */,
-				7DD6251B1C44E92300FBEA7A /* CollectionViewHeaderView.h */,
-				7DD6251C1C44E92300FBEA7A /* CollectionViewHeaderView.m */,
 			);
 			path = "我的店铺";
 			sourceTree = "<group>";
@@ -3629,7 +3624,6 @@
 				03571C891BE85D9C00900EF9 /* IQUIView+Hierarchy.m in Sources */,
 				03571B631BE85B4D00900EF9 /* UpYun.m in Sources */,
 				70F5729D1C0EB04B005957CB /* DesignOrderDetail_VC.m in Sources */,
-				7DD6251D1C44E92300FBEA7A /* CollectionViewHeaderView.m in Sources */,
 				03623FE31C44E5FB0083044A /* MASCompositeConstraint.m in Sources */,
 				03571C5B1BE85D8C00900EF9 /* MJRefreshBaseView.m in Sources */,
 				035CC5251C06DCF000998FBD /* JKAssetsThumbnailView.m in Sources */,

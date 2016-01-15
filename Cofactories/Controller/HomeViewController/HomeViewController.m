@@ -47,35 +47,8 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //设置代理（融云）
-    [[RCIM sharedRCIM] setUserInfoDataSource:self];
-    [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
-    //检查网络
-    [Tools AFNetworkReachabilityStatusReachableVia];
-    //轮播图
-    [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
-        int statusCode = [responseDictionary[@"statusCode"] intValue];
-        DLog(@"statusCode = %d", statusCode);
-        if (statusCode == 200) {
-            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
-            self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
-            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
-            for (NSDictionary *dictionary in jsonArray) {
-                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
-                [self.bannerArray addObject:bannerModel];
-                [self.firstViewImageArray addObject:bannerModel.img];
-            }
-            //第一个scrollView
-            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
-            firstView.delegate=self;
-            firstView.imagesArray = self.firstViewImageArray;
-            self.homeTableView.tableHeaderView = firstView;
-        } else if (statusCode == 0) {
-            kTipAlert(@"您的网络状态不太顺畅哦~");
-        }
-        
-    }];
-        //个人信息
+   
+    //个人信息
     [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
         if (statusCode == 200) {
@@ -88,37 +61,16 @@ static NSString *activityCellIdentifier = @"activityCell";
                     nameString = self.MyProfile.name;
                     scoreString = self.MyProfile.score;
                     wallet = self.walletModel.money;
-//                    double delayInSeconds = 1.0f;
-//                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-//                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
-                        [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-//                    });
-
+                    NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
+                    [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+                    
                 }
             }];
-
+            
         } else {
             self.MyProfile = [[UserModel alloc]getMyProfile];
         }
-       
-    }];
-    //活动列表
-    [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
-        int statusCode = [responseDictionary[@"statusCode"] intValue];
-        DLog(@"statusCode = %d", statusCode);
-        if (statusCode == 200) {
-            NSArray *jsonArray = responseDictionary[@"responseArray"];
-            self.activityArray = [NSMutableArray arrayWithCapacity:0];
-            for (NSDictionary *dictionary in jsonArray) {
-                ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
-                [self.activityArray addObject:activityModel];
-            }
-            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
-            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-        } else if (statusCode == 0) {
-            kTipAlert(@"您的网络状态不太顺畅哦~");
-        }
+        
     }];
     
 }
@@ -139,6 +91,11 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //设置代理（融云）
+    [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
+    
     //获取融云的token
     [HttpClient getIMTokenWithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [responseDictionary[@"statusCode"]integerValue];
@@ -170,6 +127,49 @@ static NSString *activityCellIdentifier = @"activityCell";
     [self creatTableView];
     [self creatTableHeaderView];
     [self creatShoppingCarTable];
+    //轮播图
+    [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        if (statusCode == 200) {
+            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
+            self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
+            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dictionary in jsonArray) {
+                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
+                [self.bannerArray addObject:bannerModel];
+                [self.firstViewImageArray addObject:bannerModel.img];
+            }
+            //第一个scrollView
+            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
+            firstView.delegate=self;
+            firstView.imagesArray = self.firstViewImageArray;
+            self.homeTableView.tableHeaderView = firstView;
+        } else if (statusCode == 0) {
+            DLog(@"请求超时");
+        }
+        
+    }];
+
+    
+    //活动列表
+    [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        if (statusCode == 200) {
+            NSArray *jsonArray = responseDictionary[@"responseArray"];
+            self.activityArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dictionary in jsonArray) {
+                ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
+                [self.activityArray addObject:activityModel];
+            }
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
+            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        } else if (statusCode == 0) {
+            DLog(@"请求超时");
+        }
+    }];
+
 }
 
 - (void)creatTableView {
@@ -307,6 +307,10 @@ static NSString *activityCellIdentifier = @"activityCell";
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //活动点击事件
+    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+    backItem.title=@"返回";
+    backItem.tintColor=[UIColor whiteColor];
+    self.navigationItem.backBarButtonItem = backItem;
     if (indexPath.section == 2) {
         HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
         ActivityModel *activityModel = self.activityArray[indexPath.row];
@@ -375,6 +379,11 @@ static NSString *activityCellIdentifier = @"activityCell";
 -(void)clickCircularSlidingView:(int)tag{
     DLog(@"点击了第  %d  张图", tag);
     //点击了第几张轮播图
+    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+    backItem.title=@"返回";
+    backItem.tintColor=[UIColor whiteColor];
+    self.navigationItem.backBarButtonItem = backItem;
+    
     HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
     IndexModel *bannerModel = self.bannerArray[tag - 1];
     activityVC.urlString = bannerModel.url;

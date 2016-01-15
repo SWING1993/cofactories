@@ -16,7 +16,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenW - kPhotoHeight)/2, (frame.size.height - kPhotoHeight - kLabelHeight)/2 - 20, kPhotoHeight, kPhotoHeight)];
+        self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenW - kPhotoHeight)/2, (frame.size.height - kPhotoHeight - kLabelHeight)/2, kPhotoHeight, kPhotoHeight)];
         self.photoView.image = [UIImage imageNamed:image];
         [self addSubview:self.photoView];
         self.myLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMargin, CGRectGetMaxY(self.photoView.frame), kScreenW - 2*kMargin, kLabelHeight)];

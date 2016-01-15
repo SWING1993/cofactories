@@ -298,15 +298,23 @@
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"提示"
                               message:@"您"
-                              @"的帐号在别的设备上登录，您被迫下线！"
+                              @"的帐号在别的设备上登录，您被迫下线！请重新登录！"
                               delegate:nil
                               cancelButtonTitle:@"知道了"
                               otherButtonTitles:nil, nil];
+        alert.delegate = self;
         [alert show];
         
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex==0) {
+        [HttpClient deleteToken];
+        [RootViewController setupLoginViewController];
+    }
+
+}
 /**
  *  tabBarItem 的选中和不选中文字属性、背景图片
  */

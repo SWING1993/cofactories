@@ -25,9 +25,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
+//    self.urlString = @"http://h5.lo.cofactories.com/!%29test/";
     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]];
     [self.view addSubview:webView];
     [webView loadRequest:request];
@@ -49,16 +51,18 @@
                 if ([requestString rangeOfString:@"time"].location != NSNotFound) {
                     NSArray *timeArray = [requestString componentsSeparatedByString:@"?"];
                     NSString *timeString = [[timeArray lastObject] substringFromIndex:5];
-                    DLog(@"####time=%@###", timeString);
+                    DLog(@"####%@###", timeString);
                     
-                    
+                    HomeKoreaShopList_VC *designShopVC = [[HomeKoreaShopList_VC alloc] initWithSubrole:@"设计者" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:5]];
+                    designShopVC.timeString = timeString;
+                    [self.navigationController pushViewController:designShopVC animated:YES];
                     
                 }
                 //打开某个商品的详情页
                 if ([requestString rangeOfString:@"id"].location != NSNotFound) {
                     NSArray *goodsArray = [requestString componentsSeparatedByString:@"?"];
                     NSString *goodsString = [[goodsArray lastObject] substringFromIndex:3];
-                    DLog(@"####time=%@###", goodsString);
+                    DLog(@"####%@###", goodsString);
                     
                     materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
                     materialShopVC.shopID = goodsString;
@@ -68,6 +72,7 @@
             } else {
                 //直接进入韩国版型购买商城
                 HomeKoreaShopList_VC *designShopVC = [[HomeKoreaShopList_VC alloc] initWithSubrole:@"设计者" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:5]];
+                designShopVC.timeString = nil;
                 [self.navigationController pushViewController:designShopVC animated:YES];
             }
         }
@@ -83,7 +88,7 @@
         if ([requestString rangeOfString:@"userInfo"].location != NSNotFound) {
             NSArray *userInfoArray = [requestString componentsSeparatedByString:@"?"];
             NSString *uidString = [[userInfoArray lastObject] substringFromIndex:4];
-            DLog(@"#######uid=%@###", uidString);
+            DLog(@"#######%@###", uidString);
             [HttpClient getOtherIndevidualsInformationWithUserID:uidString WithCompletionBlock:^(NSDictionary *dictionary) {
                 OthersUserModel *model = dictionary[@"message"];
                 if ([model.role isEqualToString:@"设计者"] || [model.role isEqualToString:@"供应商"]) {
@@ -102,9 +107,7 @@
                     vc.userModel = model;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
-                
             }];
-
         }
         
     } else {

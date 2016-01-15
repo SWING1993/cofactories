@@ -51,8 +51,15 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self creatCollectionView];
     
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
+    [self creatCollectionView];
+    DLog(@"^^^^^^^^^^^^time=%@", self.timeString);
 //    _maleArray = @[@"男装不限", @"上衣", @"下衣", @"套装"];
 //    _femaleArray = @[@"女装不限", @"上衣", @"下衣", @"套装"];
 //    _boyArray = @[@"男童不限", @"上衣", @"下衣", @"套装"];
@@ -68,7 +75,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     [self.myCollectionView addInfiniteScrollingWithActionHandler:^{
         weakSelf.page++;
         DLog(@"^^^^^^^^^^^^^^^^^^^^^^^");
-        [HttpClient searchDesignWithMarket:@"design" type:weakSelf.userType part:weakSelf.userPart price:nil priceOrder:weakSelf.userPrice keyword:nil province:nil city:nil country:@"kr" page:@(weakSelf.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+        
+        [HttpClient searchDesignWithMarket:@"design" type:weakSelf.userType part:weakSelf.userPart price:nil priceOrder:weakSelf.userPrice keyword:nil province:nil city:nil country:@"kr" aCreatedAt:weakSelf.timeString page:@(weakSelf.page) WithCompletionBlock:^(NSDictionary *dictionary) {
             NSArray *array = dictionary[@"message"];
             for (NSDictionary *myDic in array) {
                 SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
@@ -86,7 +94,8 @@ static NSString *materialCellIdentifier = @"materialCell";
 }
 - (void)netWork {
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
-    [HttpClient searchDesignWithMarket:@"design" type:nil part:nil price:nil priceOrder:nil keyword:nil province:nil city:nil country:@"kr" page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+    
+    [HttpClient searchDesignWithMarket:@"design" type:nil part:nil price:nil priceOrder:nil keyword:nil province:nil city:nil country:@"kr" aCreatedAt:self.timeString page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         for (NSDictionary *myDic in array) {
             SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
@@ -101,6 +110,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     searchBar.delegate = self;
     searchBar.placeholder = @"请输入商品名称";
+    searchBar.tintColor = kDeepBlue;
+    [searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"SearchBarBackgroundColor"] forState:UIControlStateNormal];
     [searchBar setShowsCancelButton:YES];
     self.navigationItem.titleView = searchBar;
     
@@ -122,7 +133,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     
     DLog(@"==%@,==%@",_userBusinessName,_userType);
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
-    [HttpClient searchDesignWithMarket:@"design" type:_userType part:_userPart price:nil priceOrder:_userPrice keyword:_userBusinessName province:nil city:nil country:@"kr" page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+    
+    [HttpClient searchDesignWithMarket:@"design" type:_userType part:_userPart price:nil priceOrder:_userPrice keyword:_userBusinessName province:nil city:nil country:@"kr" aCreatedAt:self.timeString page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         for (NSDictionary *myDic in array) {
             SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
@@ -343,7 +355,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     self.page = 1;
     DLog(@"==%@,==%@,==%@",_userType, _userPart, _userPrice);
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
-    [HttpClient searchDesignWithMarket:@"design" type:_userType part:_userPart price:nil priceOrder:_userPrice keyword:nil province:nil city:nil country:@"kr" page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+    
+    [HttpClient searchDesignWithMarket:@"design" type:_userType part:_userPart price:nil priceOrder:_userPrice keyword:nil province:nil city:nil country:@"kr" aCreatedAt:self.timeString page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         for (NSDictionary *myDic in array) {
             SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
@@ -432,6 +445,10 @@ static NSString *materialCellIdentifier = @"materialCell";
     [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(2, myString.length - 5)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
     
     return attributedString;
+}
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

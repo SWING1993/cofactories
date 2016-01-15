@@ -43,18 +43,20 @@
     NSArray *array = @[@"购买记录",@"出售记录"];
     for (int i = 0; i<array.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake((kScreenW-200)/3.f+i*(80+(kScreenW-200)/3.f), 64, 100, 35);
+        button.frame = CGRectMake((kScreenW-200)/3.f+i*(80+(kScreenW-200)/3.f), 64, 100, 44);
         [button setTitle:array[i] forState:UIControlStateNormal];
         button.tag = i+1;
         [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [self.view addSubview:button];
-        
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + 44 - 0.3, kScreenW, 0.3)];
+        lineView.backgroundColor = [UIColor lightGrayColor];
+        [self.view addSubview:lineView];
         if (i == 0) {
             [button setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
             _lineLB = [UILabel new];
-            _lineLB.frame = CGRectMake(button.frame.origin.x+15, 37+64, 70, 2);
+            _lineLB.frame = CGRectMake(button.frame.origin.x+15, 44 + 64 - 2.5, 70, 2.5);
             _lineLB.backgroundColor = MAIN_COLOR;
             [self.view addSubview:_lineLB];
         }
@@ -89,7 +91,7 @@
 - (void)buttonClick:(id)sender{
     UIButton *button = (UIButton *)sender;
     [UIView animateWithDuration:0.2 animations:^{
-        _lineLB.frame = CGRectMake(button.frame.origin.x+15, 37+64, 70, 2);
+        _lineLB.frame = CGRectMake(button.frame.origin.x+15, 44 + 64 - 2.5, 70, 2.5);
     }];
     [button setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
     if (button.tag == 1) {
@@ -105,7 +107,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [UIView animateWithDuration:0.2 animations:^{
-        _lineLB.frame = CGRectMake((kScreenW-200)/3.f+(scrollView.contentOffset.x/scrollView.frame.size.width)*(80+(kScreenW-200)/3.f)+15, 37+64, 70, 2);
+        _lineLB.frame = CGRectMake((kScreenW-200)/3.f+(scrollView.contentOffset.x/scrollView.frame.size.width)*(80+(kScreenW-200)/3.f)+15, 44 + 64 - 2.5, 70, 2.5);
     }];
     
     UIButton *buttonOne = (UIButton *)_buttonArray[0];
