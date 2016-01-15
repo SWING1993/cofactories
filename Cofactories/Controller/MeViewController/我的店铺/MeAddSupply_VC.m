@@ -158,6 +158,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 - (void)creatTableView {
     self.myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, kScreenW, kScreenH - 44)style:UITableViewStyleGrouped];
+    self.myTableView.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:251.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
     self.myTableView.dataSource = self;
     self.myTableView.delegate = self;
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -171,7 +172,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     myTitleLabel.text = @"商品简介";
     
     [footerView addSubview:myTitleLabel];
-    
     
     descriptionTV = [[PlaceholderTextView alloc] initWithFrame:CGRectMake(15, 50, kScreenW - 30, 100)];
     descriptionTV.layer.cornerRadius = 3;
@@ -592,21 +592,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     }];
 }
 
-
-//判断是否含有字符
-//- (BOOL) isBlankString:(NSString *)string {
-//
-//    if (string == nil || string == NULL) {
-//        return YES;
-//    }
-//    if ([string isKindOfClass:[NSNull class]]) {
-//        return YES;
-//    }
-//    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
-//        return YES;
-//    }
-//    return NO;
-//}
 
 #pragma mark - dropDownMenu
 

@@ -10,5 +10,6 @@
 
 @interface HomeKoreaShopList_VC : UIViewController
 - (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary;
+@property (nonatomic, strong) NSString *timeString;
 
 @end

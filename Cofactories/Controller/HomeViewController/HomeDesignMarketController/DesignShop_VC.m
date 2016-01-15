@@ -56,6 +56,13 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
     [self creatCollectionView];
 
     
@@ -78,7 +85,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     [self.myCollectionView addInfiniteScrollingWithActionHandler:^{
         weakSelf.page++;
         DLog(@"^^^^^^^^^^^^^^^^^^^^^^^");
-        [HttpClient searchDesignWithMarket:@"design" type:weakSelf.userType part:weakSelf.userPart price:nil priceOrder:weakSelf.userPrice keyword:nil province:weakSelf.userProvince city:weakSelf.userCity country:nil page:@(weakSelf.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+        [HttpClient searchDesignWithMarket:@"design" type:weakSelf.userType part:weakSelf.userPart price:nil priceOrder:weakSelf.userPrice keyword:nil province:weakSelf.userProvince  city:weakSelf.userCity country:nil aCreatedAt:nil page:@(weakSelf.page) WithCompletionBlock:^(NSDictionary *dictionary) {
             NSArray *array = dictionary[@"message"];
             for (NSDictionary *myDic in array) {
                 SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
@@ -96,7 +103,8 @@ static NSString *materialCellIdentifier = @"materialCell";
 }
 - (void)netWork {
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
-    [HttpClient searchDesignWithMarket:@"design" type:nil part:nil price:nil priceOrder:nil keyword:nil province:nil city:nil country:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+    
+    [HttpClient searchDesignWithMarket:@"design" type:nil part:nil price:nil priceOrder:nil keyword:nil province:nil city:nil country:nil aCreatedAt:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         for (NSDictionary *myDic in array) {
             SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
@@ -111,6 +119,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     searchBar.delegate = self;
     searchBar.placeholder = @"请输入商品名称";
+    searchBar.tintColor = kDeepBlue;
+    [searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"SearchBarBackgroundColor"] forState:UIControlStateNormal];
     [searchBar setShowsCancelButton:YES];
     self.navigationItem.titleView = searchBar;
     
@@ -134,7 +144,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     
     DLog(@"==%@,==%@,==%@,==%@",_userProvince,_userCity,_userBusinessName,_userType);
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
-    [HttpClient searchDesignWithMarket:@"design" type:_userType part:_userPart price:nil priceOrder:_userPrice keyword:_userBusinessName province:_userProvince city:_userCity country:nil page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+    
+    [HttpClient searchDesignWithMarket:@"design" type:_userType part:_userPart price:nil priceOrder:_userPrice keyword:_userBusinessName province:_userProvince city:_userCity country:nil aCreatedAt:nil page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         for (NSDictionary *myDic in array) {
             SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
@@ -471,7 +482,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     self.page = 1;
     DLog(@"==%@,==%@,==%@,==%@,==%@",_userType, _userPart, _userPrice,_userProvince,_userCity);
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
-    [HttpClient searchDesignWithMarket:@"design" type:_userType part:_userPart price:nil priceOrder:_userPrice keyword:nil province:_userProvince city:_userCity country:nil page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
+    
+    [HttpClient searchDesignWithMarket:@"design" type:_userType part:_userPart price:nil priceOrder:_userPrice keyword:nil province:_userProvince city:_userCity country:nil aCreatedAt:nil page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         for (NSDictionary *myDic in array) {
             SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
@@ -558,6 +570,9 @@ static NSString *materialCellIdentifier = @"materialCell";
     return attributedString;
 }
 
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -11,15 +11,15 @@
 #import "MeAddSupply_VC.h"//添加商品
 #import "MeAddDesign_VC.h"
 #import "SVPullToRefresh.h"
-#import "CollectionViewHeaderView.h"
 #import "FabricMarketModel.h"
 #import "MeDetailSupply_VC.h"//商品详情页
+#import "TableViewHeaderView.h"
 
 static NSString *shopCellIdentifier = @"shopCell";
 static NSString *headerIdentifier = @"header";
 @interface MeShopController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
     BOOL isEdit;
-    BOOL isReload;
+//    BOOL isReload;
 }
 
 @property (nonatomic,retain)UserModel * MyProfile;
@@ -74,8 +74,6 @@ static NSString *headerIdentifier = @"header";
     [addButton addTarget:self action:@selector(actionOfAdd:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:addButton];
     
-    [self.collectionView registerClass:[CollectionViewHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerIdentifier];
-
 }
 
 - (void)netWork {
@@ -89,10 +87,13 @@ static NSString *headerIdentifier = @"header";
                 PersonalShop_Model *model = [PersonalShop_Model getPersonalShopModelWithDictionary:dic];
                 [self.myShopGoodsArray addObject:model];
             }];
-            isReload = YES;
-            [self.collectionView reloadData];
+            if (self.myShopGoodsArray.count == 0) {
+                self.collectionView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) withImage:@"数据暂无" withLabelText:@"店铺空空如也，点击加号上传商品吧"];
+            } else {
+                self.collectionView.backgroundView = nil;
+                [self.collectionView reloadData];
+            }
         }
-        
     }];
 }
 
@@ -121,14 +122,6 @@ static NSString *headerIdentifier = @"header";
     return self.myShopGoodsArray.count;
     
 }
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    
-    CollectionViewHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerIdentifier forIndexPath:indexPath];
-    headerView.photoView.image = [UIImage imageNamed:@"数据暂无"];
-    headerView.myLabel.text = @"店铺空空如也，点击加号上传商品吧";
-    return headerView;
-}
-
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MeShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:shopCellIdentifier forIndexPath:indexPath];
@@ -174,20 +167,9 @@ static NSString *headerIdentifier = @"header";
     return UIEdgeInsetsMake(3*kZGY, 3*kZGY, 3*kZGY, 3*kZGY);
 }
 
-//设置某个分区的区头大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    if (self.myShopGoodsArray.count == 0 && isReload == YES) {
-        isReload = NO;
-        return CGSizeMake(kScreenW, kScreenH - 64 - 70);
-    } else {
-        return CGSizeMake(0, 0);
-    }
-}
-
 
 #pragma mark - 编辑按钮
 - (void)pressItem:(UIBarButtonItem *)item {
-    isReload = YES;
     if ([item.title isEqualToString:@"编辑"]) {
         item.title = @"完成";
         isEdit = YES;
@@ -234,8 +216,11 @@ static NSString *headerIdentifier = @"header";
         if (!animated) {
             [UIView setAnimationsEnabled:YES];
         }
-        isReload = YES;
+        if (self.myShopGoodsArray.count == 0) {
+            self.collectionView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) withImage:@"数据暂无" withLabelText:@"店铺空空如也，点击加号上传商品吧"];
+        }
         [self.collectionView reloadData];
+        
     }];
 }
 
@@ -252,7 +237,6 @@ static NSString *headerIdentifier = @"header";
         [self.navigationController pushViewController:meAddVC animated:YES];
     }
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -40,15 +40,16 @@ static NSString *historyOrderCellIdentifier = @"historyCell";
                 [self.historyOrderArray addObject:historyOrderModel];
             }
             if (self.historyOrderArray.count == 0) {
-                self.tableView.tableHeaderView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64) withImage:@"数据暂无" withLabelText:@"暂无购买记录"];
+                self.tableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) withImage:@"数据暂无" withLabelText:@"暂无购买记录"];
             } else {
+                [self setupRefresh];
                 [self.tableView reloadData];
             }
         } else {
             kTipAlert(@"您的网络有点不太顺畅哦！");
         }
     }];
-    [self setupRefresh];
+    
 }
 - (void)setupRefresh{
     [self.tableView addFooterWithTarget:self action:@selector(footerRereshing)];

@@ -22,6 +22,13 @@ static NSString *myCellIdentifier = @"myCell";
     [super viewDidLoad];
     self.navigationItem.title = @"认证信息";
     self.view.backgroundColor=[UIColor whiteColor];
+    
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     titleArray = @[@"企业名称", @"企业地址", @"个人姓名", @"身份证号", @"认证时间"];
@@ -88,6 +95,11 @@ static NSString *myCellIdentifier = @"myCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.01f;
+}
+
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

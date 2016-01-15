@@ -52,6 +52,13 @@ static NSString *materialCellIdentifier = @"materialCell";
     
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
     [self creatCollectionView];
 
     
@@ -82,8 +89,6 @@ static NSString *materialCellIdentifier = @"materialCell";
     }];
     
     [self netWork];
-
-    
 }
 
 - (void)netWork {
@@ -103,6 +108,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     searchBar.delegate = self;
     searchBar.placeholder = @"请输入商品名称";
     [searchBar setShowsCancelButton:YES];
+    searchBar.tintColor = kDeepBlue;
+    [searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"SearchBarBackgroundColor"] forState:UIControlStateNormal];
     self.navigationItem.titleView = searchBar;
     
     for (UIView *view in [[searchBar.subviews lastObject] subviews]) {
@@ -440,6 +447,11 @@ static NSString *materialCellIdentifier = @"materialCell";
     
     return attributedString;
 }
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

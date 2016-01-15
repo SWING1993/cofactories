@@ -364,9 +364,6 @@ static NSString *OrderCellIdentifier = @"OrderCell";
 
 }
 
-
-
-
 //sizePicker
 - (UIPickerView *)fecthAddressPicker{
     if (!self.addressPicker) {
