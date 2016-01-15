@@ -2,13 +2,13 @@
 //  blueButton.m
 //  cofactory-1.1
 //
-//  Created by 唐佳诚 on 15/9/22.
+//  Created by 宋国华 on 15/9/22.
 //  Copyright © 2015年 聚工科技. All rights reserved.
 //
 
-#import "blueButton.h"
+#import "LoginButton.h"
 
-@implementation blueButton
+@implementation LoginButton
 
 
 - (instancetype)initWithFrame:(CGRect)frame {

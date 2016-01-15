@@ -20,7 +20,9 @@
         self.deadline = dictionary[@"deadline"];
         
         NSString *saleString = [NSString stringWithFormat:@"%@",dictionary[@"description"]];
-        if ([saleString isEqualToString:@"<null>"]){
+                DLog(@"--------- ++++  %@",saleString);
+
+        if ([saleString isEqualToString:@"<null>"] || [saleString isEqualToString:@"(null)"] || [Tools isBlankString:saleString] == YES){
             self.descriptions = @"商家未填写备注";
         }else{
             self.descriptions = dictionary[@"description"];

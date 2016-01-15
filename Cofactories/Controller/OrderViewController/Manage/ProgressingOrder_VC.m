@@ -11,7 +11,7 @@
 #import "SupplierOrderDetail_VC.h"
 #import "FactoryOrderDetail_VC.h"
 #import "DesignOrderDetail_VC.h"
-
+#import "ContractClothingDetail_VC.h"
 @interface ProgressingOrder_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView     *_tableView;
     NSMutableArray  *_dataArray;
@@ -26,6 +26,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [_tableView reloadData];
+    [HttpClient getAllMyOrdersWithOrderStatus:@"0" page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+        DLog(@"%@",dictionary);
+        _dataArray = dictionary[@"message"];
+        [_tableView reloadData];
+        
+    }];
 }
 
 
@@ -37,14 +43,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     self.userModel = [[UserModel alloc] getMyProfile];
     _dataArray = [@[] mutableCopy];
     [self initTableView];
-    
-    [HttpClient getAllMyOrdersWithOrderStatus:@"0" page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
-        DLog(@"%@",dictionary);
-        _dataArray = dictionary[@"message"];
-        [_tableView reloadData];
-        
-    }];
-
 }
 
 - (void)initTableView{
@@ -73,29 +71,43 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
     if ([dataModel.orderType isEqualToString:@"加工订单"]) {
         
-        FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
-        if ([dataModel.creditString isEqualToString:@"担保订单"]) {
-            vc.isRescrit = YES;
+        if ([dataModel.contractStaus isEqualToString:@"双方签署合同"]) {
+            
+            ContractClothingDetail_VC *vc = [[ContractClothingDetail_VC alloc] init];
+            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+            backItem.title=@"返回";
+            backItem.tintColor=[UIColor whiteColor];
+            self.navigationItem.backBarButtonItem = backItem;
+            
+            vc.modelID = dataModel.ID;
+            [self.navigationController pushViewController:vc animated:YES];
+            
         }else{
-            vc.isRescrit = NO;
+                    FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
+                    if ([dataModel.creditString isEqualToString:@"担保订单"]) {
+                        vc.isRescrit = YES;
+                    }else{
+                        vc.isRescrit = NO;
+                    }
+                    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+                    backItem.title=@"返回";
+                    backItem.tintColor=[UIColor whiteColor];
+                    self.navigationItem.backBarButtonItem = backItem;
+            
+                    [HttpClient getFactoryOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
+                        FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
+                        vc.dataModel = dataModel;
+                        vc.factoryOrderDetailBidStatus = FactoryOrderDetailBidStatus_BidManagement;
+                        [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
+                            OthersUserModel *model = dictionary[@"message"];
+                            vc.otherUserModel = model;
+                            [self.navigationController pushViewController:vc animated:YES];
+                            
+                        }];
+                    }];
+
         }
-        UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-        backItem.title=@"返回";
-        backItem.tintColor=[UIColor whiteColor];
-        self.navigationItem.backBarButtonItem = backItem;
-        //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
         
-        [HttpClient getFactoryOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
-            FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
-            vc.dataModel = dataModel;
-            vc.factoryOrderDetailBidStatus = FactoryOrderDetailBidStatus_BidManagement;
-            [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
-                OthersUserModel *model = dictionary[@"message"];
-                vc.otherUserModel = model;
-                [self.navigationController pushViewController:vc animated:YES];
-                
-            }];
-        }];
         
     }else if ([dataModel.orderType isEqualToString:@"设计师订单"]) {
         
@@ -104,7 +116,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         backItem.title=@"返回";
         backItem.tintColor=[UIColor whiteColor];
         self.navigationItem.backBarButtonItem = backItem;
-        //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
         
         [HttpClient getDesignOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
             DesignOrderModel *dataModel = [DesignOrderModel getDesignOrderModelWithDictionary:dictionary];
@@ -126,7 +137,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         backItem.title=@"返回";
         backItem.tintColor=[UIColor whiteColor];
         self.navigationItem.backBarButtonItem = backItem;
-        //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
         
         [HttpClient getSupplierOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
             SupplierOrderModel *dataModel = [SupplierOrderModel getSupplierOrderModelWithDictionary:dictionary];
@@ -153,7 +163,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 backItem.title=@"返回";
                 backItem.tintColor=[UIColor whiteColor];
                 self.navigationItem.backBarButtonItem = backItem;
-                //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
                 
                 [HttpClient getSupplierOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
                     SupplierOrderModel *dataModel = [SupplierOrderModel getSupplierOrderModelWithDictionary:dictionary];
@@ -213,7 +222,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 backItem.title=@"返回";
                 backItem.tintColor=[UIColor whiteColor];
                 self.navigationItem.backBarButtonItem = backItem;
-                //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
                 
                 [HttpClient getDesignOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
                     DesignOrderModel *dataModel = [DesignOrderModel getDesignOrderModelWithDictionary:dictionary];

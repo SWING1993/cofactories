@@ -1866,6 +1866,63 @@
 
 }
 
+// 添加订单进度消息
++ (void)addOrderMessageWithOrderID:(NSString *)orderID message:(NSString *)message WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manger.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/message/",orderID];
+        [manger POST:urlString parameters:@{@"message":message} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            
+            DLog(@">>>>>>>>>>%@",responseObject);
+            
+            completionBlock(@{@"statusCode":@"200"});
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"++++++++++%@",error);
+            
+        }];
+
+    }else{
+        completionBlock(@{@"statusCode":@"404"});
+    }
+}
+
+// 获取订单进度消息
++ (void)getOrderMessageWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manger.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/message/",orderID];
+        [manger GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            NSArray *array = (NSArray *)responseObject;
+            NSMutableArray *responseArray = [@[] mutableCopy];
+            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary *dictionary = (NSDictionary *)obj;
+                NSString *string = [NSString stringWithFormat:@"[%@] %@ %@",dictionary[@"user"],dictionary[@"message"],dictionary[@"createdAt"]];
+                [responseArray addObject:string];
+            }];
+            //DLog(@">>>>>>>>>>%@",responseObject);
+            completionBlock(@{@"statusCode":@"200",@"message":responseArray});
+            //completionBlock(responseObject);
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            DLog(@"++++++++++%@",error);
+            completionBlock(@{@"statusCode":@"500",@"message":@""});
+        }];
+        
+    }else{
+        completionBlock(@{@"statusCode":@"404"});
+    }
+
+}
+
 // 获取店铺
 + (void)getUserShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     

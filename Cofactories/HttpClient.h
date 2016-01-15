@@ -316,6 +316,11 @@
 // 加工厂同意签署协议
 + (void)factorySignContractWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
+// 添加订单进度消息
++ (void)addOrderMessageWithOrderID:(NSString *)orderID message:(NSString *)message WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+// 获取订单进度消息
++ (void)getOrderMessageWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
 
 // 获取店铺
 + (void)getUserShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;

@@ -72,11 +72,22 @@
 }
 
 - (void)bigClick{
-    MJPhoto *photo = [[MJPhoto alloc] init];
-    photo.image = [UIImage imageWithData:_imageData];
-    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    browser.photos = @[photo];
-    [browser show];
+    
+    if (_isClothing) {
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.image = [UIImage imageWithData:_imageData];
+        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+        browser.photos = @[photo];
+        [browser show];
+
+    }else{
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@%@%@",kBaseUrl,@"/order/factory/contract/",_orderID,@"?access_token=",[HttpClient getToken].accessToken]];
+        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+        browser.photos = @[photo];
+        [browser show];
+    }
+
 
 }
 @end
