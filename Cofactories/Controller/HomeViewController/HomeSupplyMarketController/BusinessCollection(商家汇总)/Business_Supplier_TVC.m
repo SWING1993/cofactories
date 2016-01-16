@@ -23,6 +23,8 @@
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         _marketImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 100, 70)];
+        _marketImage.contentMode = UIViewContentModeScaleAspectFill;
+        _marketImage.clipsToBounds = YES;
         [self.contentView addSubview:_marketImage];
         
         for (int i = 0; i<3; i++) {

@@ -37,7 +37,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
 @implementation ShoppingOrderController
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController.navigationBar setHidden:NO];
+    [super viewWillAppear:animated];
     self.MyProfile = [[UserModel alloc]getMyProfile];
 
 }

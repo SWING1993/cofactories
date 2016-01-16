@@ -22,6 +22,8 @@
     NSArray         *_guangdongArray;
     NSMutableArray  *_dataArray;
     NSInteger        _refrushCount;
+    UISearchBar     *mySearchBar;
+    UIButton        *backgroundView;
 
 }
 @property (nonatomic,copy)NSString *userType;
@@ -76,6 +78,10 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         [_tableView reloadData];
 
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickBackgroundViewAction) name:UIKeyboardWillHideNotification object:nil];
+    
+    [self creatBackgroundView];
 }
 
 - (void)setupRefresh{
@@ -101,23 +107,78 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [_tableView footerEndRefreshing];
     
 }
+#pragma mark - 遮盖层
+- (void)creatBackgroundView {
+    backgroundView = [UIButton buttonWithType:UIButtonTypeCustom];
+    backgroundView.frame = CGRectMake(0, 64, kScreenW, kScreenH);
+    backgroundView.backgroundColor = [UIColor blackColor];
+    backgroundView.alpha = 0.0f;
+    [backgroundView addTarget:self action:@selector(clickBackgroundViewAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backgroundView];
+}
 
+- (void) clickBackgroundViewAction {
+    [self controlBackgroundView:0];
+}
+
+- (void)controlBackgroundView:(float)alphaValue {
+    [UIView animateWithDuration:0.2 animations:^{
+        backgroundView.alpha = alphaValue;
+        if (alphaValue <= 0) {
+            [mySearchBar resignFirstResponder];
+            [mySearchBar setShowsCancelButton:NO animated:YES];
+        }
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 
 #pragma mark - 搜索框
 - (void)customSearchBar{
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
-    searchBar.delegate = self;
-    searchBar.placeholder = @"请输入店铺名称";
-    [searchBar setShowsCancelButton:YES];
-    self.navigationItem.titleView = searchBar;
+    mySearchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    mySearchBar.delegate = self;
+    mySearchBar.placeholder = @"请输入店铺名称";
+    mySearchBar.tintColor = kDeepBlue;
+    [mySearchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"SearchBarBackgroundColor"] forState:UIControlStateNormal];
+    mySearchBar.backgroundColor = [UIColor clearColor];
+    [mySearchBar setShowsCancelButton:NO];
+    self.navigationItem.titleView = mySearchBar;
     
-    for (UIView *view in [[searchBar.subviews lastObject] subviews]) {
+    for (UIView *view in [[mySearchBar.subviews lastObject] subviews]) {
         if ([view isKindOfClass:[UIButton class]]) {
             UIButton *cancelBtn = (UIButton *)view;
             [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         }
     }
 }
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:YES animated:YES];
+    //把backgroundView提到最前面，遮挡筛选器
+    [self.view bringSubviewToFront:backgroundView];
+    [self controlBackgroundView:0.3];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [self controlBackgroundView:0];
+    [self.view endEditing:YES];
+}
+
+//
+//#pragma mark - 搜索框
+//- (void)customSearchBar{
+//    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+//    searchBar.delegate = self;
+//    searchBar.placeholder = @"请输入店铺名称";
+//    [searchBar setShowsCancelButton:YES];
+//    self.navigationItem.titleView = searchBar;
+//    
+//    for (UIView *view in [[searchBar.subviews lastObject] subviews]) {
+//        if ([view isKindOfClass:[UIButton class]]) {
+//            UIButton *cancelBtn = (UIButton *)view;
+//            [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+//        }
+//    }
+//}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
@@ -145,10 +206,10 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    [searchBar resignFirstResponder];
-    [self.view endEditing:YES];
-}
+//- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+//    [searchBar resignFirstResponder];
+//    [self.view endEditing:YES];
+//}
 
 
 #pragma mark - 选择器方法

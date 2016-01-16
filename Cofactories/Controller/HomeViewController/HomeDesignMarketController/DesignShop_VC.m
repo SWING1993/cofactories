@@ -164,6 +164,12 @@ static NSString *materialCellIdentifier = @"materialCell";
     [self controlBackgroundView:0.3];
 }
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [self controlBackgroundView:0];
+    [self.view endEditing:YES];
+}
+
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     NSLog(@"%@",searchBar.text);
@@ -190,10 +196,6 @@ static NSString *materialCellIdentifier = @"materialCell";
     
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    [self controlBackgroundView:0];
-    [self.view endEditing:YES];
-}
 
 #pragma mark - 选择器方法
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu{
@@ -558,7 +560,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     MaterialShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:materialCellIdentifier forIndexPath:indexPath];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
     if (myModel.photoArray.count > 0) {
-        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     } else {
         cell.photoView.image = [UIImage imageNamed:@"默认图片"];
     }

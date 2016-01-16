@@ -64,7 +64,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         selectAmount = 1;
         selectString = @"请选择颜色分类";
     }
-        DLog(@"^^^^^^^^^^^^^^%@", self.colorSelectArray);
+    
     [self creatTableView];
     [self creatGobackButton];
     [self creatBottomView];
@@ -84,7 +84,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [self.view addSubview:cancleButton];
 }
 - (void)pressCancleButton{
-    [self.navigationController.navigationBar setHidden:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)creatTableView {
@@ -95,6 +94,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [self.myTableView registerClass:[MaterialShopDetailCell class] forCellReuseIdentifier:shopCellIdentifier];
     [self.myTableView registerClass:[MaterialAbstractCell class] forCellReuseIdentifier:abstractCellIdentifier];
     [self.myTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:selectCellIdentifier];
+        
     _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kImageViewHeight)];
     self.myTableView.tableHeaderView = _headView;
     
@@ -160,18 +160,20 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         goodsImage.clipsToBounds = YES;
         goodsImage.tag = 10000 + i;
         NSString* encodedString = [[NSString stringWithFormat:@"%@%@",PhotoAPI,marketDetailModel.photoArray[i]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [goodsImage sd_setImageWithURL:[NSURL URLWithString:encodedString]  placeholderImage:[UIImage imageNamed:@"默认图片"]];
+        [goodsImage sd_setImageWithURL:[NSURL URLWithString:encodedString]  placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
         //添加手势
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(MJPhotoBrowserClick:)];
         [goodsImage addGestureRecognizer:tap];
         [_scrollView addSubview:goodsImage];
         
     }
-
-    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_scrollView.frame) - 40, kScreenW - 40, 40)];
-    pageControl.numberOfPages = marketDetailModel.photoArray.count;
-    [pageControl addTarget:self action:@selector(changePage) forControlEvents:UIControlEventValueChanged];
-    [_headView addSubview:pageControl];
+    if (marketDetailModel.photoArray.count > 1) {
+        pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_scrollView.frame) - 40, kScreenW - 40, 40)];
+        pageControl.numberOfPages = marketDetailModel.photoArray.count;
+        [pageControl addTarget:self action:@selector(changePage) forControlEvents:UIControlEventValueChanged];
+        [_headView addSubview:pageControl];
+    }
+    
 }
 //代理要实现的方法: 切换页面后, 下面的页码控制器也跟着变化
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView {
@@ -263,7 +265,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     } else {
         CGSize size = [Tools getSize:marketDetailModel.descriptions andFontOfSize:13 andWidthMake:kScreenW - 60];
         
-        return size.height + 50;
+        return size.height + 60;
     }
 }
 
@@ -271,8 +273,9 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     return 0.5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
     if (section == 2) {
-        return 0.5;
+        return 0.01;
     }
     return 8;
 }
@@ -520,9 +523,10 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         [myButton addTarget:self action:@selector(actionOfBuy:) forControlEvents:UIControlEventTouchUpInside];
         [bigView addSubview:myButton];
     }
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kScreenW/2, 0, 0.3, 50)];
-    lineView.backgroundColor = kLineGrayCorlor;
-    [bigView addSubview:lineView];
+    CALayer *line = [CALayer layer];
+    line.frame = CGRectMake(kScreenW/2, 0, 0.3, 50);
+    line.backgroundColor = kLineGrayCorlor.CGColor;
+    [bigView.layer addSublayer:line];
 }
 
 
@@ -539,7 +543,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     if (selectFlag == YES) {
         DLog(@"请选择颜色");
         kTipAlert(@"请选择颜色");
-        
         
     } else {
     if (button.tag == 222) {
@@ -606,6 +609,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 - (NSAttributedString *)underlineWithString:(NSString *)labelStr {
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName :[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
     NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:labelStr attributes:attribtDic];
+    [attribtStr addAttribute: NSForegroundColorAttributeName value: [UIColor colorWithRed:83.0/255.0 green:83.0/255.0 blue:83.0/255.0 alpha:1.0] range: NSMakeRange(0, labelStr.length)];
     return attribtStr;
 }
 

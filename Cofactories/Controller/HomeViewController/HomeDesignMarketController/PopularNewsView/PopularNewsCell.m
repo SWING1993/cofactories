@@ -23,9 +23,11 @@
         self.newsDetail.font = [UIFont systemFontOfSize:12];
         self.newsDetail.textColor = [UIColor lightGrayColor];
         [self addSubview:self.newsDetail];
-        UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 70 - 0.3, kScreenW - 10, 0.3)];
-        lineLabel.backgroundColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
-        [self addSubview:lineLabel];
+        
+        CALayer *line = [CALayer layer];
+        line.frame = CGRectMake(10, 70 - 0.3, kScreenW - 10, 0.3);
+        line.backgroundColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f].CGColor;
+        [self.layer addSublayer:line];
         
     }
     return self;

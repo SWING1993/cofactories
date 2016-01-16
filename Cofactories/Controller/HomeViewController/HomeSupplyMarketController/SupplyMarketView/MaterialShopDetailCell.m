@@ -23,7 +23,7 @@
         [self addSubview:self.priceLeftLabel];
 
         self.marketPriceLeftLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMargin, CGRectGetMaxY(self.priceLeftLabel.frame), 40, 30)];
-        self.marketPriceLeftLabel.textColor = [UIColor colorWithRed:83.0/255.0 green:83.0/255.0 blue:83.0/255.0 alpha:1.0];
+//        self.marketPriceLeftLabel.textColor = [UIColor colorWithRed:83.0/255.0 green:83.0/255.0 blue:83.0/255.0 alpha:1.0];
         self.marketPriceLeftLabel.font = [UIFont systemFontOfSize:13];
         [self addSubview:self.marketPriceLeftLabel];
         self.marketPriceRightLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.marketPriceLeftLabel.frame), CGRectGetMaxY(self.priceLeftLabel.frame), 60, 30)];

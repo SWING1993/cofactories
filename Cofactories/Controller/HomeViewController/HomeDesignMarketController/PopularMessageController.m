@@ -25,9 +25,9 @@ static NSString *popularCellIdentifier = @"popularCell";
     NSArray *arr;
     ZGYSelectButtonView *selectBtnView;
     UISearchBar *_searchBar;
-    UIView *bigView;
     UIButton *changeBtn;
     MBProgressHUD *hud;
+    UIButton *backgroundView;
 }
 @property (nonatomic,strong) NSMutableArray *firstViewImageArray;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -109,6 +109,8 @@ static NSString *popularCellIdentifier = @"popularCell";
     
     hud = [Tools createHUDWithView:self.view];
     hud.labelText = @"加载中...";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickBackgroundViewAction) name:UIKeyboardWillHideNotification object:nil];
+    [self creatBackgroundView];
 }
 
 - (void)creatTableView {
@@ -118,6 +120,31 @@ static NSString *popularCellIdentifier = @"popularCell";
 //    self.popularTableView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.popularTableView];
 }
+#pragma mark - 遮盖层
+- (void)creatBackgroundView {
+    backgroundView = [UIButton buttonWithType:UIButtonTypeCustom];
+    backgroundView.frame = CGRectMake(0, 64, kScreenW, kScreenH);
+    backgroundView.backgroundColor = [UIColor blackColor];
+    backgroundView.alpha = 0.0f;
+    [backgroundView addTarget:self action:@selector(clickBackgroundViewAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backgroundView];
+}
+
+- (void) clickBackgroundViewAction {
+    [self controlBackgroundView:0];
+}
+
+- (void)controlBackgroundView:(float)alphaValue {
+    [UIView animateWithDuration:0.2 animations:^{
+        backgroundView.alpha = alphaValue;
+        if (alphaValue <= 0) {
+            [_searchBar resignFirstResponder];
+            [_searchBar setShowsCancelButton:NO animated:YES];
+        }
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 
 - (void)creatSearchBar{
     
@@ -125,32 +152,38 @@ static NSString *popularCellIdentifier = @"popularCell";
     _searchBar = [[UISearchBar alloc] initWithFrame:kSearchFrameLong];
     _searchBar.delegate = self;
     _searchBar.tintColor = kDeepBlue;
+    _searchBar.placeholder = @"搜索文章、图片、作者";
+    [_searchBar setShowsCancelButton:NO];
     [self.navigationController.view addSubview:_searchBar];
     [_searchBar setBackgroundImage:[[UIImage alloc] init] ];
-    _searchBar.placeholder = @"搜索文章、图片、作者";
     
+    
+    for (UIView *view in [[_searchBar.subviews lastObject] subviews]) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            UIButton *cancelBtn = (UIButton *)view;
+            [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        }
+    }
+
 }
+
 #pragma mark - UISearchBarDelegate
 
-//点击搜索框改变seachBar的大小，创建取消按钮，添加一层View
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-    if (_searchBar.frame.size.width == kScreenW-50) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancleButtonClick)];
-        _searchBar.frame = kSearchFrameShort;
-        bigView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
-        bigView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
-        [self.view addSubview:bigView];
-    }
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:YES animated:YES];
+    //把backgroundView提到最前面，遮挡筛选器
+    [self.view bringSubviewToFront:backgroundView];
+    [self controlBackgroundView:0.3];
 }
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [self controlBackgroundView:0];
+    [self.view endEditing:YES];
+}
 
 //点击搜索出结果
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    DLog(@"chisdjovcjdsopvjopsdj");
     //搜索完移除view改变searchBar的大小
-    [searchBar resignFirstResponder];
-    [bigView removeFromSuperview];
-    _searchBar.frame = kSearchFrameLong;
     [HttpClient searchPopularNewsWithKeyword:_searchBar.text WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         self.searchArray = [NSMutableArray arrayWithCapacity:0];
@@ -159,10 +192,10 @@ static NSString *popularCellIdentifier = @"popularCell";
                 PopularNewsModel *popularNewsModel = [PopularNewsModel getPopularNewsModelWithDictionary:myDic];
                 [self.searchArray addObject:popularNewsModel];
             }
+            [self controlBackgroundView:0];
             if (self.searchArray.count == 0) {
                 kTipAlert(@"搜索结果为空");
             } else {
-                [self removeSearchBar];
                 PopularNewsList_VC *popularNewsList_VC = [[PopularNewsList_VC alloc] init];
                 popularNewsList_VC.popularNewsArray = self.searchArray;
                 [self.navigationController pushViewController:popularNewsList_VC animated:YES];
@@ -175,34 +208,6 @@ static NSString *popularCellIdentifier = @"popularCell";
     }];
 }
 
-
-//点击键盘之外的View移除View
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (![_searchBar isExclusiveTouch]) {
-        [_searchBar resignFirstResponder];
-        [bigView removeFromSuperview];
-        _searchBar.frame = kSearchFrameLong;
-    }
-}
-
-//点击取消收回键盘，移除View，改变seachBar的大小
-- (void)cancleButtonClick {
-    //收回键盘
-    [_searchBar resignFirstResponder];
-    [bigView removeFromSuperview];
-    _searchBar.frame = kSearchFrameLong;
-    
-}
-
-//返回时移除searchBar
-- (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-//同时移除searchBar和View（在当前页面操作）
-- (void)removeSearchBar {
-    [_searchBar removeFromSuperview];
-    [bigView removeFromSuperview];
-}
 
 - (void)creatHeaderView {
     //第一个scrollView
@@ -311,7 +316,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     PopularNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:newsCellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     PopularNewsModel *popularNewsModel = self.popularTopNewsArray[indexPath.row];
-    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     cell.newstitle.text = popularNewsModel.newsTitle;
     cell.newsDetail.text = popularNewsModel.discriptions;
     
@@ -421,7 +426,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PopularCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:popularCellIdentifier forIndexPath:indexPath];
     PopularNewsModel *popularNewsModel = self.popularNewsListArray[indexPath.row];
-    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+    [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     cell.newsTitle.text = popularNewsModel.newsTitle;
     cell.likeCountLabel.text = popularNewsModel.likeNum;
     cell.commentCountLabel.text = [NSString stringWithFormat:@"阅读数：%@", popularNewsModel.clickNum];
@@ -441,6 +446,10 @@ static NSString *popularCellIdentifier = @"popularCell";
     return UIEdgeInsetsMake(10*kZGY, 10*kZGY, 10*kZGY, 10*kZGY);
 }
 
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 //- (void)actionOfTimer {
 //    [changeBtn setTitleColor:[UIColor randomColor] forState:UIControlStateNormal];

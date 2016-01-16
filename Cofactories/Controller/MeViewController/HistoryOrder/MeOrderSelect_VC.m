@@ -50,9 +50,12 @@
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [self.view addSubview:button];
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + 44 - 0.3, kScreenW, 0.3)];
-        lineView.backgroundColor = [UIColor lightGrayColor];
-        [self.view addSubview:lineView];
+        
+        CALayer *line = [CALayer layer];
+        line.frame = CGRectMake(0, 64 + 44 - 0.3, kScreenW, 0.3);
+        line.backgroundColor = kLineGrayCorlor.CGColor;
+        [self.view.layer addSublayer:line];
+        
         if (i == 0) {
             [button setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
             _lineLB = [UILabel new];

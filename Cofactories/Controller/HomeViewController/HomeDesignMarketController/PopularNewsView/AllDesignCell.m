@@ -46,10 +46,11 @@
         _businessLB.font = [UIFont systemFontOfSize:12.f];
         _businessLB.textColor = [UIColor grayColor];
         [self.contentView addSubview:_businessLB];
-
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 80 + 15 - 0.3, kScreenW, 0.3)];
-        lineView.backgroundColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
-        [self addSubview:lineView];
+        
+        CALayer *line = [CALayer layer];
+        line.frame = CGRectMake(0, 80 + 15 - 0.3, kScreenW, 0.3);
+        line.backgroundColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f].CGColor;
+        [self.layer addSublayer:line];
         
     }
     return self;
