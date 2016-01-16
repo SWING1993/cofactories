@@ -343,7 +343,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     DLog(@"设计师Lijo");
     
     PopularNewsDetails_VC *popularVC = [[PopularNewsDetails_VC alloc] init];
-    popularVC.lijoString = kAboutDesignUrl;
+    popularVC.lijoString = [NSString stringWithFormat:@"%@%@", kH5BaseUrl, @"/info/about-designer/"];
     [self.navigationController pushViewController:popularVC animated:YES];
 }
 #pragma mark - 换一批

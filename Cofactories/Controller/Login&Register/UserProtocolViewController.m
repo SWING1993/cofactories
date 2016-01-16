@@ -19,7 +19,8 @@
     // Do any additional setup after loading the view.
     self.title = @"聚工厂用户服务协议";
     UIWebView * webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
-    NSURL * url = [NSURL URLWithString:kUserProtocolUrl];
+    NSString *protocolString = [NSString stringWithFormat:@"%@%@", kH5BaseUrl, @"/announcement/eula/"];
+    NSURL * url = [NSURL URLWithString:protocolString];
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
     [webView loadRequest:request];
     [self.view addSubview:webView];
