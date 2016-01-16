@@ -47,9 +47,8 @@
 #define kNotifyURL @"https://pay.cofactories.com/alipay/test"  //支付宝服务器通知URL
 #define kPopularBaseUrl @"http://lo.news.mxd.moe"//流行资讯
 
-#define kUserProtocolUrl @"http://h5.lo.cofactories.com/announcement/eula/"
-#define kAboutWallet @"http://h5.lo.cofactories.com/info/wallet/"
-#define kAboutDesignUrl @"http://h5.lo.cofactories.com/info/about-designer/"
+#define kH5BaseUrl @"http://h5.lo.cofactories.com"//所有H5页面
+
 #define RONGCLOUD_IM_APPKEY @"pwe86ga5edfp6"
 #define RONGCLOUD_IM_SERVICEID @"KEFU145230925094660"
 
@@ -67,9 +66,8 @@
 //#define kNotifyURL @"http://pay.test.cofactories.com/alipay"  //支付宝服务器通知URL
 //#define kPopularBaseUrl @"http://news.test.cofactories.com"//流行资讯
 //
-//#define kUserProtocolUrl @"http://h5.test.cofactories.com/announcement/eula/"
-//#define kAboutWallet @"http://h5.test.cofactories.com/info/wallet/"
-//#define kAboutDesignUrl @"http://h5.test.cofactories.com/info/about-designer/"
+//#define kH5BaseUrl @"http://h5.test.cofactories.com"//所有H5页面
+//
 //#define RONGCLOUD_IM_APPKEY @"pwe86ga5edfp6"
 //#define RONGCLOUD_IM_SERVICEID @"KEFU145230925094660"
 
@@ -87,10 +85,10 @@
 //#define kBaseUrl   @"https://app.cofactories.com"   //后端服务器
 //#define PhotoAPI   @"https://cdn.cofactories.com"
 //#define kNotifyURL @"https://pay.cofactories.com/alipay"  //支付宝服务器通知URL
-//#define kPopularBaseUrl @"http://news.cofactories.com"
-//#define kUserProtocolUrl @"http://h5.cofactories.com/announcement/eula/"
-//#define kAboutWallet @"http://h5.cofactories.com/info/wallet/"
-//#define kAboutDesignUrl @"http://h5.cofactories.com/info/about-designer/"
+//#define kPopularBaseUrl @"http://news.cofactories.com"//流行资讯
+//
+//#define kH5BaseUrl @"http://h5.cofactories.com"//所有H5页面
+//
 //#define RONGCLOUD_IM_APPKEY @"4z3hlwrv3iult"
 //#define RONGCLOUD_IM_SERVICEID @"KEFU145230927149545"
 
