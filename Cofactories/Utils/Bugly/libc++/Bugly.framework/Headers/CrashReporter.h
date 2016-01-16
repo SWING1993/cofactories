@@ -1,6 +1,6 @@
 //
 //  CrashReporter.h
-//  Version: 1.4.5(1)
+//  Version: 1.4.6(1)
 //
 //  Copyright (c) 2015年 Tencent. All rights reserved.
 //
