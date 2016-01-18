@@ -382,7 +382,14 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         
     }else if (buttonIndex == 1){
         //  发送确认成功的请求
-        DLog(@"7788y5677");
+        [HttpClient finishRestrictOrderWithOrderID:_modelID WithCompletionBlock:^(NSDictionary *dictionary) {
+            NSString *statusCode = dictionary[@"statusCode"];
+            if ([statusCode isEqualToString:@"200"]) {
+                kTipAlert(@"订单完成,请去评分以解冻保证金!");
+            }else{
+                kTipAlert(@"订单完成失败,请检查网络,是否登陆");
+            }
+        }];
 
     }
 }

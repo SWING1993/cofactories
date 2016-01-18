@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ContractClothingDetail_VC : UIViewController
-@property (nonatomic,copy)NSString *modelID;
+@property (nonatomic,copy)NSString *modelID;  // 订单号
 
 @end

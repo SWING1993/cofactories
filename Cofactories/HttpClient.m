@@ -91,7 +91,7 @@
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
     [manager POST:API_launch parameters:@{@"deviceId": deviceId,@"deviceType": @"iOS",@"clientVersion": clientVersion} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-//        DLog(@"User - 启动成功 = 200");
+        //        DLog(@"User - 启动成功 = 200");
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
@@ -295,7 +295,7 @@
                 if (statusCode == 200) {
                     //block(200);
                 }else {
-//                    kTipAlert(@"用户身份刷新失败！");
+                    //                    kTipAlert(@"用户身份刷新失败！");
                 }
             }];
         } else {
@@ -325,7 +325,7 @@
     manager.requestSerializer.timeoutInterval = kTimeoutInterval;
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
-
+    
     
     [manager POST:API_login parameters:@{@"refreshToken":refreshToken} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         //        DLog(@"sucess data = %@",responseObject);
@@ -429,7 +429,7 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             block([operation.response statusCode]);
             DLog(@"%ld",[operation.response statusCode]);
-
+            
         }];
     }
 }
@@ -456,9 +456,9 @@
         
         [manager GET:API_userProfile parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             UserModel *userModel = [[UserModel alloc] initWithDictionary:responseObject];
-            [userModel storeValueWithKey:@"MyProfile"];            
-//            DLog(@"userModel = %@",responseObject);
-//            DLog(@"userModel.description = %@",userModel.description);
+            [userModel storeValueWithKey:@"MyProfile"];
+            //            DLog(@"userModel = %@",responseObject);
+            //            DLog(@"userModel.description = %@",userModel.description);
             block(@{@"statusCode": @(200), @"model": userModel});
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             switch ([operation.response statusCode]) {
@@ -502,7 +502,7 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager    POST:API_userProfile parameters:Dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            DLog(@"修改个人资料 = %@",responseObject);
+            //            DLog(@"修改个人资料 = %@",responseObject);
             block(200);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             DLog(@"123%@",error);
@@ -555,7 +555,7 @@
 }
 
 + (void)walletWithFee:(NSString *)fee WihtCharge:(void (^)(NSDictionary *))block{
-
+    
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -593,7 +593,7 @@
         DLog(@"access_token不存在");
         block(@{@"statusCode": @404, @"message": @"access_token不存在!"});// access_token不存在
     }
-
+    
 }
 
 
@@ -639,7 +639,7 @@
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         [manager GET:API_walletHistory parameters:@{@"page":page} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-//            DLog(@"responseObject = %@",responseObject);
+            //            DLog(@"responseObject = %@",responseObject);
             NSMutableArray * array = [[NSMutableArray alloc]initWithCapacity:0];
             [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 WalletHistoryModel * model = [[WalletHistoryModel alloc]initWithDictionary:obj];
@@ -656,7 +656,7 @@
         DLog(@"access_token不存在");
         block(@{@"statusCode": @404, @"message": @"access_token不存在!"});// access_token不存在
     }
-
+    
 }
 
 
@@ -673,7 +673,7 @@
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         [manager POST:API_walletWithDraw parameters:@{@"fee":fee, @"method":method, @"account":account} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-           
+            
             block(200);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
@@ -729,7 +729,7 @@
 }
 
 + (void)uploadPhotoWithType:(NSString *)type WithImage:(UIImage *)image andBlock:(void (^)(NSInteger))block {
-
+    
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -742,7 +742,7 @@
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         [manager GET:API_uploadPhoto parameters:@{@"type":type} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-//            DLog(@"sucess data = %@",responseObject);
+            //            DLog(@"sucess data = %@",responseObject);
             DLog(@"图片上传成功");
             UpYun *upYun = [[UpYun alloc] init];
             upYun.bucket = bucketAPI;//图片测试
@@ -758,7 +758,7 @@
             NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
             DLog(@"error code = %ld",(long)statusCode);
             DLog(@"failure = %@",errors);
-//            DLog(@"error = %@",error);
+            //            DLog(@"error = %@",error);
         }];
     } else {
         DLog(@"access_token不存在");
@@ -800,7 +800,7 @@
         DLog(@"获取验证码的statusCode = %ld",(long)statusCode);
         block(@{@"statusCode": @(statusCode)});
     }];
-
+    
 }
 // 获取用户评论
 + (void)getUserCommentWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
@@ -812,7 +812,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/user/comment/",aUserID];
         [manager GET:urlString parameters:@{@"page":aPage} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-           // DLog(@"responseObject == %@",responseObject);
+            // DLog(@"responseObject == %@",responseObject);
             NSArray *array = responseObject;
             NSMutableArray *dataArray = [@[] mutableCopy];
             [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -827,7 +827,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 获取他人信息
@@ -841,7 +841,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/user/profile/",userID];
         [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-              //DLog(@"responseObject == %@",responseObject);
+            //DLog(@"responseObject == %@",responseObject);
             OthersUserModel *model = [[OthersUserModel alloc] initWithDictionary:responseObject];
             completionBlock(@{@"statusCode":@200,@"message":model});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
@@ -850,7 +850,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 
@@ -898,7 +898,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager POST:API_Publish_Market_Publish parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             completionBlock(@{@"statusCode": @([operation.response statusCode]), @"responseObject":responseObject});
-//            DLog(@"responseObject == %@",responseObject);
+            //            DLog(@"responseObject == %@",responseObject);
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
             completionBlock(@{@"statusCode": @([operation.response statusCode])});
@@ -933,14 +933,14 @@
         if (aMarketPrice) {
             [parametersDictionary setObject:aMarketPrice forKey:@"marketPrice"];
         }
-
+        
         if (aAmount) {
             [parametersDictionary setObject:aAmount forKey:@"amount"];
         }
         if (aUnit) {
             [parametersDictionary setObject:aUnit forKey:@"unit"];
         }
-
+        
         if (aDescription) {
             [parametersDictionary setObject:aDescription forKey:@"description"];
         }
@@ -1000,7 +1000,7 @@
         if (aCreatedAt) {
             [parametersDictionary setObject:aCountry forKey:@"createdAt"];
         }
-
+        
         if (aPage) {
             [parametersDictionary setObject:aPage forKey:@"page"];
         }
@@ -1009,7 +1009,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager GET:API_Search_Market_Search parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             completionBlock(@{@"statusCode": @"200", @"message": responseObject});
-//            DLog(@"responseObject == %@",responseObject);
+            //            DLog(@"responseObject == %@",responseObject);
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
             
@@ -1128,7 +1128,7 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager GET:API_SearchBusiness parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-               // DLog(@"responseObject == %@",responseObject);
+            // DLog(@"responseObject == %@",responseObject);
             completionBlock(@{@"statusCode": @"200", @"message":responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
@@ -1137,7 +1137,7 @@
     }else{
         completionBlock(@{@"statusCode": @"404", @"message": @"token不存在"});
     }
-
+    
     
     
     
@@ -1168,7 +1168,7 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager POST:API_Piblish_Supplier_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-//            DLog(@"responseObject == %@",responseObject);
+            //            DLog(@"responseObject == %@",responseObject);
             completionBlock(@{@"statusCode": @"200", @"message":responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
@@ -1207,9 +1207,9 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager POST:API_Piblish_Factory_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-           // DLog(@"responseObject == %@",responseObject);
+            // DLog(@"responseObject == %@",responseObject);
             completionBlock(@{@"statusCode": @"200", @"message":responseObject});
-
+            
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
             completionBlock(@{@"statusCode": [NSString stringWithFormat:@"%ld",(long)statusCode]});
@@ -1218,7 +1218,7 @@
     }else{
         completionBlock(@{@"statusCode": @"404", @"message": @"token不存在"});
     }
-
+    
 }
 
 // 发布设计商订单
@@ -1236,7 +1236,7 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager POST:API_Piblish_Design_Order parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-          //  DLog(@"responseObject == %@",responseObject);
+            //  DLog(@"responseObject == %@",responseObject);
             completionBlock(@{@"statusCode": @"200", @"message":responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
@@ -1285,7 +1285,7 @@
 }
 
 // 搜索找工厂订单
-+ (void)searchFactoryOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType amount:(NSArray *)aAmount deadline:(NSArray *)aDeadline pageCount:(NSNumber *)aPageCount WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)searchFactoryOrderWithKeyword:(NSString *)aKeyword type:(NSString *)aType amount:(NSArray *)aAmount deadline:(NSString *)aDeadline pageCount:(NSNumber *)aPageCount WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
     if (credential) {
@@ -1317,7 +1317,7 @@
                 [array addObject:model];
             }];
             completionBlock(@{@"statusCode": @"200", @"message":array});
-
+            
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
@@ -1325,7 +1325,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 搜索设计商订单
@@ -1359,7 +1359,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 获取供应商订单详情
@@ -1372,7 +1372,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/supplier/",aID];
         [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-             DLog(@"responseObject == %@",responseObject);
+            DLog(@"responseObject == %@",responseObject);
             completionBlock(responseObject);
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
@@ -1380,7 +1380,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 获取找工厂订单详情
@@ -1393,7 +1393,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/",aID];
         [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-           // DLog(@"responseObject == %@",responseObject);
+            // DLog(@"responseObject == %@",responseObject);
             completionBlock(responseObject);
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
@@ -1401,7 +1401,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 获取设计商订单详情
@@ -1422,7 +1422,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 投标工厂订单
@@ -1478,7 +1478,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 投标设计订单
@@ -1503,7 +1503,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 获取供应订单竞标用户
@@ -1516,7 +1516,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/supplier/bid/",aOrderID];
         [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-           // DLog(@"responseObject == %@",responseObject);
+            // DLog(@"responseObject == %@",responseObject);
             completionBlock(@{@"statusCode": @(200), @"message": responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
@@ -1524,7 +1524,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 获取工厂订单竞标用户
@@ -1537,7 +1537,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/bid/",aOrderID];
         [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-           // DLog(@"responseObject == %@",responseObject);
+            // DLog(@"responseObject == %@",responseObject);
             completionBlock(@{@"statusCode": @(200), @"message": responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
@@ -1545,7 +1545,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 获取设计订单竞标用户
@@ -1566,7 +1566,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 获取所有用户有关的订单
@@ -1586,7 +1586,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = @"/order/myAll";
         [manager GET:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-           // DLog(@"responseObject == %@",responseObject);
+            // DLog(@"responseObject == %@",responseObject);
             NSArray *responseArray = (NSArray *)responseObject;
             NSMutableArray *array = [@[] mutableCopy];
             [responseArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -1601,7 +1601,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 关闭订单
@@ -1650,7 +1650,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 关闭设计订单
@@ -1702,7 +1702,7 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 评价工厂订单
@@ -1722,15 +1722,15 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/rate/",aOrderID];
         [manager PATCH:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-           // DLog(@"responseObject == %@",responseObject);
-             completionBlock(@{@"statusCode": @"200", @"message": responseObject});
+            // DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @"200", @"message": responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
     
 }
 
@@ -1751,15 +1751,15 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/design/rate/",aOrderID];
         [manager PATCH:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-           // DLog(@"responseObject == %@",responseObject);
-             completionBlock(@{@"statusCode": @"200", @"message": responseObject});
+            // DLog(@"responseObject == %@",responseObject);
+            completionBlock(@{@"statusCode": @"200", @"message": responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
         }];
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-
+    
 }
 
 // 签署协议
@@ -1809,13 +1809,13 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/contract/",orderID];
         [manager PUT:urlString parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-             DLog(@"responseObject == %@",responseObject);
+            DLog(@"responseObject == %@",responseObject);
             completionBlock(@{@"statusCode": @"500", @"message": responseObject});
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             NSData *data = [[NSData alloc] init];
             data = [error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"];
             DLog(@"data == %@",data);
-
+            
             completionBlock(@{@"statusCode": @"200", @"message": data});
         }];
     }else{
@@ -1863,7 +1863,7 @@
     }else{
         completionBlock(@{@"statusCode":@"404"});
     }
-
+    
 }
 
 // 添加订单进度消息
@@ -1885,7 +1885,7 @@
             DLog(@"++++++++++%@",error);
             
         }];
-
+        
     }else{
         completionBlock(@{@"statusCode":@"404"});
     }
@@ -1920,8 +1920,61 @@
     }else{
         completionBlock(@{@"statusCode":@"404"});
     }
+}
+
+// 首款支付
++ (void)payFirstWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manger.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/firstPay/",orderID];
+        [manger GET:urlString parameters:@{@"payment":@"wallet"} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            DLog(@"%@",responseObject);
+            completionBlock(@{@"statusCode":@"200"});
+            
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString *string = [NSString stringWithFormat:@"%ld",(long)statusCode];
+            completionBlock(@{@"statusCode":string});
+            DLog(@"%@",error);
+
+        }];
+        
+    }else{
+        completionBlock(@{@"statusCode":@"404"});
+    }
+}
+
+// 限制订单完成
++ (void)finishRestrictOrderWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manger.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/finish/",orderID];
+        [manger PATCH:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            DLog(@"%@",responseObject);
+            completionBlock(@{@"statusCode":@"200"});
+            
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString *string = [NSString stringWithFormat:@"%ld",(long)statusCode];
+            completionBlock(@{@"statusCode":string});
+            DLog(@"%@",error);
+            
+        }];
+        
+    }else{
+        completionBlock(@{@"statusCode":@"404"});
+    }
 
 }
+
 
 // 获取店铺
 + (void)getUserShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
@@ -1933,9 +1986,9 @@
         AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manger.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/market/shop/",aUserID];
-
+        
         [manger GET:urlString parameters:@{@"page":aPage} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-             DLog(@"responseObject == %@",responseObject);
+            DLog(@"responseObject == %@",responseObject);
             NSArray *array = responseObject;
             NSMutableArray *dataArray = [@[] mutableCopy];
             [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -1974,7 +2027,7 @@
     else {
         block(404);// access_token不存在
     }
-
+    
 }
 
 //获取认证信息
@@ -2007,7 +2060,7 @@
         DLog(@"access_token不存在");
         block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
     }
-
+    
 }
 + (void)postVerifyWithenterpriseName:(NSString *)enterpriseName withenterpriseAddress:(NSString *)enterpriseAddress withpersonName:(NSString *)personName withidCard:(NSString *)idCard idCardImage:(UIImage *)idCardImage idCardBackImage:(UIImage *)idCardBackImage licenseImage:(UIImage *)licenseImage andBlock:(void (^)(NSInteger statusCode))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
@@ -2043,9 +2096,9 @@
             upYun1.bucket = bucketAPI;//图片测试
             upYun1.expiresIn = 600;// 10分钟
             [upYun1 uploadImage:idCardImage policy:responseObject[@"data"][@"idCard"][@"policy"] signature:responseObject[@"data"][@"idCard"][@"signature"]];
-
+            
             [upYun1 uploadImage:idCardBackImage policy:responseObject[@"data"][@"idCardBack"][@"policy"] signature:responseObject[@"data"][@"idCardBack"][@"signature"]];
-
+            
             [upYun1 uploadImage:licenseImage policy:responseObject[@"data"][@"license"][@"policy"] signature:responseObject[@"data"][@"license"][@"signature"]];
             DLog(@"图片上传成功");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2056,7 +2109,7 @@
         //        block(404);// access_token不存在
         block(404);// access_token不存在
     }
-
+    
 }
 
 + (void)uploadPhotoWithPhoto:(UIImage *)photo WithPolicy:(NSString *)policy WithSignature:(NSString *)signature andBlock:(void (^)(NSInteger))block {
@@ -2137,7 +2190,7 @@
     } else {
         block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
     }
-
+    
 }
 //获取两篇置顶文章
 + (void)getPopularNewsWithBlock:(void (^)(NSDictionary *dictionary))block {
@@ -2179,7 +2232,7 @@
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, kPopular_News_List];
-//        NSString*token = credential.accessToken;
+        //        NSString*token = credential.accessToken;
         [manager GET:urlString parameters:@{@"category":[NSString stringWithFormat:@"%ld", category]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             DLog(@"^^^^^^^^^^^^%@", responseObject);
             block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
@@ -2191,7 +2244,7 @@
     } else {
         block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
     }
-
+    
 }
 
 //买买买
@@ -2209,7 +2262,7 @@
         }];
         
     }else{
-//        block(@{@"statusCode": @(410), @"message": @"token不存在"});
+        //        block(@{@"statusCode": @(410), @"message": @"token不存在"});
     }
     
 }
@@ -2244,7 +2297,7 @@
     } else {
         block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
     }
-
+    
     
 }
 //出售记录
@@ -2277,7 +2330,7 @@
     } else {
         block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
     }
-
+    
 }
 
 

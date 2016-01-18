@@ -68,7 +68,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     _view.backgroundColor = [UIColor whiteColor];
     
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
-    [window.rootViewController.view addSubview:_view];
+    [window addSubview:_view];
     
     NSArray *array = @[@"聊天",@"致电"];
     for (int i=0; i<array.count; i++) {

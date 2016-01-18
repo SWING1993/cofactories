@@ -12,9 +12,9 @@
 #import "MJRefresh.h"
 #import "FactoryOrderDetail_VC.h"
 #import "OrderPhotoViewController.h"
+#import "CalendarHomeViewController.h"
 
 @interface SearchOrder_Factory_VC ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate>{
-    UITableView     *_tableView;
     DOPDropDownMenu *_dropDownMenu;
     NSArray         *_typeArray;
     NSArray         *_amountArray;
@@ -27,7 +27,9 @@
 @property (nonatomic,copy)NSString  *oderKeywordString;
 @property (nonatomic,copy)NSString  *orderTypeString;
 @property (nonatomic,strong)NSArray *orderAmountArray;
-@property (nonatomic,strong)NSArray *orderDeadlineArray;
+@property (nonatomic,copy)NSString *orderDeadlineString;
+@property (nonatomic,strong)CalendarHomeViewController *calendar;
+@property (nonatomic,strong)UITableView     *tableView;
 
 @end
 static NSString *const reuseIdentifier = @"reuseIdentifier";
@@ -47,7 +49,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
     _typeArray = @[@"订单类型不限",@"加工厂",@"加工配套"];
     _amountArray = @[@"订单数量不限",@"小于500件",@"501-1000件",@"1001-2000件",@"2001-5000件",@"大于5001件"];
-    _workingTimeArray = @[@"订单期限不限",@"1到3天",@"4到6天",@"7天以上"];
+    _workingTimeArray = @[@"订单完成日期"];
     _dropDownMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
     _dropDownMenu.delegate = self;
     _dropDownMenu.dataSource = self;
@@ -80,7 +82,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 {
     _refrushCount++;
     DLog(@"_refrushCount==%d",_refrushCount);
-    [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineArray pageCount:@(_refrushCount) WithCompletionBlock:^(NSDictionary *dictionary){
+    [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineString pageCount:@(_refrushCount) WithCompletionBlock:^(NSDictionary *dictionary){
         NSArray *array = dictionary[@"message"];;
         
         for (int i=0; i<array.count; i++)
@@ -116,11 +118,11 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
     _oderKeywordString = searchBar.text;
     _orderTypeString = nil;
-    _orderDeadlineArray = nil;
+    _orderDeadlineString = nil;
     _orderAmountArray = nil;
     _refrushCount = 1;
     
-    [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineArray pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
+    [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
         DLog(@"%@",dictionary);
         _dataArray = dictionary[@"message"];
         [_tableView reloadData];
@@ -216,7 +218,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             return 6;
             break;
         case 2:
-            return 4;
+            return 1;
             break;
         default:
             break;
@@ -288,35 +290,39 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     break;
             }
             break;
-        case 2:
-            switch (indexPath.row) {
-                case 0:
-                    _orderDeadlineArray = nil;
-                    break;
-                case 1:
-                    _orderDeadlineArray = @[@"1",@"3"];
-                    break;
-                case 2:
-                    _orderDeadlineArray = @[@"4",@"6"];
-                    break;
-                case 3:
-                    _orderDeadlineArray = @[@"7",@"88888888"];
-                    break;
-                    
-                default:
-                    break;
+        case 2:{
+            if (!_calendar) {
+                _calendar = [[CalendarHomeViewController alloc]init];
+                _calendar.calendartitle = @"空闲日期";
+                [_calendar setAirPlaneToDay:365 ToDateforString:nil];//飞机初始化方法
             }
+            __weak typeof(self) weakSelf = self;
+            _calendar.calendarblock = ^(CalendarDayModel *model){
+                weakSelf.orderDeadlineString = [model toString];
+            };
+            [self presentViewController:_calendar animated:YES completion:nil];
+            
+            _oderKeywordString = nil;
+            _refrushCount = 1;
+            
+            [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
+                DLog(@"%@",dictionary);
+                _dataArray = dictionary[@"message"];
+                [_tableView reloadData];
+            }];
+
+        }
             break;
             
         default:
             break;
     }
     
-    DLog(@"%@,%@,%@",_orderTypeString,_orderAmountArray,_orderDeadlineArray);
+    DLog(@"%@,%@,%@",_orderTypeString,_orderAmountArray,_orderDeadlineString);
     _oderKeywordString = nil;
     _refrushCount = 1;
     
-    [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineArray pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
+    [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
         DLog(@"%@",dictionary);
         _dataArray = dictionary[@"message"];
         [_tableView reloadData];

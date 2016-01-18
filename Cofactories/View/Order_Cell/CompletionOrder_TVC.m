@@ -79,10 +79,13 @@
         _gpLB.text = @"中标订单";
         _gpLB.textColor = MAIN_COLOR;
         
-        if ([dataModel.orderStatus isEqualToString:@"1"] || [dataModel.orderStatus isEqualToString:@"3"]) {
+        NSInteger status = [dataModel.orderStatus integerValue];
+        int thirdByte = status&4;
+        
+        if (thirdByte == 0) {
             _markLB.text = @"未评分";
             _isMark = NO;
-        }else if ([dataModel.orderStatus isEqualToString:@"5"] || [dataModel.orderStatus isEqualToString:@"7"]) {
+        }else if (thirdByte == 4) {
             _markLB.text = @"已评分";
             _isMark = YES;
 
@@ -94,11 +97,14 @@
         _gpLB.text = @"发布订单";
         _gpLB.textColor = [UIColor colorWithRed:30/255.0 green:166/255.0 blue:73/255.0 alpha:1];
         
-        if ([dataModel.orderStatus isEqualToString:@"1"] || [dataModel.orderStatus isEqualToString:@"5"]) {
+        NSInteger status = [dataModel.orderStatus integerValue];
+        int secondByte = status&2;
+
+        if (secondByte == 0) {
             _markLB.text = @"未评分";
             _isMark = NO;
 
-        }else if ([dataModel.orderStatus isEqualToString:@"3"] || [dataModel.orderStatus isEqualToString:@"7"]) {
+        }else if (secondByte == 2) {
             _markLB.text = @"已评分";
             _isMark = YES;
 

@@ -154,19 +154,30 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)userDetailClick{
     
+    DLog(@"...+++++===%@",_otherUserModel.role);
+    
     if ([_otherUserModel.role isEqualToString:@"加工配套"]) {
         PersonalMessage_Factory_VC *vc = [PersonalMessage_Factory_VC new];
         vc.userModel = _otherUserModel;
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([_otherUserModel.role isEqualToString:@"服装企业"]){
         PersonalMessage_Clothing_VC *vc = [PersonalMessage_Clothing_VC new];
-        vc.userModel = _otherUserModel;
-        [self.navigationController pushViewController:vc animated:YES];
+        [HttpClient getOtherIndevidualsInformationWithUserID:_dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
+            OthersUserModel *model = dictionary[@"message"];
+            vc.userModel = model;
+            [self.navigationController pushViewController:vc animated:YES];
+        }];
+
     }else{
         // 设计师、供应商
+             
         PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
-        vc.userModel = _otherUserModel;
-        [self.navigationController pushViewController:vc animated:YES];
+        [HttpClient getOtherIndevidualsInformationWithUserID:_dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
+            OthersUserModel *model = dictionary[@"message"];
+            vc.userModel = model;
+            [self.navigationController pushViewController:vc animated:YES];
+        }];
+
     }
 }
 
