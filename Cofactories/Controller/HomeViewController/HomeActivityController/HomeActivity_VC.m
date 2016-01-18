@@ -103,7 +103,6 @@
                 }
                 if ([model.role isEqualToString:@"加工配套"]) {
                     PersonalMessage_Factory_VC *vc = [PersonalMessage_Factory_VC new];
-//                    vc.userID = uidString;
                     vc.userModel = model;
                     [self.navigationController pushViewController:vc animated:YES];
                 }

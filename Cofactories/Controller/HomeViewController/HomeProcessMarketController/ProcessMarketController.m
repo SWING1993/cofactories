@@ -54,20 +54,22 @@ static NSString *processCellIdentifier = @"processCell";
     [self.view addSubview:bigView];
     
     for (int i = 0; i < 4; i++) {
-        UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + 54 + i*(kScreenW/3 + 15*kZGY), kScreenW, 0.5)];
-        lineView1.backgroundColor = [UIColor colorWithRed:222.0f/255.0f green:222.0f/255.0f blue:222.0f/255.0f alpha:1.0f];
-        [self.view addSubview:lineView1];
+        CALayer *line1 = [CALayer layer];
+        line1.frame = CGRectMake(0, 64 + 54 + i*(kScreenW/3 + 15*kZGY), kScreenW, 0.5);
+        line1.backgroundColor = [UIColor colorWithRed:222.0f/255.0f green:222.0f/255.0f blue:222.0f/255.0f alpha:1.0f].CGColor;
+        [self.view.layer addSublayer:line1];
         
     }
     for (int i = 1; i < 3; i++) {
-        UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(i*kScreenW/3, 64 + 54 , 0.5, 3*(kScreenW/3 + 15*kZGY))];
-        lineView2.backgroundColor = [UIColor colorWithRed:222.0f/255.0f green:222.0f/255.0f blue:222.0f/255.0f alpha:1.0f];
-        [self.view addSubview:lineView2];
+        CALayer *line2 = [CALayer layer];
+        line2.frame = CGRectMake(i*kScreenW/3, 64 + 54 , 0.5, 3*(kScreenW/3 + 15*kZGY));
+        line2.backgroundColor = [UIColor colorWithRed:222.0f/255.0f green:222.0f/255.0f blue:222.0f/255.0f alpha:1.0f].CGColor;
+        [self.view.layer addSublayer:line2];
     }
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 108, kScreenW, 0.3)];
-    lineView.backgroundColor = [UIColor colorWithRed:222.0f/255.0f green:222.0f/255.0f blue:222.0f/255.0f alpha:1.0f];
-    [self.view addSubview:lineView];
-    
+    CALayer *line3 = [CALayer layer];
+    line3.frame = CGRectMake(0, 108, kScreenW, 0.3);
+    line3.backgroundColor = [UIColor colorWithRed:222.0f/255.0f green:222.0f/255.0f blue:222.0f/255.0f alpha:1.0f].CGColor;
+    [self.view.layer addSublayer:line3];
 }
 - (void)creatCollectionView {
     //创建CollectionView

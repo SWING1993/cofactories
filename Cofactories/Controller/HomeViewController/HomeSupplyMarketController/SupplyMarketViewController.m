@@ -44,9 +44,11 @@
     UIView *bigView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 44)];
     bigView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bigView];
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 44 - 0.3, kScreenW, 0.3)];
-    lineView.backgroundColor = [UIColor lightGrayColor];
-    [bigView addSubview:lineView];
+    
+    CALayer *line = [CALayer layer];
+    line.frame = CGRectMake(0, 44 - 0.3, kScreenW, 0.3);
+    line.backgroundColor = kLineGrayCorlor.CGColor;
+    [bigView.layer addSublayer:line];
     
     selectLine = [[UIView alloc] initWithFrame:CGRectMake(kScreenW/8, 44 - 2.5, kScreenW/4, 2.5)];
     selectLine.backgroundColor = [UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f];
@@ -67,6 +69,7 @@
         [btnArray addObject:button];
         if (button.tag == 222) {
             button.selected = YES;
+            button.titleLabel.font = [UIFont systemFontOfSize:16];
         }
     }
 }
@@ -126,9 +129,11 @@
          btnTag = 0;
          UIButton *button = [btnArray objectAtIndex:btnTag];
          button.selected = YES;
+         button.titleLabel.font = [UIFont systemFontOfSize:16];
          for (UIButton *sunbBtn in btnArray) {
              if (sunbBtn != button) {
                  sunbBtn.selected = NO;
+                 sunbBtn.titleLabel.font = [UIFont systemFontOfSize:15];
              }
          }
 
@@ -136,9 +141,11 @@
          btnTag = 1;
          UIButton *button = [btnArray objectAtIndex:btnTag];
          button.selected = YES;
+         button.titleLabel.font = [UIFont systemFontOfSize:16];
          for (UIButton *sunbBtn in btnArray) {
              if (sunbBtn != button) {
                  sunbBtn.selected = NO;
+                 sunbBtn.titleLabel.font = [UIFont systemFontOfSize:15];
              }
          }
      }

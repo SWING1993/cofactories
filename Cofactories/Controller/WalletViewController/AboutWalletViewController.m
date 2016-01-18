@@ -20,7 +20,8 @@
     
     UIWebView * webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
-    NSURL * url = [NSURL URLWithString:kAboutWallet];
+    NSString *walletString = [NSString stringWithFormat:@"%@%@", kH5BaseUrl, @"/info/wallet/"];
+    NSURL * url = [NSURL URLWithString:walletString];
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
     [self.view addSubview:webView];
     [webView loadRequest:request];

@@ -2234,7 +2234,7 @@
         NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, kPopular_News_List];
         //        NSString*token = credential.accessToken;
         [manager GET:urlString parameters:@{@"category":[NSString stringWithFormat:@"%ld", category]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            DLog(@"^^^^^^^^^^^^%@", responseObject);
+//            DLog(@"^^^^^^^^^^^^%@", responseObject);
             block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
