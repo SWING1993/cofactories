@@ -277,11 +277,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     //流行导读
     ZGYTitleView *title2 = [[ZGYTitleView alloc] initWithFrame:CGRectMake(0, 20, kScreenW, 25) Title:@"流行导读" leftLabelColor:[UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f]];
     [footerView addSubview:title2];
-    
-//    NSTimer *myTimer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(actionOfTimer) userInfo:nil repeats:YES];
-//    [[NSRunLoop currentRunLoop] addTimer:myTimer forMode:NSDefaultRunLoopMode];
-    
-    
+
     //换一批
     changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     changeBtn.frame = CGRectMake(kScreenW - 65, 20, 65, 30);
@@ -297,7 +293,6 @@ static NSString *popularCellIdentifier = @"popularCell";
     [footerView addSubview:selectBtnView];
     [self creatCollectionView];
     [footerView addSubview:self.collectionView];
-    
     self.popularTableView.tableFooterView = footerView;
 }
 
@@ -316,9 +311,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     [self.collectionView registerClass:[PopularCollectionViewCell class] forCellWithReuseIdentifier:popularCellIdentifier];
 }
 
-
 #pragma mark - UITableViewDataSource
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -326,7 +319,6 @@ static NSString *popularCellIdentifier = @"popularCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.popularTopNewsArray.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PopularNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:newsCellIdentifier forIndexPath:indexPath];
@@ -353,11 +345,8 @@ static NSString *popularCellIdentifier = @"popularCell";
     [self.navigationController pushViewController:popularVC animated:YES];
 }
 
-
 #pragma mark - 设计师Lijo
 - (void)actionOfdesign:(UIButton *)button {
-    DLog(@"设计师Lijo");
-    
     PopularNewsDetails_VC *popularVC = [[PopularNewsDetails_VC alloc] init];
     popularVC.lijoString = [NSString stringWithFormat:@"%@%@", kH5BaseUrl, @"/info/about-designer/"];
     [self.navigationController pushViewController:popularVC animated:YES];
@@ -376,7 +365,6 @@ static NSString *popularCellIdentifier = @"popularCell";
             [self.collectionView reloadData];
         } else {
         }
-
     }];
 }
 #pragma mark -WKFCircularSlidingViewDelegate轮播图
@@ -384,9 +372,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     DLog(@"点击了第  %d  张图", tag);
 }
 
-
 #pragma mark - ZGYSelectButtonViewDelegata
-
 - (void)selectButtonView:(ZGYSelectButtonView *)selectButtonView selectButtonTag:(NSInteger)selectButtonTag {
     DLog(@"^^^^^^^^^%ld", selectButtonTag);
     self.categoryNum = selectButtonTag - 1;
@@ -405,9 +391,7 @@ static NSString *popularCellIdentifier = @"popularCell";
             DLog(@"请求失败，statusCode = %ld", (long)statusCode);
 //            kTipAlert(@"网络不太顺畅哦~");
         }
-
     }];
-
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -426,14 +410,12 @@ static NSString *popularCellIdentifier = @"popularCell";
     [UIView animateWithDuration:0.5 animations:^{
         cell.layer.transform = CATransform3DMakeScale(1, 1, 1);
     }];
-
 }
-#pragma mark - UICollectionViewDataSource
 
+#pragma mark - UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.popularNewsListArray.count;
@@ -449,9 +431,6 @@ static NSString *popularCellIdentifier = @"popularCell";
     return cell;
 }
 
-
-
-
 #pragma mark - UICollectionViewDelegateFlowLayout
 //item大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -462,26 +441,13 @@ static NSString *popularCellIdentifier = @"popularCell";
     return UIEdgeInsetsMake(10*kZGY, 10*kZGY, 10*kZGY, 10*kZGY);
 }
 
-
 - (void)back {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-//- (void)actionOfTimer {
-//    [changeBtn setTitleColor:[UIColor randomColor] forState:UIControlStateNormal];
-//    
-//}
-//+ (UIColor *) randomColor {
-//    CGFloat hue = ( arc4random() % 256 / 256.0 ); //0.0 to 1.0
-//    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5; // 0.5 to 1.0,away from white
-//    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5; //0.5 to 1.0,away from black
-//    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

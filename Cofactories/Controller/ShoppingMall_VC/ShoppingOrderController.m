@@ -75,7 +75,6 @@ static NSString *OrderCellIdentifier = @"OrderCell";
         NSArray *tmp = [[areaDic objectForKey: index] allKeys];
         [provinceTmp addObject: [tmp objectAtIndex:0]];
     }
-    
     province = [[NSArray alloc] initWithArray: provinceTmp];
     
     NSString *index = [sortedArray objectAtIndex:0];
@@ -86,11 +85,8 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     NSDictionary *cityDic = [NSDictionary dictionaryWithDictionary: [dic objectForKey: [cityArray objectAtIndex:0]]];
     city = [[NSArray alloc] initWithArray: [cityDic allKeys]];
     
-    
     NSString *selectedCity = [city objectAtIndex: 0];
     district = [[NSArray alloc] initWithArray: [cityDic objectForKey: selectedCity]];
-    
-
     DLog(@"^^^^^^^^^^^^^^^%@", self.goodsDic);
 }
 
@@ -126,7 +122,6 @@ static NSString *OrderCellIdentifier = @"OrderCell";
         [mybutton addTarget:self action:@selector(actionOfSelectButton:) forControlEvents:UIControlEventTouchUpInside];
         [bigView addSubview:mybutton];
     }
-    
     lastButton = [UIButton buttonWithType:UIButtonTypeCustom];
     lastButton.frame = CGRectMake(20, 220, kScreenW - 40, 38);
     [lastButton setTitle:@"提交订单" forState:UIControlStateNormal];
@@ -143,13 +138,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     self.tableView.tableFooterView = footerView;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -157,7 +146,6 @@ static NSString *OrderCellIdentifier = @"OrderCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 5;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AuthenticationCell *cell = [tableView dequeueReusableCellWithIdentifier:OrderCellIdentifier forIndexPath:indexPath];
@@ -192,17 +180,12 @@ static NSString *OrderCellIdentifier = @"OrderCell";
         default:
             break;
     }
-    
     return cell;
 }
-
-
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50;
 }
-
-
 #pragma mark - Action
 - (void)actionOfShoppingOrder:(UIButton *)button {
     DLog(@"提交订单^^^%@", selectPayStyle);
@@ -211,7 +194,6 @@ static NSString *OrderCellIdentifier = @"OrderCell";
         DLog(@"信息不完整");
         kTipAlert(@"订单信息填写不完整！");
     } else {
-        
         DLog(@"信息已完整");
         [HttpClient getFabricDetailWithId:self.goodsID WithCompletionBlock:^(NSDictionary *dictionary) {
             int statusCode = [dictionary[@"statusCode"] intValue];
@@ -232,7 +214,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
                     
                     NSDictionary *addressDic = @{@"province":provinceStr, @"city":cityStr, @"district":districtStr, @"address":detailAddressTF.text, @"name":personNameTF.text, @"phone":phoneNumberTF.text, @"post":youBianTF.text};
                     [self.goodsDic setObject:addressDic forKey:@"address"];
-                    
+                    DLog(@"!!!!!!!!!!!!!!!%@", self.goodsDic);
                     if ([selectPayStyle isEqualToString:@"账户余额"]) {
                         
                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定用余额付款" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -281,18 +263,12 @@ static NSString *OrderCellIdentifier = @"OrderCell";
                                 default:
                                     break;
                             }
-                            
                         }];
-                        
                     }
                 }
             }
-
         }];
-        
-        
     }
-    
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -343,14 +319,11 @@ static NSString *OrderCellIdentifier = @"OrderCell";
                 historyVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:historyVC animated:YES];
             }
-
         }
     }
 }
 
-
 - (void)actionOfSelectButton:(UIButton *)btn {
-    
     if (btn.tag == 222) {
         imageView1.image = [UIImage imageNamed:@"ShopCarIsSelect"];
         imageView2.image = [UIImage imageNamed:@"ShopCarNoSelect"];
@@ -361,9 +334,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
         imageView2.image = [UIImage imageNamed:@"ShopCarIsSelect"];
         selectPayStyle = @"支付宝";
     }
-
 }
-
 //sizePicker
 - (UIPickerView *)fecthAddressPicker{
     if (!self.addressPicker) {
@@ -387,14 +358,12 @@ static NSString *OrderCellIdentifier = @"OrderCell";
 }
 
 -(void)addressCancel{
-    
     addressString = nil;
     addressTF.text = nil;
     [addressTF endEditing:YES];
 }
 
 -(void)addressEnsure{
-    
     NSInteger provinceIndex = [self.addressPicker selectedRowInComponent: PROVINCE_COMPONENT];
     NSInteger cityIndex = [self.addressPicker selectedRowInComponent: CITY_COMPONENT];
     NSInteger districtIndex = [self.addressPicker selectedRowInComponent: DISTRICT_COMPONENT];
@@ -403,21 +372,17 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     NSString *cityStr = [city objectAtIndex: cityIndex];
     NSString *districtStr = [district objectAtIndex:districtIndex];
     
-    
     addressString = [NSString stringWithFormat: @"%@%@%@", provinceStr, cityStr, districtStr];
     addressTF.text = addressString;
     addressString = nil;
     [addressTF endEditing:YES];
 }
 
-
-
 #pragma mark - UIPickerView datasource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return 3;
-    
 }
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     if (component == PROVINCE_COMPONENT) {
@@ -431,9 +396,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     }
 }
 
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (component == PROVINCE_COMPONENT) {
         return [province objectAtIndex: row];
     }
@@ -445,12 +408,8 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     }
 }
 
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     DLog(@"- (void)pickerView:(UIPickerView *)");
-    
     if (component == PROVINCE_COMPONENT) {
         selectedProvince = [province objectAtIndex: row];
         NSDictionary *tmp = [NSDictionary dictionaryWithDictionary: [areaDic objectForKey: [NSString stringWithFormat:@"%ld", (long)row]]];
@@ -508,8 +467,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     }
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-{
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     if (component == PROVINCE_COMPONENT) {
         return 80;
     }
@@ -519,11 +477,9 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     else {
         return 115;
     }
-    
 }
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     UILabel *myView = nil;
     if (component == PROVINCE_COMPONENT) {
         myView = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 78, 30)];
@@ -547,12 +503,9 @@ static NSString *OrderCellIdentifier = @"OrderCell";
         myView.backgroundColor = [UIColor clearColor];
     }
     return myView;
-    
 }
 
-
--(NSData*)DataTOjsonString:(id)object
-{
+-(NSData*)DataTOjsonString:(id)object {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
                                                        options:NSJSONWritingPrettyPrinted
@@ -561,6 +514,12 @@ static NSString *OrderCellIdentifier = @"OrderCell";
         NSLog(@"Got an error: %@", error);
     }
     return jsonData;
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 /*
 // Override to support conditional editing of the table view.

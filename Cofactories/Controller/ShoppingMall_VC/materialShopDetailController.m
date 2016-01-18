@@ -36,7 +36,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     ZGYSelectNumberView *numberView;
     NSString *selectString;
     NSString *selectColorString;//选择的分类
-    NSInteger selectAmount;//选择的数量
     FabricMarketModel *marketDetailModel;
 }
 @property (nonatomic, strong) UITableView *myTableView;
@@ -59,17 +58,85 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [super viewDidLoad];
     
     if (self.myAmount > 0) {
-        selectAmount = self.myAmount;
         selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", self.myColorString, self.myAmount];
     } else {
-        selectAmount = 1;
+        self.myAmount = 1;
         selectString = @"请选择颜色分类";
     }
-    
     [self creatTableView];
     [self creatGobackButton];
     [self creatBottomView];
+}
+#pragma mark - 弹出的筛选视图
+- (void)creatPopView {
+    UIButton *cancleButton = [UIButton buttonWithType:UIButtonTypeCustom]
+    ;
+    cancleButton.frame = CGRectMake(popView.frame.size.width - 30*kZGY, 5*kZGY, 25*kZGY, 25*kZGY);
+    cancleButton.tag = 1002;
+    [cancleButton addTarget:self action:@selector(actionOfPopBuy:) forControlEvents:UIControlEventTouchUpInside];
+    [cancleButton setImage:[UIImage imageNamed:@"Home-叉号"] forState:UIControlStateNormal];
+    [popView addSubview:cancleButton];
+    
+    UILabel *title1 = [[UILabel alloc] initWithFrame:CGRectMake(20*kZGY, 20*kZGY, popView.frame.size.width - 40*kZGY, 25*kZGY)];
+    title1.font = [UIFont systemFontOfSize:15*kZGY];
+    title1.text = @"颜色分类";
+    [popView addSubview:title1];
+    UILabel *title2 = [[UILabel alloc] initWithFrame:CGRectMake(20*kZGY, 150*kZGY, 70*kZGY, 25*kZGY)];
+    title2.font = [UIFont systemFontOfSize:15*kZGY];
+    title2.text = @"购买数量";
+    [popView addSubview:title2];
+    
+    //筛选价格
+    numberView = [[ZGYSelectNumberView alloc] initWithFrame:CGRectMake(popView.frame.size.width - 30*kZGY - 125*kZGY, 150*kZGY, 125*kZGY, 25*kZGY)WithAmount:self.myAmount];
+    [popView addSubview:numberView];
+    
+    NSArray *btnArray = @[@"加入购物车", @"立即购买"];
+    for (int i = 0; i < 2; i++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(20*kZGY + i*(20*kZGY + (popView.frame.size.width - 3*20*kZGY)/2), 200*kZGY, (popView.frame.size.width - 3*20*kZGY)/2, 30*kZGY);
+        [button setTitle:btnArray[i] forState:UIControlStateNormal];
+        button.layer.borderColor = [UIColor colorWithRed:253.0/255.0 green:106.0/255.0 blue:9.0/255.0 alpha:1.0].CGColor;
+        button.layer.borderWidth = 0.5;
+        button.layer.cornerRadius = 5*kZGY;
+        button.clipsToBounds = YES;
+        [button setTitleColor:[UIColor colorWithRed:253.0/255.0 green:106.0/255.0 blue:9.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+        button.tag = 1000 + i;
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        [button addTarget:self action:@selector(actionOfPopBuy:) forControlEvents:UIControlEventTouchUpInside];
+        [popView addSubview:button];
+    }
+}
 
+#pragma mark - 选择框
+- (void)creatPopSelectView {
+    backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
+    backGroundView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:backGroundView];
+    popView = [[UIView alloc] initWithFrame:CGRectMake(20*kZGY, 200*kZGY, kScreenW - 40*kZGY, 270*kZGY)];
+    popView.backgroundColor = [UIColor whiteColor];
+    popView.layer.cornerRadius = 8*kZGY;
+    popView.clipsToBounds = YES;
+    [self.view addSubview:popView];
+    
+    [self creatPopView];
+    [self creatCollectionView];
+    [self popViewShow:NO];
+}
+
+//选择视图隐藏或出现
+- (void)popViewShow:(BOOL)show {
+    if (show) {
+        popView.hidden = NO;
+        backGroundView.alpha = 0.4;
+        //出来时的动画
+        CABasicAnimation *basic = [CABasicAnimation animationWithKeyPath:@"bounds"];
+        basic.duration = 0.2;
+        basic.fromValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 10, 10)];
+        [popView.layer addAnimation:basic forKey:@"shuai"];
+    } else {
+        popView.hidden = YES;
+        backGroundView.alpha = 0;
+    }
 }
 
 #pragma mark - 返回键
@@ -84,9 +151,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     cancleButton.backgroundColor = [UIColor clearColor];
     [self.view addSubview:cancleButton];
 }
-- (void)pressCancleButton{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
 - (void)creatTableView {
     self.myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -20, kScreenW, kScreenH - 30)];
     self.myTableView.dataSource = self;
@@ -108,11 +173,9 @@ static NSString *popViewCellIdentifier = @"popViewCell";
                 bgImageView.image = [UIImage imageNamed:@"默认图片"];
                 bgImageView.contentMode = UIViewContentModeScaleAspectFill;
                 bgImageView.clipsToBounds = YES;                [_headView addSubview:bgImageView];
-                
             }else{
                 [self creatScrollView];
             }
-            
             //选择分类的数组
             self.colorSelectArray = [NSMutableArray arrayWithCapacity:0];
             NSMutableArray *myColorArray = [NSMutableArray arrayWithCapacity:0];
@@ -129,19 +192,16 @@ static NSString *popViewCellIdentifier = @"popViewCell";
                 } else {
                     selectModel.isSelect = NO;
                 }
-                
                 [self.colorSelectArray addObject:selectModel];
             }
-
+            [self creatPopSelectView];
             DLog(@"%@", marketDetailModel);
             [self.myTableView reloadData];
         } else {
             kTipAlert(@"该商品已被下架");
         }
     }];
-    
 }
-
 
 #pragma mark - 顶部图片
 - (void)creatScrollView{
@@ -200,10 +260,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     browser.currentPhotoIndex = number;
     browser.photos = photos;
     [browser show];
-    
 }
-
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -212,7 +269,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         MaterialShopDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:shopCellIdentifier forIndexPath:indexPath];
@@ -231,7 +287,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         } else {
             cell.leaveCountLabel.text = [NSString stringWithFormat:@"库存 %@ 件", marketDetailModel.amount];
         }
-        
         return cell;
   
     } else if (indexPath.section == 1){
@@ -250,12 +305,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         cell.AbstractDetailLabel.frame = CGRectMake(30, 45, kScreenW - 60, size.height);
         cell.AbstractDetailLabel.text = marketDetailModel.descriptions;
         return cell;
-
     }
-    
 }
-
-
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -265,7 +316,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         return 60;
     } else {
         CGSize size = [Tools getSize:marketDetailModel.descriptions andFontOfSize:13 andWidthMake:kScreenW - 60];
-        
         return size.height + 60;
     }
 }
@@ -274,7 +324,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     return 0.5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    
     if (section == 2) {
         return 0.01;
     }
@@ -283,157 +332,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
-        backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
-        backGroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
-        [self.view addSubview:backGroundView];
-        popView = [[UIView alloc] initWithFrame:CGRectMake(20*kZGY, 200*kZGY, kScreenW - 40*kZGY, 270*kZGY)];
-        popView.backgroundColor = [UIColor whiteColor];
-        popView.layer.cornerRadius = 8*kZGY;
-        popView.clipsToBounds = YES;
-        [self.view addSubview:popView];
-        //出来时的动画
-        CABasicAnimation *basic = [CABasicAnimation animationWithKeyPath:@"bounds"];
-        basic.duration = 0.2;
-        basic.fromValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 10, 10)];
-        [popView.layer addAnimation:basic forKey:@"shuai"];
-        [self creatPopView];
-        [self creatCollectionView];
-    }
-}
-
-
-#pragma mark - 弹出的筛选视图
-- (void)creatPopView {
-    
-    UIButton *cancleButton = [UIButton buttonWithType:UIButtonTypeCustom]
-    ;
-    cancleButton.frame = CGRectMake(popView.frame.size.width - 30*kZGY, 5*kZGY, 25*kZGY, 25*kZGY);
-    cancleButton.tag = 1002;
-    [cancleButton addTarget:self action:@selector(actionOfPopBuy:) forControlEvents:UIControlEventTouchUpInside];
-    [cancleButton setImage:[UIImage imageNamed:@"Home-叉号"] forState:UIControlStateNormal];
-    [popView addSubview:cancleButton];
-    
-    
-    UILabel *title1 = [[UILabel alloc] initWithFrame:CGRectMake(20*kZGY, 20*kZGY, popView.frame.size.width - 40*kZGY, 25*kZGY)];
-    title1.font = [UIFont systemFontOfSize:15*kZGY];
-    title1.text = @"颜色分类";
-    [popView addSubview:title1];
-    UILabel *title2 = [[UILabel alloc] initWithFrame:CGRectMake(20*kZGY, 150*kZGY, 70*kZGY, 25*kZGY)];
-    title2.font = [UIFont systemFontOfSize:15*kZGY];
-    title2.text = @"购买数量";
-    [popView addSubview:title2];
-    
-    
-    //筛选价格
-    numberView = [[ZGYSelectNumberView alloc] initWithFrame:CGRectMake(popView.frame.size.width - 30*kZGY - 125*kZGY, 150*kZGY, 125*kZGY, 25*kZGY)WithAmount:selectAmount];
-    [popView addSubview:numberView];
-    
-    
-    NSArray *btnArray = @[@"加入购物车", @"立即购买"];
-    for (int i = 0; i < 2; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(20*kZGY + i*(20*kZGY + (popView.frame.size.width - 3*20*kZGY)/2), 200*kZGY, (popView.frame.size.width - 3*20*kZGY)/2, 30*kZGY);
-        [button setTitle:btnArray[i] forState:UIControlStateNormal];
-        button.layer.borderColor = [UIColor colorWithRed:253.0/255.0 green:106.0/255.0 blue:9.0/255.0 alpha:1.0].CGColor;
-        button.layer.borderWidth = 0.5;
-        button.layer.cornerRadius = 5*kZGY;
-        button.clipsToBounds = YES;
-        [button setTitleColor:[UIColor colorWithRed:253.0/255.0 green:106.0/255.0 blue:9.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-        button.tag = 1000 + i;
-        button.titleLabel.font = [UIFont systemFontOfSize:14];
-        [button addTarget:self action:@selector(actionOfPopBuy:) forControlEvents:UIControlEventTouchUpInside];
-
-        [popView addSubview:button];
-    }
-}
-
-- (void)actionOfPopBuy:(UIButton *)button {
-    DLog(@"%ld", numberView.timeAmount);
-    //找出选中的颜色
-    BOOL selectFlag = YES;
-    for (int i = 0; i < self.colorSelectArray.count; i++) {
-        SelectColorModel *selectColor = self.colorSelectArray[i];
-        if (selectColor.isSelect == YES) {
-            selectColorString = selectColor.colorText;
-            selectFlag = NO;
-            break;
-        }
-    }
-    DLog(@"选中的颜色%@", selectColorString);
-
-    if (button.tag == 1000) {
-        if (selectFlag == YES) {
-            DLog(@"请选择颜色");
-            kTipAlert(@"请选择颜色");
-        } else {
-            //加入购物车
-            DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
-            [dataBaseHandle searchAllShoppingCar];
-            BOOL flag = YES;
-            for (ShopCarModel *shopCar in dataBaseHandle.shoppingCarArray) {
-                if ([shopCar.shoppingID integerValue] == [self.shopID integerValue]) {
-                    flag = NO;
-                    break;
-                }
-            }
-            if (flag == NO) {
-                DLog(@"购物车里已有该商品");
-                kTipAlert(@"购物车里已有该商品");
-            } else {
-                ShopCarModel *shopCarModel = [[ShopCarModel alloc] init];
-                shopCarModel.ID = [self.shopID integerValue];
-                shopCarModel.shoppingID = self.shopID;
-                shopCarModel.shopCarTitle = marketDetailModel.name;
-                shopCarModel.shopCarPrice = marketDetailModel.price;
-                shopCarModel.shopCarColor = selectColorString;
-                shopCarModel.shopCarNumber = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
-                if (marketDetailModel.photoArray.count == 0) {
-                    shopCarModel.photoUrl = @"默认图片";
-                } else {
-                    shopCarModel.photoUrl = marketDetailModel.photoArray[0];
-                }
-                [dataBaseHandle addShoppingCar:shopCarModel];
-                selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", selectColorString, numberView.timeAmount];
-                selectAmount = numberView.timeAmount;
-                kTipAlert(@"加入购物车成功");
-                [backGroundView removeFromSuperview];
-                [popView removeFromSuperview];
-                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
-                [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-    } else if (button.tag == 1001) {
-        if (selectFlag == YES) {
-            DLog(@"请选择颜色");
-            kTipAlert(@"请选择颜色");
-        } else {
-            //立即购买
-            DLog(@"^^^^^%@, %@", [NSString stringWithFormat:@"%ld", selectAmount], selectColorString)
-            NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", numberView.timeAmount], @"category":selectColorString};
-            NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithCapacity:0];
-            [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
-            
-            DLog(@"**********%@", buyGoodsDic);
-            ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
-            shopOrderVC.goodsDic = buyGoodsDic;
-            shopOrderVC.goodsID = self.shopID;
-            shopOrderVC.goodsNumber = numberView.timeAmount;
-            [self.navigationController pushViewController:shopOrderVC animated:YES];
-
-        }
-        
-    } else if (button.tag == 1002) {
-        //关闭弹窗
-        if (selectFlag == YES) {
-            selectString = [NSString stringWithFormat:@"已选“颜色未选” “数量：%ld”", numberView.timeAmount];
-        } else {
-            selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", selectColorString, numberView.timeAmount];
-        }
-        selectAmount = numberView.timeAmount;
-        [backGroundView removeFromSuperview];
-        [popView removeFromSuperview];
-        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
-        [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self popViewShow:YES];
     }
 }
 
@@ -456,10 +355,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.colorSelectArray.count;
-    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -530,6 +427,72 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [bigView.layer addSublayer:line];
 }
 
+- (void)actionOfPopBuy:(UIButton *)button {
+    DLog(@"%ld", numberView.timeAmount);
+    //找出选中的颜色
+    BOOL selectFlag = YES;
+    for (int i = 0; i < self.colorSelectArray.count; i++) {
+        SelectColorModel *selectColor = self.colorSelectArray[i];
+        if (selectColor.isSelect == YES) {
+            selectColorString = selectColor.colorText;
+            selectFlag = NO;
+            break;
+        }
+    }
+    DLog(@"选中的颜色%@", selectColorString);
+    
+    if (button.tag == 1000) {
+        if (selectFlag) {
+            DLog(@"请选择颜色");
+            kTipAlert(@"请选择颜色");
+        } else {
+            //加入购物车
+            DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
+            [dataBaseHandle searchAllShoppingCar];
+            BOOL flag = YES;
+            for (ShopCarModel *shopCar in dataBaseHandle.shoppingCarArray) {
+                if ([shopCar.shoppingID integerValue] == [self.shopID integerValue]) {
+                    flag = NO;
+                    break;
+                }
+            }
+            if (flag == NO) {
+                DLog(@"购物车里已有该商品");
+                kTipAlert(@"购物车里已有该商品");
+            } else {
+                [dataBaseHandle addShoppingCar:[self getGoods]];
+                selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", selectColorString, numberView.timeAmount];
+                kTipAlert(@"加入购物车成功");
+                [self popViewShow:NO];
+                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
+                [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        }
+    } else if (button.tag == 1001) {
+        if (selectFlag) {
+            DLog(@"请选择颜色");
+            kTipAlert(@"请选择颜色");
+        } else {
+            //立即购买
+            selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", selectColorString, numberView.timeAmount];
+            [self popViewShow:NO];
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
+            [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self goToBuy];
+        }
+        
+    } else if (button.tag == 1002) {
+        //关闭弹窗
+        if (selectFlag) {
+            selectString = [NSString stringWithFormat:@"已选“颜色未选” “数量：%ld”", numberView.timeAmount];
+        } else {
+            selectString = [NSString stringWithFormat:@"已选“颜色：%@” “数量：%ld”", selectColorString, numberView.timeAmount];
+        }
+        [self popViewShow:NO];
+        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
+        [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
 
 - (void)actionOfBuy:(UIButton *)button {
     BOOL selectFlag = YES;
@@ -541,9 +504,8 @@ static NSString *popViewCellIdentifier = @"popViewCell";
             break;
         }
     }
-    if (selectFlag == YES) {
-        DLog(@"请选择颜色");
-        kTipAlert(@"请选择颜色");
+    if (selectFlag) {
+        [self popViewShow:YES];
         
     } else {
     if (button.tag == 222) {
@@ -562,41 +524,49 @@ static NSString *popViewCellIdentifier = @"popViewCell";
             DLog(@"购物车里已有该商品");
             kTipAlert(@"购物车里已有该商品");
         } else {
-            ShopCarModel *shopCarModel = [[ShopCarModel alloc] init];
-            shopCarModel.ID = [self.shopID integerValue];
-            shopCarModel.shoppingID = self.shopID;
-            shopCarModel.shopCarTitle = marketDetailModel.name;
-            shopCarModel.shopCarPrice = marketDetailModel.price;
-            if (marketDetailModel.photoArray.count == 0) {
-                shopCarModel.photoUrl = @"默认图片";
-            } else {
-                shopCarModel.photoUrl = marketDetailModel.photoArray[0];
-            }
-
-            shopCarModel.shopCarColor = selectColorString;
-            shopCarModel.shopCarNumber = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
-            DLog(@"^^^^^^^^^^^^%ld", marketDetailModel.photoArray.count);
-            
-            [dataBaseHandle addShoppingCar:shopCarModel];
-
+            [dataBaseHandle addShoppingCar:[self getGoods]];
             kTipAlert(@"加入购物车成功");
         }
 
         } else if (button.tag == 223){
         DLog(@"底部 + 立即购买");
-            NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", selectAmount], @"category":selectColorString};
-            NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:marketDetailModel.ID, @"address", nil];
-            [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
-            
-            DLog(@"**********%@", buyGoodsDic);
-            ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
-            shopOrderVC.goodsDic = buyGoodsDic;
-            shopOrderVC.goodsID = self.shopID;
-            shopOrderVC.goodsNumber = selectAmount;
-            [self.navigationController pushViewController:shopOrderVC animated:YES];
+            //立即购买
+            [self goToBuy];
         }
     }
 }
+- (void)goToBuy {
+    //立即购买
+    DLog(@"^^^^^%@, %@", [NSString stringWithFormat:@"%ld", numberView.timeAmount], selectColorString)
+    NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", numberView.timeAmount], @"category":selectColorString};
+    NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithCapacity:0];
+    [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
+    
+    DLog(@"**********%@", buyGoodsDic);
+    ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
+    shopOrderVC.goodsDic = buyGoodsDic;
+    shopOrderVC.goodsID = self.shopID;
+    shopOrderVC.goodsNumber = numberView.timeAmount;
+    [self.navigationController pushViewController:shopOrderVC animated:YES];
+}
+
+- (ShopCarModel *)getGoods {
+    //创建要存的model
+    ShopCarModel *shopCarModel = [[ShopCarModel alloc] init];
+    shopCarModel.ID = [self.shopID integerValue];
+    shopCarModel.shoppingID = self.shopID;
+    shopCarModel.shopCarTitle = marketDetailModel.name;
+    shopCarModel.shopCarPrice = marketDetailModel.price;
+    shopCarModel.shopCarColor = selectColorString;
+    shopCarModel.shopCarNumber = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
+    if (marketDetailModel.photoArray.count == 0) {
+        shopCarModel.photoUrl = @"默认图片";
+    } else {
+        shopCarModel.photoUrl = marketDetailModel.photoArray[0];
+    }
+    return shopCarModel;
+}
+
 - (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString andRange:(NSInteger)myRange {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
     //设置颜色
@@ -604,14 +574,18 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     
     //设置尺寸
     [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(myRange + 2, myString.length - 5 - myRange)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
-    
     return attributedString;
 }
+
 - (NSAttributedString *)underlineWithString:(NSString *)labelStr {
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName :[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
     NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:labelStr attributes:attribtDic];
     [attribtStr addAttribute: NSForegroundColorAttributeName value: [UIColor colorWithRed:83.0/255.0 green:83.0/255.0 blue:83.0/255.0 alpha:1.0] range: NSMakeRange(0, labelStr.length)];
     return attribtStr;
+}
+
+- (void)pressCancleButton{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
