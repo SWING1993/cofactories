@@ -69,6 +69,7 @@
         [btnArray addObject:button];
         if (button.tag == 222) {
             button.selected = YES;
+            button.titleLabel.font = [UIFont systemFontOfSize:16];
         }
     }
 }
@@ -128,9 +129,11 @@
          btnTag = 0;
          UIButton *button = [btnArray objectAtIndex:btnTag];
          button.selected = YES;
+         button.titleLabel.font = [UIFont systemFontOfSize:16];
          for (UIButton *sunbBtn in btnArray) {
              if (sunbBtn != button) {
                  sunbBtn.selected = NO;
+                 sunbBtn.titleLabel.font = [UIFont systemFontOfSize:15];
              }
          }
 
@@ -138,9 +141,11 @@
          btnTag = 1;
          UIButton *button = [btnArray objectAtIndex:btnTag];
          button.selected = YES;
+         button.titleLabel.font = [UIFont systemFontOfSize:16];
          for (UIButton *sunbBtn in btnArray) {
              if (sunbBtn != button) {
                  sunbBtn.selected = NO;
+                 sunbBtn.titleLabel.font = [UIFont systemFontOfSize:15];
              }
          }
      }

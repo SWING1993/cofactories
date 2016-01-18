@@ -15,6 +15,7 @@
 #import "PopularNewsModel.h"
 #import "PopularNewsDetails_VC.h"
 #import "PopularNewsList_VC.h"
+#import "IndexModel.h"
 
 #define kSearchFrameLong CGRectMake(50, 30, kScreenW-50, 25)
 #define kSearchFrameShort CGRectMake(50, 30, kScreenW-100, 25)
@@ -30,6 +31,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     UIButton *backgroundView;
 }
 @property (nonatomic,strong) NSMutableArray *firstViewImageArray;
+@property (nonatomic,strong) NSMutableArray *bannerArray;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *searchArray;//搜索数组
 @property (nonatomic, strong) UITableView *popularTableView;
@@ -74,7 +76,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
 
     [HttpClient getPopularNewsWithBlock:^(NSDictionary *dictionary) {
-        DLog(@"&&&&&&&%@", dictionary[@"responseArray"]);
+//        DLog(@"&&&&&&&%@", dictionary[@"responseArray"]);
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         self.popularTopNewsArray = [NSMutableArray arrayWithCapacity:0];
         if (statusCode == 200) {
@@ -212,10 +214,24 @@ static NSString *popularCellIdentifier = @"popularCell";
 - (void)creatHeaderView {
     //第一个scrollView
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640 + 5 + 80 + 20 + 25 + 5)];
-        headerView.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
+    headerView.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
+    
+    [HttpClient getConfigWithType:@"news" WithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        if (statusCode == 200) {
+            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
+            self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
+            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dictionary in jsonArray) {
+                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
+                [self.bannerArray addObject:bannerModel];
+                [self.firstViewImageArray addObject:bannerModel.img];
+            }
+        }
+    }];
     WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:NO];
     firstView.delegate=self;
-    self.firstViewImageArray = [NSMutableArray arrayWithArray:arr];
     firstView.imagesArray = self.firstViewImageArray;
     [headerView addSubview:firstView];
     

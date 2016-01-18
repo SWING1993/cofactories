@@ -19,6 +19,7 @@
 #import "DataBaseHandle.h"
 #import "ShoppingOrderController.h"
 #import "FabricMarketModel.h"
+#import "StoreShoppingCar.h"
 
 #define kImageViewHeight kScreenW - 80
 
