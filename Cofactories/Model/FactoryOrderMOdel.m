@@ -64,7 +64,10 @@
             _orderWinner = @"有人中标";
         }
         
-        DLog(@"++++====%@",_orderWinner);
+//        DLog(@"++++====%@",_orderWinner);
+        
+        NSString *firstMoney = [NSString stringWithFormat:@"%@",dictionary[@"firstPay"]];
+        self.fistPayCount = firstMoney;
     }
     return self;
 }

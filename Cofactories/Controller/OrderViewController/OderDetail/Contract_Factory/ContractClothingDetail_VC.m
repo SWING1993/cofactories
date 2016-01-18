@@ -377,20 +377,56 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     NSLog(@"%ld",(long)button.tag);
     if (button.tag == 1) {
         // 付款
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"该订单的首款为%@,确认支付首款?",_dataModel.fistPayCount] message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.tag = 200;
+        [alert show];
     }else if (button.tag == 2){
         // 确定完成
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"货物已收完全收到?双方订单完成并评分后,保证金将返还到双方钱包!" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.tag = 100;
         [alert show];
     }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) {
-        
-    }else if (buttonIndex == 1){
-        //  发送确认成功的请求
-        DLog(@"34543");
+    if (alertView.tag == 100) {
+        if (buttonIndex == 0) {
+            
+        }else if (buttonIndex == 1){
+            
+            //  发送确认成功的请求
+            [HttpClient finishRestrictOrderWithOrderID:_modelID WithCompletionBlock:^(NSDictionary *dictionary) {
+                NSString *statusCode = dictionary[@"statusCode"];
+                if ([statusCode isEqualToString:@"200"]) {
+                    kTipAlert(@"订单完成,请去评分以解冻保证金!");
+                }else if ([statusCode isEqualToString:@"412"]) {
+                    kTipAlert(@"订单完成失败,请先支付首款");
+                }
+                else{
+                    kTipAlert(@"订单完成失败,请检查网络,是否登陆");
+                }
+            }];
+        }
+    }else if (alertView.tag == 200){
+        if (buttonIndex == 0) {
+            // 取消
+            
+        }else if (buttonIndex == 1){
+            // 发请求
+            DLog(@"..//%@",_modelID);
+            [HttpClient payFirstWithOrderID:_modelID WithCompletionBlock:^(NSDictionary *dictionary) {
+                NSString *statusCode = dictionary[@"statusCode"];
+                if ([statusCode isEqualToString:@"200"]) {
+                    kTipAlert(@"首笔付款成功");
+                }else if ([statusCode isEqualToString:@"402"]){
+                    kTipAlert(@"钱包余额不够,请充值");
+                }else if ([statusCode isEqualToString:@"409"]){
+                    kTipAlert(@"首款已付,余款支付请自行联系加工厂!");
+                }
+            }];
+        }
     }
+    
 }
 
 - (void)contractClick:(UIButton *)button{

@@ -13,10 +13,13 @@
 #import "DesignOrderDetail_VC.h"
 #import "ContractClothingDetail_VC.h"
 #import "ContractFactoryDetail_VC.h"
+#import "MJRefresh.h"
 
 @interface ProgressingOrder_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView     *_tableView;
     NSMutableArray  *_dataArray;
+    int              _refrushCount;
+
 }
 @property(nonatomic,strong)UserModel *userModel;
 @property(nonatomic,copy)NSString    *contractStatus;
@@ -25,16 +28,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 @implementation ProgressingOrder_VC
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [_tableView reloadData];
-    [HttpClient getAllMyOrdersWithOrderStatus:@"0" page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
-        DLog(@"%@",dictionary);
-        _dataArray = dictionary[@"message"];
-        [_tableView reloadData];
-        
-    }];
-}
+//- (void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    _refrushCount = 1;
+//
+//    
+//}
 
 
 - (void)viewDidLoad {
@@ -45,7 +44,44 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     self.userModel = [[UserModel alloc] getMyProfile];
     _dataArray = [@[] mutableCopy];
     [self initTableView];
+    
+    [HttpClient getAllMyOrdersWithOrderStatus:@"0" page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
+        DLog(@"%@",dictionary);
+        _dataArray = dictionary[@"message"];
+        [_tableView reloadData];
+        
+    }];
+    [self setupRefresh];
+
 }
+
+- (void)setupRefresh
+{
+    [_tableView addFooterWithTarget:self action:@selector(footerRereshing)];
+    _tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    _tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    _tableView.footerRefreshingText = @"加载中...";
+}
+
+- (void)footerRereshing
+{
+    _refrushCount++;
+    DLog(@"_refrushCount==%d",_refrushCount);
+    [HttpClient getAllMyOrdersWithOrderStatus:@"0" page:@(_refrushCount) WithCompletionBlock:^(NSDictionary *dictionary){
+        NSArray *array = dictionary[@"message"];;
+        
+        for (int i=0; i<array.count; i++)
+        {
+            FactoryOrderMOdel *model = array[i];
+            
+            [_dataArray addObject:model];
+        }
+        [_tableView reloadData];
+        
+    }];
+    [_tableView footerEndRefreshing];
+}
+
 
 - (void)initTableView{
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH-44-64) style:UITableViewStylePlain];
