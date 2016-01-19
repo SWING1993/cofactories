@@ -66,7 +66,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 }
 
 - (void)initTableView{
-    _tableView = [[UITableView alloc] initWithFrame:kScreenBounds style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH-44-64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource =self;
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
@@ -185,7 +185,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     }
     
     
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 174)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 174+10)];
     _tableView.tableFooterView = footerView;
     
     _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
