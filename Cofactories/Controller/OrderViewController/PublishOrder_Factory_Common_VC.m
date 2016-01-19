@@ -400,12 +400,17 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         if (_typeLabel.text.length != 2 || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || [_timeButton.titleLabel.text isEqualToString:@"请选择订单期限"]) {
             kTipAlert(@"请填写必填信息，再发布订单!");
         }else{
-            if ([_amountTF.text isEqualToString:@"0"]) {
-                kTipAlert(@"订单数量不得为0!");
+            if (_imageViewArray.count == 0) {
+                kTipAlert(@"限制订单发布,必须上传图片");
             }else{
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
-                alertView.tag = 200;
-                [alertView show];
+                if ([_amountTF.text isEqualToString:@"0"]) {
+                    kTipAlert(@"订单数量不得为0!");
+                }else{
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
+                    alertView.tag = 200;
+                    [alertView show];
+                }
+
             }
         }
 
