@@ -6,6 +6,7 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "MobClick.h"
 #import "HttpClient.h"
 #import "UserManagerCenter.h"
 #import "HomeViewController.h"
@@ -343,6 +344,8 @@ static NSString *activityCellIdentifier = @"activityCell";
     switch (marketButtonTag) {
         case 1:{
             //设计市场
+            [MobClick event:@"sjsc"];
+
             ZGYDesignMarkrtController *designVC = [[ZGYDesignMarkrtController alloc] init];
             designVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:designVC animated:YES];
@@ -350,6 +353,8 @@ static NSString *activityCellIdentifier = @"activityCell";
             break;
         case 2:{
             //服装市场
+            [MobClick event:@"fzqy"];
+
             Business_Cloth_VC *vc = [[Business_Cloth_VC alloc] initWithSelecteDataDictionary:[Tools returenSelectDataDictionaryWithIndex:2]];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
@@ -357,6 +362,8 @@ static NSString *activityCellIdentifier = @"activityCell";
             break;
         case 3:{
             //供应市场
+            [MobClick event:@"gysc"];
+
             SupplyMarketViewController *supplyMarketVC = [[SupplyMarketViewController alloc] init];
             supplyMarketVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:supplyMarketVC animated:YES];
@@ -364,6 +371,8 @@ static NSString *activityCellIdentifier = @"activityCell";
             break;
         case 4:{
             //加工配套市场
+            [MobClick event:@"jgpt"];
+
             ProcessMarketController *processMarketVC = [[ProcessMarketController alloc] init];
             processMarketVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:processMarketVC animated:YES];
