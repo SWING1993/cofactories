@@ -16,6 +16,8 @@
 #import "PopularNewsDetails_VC.h"
 #import "PopularNewsList_VC.h"
 #import "IndexModel.h"
+#import "HomeActivity_VC.h"
+
 
 #define kSearchFrameLong CGRectMake(50, 30, kScreenW-50, 25)
 #define kSearchFrameShort CGRectMake(50, 30, kScreenW-100, 25)
@@ -213,6 +215,7 @@ static NSString *popularCellIdentifier = @"popularCell";
 
 - (void)creatHeaderView {
     //第一个scrollView
+    
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640 + 5 + 80 + 20 + 25 + 5)];
     headerView.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
     
@@ -370,6 +373,15 @@ static NSString *popularCellIdentifier = @"popularCell";
 #pragma mark -WKFCircularSlidingViewDelegate轮播图
 - (void)clickCircularSlidingView:(int)tag{
     DLog(@"点击了第  %d  张图", tag);
+    HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
+    IndexModel *bannerModel = self.bannerArray[tag - 1];
+    if ([bannerModel.action isEqualToString:@"url"]) {
+        activityVC.urlString = bannerModel.url;
+        activityVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:activityVC animated:YES];
+    } else {
+        DLog(@"无链接，点不进去");
+    }
 }
 
 #pragma mark - ZGYSelectButtonViewDelegata

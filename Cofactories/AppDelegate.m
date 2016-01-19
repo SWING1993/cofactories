@@ -300,7 +300,7 @@
                               message:@"您"
                               @"的帐号在别的设备上登录，您被迫下线！请重新登录！"
                               delegate:nil
-                              cancelButtonTitle:@"知道了"
+                              cancelButtonTitle:@"确定"
                               otherButtonTitles:nil, nil];
         alert.delegate = self;
         [alert show];
