@@ -29,7 +29,7 @@
     webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
-//    self.urlString = @"http://h5.lo.cofactories.com/!%29test/";
+//    self.urlString = @"http://h5.lo.cofactories.com/!)test/";
     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]];
     [self.view addSubview:webView];
     [webView loadRequest:request];

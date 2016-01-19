@@ -24,7 +24,6 @@
 #import "IndexModel.h"
 #import "ActivityModel.h"
 
-
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
 static NSString *activityCellIdentifier = @"activityCell";
@@ -64,16 +63,12 @@ static NSString *activityCellIdentifier = @"activityCell";
                     wallet = self.walletModel.money;
                     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
                     [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-                    
                 }
             }];
-            
         } else {
             self.MyProfile = [[UserModel alloc]getMyProfile];
         }
-        
     }];
-    
 }
 #pragma mark - RCIMUserInfoDataSource
 
@@ -170,7 +165,6 @@ static NSString *activityCellIdentifier = @"activityCell";
             DLog(@"请求超时");
         }
     }];
-
 }
 
 - (void)creatTableView {
@@ -242,6 +236,7 @@ static NSString *activityCellIdentifier = @"activityCell";
                 cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服务商"];
                 break;
             default:
+                cell.personalDataMiddleImage.image = [UIImage imageNamed:@""];
                 break;
         }
         //地址
@@ -393,11 +388,15 @@ static NSString *activityCellIdentifier = @"activityCell";
     backItem.tintColor=[UIColor whiteColor];
     self.navigationItem.backBarButtonItem = backItem;
     
-    HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
     IndexModel *bannerModel = self.bannerArray[tag - 1];
-    activityVC.urlString = bannerModel.url;
-    activityVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:activityVC animated:YES];
+    if ([bannerModel.action isEqualToString:@"url"]) {
+        HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
+        activityVC.urlString = bannerModel.url;
+        activityVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:activityVC animated:YES];
+    } else {
+        DLog(@"无链接，点不进去");
+    }
 }
 #pragma mark - Action认证
 - (void)authenticationAction:(UIButton *)button {

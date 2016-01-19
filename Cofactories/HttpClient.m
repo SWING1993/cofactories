@@ -998,9 +998,8 @@
             [parametersDictionary setObject:aCountry forKey:@"country"];
         }
         if (aCreatedAt) {
-            [parametersDictionary setObject:aCountry forKey:@"createdAt"];
+            [parametersDictionary setObject:aCreatedAt forKey:@"createdAt"];
         }
-        
         if (aPage) {
             [parametersDictionary setObject:aPage forKey:@"page"];
         }

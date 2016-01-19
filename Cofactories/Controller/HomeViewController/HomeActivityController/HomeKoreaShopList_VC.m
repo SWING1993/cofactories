@@ -59,8 +59,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     DLog(@"^^^^^^^^^^^^time=%@", self.timeString);
 //    _maleArray = @[@"男装不限", @"上衣", @"下衣", @"套装"];
 //    _femaleArray = @[@"女装不限", @"上衣", @"下衣", @"套装"];
-//    _boyArray = @[@"男童不限", @"上衣", @"下衣", @"套装"];
-//    _girlArray = @[@"女童不限", @"上衣", @"下衣", @"套装"];
+//    _girlArray = @[@"童装不限", @"上衣", @"下衣", @"套装"];
     
     _dropDownMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
     _dropDownMenu.delegate = self;
@@ -182,14 +181,12 @@ static NSString *materialCellIdentifier = @"materialCell";
 //        }
     }];
     
-    
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     [self controlBackgroundView:0];
     [self.view endEditing:YES];
 }
-
 
 #pragma mark - 选择器方法
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu{
@@ -234,15 +231,12 @@ static NSString *materialCellIdentifier = @"materialCell";
 //                return 0;
 //                break;
 //            case 1:
-//                return _maleArray.count;
-//                break;
-//            case 2:
 //                return _femaleArray.count;
 //                break;
-//            case 3:
-//                return _boyArray.count;
+//            case 2:
+//                return _maleArray.count;
 //                break;
-//            case 4:
+//            case 3:
 //                return _girlArray.count;
 //                break;
 //            default:
@@ -257,19 +251,16 @@ static NSString *materialCellIdentifier = @"materialCell";
 //    if (indexPath.column == 0) {
 //        switch (indexPath.row) {
 //            case 1:
-//                return _maleArray[indexPath.item];
+//                return _femaleArray[indexPath.item];
 //                break;
 //                
 //            case 2:
-//                return _femaleArray[indexPath.item];
+//                return _maleArray[indexPath.item];
 //                break;
 //            case 3:
-//                return _boyArray[indexPath.item];
-//                break;
-//            case 4:
 //                return _girlArray[indexPath.item];
 //                break;
-//                
+//
 //            default:
 //                break;
 //        }
@@ -290,25 +281,6 @@ static NSString *materialCellIdentifier = @"materialCell";
                     _userPart = nil;
                     break;
                 case 1:
-                    _userType = @"male";
-//                    switch (indexPath.item) {
-//                        case 0:
-//                            _userPart = nil;
-//                            break;
-//                        case 1:
-//                            _userPart = @"top";
-//                            break;
-//                        case 2:
-//                            _userPart = @"bottom";
-//                            break;
-//                        case 3:
-//                            _userPart = @"suit";
-//                            break;
-//                        default:
-//                            break;
-//                    }
-                    break;
-                case 2:
                     _userType = @"female";
 //                    switch (indexPath.item) {
 //                        case 0:
@@ -327,8 +299,8 @@ static NSString *materialCellIdentifier = @"materialCell";
 //                            break;
 //                    }
                     break;
-                case 3:
-                    _userType = @"boy";
+                case 2:
+                    _userType = @"male";
 //                    switch (indexPath.item) {
 //                        case 0:
 //                            _userPart = nil;
@@ -346,7 +318,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 //                            break;
 //                    }
                     break;
-                case 4:
+                case 3:
                     _userType = @"girl";
 //                    switch (indexPath.item) {
 //                        case 0:
@@ -400,9 +372,7 @@ static NSString *materialCellIdentifier = @"materialCell";
             [self.goodsArray addObject:searchModel];
         }
         [self.myCollectionView reloadData];
-        
     }];
-    
 }
 
 - (void)creatCollectionView {
@@ -420,15 +390,12 @@ static NSString *materialCellIdentifier = @"materialCell";
 }
 
 #pragma mark - UICollectionViewDataSource
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.goodsArray.count;
-    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -438,7 +405,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     if (myModel.photoArray.count > 0) {
         NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
-        DLog(@"^^^^^^%@", [NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]]);
+//        DLog(@"^^^^^^%@", [NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]]);
     } else {
         cell.photoView.image = [UIImage imageNamed:@"默认图片"];
     }
@@ -450,10 +417,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     return cell;
 }
 
-
-
 #pragma mark - UICollectionViewDelegate
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     //    [self removeSearchBar];
     materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
@@ -461,7 +425,6 @@ static NSString *materialCellIdentifier = @"materialCell";
     materialShopVC.shopID = myModel.ID;
     [self.navigationController pushViewController:materialShopVC animated:YES];
 }
-
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 //item大小
@@ -473,19 +436,16 @@ static NSString *materialCellIdentifier = @"materialCell";
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
-
 - (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
     
     //设置尺寸
-    
     [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(2, myString.length - 5)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
     
     return attributedString;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
