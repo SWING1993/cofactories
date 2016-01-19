@@ -394,7 +394,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 [alertView show];
             }
         }
-        
     }else{
         NSLog(@"322223");
         if (_typeLabel.text.length != 2 || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || [_timeButton.titleLabel.text isEqualToString:@"请选择订单期限"]) {
@@ -410,13 +409,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     alertView.tag = 200;
                     [alertView show];
                 }
-
             }
         }
-
-        
     }
-    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

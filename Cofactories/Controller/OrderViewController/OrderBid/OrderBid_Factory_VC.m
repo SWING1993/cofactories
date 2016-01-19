@@ -115,7 +115,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             
             if ([self.orderTypeString isEqualToString:@"FactoryOrder"]) {
                 [HttpClient bidFactoryOrderWithDiscription:_commentTV.text orderID:_orderID WithCompletionBlock:^(NSDictionary *dictionary) {
-                    DLog(@"%@",dictionary);
+                    DLog(@">>>>>>%@",dictionary);
                     if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"投标成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
                         alertView.tag = 10086;

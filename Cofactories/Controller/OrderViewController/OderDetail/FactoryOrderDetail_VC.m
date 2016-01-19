@@ -78,6 +78,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _descriptionString = [NSString stringWithFormat:@"备注信息: %@",_dataModel.descriptions];
     DLog(@">>>>>>>>>>>>>_descriptionString%@",_descriptionString);
     
+    self.userModel = [[UserModel alloc] getMyProfile];
     [self initTableView];
 }
 
@@ -94,7 +95,8 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 120)];
     footerView.backgroundColor = GRAYCOLOR(242);
     _tableView.tableFooterView = footerView;
-    if ([_contractStatus isEqualToString:@"甲方签署合同"]) {
+    DLog(@"....%@,>>>>>%@",_dataModel.orderWinnerID,_userModel.uid)
+    if ([_contractStatus isEqualToString:@"甲方签署合同"]&&[_dataModel.orderWinnerID isEqualToString:_userModel.uid]){
         footerView.hidden = NO;
     }else{
         footerView.hidden = YES;

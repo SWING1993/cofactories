@@ -72,10 +72,14 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
         // 评分
         
-        
         if ([dataModel.orderType isEqualToString:@"加工订单"]) {
             
             FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
+            if ([dataModel.creditString isEqualToString:@"担保订单"]) {
+                vc.isRescrit = YES;
+            }else{
+                vc.isRescrit = NO;
+            }
             UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
             backItem.title=@"返回";
             backItem.tintColor=[UIColor whiteColor];
@@ -170,6 +174,11 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     
                     
                     FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
+                    if ([dataModel.creditString isEqualToString:@"担保订单"]) {
+                        vc.isRescrit = YES;
+                    }else{
+                        vc.isRescrit = NO;
+                    }
                     UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
                     backItem.title=@"返回";
                     backItem.tintColor=[UIColor whiteColor];

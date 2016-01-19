@@ -73,6 +73,7 @@ static NSString * placeholderString = @"暂无";
         
        
         if ([[dictionary objectForKey:@"uid"] isEqual:[NSNull null]]) {
+            
             _uid = placeholderString;
         }else{
             _uid = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"uid"]];

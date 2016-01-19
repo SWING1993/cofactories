@@ -28,14 +28,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 @implementation ProgressingOrder_VC
 
-//- (void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//    _refrushCount = 1;
-//
-//    
-//}
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -218,6 +210,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             case UserType_processing:{
                 
                 _contractStatus = dataModel.contractStaus;  // 合同的状态
+                
                 DLog(@"_contractStatus == %@",_contractStatus);
                 
                 if ([_contractStatus isEqualToString:@"双方签署合同"]) {

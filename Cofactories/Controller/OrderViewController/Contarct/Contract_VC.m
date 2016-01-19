@@ -47,6 +47,7 @@
         alert.tag = 100;
         [alert show];
     }else{
+        DLog(@"12345678");
         [HttpClient factorySignContractWithOrderID:_orderID WithCompletionBlock:^(NSDictionary *dictionary) {
             NSString *statusCode = dictionary[@"statusCode"];
             if ([statusCode isEqualToString:@"200"]) {

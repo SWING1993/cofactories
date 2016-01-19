@@ -58,6 +58,7 @@
         self.creditMoney = creditString;
         
         NSString *winnerUid = [NSString stringWithFormat:@"%@",dictionary[@"orderWinnerUid"]];
+        self.orderWinnerID = winnerUid;
         if ([winnerUid isEqualToString:@"<null>"] || [winnerUid isEqualToString:@"null"] || winnerUid == nil) {
             _orderWinner = @"无人中标";
         }else{
