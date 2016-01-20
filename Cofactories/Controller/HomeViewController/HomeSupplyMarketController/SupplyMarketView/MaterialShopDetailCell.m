@@ -28,7 +28,7 @@
         self.marketPriceLeftLabel.font = [UIFont systemFontOfSize:13];
         [self addSubview:self.marketPriceLeftLabel];
         self.marketPriceRightLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.marketPriceLeftLabel.frame), CGRectGetMaxY(self.priceLeftLabel.frame), 60, 30)];
-        self.marketPriceRightLabel.font = [UIFont systemFontOfSize:15];
+        self.marketPriceRightLabel.font = [UIFont systemFontOfSize:13];
         self.marketPriceRightLabel.textColor = kLightGaryColor;
         [self addSubview:self.marketPriceRightLabel];
         self.leaveCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.marketPriceRightLabel.frame), CGRectGetMaxY(self.priceLeftLabel.frame), kScreenW - 2*kMargin - 120, 30)];
