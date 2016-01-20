@@ -689,6 +689,7 @@ CGFloat easeOutValue(CGFloat value) {
 - (void)setBgImage:(UIImage *)bgImage {
     _bgImage = bgImage;
     self.bgImageView.image = _bgImage;
+    self.bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     [self setNeedsDisplay];
 }
