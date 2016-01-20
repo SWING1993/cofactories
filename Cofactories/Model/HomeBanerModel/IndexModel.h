@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *img;
+@property (nonatomic, strong) NSString *action;
 
 - (instancetype)initIndexModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getIndexModelWithDictionary:(NSDictionary *)dictionary;

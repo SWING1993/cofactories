@@ -38,11 +38,9 @@ static NSString *materialCellIdentifier = @"materialCell";
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic,copy) NSString *userBusinessName;
 
-
 @end
 
 @implementation DesignShop_VC
-
 
 - (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary{
     
@@ -61,7 +59,6 @@ static NSString *materialCellIdentifier = @"materialCell";
     
     [self creatCollectionView];
 
-    
     _zhejiangArray = @[@"浙江不限",@"湖州(含织里)",@"杭州",@"宁波",@"浙江其他"];
     _anhuiArray = @[@"安徽不限",@"宣城(含广德)",@"安徽其他"];
     _guangdongArray = @[@"广东不限",@"广州(含新塘)",@"广东其他"];
@@ -168,7 +165,6 @@ static NSString *materialCellIdentifier = @"materialCell";
     [self controlBackgroundView:0];
     [self.view endEditing:YES];
 }
-
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
@@ -280,7 +276,6 @@ static NSString *materialCellIdentifier = @"materialCell";
                 break;
         }
     }
-    
     return 0;
 }
 
@@ -513,7 +508,6 @@ static NSString *materialCellIdentifier = @"materialCell";
         default:
             break;
     }
-    
     self.page = 1;
     DLog(@"==%@,==%@,==%@,==%@,==%@",_userType, _userPart, _userPrice,_userProvince,_userCity);
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
@@ -525,9 +519,7 @@ static NSString *materialCellIdentifier = @"materialCell";
             [self.goodsArray addObject:searchModel];
         }
         [self.myCollectionView reloadData];
-        
     }];
-    
 }
 
 - (void)creatCollectionView {
@@ -550,10 +542,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.goodsArray.count;
-    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -572,17 +562,13 @@ static NSString *materialCellIdentifier = @"materialCell";
     return cell;
 }
 
-
-
 #pragma mark - UICollectionViewDelegate
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
     materialShopVC.shopID = myModel.ID;
     [self.navigationController pushViewController:materialShopVC animated:YES];
 }
-
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 //item大小
@@ -594,16 +580,13 @@ static NSString *materialCellIdentifier = @"materialCell";
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
-
 - (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
-    
     //设置尺寸
-    
     [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(2, myString.length - 5)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
-    
     return attributedString;
 }
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

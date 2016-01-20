@@ -14,6 +14,7 @@
     if (self =[super init]) {
         self.img = dictionary[@"img"];
         self.url = dictionary[@"url"];
+        self.action = dictionary[@"action"];
     }
     return self;
 }
