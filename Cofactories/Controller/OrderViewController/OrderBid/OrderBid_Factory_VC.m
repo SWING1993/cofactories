@@ -144,13 +144,20 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                         [alert show];
                     }else if ([dictionary[@"statusCode"] isEqualToString:@"403"]) {
                         
-                        if (_userModel.verify_status == 0) {
-                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未认证用户" message:nil delegate:self cancelButtonTitle:@"暂不认证" otherButtonTitles:@"立即认证", nil];
-                            alert.tag = 403;
-                            [alert show];
-                        }else if (_userModel.verify_status == 1){
-                            kTipAlert(@"您的认证正在处理，请耐心等待结果!");
+                        if ([_userModel.subRole isEqualToString:@"加工厂"]) {
+                            if (_userModel.verify_status == 0) {
+                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未认证用户" message:nil delegate:self cancelButtonTitle:@"暂不认证" otherButtonTitles:@"立即认证", nil];
+                                alert.tag = 403;
+                                [alert show];
+                            }else if (_userModel.verify_status == 1){
+                                kTipAlert(@"您的认证正在处理，请耐心等待结果!");
+                            }
+
+                        }else {
+                            kTipAlert(@"您不是加工厂，无法参与担保订单投标!");
                         }
+                        
+                        
                     }
                     
                 }];

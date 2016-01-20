@@ -1444,6 +1444,8 @@
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
             completionBlock(@{@"statusCode": [NSString stringWithFormat:@"%ld",(long)statusCode]});
+            DLog(@"%@",error.userInfo);
+            DLog(@">>>>%@",operation);
         }];
     }else{
         completionBlock(@{@"statusCode": @"404", @"message": @"token不存在"});
