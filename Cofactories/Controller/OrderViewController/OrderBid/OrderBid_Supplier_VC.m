@@ -20,7 +20,6 @@
     UITextField      *_priceTF;
     UIButton         *_readyButton;
     UIButton         *_bookButton;
-
 }
 
 @property (nonatomic,copy) NSString *priceString;
