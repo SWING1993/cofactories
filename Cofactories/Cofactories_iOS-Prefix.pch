@@ -139,6 +139,7 @@
 #define kGreen [UIColor colorWithHexString:@"0x3bbd79"]
 #define kBlack [UIColor colorWithHexString:@"0x28303b"]
 #define MAIN_COLOR  [UIColor colorWithRed:72/255.0 green:126/255.0 blue:208/255.0 alpha:1]
+#define kLightGaryColor [UIColor colorWithRed:135.0/255.0 green:135.0/255.0 blue:135.0/255.0 alpha:1]
 #define kDeepBlue [UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f]
 #define kLightBlue [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f]
 #define kLineGrayCorlor [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f]
