@@ -169,7 +169,8 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
     if ([shopCar.photoUrl isEqualToString:@"默认图片"]) {
         cell.photoView.image = [UIImage imageNamed:@"默认图片"];
     } else {
-        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,shopCar.photoUrl]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+        NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, shopCar.photoUrl] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     }
     cell.shopCarTitle.text = shopCar.shopCarTitle;
     cell.shopCarPrice.text = [NSString stringWithFormat:@"￥ %@", shopCar.shopCarPrice];

@@ -105,7 +105,8 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
         cell.payStatus.textColor = [UIColor redColor];
     }
     if (historyOrderModel.photoArray.count > 0) {
-        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PhotoAPI, historyOrderModel.photoArray[0]]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+        NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, historyOrderModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     } else {
         cell.photoView.image = [UIImage imageNamed:@"默认图片"];
     }

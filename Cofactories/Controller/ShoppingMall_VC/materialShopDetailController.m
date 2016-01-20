@@ -21,7 +21,7 @@
 #import "FabricMarketModel.h"
 #import "StoreShoppingCar.h"
 
-#define kImageViewHeight kScreenW
+#define kImageViewHeight 0.94*kScreenW
 
 static NSString *shopCellIdentifier = @"shopCell";
 static NSString *selectCellIdentifier = @"selectCell";
@@ -570,17 +570,17 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 - (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString andRange:(NSInteger)myRange {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
     //设置颜色
-    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(myRange, myString.length - myRange)]; // 0为起始位置 length是从起始位置开始 设置指定颜色的长度
+    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:251.0/255.0 green:56.0/255.0 blue:10.0/255.0 alpha:1.0] range:NSMakeRange(myRange, myString.length - myRange)]; // 0为起始位置 length是从起始位置开始 设置指定颜色的长度
     
     //设置尺寸
-    [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(myRange + 2, myString.length - 5 - myRange)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
+    [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(myRange + 2, myString.length - 5 - myRange)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
     return attributedString;
 }
 
 - (NSAttributedString *)underlineWithString:(NSString *)labelStr {
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName :[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
     NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:labelStr attributes:attribtDic];
-    [attribtStr addAttribute: NSForegroundColorAttributeName value: [UIColor colorWithRed:83.0/255.0 green:83.0/255.0 blue:83.0/255.0 alpha:1.0] range: NSMakeRange(0, labelStr.length)];
+    [attribtStr addAttribute: NSForegroundColorAttributeName value: kLightGaryColor range: NSMakeRange(0, labelStr.length)];
     return attribtStr;
 }
 
