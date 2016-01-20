@@ -34,6 +34,11 @@
 static NSString *const reuseIdentifier = @"reuseIdentifier";
 @implementation AllDesignController
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self controlBackgroundView:0];
+}
+
 - (id)initWithSelecteDataDictionary:(NSDictionary *)dictionary{
     if (self = [super init]) {
         _selectDataDictionary = dictionary;

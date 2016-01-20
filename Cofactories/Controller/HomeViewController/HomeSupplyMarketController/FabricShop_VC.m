@@ -40,6 +40,10 @@ static NSString *materialCellIdentifier = @"materialCell";
 
 @implementation FabricShop_VC
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self controlBackgroundView:0];
+}
 
 - (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary{
     

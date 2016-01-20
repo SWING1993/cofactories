@@ -37,7 +37,10 @@
 static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 @implementation Business_Supplier_VC
-
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self controlBackgroundView:0];
+}
 - (id)initWithSubrole:(NSString *)subrole andSelecteDataDictionary:(NSDictionary *)dictionary{
     
     if (self = [super init]) {
