@@ -5,6 +5,7 @@
 //  Created by 宋国华 on 15/11/3.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
+#import "Login.h"
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
@@ -293,18 +294,18 @@
  *  @param status 网络状态。
  */
 - (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
-    if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
-       
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"提示"
-                              message:@"您"
-                              @"的帐号在别的设备上登录，您被迫下线！请重新登录！"
-                              delegate:nil
-                              cancelButtonTitle:@"确定"
-                              otherButtonTitles:nil, nil];
-        alert.delegate = self;
-        [alert show];
-        
+    if ([Login isLogin]) {
+        if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"提示"
+                                  message:@"您"
+                                  @"的帐号在别的设备上登录，您被迫下线！请重新登录！"
+                                  delegate:nil
+                                  cancelButtonTitle:@"确定"
+                                  otherButtonTitles:nil, nil];
+            alert.delegate = self;
+            [alert show];
+        }
     }
 }
 
