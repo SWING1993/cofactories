@@ -219,27 +219,8 @@ static NSString *popularCellIdentifier = @"popularCell";
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640 + 5 + 80 + 20 + 25 + 5)];
     headerView.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
     
-    [HttpClient getConfigWithType:@"news" WithBlock:^(NSDictionary *responseDictionary) {
-        int statusCode = [responseDictionary[@"statusCode"] intValue];
-        DLog(@"statusCode = %d", statusCode);
-        if (statusCode == 200) {
-            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
-            self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
-            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
-            for (NSDictionary *dictionary in jsonArray) {
-                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
-                [self.bannerArray addObject:bannerModel];
-                [self.firstViewImageArray addObject:bannerModel.img];
-            }
-        }
-    }];
-    WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:NO];
-    firstView.delegate=self;
-    firstView.imagesArray = self.firstViewImageArray;
-    [headerView addSubview:firstView];
-    
     //设计师
-    UIView *designView = [[UIView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(firstView.frame) + 5, kScreenW - 10, 80)];
+    UIView *designView = [[UIView alloc] initWithFrame:CGRectMake(5, kScreenW * 256 / 640 + 5, kScreenW - 10, 80)];
     designView.backgroundColor = [UIColor whiteColor];
     designView.layer.borderColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f].CGColor;
     designView.layer.borderWidth = 0.3;
@@ -258,7 +239,7 @@ static NSString *popularCellIdentifier = @"popularCell";
     
     
     UIButton *designBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    designBtn.frame = CGRectMake(5, CGRectGetMaxY(firstView.frame) + 5, kScreenW - 10, 80);
+    designBtn.frame = CGRectMake(5, kScreenW * 256 / 640 + 5, kScreenW - 10, 80);
     designBtn.backgroundColor = [UIColor clearColor];
     [designBtn addTarget:self action:@selector(actionOfdesign:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:designBtn];
@@ -271,7 +252,27 @@ static NSString *popularCellIdentifier = @"popularCell";
     UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(headerView.frame) - 0.3, kScreenW - 10, 0.3)];
     lineLabel.backgroundColor = [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
     [headerView addSubview:lineLabel];
-    self.popularTableView.tableHeaderView = headerView;
+    
+    [HttpClient getConfigWithType:@"news" WithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        if (statusCode == 200) {
+            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
+            self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
+            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dictionary in jsonArray) {
+                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
+                [self.bannerArray addObject:bannerModel];
+                [self.firstViewImageArray addObject:bannerModel.img];
+            }
+            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
+            firstView.delegate=self;
+            firstView.imagesArray = self.firstViewImageArray;
+            [headerView addSubview:firstView];
+            self.popularTableView.tableHeaderView = headerView;
+        }
+    }];
+    
 }
 - (void)creatFooterView {
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 80 + ((kScreenW - 30)/3 + 60)*2 + 20)];

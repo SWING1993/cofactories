@@ -274,7 +274,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         if (activityModel.banner.length == 0) {
             cell.activityPhoto.image = [UIImage imageNamed:@"bannerPlaceHolder"];
         } else {
-            [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@""]];
+            [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@"HomeActivityHolder"]];
         }
         return cell;
     }

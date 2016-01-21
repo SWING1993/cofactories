@@ -300,7 +300,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 //                    }
                     break;
                 case 2:
-                    _userType = @"male";
+                    _userType = @"girl";
 //                    switch (indexPath.item) {
 //                        case 0:
 //                            _userPart = nil;
@@ -319,7 +319,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 //                    }
                     break;
                 case 3:
-                    _userType = @"girl";
+                    _userType = @"male";
 //                    switch (indexPath.item) {
 //                        case 0:
 //                            _userPart = nil;

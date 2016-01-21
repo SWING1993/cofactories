@@ -22,6 +22,7 @@
 #import "StoreShoppingCar.h"
 
 #define kImageViewHeight 0.94*kScreenW
+#define kOrangeColor [UIColor colorWithRed:253.0/255.0 green:106.0/255.0 blue:9.0/255.0 alpha:1.0]
 
 static NSString *shopCellIdentifier = @"shopCell";
 static NSString *selectCellIdentifier = @"selectCell";
@@ -71,7 +72,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 - (void)creatPopView {
     UIButton *cancleButton = [UIButton buttonWithType:UIButtonTypeCustom]
     ;
-    cancleButton.frame = CGRectMake(popView.frame.size.width - 30*kZGY, 5*kZGY, 25*kZGY, 25*kZGY);
+    cancleButton.frame = CGRectMake(popView.frame.size.width - 40*kZGY, 10*kZGY, 30*kZGY, 30*kZGY);
     cancleButton.tag = 1002;
     [cancleButton addTarget:self action:@selector(actionOfPopBuy:) forControlEvents:UIControlEventTouchUpInside];
     [cancleButton setImage:[UIImage imageNamed:@"Home-叉号"] forState:UIControlStateNormal];
@@ -95,11 +96,11 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(20*kZGY + i*(20*kZGY + (popView.frame.size.width - 3*20*kZGY)/2), 200*kZGY, (popView.frame.size.width - 3*20*kZGY)/2, 30*kZGY);
         [button setTitle:btnArray[i] forState:UIControlStateNormal];
-        button.layer.borderColor = [UIColor colorWithRed:253.0/255.0 green:106.0/255.0 blue:9.0/255.0 alpha:1.0].CGColor;
+        button.layer.borderColor = kOrangeColor.CGColor;
         button.layer.borderWidth = 0.5;
         button.layer.cornerRadius = 5*kZGY;
         button.clipsToBounds = YES;
-        [button setTitleColor:[UIColor colorWithRed:253.0/255.0 green:106.0/255.0 blue:9.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [button setTitleColor:kOrangeColor forState:UIControlStateNormal];
         button.tag = 1000 + i;
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         [button addTarget:self action:@selector(actionOfPopBuy:) forControlEvents:UIControlEventTouchUpInside];
@@ -154,6 +155,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 
 - (void)creatTableView {
     self.myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -20, kScreenW, kScreenH - 30)];
+    self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.myTableView.dataSource = self;
     self.myTableView.delegate = self;
     [self.view addSubview:self.myTableView];
@@ -262,6 +264,31 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [browser show];
 }
 
+#pragma mark - 底部一栏
+
+- (void)creatBottomView {
+    UIView *bigView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenH - 50, kScreenW, 50)];
+    bigView.layer.borderWidth = 0.3;
+    bigView.layer.borderColor = kLineGrayCorlor.CGColor;
+    bigView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:bigView];
+    NSArray *titleArray = @[@"加入购物车", @"立即购买"];
+    for (int i = 0; i < 2; i++) {
+        UIButton *myButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        myButton.frame = CGRectMake(i*kScreenW/2, 0, kScreenW/2, 50);
+        myButton.tag = 222 + i;
+        [myButton setTitle:titleArray[i] forState:UIControlStateNormal];
+        [myButton setTitleColor:kOrangeColor forState:UIControlStateNormal];
+        [myButton addTarget:self action:@selector(actionOfBuy:) forControlEvents:UIControlEventTouchUpInside];
+        [bigView addSubview:myButton];
+    }
+    CALayer *line = [CALayer layer];
+    line.frame = CGRectMake(kScreenW/2, 0, 0.3, 50);
+    line.backgroundColor = kLineGrayCorlor.CGColor;
+    [bigView.layer addSublayer:line];
+}
+
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
@@ -274,14 +301,14 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         MaterialShopDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:shopCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.materialLabel.text = marketDetailModel.name;
-        cell.priceLeftLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"售价￥ %@", marketDetailModel.price] andRange:2];
+        cell.salePriceLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"售价￥ %@", marketDetailModel.price] andRange:2];
 
         cell.marketPriceLeftLabel.text = @"市场价";
         CGSize size = [Tools getSize:[NSString stringWithFormat:@" %@ ", marketDetailModel.marketPrice] andFontOfSize:13];
-        cell.marketPriceRightLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceLeftLabel.frame), CGRectGetMaxY(cell.priceLeftLabel.frame), size.width, 30);
+        cell.marketPriceRightLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceLeftLabel.frame), CGRectGetMaxY(cell.salePriceLabel.frame), size.width, 30);
         
         cell.marketPriceRightLabel.attributedText = [self underlineWithString:[NSString stringWithFormat:@" %@ ", marketDetailModel.marketPrice]];
-        cell.leaveCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceRightLabel.frame) + 10, CGRectGetMaxY(cell.priceLeftLabel.frame), kScreenW - 30 - CGRectGetWidth(cell.marketPriceLeftLabel.frame) - CGRectGetWidth(cell.marketPriceRightLabel.frame), 30);
+        cell.leaveCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceRightLabel.frame) + 10, CGRectGetMaxY(cell.salePriceLabel.frame), kScreenW - 30 - CGRectGetWidth(cell.marketPriceLeftLabel.frame) - CGRectGetWidth(cell.marketPriceRightLabel.frame), 30);
         if ([marketDetailModel.amount isEqualToString:@"库存暂无"]) {
             cell.leaveCountLabel.text = @"库存暂无";
         } else {
@@ -325,7 +352,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 2) {
-        return 0.01;
+        return 0;
     }
     return 8;
 }
@@ -403,30 +430,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
     [self.collectionView reloadData];
 }
 
-#pragma mark - 底部一栏
-
-- (void)creatBottomView {
-    UIView *bigView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenH - 50, kScreenW, 50)];
-    bigView.layer.borderWidth = 0.3;
-    bigView.layer.borderColor = kLineGrayCorlor.CGColor;
-    bigView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:bigView];
-    NSArray *titleArray = @[@"加入购物车", @"立即购买"];
-    for (int i = 0; i < 2; i++) {
-        UIButton *myButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        myButton.frame = CGRectMake(i*kScreenW/2, 0, kScreenW/2, 50);
-        myButton.tag = 222 + i;
-        [myButton setTitle:titleArray[i] forState:UIControlStateNormal];
-        [myButton setTitleColor:[UIColor colorWithRed:253.0/255.0 green:106.0/255.0 blue:9.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-        [myButton addTarget:self action:@selector(actionOfBuy:) forControlEvents:UIControlEventTouchUpInside];
-        [bigView addSubview:myButton];
-    }
-    CALayer *line = [CALayer layer];
-    line.frame = CGRectMake(kScreenW/2, 0, 0.3, 50);
-    line.backgroundColor = kLineGrayCorlor.CGColor;
-    [bigView.layer addSublayer:line];
-}
-
+#pragma mark - Action
 - (void)actionOfPopBuy:(UIButton *)button {
     DLog(@"%ld", numberView.timeAmount);
     //找出选中的颜色

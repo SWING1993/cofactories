@@ -11,7 +11,7 @@
 @interface MaterialShopDetailCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *materialLabel;
-@property (nonatomic, strong) UILabel *priceLeftLabel;
+@property (nonatomic, strong) UILabel *salePriceLabel;
 @property (nonatomic, strong) UILabel *marketPriceLeftLabel;
 @property (nonatomic, strong) UILabel *marketPriceRightLabel;
 @property (nonatomic, strong) UILabel *leaveCountLabel;
