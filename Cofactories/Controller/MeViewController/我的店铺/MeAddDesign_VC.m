@@ -57,7 +57,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     self.navigationItem.title = @"发布商品";
     
     labelArray = @[@"售价", @"市场标价", @"库存"];
-    placeHolderArray = @[@"请输入价格, 小数点后最多两位", @"请输入价格, 小数点后最多两位", @"请输入库存量"];
+    placeHolderArray = @[@"请输入价格, 小数点后最多两位", @"请输入价格, 小数点后最多两位", @"请输入单位",  @"请输入库存量"];
     self.collectionImage = [[NSMutableArray alloc]initWithCapacity:9];
     self.categoryArray = [NSMutableArray arrayWithCapacity:0];
     
@@ -139,8 +139,8 @@ static NSString * CellIdentifier = @"CellIdentifier";
 - (UICollectionView *)collectionView1{
     if (!_collectionView1) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.minimumLineSpacing = 5.0;
-        layout.minimumInteritemSpacing = 10.0;
+        layout.minimumLineSpacing = 15;
+        layout.minimumInteritemSpacing = 5;
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         _collectionView1 = [[UICollectionView alloc] initWithFrame:CGRectMake(15, 45, kScreenW - 30, 100) collectionViewLayout:layout];
@@ -382,7 +382,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(2, 2, 2, 2);
+    return UIEdgeInsetsMake(5, 5, 5, 5);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

@@ -36,24 +36,24 @@
 }
 //创建子控件
 -(void)setupChildViews{
-  
-  //创建scrollView
-  UIScrollView *scrollView = [[UIScrollView alloc]init];
-  scrollView.bounces=NO;
-  scrollView.delegate=self;
-  scrollView.pagingEnabled=YES;
-  scrollView.showsHorizontalScrollIndicator=NO;
-  _myScrollView=scrollView;
-  [self addSubview:scrollView];
- 
-  //创建pageControl
-  UIPageControl * pageControl = [[UIPageControl alloc]init];
-  pageControl.userInteractionEnabled=NO;
-//  pageControl.currentPageIndicatorTintColor =[UIColor redColor];
-//  pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-  _myPageControl = pageControl;
-  [self addSubview:pageControl];
-  
+    
+    //创建scrollView
+    UIScrollView *scrollView = [[UIScrollView alloc]init];
+    scrollView.bounces=NO;
+    scrollView.delegate=self;
+    scrollView.pagingEnabled=YES;
+    scrollView.showsHorizontalScrollIndicator=NO;
+    _myScrollView=scrollView;
+    [self addSubview:scrollView];
+    
+    //创建pageControl
+    UIPageControl * pageControl = [[UIPageControl alloc]init];
+    pageControl.userInteractionEnabled = NO;
+//    pageControl.currentPageIndicatorTintColor = kLightBlue;
+//    pageControl.pageIndicatorTintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+    _myPageControl = pageControl;
+    [self addSubview:pageControl];
+    
 }
 #pragma mark - 点击轮播图中任意一个图片的时候
 -(void)clickScrollViewImage:(UITapGestureRecognizer *)tap{

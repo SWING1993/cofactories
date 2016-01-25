@@ -148,7 +148,7 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
         cell.myTextfield.hidden = NO;
         cell.addButton.hidden = NO;
         cell.shopCarColor.frame = CGRectMake(135*kZGY, 45*kZGY, kScreenW - 255*kZGY, 25*kZGY);
-        cell.shopCarColor.text = [NSString stringWithFormat:@"颜色：%@", shopCar.shopCarColor];
+        cell.shopCarColor.text = [NSString stringWithFormat:@"分类：%@", shopCar.shopCarColor];
         [cell.cutButton addTarget:self action:@selector(actionOfCutNumberSelect:) forControlEvents:UIControlEventTouchUpInside];
         [cell.addButton addTarget:self action:@selector(actionOfAddNumberSelect:) forControlEvents:UIControlEventTouchUpInside];
         cell.myTextfield.text = shopCar.shopCarNumber;
@@ -164,7 +164,7 @@ static NSString *shopCarCellIdentifier = @"shopCarCell";
         cell.myTextfield.hidden = YES;
         cell.addButton.hidden = YES;
         cell.shopCarColor.frame = CGRectMake(135*kZGY, 45*kZGY, kScreenW - 155*kZGY, 25*kZGY);
-        cell.shopCarColor.text = [NSString stringWithFormat:@"数量：%@ ；颜色：%@", shopCar.shopCarNumber, shopCar.shopCarColor];
+        cell.shopCarColor.text = [NSString stringWithFormat:@"数量：%@ ；分类：%@", shopCar.shopCarNumber, shopCar.shopCarColor];
     }
     if ([shopCar.photoUrl isEqualToString:@"默认图片"]) {
         cell.photoView.image = [UIImage imageNamed:@"默认图片"];

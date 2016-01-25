@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) UITextField *amountTextfield;
 @property (nonatomic, assign) NSInteger timeAmount;
-- (id)initWithFrame:(CGRect)frame WithAmount:(NSInteger)aAmount;
+@property (nonatomic, assign) NSInteger leaveCount;
+
+- (id)initWithFrame:(CGRect)frame WithBeginAmount:(NSInteger)aAmount leaveCount:(NSInteger)aLeaveCount;
 
 @end

@@ -383,10 +383,6 @@ static NSString *activityCellIdentifier = @"activityCell";
 -(void)clickCircularSlidingView:(int)tag{
     DLog(@"点击了第  %d  张图", tag);
     //点击了第几张轮播图
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"返回";
-    backItem.tintColor=[UIColor whiteColor];
-    self.navigationItem.backBarButtonItem = backItem;
     
     IndexModel *bannerModel = self.bannerArray[tag - 1];
     if ([bannerModel.action isEqualToString:@"url"]) {
@@ -428,6 +424,9 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)actionOfEdit:(UIButton *)button {
     if ([self.MyProfile.address isEqualToString:@"暂无"] || self.MyProfile.address.length == 0) {
         SetViewController *setVC = [[SetViewController alloc] init];
+        setVC.title = @"个人资料";
+        setVC.type  = self.MyProfile.UserType;
+        setVC.uid = self.MyProfile.uid;
         setVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:setVC animated:YES];
     } else {
