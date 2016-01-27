@@ -9,7 +9,7 @@
 #import "DesignShop_VC.h"
 #import "DOPDropDownMenu.h"
 #import "MaterialShopCell.h"
-#import "materialShopDetailController.h"
+#import "ShoppingMallDetail_VC.h"
 #import "SVPullToRefresh.h"
 #import "SearchShopMarketModel.h"
 
@@ -570,10 +570,11 @@ static NSString *materialCellIdentifier = @"materialCell";
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
+    ShoppingMallDetail_VC *shoppingMallVC = [[ShoppingMallDetail_VC alloc] init];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
-    materialShopVC.shopID = myModel.ID;
-    [self.navigationController pushViewController:materialShopVC animated:YES];
+    shoppingMallVC.shopID = myModel.ID;
+    [self.navigationController pushViewController:shoppingMallVC animated:YES];
+    
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

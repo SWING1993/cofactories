@@ -9,7 +9,7 @@
 #import "HomeKoreaShopList_VC.h"
 #import "DOPDropDownMenu.h"
 #import "MaterialShopCell.h"
-#import "materialShopDetailController.h"
+#import "ShoppingMallDetail_VC.h"
 #import "SVPullToRefresh.h"
 #import "SearchShopMarketModel.h"
 
@@ -420,7 +420,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     //    [self removeSearchBar];
-    materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
+    ShoppingMallDetail_VC *materialShopVC = [[ShoppingMallDetail_VC alloc] init];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
     materialShopVC.shopID = myModel.ID;
     [self.navigationController pushViewController:materialShopVC animated:YES];
@@ -449,19 +449,5 @@ static NSString *materialCellIdentifier = @"materialCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

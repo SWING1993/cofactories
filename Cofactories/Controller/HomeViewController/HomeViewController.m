@@ -16,7 +16,6 @@
 #import "SupplyMarketViewController.h"//供应市场
 #import "ProcessMarketController.h"//加工配套市场
 #import "Business_Cloth_VC.h"
-#import "DataBaseHandle.h"
 #import "MeShopController.h"
 #import "WalletModel.h"
 #import "Verified_VC.h"
@@ -91,7 +90,11 @@ static NSString *activityCellIdentifier = @"activityCell";
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
-    
+    //清除网页缓存
+    NSURLCache * cache = [NSURLCache sharedURLCache];
+    [cache removeAllCachedResponses];
+    [cache setDiskCapacity:0];
+    [cache setMemoryCapacity:0];
     //获取融云的token
     [HttpClient getIMTokenWithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [responseDictionary[@"statusCode"]integerValue];
@@ -122,7 +125,6 @@ static NSString *activityCellIdentifier = @"activityCell";
     wallet = 0;
     [self creatTableView];
     [self creatTableHeaderView];
-    [self creatShoppingCarTable];
     //轮播图
     [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
         int statusCode = [responseDictionary[@"statusCode"] intValue];
@@ -168,7 +170,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 - (void)creatTableView {
-    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 50) style:UITableViewStyleGrouped];
+    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 49) style:UITableViewStyleGrouped];
     self.automaticallyAdjustsScrollViewInsets = YES;// 自动调整视图关闭
     self.homeTableView.showsVerticalScrollIndicator = NO;// 竖直滚动条不显示
     self.homeTableView.delegate = self;
@@ -464,13 +466,4 @@ static NSString *activityCellIdentifier = @"activityCell";
     
 }
 
-- (void)creatShoppingCarTable {
-    //创建购物车的表
-    DataBaseHandle *dataBaseHandle = [DataBaseHandle mainDataBaseHandle];
-    [dataBaseHandle createShoppingCarTable];
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 @end

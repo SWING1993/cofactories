@@ -39,9 +39,7 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     titleArray = @[@"企业名称", @"企业地址", @"个人姓名", @"身份证号"];
     placeHolderArray = @[@"企业姓名/个人姓名", @"省、市、区街道地址", @"个人姓名", @"身份证号"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoAction) name:UITextFieldTextDidChangeNotification object:nil];
-
 }
-
 
 - (void)creatHeaderview {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 50)];
@@ -72,14 +70,6 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 
 }
 
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -89,7 +79,6 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 4;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AuthenticationCell *cell = [tableView dequeueReusableCellWithIdentifier:renZhengCellIdentifier forIndexPath:indexPath];
@@ -127,18 +116,13 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     return cell;
 }
 
-
-
-
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50;
 }
 
-
 #pragma mark - 下一步
 - (void)nextStepAction:(UIButton *)button {
-    
     
     AuthenticationPhotoController *photoVC = [[AuthenticationPhotoController alloc] initWithStyle:UITableViewStyleGrouped];
     photoVC.hidesBottomBarWhenPushed = YES;
@@ -151,7 +135,6 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     NSLog(@"%@， %@， %@， %@", priseNameTextField.text, priseAddressTextField.text, personNameTextField.text, idCardTextField.text);
     
 }
-
 
 - (void)infoAction {
     if (priseNameTextField.text.length != 0 && priseAddressTextField.text.length != 0 && personNameTextField.text.length != 0 && (idCardTextField.text.length == 18 || idCardTextField.text.length == 19 || idCardTextField.text.length == 20) ) {
@@ -176,48 +159,5 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

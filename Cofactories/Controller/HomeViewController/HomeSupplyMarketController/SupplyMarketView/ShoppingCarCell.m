@@ -18,7 +18,7 @@
         UIView *bigView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 10*kZGY)];
         bigView.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:1.0];
         [self addSubview:bigView];
-        self.selectView = [[UIImageView alloc] initWithFrame:CGRectMake(10*kZGY, 47.5*kZGY, 20*kZGY, 20*kZGY)];
+        self.selectView = [[UIImageView alloc] initWithFrame:CGRectMake(5*kZGY, 42.5*kZGY, 30*kZGY, 30*kZGY)];
         
         [self addSubview:self.selectView];
         

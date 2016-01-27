@@ -57,7 +57,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     self.navigationItem.title = @"发布商品";
     
     labelArray = @[@"售价", @"市场标价", @"库存"];
-    placeHolderArray = @[@"请输入价格, 小数点后最多两位", @"请输入价格, 小数点后最多两位", @"请输入单位",  @"请输入库存量"];
+    placeHolderArray = @[@"请输入价格, 小数点后最多两位", @"请输入价格, 小数点后最多两位",  @"请输入库存量"];
     self.collectionImage = [[NSMutableArray alloc]initWithCapacity:9];
     self.categoryArray = [NSMutableArray arrayWithCapacity:0];
     
@@ -296,10 +296,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     return 5.0f;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 - (void)addImageBtn {
     
     if ([self.collectionImage count]== 9) {
@@ -365,7 +361,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     }];
 }
 
-#define kSizeThumbnailCollectionView  ([UIScreen mainScreen].bounds.size.width-10)/3
+#define kSizeThumbnailCollectionView  ([UIScreen mainScreen].bounds.size.width-8)/3
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -380,9 +376,12 @@ static NSString * CellIdentifier = @"CellIdentifier";
     
 }
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(5, 5, 5, 5);
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    if (collectionView.tag == 222) {
+        return UIEdgeInsetsMake(2, 2, 2, 2);
+    } else {
+        return UIEdgeInsetsMake(5, 5, 5, 5);
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -499,9 +498,14 @@ static NSString * CellIdentifier = @"CellIdentifier";
         if (buttonIndex == 1) {
             [self publishDesignGoods];
         } else {
-//            [self.navigationController popViewControllerAnimated:YES];
+
         }
         
+    }
+    if (alertView.tag == 777) {
+        if (buttonIndex == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
@@ -530,7 +534,9 @@ static NSString * CellIdentifier = @"CellIdentifier";
     [HttpClient publishDesignWithMarket:@"design" name:nameTF.text type:leftTypeString part:rightTypeString price:salePriceTF.text marketPrice:marketPriceTF.text country:@"cn" amount:myAmount description:descriptionTV.text category:self.categoryArray WithCompletionBlock:^(NSDictionary *dictionary) {
         int statusCode = [dictionary[@"statusCode"] intValue];
         if (statusCode == 200) {
-            kTipAlert(@"发布成功");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"发布成功" message:@"可能需要几分钟的等待上传图片！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            alert.tag = 777;
+            [alert show];
             NSDictionary *myDic = dictionary[@"responseObject"];
             NSString *policyString = myDic[@"data"][@"policy"];
             NSString *signatureString = myDic[@"data"][@"signature"];
@@ -543,12 +549,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
                 UIImage *image = (UIImage *)obj;
                 [upYun uploadImage:image policy:policyString signature:signatureString];
             }];
-            double delayInSeconds = 1.0f;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                NSArray *navArray = self.navigationController.viewControllers;
-                [self.navigationController popToViewController:navArray[1] animated:YES];
-            });
             
         } else {
             kTipAlert(@"发布失败 (错误码：%d)", statusCode);
@@ -557,22 +557,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
         
     }];
 }
-
-
-//判断是否含有字符
-//- (BOOL) isBlankString:(NSString *)string {
-//    
-//    if (string == nil || string == NULL) {
-//        return YES;
-//    }
-//    if ([string isKindOfClass:[NSNull class]]) {
-//        return YES;
-//    }
-//    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
-//        return YES;
-//    }
-//    return NO;
-//}
 
 #pragma mark - dropDownMenu
 
@@ -696,14 +680,5 @@ static NSString * CellIdentifier = @"CellIdentifier";
     DLog(@"leftString = %@, rightString = %@", leftTypeString, rightTypeString);
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

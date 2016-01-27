@@ -105,10 +105,10 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     [footerView addSubview:bigView];
     
     imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW - 45, 12.5, 25, 25)];
-    imageView1.image = [UIImage imageNamed:@"ShopCarIsSelect"];
+    imageView1.image = [UIImage imageNamed:@"MeIsSelect"];
     [bigView addSubview:imageView1];
     imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW - 45, 62.5, 25, 25)];
-    imageView2.image = [UIImage imageNamed:@"ShopCarNoSelect"];
+    imageView2.image = [UIImage imageNamed:@"MeIsNoSelect"];
     [bigView addSubview:imageView2];
     
     NSArray *titleArray1 = @[@"账户余额", @"支付宝"];
@@ -327,13 +327,15 @@ static NSString *OrderCellIdentifier = @"OrderCell";
 
 - (void)actionOfSelectButton:(UIButton *)btn {
     if (btn.tag == 222) {
-        imageView1.image = [UIImage imageNamed:@"ShopCarIsSelect"];
-        imageView2.image = [UIImage imageNamed:@"ShopCarNoSelect"];
+        imageView1.image = [UIImage imageNamed:@"MeIsSelect"];
+        imageView2.image = [UIImage imageNamed:@"MeIsNoSelect"];
+        [Tools showOscillatoryAnimationWithLayer:imageView1.layer isToBig:YES];
         selectPayStyle = @"账户余额";
     }
     if (btn.tag == 223) {
-        imageView1.image = [UIImage imageNamed:@"ShopCarNoSelect"];
-        imageView2.image = [UIImage imageNamed:@"ShopCarIsSelect"];
+        imageView1.image = [UIImage imageNamed:@"MeIsNoSelect"];
+        imageView2.image = [UIImage imageNamed:@"MeIsSelect"];
+        [Tools showOscillatoryAnimationWithLayer:imageView2.layer isToBig:YES];
         selectPayStyle = @"支付宝";
     }
 }
@@ -517,12 +519,5 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     }
     return jsonData;
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end

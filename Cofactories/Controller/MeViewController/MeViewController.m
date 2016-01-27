@@ -12,11 +12,11 @@
 #import "SetViewController.h"
 #import "SystemSetViewController/SystemSetViewController.h"
 #import "MeShopController.h"//店铺
-#import "ShopCarController.h"//购物车
 #import "MeHistoryOrderList_VC.h"
 #import "MeOrderSelect_VC.h"
 #import "PublishPopularNews_VC.h"
 #import "PublicServiceViewController.h"
+#import "MeShoppingCar_VC.h"//购物车
 
 static NSString * const CellIdentifier = @"CellIdentifier";
 
@@ -231,10 +231,10 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             switch (indexPath.row) {
                 case 0:
                 {
-                    DLog("购物车");
-                    ShopCarController *shopCarVC = [[ShopCarController alloc] init];
-                    shopCarVC.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:shopCarVC animated:YES];
+                    DLog("购物车");                    
+                    MeShoppingCar_VC *shoppingCarVC = [[MeShoppingCar_VC alloc] init];
+                    shoppingCarVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:shoppingCarVC animated:YES];
                 }
                     break;
                     
