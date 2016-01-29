@@ -14,11 +14,11 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.layer.cornerRadius = 8*kZGY;
+        self.clipsToBounds = YES;
         self.colorTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,self.frame.size.width , self.frame.size.height)];
-        self.colorTitle.font = [UIFont systemFontOfSize:12*kZGY];
+        self.colorTitle.font = [UIFont systemFontOfSize:13*kZGY];
         self.colorTitle.textAlignment = NSTextAlignmentCenter;
-        self.colorTitle.layer.cornerRadius = self.frame.size.height/2;
-        self.colorTitle.clipsToBounds = YES;
         [self addSubview:self.colorTitle];
     }
     return self;

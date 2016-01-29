@@ -59,7 +59,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     self.navigationItem.title = @"发布商品";
     
     labelArray = @[@"售价", @"市场标价", @"单位", @"库存"];
-    placeHolderArray = @[@"请输入价格", @"请输入价格", @"请输入单位", @"请输入库存量"];
+    placeHolderArray = @[@"请输入价格, 小数点后最多两位", @"请输入价格, 小数点后最多两位", @"请输入单位", @"请输入库存量"];
     self.collectionImage = [[NSMutableArray alloc]initWithCapacity:9];
     self.categoryArray = [NSMutableArray arrayWithCapacity:0];
     
@@ -111,12 +111,11 @@ static NSString * CellIdentifier = @"CellIdentifier";
     leftTypeString = @"fabric";//面料
     rightTypeString = nil;
     _dropDownMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
+    
     _dropDownMenu.delegate = self;
     _dropDownMenu.dataSource = self;
     [self.view addSubview:_dropDownMenu];
-    
-    
-    
+
 }
 - (UICollectionView *)collectionView{
     if (!_collectionView) {
@@ -140,8 +139,8 @@ static NSString * CellIdentifier = @"CellIdentifier";
 - (UICollectionView *)collectionView1{
     if (!_collectionView1) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.minimumLineSpacing = 5.0;
-        layout.minimumInteritemSpacing = 10.0;
+        layout.minimumLineSpacing = 15;
+        layout.minimumInteritemSpacing = 5;
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         _collectionView1 = [[UICollectionView alloc] initWithFrame:CGRectMake(15, 45, kScreenW - 30, 100) collectionViewLayout:layout];
@@ -372,7 +371,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     }];
 }
 
-#define kSizeThumbnailCollectionView  ([UIScreen mainScreen].bounds.size.width-10)/3
+#define kSizeThumbnailCollectionView  ([UIScreen mainScreen].bounds.size.width - 8)/3
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -387,13 +386,13 @@ static NSString * CellIdentifier = @"CellIdentifier";
     
 }
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(2, 2, 2, 2);
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    if (collectionView.tag == 222) {
+        return UIEdgeInsetsMake(2, 2, 2, 2);
+    } else {
+        return UIEdgeInsetsMake(5, 5, 5, 5);
+    }
 }
-
-
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (collectionView.tag == 222) {
@@ -401,9 +400,8 @@ static NSString * CellIdentifier = @"CellIdentifier";
     } else {
         return self.categoryArray.count;
     }
-    
-    
 }
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView.tag == 222) {
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
@@ -507,7 +505,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
     }
     
-    if (alertView.tag == 666) {
+    if (alertView.tag == 666 || alertView.tag == 777) {
         if (buttonIndex == 1) {
             [self publishShoppingMarket];
         } else {
@@ -515,11 +513,9 @@ static NSString * CellIdentifier = @"CellIdentifier";
         }
 
     }
-    if (alertView.tag == 777) {
-        if (buttonIndex == 1) {
-            [self publishShoppingMarket];
-        } else {
-            
+    if (alertView.tag == 888) {
+        if (buttonIndex == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
         }
         
     }
@@ -538,7 +534,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         } else if (self.collectionImage.count == 0) {
             kTipAlert(@"请添加图片");
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认发布" message:nil delegate:self cancelButtonTitle:@"放弃" otherButtonTitles:@"确定", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认发布" message:@"可能需要几分钟的等待上传图片！" delegate:self cancelButtonTitle:@"放弃" otherButtonTitles:@"确定", nil];
             alert.tag = 666;
             [alert show];
         }
@@ -565,7 +561,9 @@ static NSString * CellIdentifier = @"CellIdentifier";
     [HttpClient publishFabricWithMarket:leftTypeString name:nameTF.text type:rightTypeString price:salePriceTF.text marketPrice:marketPriceTF.text amount:myAmount unit:unitTF.text description:descriptionTV.text category:self.categoryArray WithCompletionBlock:^(NSDictionary *dictionary) {
         int statusCode = [dictionary[@"statusCode"] intValue];
         if (statusCode==200) {
-            kTipAlert(@"发布成功");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"发布成功" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            alert.tag = 888;
+            [alert show];
             NSDictionary *myDic = dictionary[@"responseObject"];
             NSString *policyString = myDic[@"data"][@"policy"];
             NSString *signatureString = myDic[@"data"][@"signature"];
@@ -578,12 +576,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
                 UIImage *image = (UIImage *)obj;
                 [upYun uploadImage:image policy:policyString signature:signatureString];
             }];
-            double delayInSeconds = 1.0f;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                NSArray *navArray = self.navigationController.viewControllers;
-                [self.navigationController popToViewController:navArray[1] animated:YES];
-            });
             
         }else {
             kTipAlert(@"发布失败 (错误码：%d)", statusCode);
@@ -672,14 +664,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     
     DLog(@"leftString = %@, rightString = %@", leftTypeString, rightTypeString);
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -17,7 +17,7 @@
 #import "PersonalMessage_Clothing_VC.h"
 #import "UILabel+extension.h"
 #import "Contract_VC.h"
-
+#import "OrderContract_First_VC.h"
 @interface FactoryOrderDetail_VC ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView         *_tableView;
     NSInteger            _sectionFooterHeight;
@@ -260,7 +260,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     kTipAlert(@"该订单暂无商家投标");
                 }else{
                     if (_isCompletion) {
-                        kTipAlert(@"该订单已完成投标");
+                        NSLog(@"asdfghf%@",_dataModel.contractStatus);
+                        if ([_dataModel.contractStatus isEqualToString:@"0"]) {
+                            OrderContract_First_VC *vc = [[OrderContract_First_VC alloc] init];
+                            vc.orderID = _dataModel.ID;
+                            vc.webUrlString = @"http://h5.lo.cofactories.com/!%29special/contract/index.html";
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }else{
+                            kTipAlert(@"该订单已完成投标");
+                        }
                     }else{
                         BidManage_Factory_VC *vc = [BidManage_Factory_VC new];
                         vc.orderID = _dataModel.ID;

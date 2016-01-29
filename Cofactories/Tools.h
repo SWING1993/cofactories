@@ -125,4 +125,8 @@
 
 
 + (void)saveImageToMyAlbumWithOrderID:(NSString *)orderID;
+
+//点击放大效果
++ (void)showOscillatoryAnimationWithLayer:(CALayer *)layer isToBig:(BOOL)isToBig;
+
 @end

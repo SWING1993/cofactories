@@ -69,6 +69,9 @@
         
         NSString *firstMoney = [NSString stringWithFormat:@"%@",dictionary[@"firstPay"]];
         self.fistPayCount = firstMoney;
+        
+        NSString *contractStatus = [NSString stringWithFormat:@"%@",dictionary[@"contract"]];
+        self.contractStatus = contractStatus;
     }
     return self;
 }

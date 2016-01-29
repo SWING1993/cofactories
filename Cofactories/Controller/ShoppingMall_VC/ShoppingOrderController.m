@@ -23,6 +23,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
 @interface ShoppingOrderController ()<UIPickerViewDataSource,UIPickerViewDelegate, UIAlertViewDelegate> {
     UITextField *personNameTF, *phoneNumberTF, *youBianTF, *addressTF, *detailAddressTF;
     NSArray *titleArray;
+    NSArray *placeHoderArray;
     UIButton *lastButton;
     UIImageView *imageView1, *imageView2;
     NSString *selectPayStyle;
@@ -49,6 +50,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     self.tableView.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:1.0];
     [self.tableView registerClass:[AuthenticationCell class] forCellReuseIdentifier:OrderCellIdentifier];
     titleArray = @[@"收货人", @"电话", @"邮编", @"省市区", @"详细地址"];
+    placeHoderArray = @[@"请填写收货人", @"请输入电话号码", @"请输入邮编", @"省份|城市|地区", @"请输入详细地址"];
     selectPayStyle = @"账户余额";
     
     [self creatTableViewFooter];
@@ -103,10 +105,10 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     [footerView addSubview:bigView];
     
     imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW - 45, 12.5, 25, 25)];
-    imageView1.image = [UIImage imageNamed:@"ShopCarIsSelect"];
+    imageView1.image = [UIImage imageNamed:@"MeIsSelect"];
     [bigView addSubview:imageView1];
     imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW - 45, 62.5, 25, 25)];
-    imageView2.image = [UIImage imageNamed:@"ShopCarNoSelect"];
+    imageView2.image = [UIImage imageNamed:@"MeIsNoSelect"];
     [bigView addSubview:imageView2];
     
     NSArray *titleArray1 = @[@"账户余额", @"支付宝"];
@@ -151,7 +153,8 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     AuthenticationCell *cell = [tableView dequeueReusableCellWithIdentifier:OrderCellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.myLabel.text = titleArray[indexPath.row];
-    cell.myTextField.textAlignment = NSTextAlignmentLeft;
+//    cell.myTextField.textAlignment = NSTextAlignmentLeft;
+    cell.myTextField.placeholder = placeHoderArray[indexPath.row];
     switch (indexPath.row) {
         case 0: {
             personNameTF = cell.myTextField;
@@ -169,7 +172,6 @@ static NSString *OrderCellIdentifier = @"OrderCell";
             break;
         case 3: {
             addressTF = cell.myTextField;
-            addressTF.placeholder = @"省份|城市|地区|街道";
             addressTF.inputView = [self fecthAddressPicker];
             addressTF.inputAccessoryView = [self fecthAddressToolbar];
         }
@@ -325,13 +327,15 @@ static NSString *OrderCellIdentifier = @"OrderCell";
 
 - (void)actionOfSelectButton:(UIButton *)btn {
     if (btn.tag == 222) {
-        imageView1.image = [UIImage imageNamed:@"ShopCarIsSelect"];
-        imageView2.image = [UIImage imageNamed:@"ShopCarNoSelect"];
+        imageView1.image = [UIImage imageNamed:@"MeIsSelect"];
+        imageView2.image = [UIImage imageNamed:@"MeIsNoSelect"];
+        [Tools showOscillatoryAnimationWithLayer:imageView1.layer isToBig:YES];
         selectPayStyle = @"账户余额";
     }
     if (btn.tag == 223) {
-        imageView1.image = [UIImage imageNamed:@"ShopCarNoSelect"];
-        imageView2.image = [UIImage imageNamed:@"ShopCarIsSelect"];
+        imageView1.image = [UIImage imageNamed:@"MeIsNoSelect"];
+        imageView2.image = [UIImage imageNamed:@"MeIsSelect"];
+        [Tools showOscillatoryAnimationWithLayer:imageView2.layer isToBig:YES];
         selectPayStyle = @"支付宝";
     }
 }
@@ -515,12 +519,5 @@ static NSString *OrderCellIdentifier = @"OrderCell";
     }
     return jsonData;
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end

@@ -9,7 +9,7 @@
 #import "MachineShop_VC.h"
 #import "DOPDropDownMenu.h"
 #import "MaterialShopCell.h"
-#import "materialShopDetailController.h"
+#import "ShoppingMallDetail_VC.h"
 #import "SVPullToRefresh.h"
 #import "SearchShopMarketModel.h"
 static NSString *materialCellIdentifier = @"materialCell";
@@ -460,7 +460,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     //    [self removeSearchBar];
-    materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
+    ShoppingMallDetail_VC *materialShopVC = [[ShoppingMallDetail_VC alloc] init];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
     materialShopVC.shopID = myModel.ID;
     [self.navigationController pushViewController:materialShopVC animated:YES];

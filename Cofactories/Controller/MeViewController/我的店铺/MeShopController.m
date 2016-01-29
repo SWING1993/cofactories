@@ -19,7 +19,7 @@ static NSString *shopCellIdentifier = @"shopCell";
 static NSString *headerIdentifier = @"header";
 @interface MeShopController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
     BOOL isEdit;
-//    BOOL isReload;
+    UIBarButtonItem *rightItem;
 }
 
 @property (nonatomic,retain)UserModel * MyProfile;
@@ -62,8 +62,7 @@ static NSString *headerIdentifier = @"header";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的店铺";
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(pressItem:)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    rightItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(pressItem:)];
     isEdit = NO;
     [self creatCollectionView];
     self.MyProfile = [[UserModel alloc]getMyProfile];
@@ -88,8 +87,10 @@ static NSString *headerIdentifier = @"header";
                 [self.myShopGoodsArray addObject:model];
             }];
             if (self.myShopGoodsArray.count == 0) {
+                self.navigationItem.rightBarButtonItem = nil;
                 self.collectionView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) withImage:@"数据暂无" withLabelText:@"店铺空空如也，点击加号上传商品吧"];
             } else {
+                self.navigationItem.rightBarButtonItem = rightItem;
                 self.collectionView.backgroundView = nil;
                 [self.collectionView reloadData];
             }
@@ -217,6 +218,7 @@ static NSString *headerIdentifier = @"header";
             [UIView setAnimationsEnabled:YES];
         }
         if (self.myShopGoodsArray.count == 0) {
+            self.navigationItem.rightBarButtonItem = nil;
             self.collectionView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) withImage:@"数据暂无" withLabelText:@"店铺空空如也，点击加号上传商品吧"];
         }
         [self.collectionView reloadData];

@@ -12,7 +12,7 @@
 #import "PersonalMessage_Factory_VC.h"
 #import "HomeKoreaShopList_VC.h"
 #import "PopularMessageController.h"
-#import "materialShopDetailController.h"
+#import "ShoppingMallDetail_VC.h"
 
 @interface HomeActivity_VC ()<UIWebViewDelegate> {
     UIWebView * webView;
@@ -25,6 +25,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
     temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
     temporaryBarButtonItem.target = self;
@@ -69,7 +72,7 @@
                     NSString *goodsString = [[goodsArray lastObject] substringFromIndex:3];
                     DLog(@"####%@###", goodsString);
                     
-                    materialShopDetailController *materialShopVC = [[materialShopDetailController alloc] init];
+                    ShoppingMallDetail_VC *materialShopVC = [[ShoppingMallDetail_VC alloc] init];
                     materialShopVC.shopID = goodsString;
                     [self.navigationController pushViewController:materialShopVC animated:YES];
                 }
@@ -128,19 +131,5 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

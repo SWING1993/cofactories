@@ -11,7 +11,7 @@
 #import "PersonalWorks_TVC.h"
 #import "DealComment_TVC.h"
 #import "MJRefresh.h"
-#import "materialShopDetailController.h"
+#import "ShoppingMallDetail_VC.h"
 #import "IMChatViewController.h"
 
 @interface PersonalMessage_Design_VC (){
@@ -351,7 +351,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     NSLog(@"%ld",(long)button.tag);
     
     PersonalShop_Model *model = _dataArrayOne[button.tag];
-    materialShopDetailController *vc = [materialShopDetailController new];
+    ShoppingMallDetail_VC *vc = [ShoppingMallDetail_VC new];
     vc.shopID = model.goodsID;
     [self.navigationController pushViewController:vc animated:YES];
 }
