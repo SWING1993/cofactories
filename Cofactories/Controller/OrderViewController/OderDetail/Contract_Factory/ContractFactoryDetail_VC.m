@@ -14,7 +14,8 @@
 #import "IMChatViewController.h"
 #import "UILabel+extension.h"
 #import "TimeAxis_TVC.h"
-#import "AddOrderMessage_VC.h"
+#import "AlertWithTF.h"
+
 @interface ContractFactoryDetail_VC ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>{
     UITableView         *_tableView;
     NSString            *_descriptionString;
@@ -363,10 +364,40 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     if (indexPath.section == 1) {
         if (indexPath.row == _timeAxisMutableArray.count - 1) {
             
-            AddOrderMessage_VC *vc = [AddOrderMessage_VC new];
-            vc.isClothingEnter = YES;
-            vc.orderID = _dataModel.ID;
-            [self presentViewController:vc animated:YES completion:nil];
+            AlertWithTF *alertTF = [[AlertWithTF alloc] init];
+            [alertTF loadAlertViewInVC:self withTitle:@"发布订单状态更新" message:nil textFieldPlaceHolder:@"请输入更新内容" handelTitle:@[@"取消",@"确定"] tfText:^(NSDictionary *dictionary) {
+                DLog(@"%@,%@",dictionary[@"index"],dictionary[@"text"]);
+                NSNumber *stausNumber = dictionary[@"index"];
+                NSString *publishString = dictionary[@"text"];
+                if ([stausNumber compare:@1] == NSOrderedSame) {
+                    if (publishString.length == 0 || [Tools isBlankString:publishString]) {
+                        kTipAlert(@"请先输入需要发布的内容!");
+                    }else{
+                        [HttpClient addOrderMessageWithOrderID:_dataModel.ID message:publishString WithCompletionBlock:^(NSDictionary *dictionary) {
+                            if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
+                                
+                                [HttpClient getOrderMessageWithOrderID:_dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
+                                    if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
+                                        NSMutableArray *responseArray = dictionary[@"message"];
+                                        if (responseArray.count == 0) {
+                                            [_timeAxisMutableArray addObject:@"订单状态更新 点此更新"];
+                                        }else{
+                                            _timeAxisMutableArray = responseArray;
+                                            NSInteger index = [_timeAxisMutableArray indexOfObject:[_timeAxisMutableArray lastObject]];
+                                            [_timeAxisMutableArray insertObject:@"订单状态更新" atIndex:index+1];                }
+                                    }
+                                    [_tableView reloadData];
+                                }];
+
+                                
+                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"订单发布更新成功!" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                                [alert show];
+                            }
+                        }];
+
+                    }
+                }
+            }];
         }
     }
 }

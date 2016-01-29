@@ -262,6 +262,7 @@
 		70A784F71C085C1A003D1892 /* PublishOrder_Designer_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F61C085C1A003D1892 /* PublishOrder_Designer_VC.m */; };
 		70A784FA1C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F91C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m */; };
 		70A784FD1C085D75003D1892 /* PublishOrder_Other_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784FC1C085D75003D1892 /* PublishOrder_Other_VC.m */; };
+		70CD41751C5B2F67000F2807 /* AlertWithTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 70CD41741C5B2F67000F2807 /* AlertWithTF.m */; };
 		70E9F1831C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F1821C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m */; };
 		70E9F1861C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F1851C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m */; };
 		70EB7EE61C15697E009E19F9 /* Business_Supplier_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EB7EE01C15697E009E19F9 /* Business_Supplier_TVC.m */; };
@@ -293,7 +294,6 @@
 		70F5EF811C0C4B49008878B4 /* FactoryOrderDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F5EF801C0C4B49008878B4 /* FactoryOrderDetail_VC.m */; };
 		70F5EF841C0C5909008878B4 /* OrderPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F5EF831C0C5909008878B4 /* OrderPhotoViewController.m */; };
 		70F66D8D1C477FCC00721C82 /* TimeAxis_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F66D8C1C477FCC00721C82 /* TimeAxis_TVC.m */; };
-		70F66D901C47951200721C82 /* AddOrderMessage_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F66D8F1C47951200721C82 /* AddOrderMessage_VC.m */; };
 		70F66D941C47A20500721C82 /* touchRefrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F66D931C47A20500721C82 /* touchRefrush.png */; };
 		70F6D1F61C1697D000E23166 /* Business_Supplier_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1F51C1697D000E23166 /* Business_Supplier_Model.m */; };
 		70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */; };
@@ -1000,6 +1000,8 @@
 		70A784F91C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Factory_Common_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Factory_Common_VC.m; sourceTree = SOURCE_ROOT; };
 		70A784FB1C085D75003D1892 /* PublishOrder_Other_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishOrder_Other_VC.h; path = Cofactories/Controller/OrderViewController/PublishOrder_Other_VC.h; sourceTree = SOURCE_ROOT; };
 		70A784FC1C085D75003D1892 /* PublishOrder_Other_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Other_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Other_VC.m; sourceTree = SOURCE_ROOT; };
+		70CD41731C5B2F67000F2807 /* AlertWithTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWithTF.h; sourceTree = "<group>"; };
+		70CD41741C5B2F67000F2807 /* AlertWithTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWithTF.m; sourceTree = "<group>"; };
 		70E9F1811C1AA6DA00C13912 /* PersonalMessage_Factory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalMessage_Factory_VC.h; sourceTree = "<group>"; };
 		70E9F1821C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalMessage_Factory_VC.m; sourceTree = "<group>"; };
 		70E9F1841C1AB3C100C13912 /* PersonalMessage_Clothing_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalMessage_Clothing_VC.h; sourceTree = "<group>"; };
@@ -1062,8 +1064,6 @@
 		70F5EF831C0C5909008878B4 /* OrderPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPhotoViewController.m; sourceTree = "<group>"; };
 		70F66D8B1C477FCC00721C82 /* TimeAxis_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAxis_TVC.h; sourceTree = "<group>"; };
 		70F66D8C1C477FCC00721C82 /* TimeAxis_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeAxis_TVC.m; sourceTree = "<group>"; };
-		70F66D8E1C47951200721C82 /* AddOrderMessage_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOrderMessage_VC.h; sourceTree = "<group>"; };
-		70F66D8F1C47951200721C82 /* AddOrderMessage_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOrderMessage_VC.m; sourceTree = "<group>"; };
 		70F66D931C47A20500721C82 /* touchRefrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touchRefrush.png; sourceTree = "<group>"; };
 		70F6D1F41C1697D000E23166 /* Business_Supplier_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Supplier_Model.h; sourceTree = "<group>"; };
 		70F6D1F51C1697D000E23166 /* Business_Supplier_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Supplier_Model.m; sourceTree = "<group>"; };
@@ -1547,6 +1547,7 @@
 		03571B561BE84E1500900EF9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				70CD41721C5B2F67000F2807 /* AlertWithTF */,
 				03623FC71C44E5FB0083044A /* Masonry */,
 				70F9AEB01C3F70B60003489B /* ZFCalendar */,
 				7DBD04F61C1C120B00FD318B /* SVPullToRefresh */,
@@ -2513,8 +2514,6 @@
 				70A63EAC1C4638AD00B68839 /* ContractFactoryDetail_VC.m */,
 				70A63EAE1C4638D400B68839 /* ContractClothingDetail_VC.h */,
 				70A63EAF1C4638D400B68839 /* ContractClothingDetail_VC.m */,
-				70F66D8E1C47951200721C82 /* AddOrderMessage_VC.h */,
-				70F66D8F1C47951200721C82 /* AddOrderMessage_VC.m */,
 				70F66D8B1C477FCC00721C82 /* TimeAxis_TVC.h */,
 				70F66D8C1C477FCC00721C82 /* TimeAxis_TVC.m */,
 			);
@@ -2546,6 +2545,15 @@
 				70F4A76D1C1289C2000DF7E7 /* BidManage_Design_TVC.m */,
 			);
 			path = Order_Cell;
+			sourceTree = "<group>";
+		};
+		70CD41721C5B2F67000F2807 /* AlertWithTF */ = {
+			isa = PBXGroup;
+			children = (
+				70CD41731C5B2F67000F2807 /* AlertWithTF.h */,
+				70CD41741C5B2F67000F2807 /* AlertWithTF.m */,
+			);
+			path = AlertWithTF;
 			sourceTree = "<group>";
 		};
 		70EB7EDF1C156896009E19F9 /* BusinessCollection(商家汇总) */ = {
@@ -3512,7 +3520,6 @@
 				035CC5221C06DCF000998FBD /* JKAssetsCollectionFooterView.m in Sources */,
 				03DA90A51C436C83009E4F22 /* UIButton+CountDown.m in Sources */,
 				7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */,
-				70F66D901C47951200721C82 /* AddOrderMessage_VC.m in Sources */,
 				70F66D8D1C477FCC00721C82 /* TimeAxis_TVC.m in Sources */,
 				7DBD04F51C1C0FEB00FD318B /* FabricShop_VC.m in Sources */,
 				70EFA1F41C44E02700C9F6A5 /* BlankThird_TVC.m in Sources */,
@@ -3709,6 +3716,7 @@
 				7DBDC8E61C15848B00D682D3 /* SelectColorModel.m in Sources */,
 				7094D7221BFC825200F7240B /* WalletViewController.m in Sources */,
 				70037F061C1034A50086267C /* ProgressingOrder_TVC.m in Sources */,
+				70CD41751C5B2F67000F2807 /* AlertWithTF.m in Sources */,
 				7D71D1081C1AC68A00CF324E /* MeTextLabelCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -307,7 +307,6 @@
         // 不存在 access_token
         block(404);
     }
-    
 }
 
 /**
