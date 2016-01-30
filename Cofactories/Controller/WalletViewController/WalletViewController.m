@@ -44,8 +44,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
             self.walletModel = [responseDictionary objectForKey:@"model"];
-            _myLabel1.text = [NSString stringWithFormat:@"%.2f",self.walletModel.money];
-            _myLabel2.text = [NSString stringWithFormat:@"余额(元)\n\n冻结金额 %.2f元",self.walletModel.freeze];
+            _myLabel1.text = [NSString stringWithFormat:@"%.2f",self.walletModel.maxWithDraw];
+            _myLabel2.text = [NSString stringWithFormat:@"可提现余额(元)\n\n冻结金额 %.2f元",self.walletModel.freeze];
             
             // \n\n可提现额度 %.2f元,self.walletModel.maxWithDraw
         }
@@ -53,7 +53,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             NSString * message = [responseDictionary objectForKey:@"message"];
             DLog(@"%@(错误码：%ld)",message,(long)statusCode);
 //            kTipAlert(@"%@(错误码：%ld)",message,(long)statusCode);
-            _myLabel2.text = @"网络无连接";
+            _myLabel1.text = @"网络无连接";
         }
     }];
 }

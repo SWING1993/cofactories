@@ -11,7 +11,7 @@
 static NSString * const CellIdentifier = @"CellIdentifier";
 
 
-@interface WithdrawalViewController ()<UITextFieldDelegate> {
+@interface WithdrawalViewController ()<UITextFieldDelegate,UIAlertViewDelegate> {
     UIButton * lastButton;
     UITextField * priceTextField;
     UITextField * bankcardTextField;
@@ -115,7 +115,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         NSString * amountStr = [NSString stringWithFormat:@"%.2f",money];
         [HttpClient walletWithDrawWithFee:amountStr WithMethod:@"alipay" WithAccount:bankcardTextField.text andBlock:^(NSInteger statusCode) {
             if (statusCode == 200) {
-                kTipAlert(@"申请提现成功，我们将在2个工作日内处理您的申请，请耐心等待。");
+//                kTipAlert(@"申请提现成功，我们将在2个工作日内处理您的申请，请耐心等待。");
+                UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"申请提现成功，我们将在2个工作日内处理您的申请，请耐心等待。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+                alertView.tag = 1009;
+                [alertView show];
+                
+
             }
             else {
                 kTipAlert(@"申请提现失败,账户余额%@元。（错误码：%ld）",self.money,(long)statusCode);
@@ -128,6 +133,15 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         kTipAlert(@"你输入的%@无法识别，请重新输入！",priceTextField.text);
     }
 }
+
+#pragma mark - AlertView
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 1009) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 
 
 #pragma mark - Table view data source
