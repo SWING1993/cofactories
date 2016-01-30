@@ -129,4 +129,7 @@
 //点击放大效果
 + (void)showOscillatoryAnimationWithLayer:(CALayer *)layer isToBig:(BOOL)isToBig;
 
+//蓝色圆角button
++ (UIButton *)buttonWithFrame:(CGRect)frame withTitle:(NSString *)title;
+
 @end

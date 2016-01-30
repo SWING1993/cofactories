@@ -446,4 +446,16 @@
     }];
 }
 
++ (UIButton *)buttonWithFrame:(CGRect)frame withTitle:(NSString *)title {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = frame;
+    [button setTitle:title forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:15.5];
+    button.layer.cornerRadius = 4;
+    button.clipsToBounds = YES;
+    button.backgroundColor = kLightBlue;
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    return button;
+}
+
 @end

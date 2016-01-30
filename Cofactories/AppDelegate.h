@@ -10,7 +10,7 @@
 // 引用 IMKit 头文件。
 #import <RongIMKit/RongIMKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RCIMConnectionStatusDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RCIMConnectionStatusDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

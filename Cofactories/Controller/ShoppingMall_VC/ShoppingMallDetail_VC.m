@@ -17,6 +17,7 @@
 #import "ShopCarModel.h"
 #import "ShoppingOrderController.h"
 #import "FabricMarketModel.h"
+#import "MallSelectAddress_VC.h"
 
 #define kPoptime 0.4f
 #define kImageViewHeight 0.94*kScreenW
@@ -519,15 +520,21 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 }
 - (void)goToBuy {
     //立即拍下
-    NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", numberView.timeAmount], @"category":selectColorString};
-    NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithCapacity:0];
-    [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
-    
-    ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
-    shopOrderVC.goodsDic = buyGoodsDic;
-    shopOrderVC.goodsID = self.shopID;
-    shopOrderVC.goodsNumber = numberView.timeAmount;
-    [self.navigationController pushViewController:shopOrderVC animated:YES];
+    if ([marketDetailModel.amount integerValue] == 0) {
+        kTipAlert(@"商品已售完，暂不能购买");
+    } else {
+        NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", numberView.timeAmount], @"category":selectColorString};
+        NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
+        
+        //    ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
+        //    shopOrderVC.goodsDic = buyGoodsDic;
+        //    shopOrderVC.goodsID = self.shopID;
+        //    shopOrderVC.goodsNumber = numberView.timeAmount;
+        //    [self.navigationController pushViewController:shopOrderVC animated:YES];
+        MallSelectAddress_VC *selectAddressVC = [[MallSelectAddress_VC alloc] init];
+        [self.navigationController pushViewController:selectAddressVC animated:YES];
+    }
 }
 
 - (void)storeGoodsToShoppingCar {

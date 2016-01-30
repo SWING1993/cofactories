@@ -68,7 +68,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _rightBtn.tag = 2;
     _rightBtn.frame = CGRectMake(kScreenW/2+1, 0, kScreenW/2, 49);
-    [_rightBtn setImage:[UIImage imageNamed:@"Me_RightBtn"] forState:UIControlStateNormal];
+    [_rightBtn setImage:[UIImage imageNamed:@"Me_ShoppingCar"] forState:UIControlStateNormal];
     _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_rightBtn addTarget:self action:@selector(clickHeaderBtnInSection:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -102,24 +102,28 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         [self.navigationController pushViewController:SetVC animated:YES];
     }
     if (Btn.tag == 2) {
-        DLog(@"我的订单");
-        if (self.MyProfile.UserType == UserType_designer || self.MyProfile.UserType == UserType_supplier) {
-            MeOrderSelect_VC *meOrder_VC = [[MeOrderSelect_VC alloc] init];
-            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-            backItem.title=@"返回";
-            backItem.tintColor=[UIColor whiteColor];
-            self.navigationItem.backBarButtonItem = backItem;
-            meOrder_VC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:meOrder_VC animated:YES];
-        } else {
-            MeHistoryOrderList_VC *historyVC = [[MeHistoryOrderList_VC alloc] init];
-            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-            backItem.title=@"返回";
-            backItem.tintColor=[UIColor whiteColor];
-            self.navigationItem.backBarButtonItem = backItem;
-            historyVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:historyVC animated:YES];
-        }
+        DLog("购物车");
+        MeShoppingCar_VC *shoppingCarVC = [[MeShoppingCar_VC alloc] init];
+        shoppingCarVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:shoppingCarVC animated:YES];
+//        DLog(@"我的订单");
+//        if (self.MyProfile.UserType == UserType_designer || self.MyProfile.UserType == UserType_supplier) {
+//            MeOrderSelect_VC *meOrder_VC = [[MeOrderSelect_VC alloc] init];
+//            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+//            backItem.title=@"返回";
+//            backItem.tintColor=[UIColor whiteColor];
+//            self.navigationItem.backBarButtonItem = backItem;
+//            meOrder_VC.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:meOrder_VC animated:YES];
+//        } else {
+//            MeHistoryOrderList_VC *historyVC = [[MeHistoryOrderList_VC alloc] init];
+//            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+//            backItem.title=@"返回";
+//            backItem.tintColor=[UIColor whiteColor];
+//            self.navigationItem.backBarButtonItem = backItem;
+//            historyVC.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:historyVC animated:YES];
+//        }
     }
 }
 
@@ -147,10 +151,10 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 2;
+    if (section == 2) {
+        return 1;
     }
-    return 1;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -167,12 +171,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 switch (indexPath.row) {
                     case 0:
                     {
-                        cell.textLabel.text = @"购物车";
+                        cell.textLabel.text = @"联系客服";
                     }
                         break;
                     case 1:
                     {
-                        cell.textLabel.text = @"联系客服";
+                        cell.textLabel.text = @"购买记录";
                     }
                         break;
 
@@ -183,7 +187,22 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 break;
              
             case 1:
-                cell.textLabel.text = @"我的店铺";
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        cell.textLabel.text = @"我的店铺";
+                    }
+                        break;
+                    case 1:
+                    {
+                        cell.textLabel.text = @"出售记录";
+                    }
+                        break;
+                        
+                        
+                    default:
+                        break;
+                }
                 break;
                 
             case 2:
@@ -231,15 +250,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             switch (indexPath.row) {
                 case 0:
                 {
-                    DLog("购物车");                    
-                    MeShoppingCar_VC *shoppingCarVC = [[MeShoppingCar_VC alloc] init];
-                    shoppingCarVC.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:shoppingCarVC animated:YES];
-                }
-                    break;
-                    
-                case 1:
-                {
                     DLog("客服聊天");
                     PublicServiceViewController *conversationVC = [[PublicServiceViewController alloc] init];
                     conversationVC.conversationType = ConversationType_APPSERVICE;
@@ -252,6 +262,13 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 }
                     break;
                     
+                case 1:
+                {
+                    DLog(@"购买记录");
+                    
+                }
+                    break;
+                    
                 default:
                     break;
             }
@@ -259,20 +276,36 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             break;
             
         case 1: {
-            DLog(@"我的店铺");
-            if (self.MyProfile.UserType == UserType_designer) {
-                //设计者
-                MeShopController *meShopVC = [[MeShopController alloc] init];
-                meShopVC.myUserType = UserType_designer;
-                meShopVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:meShopVC animated:YES];
-                
-            } else if (self.MyProfile.UserType == UserType_supplier) {
-                //供应商
-                MeShopController *meShopVC = [[MeShopController alloc] init];
-                meShopVC.myUserType = UserType_supplier;
-                meShopVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:meShopVC animated:YES];
+            switch (indexPath.row) {
+                case 0:
+                {
+                    DLog(@"我的店铺");
+                    if (self.MyProfile.UserType == UserType_designer) {
+                        //设计者
+                        MeShopController *meShopVC = [[MeShopController alloc] init];
+                        meShopVC.myUserType = UserType_designer;
+                        meShopVC.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:meShopVC animated:YES];
+                        
+                    } else if (self.MyProfile.UserType == UserType_supplier) {
+                        //供应商
+                        MeShopController *meShopVC = [[MeShopController alloc] init];
+                        meShopVC.myUserType = UserType_supplier;
+                        meShopVC.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:meShopVC animated:YES];
+                    }
+  
+                }
+                    break;
+                    
+                    case 1:
+                {
+                    DLog(@"出售记录");
+                    
+                }
+                    break;
+                default:
+                    break;
             }
         }
             
