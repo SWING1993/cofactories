@@ -118,9 +118,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 //                kTipAlert(@"申请提现成功，我们将在2个工作日内处理您的申请，请耐心等待。");
                 UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"申请提现成功，我们将在2个工作日内处理您的申请，请耐心等待。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
                 alertView.tag = 1009;
-                [alertView show];
-                
-
+                [alertView show];                
             }
             else {
                 kTipAlert(@"申请提现失败,账户余额%@元。（错误码：%ld）",self.money,(long)statusCode);

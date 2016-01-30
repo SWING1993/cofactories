@@ -85,7 +85,6 @@
     if (credential) {
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
     }
-    //设置超时时间
     [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
     manager.requestSerializer.timeoutInterval = kTimeoutInterval;
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
@@ -99,7 +98,6 @@
     }];
 }
 
-//发送手机验证码
 + (void)postVerifyCodeWithPhone:(NSString *)phoneNumber andBlock:(void (^)(NSDictionary *responseDictionary))block {
     NSParameterAssert(phoneNumber);
     if (phoneNumber.length != 11) {
@@ -107,7 +105,6 @@
         return;
     }
     AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-    //设置超时时间
     [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
     manager.requestSerializer.timeoutInterval = kTimeoutInterval;
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
@@ -134,7 +131,6 @@
     }];
 }
 
-//验证 验证码
 + (void)validateCodeWithPhone:(NSString *)phoneNumber code:(NSString *)code andBlock:(void (^)(NSInteger))block {
     NSParameterAssert(phoneNumber);
     NSParameterAssert(code);
@@ -151,7 +147,6 @@
     
 }
 
-//注册
 + (void)registerWithUsername:(NSString *)username password:(NSString *)password UserRole:(NSString *)role code:(NSString *)code UserName:(NSString *)name andBlock:(void (^)(NSDictionary *))block {
     AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
@@ -179,7 +174,6 @@
     }];
 }
 
-//登录
 + (void)loginWithUsername:(NSString *)username password:(NSString *)password andBlock:(void (^)(NSInteger))block {
     NSParameterAssert(username);
     NSParameterAssert(password);
@@ -214,12 +208,6 @@
     }];
 }
 
-/**
- *  登录第二步 用返回的code请求主后端的登录接口
- *
- *  @param code  code
- *  @param block 返回状态码
- */
 + (void)loginWithCode:(NSString *)code andBlock:(void (^)(NSInteger statusCode))block {
     NSParameterAssert(code);
     
@@ -247,11 +235,6 @@
     
 }
 
-/**
- *  储存 accessToken & refreshToken
- *
- *  @param responseObject Dic
- */
 + (void)storeCredentialWihtResponseObject:(NSDictionary *)responseObject {
     
     AFOAuthCredential *credential = [AFOAuthCredential credentialWithOAuthToken:[responseObject valueForKey:@"accessToken"] tokenType:[responseObject valueForKey:@"token_type"]];
@@ -273,8 +256,6 @@
     }
     
     //DLog(@"expireDate = %@",expireDate);
-    
-    // 存储 access_token
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     [AFOAuthCredential storeCredential:credential withIdentifier:serviceProviderIdentifier];
@@ -309,12 +290,6 @@
     }
 }
 
-/**
- *  传入服务器返回的refreshToken请求接口 刷新token有效期
- *
- *  @param refreshToken refreshToken
- *  @param block        状态码
- */
 + (void)refreshWithToken:(NSString *)refreshToken andBlock:(void (^)(NSInteger))block {
     NSParameterAssert(refreshToken);
     
@@ -323,8 +298,6 @@
     [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
     manager.requestSerializer.timeoutInterval = kTimeoutInterval;
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-    
-    
     
     [manager POST:API_login parameters:@{@"refreshToken":refreshToken} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         //        DLog(@"sucess data = %@",responseObject);
@@ -339,12 +312,6 @@
         if (statusCode == 500) {
             [RootViewController setupLoginViewController];
         }
-        
-        /*
-         NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-         DLog(@"error code = %ld",(long)statusCode);
-         DLog(@"failure = %@",errors);
-         */
     }];
 }
 
@@ -592,7 +559,6 @@
         DLog(@"access_token不存在");
         block(@{@"statusCode": @404, @"message": @"access_token不存在!"});// access_token不存在
     }
-    
 }
 
 
@@ -849,7 +815,6 @@
     }else{
         completionBlock(@{@"statusCode": @(404), @"message": @"token不存在"});
     }
-    
 }
 
 
