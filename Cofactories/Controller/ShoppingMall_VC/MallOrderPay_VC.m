@@ -7,8 +7,8 @@
 //
 
 #import "MallOrderPay_VC.h"
-#import "MallOrderInfoCell.h"
 #import "MallPayTypeCell.h"
+#import "MallHistoryOrderCell.h"
 
 @interface MallOrderPay_VC () {
     NSArray *payPhotoArray, *payTitleArray;
@@ -29,16 +29,16 @@ static NSString *payCellIndentifier = @"payCell";
     payPhotoArray = @[@"Mall-alipay", @"Home-icon"];
     payTitleArray = @[@"支付宝支付", @"账户支付"];
     paySelectString = @"支付宝支付";
-    _header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 30)];
+    _header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 35)];
     _header.backgroundColor = [UIColor whiteColor];
-    UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, kScreenW - 30, 30)];
+    UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, kScreenW - 30, 35)];
     myLabel.font = [UIFont systemFontOfSize:12];
     myLabel.textColor = GRAYCOLOR(100);
     myLabel.text = @"请选择一种付款方式";
     [_header addSubview:myLabel];
     
     [self creatTableViewFooterView];
-    [self.tableView registerClass:[MallOrderInfoCell class] forCellReuseIdentifier:CellIndentifier];
+    [self.tableView registerClass:[MallHistoryOrderCell class] forCellReuseIdentifier:CellIndentifier];
     [self.tableView registerClass:[MallPayTypeCell class] forCellReuseIdentifier:payCellIndentifier];
 }
 
@@ -67,15 +67,17 @@ static NSString *payCellIndentifier = @"payCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        MallOrderInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier forIndexPath:indexPath];
+        MallHistoryOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.payStatus.text = @"等待卖家付款";
+        cell.goodsStatus.text = @"等待卖家付款";
         cell.photoView.image = [UIImage imageNamed:@"Market-流行资讯.jpg"];
         cell.goodsTitle.text = @"印花染布";
         cell.goodsPrice.text = @"¥ 28.00";
         cell.goodsCategory.text = @"分类：打板纸板";
         cell.goodsNumber.text = @"x10";
         cell.totalPrice.text = @"共10件商品 合计：¥ 280.00";
+        cell.changeStatus.hidden = YES;
+//        [cell.changeStatus setTitle:@"联系商家" forState:UIControlStateNormal];
         return cell;
     } else {
         MallPayTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:payCellIndentifier forIndexPath:indexPath];
@@ -96,14 +98,14 @@ static NSString *payCellIndentifier = @"payCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 150;
+        return 160;
     }
     return 60;
 }
 
 - (CGFloat)tableView:( UITableView *)tableView heightForHeaderInSection:( NSInteger )section {
     if (section == 1) {
-        return 30;
+        return 35;
     }
     return 0.001;
 }
@@ -130,9 +132,15 @@ static NSString *payCellIndentifier = @"payCell";
 }
 
 #pragma mark - 确认支付
-- (void) actionOfDoneButton:(UIButton *)button {
+- (void)actionOfDoneButton:(UIButton *)button {
     DLog(@"确认支付");
     
 }
+
+#pragma mark - action
+- (void)actionOfChangeStatus:(UIButton *)button {
+    kTipAlert(@"联系卖家");
+}
+
 
 @end

@@ -343,7 +343,6 @@
 		7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */; };
 		7D5063951C43929B00B04498 /* TableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5063941C43929B00B04498 /* TableViewHeaderView.m */; };
 		7D543D311C5B20090086B702 /* MallOrderPay_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D543D301C5B20090086B702 /* MallOrderPay_VC.m */; };
-		7D543D341C5B27E80086B702 /* MallOrderInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D543D331C5B27E80086B702 /* MallOrderInfoCell.m */; };
 		7D543D371C5B439D0086B702 /* MallPayTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D543D361C5B439D0086B702 /* MallPayTypeCell.m */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
 		7D5C482C1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5C482B1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png */; };
@@ -369,6 +368,9 @@
 		7D743A0B1C23DBF6006AEA07 /* PopularNewsList_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D743A0A1C23DBF6006AEA07 /* PopularNewsList_VC.m */; };
 		7D743A0F1C23E879006AEA07 /* HomeActivity_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D743A0E1C23E879006AEA07 /* HomeActivity_VC.m */; };
 		7D7DD3511C1C21DB00424C08 /* SearchShopMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD3501C1C21DB00424C08 /* SearchShopMarketModel.m */; };
+		7D7E8C111C5C96C40009452E /* MallBuyHistory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7E8C101C5C96C40009452E /* MallBuyHistory_VC.m */; };
+		7D7E8C141C5C96EE0009452E /* MallSellHistory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7E8C131C5C96EE0009452E /* MallSellHistory_VC.m */; };
+		7D7E8C181C5C9B830009452E /* MallHistoryOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7E8C171C5C9B830009452E /* MallHistoryOrderCell.m */; };
 		7D8B338D1C118FC300616C1F /* MaterialShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8B338C1C118FC300616C1F /* MaterialShopCell.m */; };
 		7D8E703A1C0FE894004A7E2C /* ProcessMarketController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E70391C0FE894004A7E2C /* ProcessMarketController.m */; };
 		7D8E703E1C0FEA06004A7E2C /* ProcessMarketListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E703D1C0FEA06004A7E2C /* ProcessMarketListCell.m */; };
@@ -1165,8 +1167,6 @@
 		7D5063941C43929B00B04498 /* TableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewHeaderView.m; sourceTree = "<group>"; };
 		7D543D2F1C5B20090086B702 /* MallOrderPay_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderPay_VC.h; sourceTree = "<group>"; };
 		7D543D301C5B20090086B702 /* MallOrderPay_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderPay_VC.m; sourceTree = "<group>"; };
-		7D543D321C5B27E80086B702 /* MallOrderInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderInfoCell.h; sourceTree = "<group>"; };
-		7D543D331C5B27E80086B702 /* MallOrderInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderInfoCell.m; sourceTree = "<group>"; };
 		7D543D351C5B439D0086B702 /* MallPayTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallPayTypeCell.h; sourceTree = "<group>"; };
 		7D543D361C5B439D0086B702 /* MallPayTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallPayTypeCell.m; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
@@ -1207,6 +1207,12 @@
 		7D743A0E1C23E879006AEA07 /* HomeActivity_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeActivity_VC.m; sourceTree = "<group>"; };
 		7D7DD34F1C1C21DB00424C08 /* SearchShopMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchShopMarketModel.h; sourceTree = "<group>"; };
 		7D7DD3501C1C21DB00424C08 /* SearchShopMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchShopMarketModel.m; sourceTree = "<group>"; };
+		7D7E8C0F1C5C96C40009452E /* MallBuyHistory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallBuyHistory_VC.h; sourceTree = "<group>"; };
+		7D7E8C101C5C96C40009452E /* MallBuyHistory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallBuyHistory_VC.m; sourceTree = "<group>"; };
+		7D7E8C121C5C96EE0009452E /* MallSellHistory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallSellHistory_VC.h; sourceTree = "<group>"; };
+		7D7E8C131C5C96EE0009452E /* MallSellHistory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallSellHistory_VC.m; sourceTree = "<group>"; };
+		7D7E8C161C5C9B830009452E /* MallHistoryOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallHistoryOrderCell.h; sourceTree = "<group>"; };
+		7D7E8C171C5C9B830009452E /* MallHistoryOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallHistoryOrderCell.m; sourceTree = "<group>"; };
 		7D8B338B1C118FC300616C1F /* MaterialShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialShopCell.h; sourceTree = "<group>"; };
 		7D8B338C1C118FC300616C1F /* MaterialShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaterialShopCell.m; sourceTree = "<group>"; };
 		7D8E70381C0FE894004A7E2C /* ProcessMarketController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessMarketController.h; sourceTree = "<group>"; };
@@ -2267,6 +2273,7 @@
 			children = (
 				03927D7C1BEC8CF50087A2FD /* MeViewController.h */,
 				03927D7D1BEC8CF50087A2FD /* MeViewController.m */,
+				7D7E8C0E1C5C966A0009452E /* MallHistoryOrder */,
 				7DA17DE21C4CB86C00F024CB /* ShoppingCar */,
 				7D6568891C3389B70066C82D /* PublishPopularNews */,
 				7D9E1E5F1C1E6C34007A4B6B /* HistoryOrder */,
@@ -2909,6 +2916,27 @@
 			path = HomeActivityController;
 			sourceTree = "<group>";
 		};
+		7D7E8C0E1C5C966A0009452E /* MallHistoryOrder */ = {
+			isa = PBXGroup;
+			children = (
+				7D7E8C151C5C993E0009452E /* MallHistoryOrderView */,
+				7D7E8C0F1C5C96C40009452E /* MallBuyHistory_VC.h */,
+				7D7E8C101C5C96C40009452E /* MallBuyHistory_VC.m */,
+				7D7E8C121C5C96EE0009452E /* MallSellHistory_VC.h */,
+				7D7E8C131C5C96EE0009452E /* MallSellHistory_VC.m */,
+			);
+			path = MallHistoryOrder;
+			sourceTree = "<group>";
+		};
+		7D7E8C151C5C993E0009452E /* MallHistoryOrderView */ = {
+			isa = PBXGroup;
+			children = (
+				7D7E8C161C5C9B830009452E /* MallHistoryOrderCell.h */,
+				7D7E8C171C5C9B830009452E /* MallHistoryOrderCell.m */,
+			);
+			path = MallHistoryOrderView;
+			sourceTree = "<group>";
+		};
 		7D8E70371C0FE85C004A7E2C /* HomeProcessMarketController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3087,8 +3115,6 @@
 				7DAB68DD1C576BD60045A115 /* MallAddressCell.m */,
 				7D1A4E341C5A02080076B462 /* AddressTextFieldCell.h */,
 				7D1A4E351C5A02080076B462 /* AddressTextFieldCell.m */,
-				7D543D321C5B27E80086B702 /* MallOrderInfoCell.h */,
-				7D543D331C5B27E80086B702 /* MallOrderInfoCell.m */,
 				7D543D351C5B439D0086B702 /* MallPayTypeCell.h */,
 				7D543D361C5B439D0086B702 /* MallPayTypeCell.m */,
 			);
@@ -3436,6 +3462,7 @@
 				7D1A4E361C5A02080076B462 /* AddressTextFieldCell.m in Sources */,
 				03623FBA1C44D8C70083044A /* BaseNavigationController.m in Sources */,
 				70FBE0A51C1162FE00B15513 /* BidManage_Supplier_Model.m in Sources */,
+				7D7E8C181C5C9B830009452E /* MallHistoryOrderCell.m in Sources */,
 				7DA950231C12ED2E00BFCB31 /* MaterialAbstractCell.m in Sources */,
 				705B25671C09B31600CCA619 /* MangerOrderVC.m in Sources */,
 				035CC5291C06DCF000998FBD /* JKPhotoBrowserCell.m in Sources */,
@@ -3547,6 +3574,7 @@
 				7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */,
 				7D7DD3511C1C21DB00424C08 /* SearchShopMarketModel.m in Sources */,
 				70F4A76E1C1289C2000DF7E7 /* BidManage_Design_TVC.m in Sources */,
+				7D7E8C141C5C96EE0009452E /* MallSellHistory_VC.m in Sources */,
 				70E9F1861C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m in Sources */,
 				70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */,
 				03571BFD1BE85C0800900EF9 /* SDWebImageDownloader.m in Sources */,
@@ -3702,7 +3730,6 @@
 				03882C4F1BEC951B0094524A /* HttpClient.m in Sources */,
 				705422011C0DB36F00BD2B47 /* OrderBid_Supplier_VC.m in Sources */,
 				03571BA41BE85B8200900EF9 /* YLGIFImage.m in Sources */,
-				7D543D341C5B27E80086B702 /* MallOrderInfoCell.m in Sources */,
 				7D2BE7401C192FF700CE4138 /* MeTextFieldCell.m in Sources */,
 				7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,
@@ -3738,6 +3765,7 @@
 				7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */,
 				7DBDC8E61C15848B00D682D3 /* SelectColorModel.m in Sources */,
 				7094D7221BFC825200F7240B /* WalletViewController.m in Sources */,
+				7D7E8C111C5C96C40009452E /* MallBuyHistory_VC.m in Sources */,
 				70037F061C1034A50086267C /* ProgressingOrder_TVC.m in Sources */,
 				7D71D1081C1AC68A00CF324E /* MeTextLabelCell.m in Sources */,
 			);
