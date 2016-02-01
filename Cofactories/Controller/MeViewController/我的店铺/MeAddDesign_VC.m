@@ -460,6 +460,11 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 
 - (void)addCatergoryBtn {
+    [nameTF resignFirstResponder];
+    [salePriceTF resignFirstResponder];
+    [marketPriceTF resignFirstResponder];
+    [amountTF resignFirstResponder];
+    [descriptionTV resignFirstResponder];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"商品分类" message:@"注：各个商品分类属性20个字以内" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
     alert.tag = 555;
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
