@@ -1100,10 +1100,6 @@
     }else{
         completionBlock(@{@"statusCode": @"404", @"message": @"token不存在"});
     }
-    
-    
-    
-    
 }
 
 // 发布供应商订单
