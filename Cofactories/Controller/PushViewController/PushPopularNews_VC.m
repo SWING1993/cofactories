@@ -39,9 +39,10 @@
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
     NSString*token = credential.accessToken;
     
-    urlString = [NSString stringWithFormat:@"%@%@%@?access_token=%@", kPopularBaseUrl, @"/details/", self.id_flag, token];
-    DLog(@"______%@", urlString);
-    NSURL *url = [NSURL URLWithString:urlString];
+    urlString = [NSString stringWithFormat:@"%@%@%@ ", kPopularBaseUrl, @"/details/", self.id_flag];
+    NSString *myString = [NSString stringWithFormat:@"%@%@%@?access_token=%@", kPopularBaseUrl, @"/details/", self.id_flag, token];
+    DLog(@"______%@", myString);
+    NSURL *url = [NSURL URLWithString:myString];
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
     [self.view addSubview:webView];
     [webView loadRequest:request];

@@ -44,14 +44,16 @@
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
     NSString*token = credential.accessToken;
-
+    NSString *myUrlString = nil;
     if (self.lijoString.length == 0) {
-        urlString = [NSString stringWithFormat:@"%@%@%@?access_token=%@", kPopularBaseUrl, @"/details/", self.newsID, token];
+        myUrlString = [NSString stringWithFormat:@"%@%@%@?access_token=%@", kPopularBaseUrl, @"/details/", self.newsID, token];
+        urlString = [NSString stringWithFormat:@"%@%@%@", kPopularBaseUrl, @"/details/", self.newsID];
     } else {
-        urlString = [NSString stringWithFormat:@"%@?access_token=%@", self.lijoString, token];
+        myUrlString = [NSString stringWithFormat:@"%@?access_token=%@", self.lijoString, token];
+        urlString = [NSString stringWithFormat:@"%@", self.lijoString];
     }
-    DLog(@"______%@", urlString);
-    NSURL *url = [NSURL URLWithString:urlString];
+    DLog(@"______%@", myUrlString);
+    NSURL *url = [NSURL URLWithString:myUrlString];
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
     [self.view addSubview:webView];
     [webView loadRequest:request];
