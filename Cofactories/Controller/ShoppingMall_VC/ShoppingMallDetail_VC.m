@@ -310,20 +310,26 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         MaterialShopDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:shopCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.materialLabel.text = marketDetailModel.name;
-        cell.salePriceLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"售价¥ %@", marketDetailModel.price] andRange:2];
-        
-        cell.marketPriceLeftLabel.text = @"市场价";
-        CGSize size = [Tools getSize:[NSString stringWithFormat:@" %@ ", marketDetailModel.marketPrice] andFontOfSize:13];
-        cell.marketPriceRightLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceLeftLabel.frame), CGRectGetMaxY(cell.salePriceLabel.frame), size.width, 30*kZGY);
-        
-        cell.marketPriceRightLabel.attributedText = [self underlineWithString:[NSString stringWithFormat:@" %@ ", marketDetailModel.marketPrice]];
-        cell.leaveCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceRightLabel.frame) + 10*kZGY, CGRectGetMaxY(cell.salePriceLabel.frame), kScreenW - 30*kZGY - CGRectGetWidth(cell.marketPriceLeftLabel.frame) - CGRectGetWidth(cell.marketPriceRightLabel.frame), 30*kZGY);
-        if ([marketDetailModel.amount isEqualToString:@"库存暂无"]) {
-            cell.leaveCountLabel.text = @"库存暂无";
-        } else {
-            cell.leaveCountLabel.text = [NSString stringWithFormat:@"库存 %@ 件", marketDetailModel.amount];
+        if (marketDetailModel.price.length) {
+           cell.salePriceLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"售价¥ %@", marketDetailModel.price] andRange:2];
         }
-        return cell;
+        if (marketDetailModel.marketPrice.length) {
+            cell.marketPriceLeftLabel.text = @"市场价";
+            CGSize size = [Tools getSize:[NSString stringWithFormat:@" %@ ", marketDetailModel.marketPrice] andFontOfSize:13];
+            cell.marketPriceRightLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceLeftLabel.frame), CGRectGetMaxY(cell.salePriceLabel.frame), size.width, 30*kZGY);
+            
+            cell.marketPriceRightLabel.attributedText = [self underlineWithString:[NSString stringWithFormat:@" %@ ", marketDetailModel.marketPrice]];
+            cell.leaveCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.marketPriceRightLabel.frame) + 10*kZGY, CGRectGetMaxY(cell.salePriceLabel.frame), kScreenW - 30*kZGY - CGRectGetWidth(cell.marketPriceLeftLabel.frame) - CGRectGetWidth(cell.marketPriceRightLabel.frame), 30*kZGY);
+        }
+        if (marketDetailModel.amount.length) {
+            if ([marketDetailModel.amount isEqualToString:@"库存暂无"]) {
+                cell.leaveCountLabel.text = @"库存暂无";
+            } else {
+                cell.leaveCountLabel.text = [NSString stringWithFormat:@"库存 %@ 件", marketDetailModel.amount];
+            }
+
+        }
+                return cell;
         
     } else if (indexPath.section == 1){
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:selectCellIdentifier forIndexPath:indexPath];
@@ -519,15 +525,19 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 }
 - (void)goToBuy {
     //立即拍下
-    NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", numberView.timeAmount], @"category":selectColorString};
-    NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithCapacity:0];
-    [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
+    if ([marketDetailModel.amount isEqualToString:@"0"]) {
+        kTipAlert(@"商品已售完，暂无法购买");
+    } else {
+        NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", numberView.timeAmount], @"category":selectColorString};
+        NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
+        ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
+        shopOrderVC.goodsDic = buyGoodsDic;
+        shopOrderVC.goodsID = self.shopID;
+        shopOrderVC.goodsNumber = numberView.timeAmount;
+        [self.navigationController pushViewController:shopOrderVC animated:YES];
+    }
     
-    ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
-    shopOrderVC.goodsDic = buyGoodsDic;
-    shopOrderVC.goodsID = self.shopID;
-    shopOrderVC.goodsNumber = numberView.timeAmount;
-    [self.navigationController pushViewController:shopOrderVC animated:YES];
 }
 
 - (void)storeGoodsToShoppingCar {

@@ -37,8 +37,6 @@ static NSString *activityCellIdentifier = @"activityCell";
 @end
 
 @implementation HomeViewController {
-    NSString *nameString;
-    NSString *scoreString;
     CGFloat wallet;
 }
 
@@ -62,10 +60,8 @@ static NSString *activityCellIdentifier = @"activityCell";
     [self getConfig];
     //活动列表
     [self getActivityList];
-    
+    //钱包余额
     [self getWalletMoney];
-    nameString = @"";
-    scoreString = @"";
     wallet = 0;
     [self creatTableView];
     [self creatTableHeaderView];
@@ -110,9 +106,13 @@ static NSString *activityCellIdentifier = @"activityCell";
         //用户头像
         [cell.personalDataLeftImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI, self.MyProfile.uid]] placeholderImage:[UIImage imageNamed:@"headBtn"]];
         //用户名字
-        cell.personNameLabel.text = nameString;
+        if (self.MyProfile.name.length) {
+            cell.personNameLabel.text = self.MyProfile.name;
+        }
         //用户积分
-        cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", scoreString];
+        if (self.MyProfile.score.length) {
+            cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", self.MyProfile.score];
+        }
         //钱包余额
         cell.personWalletLeft.text = [NSString stringWithFormat:@"余额：%.2f元", wallet];
         //用户类型
@@ -328,8 +328,6 @@ static NSString *activityCellIdentifier = @"activityCell";
         if (statusCode == 200) {
             self.MyProfile = [responseDictionary objectForKey:@"model"];
             self.walletModel = [[StoreUserValue sharedInstance] valueWithKey:@"walletModel"];
-            nameString = self.MyProfile.name;
-            scoreString = self.MyProfile.score;
             wallet = self.walletModel.maxWithDraw;
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
             [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];

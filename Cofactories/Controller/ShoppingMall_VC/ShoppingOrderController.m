@@ -263,6 +263,7 @@ static NSString *OrderCellIdentifier = @"OrderCell";
                                     kTipAlert(@"付款失败，请重新登录");
                                     break;
                                 default:
+                                kTipAlert(@"%@",dictionary[@"message"]);
                                     break;
                             }
                         }];
