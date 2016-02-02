@@ -310,7 +310,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         MaterialShopDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:shopCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.materialLabel.text = marketDetailModel.name;
-        cell.salePriceLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"售价￥ %@", marketDetailModel.price] andRange:2];
+        cell.salePriceLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"售价¥ %@", marketDetailModel.price] andRange:2];
         
         cell.marketPriceLeftLabel.text = @"市场价";
         CGSize size = [Tools getSize:[NSString stringWithFormat:@" %@ ", marketDetailModel.marketPrice] andFontOfSize:13];

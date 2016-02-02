@@ -502,6 +502,7 @@
             DLog(@"wallet = %@",responseObject);
             
             WalletModel * model = [[WalletModel alloc]initWithDictionary:responseObject];
+            [[StoreUserValue sharedInstance] storeValue:model withKey:@"walletModel"];
             block(@{@"statusCode": @(200), @"model": model});
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             switch ([operation.response statusCode]) {
