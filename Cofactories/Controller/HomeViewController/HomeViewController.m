@@ -87,6 +87,8 @@ static NSString *activityCellIdentifier = @"activityCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self checkForUpdate];
+    
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
@@ -464,6 +466,42 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
     });
     
+}
+
+#pragma mark - checkForUpdate
+- (void)checkForUpdate {
+    
+    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+    manager.requestSerializer.timeoutInterval = 7.0f;
+    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    
+    [manager POST:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=1015359842"] parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *jsonData = responseObject;
+        NSArray *infoArray = [jsonData objectForKey:@"results"];
+        NSDictionary *releaseInfo = [infoArray firstObject];
+        NSString *latestVersion = [releaseInfo objectForKey:@"version"];
+        NSString *releaseNotes = [releaseInfo objectForKey:@"releaseNotes"];
+        DLog(@"appStore最新版本号：%@\n线下版本号：%@",latestVersion,kVersion_Cofactories);
+        
+        if (![latestVersion isEqualToString:kVersion_Cofactories] && [latestVersion compare:kVersion_Cofactories] != NSOrderedAscending) {
+            //版本号不一致 说明有新版本在审核或上线 则 进一步判断 //判断版本号 如果AppStore线上版本号大于现app版本号 说明有更新 就去更新
+            UIAlertView * upDataAlertView = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"发现新版本V%@",latestVersion] message:releaseNotes delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去更新", nil];
+            upDataAlertView.tag = 200;
+            [upDataAlertView show];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    DLog(@"alert");
+    if (alertView.tag == 200) {
+        if (buttonIndex == 1) {
+            NSString *str = kAppUrl;
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        }
+    }
 }
 
 @end
