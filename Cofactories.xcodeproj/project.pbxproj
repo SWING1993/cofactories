@@ -356,6 +356,7 @@
 		7D665EA71C0C60EE00C7C7BF /* IMChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665EA41C0C60EE00C7C7BF /* IMChatListViewController.m */; };
 		7D665EA81C0C60EE00C7C7BF /* IMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */; };
 		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
+		7D6F43351C5EF58E00A60892 /* PushPopularNews_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6F43341C5EF58E00A60892 /* PushPopularNews_VC.m */; };
 		7D70BACA1C21852A00920EE3 /* MeOrderSelect_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D70BAC91C21852A00920EE3 /* MeOrderSelect_VC.m */; };
 		7D71D1081C1AC68A00CF324E /* MeTextLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D71D1071C1AC68A00CF324E /* MeTextLabelCell.m */; };
 		7D72CDCB1C3A0279005BDA66 /* HomeKoreaShopList_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D72CDCA1C3A0279005BDA66 /* HomeKoreaShopList_VC.m */; };
@@ -1175,6 +1176,8 @@
 		7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMChatViewController.m; sourceTree = "<group>"; };
 		7D6DB64A1C05AEE300BF396E /* AuthenticationPhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationPhotoController.h; sourceTree = "<group>"; };
 		7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPhotoController.m; sourceTree = "<group>"; };
+		7D6F43331C5EF58E00A60892 /* PushPopularNews_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushPopularNews_VC.h; sourceTree = "<group>"; };
+		7D6F43341C5EF58E00A60892 /* PushPopularNews_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushPopularNews_VC.m; sourceTree = "<group>"; };
 		7D70BAC81C21852A00920EE3 /* MeOrderSelect_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeOrderSelect_VC.h; sourceTree = "<group>"; };
 		7D70BAC91C21852A00920EE3 /* MeOrderSelect_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeOrderSelect_VC.m; sourceTree = "<group>"; };
 		7D71D1061C1AC68A00CF324E /* MeTextLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeTextLabelCell.h; sourceTree = "<group>"; };
@@ -1603,6 +1606,7 @@
 		03571B591BE84E7500900EF9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7D6F43321C5EF54B00A60892 /* PushViewController */,
 				7DA17DE61C4CB9C200F024CB /* ShoppingMall_VC */,
 				70F4AFB11C180DEF00615A7E /* PersonalMessage(个人界面) */,
 				0395D2FD1BFC6D280009AABC /* Login&Register */,
@@ -2878,6 +2882,15 @@
 			path = Rong_Cloud_iOS_SDK_v2_3_8_stable;
 			sourceTree = "<group>";
 		};
+		7D6F43321C5EF54B00A60892 /* PushViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7D6F43331C5EF58E00A60892 /* PushPopularNews_VC.h */,
+				7D6F43341C5EF58E00A60892 /* PushPopularNews_VC.m */,
+			);
+			path = PushViewController;
+			sourceTree = "<group>";
+		};
 		7D743A0C1C23E856006AEA07 /* HomeActivityController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3487,6 +3500,7 @@
 				03571C921BE85D9C00900EF9 /* IQToolbar.m in Sources */,
 				70A63EB01C4638D400B68839 /* ContractClothingDetail_VC.m in Sources */,
 				7D45D0DC1C225FA500FC2988 /* HistoryOrderDetailCell.m in Sources */,
+				7D6F43351C5EF58E00A60892 /* PushPopularNews_VC.m in Sources */,
 				7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */,
 				035CC5261C06DCF000998FBD /* JKAssetsViewCell.m in Sources */,
 				035CC5DD1C070ECB00998FBD /* UMFullScreenPhotoView.m in Sources */,
