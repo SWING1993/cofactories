@@ -27,8 +27,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"文章详情";
 
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(pressRightItem)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(pressRightItem)];
+//    self.navigationItem.rightBarButtonItem = rightItem;
 
     webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
@@ -58,53 +58,52 @@
     [hud hide:YES];
 }
 
-#pragma mark - 分享
-- (void)pressRightItem {
-    
-    if ( [WXApi isWXAppInstalled] == NO &&[QQApiInterface isQQInstalled] == NO) {
-        DLog(@"微信和QQ都没安装");
-        [UMSocialSnsService presentSnsIconSheetView:self
-                                             appKey:Appkey_Umeng
-                                          shareText:[NSString stringWithFormat:@"%@, %@", self.title_flag, urlString]
-                                         shareImage:nil
-                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToSms,nil]
-                                           delegate:self];
-    } else {
-        DLog(@"^^^^^^^urlString = %@", urlString);
-        NSString *title = @"";
-        if (self.title_flag.length == 0) {
-            title = @"来自于聚工厂《流行资讯》的分享";
-        } else {
-            title = self.title_flag;
-        }
-        NSString *discriptions = @"";
-        if (self.content_flag.length == 0) {
-            discriptions = @"来自于聚工厂《流行资讯》的分享";
-        } else {
-            discriptions = self.content_flag;
-        }
-        shareImage = [UIImage imageNamed:@"Home-icon"];
-        
-        //分享多个
-        [UMSocialData defaultData].extConfig.wechatSessionData.url = urlString;//微信好友
-        [UMSocialData defaultData].extConfig.wechatSessionData.title = title;
-        
-        [UMSocialData defaultData].extConfig.wechatTimelineData.url = urlString;//微信朋友圈
-        [UMSocialData defaultData].extConfig.wechatTimelineData.title = title;
-        
-        [UMSocialData defaultData].extConfig.qqData.url = urlString;//QQ好友
-        [UMSocialData defaultData].extConfig.qqData.title = title;
-        
-        [UMSocialData defaultData].extConfig.qzoneData.url = urlString;//QQ空间
-        [UMSocialData defaultData].extConfig.qzoneData.title = title;
-        [UMSocialSnsService presentSnsIconSheetView:self
-                                             appKey:Appkey_Umeng
-                                          shareText:discriptions
-                                         shareImage:shareImage
-                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]
-                                           delegate:self];
-    }
-}
+//#pragma mark - 分享
+//- (void)pressRightItem {
+//    
+//    if ( [WXApi isWXAppInstalled] == NO &&[QQApiInterface isQQInstalled] == NO) {
+//        DLog(@"微信和QQ都没安装");
+//        [UMSocialSnsService presentSnsIconSheetView:self
+//                                             appKey:Appkey_Umeng
+//                                          shareText:[NSString stringWithFormat:@"%@, %@", self.title_flag, urlString]
+//                                         shareImage:nil
+//                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToSms,nil]
+//                                           delegate:self];
+//    } else {
+////        NSString *title = @"";
+////        if (self.title_flag.length == 0) {
+////            title = @"来自于聚工厂《流行资讯》的分享";
+////        } else {
+////            title = self.title_flag;
+////        }
+////        NSString *discriptions = @"";
+////        if (self.content_flag.length == 0) {
+////            discriptions = @"来自于聚工厂《流行资讯》的分享";
+////        } else {
+////            discriptions = self.content_flag;
+////        }
+////        DLog(@"%@, %@, %@", title, urlString, discriptions);
+//        
+//        //分享多个
+//        [UMSocialData defaultData].extConfig.wechatSessionData.url = urlString;//微信好友
+//        [UMSocialData defaultData].extConfig.wechatSessionData.title = self.title_flag;
+//        
+//        [UMSocialData defaultData].extConfig.wechatTimelineData.url = urlString;//微信朋友圈
+//        [UMSocialData defaultData].extConfig.wechatTimelineData.title = self.title_flag;
+//        
+//        [UMSocialData defaultData].extConfig.qqData.url = urlString;//QQ好友
+//        [UMSocialData defaultData].extConfig.qqData.title = self.title_flag;
+//        
+//        [UMSocialData defaultData].extConfig.qzoneData.url = urlString;//QQ空间
+//        [UMSocialData defaultData].extConfig.qzoneData.title = self.title_flag;
+//        [UMSocialSnsService presentSnsIconSheetView:self
+//                                             appKey:Appkey_Umeng
+//                                          shareText:self.content_flag
+//                                         shareImage:[UIImage imageNamed:@"Home-icon"]
+//                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]
+//                                           delegate:self];
+//    }
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
