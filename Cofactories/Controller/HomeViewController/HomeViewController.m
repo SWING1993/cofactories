@@ -476,6 +476,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         
         if (![latestVersion isEqualToString:kVersion_Cofactories] && [latestVersion compare:kVersion_Cofactories] != NSOrderedAscending) {
             //版本号不一致 说明有新版本在审核或上线 则 进一步判断 //判断版本号 如果AppStore线上版本号大于现app版本号 说明有更新 就去更新
+            DLog(@"去更新");
             UIAlertView * upDataAlertView = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"发现新版本V%@",latestVersion] message:releaseNotes delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去更新", nil];
             upDataAlertView.tag = 200;
             [upDataAlertView show];
