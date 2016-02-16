@@ -8,6 +8,8 @@ PODS:
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
   - SVPullToRefresh (0.4.1)
+  - UMengAnalytics-NO-IDFA (3.6.7)
+  - UMengFeedback (2.3.4)
   - UMengSocial (4.4)
 
 DEPENDENCIES:
@@ -18,6 +20,8 @@ DEPENDENCIES:
   - RongCloudIMKit
   - SDWebImage
   - SVPullToRefresh
+  - UMengAnalytics-NO-IDFA
+  - UMengFeedback (~> 2.3.4)
   - UMengSocial (~> 4.3)
 
 SPEC CHECKSUMS:
@@ -28,6 +32,8 @@ SPEC CHECKSUMS:
   RongCloudIMKit: d24685a8f2ea63e79aa2653a3275d7c64ea611ac
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  UMengAnalytics-NO-IDFA: 6d02561a00579b2e37718f204eb81347df5d7b8b
+  UMengFeedback: 5283cc0e324dffca4dd54c4abb3cbded56487817
   UMengSocial: aba7296602310385114d82c255539a7bef3b7ab0
 
 COCOAPODS: 0.39.0
