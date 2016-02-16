@@ -3169,11 +3169,8 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
-					"$(PROJECT_DIR)/Cofactories/Utils/Bugly/libc++",
-					"\"$(SRCROOT)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Cofactories/Cofactories_iOS-Prefix.pch";
@@ -3186,14 +3183,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMAnalytics_Sdk_3.6.5",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMessage_Sdk_1.2.0",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK/UMOpus",
-					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_4.4",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
@@ -3219,11 +3209,8 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
-					"$(PROJECT_DIR)/Cofactories/Utils/Bugly/libc++",
-					"\"$(SRCROOT)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Cofactories/Cofactories_iOS-Prefix.pch";
@@ -3236,14 +3223,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMAnalytics_Sdk_3.6.5",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMessage_Sdk_1.2.0",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK/UMOpus",
-					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_4.4",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
