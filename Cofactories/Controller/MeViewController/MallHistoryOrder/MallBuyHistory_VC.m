@@ -44,9 +44,9 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
     headerView.backgroundColor=[UIColor whiteColor];
     for (int i = 0; i < 5; i++) {
         UIButton*typeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        typeBtn.frame = CGRectMake(i*(kScreenW/5), 0, kScreenW/5.f, 42);
+        typeBtn.frame = CGRectMake(i*(kScreenW/5), 0, kScreenW/5.f, 44);
         typeBtn.tag=i;
-        typeBtn.titleLabel.font=[UIFont systemFontOfSize:16.0f];
+        typeBtn.titleLabel.font=[UIFont systemFontOfSize:14.0f];
         [typeBtn setTitle:btnTitleArray[i] forState:UIControlStateNormal];
         [typeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [typeBtn setTitleColor:kDeepBlue forState:UIControlStateSelected];
@@ -62,9 +62,9 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         [buttonArray addObject:typeBtn];
         
         CALayer *line = [CALayer layer];
-        line.frame = CGRectMake(0, 64 + 44 - 0.3, kScreenW, 0.3);
+        line.frame = CGRectMake(0, 44 - 0.3, kScreenW, 0.3);
         line.backgroundColor = kLineGrayCorlor.CGColor;
-        [self.view.layer addSublayer:line];
+        [headerView.layer addSublayer:line];
     }
     [self.view addSubview:headerView];
 }
