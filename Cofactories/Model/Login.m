@@ -98,9 +98,4 @@ static UserModel *curLoginUser;
     return [defaults objectForKey:kLoginPreUserPhone];
 }
 
-
-
-
-
-
 @end

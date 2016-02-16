@@ -1,0 +1,16 @@
+PODS:
+  - Bugly (1.4.7)
+  - Masonry (0.5.3)
+  - MBProgressHUD (0.9)
+
+DEPENDENCIES:
+  - Bugly
+  - Masonry (= 0.5.3)
+  - MBProgressHUD (= 0.9)
+
+SPEC CHECKSUMS:
+  Bugly: 363ada47fabfc670a30e4d2a3c147ea2d20bba0e
+  Masonry: 9f515466afe48632562342a40a1c224071a1a022
+  MBProgressHUD: d8e7ea388dc1549a42e0d219067cf5f2c898fb66
+
+COCOAPODS: 0.38.2

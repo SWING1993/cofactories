@@ -10,10 +10,11 @@
 
 @interface RootViewController : UIViewController
 
+@property (nonatomic, strong) NSDictionary *pushDic;
 + (void)handleNotificationInfo:(NSDictionary *)userInfo applicationState:(UIApplicationState)applicationState;
 
 //主页
-+(void)setupTabarController;
++ (void)setupTabarController;
 
 //登录注册
 + (void)setupLoginViewController;

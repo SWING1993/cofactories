@@ -124,6 +124,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     [hud hide:YES];
 }
 

@@ -29,7 +29,9 @@
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define _IPHONE80_ 80000
 
-@interface AppDelegate ()
+@interface AppDelegate () {
+    NSDictionary *pushDic;
+}
 
 @end
 
@@ -198,8 +200,17 @@
 }
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    [UMessage didReceiveRemoteNotification:userInfo];
-    [RootViewController handleNotificationInfo:userInfo applicationState:[application applicationState]];
+    //    [UMessage didReceiveRemoteNotification:userInfo];
+    if ([userInfo[@"id_flag"] length] != 0 && [userInfo[@"title_flag"] length] != 0 && userInfo[@"content_flag"] != 0) {
+        pushDic = [NSDictionary dictionaryWithDictionary:userInfo];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"通知" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看详情", nil];
+        alert.tag = 223;
+        [alert show];
+        
+    } else {
+        kTipAlert(@"%@",userInfo[@"aps"][@"alert"]);
+    }
+    //    [RootViewController handleNotificationInfo:userInfo applicationState:[application applicationState]];
 }
 
 
@@ -304,17 +315,28 @@
                                   cancelButtonTitle:@"确定"
                                   otherButtonTitles:nil, nil];
             alert.delegate = self;
+            alert.tag = 222;
             [alert show];
         }
     }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex==0) {
-        [HttpClient deleteToken];
-        [RootViewController setupLoginViewController];
+    if (alertView.tag == 222) {
+        if (buttonIndex==0) {
+            [HttpClient deleteToken];
+            [RootViewController setupLoginViewController];
+        }
+  
     }
-
+    if (alertView.tag == 223) { 
+        if (buttonIndex == 1) {
+            UIApplicationState applicationState = UIApplicationStateActive;
+            [RootViewController handleNotificationInfo:pushDic applicationState:applicationState];
+        }
+        
+    }
+    
 }
 /**
  *  tabBarItem 的选中和不选中文字属性、背景图片

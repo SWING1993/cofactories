@@ -34,139 +34,37 @@ static NSString *activityCellIdentifier = @"activityCell";
 @property (nonatomic,retain)UserModel * MyProfile;
 @property (nonatomic,retain)WalletModel * walletModel;
 
-
 @end
 
 @implementation HomeViewController {
-    NSString *nameString;
-    NSString *scoreString;
     CGFloat wallet;
 }
 
-
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-   
-    //个人信息
-    [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
-        NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
-        if (statusCode == 200) {
-            self.MyProfile = [responseDictionary objectForKey:@"model"];
-            //钱包余额
-            [HttpClient getwalletWithBlock:^(NSDictionary *responseDictionary) {
-                NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
-                if (statusCode == 200) {
-                    self.walletModel = [responseDictionary objectForKey:@"model"];
-                    nameString = self.MyProfile.name;
-                    scoreString = self.MyProfile.score;
-                    wallet = self.walletModel.money;
-                    NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
-                    [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-                }
-            }];
-        } else {
-            self.MyProfile = [[UserModel alloc]getMyProfile];
-        }
-    }];
-}
-#pragma mark - RCIMUserInfoDataSource
-
-//获取IM用户信息
-- (void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
-    //解析工厂信息
-    [HttpClient getOtherIndevidualsInformationWithUserID:userId WithCompletionBlock:^(NSDictionary *dictionary) {
-        OthersUserModel *otherModel = (OthersUserModel *)dictionary[@"message"];
-        RCUserInfo *user = [[RCUserInfo alloc]init];
-        user.userId = userId;
-        user.name = otherModel.name;
-        user.portraitUri = [NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI, userId];
-        return completion(user);
-    }];
+    [self getPersonInfo];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self checkForUpdate];
+    
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
-    //清除网页缓存
-    NSURLCache * cache = [NSURLCache sharedURLCache];
-    [cache removeAllCachedResponses];
-    [cache setDiskCapacity:0];
-    [cache setMemoryCapacity:0];
-    //获取融云的token
-    [HttpClient getIMTokenWithBlock:^(NSDictionary *responseDictionary) {
-        NSInteger statusCode = [responseDictionary[@"statusCode"]integerValue];
-        DLog(@"融云====%ld", (long)statusCode);
-        if (statusCode == 200) {
-            NSString *token = responseDictionary[@"IMToken"];
-//            DLog(@"融云token====%@", token);
-            
-            // 快速集成第二步，连接融云服务器
-            [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
-                [self updateBadgeValueForTabBarItem];
-                // Connect 成功
-                DLog(@" Connect 成功");
-            }
-                                          error:^(RCConnectErrorCode status) {
-                                              // Connect 失败
-                                              DLog(@" Connect 失败")
-                                          }
-                                 tokenIncorrect:^() {
-                                     // Token 失效的状态处理
-                                      DLog(@" Connect Token失效")
-                                 }];
-        }
-    }];
-
-    nameString = @"";
-    scoreString = @"";
+    
+    //连接融云服务器
+    [self connectToRongClound];
+    //轮播图
+    [self getConfig];
+    //活动列表
+    [self getActivityList];
+    //钱包余额
+    [self getWalletMoney];
     wallet = 0;
     [self creatTableView];
     [self creatTableHeaderView];
-    //轮播图
-    [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
-        int statusCode = [responseDictionary[@"statusCode"] intValue];
-        DLog(@"statusCode = %d", statusCode);
-        if (statusCode == 200) {
-            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
-            self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
-            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
-            for (NSDictionary *dictionary in jsonArray) {
-                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
-                [self.bannerArray addObject:bannerModel];
-                [self.firstViewImageArray addObject:bannerModel.img];
-            }
-            //第一个scrollView
-            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
-            firstView.delegate=self;
-            firstView.imagesArray = self.firstViewImageArray;
-            self.homeTableView.tableHeaderView = firstView;
-        } else if (statusCode == 0) {
-            DLog(@"请求超时");
-        }
-        
-    }];
-
-    
-    //活动列表
-    [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
-        int statusCode = [responseDictionary[@"statusCode"] intValue];
-        DLog(@"statusCode = %d", statusCode);
-        if (statusCode == 200) {
-            NSArray *jsonArray = responseDictionary[@"responseArray"];
-            self.activityArray = [NSMutableArray arrayWithCapacity:0];
-            for (NSDictionary *dictionary in jsonArray) {
-                ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
-                [self.activityArray addObject:activityModel];
-            }
-            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
-            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-        } else if (statusCode == 0) {
-            DLog(@"请求超时");
-        }
-    }];
 }
 
 - (void)creatTableView {
@@ -208,9 +106,13 @@ static NSString *activityCellIdentifier = @"activityCell";
         //用户头像
         [cell.personalDataLeftImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI, self.MyProfile.uid]] placeholderImage:[UIImage imageNamed:@"headBtn"]];
         //用户名字
-        cell.personNameLabel.text = nameString;
+        if (self.MyProfile.name.length) {
+            cell.personNameLabel.text = self.MyProfile.name;
+        }
         //用户积分
-        cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", scoreString];
+        if (self.MyProfile.score.length) {
+            cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", self.MyProfile.score];
+        }
         //钱包余额
         cell.personWalletLeft.text = [NSString stringWithFormat:@"余额：%.2f元", wallet];
         //用户类型
@@ -318,23 +220,6 @@ static NSString *activityCellIdentifier = @"activityCell";
     }
 }
 
-
-//-(void)tableView:(UITableView *)tableView willDisplayCell:(HomePersonalDataCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (indexPath.section == 0) {
-//        [Tools rotate360DegreeWithImageView:cell.personalDataLeftImage];
-//        [Tools rotate360DegreeWithImageView:cell.personalDataMiddleImage];
-//        [Tools rotate360DegreeWithImageView:cell.personalDataRightImage];
-//    }
-//    if (indexPath.section == 2) {
-//        //xy方向缩放的初始值为0.95
-//        cell.layer.transform = CATransform3DMakeScale(0.95, 0.95, 1);
-//        //设置动画时间为0.25秒,xy方向缩放的最终值为1
-//        [UIView animateWithDuration:0.5 animations:^{
-//            cell.layer.transform = CATransform3DMakeScale(1, 1, 1);
-//        }];
-//    }
-//}
-
 #pragma mark - HomeMarketCellDelegate
 - (void)homeMarketCell:(HomeMarketCell *)homeMarket marketButtonTag:(NSInteger)marketButtonTag {
     NSLog(@"第%ld个市场", (long)marketButtonTag);
@@ -381,7 +266,6 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 #pragma mark -WKFCircularSlidingViewDelegate
-
 -(void)clickCircularSlidingView:(int)tag{
     DLog(@"点击了第  %d  张图", tag);
     //点击了第几张轮播图
@@ -396,6 +280,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         DLog(@"无链接，点不进去");
     }
 }
+
 #pragma mark - Action认证
 - (void)authenticationAction:(UIButton *)button {
     DLog(@"前往认证");
@@ -434,7 +319,100 @@ static NSString *activityCellIdentifier = @"activityCell";
     } else {
         DLog(@"有地址");
     }
-    
+}
+
+- (void)getPersonInfo {
+    //个人信息
+    [HttpClient getMyProfileWithBlock:^(NSDictionary *responseDictionary) {
+        NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
+        if (statusCode == 200) {
+            self.MyProfile = [responseDictionary objectForKey:@"model"];
+            self.walletModel = [[StoreUserValue sharedInstance] valueWithKey:@"walletModel"];
+            wallet = self.walletModel.maxWithDraw;
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
+            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        } else {
+            self.MyProfile = [[UserModel alloc]getMyProfile];
+        }
+    }];
+}
+
+- (void)getWalletMoney {
+    //钱包余额
+    [HttpClient getwalletWithBlock:^(NSDictionary *responseDictionary) {
+        NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
+        if (statusCode == 200) {
+            self.walletModel = [responseDictionary objectForKey:@"model"];
+            wallet = self.walletModel.maxWithDraw;
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
+            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        }
+    }];
+}
+
+- (void)getActivityList {
+    //活动列表
+    [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        if (statusCode == 200) {
+            NSArray *jsonArray = responseDictionary[@"responseArray"];
+            self.activityArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dictionary in jsonArray) {
+                ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
+                [self.activityArray addObject:activityModel];
+            }
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
+            [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        } else if (statusCode == 0) {
+            DLog(@"请求超时");
+        }
+    }];
+}
+- (void)getConfig {
+    //轮播图
+    [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        if (statusCode == 200) {
+            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
+            self.firstViewImageArray = [NSMutableArray arrayWithCapacity:0];
+            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dictionary in jsonArray) {
+                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
+                [self.bannerArray addObject:bannerModel];
+                [self.firstViewImageArray addObject:bannerModel.img];
+            }
+            //第一个scrollView
+            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
+            firstView.delegate=self;
+            firstView.imagesArray = self.firstViewImageArray;
+            self.homeTableView.tableHeaderView = firstView;
+        } else if (statusCode == 0) {
+            DLog(@"请求超时");
+        }
+    }];
+}
+
+- (void)connectToRongClound {
+    //获取融云的token
+    [HttpClient getIMTokenWithBlock:^(NSDictionary *responseDictionary) {
+        NSInteger statusCode = [responseDictionary[@"statusCode"]integerValue];
+        DLog(@"融云====%ld", (long)statusCode);
+        if (statusCode == 200) {
+            NSString *token = responseDictionary[@"IMToken"];
+            // 快速集成第二步，连接融云服务器
+            [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
+                [self updateBadgeValueForTabBarItem];
+                    DLog(@" Connect 成功");
+                } error:^(RCConnectErrorCode status) {
+                    DLog(@" Connect 失败")
+                } tokenIncorrect:^() {
+                    // Token 失效的状态处理
+                    DLog(@" Connect Token失效")
+            }];
+        }
+    }];
 }
 
 #pragma mark - Action
@@ -450,6 +428,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         
     });
 }
+
 #pragma mark - RCIMReceiveMessageDelegate
 //必须要写在这里，不能写在通话列表里
 -(void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left {
@@ -463,7 +442,57 @@ static NSString *activityCellIdentifier = @"activityCell";
             IMSelf.tabBarController.viewControllers[2].tabBarItem.badgeValue = nil;
         }
     });
+}
+
+#pragma mark - RCIMUserInfoDataSource
+//获取IM用户信息
+- (void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
+    //解析工厂信息
+    [HttpClient getOtherIndevidualsInformationWithUserID:userId WithCompletionBlock:^(NSDictionary *dictionary) {
+        OthersUserModel *otherModel = (OthersUserModel *)dictionary[@"message"];
+        RCUserInfo *user = [[RCUserInfo alloc]init];
+        user.userId = userId;
+        user.name = otherModel.name;
+        user.portraitUri = [NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI, userId];
+        return completion(user);
+    }];
+}
+
+#pragma mark - checkForUpdate
+- (void)checkForUpdate {
     
+    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+    manager.requestSerializer.timeoutInterval = 7.0f;
+    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    
+    [manager POST:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=1015359842"] parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *jsonData = responseObject;
+        NSArray *infoArray = [jsonData objectForKey:@"results"];
+        NSDictionary *releaseInfo = [infoArray firstObject];
+        NSString *latestVersion = [releaseInfo objectForKey:@"version"];
+        NSString *releaseNotes = [releaseInfo objectForKey:@"releaseNotes"];
+        DLog(@"appStore最新版本号：%@\n线下版本号：%@",latestVersion,kVersion_Cofactories);
+        
+        if (![latestVersion isEqualToString:kVersion_Cofactories] && [latestVersion compare:kVersion_Cofactories] != NSOrderedAscending) {
+            //版本号不一致 说明有新版本在审核或上线 则 进一步判断 //判断版本号 如果AppStore线上版本号大于现app版本号 说明有更新 就去更新
+            DLog(@"去更新");
+            UIAlertView * upDataAlertView = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"发现新版本V%@",latestVersion] message:releaseNotes delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去更新", nil];
+            upDataAlertView.tag = 200;
+            [upDataAlertView show];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    DLog(@"alert");
+    if (alertView.tag == 200) {
+        if (buttonIndex == 1) {
+            NSString *str = kAppUrl;
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        }
+    }
 }
 
 @end

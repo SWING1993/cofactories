@@ -10,7 +10,7 @@
 
 @interface FabricMarketModel : NSObject
 
-@property (nonatomic,copy)NSString *amount; // 每次卖出去的数量
+@property (nonatomic,copy)NSString *amount; // 库存
 @property (nonatomic,copy)NSString *createdAt;
 @property (nonatomic,copy)NSString *deletedAt;
 @property (nonatomic,copy)NSString *descriptions;

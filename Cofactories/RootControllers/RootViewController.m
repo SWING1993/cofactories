@@ -17,7 +17,14 @@
 #import "EAIntroPage.h"
 #import "EAIntroView.h"
 
+#import "PushPopularNews_VC.h"
+
 /*
+ id_flag   VyZh1mlKl
+ title_flag  看了就忘不了
+ content_flag  据材料款电视剧里的手机
+ a5750fd0b8c59fa5660342e88439eeb482fc33dbae6282b1accf6879932c1a92
+ 
 static NSString * const sampleDescription1 = @"全新界面 全新玩法";
 static NSString * const sampleDescription2 = @"在线商城 在线交易";
 static NSString * const sampleDescription3 = @"订单操作 快捷简单";
@@ -26,6 +33,7 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
  */
 
 @interface RootViewController ()<EAIntroDelegate,UIApplicationDelegate>
+//@property (nonatomic, strong) NSDictionary *pushDic;
 @end
 
 @implementation RootViewController
@@ -80,20 +88,32 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
 }
 
 #pragma mark Notification
-+ (void)handleNotificationInfo:(NSDictionary *)userInfo applicationState:(UIApplicationState)applicationState{
++ (void)handleNotificationInfo:(NSDictionary *)userInfo applicationState:(UIApplicationState)applicationState {
     if ([Login isLogin]) {
-        //已登录
-    }
-    if (applicationState == UIApplicationStateInactive) {
-        //If the application state was inactive, this means the user pressed an action button from a notification.
-//        UserProtocolViewController * vc = [[UserProtocolViewController alloc]init];
-//        [self presentVC:vc];
         
-    }else if (applicationState == UIApplicationStateActive){
-//        UserProtocolViewController * vc = [[UserProtocolViewController alloc]init];
-//        [self presentVC:vc];
+        //已登录
+        if (applicationState == UIApplicationStateInactive) {
+            if ([userInfo[@"id_flag"] length] != 0 && [userInfo[@"title_flag"] length] != 0 && userInfo[@"content_flag"] != 0) {
+                PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
+                pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
+                pushPopularNewsVC.title_flag = userInfo[@"title_flag"];
+                pushPopularNewsVC.content_flag = userInfo[@"content_flag"];
+                [RootViewController presentVC:pushPopularNewsVC];
+            }
+        }else if (applicationState == UIApplicationStateActive){
+            if ([userInfo[@"id_flag"] length] != 0 && [userInfo[@"title_flag"] length] != 0 && userInfo[@"content_flag"] != 0) {
+                PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
+                pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
+                pushPopularNewsVC.title_flag = userInfo[@"title_flag"];
+                pushPopularNewsVC.content_flag = userInfo[@"content_flag"];
+                [RootViewController presentVC:pushPopularNewsVC];
+            }
+        }
+    } else {
+        [RootViewController setupLoginViewController];
     }
 }
+
 + (UIViewController *)presentingVC{
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];
     if (window.windowLevel != UIWindowLevelNormal)
