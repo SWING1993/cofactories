@@ -17,6 +17,8 @@
 #import "PublishPopularNews_VC.h"
 #import "PublicServiceViewController.h"
 #import "MeShoppingCar_VC.h"//购物车
+#import "MallBuyHistory_VC.h"//购买记录
+#import "MallSellHistory_VC.h"//出售记录
 
 static NSString * const CellIdentifier = @"CellIdentifier";
 
@@ -265,6 +267,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 case 1:
                 {
                     DLog(@"购买记录");
+                    MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
+                    mallBuyVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:mallBuyVC animated:YES];
                     
                 }
                     break;
