@@ -66,9 +66,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             }
             [self.tableView reloadData];
         }
+        else if (statusCode == 0) {
+            kTipAlert(@"网络暂无连接");
+        }
         else {
             NSString * message = [responseDictionary objectForKey:@"message"];
-            kTipAlert(@"%@(错误码：%ld)",message,(long)statusCode);
+            kTipAlert(@"%@(错误状态码：%ld)",message,(long)statusCode);
         }
     }];
 }
@@ -94,11 +97,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             NSArray *array = [[responseDictionary objectForKey:@"ModelArray"] mutableCopy];
             DLog(@"第%lu页有%lu条数据",(long)_refrushCount,(unsigned long)[array count]);
             if ([array count] == 0) {
-                kTipAlert(@"已经没有更多的数据了 。。。 ");
                 DLog(@"共有%lu条数据",(unsigned long)[self.modelArray count]);
-                
                 self.tableView.tableFooterView = footerLabel;
-                
             }else {
                 [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     WalletHistoryModel *model = array[idx];

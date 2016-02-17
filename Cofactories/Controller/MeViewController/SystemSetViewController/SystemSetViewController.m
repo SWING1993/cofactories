@@ -29,6 +29,8 @@ UIAlertView * quitAlert;
     self.title=@"设置";
     [super viewDidLoad];
     [self initTableView];
+    DLog(@"%f",[self cacheFilePath]);
+//    kTipAlert(@"%f",[self cacheFilePath]);
 }
 
 - (void)initTableView {
@@ -343,14 +345,18 @@ UIAlertView * quitAlert;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)dealloc {
+    self.tableView.delegate = nil;
+    self.tableView.dataSource = nil;
+}
 
 #pragma mark - 清理缓存
 
--(float)cacheFilePath{
+-(CGFloat)cacheFilePath{
     NSString * cachePath = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];
     return [ self folderSizeAtPath :cachePath];
 }
--(float)fileSizeAtPath:(NSString *)path{
+-(CGFloat)fileSizeAtPath:(NSString *)path{
     NSFileManager *fileManager=[NSFileManager defaultManager];
     if([fileManager fileExistsAtPath:path]){
         long long size=[fileManager attributesOfItemAtPath:path error:nil].fileSize;
@@ -358,9 +364,9 @@ UIAlertView * quitAlert;
     }
     return 0;
 }
--(float)folderSizeAtPath:(NSString *)path{
+-(CGFloat)folderSizeAtPath:(NSString *)path{
     NSFileManager *fileManager=[NSFileManager defaultManager];
-    float folderSize;
+    CGFloat folderSize;
     if ([fileManager fileExistsAtPath:path]) {
         NSArray *childerFiles=[fileManager subpathsAtPath:path];
         for (NSString *fileName in childerFiles) {
@@ -390,8 +396,7 @@ UIAlertView * quitAlert;
    
 }
 - (void)reloadTable {
-
-    [MBProgressHUD showSuccess:@"缓存清理成功!" toView:self.view];
+    [MBProgressHUD showSuccess:@"缓存清理成功" toView:self.view];
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:2];
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
 }
