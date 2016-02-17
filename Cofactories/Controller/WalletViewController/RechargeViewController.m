@@ -104,14 +104,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         [HttpClient walletWithFee:amountStr WihtCharge:^(NSDictionary *responseDictionary) {
             NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
             if (statusCode == 200) {
-                DLog(@"%@",responseDictionary);
+//                DLog(@"%@",responseDictionary);
                 NSDictionary * dataDic = [responseDictionary objectForKey:@"data"];
                 NSString * tradeNO = [dataDic objectForKey:@"_id"];
                 NSString * descriptionStr = [dataDic objectForKey:@"description"];
                 NSString * status = [dataDic objectForKey:@"status"];
                 NSString * subject = [dataDic objectForKey:@"subject"];
                 
-                DLog(@"tradeNO =%@\ndescription =%@\nstatus = %@\nsubject = %@",tradeNO,descriptionStr,status,subject);
+//                DLog(@"tradeNO =%@\ndescription =%@\nstatus = %@\nsubject = %@",tradeNO,descriptionStr,status,subject);
                 
                 if (tradeNO && descriptionStr && subject) {
                     [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];

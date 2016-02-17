@@ -64,7 +64,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     self.headBtn.frame = CGRectMake(kScreenW-100, 5, 65, 65);
     self.headBtn.layer.masksToBounds = YES;
     self.headBtn.layer.cornerRadius = 65.0f/2.0f;
-    [self.headBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,self.uid]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"headBtn"]];
+    [self.headBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,self.uid]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"headBtn"] options:SDWebImageRefreshCached];
     [self.headBtn addTarget:self action:@selector(uploadHeadBtn) forControlEvents:UIControlEventTouchUpInside];
         
     switch (self.type) {
@@ -157,11 +157,11 @@ static NSString * CellIdentifier = @"CellIdentifier";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         cell.textLabel.font = kFont;
         cell.detailTextLabel.font = kFont;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.detailTextLabel.textColor=[UIColor blackColor];
         switch (indexPath.section) {
             case 0:{
                 if (indexPath.row == 0) {
