@@ -22,7 +22,6 @@
     IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
     conversationVC.conversationType =model.conversationType;
     conversationVC.targetId = model.targetId;
-    conversationVC.userName =model.conversationTitle;
     conversationVC.title = model.conversationTitle;
     
     conversationVC.hidesBottomBarWhenPushed=YES;

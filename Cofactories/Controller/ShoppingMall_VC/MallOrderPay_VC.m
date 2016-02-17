@@ -9,6 +9,8 @@
 #import "MallOrderPay_VC.h"
 #import "MallPayTypeCell.h"
 #import "MallHistoryOrderCell.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "AlipayHeader.h"
 
 @interface MallOrderPay_VC () {
     NSArray *payPhotoArray, *payTitleArray;
@@ -26,6 +28,7 @@ static NSString *payCellIndentifier = @"payCell";
     [super viewDidLoad];
     
     self.navigationItem.title = @"订单支付";
+    
     payPhotoArray = @[@"Mall-alipay", @"Home-icon"];
     payTitleArray = @[@"支付宝支付", @"账户支付"];
     paySelectString = @"支付宝支付";
@@ -69,15 +72,19 @@ static NSString *payCellIndentifier = @"payCell";
     if (indexPath.section == 0) {
         MallHistoryOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.goodsStatus.text = @"等待卖家付款";
-        cell.photoView.image = [UIImage imageNamed:@"Market-流行资讯.jpg"];
-        cell.goodsTitle.text = @"印花染布";
-        cell.goodsPrice.text = @"¥ 28.00";
-        cell.goodsCategory.text = @"分类：打板纸板";
-        cell.goodsNumber.text = @"x10";
-        cell.totalPrice.text = @"共10件商品 合计：¥ 280.00";
+        cell.goodsStatus.text = self.goodsModel.waitPayType;
+        if (self.goodsModel.photoArray.count > 0) {
+            NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, self.goodsModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+        } else {
+            cell.photoView.image = [UIImage imageNamed:@"默认图片"];
+        }
+        cell.goodsTitle.text = self.goodsModel.name;
+        cell.goodsPrice.text = [NSString stringWithFormat:@"¥ %@", self.goodsModel.price];
+        cell.goodsCategory.text = self.goodsModel.category;
+        cell.goodsNumber.text = [NSString stringWithFormat:@"x%@", self.goodsModel.amount];
+        cell.totalPrice.text = [NSString stringWithFormat:@"共%@件商品 合计：¥ %@", self.goodsModel.amount, self.goodsModel.totalPrice];
         cell.changeStatus.hidden = YES;
-//        [cell.changeStatus setTitle:@"联系商家" forState:UIControlStateNormal];
         return cell;
     } else {
         MallPayTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:payCellIndentifier forIndexPath:indexPath];
@@ -134,13 +141,39 @@ static NSString *payCellIndentifier = @"payCell";
 #pragma mark - 确认支付
 - (void)actionOfDoneButton:(UIButton *)button {
     DLog(@"确认支付");
+    if ([paySelectString isEqualToString:@"支付宝支付"]) {
+        [HttpClient buyGoodsWithPurchaseId:self.goodsModel.orderNumber payment:@"alipay" WithBlock:^(NSDictionary *dictionary) {
+            NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+            if (statusCode == 200) {
+                DLog(@"支付宝付款成功%@", dictionary);
+                NSString *tradeNO = dictionary[@"data"][@"out_trade_no"];
+                NSString *descriptionStr = dictionary[@"data"][@"body"];
+                NSString *subject = dictionary[@"data"][@"subject"];
+                NSString *amountStr = self.goodsModel.totalPrice;
+                DLog(@"amountPrice = %@", amountStr);
+                if (tradeNO && descriptionStr && subject) {
+                    [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
+                } else {
+                    kTipAlert(@"支付宝付款失败");
+                }
+            } else {
+                kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+            }
+
+        }];
+        
+    } else if ([paySelectString isEqualToString:@"账户支付"]) {
+        [HttpClient buyGoodsWithPurchaseId:self.goodsModel.orderNumber payment:@"wallet" WithBlock:^(NSDictionary *dictionary) {
+            NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+            if (statusCode == 200) {
+                kTipAlert(@"账户付款成功");
+            } else {
+                kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+            }
+        }];
+
+    }
     
 }
-
-#pragma mark - action
-- (void)actionOfChangeStatus:(UIButton *)button {
-    kTipAlert(@"联系卖家");
-}
-
 
 @end

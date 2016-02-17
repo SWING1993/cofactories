@@ -256,7 +256,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                     PublicServiceViewController *conversationVC = [[PublicServiceViewController alloc] init];
                     conversationVC.conversationType = ConversationType_APPSERVICE;
                     conversationVC.targetId = RONGCLOUD_IM_SERVICEID;
-                    conversationVC.userName = @"聚工厂客服";
                     conversationVC.title = @"聚工厂客服";
                     conversationVC.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:conversationVC animated:YES];

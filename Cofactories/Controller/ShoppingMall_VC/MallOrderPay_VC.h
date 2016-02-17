@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MeHistoryOrderModel.h"
 
 @interface MallOrderPay_VC : UITableViewController
+
+@property (nonatomic, strong) MeHistoryOrderModel *goodsModel;
 
 @end

@@ -26,12 +26,20 @@
         self.personAddress = [NSString stringWithFormat:@"%@ %@ %@ %@", dictionary[@"address"][@"province"], dictionary[@"address"][@"city"], dictionary[@"address"][@"district"], dictionary[@"address"][@"address"]];
         self.creatTime = [NSString stringWithFormat:@"%@", dictionary[@"createdTime"]];
         self.orderNumber = [NSString stringWithFormat:@"%@", dictionary[@"_id"]];
-        if ([dictionary[@"status"] isEqualToString:@"TRADE_SUCCESS"]) {
-            self.payType = @"已付款";
-        } else if([dictionary[@"status"] isEqualToString:@"WAIT_BUYER_PAY"]) {
-            self.payType = @"待付款";
+        if ([dictionary[@"status"] isEqualToString:@"wait_buyer_pay"]) {
+            self.waitPayType = @"等待买家付款";
+            self.payType = @"付款";
+        } else if([dictionary[@"status"] isEqualToString:@"wait_seller_send"]) {
+            self.waitPayType = @"买家已付款";
+            self.payType = @"联系卖家";
+        } else if([dictionary[@"status"] isEqualToString:@"wait_buyer_receive"]) {
+            self.waitPayType = @"卖家已发货";
+            self.payType = @"确认收货";
+        } else if ([dictionary[@"status"] isEqualToString:@"wait_comment"]) {
+            self.waitPayType = @"交易成功";
+            self.payType = @"评价";
         }
-        
+        self.userId = [NSString stringWithFormat:@"%@", dictionary[@"products"][0][@"userUid"]];
     }
     return self;
 
@@ -40,7 +48,5 @@
     
     return [[self alloc]initMeHistoryOrderModelWithDictionary:dictionary];
 }
-
-
 
 @end

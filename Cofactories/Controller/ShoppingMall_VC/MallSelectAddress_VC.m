@@ -22,6 +22,7 @@ static NSString *addressCellIdentifier = @"addressCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    DLog(@"mallOrderDic=%@", self.mallOrderDic);
     UserModel * MyProfile = [[UserModel alloc]getMyProfile];
     NSString *storeKey = [NSString stringWithFormat:@"mallAddressArray%@", MyProfile.uid];
     //获取已经存储的数据
@@ -168,8 +169,30 @@ static NSString *addressCellIdentifier = @"addressCell";
     NSString *storeKey = [NSString stringWithFormat:@"mallAddressArray%@", MyProfile.uid];
     [[StoreUserValue sharedInstance] storeValue:self.addressArray withKey:storeKey];
     
-    MallOrderPay_VC *orderPayVC = [[MallOrderPay_VC alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:orderPayVC animated:YES];
+    MallAddressModel *addressModel = [self.addressArray lastObject];
+    NSMutableDictionary *addressDic = [NSMutableDictionary dictionaryWithCapacity:7];
+    [addressDic setObject:addressModel.province forKey:@"province"];
+    [addressDic setObject:addressModel.city forKey:@"city"];
+    [addressDic setObject:addressModel.district forKey:@"district"];
+    [addressDic setObject:addressModel.detailAddress forKey:@"address"];
+    [addressDic setObject:addressModel.personName forKey:@"name"];
+    [addressDic setObject:addressModel.phoneNumber forKey:@"phone"];
+    [addressDic setObject:addressModel.postNumber forKey:@"post"];
+    
+    [self.mallOrderDic setObject:addressDic forKey:@"address"];
+    NSData *mallOrderData = [self DataTOjsonString:self.mallOrderDic];
+    [HttpClient getMallOrderWithDictionary:mallOrderData withBlock:^(NSDictionary *dictionary) {
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        if (statusCode == 200) {
+            self.goodsModel.totalPrice = [NSString stringWithFormat:@"%@", dictionary[@"data"][@"fee"]];
+            self.goodsModel.orderNumber = [NSString stringWithFormat:@"%@", dictionary[@"data"][@"purchaseId"]];
+            MallOrderPay_VC *orderPayVC = [[MallOrderPay_VC alloc] initWithStyle:UITableViewStyleGrouped];
+            orderPayVC.goodsModel = self.goodsModel;
+            [self.navigationController pushViewController:orderPayVC animated:YES];
+        } else {
+            kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+        }
+    }];
 }
 
 #pragma mark - 没有地址去填写
@@ -182,6 +205,18 @@ static NSString *addressCellIdentifier = @"addressCell";
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+
+- (NSData*)DataTOjsonString:(id)object {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    }
+    return jsonData;
 }
 
 @end

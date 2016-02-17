@@ -386,4 +386,10 @@
 //出售记录
 + (void)getMyGoodsSellHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
 
+//立即拍下
++ (void)getMallOrderWithDictionary:(NSData *)mallOrderDic withBlock:(void(^)(NSDictionary *dictionary))block;
+//查看购买记录
++ (void)getMallOrderOfBuyWithStatus:(NSString *)status page:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
+//商城付款
++ (void)buyGoodsWithPurchaseId:(NSString *)purchaseId payment:(NSString *)payment WithBlock:(void(^)(NSDictionary *dictionary))block;
 @end

@@ -534,12 +534,22 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithCapacity:0];
         [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
         
+        MeHistoryOrderModel *goodsModel = [[MeHistoryOrderModel alloc] init];
+        goodsModel.waitPayType = @"等待买家付款";
+        goodsModel.name = marketDetailModel.name;
+        goodsModel.price = marketDetailModel.price;
+        goodsModel.category = selectColorString;
+        goodsModel.amount = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
+        goodsModel.photoArray = marketDetailModel.photoArray;
+        
         //    ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
         //    shopOrderVC.goodsDic = buyGoodsDic;
         //    shopOrderVC.goodsID = self.shopID;
         //    shopOrderVC.goodsNumber = numberView.timeAmount;
         //    [self.navigationController pushViewController:shopOrderVC animated:YES];
         MallSelectAddress_VC *selectAddressVC = [[MallSelectAddress_VC alloc] init];
+        selectAddressVC.mallOrderDic = buyGoodsDic;
+        selectAddressVC.goodsModel = goodsModel;
         [self.navigationController pushViewController:selectAddressVC animated:YES];
     }
 

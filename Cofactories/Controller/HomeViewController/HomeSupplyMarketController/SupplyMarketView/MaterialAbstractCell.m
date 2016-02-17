@@ -22,6 +22,7 @@
         self.AbstractDetailLabel.textColor = [UIColor colorWithRed:83.0/255.0 green:83.0/255.0 blue:83.0/255.0 alpha:1.0];
         self.AbstractDetailLabel.font = [UIFont systemFontOfSize:13];
         self.AbstractDetailLabel.numberOfLines = 0;
+        self.AbstractDetailLabel.lineBreakMode = NSLineBreakByCharWrapping;
         [self addSubview:self.AbstractDetailLabel];
     }
     return self;

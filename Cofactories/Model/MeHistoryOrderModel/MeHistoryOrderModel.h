@@ -25,6 +25,9 @@
 @property (nonatomic, strong) NSString *creatTime;
 @property (nonatomic, strong) NSString *orderNumber;
 @property (nonatomic, strong) NSString *payType;
+@property (nonatomic, strong) NSString *waitPayType;
+
+@property (nonatomic, strong) NSString *userId;
 
 - (instancetype)initMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary;
