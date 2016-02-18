@@ -1206,12 +1206,12 @@
 		03571B171BE84BA100900EF9 = {
 			isa = PBXGroup;
 			children = (
-				03571D461BE860D200900EF9 /* Framework */,
 				03571B221BE84BA100900EF9 /* Cofactories */,
 				03571B3C1BE84BA100900EF9 /* CofactoriesTests */,
 				03571B471BE84BA100900EF9 /* CofactoriesUITests */,
 				03571B211BE84BA100900EF9 /* Products */,
 				2F020D48382A4CF938351224 /* Pods */,
+				03571D461BE860D200900EF9 /* Framework */,
 				87E6B27996D57D46255063EC /* Frameworks */,
 			);
 			sourceTree = "<group>";

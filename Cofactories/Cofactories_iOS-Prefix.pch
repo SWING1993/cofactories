@@ -163,7 +163,11 @@
 
 #pragma mark - 第三方框架
 
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
+#import "TTTAttributedLabel.h"
+#import "TMCache.h"
+#import "SDCAlertView.h"
+
 #import <RongIMKit/RongIMKit.h>//融云IM
 #import "UIButton+WebCache.h"//SDWebImage
 #import "UIImageView+WebCache.h"//SDWebImage
