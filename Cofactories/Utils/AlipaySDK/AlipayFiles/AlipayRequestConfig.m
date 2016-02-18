@@ -101,7 +101,7 @@
                     kTipAlert(@"订单支付失败");
                     break;
                 case 6001:
-                    kTipAlert(@"用户中途取消");
+                    kTipAlert(@"中途取消,订单支付失败");
                     break;
                 case 6002:
                     kTipAlert(@"网络连接出错");

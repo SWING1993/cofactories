@@ -276,6 +276,9 @@
 		7D5063951C43929B00B04498 /* TableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5063941C43929B00B04498 /* TableViewHeaderView.m */; };
 		7D543D311C5B20090086B702 /* MallOrderPay_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D543D301C5B20090086B702 /* MallOrderPay_VC.m */; };
 		7D543D371C5B439D0086B702 /* MallPayTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D543D361C5B439D0086B702 /* MallPayTypeCell.m */; };
+		7D56828B1C759A7500FF03AE /* MallOrderSellDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D56828A1C759A7500FF03AE /* MallOrderSellDetail_VC.m */; };
+		7D56828E1C75A84400FF03AE /* MallOrderMark_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D56828D1C75A84400FF03AE /* MallOrderMark_VC.m */; };
+		7D5682911C75AE2A00FF03AE /* MallCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5682901C75AE2A00FF03AE /* MallCommentCell.m */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
 		7D5C482C1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5C482B1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png */; };
 		7D65688C1C3389D80066C82D /* PublishPopularNews_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D65688B1C3389D80066C82D /* PublishPopularNews_VC.m */; };
@@ -325,7 +328,7 @@
 		7DC2A7681C2010700005CAFD /* MeHistoryOrderDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2A7671C2010700005CAFD /* MeHistoryOrderDetail_VC.m */; };
 		7DC2A76B1C2010AB0005CAFD /* HistoryOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */; };
 		7DCCC2A01C20FDB6002BF795 /* PopularNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */; };
-		7DD1CC761C74664C007ED8BE /* MallHistoryDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC751C74664C007ED8BE /* MallHistoryDetail_VC.m */; };
+		7DD1CC761C74664C007ED8BE /* MallOrderBuyDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC751C74664C007ED8BE /* MallOrderBuyDetail_VC.m */; };
 		7DD1CC791C747413007ED8BE /* MallOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC781C747413007ED8BE /* MallOrderAddressCell.m */; };
 		7DD1CC7C1C747489007ED8BE /* MallOrderStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC7B1C747489007ED8BE /* MallOrderStatusCell.m */; };
 		7DD483501C226820006D0FF6 /* MeHistoryBuy_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4834F1C226820006D0FF6 /* MeHistoryBuy_VC.m */; };
@@ -949,6 +952,12 @@
 		7D543D301C5B20090086B702 /* MallOrderPay_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderPay_VC.m; sourceTree = "<group>"; };
 		7D543D351C5B439D0086B702 /* MallPayTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallPayTypeCell.h; sourceTree = "<group>"; };
 		7D543D361C5B439D0086B702 /* MallPayTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallPayTypeCell.m; sourceTree = "<group>"; };
+		7D5682891C759A7500FF03AE /* MallOrderSellDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderSellDetail_VC.h; sourceTree = "<group>"; };
+		7D56828A1C759A7500FF03AE /* MallOrderSellDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderSellDetail_VC.m; sourceTree = "<group>"; };
+		7D56828C1C75A84400FF03AE /* MallOrderMark_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderMark_VC.h; sourceTree = "<group>"; };
+		7D56828D1C75A84400FF03AE /* MallOrderMark_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderMark_VC.m; sourceTree = "<group>"; };
+		7D56828F1C75AE2A00FF03AE /* MallCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallCommentCell.h; sourceTree = "<group>"; };
+		7D5682901C75AE2A00FF03AE /* MallCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallCommentCell.m; sourceTree = "<group>"; };
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
 		7D5C482B1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_sel@2x.png"; sourceTree = "<group>"; };
@@ -1043,8 +1052,8 @@
 		7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderAddressCell.m; sourceTree = "<group>"; };
 		7DCCC29E1C20FDB6002BF795 /* PopularNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsModel.h; sourceTree = "<group>"; };
 		7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsModel.m; sourceTree = "<group>"; };
-		7DD1CC741C74664C007ED8BE /* MallHistoryDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallHistoryDetail_VC.h; sourceTree = "<group>"; };
-		7DD1CC751C74664C007ED8BE /* MallHistoryDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallHistoryDetail_VC.m; sourceTree = "<group>"; };
+		7DD1CC741C74664C007ED8BE /* MallOrderBuyDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderBuyDetail_VC.h; sourceTree = "<group>"; };
+		7DD1CC751C74664C007ED8BE /* MallOrderBuyDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderBuyDetail_VC.m; sourceTree = "<group>"; };
 		7DD1CC771C747413007ED8BE /* MallOrderAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderAddressCell.h; sourceTree = "<group>"; };
 		7DD1CC781C747413007ED8BE /* MallOrderAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderAddressCell.m; sourceTree = "<group>"; };
 		7DD1CC7A1C747489007ED8BE /* MallOrderStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderStatusCell.h; sourceTree = "<group>"; };
@@ -2403,8 +2412,12 @@
 				7D7E8C101C5C96C40009452E /* MallBuyHistory_VC.m */,
 				7D7E8C121C5C96EE0009452E /* MallSellHistory_VC.h */,
 				7D7E8C131C5C96EE0009452E /* MallSellHistory_VC.m */,
-				7DD1CC741C74664C007ED8BE /* MallHistoryDetail_VC.h */,
-				7DD1CC751C74664C007ED8BE /* MallHistoryDetail_VC.m */,
+				7DD1CC741C74664C007ED8BE /* MallOrderBuyDetail_VC.h */,
+				7DD1CC751C74664C007ED8BE /* MallOrderBuyDetail_VC.m */,
+				7D5682891C759A7500FF03AE /* MallOrderSellDetail_VC.h */,
+				7D56828A1C759A7500FF03AE /* MallOrderSellDetail_VC.m */,
+				7D56828C1C75A84400FF03AE /* MallOrderMark_VC.h */,
+				7D56828D1C75A84400FF03AE /* MallOrderMark_VC.m */,
 			);
 			path = MallHistoryOrder;
 			sourceTree = "<group>";
@@ -2418,6 +2431,8 @@
 				7DD1CC781C747413007ED8BE /* MallOrderAddressCell.m */,
 				7DD1CC7A1C747489007ED8BE /* MallOrderStatusCell.h */,
 				7DD1CC7B1C747489007ED8BE /* MallOrderStatusCell.m */,
+				7D56828F1C75AE2A00FF03AE /* MallCommentCell.h */,
+				7D5682901C75AE2A00FF03AE /* MallCommentCell.m */,
 			);
 			path = MallHistoryOrderView;
 			sourceTree = "<group>";
@@ -3056,7 +3071,7 @@
 				7DF1C1C61C005F2200460DB7 /* HomeActivityCell.m in Sources */,
 				7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */,
 				7D743A0F1C23E879006AEA07 /* HomeActivity_VC.m in Sources */,
-				7DD1CC761C74664C007ED8BE /* MallHistoryDetail_VC.m in Sources */,
+				7DD1CC761C74664C007ED8BE /* MallOrderBuyDetail_VC.m in Sources */,
 				705B25641C09B29400CCA619 /* SearchOrder_Supplier_VC.m in Sources */,
 				03F846FE1C47740600F4EC00 /* EaseInputTipsView.m in Sources */,
 				7DADF0B21C1AB48A0093ABFF /* MeAddDesign_VC.m in Sources */,
@@ -3071,6 +3086,7 @@
 				7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */,
 				70F4A7771C12CF4E000DF7E7 /* CompletionOrder_TVC.m in Sources */,
 				03571BA11BE85B8200900EF9 /* MJPhotoView.m in Sources */,
+				7D56828B1C759A7500FF03AE /* MallOrderSellDetail_VC.m in Sources */,
 				705421F81C0D7A3C00BD2B47 /* OrderBid_Factory_VC.m in Sources */,
 				7DC2A7681C2010700005CAFD /* MeHistoryOrderDetail_VC.m in Sources */,
 				7D72CDCB1C3A0279005BDA66 /* HomeKoreaShopList_VC.m in Sources */,
@@ -3087,8 +3103,10 @@
 				705422011C0DB36F00BD2B47 /* OrderBid_Supplier_VC.m in Sources */,
 				03571BA41BE85B8200900EF9 /* YLGIFImage.m in Sources */,
 				7D2BE7401C192FF700CE4138 /* MeTextFieldCell.m in Sources */,
+				7D5682911C75AE2A00FF03AE /* MallCommentCell.m in Sources */,
 				039D4D4C1C72CACC0051CD2E /* AFHTTPRequestOperationManager.m in Sources */,
 				7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */,
+				7D56828E1C75A84400FF03AE /* MallOrderMark_VC.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,
 				70F50D7A1C06FB1500920F63 /* FactoryOrderMOdel.m in Sources */,
 				0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */,
@@ -3259,11 +3277,8 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
-					"$(PROJECT_DIR)/Cofactories/Utils/Bugly/libc++",
-					"\"$(SRCROOT)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Cofactories/Cofactories_iOS-Prefix.pch";
@@ -3276,14 +3291,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMAnalytics_Sdk_3.6.5",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMessage_Sdk_1.2.0",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK/UMOpus",
-					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_4.4",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
@@ -3309,11 +3317,8 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
-					"$(PROJECT_DIR)/Cofactories/Utils/Bugly/libc++",
-					"\"$(SRCROOT)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Cofactories/Cofactories_iOS-Prefix.pch";
@@ -3326,14 +3331,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMAnalytics_Sdk_3.6.5",
 					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMessage_Sdk_1.2.0",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/UMengFeedback_SDK/UMOpus",
-					"$(PROJECT_DIR)/Cofactories/Utils/Rong_Cloud_iOS_SDK_v2_3_8_stable",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_4.4",
-					"$(PROJECT_DIR)/Cofactories/Utils/UMeng/umeng_ios_social_sdk_4.4/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/Cofactories/Utils",
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);

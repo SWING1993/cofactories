@@ -6,6 +6,7 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
+#import "MBProgressHUD+Add.h"
 #import "UMSocial.h"
 #import "UMFeedback.h"
 #import "RootViewController.h"
@@ -14,22 +15,25 @@
 #import "UserProtocolViewController.h"
 #import "WelcomePageViewController.h"
 
-static NSString * const CellIdentifier = @"CellIdentifier";
-
+static NSString * const CellIdentifier = @"CellIdentifiers";
 
 @interface SystemSetViewController ()<UIAlertViewDelegate,UMSocialUIDelegate>
-
 @end
 
-@implementation SystemSetViewController {
-    UIAlertView * inviteCodeAlert;
-    UIAlertView * quitAlert;
-}
+@implementation SystemSetViewController
+UIAlertView * inviteCodeAlert;
+UIAlertView * quitAlert;
+
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-
     self.title=@"设置";
+    [super viewDidLoad];
+    [self initTableView];
+    DLog(@"%f",[self cacheFilePath]);
+//    kTipAlert(@"%f",[self cacheFilePath]);
+}
+
+- (void)initTableView {
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
@@ -50,13 +54,13 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [tableHeaderView addSubview:logoLabel];
     
     self.tableView.tableHeaderView=tableHeaderView;
-
+    
     
     inviteCodeAlert = [[UIAlertView alloc]initWithTitle:@"邀请码"
-                                                    message:nil
-                                                   delegate:self
-                                          cancelButtonTitle:@"取消"
-                                          otherButtonTitles:@"发送",nil];
+                                                message:nil
+                                               delegate:self
+                                      cancelButtonTitle:@"取消"
+                                      otherButtonTitles:@"发送",nil];
     [inviteCodeAlert setTag:123456];
     [inviteCodeAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
     
@@ -73,6 +77,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     quitAlert.tag = 404;
 }
 
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 404) {
         if (buttonIndex==1) {
@@ -80,7 +85,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             [RootViewController setupLoginViewController];
         }
     }
-    if (alertView.tag == 123456) {
+    else if (alertView.tag == 123456) {
         UITextField * alertTextField = [alertView textFieldAtIndex:0];
         if (buttonIndex == 1) {
             if (alertTextField.text.length > 0) {
@@ -103,13 +108,19 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             }
         }
     }
+    
+    else if (alertView.tag == 92){
+        if (buttonIndex == 1) {
+            [self clearCache];
+        }
+    }
 }
 
 #pragma mark - Table view data source
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -127,7 +138,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     if (section == 0) {
         return 0.0001f;
     }
-    return 7.0f;
+    return 10.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -139,30 +150,31 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        cell.textLabel.font=kFont;
-        cell.detailTextLabel.textColor=[UIColor blackColor];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        cell.textLabel.font=kFont;
+        cell.detailTextLabel.font = kFont;
+        cell.detailTextLabel.textColor=[UIColor blackColor];
         
         switch (indexPath.section) {
             case 0:{
                 switch (indexPath.row) {
                     case 0:{
-                        cell.textLabel.text=@"欢迎页";
+                        cell.textLabel.text =@"欢迎页";
                         
                     }
                         break;
                         
                     case 1:{
-                        cell.textLabel.text=@"去评分";
-
+                        cell.textLabel.text =@"去评分";
+                        
                     }
                         break;
                     case 2:{
-                        cell.textLabel.text = @"去分享";
+                        cell.textLabel.text =@"去分享";
                     }
                         break;
                     case 3:{
-                        cell.textLabel.text=@"邀请码";
+                        cell.textLabel.text =@"邀请码";
                     }
                         break;
                         
@@ -194,23 +206,49 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 }
                 
             }
-                
                 break;
+            /*
             case 2:{
-                cell.textLabel.text = @"注销登录";
+                switch (indexPath.row) {
+                    case 0:{
+                        cell.textLabel.text = @"清理缓存";
+                        NSString * cacheSize = [NSString stringWithFormat:@"%.2fM",[self cacheFilePath]];
+                        cell.detailTextLabel.text = cacheSize ;
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
             }
                 break;
-
+             */
+                
+            case 3:{
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.textLabel.text = @"注销登录";
+                cell.textLabel.font = [UIFont boldSystemFontOfSize:15.5f];
+                cell.textLabel.textColor = [UIColor redColor];
+                cell.textLabel.textAlignment = NSTextAlignmentRight;
+                
+            }
+                break;
+                
             default:
                 break;
         }
+
+    }
+    if (indexPath.section == 2 && indexPath.row == 0) {
+        cell.textLabel.text = @"清理缓存";
+        NSString * cacheSize = [NSString stringWithFormat:@"%.2fM",[self cacheFilePath]];
+        cell.detailTextLabel.text = cacheSize ;
     }
     return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     switch (indexPath.section) {
         case 0:{
             switch (indexPath.row) {
@@ -273,12 +311,17 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 default:
                     break;
             }
-            
         }
             
             break;
         case 2:{
-
+            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"确定要清除所有缓存文件吗？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去清理", nil];
+            alertView.tag = 92;
+            [alertView show];
+        }
+            break;
+            
+        case 3:{
             [quitAlert show];
         }
             break;
@@ -286,62 +329,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         default:
             break;
     }
-
-            /*
-        case 4:{
-            
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"填写邀请码" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField){
-                
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alertTextFieldDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
-                textField.placeholder = self.inviteCode;
-                textField.keyboardType = UIKeyboardTypeNumberPad;
-                textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-                if (![self.inviteCode isEqualToString:@"尚未填写"]) {
-                    textField.text = self.inviteCode;
-                }
-            }];
-            
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"提交" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-                if (alertController.textFields.firstObject.text.length>0) {
-                    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
-                    
-                    [HttpClient registerWithInviteCode:alertController.textFields.firstObject.text andBlock:^(NSInteger statusCode) {
-                        if (statusCode == 200) {
-                            kTipAlert(@"邀请码提交成功!");
-                        }
-                        else if (statusCode == 400) {
-                            kTipAlert(@"不存在该邀请码。(错误码：400)");
-                        }
-                        else if (statusCode == 409) {
-                            kTipAlert(@"该用户已存在邀请码。(错误码：409)");
-                        }
-                        else {
-                            kTipAlert(@"邀请码提交失败，尝试重新提交。(错误码：%ld)",(long)statusCode);
-                        }
-                    }];
-                }
-                
-            }];
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                [self dismissViewControllerAnimated:YES completion:^{
-                    [alertController.textFields.firstObject resignFirstResponder];
-                }];
-            }];
-            
-            [alertController addAction:okAction];
-            [alertController addAction:cancelAction];
-
-            [self presentViewController:alertController animated:YES completion:^{
-                
-            }];
-        }
-            break;
-             */
-
 }
 
-//友盟实现回调方法（可选）：
+#pragma mark - Table view data source 友盟实现回调方法（可选）：
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
 {
     //根据`responseCode`得到发送结果,如果分享成功
@@ -354,6 +344,61 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void)dealloc {
+    self.tableView.delegate = nil;
+    self.tableView.dataSource = nil;
+}
+
+#pragma mark - 清理缓存
+
+-(CGFloat)cacheFilePath{
+    NSString * cachePath = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];
+    return [ self folderSizeAtPath :cachePath];
+}
+-(CGFloat)fileSizeAtPath:(NSString *)path{
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    if([fileManager fileExistsAtPath:path]){
+        long long size=[fileManager attributesOfItemAtPath:path error:nil].fileSize;
+        return size/1024.0/1024.0;
+    }
+    return 0;
+}
+-(CGFloat)folderSizeAtPath:(NSString *)path{
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    CGFloat folderSize;
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles=[fileManager subpathsAtPath:path];
+        for (NSString *fileName in childerFiles) {
+            NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+            folderSize +=[self fileSizeAtPath:absolutePath];
+        }
+        //SDWebImage框架自身计算缓存的实现
+        folderSize+=[[SDImageCache sharedImageCache] getSize]/1024.0/1024.0;
+        return folderSize;
+    }
+    return 0;
+}
+
+-(void)clearCache{
+    NSString * path = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles=[fileManager subpathsAtPath:path];
+        for (NSString *fileName in childerFiles) {
+            //如有需要，加入条件，过滤掉不想删除的文件
+            NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+            [fileManager removeItemAtPath:absolutePath error:nil];
+        }
+    }
+    [[SDImageCache sharedImageCache] cleanDisk];
+    [self performSelectorOnMainThread:@selector(reloadTable) withObject:nil waitUntilDone:YES];
+   
+}
+- (void)reloadTable {
+    [MBProgressHUD showSuccess:@"缓存清理成功" toView:self.view];
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:2];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end

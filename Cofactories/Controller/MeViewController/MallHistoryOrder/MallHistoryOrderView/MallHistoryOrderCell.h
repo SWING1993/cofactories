@@ -18,5 +18,5 @@
 @property (nonatomic, strong) UILabel *goodsNumber;
 @property (nonatomic, strong) UILabel *totalPrice;
 @property (nonatomic, strong) UIButton *changeStatus;
-
+@property (nonatomic, assign) BOOL showButton;
 @end

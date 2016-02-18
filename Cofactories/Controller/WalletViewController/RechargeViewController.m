@@ -2,7 +2,7 @@
 //  RechargeViewController.m
 //  Cofactories
 //
-//  Created by 赵广印 on 15/11/24.
+//  Created by 宋国华 on 15/11/24.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
@@ -100,24 +100,22 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     money = [priceTextField.text floatValue];
     if (0<money && money<=5000) {
         NSString * amountStr = [NSString stringWithFormat:@"%.2f",money];
-        
         [HttpClient walletWithFee:amountStr WihtCharge:^(NSDictionary *responseDictionary) {
             NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
             if (statusCode == 200) {
-                DLog(@"%@",responseDictionary);
+//                DLog(@"%@",responseDictionary);
                 NSDictionary * dataDic = [responseDictionary objectForKey:@"data"];
                 NSString * tradeNO = [dataDic objectForKey:@"_id"];
                 NSString * descriptionStr = [dataDic objectForKey:@"description"];
-                NSString * status = [dataDic objectForKey:@"status"];
+//                NSString * status = [dataDic objectForKey:@"status"];
                 NSString * subject = [dataDic objectForKey:@"subject"];
                 
-                DLog(@"tradeNO =%@\ndescription =%@\nstatus = %@\nsubject = %@",tradeNO,descriptionStr,status,subject);
+//                DLog(@"tradeNO =%@\ndescription =%@\nstatus = %@\nsubject = %@",tradeNO,descriptionStr,status,subject);
                 
                 if (tradeNO && descriptionStr && subject) {
                     [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
                     Btn.enabled = YES;
                     [hud hide:YES];
-
                 }
                 else {
                     [hud hide:YES];
@@ -125,7 +123,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                     Btn.enabled = YES;
                 }
                 
-            }else {
+            }
+            else if (statusCode == 0) {
+                kTipAlert(@"网络暂无连接");
+            }
+            else {
                 kTipAlert(@"%@",[responseDictionary objectForKey:@"message"]);
                 Btn.enabled = YES;
                 [hud hide:YES];

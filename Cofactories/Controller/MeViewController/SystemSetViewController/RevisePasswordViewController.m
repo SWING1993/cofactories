@@ -55,7 +55,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
     //设置Btn
     UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
-    self.navigationItem.rightBarButtonItem = setButton;
+    self.navigationItem.leftBarButtonItem = setButton;
 }
 
 - (void)buttonClicked{

@@ -27,7 +27,15 @@
 @property (nonatomic, strong) NSString *payType;
 @property (nonatomic, strong) NSString *waitPayType;
 
-@property (nonatomic, strong) NSString *userId;
+@property (nonatomic, strong) NSString *sellerUserId;
+@property (nonatomic, strong) NSString *buyerUserId;
+@property (nonatomic, strong) NSString *mallOrderTitle;//商城订单详情标题
+@property (nonatomic, assign) NSInteger status;//订单状态
+@property (nonatomic, strong) NSString *payTime;
+@property (nonatomic, strong) NSString *sendTime;
+@property (nonatomic, strong) NSString *receiveTime;
+
+@property (nonatomic, assign) BOOL showButton;
 
 - (instancetype)initMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary;

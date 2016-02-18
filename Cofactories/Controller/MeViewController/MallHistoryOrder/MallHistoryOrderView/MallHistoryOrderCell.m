@@ -80,7 +80,19 @@
     return self;
 }
 
-
+@synthesize showButton = _showButton;
+- (void)setShowButton:(BOOL)showButton
+{
+    _showButton = showButton;
+    if (_showButton == YES)
+    {
+        _changeStatus.alpha = 1;
+    }
+    else
+    {
+        _changeStatus.alpha = 0;
+    }
+}
 
 
 

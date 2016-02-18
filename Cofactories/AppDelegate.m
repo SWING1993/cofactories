@@ -249,7 +249,7 @@
             kTipAlert(@"订单支付失败");
             break;
         case 6001:
-            kTipAlert(@"用户中途取消");
+            kTipAlert(@"中途取消,订单支付失败");
             break;
         case 6002:
             kTipAlert(@"网络连接出错");
@@ -342,20 +342,14 @@
  *  tabBarItem 的选中和不选中文字属性、背景图片
  */
 - (void)customizeInterface {
-    
     UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
-
     NSDictionary *textAttributes = @{
                                      NSFontAttributeName: [UIFont boldSystemFontOfSize:kNavTitleFontSize],
                                      NSForegroundColorAttributeName: [UIColor blackColor],
                                      };
     [navigationBarAppearance setTitleTextAttributes:textAttributes];
-
-    
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
-    
     [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
-
 }
 
 

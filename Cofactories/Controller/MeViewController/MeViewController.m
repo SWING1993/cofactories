@@ -267,6 +267,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 {
                     DLog(@"购买记录");
                     MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
+                    mallBuyVC.status = 0;
                     mallBuyVC.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:mallBuyVC animated:YES];
                     
@@ -305,7 +306,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                     case 1:
                 {
                     DLog(@"出售记录");
-                    
+                    MallSellHistory_VC *mallSellVC = [[MallSellHistory_VC alloc] init];
+                    mallSellVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:mallSellVC animated:YES];
                 }
                     break;
                 default:

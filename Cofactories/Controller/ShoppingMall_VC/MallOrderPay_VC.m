@@ -11,8 +11,9 @@
 #import "MallHistoryOrderCell.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "AlipayHeader.h"
+#import "MallBuyHistory_VC.h"
 
-@interface MallOrderPay_VC () {
+@interface MallOrderPay_VC ()<UIAlertViewDelegate> {
     NSArray *payPhotoArray, *payTitleArray;
     UIView *_header;
     NSString *paySelectString;
@@ -75,9 +76,9 @@ static NSString *payCellIndentifier = @"payCell";
         cell.goodsStatus.text = self.goodsModel.waitPayType;
         if (self.goodsModel.photoArray.count > 0) {
             NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, self.goodsModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+            [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"MallNoPhoto"]];
         } else {
-            cell.photoView.image = [UIImage imageNamed:@"默认图片"];
+            cell.photoView.image = [UIImage imageNamed:@"MallNoPhoto"];
         }
         cell.goodsTitle.text = self.goodsModel.name;
         cell.goodsPrice.text = [NSString stringWithFormat:@"¥ %@", self.goodsModel.price];
@@ -166,14 +167,21 @@ static NSString *payCellIndentifier = @"payCell";
         [HttpClient buyGoodsWithPurchaseId:self.goodsModel.orderNumber payment:@"wallet" WithBlock:^(NSDictionary *dictionary) {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
             if (statusCode == 200) {
-                kTipAlert(@"账户付款成功");
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户付款成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                [alert show];
             } else {
                 kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
             }
         }];
-
     }
-    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
+        mallBuyVC.status = 2;
+        [self.navigationController pushViewController:mallBuyVC animated:YES];
+    }
 }
 
 @end

@@ -170,7 +170,8 @@
         NSString *imageName = self.myImagesArray[i];
         
         if (self.isNetwork) {
-            [myImageView sd_setImageWithURL:[NSURL URLWithString:imageName] placeholderImage:[UIImage imageNamed:@"bannerPlaceHolder"]];
+            [myImageView sd_setImageWithURL:[NSURL URLWithString:imageName] placeholderImage:[UIImage imageNamed:@"bannerPlaceHolder"] options:SDWebImageRetryFailed];
+//            [myImageView sd_setImageWithURL:[NSURL URLWithString:imageName] placeholderImage:[UIImage imageNamed:@"bannerPlaceHolder"]];
         } else {
             myImageView.image = [UIImage imageNamed:imageName];
         }
