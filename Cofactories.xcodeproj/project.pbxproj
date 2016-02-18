@@ -461,8 +461,8 @@
 		03571B6C1BE85B7900900EF9 /* EAIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroView.m; sourceTree = "<group>"; };
 		03571B6D1BE85B7900900EF9 /* EARestrictedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EARestrictedScrollView.h; sourceTree = "<group>"; };
 		03571B6E1BE85B7900900EF9 /* EARestrictedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EARestrictedScrollView.m; sourceTree = "<group>"; };
-		03571B821BE85B8200900EF9 /* MBProgressHUD+Add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Add.h"; sourceTree = "<group>"; };
-		03571B831BE85B8200900EF9 /* MBProgressHUD+Add.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Add.m"; sourceTree = "<group>"; };
+		03571B821BE85B8200900EF9 /* MBProgressHUD+Add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD+Add.h"; path = "../Utils/MJPhotoBrowser/MBProgressHUD+Add.h"; sourceTree = "<group>"; };
+		03571B831BE85B8200900EF9 /* MBProgressHUD+Add.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+Add.m"; path = "../Utils/MJPhotoBrowser/MBProgressHUD+Add.m"; sourceTree = "<group>"; };
 		03571B841BE85B8200900EF9 /* MJPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhoto.h; sourceTree = "<group>"; };
 		03571B851BE85B8200900EF9 /* MJPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhoto.m; sourceTree = "<group>"; };
 		03571B861BE85B8200900EF9 /* MJPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJPhotoBrowser.bundle; sourceTree = "<group>"; };
@@ -1352,6 +1352,8 @@
 		03571B5A1BE84EA700900EF9 /* OC_Category */ = {
 			isa = PBXGroup;
 			children = (
+				03571B821BE85B8200900EF9 /* MBProgressHUD+Add.h */,
+				03571B831BE85B8200900EF9 /* MBProgressHUD+Add.m */,
 				03623FF91C44EDFE0083044A /* NSObject+ObjectMap.h */,
 				03623FFA1C44EDFE0083044A /* NSObject+ObjectMap.m */,
 				03623FF61C44E9FB0083044A /* UIDevice+Info.h */,
@@ -1396,8 +1398,6 @@
 		03571B811BE85B8200900EF9 /* MJPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				03571B821BE85B8200900EF9 /* MBProgressHUD+Add.h */,
-				03571B831BE85B8200900EF9 /* MBProgressHUD+Add.m */,
 				03571B841BE85B8200900EF9 /* MJPhoto.h */,
 				03571B851BE85B8200900EF9 /* MJPhoto.m */,
 				03571B861BE85B8200900EF9 /* MJPhotoBrowser.bundle */,

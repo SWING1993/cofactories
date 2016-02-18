@@ -10,6 +10,4 @@
 
 @interface WelcomePageViewController : UIViewController
 
-@property (nonatomic,copy) NSString * ViewController;
-
 @end
