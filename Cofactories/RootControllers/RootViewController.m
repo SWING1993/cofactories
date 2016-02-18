@@ -152,14 +152,13 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
     [[self presentingVC] presentViewController:nav animated:YES completion:nil];
 }
 
-
 #pragma mark - EAIntroView delegate
-
 - (void)introDidFinish:(EAIntroView *)introView {
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"showEAIntroPage"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    //展示页面结束 加载登陆注册页面
     [self setupRootViewController];
-    // 展示页面结束 加载登陆注册页面
 }
 
 - (void)showIntroWithCrossDissolve {
@@ -168,7 +167,6 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
     EAIntroPage *page2 = [EAIntroPage page];
     EAIntroPage *page3 = [EAIntroPage page];
     EAIntroPage *page4 = [EAIntroPage page];
-
 
     if (iphone4x_3_5) {
         DLog(@"4S");
@@ -183,11 +181,9 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
         page4.bgImage = [UIImage imageNamed:@"04"];
     }
     
-    
     EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3,page4]];
     [intro setDelegate:self];
-    
-    
+        
     intro.skipButton.alpha = 0.f;
     intro.skipButton.enabled = NO;
 
@@ -207,11 +203,6 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
     };
     
     [intro showInView:self.view animateDuration:0.1];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

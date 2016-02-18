@@ -32,7 +32,6 @@
 }
 
 - (void)introDidFinish:(EAIntroView *)introView {
-    
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
@@ -41,7 +40,6 @@
     EAIntroPage *page2 = [EAIntroPage page];
     EAIntroPage *page3 = [EAIntroPage page];
     EAIntroPage *page4 = [EAIntroPage page];
-    
     
     if (iphone4x_3_5) {
         DLog(@"4S");
