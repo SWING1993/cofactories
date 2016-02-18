@@ -7,6 +7,8 @@
 //
 
 
+#pragma mark - 第三方账号
+
 /*!
  Cofactory.Cofactoriesso
  企业账号：466542441@qq.com
@@ -86,25 +88,17 @@
 #define PhotoAPI   @"https://cdn.cofactories.com"
 #define kNotifyURL @"https://pay.cofactories.com/alipay"  //支付宝服务器通知URL
 #define kPopularBaseUrl @"http://news.cofactories.com"//流行资讯
-
 #define kH5BaseUrl @"http://h5.cofactories.com"//所有H5页面
-
-#define RONGCLOUD_IM_APPKEY @"4z3hlwrv3iult"
-#define RONGCLOUD_IM_SERVICEID @"KEFU145230927149545"
 
 
 #pragma mark - key
 
-#define kCustomerServicePhone @"4006400391"
-
-#pragma mark - 第三方key
-
-//友盟
-#define Appkey_Umeng @"5566b5e767e58e0c4700aab0"
-//appStore地址
-#define kAppUrl  @"http://itunes.apple.com/app/id1015359842"
-//appStore评分地址
-#define kAppReviewURL   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1015359842"
+#define RONGCLOUD_IM_APPKEY @"4z3hlwrv3iult"//融云
+#define RONGCLOUD_IM_SERVICEID @"KEFU145230927149545"//融云
+#define kCustomerServicePhone @"4006400391"//充值电话
+#define Appkey_Umeng @"5566b5e767e58e0c4700aab0"//友盟
+#define kAppUrl  @"http://itunes.apple.com/app/id1015359842"//appStore地址
+#define kAppReviewURL   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1015359842"//appStore评分地址
 
 
 #pragma mark - 系统版本  屏幕尺寸
@@ -134,8 +128,7 @@
 #define kScreenBounds [UIScreen mainScreen].bounds
 #define kScreenSize [UIScreen mainScreen].bounds.size
 
-#pragma mark - 常用变量
-//Color
+#pragma mark - 常用Color
 #define kGreen [UIColor colorWithHexString:@"0x3bbd79"]
 #define kBlack [UIColor colorWithHexString:@"0x28303b"]
 #define MAIN_COLOR  [UIColor colorWithRed:72/255.0 green:126/255.0 blue:208/255.0 alpha:1]
@@ -145,34 +138,39 @@
 #define kBackgroundColor [UIColor colorWithRed:250.0f/255.0f green:251.0f/255.0f blue:252.0f/255.0f alpha:1.0f]
 #define GRAYCOLOR(RGB) [UIColor colorWithRed:RGB/255.0 green:RGB/255.0 blue:RGB/255.0 alpha:1.0] 
 
+#pragma mark - 常用变量
 #define kStatusBarHeight 20
 #define kNavigationBarHeight 44
 #define kZGY [[UIScreen mainScreen] bounds].size.width / 375
-//登录注册 tableHeaderView 高度
-#define kLogintTableHeaderView_height 120
-
+#define kLogintTableHeaderView_height 120//登录注册 tableHeaderView 高度
+#define kLoginPaddingLeftWidth 18.0
+#define kKeyWindow [UIApplication sharedApplication].keyWindow
+#define kTipAlert(_S_, ...)     [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:(_S_), ##__VA_ARGS__] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show]
 
 //字体 Font
-//Nav字体大小
 #define kNavTitleFontSize 17.0f
 #define kLargeFont  [UIFont boldSystemFontOfSize:16.5f]
 #define kFont [UIFont systemFontOfSize:15.0f]
 #define kSmallFont  [UIFont systemFontOfSize:12.0f]
 
-#define kTipAlert(_S_, ...)     [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:(_S_), ##__VA_ARGS__] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show]
-
-#define kKeyWindow [UIApplication sharedApplication].keyWindow
-#define kLoginPaddingLeftWidth 18.0
 
 
+
+#pragma mark - 常用类
 #import "HttpClient.h"
 #import "Tools.h"
-#import "Masonry.h"
+#import "UserManagerCenter.h"
 
 #pragma mark - 第三方框架
-/*!
- Category
- */
+
+#import "Masonry.h"
+#import <RongIMKit/RongIMKit.h>//融云IM
+#import "UIButton+WebCache.h"//SDWebImage
+#import "UIImageView+WebCache.h"//SDWebImage
+
+
+#pragma mark - Category
+
 #import "UIBarButtonItem+Common.h"
 #import "UIColor+Expanded.h"
 #import "UIImage+Common.h"
@@ -185,13 +183,6 @@
 #import "NSObject+ObjectMap.h"
 #import "UIView+Common.h"
 
-
-#import "UserManagerCenter.h"
-#import "UIButton+WebCache.h"//SDWebImage
-#import "UIImageView+WebCache.h"//SDWebImage
-
-//融云IM
-#import <RongIMKit/RongIMKit.h>
 
 #pragma mark - 日志开关
 /*!
