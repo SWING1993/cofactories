@@ -176,11 +176,22 @@ static NSString *payCellIndentifier = @"payCell";
     }
 }
 
+#pragma mark - UIAlertViewDelegate
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
-        MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
-        mallBuyVC.status = 2;
-        [self.navigationController pushViewController:mallBuyVC animated:YES];
+        if (_isMeMallOrder) {
+            ApplicationDelegate.mallStatus = @"2";
+            for (UIViewController *controller in self.navigationController.viewControllers) {
+                if ([controller isKindOfClass:[MallBuyHistory_VC class]]) {
+                    [self.navigationController popToViewController:controller animated:YES];
+                }
+            }
+        } else {
+            MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
+            ApplicationDelegate.mallStatus = @"2";
+            [self.navigationController pushViewController:mallBuyVC animated:YES];
+        }
     }
 }
 

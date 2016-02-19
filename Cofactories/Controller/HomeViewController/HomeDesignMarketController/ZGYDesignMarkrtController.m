@@ -33,7 +33,7 @@
     self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
     
     self.view.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
-    NSArray *photoArray = @[@"Market-流行资讯.jpg", @"Market-设计者汇总", @"Market-版型购买"];
+    NSArray *photoArray = @[@"Market-流行资讯.jpg", @"Market-设计者汇总.jpg", @"Market-版型购买.jpg"];
     NSArray *titleArray = @[@"时尚资讯", @"设计师集中营", @"版型聚集地"];
     NSArray *detailTitleArray = @[@"最全流行资讯聚集地", @"最全潮流设计师聚集地", @"最全版型聚集地"];
     ZGYSupplyMarketView *designView = [[ZGYSupplyMarketView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, 370) photoArray:photoArray titleArray:titleArray detailTitleArray:detailTitleArray];

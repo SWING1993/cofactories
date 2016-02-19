@@ -47,6 +47,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = item;
     [self initView];
 }
 
@@ -108,24 +110,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         MeShoppingCar_VC *shoppingCarVC = [[MeShoppingCar_VC alloc] init];
         shoppingCarVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:shoppingCarVC animated:YES];
-//        DLog(@"我的订单");
-//        if (self.MyProfile.UserType == UserType_designer || self.MyProfile.UserType == UserType_supplier) {
-//            MeOrderSelect_VC *meOrder_VC = [[MeOrderSelect_VC alloc] init];
-//            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-//            backItem.title=@"返回";
-//            backItem.tintColor=[UIColor whiteColor];
-//            self.navigationItem.backBarButtonItem = backItem;
-//            meOrder_VC.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:meOrder_VC animated:YES];
-//        } else {
-//            MeHistoryOrderList_VC *historyVC = [[MeHistoryOrderList_VC alloc] init];
-//            UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-//            backItem.title=@"返回";
-//            backItem.tintColor=[UIColor whiteColor];
-//            self.navigationItem.backBarButtonItem = backItem;
-//            historyVC.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:historyVC animated:YES];
-//        }
     }
 }
 
@@ -267,7 +251,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 {
                     DLog(@"购买记录");
                     MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
-                    mallBuyVC.status = 0;
+                    ApplicationDelegate.mallStatus = @"0";
                     mallBuyVC.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:mallBuyVC animated:YES];
                     
@@ -299,7 +283,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         meShopVC.hidesBottomBarWhenPushed = YES;
                         [self.navigationController pushViewController:meShopVC animated:YES];
                     }
-  
                 }
                     break;
                     
@@ -307,6 +290,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 {
                     DLog(@"出售记录");
                     MallSellHistory_VC *mallSellVC = [[MallSellHistory_VC alloc] init];
+                    ApplicationDelegate.mallStatus = @"0";
                     mallSellVC.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:mallSellVC animated:YES];
                 }
@@ -324,8 +308,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             publishVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:publishVC animated:YES];
         }
-            
-            
             break;
     }
 }

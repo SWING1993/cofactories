@@ -34,23 +34,31 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
     [self.tableView registerClass:[MallOrderAddressCell class] forCellReuseIdentifier:mallAddressCellIdentifier];
     [self.tableView registerClass:[MallOrderStatusCell class] forCellReuseIdentifier:mallStatusCellIdentifier];
     
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(phoneCall);
+     self.navigationItem.rightBarButtonItem = temporaryBarButtonItem;
     [self creatTableViewFooterView];
 }
 - (void)creatTableViewFooterView {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 160)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 160 - 20*(self.goodsModel.status - 1))];
     switch (self.goodsModel.status) {
         case 1:
-            lastButton = [Tools buttonWithFrame:CGRectMake(20, 100, kScreenW - 40, 38) withTitle:@"立即付款"];
+            lastButton = [Tools buttonWithFrame:CGRectMake(20, 100 - 20*(self.goodsModel.status - 1), kScreenW - 40, 38) withTitle:@"立即付款"];
             self.tableView.tableFooterView = footerView;
             break;
         case 3:
-            lastButton = [Tools buttonWithFrame:CGRectMake(20, 100, kScreenW - 40, 38) withTitle:@"确认收货"];
+            lastButton = [Tools buttonWithFrame:CGRectMake(20, 100 - 20*(self.goodsModel.status - 1), kScreenW - 40, 38) withTitle:@"确认收货"];
             self.tableView.tableFooterView = footerView;
             break;
         case 4:
-            lastButton = [Tools buttonWithFrame:CGRectMake(20, 100, kScreenW - 40, 38) withTitle:@"立即评价"];
-            self.tableView.tableFooterView = footerView;
+            if ([self.goodsModel.comment isEqualToString:@"2"]) {
+                lastButton.hidden = YES;
+            } else {
+                lastButton = [Tools buttonWithFrame:CGRectMake(20, 100 - 20*(self.goodsModel.status - 1), kScreenW - 40, 38) withTitle:@"立即评价"];
+                self.tableView.tableFooterView = footerView;
+            }
             break;
         default:
             lastButton.hidden = YES;
@@ -119,6 +127,11 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
                 cell.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", self.goodsModel.sendTime];
                 cell.receiveTime.text = [NSString stringWithFormat:@"收货时间：%@", self.goodsModel.receiveTime];
                 break;
+            case 5:
+                cell.payTime.text = [NSString stringWithFormat:@"付款时间：%@", self.goodsModel.payTime];
+                cell.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", self.goodsModel.sendTime];
+                cell.receiveTime.text = [NSString stringWithFormat:@"收货时间：%@", self.goodsModel.receiveTime];
+                break;
             default:
                 cell.payTime.hidden = YES;
                 cell.sendTime.hidden = YES;
@@ -136,12 +149,13 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
     } else if (indexPath.section == 1) {
         return 80;
     } else {
-        if (self.goodsModel.status) {
-            return 60 + 20*(self.goodsModel.status - 1);
-        } else {
+        if (self.goodsModel.status == 0) {
             return 60;
+        } else if (self.goodsModel.status == 5) {
+            return 120;
+        } else {
+            return 60 + 20*(self.goodsModel.status - 1);
         }
-        
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -170,6 +184,7 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
         case 1: {
             DLog(@"付款");
             MallOrderPay_VC *mallOrderPayVC = [[MallOrderPay_VC alloc] initWithStyle:UITableViewStyleGrouped];
+            mallOrderPayVC.isMeMallOrder = YES;
             mallOrderPayVC.goodsModel = self.goodsModel;
             [self.navigationController pushViewController:mallOrderPayVC animated:YES];
         }
@@ -179,7 +194,8 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
             [HttpClient buyerReceiveGoodsFromSellerWithPurchaseId:self.goodsModel.orderNumber WithBlock:^(NSDictionary *dictionary) {
                 NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
                 if (statusCode == 200) {
-                    kTipAlert(@"确认收货成功");
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认收货成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    [alert show];
                 } else {
                     kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
                 }
@@ -196,6 +212,20 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
         default:
             break;
     }
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        ApplicationDelegate.mallStatus = @"4";
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)phoneCall {
+    NSString *str = @"telprompt://4006400391";
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
 
 @end

@@ -12,5 +12,6 @@
 @interface MallOrderPay_VC : UITableViewController
 
 @property (nonatomic, strong) MeHistoryOrderModel *goodsModel;
+@property (nonatomic, assign) BOOL isMeMallOrder;
 
 @end

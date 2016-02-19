@@ -10,4 +10,6 @@
 
 @interface MallSellHistory_VC : UIViewController
 
+@property (nonatomic, assign) NSInteger status;
+
 @end

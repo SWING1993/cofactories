@@ -71,6 +71,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MallCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.commentTitle.text = @"添加评价";
     _commentTF = cell.commentTextView;
     return cell;

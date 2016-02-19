@@ -3131,7 +3131,6 @@
 				03927D7E1BEC8CF50087A2FD /* MeViewController.m in Sources */,
 				039D4D5D1C72D5CD0051CD2E /* NSData+Utils.m in Sources */,
 				7D4D06C51C0ED48900BF49D9 /* AllDesignController.m in Sources */,
-				03B5697E1C02AE3000F89CDA /* NSObject+StoreValue.m in Sources */,
 				7DD1CC791C747413007ED8BE /* MallOrderAddressCell.m in Sources */,
 				7DA17DDF1C4CB6C000F024CB /* ActivityModel.m in Sources */,
 				035CC52C1C06DCF000998FBD /* PhotoAlbumManager.m in Sources */,

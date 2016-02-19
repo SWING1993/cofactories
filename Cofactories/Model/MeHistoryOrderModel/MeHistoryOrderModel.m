@@ -46,9 +46,15 @@
             self.showButton = NO;
         } else if ([dictionary[@"status"] isEqualToString:@"wait_comment"]) {
             self.waitPayType = @"交易成功";
-            self.payType = @"评价";
+//            self.payType = @"评价";
             self.mallOrderTitle = @"待评价订单";
             self.status = 4;
+            self.showButton = YES;
+        } else if ([dictionary[@"status"] isEqualToString:@"finish"]) {
+            self.waitPayType = @"交易成功";
+            self.payType = @"已完成";
+            self.mallOrderTitle = @"已完成订单";
+            self.status = 5;
             self.showButton = YES;
         } else {
             self.status = 0;
@@ -62,6 +68,7 @@
         self.payTime = [NSString stringWithFormat:@"%@", dictionary[@"payTime"]];
         self.sendTime = [NSString stringWithFormat:@"%@", dictionary[@"sendTime"]];
         self.receiveTime = [NSString stringWithFormat:@"%@", dictionary[@"receiveTime"]];
+        self.comment = [NSString stringWithFormat:@"%@", dictionary[@"comment"]];
     }
     return self;
 

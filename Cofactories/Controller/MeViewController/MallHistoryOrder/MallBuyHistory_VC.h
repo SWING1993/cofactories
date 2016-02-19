@@ -11,4 +11,5 @@
 @interface MallBuyHistory_VC : UIViewController
 
 @property (nonatomic, assign) NSInteger status;
+
 @end

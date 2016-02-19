@@ -17,7 +17,7 @@
 #import "MallOrderMark_VC.h"
 
 static NSString *mallBuyCellIdentifier = @"mallBuyCell";
-@interface MallBuyHistory_VC ()<UITableViewDataSource, UITableViewDelegate> {
+@interface MallBuyHistory_VC ()<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate> {
     UITableView     *mallBuyTableView;
     UILabel         *lineLabel;
     NSMutableArray  *buttonArray;
@@ -30,17 +30,26 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
 
 @implementation MallBuyHistory_VC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    statusArray = @[@"", @"wait_buyer_pay", @"wait_seller_send", @"wait_buyer_receive", @"wait_comment"];
+    self.status = [ApplicationDelegate.mallStatus integerValue];
+    
+    [self changeStatus:self.status];
+
+    refrushCount = 1;
+    [self network];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"购买交易";
-    statusArray = @[@"", @"wait_buyer_pay", @"wait_seller_send", @"wait_buyer_receive", @"wait_comment"];
     
     [self creatTableView];
     [mallBuyTableView registerClass:[MallHistoryOrderCell class] forCellReuseIdentifier:mallBuyCellIdentifier];
     [self creatHeaderView];
-    [self network];
-    refrushCount = 1;
 }
 
 - (void)network {
@@ -53,7 +62,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
                 [self.mallBuyHistoryArray addObject:historyOrderModel];
             }
             if (self.mallBuyHistoryArray.count == 0) {
-                mallBuyTableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"暂无购买记录"];
+                mallBuyTableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"您还没有相关的订单"];
             } else {
                 mallBuyTableView.backgroundView = nil;
                 [self setupRefresh];
@@ -126,17 +135,9 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
 }
 
 - (void)buttonClick:(UIButton *)button {
-    button.selected = YES;
-    for (UIButton *sunbBtn in buttonArray) {
-        if (sunbBtn != button) {
-            sunbBtn.selected = NO;
-        }
-    }
-    [UIView animateWithDuration:0.2 animations:^{
-        lineLabel.frame = CGRectMake(button.frame.origin.x + 5, 42, button.frame.size.width - 10, 2);
-    }];
-//    NSArray *statusArray = @[@"", @"wait_buyer_pay", @"wait_seller_send", @"wait_buyer_receive", @"wait_comment"];
+
     self.status = button.tag;
+    [self changeStatus:self.status];
     refrushCount = 1;
     [HttpClient getMallOrderOfBuyWithStatus:statusArray[self.status] page:@(refrushCount) WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
@@ -149,7 +150,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
             [mallBuyTableView reloadData];
             if (self.mallBuyHistoryArray.count == 0) {
                 [mallBuyTableView removeFooter];
-                mallBuyTableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"暂无交易记录"];
+                mallBuyTableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"您还没有相关的订单"];
             } else {
                 mallBuyTableView.backgroundView = nil;
                 [self setupRefresh];
@@ -185,7 +186,15 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
     cell.goodsNumber.text = [NSString stringWithFormat:@"x%@", historyOrderModel.amount];
     cell.totalPrice.text = [NSString stringWithFormat:@"共%@件商品 合计：¥ %@", historyOrderModel.amount, historyOrderModel.totalPrice];
     cell.changeStatus.tag = 222 + indexPath.section;
-    [cell.changeStatus setTitle:historyOrderModel.payType forState:UIControlStateNormal];
+    if (historyOrderModel.status == 4) {
+        if ([historyOrderModel.comment isEqualToString:@"2"]) {
+            [cell.changeStatus setTitle:@"待卖家评" forState:UIControlStateNormal];
+        } else {
+            [cell.changeStatus setTitle:@"评价" forState:UIControlStateNormal];
+        }
+    } else {
+        [cell.changeStatus setTitle:historyOrderModel.payType forState:UIControlStateNormal];
+    }
     [cell.changeStatus addTarget:self action:@selector(actionOfStatus:) forControlEvents:UIControlEventTouchUpInside];
 
     return cell;
@@ -204,7 +213,8 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
     return 15;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DLog(@"订单详情");
+    DLog(@"订单详情%ld", self.status);
+    ApplicationDelegate.mallStatus = [NSString stringWithFormat:@"%ld", self.status];
     MallOrderBuyDetail_VC *mallDetailVC = [[MallOrderBuyDetail_VC alloc] initWithStyle:UITableViewStyleGrouped];
     mallDetailVC.goodsModel = self.mallBuyHistoryArray[indexPath.section];
     [self.navigationController pushViewController:mallDetailVC animated:YES];
@@ -212,9 +222,11 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
 
 - (void)actionOfStatus:(UIButton *)button {
     DLog(@"*************");
+    ApplicationDelegate.mallStatus = [NSString stringWithFormat:@"%ld", self.status];
     if ([button.titleLabel.text isEqualToString:@"付款"]) {
         DLog(@"付款");
         MallOrderPay_VC *mallOrderPayVC = [[MallOrderPay_VC alloc] initWithStyle:UITableViewStyleGrouped];
+        mallOrderPayVC.isMeMallOrder = YES;
         mallOrderPayVC.goodsModel = self.mallBuyHistoryArray[button.tag - 222];
         [self.navigationController pushViewController:mallOrderPayVC animated:YES];
     } else if ([button.titleLabel.text isEqualToString:@"联系卖家"]){
@@ -236,7 +248,8 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         [HttpClient buyerReceiveGoodsFromSellerWithPurchaseId:orderModel.orderNumber WithBlock:^(NSDictionary *dictionary) {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
             if (statusCode == 200) {
-                kTipAlert(@"确认收货成功");
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认收货成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                [alert show];
             } else {
                 kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
             }
@@ -250,5 +263,28 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
     } 
 }
 
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [self changeStatus:4];
+        self.status = 4;
+        refrushCount = 1;
+        [self network];
+    }
+}
+
+- (void)changeStatus:(NSInteger)status {
+    UIButton *button = buttonArray[status];
+    button.selected = YES;
+    for (UIButton *sunbBtn in buttonArray) {
+        if (sunbBtn != button) {
+            sunbBtn.selected = NO;
+        }
+    }
+    [UIView animateWithDuration:0.2 animations:^{
+        lineLabel.frame = CGRectMake(button.frame.origin.x + 5, 42, button.frame.size.width - 10, 2);
+    }];
+}
 
 @end
