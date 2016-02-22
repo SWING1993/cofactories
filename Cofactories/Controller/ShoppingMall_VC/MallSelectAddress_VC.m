@@ -183,14 +183,36 @@ static NSString *addressCellIdentifier = @"addressCell";
     NSData *mallOrderData = [self DataTOjsonString:self.mallOrderDic];
     [HttpClient getMallOrderWithDictionary:mallOrderData withBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
-        if (statusCode == 200) {
-            self.goodsModel.totalPrice = [NSString stringWithFormat:@"%@", dictionary[@"data"][@"fee"]];
-            self.goodsModel.orderNumber = [NSString stringWithFormat:@"%@", dictionary[@"data"][@"purchaseId"]];
-            MallOrderPay_VC *orderPayVC = [[MallOrderPay_VC alloc] initWithStyle:UITableViewStyleGrouped];
-            orderPayVC.goodsModel = self.goodsModel;
-            [self.navigationController pushViewController:orderPayVC animated:YES];
-        } else {
-            kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+        switch (statusCode) {
+            case 200: {
+                NSString *mallPurchseId = [NSString stringWithFormat:@"%@", dictionary[@"data"][@"purchaseId"]];
+                MallOrderPay_VC *orderPayVC = [[MallOrderPay_VC alloc] initWithStyle:UITableViewStyleGrouped];
+                orderPayVC.mallPurchseId = mallPurchseId;
+                [self.navigationController pushViewController:orderPayVC animated:YES];
+            }
+                break;
+            case 403: {
+                kTipAlert(@"拍下失败，不能购买自己的商品");
+            }
+                break;
+            case 404: {
+                kTipAlert(@"拍下失败，商品可能已被删除或下架");
+            }
+                break;
+            case 405: {
+                kTipAlert(@"拍下失败，不能跨店铺购买");
+            }
+                break;
+            case 412: {
+                kTipAlert(@"拍下失败，库存不足");
+            }
+            case 421: {
+                kTipAlert(@"拍下失败，购买数量超过限制");
+            }
+                break;
+            default:
+                kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                break;
         }
     }];
 }

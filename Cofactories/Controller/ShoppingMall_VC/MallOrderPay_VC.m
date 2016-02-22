@@ -12,12 +12,15 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "AlipayHeader.h"
 #import "MallBuyHistory_VC.h"
+#import "MallOrderDetailModel.h"
 
 @interface MallOrderPay_VC ()<UIAlertViewDelegate> {
     NSArray *payPhotoArray, *payTitleArray;
     UIView *_header;
     NSString *paySelectString;
 }
+
+@property (nonatomic, strong) MallOrderDetailModel *goodsModel;
 
 @end
 
@@ -40,12 +43,25 @@ static NSString *payCellIndentifier = @"payCell";
     myLabel.textColor = GRAYCOLOR(100);
     myLabel.text = @"请选择一种付款方式";
     [_header addSubview:myLabel];
-    
+    DLog(@"^^^^^^^^^^%@", self.mallPurchseId);
     [self creatTableViewFooterView];
     [self.tableView registerClass:[MallHistoryOrderCell class] forCellReuseIdentifier:CellIndentifier];
     [self.tableView registerClass:[MallPayTypeCell class] forCellReuseIdentifier:payCellIndentifier];
+    [self netWork];
 }
-
+- (void)netWork {
+    DLog(@"^^^^^^^^^^%@", self.mallPurchseId);
+    [HttpClient getMallOrderDetailWithPurchseId:self.mallPurchseId WithBlock:^(NSDictionary *dictionary) {
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        if (statusCode == 200) {
+            self.goodsModel = [MallOrderDetailModel getMallOrderDetailModelWithDictionary:dictionary[@"data"]];
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
+            [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        } else {
+            kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+        }
+    }];
+}
 - (void) creatTableViewFooterView {
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 150)];
     UIButton *doneButton = [Tools buttonWithFrame:CGRectMake(20, 100, kScreenW - 40, 38) withTitle:@"确认支付"];
@@ -143,29 +159,48 @@ static NSString *payCellIndentifier = @"payCell";
 - (void)actionOfDoneButton:(UIButton *)button {
     DLog(@"确认支付");
     if ([paySelectString isEqualToString:@"支付宝支付"]) {
-        [HttpClient buyGoodsWithPurchaseId:self.goodsModel.orderNumber payment:@"alipay" WithBlock:^(NSDictionary *dictionary) {
+        [HttpClient buyGoodsWithPurchaseId:self.mallPurchseId payment:@"alipay" WithBlock:^(NSDictionary *dictionary) {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
-            if (statusCode == 200) {
-                DLog(@"支付宝付款成功%@", dictionary);
-                NSString *tradeNO = dictionary[@"data"][@"out_trade_no"];
-                NSString *descriptionStr = dictionary[@"data"][@"body"];
-                NSString *subject = dictionary[@"data"][@"subject"];
-                NSString *amountStr = self.goodsModel.totalPrice;
-                DLog(@"amountPrice = %@", amountStr);
-                if (tradeNO && descriptionStr && subject) {
-                    [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
-                } else {
-                    kTipAlert(@"支付宝付款失败");
+            switch (statusCode) {
+                case 200: {
+                    DLog(@"支付宝付款成功%@", dictionary);
+                    NSString *tradeNO = dictionary[@"data"][@"out_trade_no"];
+                    NSString *descriptionStr = dictionary[@"data"][@"body"];
+                    NSString *subject = dictionary[@"data"][@"subject"];
+                    NSString *amountStr = self.goodsModel.totalPrice;
+                    DLog(@"amountPrice = %@", amountStr);
+                    if (tradeNO && descriptionStr && subject) {
+                        [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
+                    } else {
+                        kTipAlert(@"支付宝付款失败");
+                    }
                 }
-            } else {
-                kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                    break;
+                case 409: {
+                    kTipAlert(@"您已经支付过了，不能重复支付");
+                }
+                default:
+                    kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                    break;
             }
-
         }];
         
     } else if ([paySelectString isEqualToString:@"账户支付"]) {
-        [HttpClient buyGoodsWithPurchaseId:self.goodsModel.orderNumber payment:@"wallet" WithBlock:^(NSDictionary *dictionary) {
+        [HttpClient buyGoodsWithPurchaseId:self.mallPurchseId payment:@"wallet" WithBlock:^(NSDictionary *dictionary) {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+            switch (statusCode) {
+                case 200: {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户付款成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    [alert show];
+                }
+                    break;
+                case 409: {
+                    kTipAlert(@"您已经支付过了，不能重复支付");
+                }
+                default:
+                    kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                    break;
+            }
             if (statusCode == 200) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户付款成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
                 [alert show];

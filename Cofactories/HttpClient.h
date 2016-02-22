@@ -400,5 +400,7 @@
 + (void)buyerReceiveGoodsFromSellerWithPurchaseId:(NSString *)purchaseId WithBlock:(void(^)(NSDictionary *dictionary))block;
 //商城评论
 + (void)mallCommentWithPurchseId:(NSString *)purchseId score:(NSString *)aScore comment:(NSString *)aComment WithBlock:(void(^)(NSDictionary *dictionary))block;
+//获取交易订单详情
++ (void)getMallOrderDetailWithPurchseId:(NSString *)purchseId WithBlock:(void(^)(NSDictionary *dictionary))block;
 
 @end

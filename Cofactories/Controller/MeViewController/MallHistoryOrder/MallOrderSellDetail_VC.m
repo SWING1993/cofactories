@@ -33,8 +33,14 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
     [self.tableView registerClass:[MallOrderAddressCell class] forCellReuseIdentifier:mallAddressCellIdentifier];
     [self.tableView registerClass:[MallOrderStatusCell class] forCellReuseIdentifier:mallStatusCellIdentifier];
     
+    UIBarButtonItem *mallDetailBackItem = [[UIBarButtonItem alloc] init];
+    mallDetailBackItem.image = [UIImage imageNamed:@"back"];
+    mallDetailBackItem.target = self;
+    mallDetailBackItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = mallDetailBackItem;
+    
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"MePhoneCall"];
     temporaryBarButtonItem.target = self;
     temporaryBarButtonItem.action = @selector(phoneCall);
     self.navigationItem.rightBarButtonItem = temporaryBarButtonItem;
@@ -200,6 +206,10 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
 - (void)phoneCall {
     NSString *str = @"telprompt://4006400391";
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+}
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

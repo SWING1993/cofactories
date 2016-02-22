@@ -227,7 +227,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         DLog(@"付款");
         MallOrderPay_VC *mallOrderPayVC = [[MallOrderPay_VC alloc] initWithStyle:UITableViewStyleGrouped];
         mallOrderPayVC.isMeMallOrder = YES;
-        mallOrderPayVC.goodsModel = self.mallBuyHistoryArray[button.tag - 222];
+        mallOrderPayVC.mallPurchseId = [self.mallBuyHistoryArray[button.tag - 222] orderNumber];
         [self.navigationController pushViewController:mallOrderPayVC animated:YES];
     } else if ([button.titleLabel.text isEqualToString:@"联系卖家"]){
         // 聊天

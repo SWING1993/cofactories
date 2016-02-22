@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MeHistoryOrderModel.h"
+
 
 @interface MallOrderPay_VC : UITableViewController
 
-@property (nonatomic, strong) MeHistoryOrderModel *goodsModel;
 @property (nonatomic, assign) BOOL isMeMallOrder;
+@property (nonatomic, strong) NSString *mallPurchseId;
 
 @end

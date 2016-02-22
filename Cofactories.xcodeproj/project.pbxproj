@@ -324,6 +324,7 @@
 		7DBDC8E31C157E7400D682D3 /* ColorSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDC8E21C157E7400D682D3 /* ColorSelectCell.m */; };
 		7DBDC8E61C15848B00D682D3 /* SelectColorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDC8E51C15848B00D682D3 /* SelectColorModel.m */; };
 		7DC13EE21C15646500304364 /* ZGYSelectNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC13EE11C15646500304364 /* ZGYSelectNumberView.m */; };
+		7DC14FC61C7AD1BE00EE0908 /* MallOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC14FC51C7AD1BE00EE0908 /* MallOrderDetailModel.m */; };
 		7DC27B8F1C40B82F006DB851 /* PublicServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27B8E1C40B82F006DB851 /* PublicServiceViewController.m */; };
 		7DC2A7681C2010700005CAFD /* MeHistoryOrderDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2A7671C2010700005CAFD /* MeHistoryOrderDetail_VC.m */; };
 		7DC2A76B1C2010AB0005CAFD /* HistoryOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */; };
@@ -1044,6 +1045,8 @@
 		7DBDC8E51C15848B00D682D3 /* SelectColorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectColorModel.m; sourceTree = "<group>"; };
 		7DC13EE01C15646500304364 /* ZGYSelectNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSelectNumberView.h; sourceTree = "<group>"; };
 		7DC13EE11C15646500304364 /* ZGYSelectNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSelectNumberView.m; sourceTree = "<group>"; };
+		7DC14FC41C7AD1BE00EE0908 /* MallOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderDetailModel.h; sourceTree = "<group>"; };
+		7DC14FC51C7AD1BE00EE0908 /* MallOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderDetailModel.m; sourceTree = "<group>"; };
 		7DC27B8D1C40B82F006DB851 /* PublicServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicServiceViewController.h; sourceTree = "<group>"; };
 		7DC27B8E1C40B82F006DB851 /* PublicServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicServiceViewController.m; sourceTree = "<group>"; };
 		7DC2A7661C2010700005CAFD /* MeHistoryOrderDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistoryOrderDetail_VC.h; sourceTree = "<group>"; };
@@ -2318,6 +2321,8 @@
 			children = (
 				7D1A4E381C5A19880076B462 /* MallAddressModel.h */,
 				7D1A4E391C5A19880076B462 /* MallAddressModel.m */,
+				7DC14FC41C7AD1BE00EE0908 /* MallOrderDetailModel.h */,
+				7DC14FC51C7AD1BE00EE0908 /* MallOrderDetailModel.m */,
 			);
 			path = MallModel;
 			sourceTree = "<group>";
@@ -2935,6 +2940,7 @@
 				70F6D2071C16CD7E00E23166 /* Business_Cloth_VC.m in Sources */,
 				7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */,
 				70FA60E31C09425400EA84FD /* Comment_TVC.m in Sources */,
+				7DC14FC61C7AD1BE00EE0908 /* MallOrderDetailModel.m in Sources */,
 				70F4AFB81C18249C00615A7E /* PersonalMessage_Design_VC.m in Sources */,
 				70F9AEC51C3F70B60003489B /* CalendarHomeViewController.m in Sources */,
 				03571BA31BE85B8200900EF9 /* UIImageView+MJWebCache.m in Sources */,
