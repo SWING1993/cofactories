@@ -10,6 +10,7 @@ pod 'SVPullToRefresh'
 pod 'SDCAlertView', '2.5.4' # SDCAlertView -- 2.5.4 支持iOS7
 pod 'MarqueeLabel'
 pod 'TMCache'
+pod 'iVersion'
 pod 'TTTAttributedLabel'
 pod 'UMengSocial', '~> 4.3'
 pod 'UMengAnalytics-NO-IDFA'

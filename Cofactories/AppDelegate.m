@@ -10,6 +10,8 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 
+#import "iVersion.h"
+
 #import "UMessage.h"
 #import "MobClick.h"
 
@@ -48,8 +50,12 @@
         //开启腾讯Bugly
         [[CrashReporter sharedInstance] installWithAppId:Appkey_bugly];
     }
+#pragma mark - iVersion
+    {
+        [iVersion sharedInstance].appStoreID = 1015359842;
+        [iVersion sharedInstance].checkAtLaunch = YES;
 
-    
+    }
 #pragma mark - 融云SDK
     {
         //初始化融云SDK。
@@ -191,7 +197,7 @@
     [[RCIMClient sharedRCIMClient] setDeviceToken:token];
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    DLog(@"推送error = %@",error);
+//    DLog(@"推送error = %@",error);
 }
 
 - (void)didReceiveMessageNotification:(NSNotification *)notification {

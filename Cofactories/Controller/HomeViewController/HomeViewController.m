@@ -47,9 +47,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self checkForUpdate];
-    
+        
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
@@ -458,6 +456,8 @@ static NSString *activityCellIdentifier = @"activityCell";
     }];
 }
 
+
+/*
 #pragma mark - checkForUpdate
 - (void)checkForUpdate {
     
@@ -494,5 +494,6 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
     }
 }
+ */
 
 @end
