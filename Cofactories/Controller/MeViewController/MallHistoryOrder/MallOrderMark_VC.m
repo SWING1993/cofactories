@@ -9,6 +9,9 @@
 #import "MallOrderMark_VC.h"
 #import "MallCommentCell.h"
 #import "PlaceholderTextView.h"
+#import "MallBuyHistory_VC.h"
+#import "MallSellHistory_VC.h"
+
 
 #define MARKBUTTON_INTERVAL (kScreenW-200-60)/4.f
 
@@ -59,7 +62,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)creatTableViewFooterView {
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 160)];
     UIButton *lastButton = [Tools buttonWithFrame:CGRectMake(20, 100, kScreenW - 40, 38) withTitle:@"提交评价"];
-    [lastButton addTarget:self action:@selector(markClick) forControlEvents:UIControlEventTouchUpInside];
+    [lastButton addTarget:self action:@selector(markClick:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:lastButton];
     self.tableView.tableFooterView = footerView;
 }
@@ -92,17 +95,21 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [_buttonArray addObject:button];
     _markString = button.titleLabel.text;
 }
-- (void)markClick {
+- (void)markClick:(UIButton *)button {
+    button.userInteractionEnabled = NO;
     if ([Tools isBlankString:_commentTF.text] == YES) {
         kTipAlert(@"请输入评论内容");
+        button.userInteractionEnabled = YES;
     } else {
         [HttpClient mallCommentWithPurchseId:self.purchaseId score:_markString comment:_commentTF.text WithBlock:^(NSDictionary *dictionary) {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
             if (statusCode == 200) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"订单评价成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
                 [alert show];
+                button.userInteractionEnabled = YES;
             } else {
                 kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                button.userInteractionEnabled = YES;
             }
         }];
     }
@@ -110,7 +117,19 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.isBuyHistory) {
+            for (UIViewController *controller in self.navigationController.viewControllers) {
+                if ([controller isKindOfClass:[MallBuyHistory_VC class]]) {
+                    [self.navigationController popToViewController:controller animated:YES];
+                }
+            }
+        } else {
+            for (UIViewController *controller in self.navigationController.viewControllers) {
+                if ([controller isKindOfClass:[MallSellHistory_VC class]]) {
+                    [self.navigationController popToViewController:controller animated:YES];
+                }
+            }
+        }
     }
 }
 

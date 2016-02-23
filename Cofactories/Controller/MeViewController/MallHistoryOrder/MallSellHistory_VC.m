@@ -242,6 +242,7 @@ static NSString *mallSellCellIdentifier = @"mallSellCell";
     } else if ([button.titleLabel.text isEqualToString:@"评价"]) {
         MeHistoryOrderModel *orderModel = self.mallSellHistoryArray[button.tag - 222];
         MallOrderMark_VC *mallMarkVC = [[MallOrderMark_VC alloc] initWithStyle:UITableViewStyleGrouped];
+        mallMarkVC.isBuyHistory = NO;
         mallMarkVC.purchaseId = orderModel.orderNumber;
         [self.navigationController pushViewController:mallMarkVC animated:YES];
     }

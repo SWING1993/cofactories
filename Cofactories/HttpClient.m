@@ -618,6 +618,7 @@
             //            DLog(@"responseObject = %@",responseObject);
             NSMutableArray * array = [[NSMutableArray alloc]initWithCapacity:0];
             [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                DLog(@"%@", responseObject);
                 WalletHistoryModel * model = [[WalletHistoryModel alloc]initWithDictionary:obj];
                 [array addObject:model];
             }];
@@ -2321,8 +2322,28 @@
             block(@{@"statusCode": @(200), @"data":responseObject });
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
-            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-            block(@{@"statusCode": @(statusCode), @"message":errors });
+            switch (statusCode) {
+                case 403:
+                    block(@{@"statusCode": @(403), @"message": @"不能购买自己的商品"});
+                    break;
+                case 405:
+                    block(@{@"statusCode": @(405), @"message": @"不能跨店铺购买"});
+                    break;
+                case 412:
+                    block(@{@"statusCode": @(412), @"message": @"库存不足"});
+                    break;
+                case 421:
+                    block(@{@"statusCode": @(421), @"message": @"购买数量超过限制"});
+                    break;
+                case 404:
+                    block(@{@"statusCode": @(404), @"message": @"该商品已下架或该分类已无货"});
+                    break;
+                default:{
+                    NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+                    block(@{@"statusCode": @(statusCode), @"message": errors});
+                }
+                    break;
+            }
         }];
     }
 }
@@ -2375,8 +2396,25 @@
             block(@{@"statusCode": @(200), @"data":responseObject });
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
-            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-            block(@{@"statusCode": @(statusCode), @"message":errors });
+            switch (statusCode) {
+                case 402:
+                    block(@{@"statusCode": @(402), @"message": @"支付失败，钱包余额不足"});
+                    break;
+                case 409:
+                    block(@{@"statusCode": @(409), @"message": @"支付失败，已经支付过了，不能重复支付"});
+                    break;
+                case 403:
+                    block(@{@"statusCode": @(403), @"message": @"支付失败，登陆用户不是购买的人"});
+                    break;
+                case 401:
+                    block(@{@"statusCode": @(401), @"message": @"支付失败，请重新登陆"});
+                    break;
+                default:{
+                    NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+                    block(@{@"statusCode": @(statusCode), @"message": errors});
+                }
+                    break;
+            }
         }];
     }
 }

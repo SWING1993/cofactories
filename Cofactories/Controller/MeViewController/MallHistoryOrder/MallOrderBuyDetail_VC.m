@@ -24,6 +24,15 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
 @end
 
 @implementation MallOrderBuyDetail_VC
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor grayColor]];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -211,6 +220,7 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
         case 4: {
             DLog(@"立即评价");
             MallOrderMark_VC *mallMarkVC = [[MallOrderMark_VC alloc] initWithStyle:UITableViewStyleGrouped];
+            mallMarkVC.isBuyHistory = YES;
             mallMarkVC.purchaseId = self.goodsModel.orderNumber;
             [self.navigationController pushViewController:mallMarkVC animated:YES];
         }

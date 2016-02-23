@@ -158,11 +158,13 @@ static NSString *payCellIndentifier = @"payCell";
 #pragma mark - 确认支付
 - (void)actionOfDoneButton:(UIButton *)button {
     DLog(@"确认支付");
+    button.userInteractionEnabled = NO;
     if ([paySelectString isEqualToString:@"支付宝支付"]) {
         [HttpClient buyGoodsWithPurchaseId:self.mallPurchseId payment:@"alipay" WithBlock:^(NSDictionary *dictionary) {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
             switch (statusCode) {
                 case 200: {
+                    button.userInteractionEnabled = YES;
                     DLog(@"支付宝付款成功%@", dictionary);
                     NSString *tradeNO = dictionary[@"data"][@"out_trade_no"];
                     NSString *descriptionStr = dictionary[@"data"][@"body"];
@@ -176,11 +178,9 @@ static NSString *payCellIndentifier = @"payCell";
                     }
                 }
                     break;
-                case 409: {
-                    kTipAlert(@"您已经支付过了，不能重复支付");
-                }
                 default:
                     kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                    button.userInteractionEnabled = YES;
                     break;
             }
         }];
@@ -192,20 +192,14 @@ static NSString *payCellIndentifier = @"payCell";
                 case 200: {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户付款成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
                     [alert show];
+                    button.userInteractionEnabled = YES;
                 }
                     break;
-                case 409: {
-                    kTipAlert(@"您已经支付过了，不能重复支付");
-                }
-                default:
+                default: {
                     kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                    button.userInteractionEnabled = YES;
+                }
                     break;
-            }
-            if (statusCode == 200) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户付款成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-                [alert show];
-            } else {
-                kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
             }
         }];
     }

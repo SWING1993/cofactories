@@ -62,6 +62,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
                 [self.mallBuyHistoryArray addObject:historyOrderModel];
             }
             if (self.mallBuyHistoryArray.count == 0) {
+                [mallBuyTableView reloadData];
                 mallBuyTableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"您还没有相关的订单"];
             } else {
                 mallBuyTableView.backgroundView = nil;
@@ -258,6 +259,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
     } else if ([button.titleLabel.text isEqualToString:@"评价"]){
         MeHistoryOrderModel *orderModel = self.mallBuyHistoryArray[button.tag - 222];
         MallOrderMark_VC *mallMarkVC = [[MallOrderMark_VC alloc] initWithStyle:UITableViewStyleGrouped];
+        mallMarkVC.isBuyHistory = YES;
         mallMarkVC.purchaseId = orderModel.orderNumber;
         [self.navigationController pushViewController:mallMarkVC animated:YES];
     } 

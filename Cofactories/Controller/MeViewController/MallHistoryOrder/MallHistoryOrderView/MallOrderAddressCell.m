@@ -15,8 +15,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        self.addressView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 24, 25, 32)];
-        self.addressView.image = [UIImage imageNamed:@"Me-历史订单地址"];
+        self.addressView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 27, 25, 25)];
+        self.addressView.image = [UIImage imageNamed:@"Me-MallAddress"];
         [self addSubview:self.addressView];
         self.personName = [[UILabel alloc] initWithFrame:CGRectMake(45, 10, (kScreenW - 60)/2, 20)];
         self.personName.font = [UIFont systemFontOfSize:12];

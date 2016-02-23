@@ -157,6 +157,7 @@ static NSString *addressCellIdentifier = @"addressCell";
 
 #pragma mark - 拍下订单
 - (void)actionOfDoneButton:(UIButton *)button {
+    button.userInteractionEnabled = NO;
     DLog(@"拍下订单");
     for (int i = 0; i < self.addressArray.count; i++) {
         MallAddressModel *addressModel = self.addressArray[i];
@@ -185,33 +186,16 @@ static NSString *addressCellIdentifier = @"addressCell";
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         switch (statusCode) {
             case 200: {
+                button.userInteractionEnabled = YES;
                 NSString *mallPurchseId = [NSString stringWithFormat:@"%@", dictionary[@"data"][@"purchaseId"]];
                 MallOrderPay_VC *orderPayVC = [[MallOrderPay_VC alloc] initWithStyle:UITableViewStyleGrouped];
                 orderPayVC.mallPurchseId = mallPurchseId;
                 [self.navigationController pushViewController:orderPayVC animated:YES];
             }
                 break;
-            case 403: {
-                kTipAlert(@"拍下失败，不能购买自己的商品");
-            }
-                break;
-            case 404: {
-                kTipAlert(@"拍下失败，商品可能已被删除或下架");
-            }
-                break;
-            case 405: {
-                kTipAlert(@"拍下失败，不能跨店铺购买");
-            }
-                break;
-            case 412: {
-                kTipAlert(@"拍下失败，库存不足");
-            }
-            case 421: {
-                kTipAlert(@"拍下失败，购买数量超过限制");
-            }
-                break;
             default:
                 kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                button.userInteractionEnabled = YES;
                 break;
         }
     }];

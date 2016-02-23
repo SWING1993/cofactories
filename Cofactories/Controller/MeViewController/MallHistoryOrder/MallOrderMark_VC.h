@@ -10,6 +10,7 @@
 
 @interface MallOrderMark_VC : UITableViewController
 
+@property (nonatomic, assign) BOOL isBuyHistory;
 @property (nonatomic, strong) NSString *purchaseId;
 
 @end

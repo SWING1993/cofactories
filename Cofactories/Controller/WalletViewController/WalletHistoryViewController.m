@@ -135,6 +135,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         [cell setAccessoryType:UITableViewCellAccessoryNone];
         
         WalletHistoryModel * model = [self.modelArray objectAtIndex:indexPath.row];
+        DLog(@"^^^^^^%@", model.type);
         cell.typeLabel.text = [NSString stringWithFormat:@"\n%@",model.type];
         cell.timeLabel.text = [NSString stringWithFormat:@"%@\n",model.createdTime];
         
