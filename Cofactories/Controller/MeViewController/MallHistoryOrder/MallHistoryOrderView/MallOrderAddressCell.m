@@ -28,7 +28,7 @@
         self.personPhoneNumber.textColor = [UIColor grayColor];
         [self addSubview:self.personPhoneNumber];
         self.personAddress = [[UILabel alloc] initWithFrame:CGRectMake(self.personName.frame.origin.x, CGRectGetMaxY(self.personPhoneNumber.frame), kScreenW - 60, 40)];
-        self.personAddress.numberOfLines = 2;
+        self.personAddress.numberOfLines = 0;
         self.personAddress.font = [UIFont systemFontOfSize:12];
         self.personAddress.textColor = [UIColor grayColor];
         [self addSubview:self.personAddress];

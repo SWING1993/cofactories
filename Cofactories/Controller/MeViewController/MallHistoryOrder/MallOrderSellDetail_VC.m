@@ -113,6 +113,9 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.personName.text = [NSString stringWithFormat:@"收货人：%@", self.goodsModel.personName];
         cell.personPhoneNumber.text = [NSString stringWithFormat:@"电话：%@", self.goodsModel.personPhone];
+        CGSize size = [Tools getSize:[NSString stringWithFormat:@"收货地址：%@", self.goodsModel.personAddress] andFontOfSize:12 andWidthMake:kScreenW - 60];
+        cell.personAddress.frame = CGRectMake(45, CGRectGetMaxY(cell.personName.frame) + 5, kScreenW - 60, size.height);
+        cell.addressView.frame = CGRectMake(10, (45 + size.height - 25)/2, 25, 25);
         cell.personAddress.text = [NSString stringWithFormat:@"收货地址：%@", self.goodsModel.personAddress];
         return cell;
     } else {
@@ -156,7 +159,8 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
     if (indexPath.section == 0) {
         return 195;
     } else if (indexPath.section == 1) {
-        return 80;
+        CGSize size = [Tools getSize:[NSString stringWithFormat:@"收货地址：%@", self.goodsModel.personAddress] andFontOfSize:12 andWidthMake:kScreenW - 60];
+        return 45 + size.height;
     } else {
         if (self.goodsModel.status == 0) {
             return 60;

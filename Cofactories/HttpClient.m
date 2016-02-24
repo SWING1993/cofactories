@@ -615,7 +615,7 @@
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         [manager GET:API_walletHistory parameters:@{@"page":page} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-            //            DLog(@"responseObject = %@",responseObject);
+                DLog(@"responseObject = %@",responseObject);
             NSMutableArray * array = [[NSMutableArray alloc]initWithCapacity:0];
             [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 DLog(@"%@", responseObject);
