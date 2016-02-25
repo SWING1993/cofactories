@@ -267,8 +267,6 @@
 		7D41C8A71C0EEAF800703869 /* AllDesignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D41C8A61C0EEAF800703869 /* AllDesignCell.m */; };
 		7D43078A1C10271E00C4A3FF /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4307891C10271E00C4A3FF /* libiconv.tbd */; };
 		7D45D0D61C224C9100FC2988 /* MeHistoryOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */; };
-		7D45D0D91C225D0600FC2988 /* HistoryOrderThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45D0D81C225D0600FC2988 /* HistoryOrderThirdCell.m */; };
-		7D45D0DC1C225FA500FC2988 /* HistoryOrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45D0DB1C225FA500FC2988 /* HistoryOrderDetailCell.m */; };
 		7D4B74A11C3122B800344A43 /* Verified_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4B74A01C3122B800344A43 /* Verified_VC.m */; };
 		7D4D06C51C0ED48900BF49D9 /* AllDesignController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06C41C0ED48900BF49D9 /* AllDesignController.m */; };
 		7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5005671C098E230034BE03 /* PopularMessageController.m */; };
@@ -290,7 +288,6 @@
 		7D665EA81C0C60EE00C7C7BF /* IMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */; };
 		7D6DB64C1C05AEE300BF396E /* AuthenticationPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */; };
 		7D6F43351C5EF58E00A60892 /* PushPopularNews_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6F43341C5EF58E00A60892 /* PushPopularNews_VC.m */; };
-		7D70BACA1C21852A00920EE3 /* MeOrderSelect_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D70BAC91C21852A00920EE3 /* MeOrderSelect_VC.m */; };
 		7D71D1081C1AC68A00CF324E /* MeTextLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D71D1071C1AC68A00CF324E /* MeTextLabelCell.m */; };
 		7D72CDCB1C3A0279005BDA66 /* HomeKoreaShopList_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D72CDCA1C3A0279005BDA66 /* HomeKoreaShopList_VC.m */; };
 		7D743A051C23A00B006AEA07 /* PopularNewsDetails_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D743A041C23A00B006AEA07 /* PopularNewsDetails_VC.m */; };
@@ -304,11 +301,8 @@
 		7D8E703A1C0FE894004A7E2C /* ProcessMarketController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E70391C0FE894004A7E2C /* ProcessMarketController.m */; };
 		7D8E703E1C0FEA06004A7E2C /* ProcessMarketListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E703D1C0FEA06004A7E2C /* ProcessMarketListCell.m */; };
 		7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */; };
-		7D9E1E621C1E6C73007A4B6B /* MeHistoryOrderList_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9E1E611C1E6C73007A4B6B /* MeHistoryOrderList_VC.m */; };
-		7D9E1E651C1E6D16007A4B6B /* HistoryOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9E1E641C1E6D16007A4B6B /* HistoryOrderListCell.m */; };
 		7DA17DDC1C4CB68900F024CB /* IndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA17DDB1C4CB68900F024CB /* IndexModel.m */; };
 		7DA17DDF1C4CB6C000F024CB /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA17DDE1C4CB6C000F024CB /* ActivityModel.m */; };
-		7DA17DEC1C4CB9C200F024CB /* ShoppingOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA17DEA1C4CB9C200F024CB /* ShoppingOrderController.m */; };
 		7DA5E6981C0D4CDD00736C10 /* SelectOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA5E6971C0D4CDD00736C10 /* SelectOrder_VC.m */; };
 		7DA9501E1C12AFEE00BFCB31 /* MaterialShopDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9501D1C12AFEE00BFCB31 /* MaterialShopDetailCell.m */; };
 		7DA950231C12ED2E00BFCB31 /* MaterialAbstractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA950221C12ED2E00BFCB31 /* MaterialAbstractCell.m */; };
@@ -326,14 +320,10 @@
 		7DC13EE21C15646500304364 /* ZGYSelectNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC13EE11C15646500304364 /* ZGYSelectNumberView.m */; };
 		7DC14FC61C7AD1BE00EE0908 /* MallOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC14FC51C7AD1BE00EE0908 /* MallOrderDetailModel.m */; };
 		7DC27B8F1C40B82F006DB851 /* PublicServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27B8E1C40B82F006DB851 /* PublicServiceViewController.m */; };
-		7DC2A7681C2010700005CAFD /* MeHistoryOrderDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2A7671C2010700005CAFD /* MeHistoryOrderDetail_VC.m */; };
-		7DC2A76B1C2010AB0005CAFD /* HistoryOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */; };
 		7DCCC2A01C20FDB6002BF795 /* PopularNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */; };
 		7DD1CC761C74664C007ED8BE /* MallOrderBuyDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC751C74664C007ED8BE /* MallOrderBuyDetail_VC.m */; };
 		7DD1CC791C747413007ED8BE /* MallOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC781C747413007ED8BE /* MallOrderAddressCell.m */; };
 		7DD1CC7C1C747489007ED8BE /* MallOrderStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC7B1C747489007ED8BE /* MallOrderStatusCell.m */; };
-		7DD483501C226820006D0FF6 /* MeHistoryBuy_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4834F1C226820006D0FF6 /* MeHistoryBuy_VC.m */; };
-		7DD483531C22683F006D0FF6 /* MeHistorySell_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD483521C22683F006D0FF6 /* MeHistorySell_VC.m */; };
 		7DE36D221C0809A70090BF5D /* PopularCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
 		7DEB8F951C06F13C00B98912 /* ZGYDesignMarkrtController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */; };
@@ -935,10 +925,6 @@
 		7D4307891C10271E00C4A3FF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		7D45D0D41C224C9100FC2988 /* MeHistoryOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistoryOrderModel.h; sourceTree = "<group>"; };
 		7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistoryOrderModel.m; sourceTree = "<group>"; };
-		7D45D0D71C225D0600FC2988 /* HistoryOrderThirdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOrderThirdCell.h; sourceTree = "<group>"; };
-		7D45D0D81C225D0600FC2988 /* HistoryOrderThirdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderThirdCell.m; sourceTree = "<group>"; };
-		7D45D0DA1C225FA500FC2988 /* HistoryOrderDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOrderDetailCell.h; sourceTree = "<group>"; };
-		7D45D0DB1C225FA500FC2988 /* HistoryOrderDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderDetailCell.m; sourceTree = "<group>"; };
 		7D4B749F1C3122B800344A43 /* Verified_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Verified_VC.h; sourceTree = "<group>"; };
 		7D4B74A01C3122B800344A43 /* Verified_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Verified_VC.m; sourceTree = "<group>"; };
 		7D4D06C31C0ED48900BF49D9 /* AllDesignController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllDesignController.h; sourceTree = "<group>"; };
@@ -977,8 +963,6 @@
 		7D6DB64B1C05AEE300BF396E /* AuthenticationPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPhotoController.m; sourceTree = "<group>"; };
 		7D6F43331C5EF58E00A60892 /* PushPopularNews_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushPopularNews_VC.h; sourceTree = "<group>"; };
 		7D6F43341C5EF58E00A60892 /* PushPopularNews_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushPopularNews_VC.m; sourceTree = "<group>"; };
-		7D70BAC81C21852A00920EE3 /* MeOrderSelect_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeOrderSelect_VC.h; sourceTree = "<group>"; };
-		7D70BAC91C21852A00920EE3 /* MeOrderSelect_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeOrderSelect_VC.m; sourceTree = "<group>"; };
 		7D71D1061C1AC68A00CF324E /* MeTextLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeTextLabelCell.h; sourceTree = "<group>"; };
 		7D71D1071C1AC68A00CF324E /* MeTextLabelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeTextLabelCell.m; sourceTree = "<group>"; };
 		7D72CDC91C3A0279005BDA66 /* HomeKoreaShopList_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeKoreaShopList_VC.h; sourceTree = "<group>"; };
@@ -1005,16 +989,10 @@
 		7D8E703D1C0FEA06004A7E2C /* ProcessMarketListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessMarketListCell.m; sourceTree = "<group>"; };
 		7D9DDC9C1C07499500F26B1B /* ZGYSelectButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSelectButtonView.h; sourceTree = "<group>"; };
 		7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSelectButtonView.m; sourceTree = "<group>"; };
-		7D9E1E601C1E6C73007A4B6B /* MeHistoryOrderList_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistoryOrderList_VC.h; sourceTree = "<group>"; };
-		7D9E1E611C1E6C73007A4B6B /* MeHistoryOrderList_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistoryOrderList_VC.m; sourceTree = "<group>"; };
-		7D9E1E631C1E6D16007A4B6B /* HistoryOrderListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOrderListCell.h; sourceTree = "<group>"; };
-		7D9E1E641C1E6D16007A4B6B /* HistoryOrderListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderListCell.m; sourceTree = "<group>"; };
 		7DA17DDA1C4CB68900F024CB /* IndexModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexModel.h; sourceTree = "<group>"; };
 		7DA17DDB1C4CB68900F024CB /* IndexModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexModel.m; sourceTree = "<group>"; };
 		7DA17DDD1C4CB6C000F024CB /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
 		7DA17DDE1C4CB6C000F024CB /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
-		7DA17DE91C4CB9C200F024CB /* ShoppingOrderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingOrderController.h; sourceTree = "<group>"; };
-		7DA17DEA1C4CB9C200F024CB /* ShoppingOrderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingOrderController.m; sourceTree = "<group>"; };
 		7DA5E6961C0D4CDD00736C10 /* SelectOrder_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectOrder_VC.h; path = Cofactories/Controller/OrderViewController/SelectOrder_VC.h; sourceTree = SOURCE_ROOT; };
 		7DA5E6971C0D4CDD00736C10 /* SelectOrder_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectOrder_VC.m; path = Cofactories/Controller/OrderViewController/SelectOrder_VC.m; sourceTree = SOURCE_ROOT; };
 		7DA9501C1C12AFEE00BFCB31 /* MaterialShopDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialShopDetailCell.h; sourceTree = "<group>"; };
@@ -1049,10 +1027,6 @@
 		7DC14FC51C7AD1BE00EE0908 /* MallOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderDetailModel.m; sourceTree = "<group>"; };
 		7DC27B8D1C40B82F006DB851 /* PublicServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicServiceViewController.h; sourceTree = "<group>"; };
 		7DC27B8E1C40B82F006DB851 /* PublicServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicServiceViewController.m; sourceTree = "<group>"; };
-		7DC2A7661C2010700005CAFD /* MeHistoryOrderDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistoryOrderDetail_VC.h; sourceTree = "<group>"; };
-		7DC2A7671C2010700005CAFD /* MeHistoryOrderDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistoryOrderDetail_VC.m; sourceTree = "<group>"; };
-		7DC2A7691C2010AB0005CAFD /* HistoryOrderAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOrderAddressCell.h; sourceTree = "<group>"; };
-		7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderAddressCell.m; sourceTree = "<group>"; };
 		7DCCC29E1C20FDB6002BF795 /* PopularNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsModel.h; sourceTree = "<group>"; };
 		7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsModel.m; sourceTree = "<group>"; };
 		7DD1CC741C74664C007ED8BE /* MallOrderBuyDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderBuyDetail_VC.h; sourceTree = "<group>"; };
@@ -1061,10 +1035,6 @@
 		7DD1CC781C747413007ED8BE /* MallOrderAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderAddressCell.m; sourceTree = "<group>"; };
 		7DD1CC7A1C747489007ED8BE /* MallOrderStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderStatusCell.h; sourceTree = "<group>"; };
 		7DD1CC7B1C747489007ED8BE /* MallOrderStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderStatusCell.m; sourceTree = "<group>"; };
-		7DD4834E1C226820006D0FF6 /* MeHistoryBuy_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistoryBuy_VC.h; sourceTree = "<group>"; };
-		7DD4834F1C226820006D0FF6 /* MeHistoryBuy_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistoryBuy_VC.m; sourceTree = "<group>"; };
-		7DD483511C22683F006D0FF6 /* MeHistorySell_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistorySell_VC.h; sourceTree = "<group>"; };
-		7DD483521C22683F006D0FF6 /* MeHistorySell_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistorySell_VC.m; sourceTree = "<group>"; };
 		7DE36D201C0809A70090BF5D /* PopularCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularCollectionViewCell.h; sourceTree = "<group>"; };
 		7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularCollectionViewCell.m; sourceTree = "<group>"; };
 		7DE8C1911C043CA600E0917D /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
@@ -2472,24 +2442,6 @@
 		7D9E1E5F1C1E6C34007A4B6B /* HistoryOrder */ = {
 			isa = PBXGroup;
 			children = (
-				7D70BAC81C21852A00920EE3 /* MeOrderSelect_VC.h */,
-				7D70BAC91C21852A00920EE3 /* MeOrderSelect_VC.m */,
-				7DD4834E1C226820006D0FF6 /* MeHistoryBuy_VC.h */,
-				7DD4834F1C226820006D0FF6 /* MeHistoryBuy_VC.m */,
-				7DD483511C22683F006D0FF6 /* MeHistorySell_VC.h */,
-				7DD483521C22683F006D0FF6 /* MeHistorySell_VC.m */,
-				7D9E1E601C1E6C73007A4B6B /* MeHistoryOrderList_VC.h */,
-				7D9E1E611C1E6C73007A4B6B /* MeHistoryOrderList_VC.m */,
-				7DC2A7661C2010700005CAFD /* MeHistoryOrderDetail_VC.h */,
-				7DC2A7671C2010700005CAFD /* MeHistoryOrderDetail_VC.m */,
-				7D9E1E631C1E6D16007A4B6B /* HistoryOrderListCell.h */,
-				7D9E1E641C1E6D16007A4B6B /* HistoryOrderListCell.m */,
-				7D45D0DA1C225FA500FC2988 /* HistoryOrderDetailCell.h */,
-				7D45D0DB1C225FA500FC2988 /* HistoryOrderDetailCell.m */,
-				7DC2A7691C2010AB0005CAFD /* HistoryOrderAddressCell.h */,
-				7DC2A76A1C2010AB0005CAFD /* HistoryOrderAddressCell.m */,
-				7D45D0D71C225D0600FC2988 /* HistoryOrderThirdCell.h */,
-				7D45D0D81C225D0600FC2988 /* HistoryOrderThirdCell.m */,
 				7D5063931C43929B00B04498 /* TableViewHeaderView.h */,
 				7D5063941C43929B00B04498 /* TableViewHeaderView.m */,
 			);
@@ -2528,8 +2480,6 @@
 				7D1A4E321C59FFA10076B462 /* MallAddAddress_VC.m */,
 				7D543D2F1C5B20090086B702 /* MallOrderPay_VC.h */,
 				7D543D301C5B20090086B702 /* MallOrderPay_VC.m */,
-				7DA17DE91C4CB9C200F024CB /* ShoppingOrderController.h */,
-				7DA17DEA1C4CB9C200F024CB /* ShoppingOrderController.m */,
 			);
 			path = ShoppingMall_VC;
 			sourceTree = "<group>";
@@ -2858,7 +2808,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DC2A76B1C2010AB0005CAFD /* HistoryOrderAddressCell.m in Sources */,
 				7D2BE73A1C1918FA00CE4138 /* MeShopCell.m in Sources */,
 				70F50D7D1C06FB3000920F63 /* DesignOrderModel.m in Sources */,
 				7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */,
@@ -2866,7 +2815,6 @@
 				03571C421BE85C3700900EF9 /* UIImage+Common.m in Sources */,
 				032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */,
 				7D543D311C5B20090086B702 /* MallOrderPay_VC.m in Sources */,
-				7D9E1E621C1E6C73007A4B6B /* MeHistoryOrderList_VC.m in Sources */,
 				03662CE71C12E0FD00AEEF48 /* NSDataEx.m in Sources */,
 				03662CE51C12E0FD00AEEF48 /* DataVerifier.m in Sources */,
 				705679CF1C194A8E00ACA494 /* PersonalShop_TVC.m in Sources */,
@@ -2894,7 +2842,6 @@
 				03571B9F1BE85B8200900EF9 /* MJPhotoProgressView.m in Sources */,
 				03623FFB1C44EDFE0083044A /* NSObject+ObjectMap.m in Sources */,
 				035CC5281C06DCF000998FBD /* JKPhotoBrowser.m in Sources */,
-				7D45D0D91C225D0600FC2988 /* HistoryOrderThirdCell.m in Sources */,
 				039D4D771C72E14A0051CD2E /* UIScrollView+MJRefresh.m in Sources */,
 				7DEB8F951C06F13C00B98912 /* ZGYDesignMarkrtController.m in Sources */,
 				035CC52D1C06DCF000998FBD /* UIView+JKPicker.m in Sources */,
@@ -2910,7 +2857,6 @@
 				03927D841BEC8D1E0087A2FD /* HomeViewController.m in Sources */,
 				03662CEA1C12E0FD00AEEF48 /* RSADataVerifier.m in Sources */,
 				7D41C8A71C0EEAF800703869 /* AllDesignCell.m in Sources */,
-				7DA17DEC1C4CB9C200F024CB /* ShoppingOrderController.m in Sources */,
 				7D743A051C23A00B006AEA07 /* PopularNewsDetails_VC.m in Sources */,
 				70FBE09F1C115F8E00B15513 /* BidManage_Supp_TVC.m in Sources */,
 				70A784F01C081905003D1892 /* PublishOrder_Common_VC.m in Sources */,
@@ -2959,7 +2905,6 @@
 				70FA60F11C098DE400EA84FD /* ZFPopupOverlayView.m in Sources */,
 				039D4D4F1C72CACC0051CD2E /* AFSecurityPolicy.m in Sources */,
 				70A63EB01C4638D400B68839 /* ContractClothingDetail_VC.m in Sources */,
-				7D45D0DC1C225FA500FC2988 /* HistoryOrderDetailCell.m in Sources */,
 				7D6F43351C5EF58E00A60892 /* PushPopularNews_VC.m in Sources */,
 				7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */,
 				035CC5261C06DCF000998FBD /* JKAssetsViewCell.m in Sources */,
@@ -2993,7 +2938,6 @@
 				70EFA1F71C44E03D00C9F6A5 /* BlankSecond_TVC.m in Sources */,
 				03623FF21C44E7950083044A /* Login.m in Sources */,
 				70F4A7741C128A06000DF7E7 /* BidManage_Design_Model.m in Sources */,
-				7D9E1E651C1E6D16007A4B6B /* HistoryOrderListCell.m in Sources */,
 				03623FEF1C44E6B10083044A /* UITableView+Common.m in Sources */,
 				70F5EF811C0C4B49008878B4 /* FactoryOrderDetail_VC.m in Sources */,
 				70F4A7711C1289F7000DF7E7 /* BidManage_Factory_Model.m in Sources */,
@@ -3029,12 +2973,10 @@
 				7D31998F1C1EA6E900A713DF /* DesignShop_VC.m in Sources */,
 				7DEB8FE71C072E3700B98912 /* PopularNewsCell.m in Sources */,
 				7D2BE73D1C19272B00CE4138 /* MeAddSupply_VC.m in Sources */,
-				7DD483531C22683F006D0FF6 /* MeHistorySell_VC.m in Sources */,
 				70EFA1F11C44CF8B00C9F6A5 /* BlankFirst_TVC.m in Sources */,
 				7D665EA71C0C60EE00C7C7BF /* IMChatListViewController.m in Sources */,
 				7DA5E6981C0D4CDD00736C10 /* SelectOrder_VC.m in Sources */,
 				70F3E7291C40FC410031613F /* PublishOrder_Factory_Other_VC.m in Sources */,
-				7DD483501C226820006D0FF6 /* MeHistoryBuy_VC.m in Sources */,
 				035CC52B1C06DCF000998FBD /* JKUtil.m in Sources */,
 				7D743A0B1C23DBF6006AEA07 /* PopularNewsList_VC.m in Sources */,
 				70F9AEC41C3F70B60003489B /* CalendarDayModel.m in Sources */,
@@ -3076,7 +3018,6 @@
 				03623FF51C44E9D90083044A /* NSString+Common.m in Sources */,
 				03662CE81C12E0FD00AEEF48 /* openssl_wrapper.m in Sources */,
 				70F9AEC61C3F70B60003489B /* CalendarLogic.m in Sources */,
-				7D70BACA1C21852A00920EE3 /* MeOrderSelect_VC.m in Sources */,
 				035CC5241C06DCF000998FBD /* JKAssetsGroupsView.m in Sources */,
 				70EB7EE71C15697E009E19F9 /* Business_Supplier_VC.m in Sources */,
 				70F9AEC31C3F70B60003489B /* CalendarDayCell.m in Sources */,
@@ -3101,7 +3042,6 @@
 				03571BA11BE85B8200900EF9 /* MJPhotoView.m in Sources */,
 				7D56828B1C759A7500FF03AE /* MallOrderSellDetail_VC.m in Sources */,
 				705421F81C0D7A3C00BD2B47 /* OrderBid_Factory_VC.m in Sources */,
-				7DC2A7681C2010700005CAFD /* MeHistoryOrderDetail_VC.m in Sources */,
 				7D72CDCB1C3A0279005BDA66 /* HomeKoreaShopList_VC.m in Sources */,
 				70F5EF841C0C5909008878B4 /* OrderPhotoViewController.m in Sources */,
 				70037F021C1021F40086267C /* CompletionOrder_VC.m in Sources */,

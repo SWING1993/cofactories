@@ -33,7 +33,7 @@
 
             }
             else if ([[dictionary objectForKey:@"type"] isEqualToString:@"market"]) {
-                _type = @"商城购买";
+                _type = @"商城交易";
                 
             }
             else if ([[dictionary objectForKey:@"type"] isEqualToString:@"withDraw"]) {
@@ -46,15 +46,26 @@
         }
         
         if ( ![[dictionary objectForKey:@"status"] isEqual:[NSNull null]] ) {
-            if ([[dictionary objectForKey:@"status"] isEqualToString:@"trade_success"]) {
-                _status = @"交易成功";
+            if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_seller_send"]) {
+                _status = @"等待卖家发货";
+                
+            }
+            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_buyer_receive"]) {
+                _status = @"等待买家确认收货";
+                
+            }
+            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_comment"]) {
+                _status = @"等待评价";
                 
             }
             else if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_buyer_pay"]) {
                 _status = @"等待支付";
                 
             }
-            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_audit"]) {
+            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"finish"]) {
+                _status = @"交易成功";
+            }
+            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"WAIT_AUDIT"]) {
                 _status = @"等待审核";
             }
             else {

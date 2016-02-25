@@ -207,7 +207,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     //    [UMessage didReceiveRemoteNotification:userInfo];
-    if ([userInfo[@"id_flag"] length] != 0 && [userInfo[@"title_flag"] length] != 0 && userInfo[@"content_flag"] != 0) {
+    if ([userInfo[@"id_flag"] length] != 0) {
         pushDic = [NSDictionary dictionaryWithDictionary:userInfo];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"通知" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看详情", nil];
         alert.tag = 223;

@@ -12,8 +12,6 @@
 #import "SetViewController.h"
 #import "SystemSetViewController/SystemSetViewController.h"
 #import "MeShopController.h"//店铺
-#import "MeHistoryOrderList_VC.h"
-#import "MeOrderSelect_VC.h"
 #import "PublishPopularNews_VC.h"
 #import "PublicServiceViewController.h"
 #import "MeShoppingCar_VC.h"//购物车

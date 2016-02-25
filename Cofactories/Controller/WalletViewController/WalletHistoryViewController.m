@@ -135,10 +135,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         [cell setAccessoryType:UITableViewCellAccessoryNone];
         
         WalletHistoryModel * model = [self.modelArray objectAtIndex:indexPath.row];
-        DLog(@"^^^^^^%@", model.type);
         cell.typeLabel.text = [NSString stringWithFormat:@"\n%@",model.type];
         cell.timeLabel.text = [NSString stringWithFormat:@"%@\n",model.createdTime];
-        
+        DLog(@"^^^^^^^^^^^^^^^^%g", model.fee);
         if (model.fee>0) {
             cell.feeLabel.text = [NSString stringWithFormat:@"+%.2f 元",model.fee];
             cell.feeLabel.textColor = kGreen;

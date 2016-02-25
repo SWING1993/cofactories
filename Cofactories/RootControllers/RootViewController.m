@@ -93,7 +93,7 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
         
         //已登录
         if (applicationState == UIApplicationStateInactive) {
-            if ([userInfo[@"id_flag"] length] != 0 && [userInfo[@"title_flag"] length] != 0 && userInfo[@"content_flag"] != 0) {
+            if ([userInfo[@"id_flag"] length] != 0) {
                 PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
                 pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
                 pushPopularNewsVC.title_flag = userInfo[@"title_flag"];
@@ -101,7 +101,7 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
                 [RootViewController presentVC:pushPopularNewsVC];
             }
         }else if (applicationState == UIApplicationStateActive){
-            if ([userInfo[@"id_flag"] length] != 0 && [userInfo[@"title_flag"] length] != 0 && userInfo[@"content_flag"] != 0) {
+            if ([userInfo[@"id_flag"] length] != 0) {
                 PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
                 pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
                 pushPopularNewsVC.title_flag = userInfo[@"title_flag"];

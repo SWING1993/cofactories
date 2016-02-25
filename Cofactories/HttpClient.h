@@ -215,28 +215,6 @@
 
 
 
-
-// 发布设计（商城 店铺）
-+ (void)publishDesignWithMarket:(NSString *)aMarket name:(NSString *)aName type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice marketPrice:(NSString *)aMarketPrice country:(NSString *)aCountry amount:(NSString *)aAmount description:(NSString *)aDescription category:(NSArray *)aCategory WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
-
-
-// 发布面料、辅料、机械设备（商城 店铺）
-+ (void)publishFabricWithMarket:(NSString *)aMarket name:(NSString *)aName type:(NSString *)aType price:(NSString *)aPrice marketPrice:(NSString *)aMarketPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription category:(NSArray *)aCategory WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
-
-
-
-// 搜索设计（市场）
-+ (void)searchDesignWithMarket:(NSString *)aMarket type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity country:(NSString *)aCountry aCreatedAt:(NSString *)aCreatedAt page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
-
-
-
-// 搜索面料、辅料、机械设备（商城））
-+ (void)searchFabricWithMarket:(NSString *)aMarket type:(NSString *)aType price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
-
-
-// 获取面料、辅料、机械设备、设计 详情
-+ (void)getFabricDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
-
 // 商家汇总（找合作商，找厂家）
 + (void)searchBusinessWithRole:(NSString *)aRole scale:(NSString *)aScale province:(NSString *)aProvince city:(NSString *)aCity subRole:(NSString *)aSubRole keyWord:(NSString *)aKeyWord verified:(NSString *)aVerified page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
@@ -327,8 +305,7 @@
 
 // 获取店铺
 + (void)getUserShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
-//删除店铺里的商品
-+ (void)deleteUserShopWithShopID:(NSString *)aShopID withCompletionBlock:(void(^)(int statusCode))block;
+
 
 //获取认证信息
 + (void)getVerifyWithBlock:(void (^)(NSDictionary *responseDictionary))block;
@@ -349,57 +326,68 @@
 
 + (void)postVerifyWithenterpriseName:(NSString *)enterpriseName withenterpriseAddress:(NSString *)enterpriseAddress withpersonName:(NSString *)personName withidCard:(NSString *)idCard idCardImage:(UIImage *)idCardImage idCardBackImage:(UIImage *)idCardBackImage licenseImage:(UIImage *)licenseImage andBlock:(void (^)(NSInteger statusCode))block;
 
-
-/**
- *  上传图片
- *  @param pohoto
- *  @param policy
- *  @param signature
- 
- *  @param block             返回状态码 200为成功
+/*********************************IM聊天***************************************
  */
-
-+ (void)uploadPhotoWithPhoto:(UIImage *)photo WithPolicy:(NSString *)policy WithSignature:(NSString *)signature andBlock:(void (^)(NSInteger))block;
-
 /**
  *获取融云的Token
  */
 
 + (void)getIMTokenWithBlock:(void (^)(NSDictionary *))block;
 
-// 获取店铺(我的店铺)
-+ (void)getMyShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+/*********************************流行资讯***************************************
+ */
 //获取搜索内容
 + (void)searchPopularNewsWithKeyword:(NSString *)keyWord WithBlock:(void (^)(NSDictionary *dictionary))block;
-
 //获取两篇置顶文章
 + (void)getPopularNewsWithBlock:(void (^)(NSDictionary *dictionary))block;
 //根据分类获取六篇显示的文章
 + (void)getSixPopularNewsListWithCategory:(NSInteger)category withBlock:(void (^)(NSDictionary *dictionary))block;
 
-//买买买
-+ (void)buyGoodsWithDictionary:(NSData *)addressDic WithBlock:(void(^)(NSDictionary *dictionary))block;
+/**********************************商城模块****************************************
+ */
 
-//购买记录
-+ (void)getMyGoodsBuyHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
+// 发布设计（商城 店铺）
++ (void)publishDesignWithMarket:(NSString *)aMarket name:(NSString *)aName type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice marketPrice:(NSString *)aMarketPrice country:(NSString *)aCountry amount:(NSString *)aAmount description:(NSString *)aDescription category:(NSArray *)aCategory WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
-//出售记录
-+ (void)getMyGoodsSellHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
+// 发布面料、辅料、机械设备（商城 店铺）
++ (void)publishFabricWithMarket:(NSString *)aMarket name:(NSString *)aName type:(NSString *)aType price:(NSString *)aPrice marketPrice:(NSString *)aMarketPrice amount:(NSString *)aAmount unit:(NSString *)aUnit description:(NSString *)aDescription category:(NSArray *)aCategory WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 搜索设计（商城，市场）
++ (void)searchDesignWithMarket:(NSString *)aMarket type:(NSString *)aType part:(NSString *)aPart price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity country:(NSString *)aCountry aCreatedAt:(NSString *)aCreatedAt page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 搜索面料、辅料、机械设备（商城））
++ (void)searchFabricWithMarket:(NSString *)aMarket type:(NSString *)aType price:(NSString *)aPrice priceOrder:(NSString *)aPriceOrder keyword:(NSString *)aKeyword province:(NSString *)aProvince city:(NSString *)aCity page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 获取面料、辅料、机械设备、设计 详情（商城）
++ (void)getFabricDetailWithId:(NSString *)aID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+// 获取店铺(我的店铺)
++ (void)getMyShopWithUserID:(NSString *)aUserID page:(NSNumber *)aPage WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
+
+//删除店铺里的商品
++ (void)deleteUserShopWithShopID:(NSString *)aShopID withCompletionBlock:(void(^)(int statusCode))block;
 
 //立即拍下
 + (void)getMallOrderWithDictionary:(NSData *)mallOrderDic withBlock:(void(^)(NSDictionary *dictionary))block;
+
 //查看商城购买记录
 + (void)getMallOrderOfBuyWithStatus:(NSString *)aStatus page:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
+
 //商城付款
 + (void)buyGoodsWithPurchaseId:(NSString *)purchaseId payment:(NSString *)payment WithBlock:(void(^)(NSDictionary *dictionary))block;
+
 //查看商城出售记录
 + (void)getMallOrderOfSellWithStatus:(NSString *)aStatus page:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
+
 //商城卖家确认发货
 + (void)sellerSendGoodsToBuyerWithPurchaseId:(NSString *)purchaseId WithBlock:(void(^)(NSDictionary *dictionary))block;
+
 //商城买家家确认收货
 + (void)buyerReceiveGoodsFromSellerWithPurchaseId:(NSString *)purchaseId WithBlock:(void(^)(NSDictionary *dictionary))block;
+
 //商城评论
 + (void)mallCommentWithPurchseId:(NSString *)purchseId score:(NSString *)aScore comment:(NSString *)aComment WithBlock:(void(^)(NSDictionary *dictionary))block;
+
 //获取交易订单详情
 + (void)getMallOrderDetailWithPurchseId:(NSString *)purchseId WithBlock:(void(^)(NSDictionary *dictionary))block;
 

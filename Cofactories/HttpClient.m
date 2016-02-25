@@ -39,19 +39,11 @@
 #define API_walletHistory @"/wallet/history"
 #define API_walletWithDraw @"/wallet/withDraw"
 
-
-
-#define API_verify @"/user/verify"
+#define API_verify @"/user/verify"//上传认证资料
 #define API_userProfile @"/user/profile"
 #define API_uploadPhoto @"/upload/user"
-#define API_config @"/config/ad/"
-#define API_activity @"/config/activity"
-
-#define API_Publish_Market_Publish   @"/market/add"
-
-#define API_Search_Market_Search   @"/market/search"
-
-#define API_Buy_market_Buy @"/market/buy"
+#define API_config @"/config/ad/"//轮播图
+#define API_activity @"/config/activity"//首页活动列表
 
 #define API_Piblish_Supplier_Order @"/order/supplier/add"
 #define API_Piblish_Factory_Order  @"/order/factory/add"
@@ -64,20 +56,20 @@
 #define API_GetIMToken @"/im/token"//获取融云token
 #define API_SearchBusiness @"/user/search"
 
-#define kPopular_News_Search @"/api/search"
-#define kPopular_News_Top @"/api/getTop"
-#define kPopular_News_List @"/api/getList"
+#define kPopular_News_Search @"/api/search"//获取流行资讯搜索内容
+#define kPopular_News_Top @"/api/getTop"//获取流行资讯置顶文章
+#define kPopular_News_List @"/api/getList"//获取流行资讯下面文章列表
 
+#define API_Publish_Market_Publish   @"/market/add"//发布商城商品
+#define API_Search_Market_Search   @"/market/search"//搜索商城市场
 #define API_Goods_Buy_History @"/market/buy"//购买交易
 #define API_Goods_Sell_History @"/market/sell"//出售交易
 #define API_Goods_Purchase @"/market/purchase/"//交易订单详情
-
 #define API_Goods_Buy_Wallet @"/wallet/pay/"//付款
-
 #define API_Goods_Seller_Send @"/market/purchase/send/"//确认发货
 #define API_Goods_Buyer_Receive @"/market/purchase/receive/"//确认收货
-
 #define API_Goods_Comment @"/market/purchase/comment/"//商城评价
+
 @implementation HttpClient
 
 /*User**********************************************************************************************************************************************/
@@ -2085,13 +2077,7 @@
     
 }
 
-+ (void)uploadPhotoWithPhoto:(UIImage *)photo WithPolicy:(NSString *)policy WithSignature:(NSString *)signature andBlock:(void (^)(NSInteger))block {
-    UpYun *upYun1 = [[UpYun alloc] init];
-    upYun1.bucket = bucketAPI;//图片测试
-    upYun1.expiresIn = 600;// 10分钟
-    [upYun1 uploadImage:photo policy:policy signature:signature];
-    block(200);
-}
+//获取融云Token
 + (void)getIMTokenWithBlock:(void (^)(NSDictionary *))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
@@ -2220,91 +2206,6 @@
     
 }
 
-//买买买
-+ (void)buyGoodsWithDictionary:(NSData *)addressDic WithBlock:(void(^)(NSDictionary *dictionary))block {
-    NSString *serviceProviderIdentifier = [[NSURL URLWithString:kBaseUrl] host];
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-    if (credential) {
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager POST:API_Buy_market_Buy parameters:addressDic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            block(@{@"statusCode": @([operation.response statusCode]), @"responseObject":responseObject});
-        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-            DLog(@"error == %@",error);
-            block(@{@"statusCode": @([operation.response statusCode]), @"message": error});
-        }];
-        
-    }else{
-        //        block(@{@"statusCode": @(410), @"message": @"token不存在"});
-    }
-    
-}
-
-//购买记录
-+ (void)getMyGoodsBuyHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block {
-    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
-    NSString *serviceProviderIdentifier = [baseUrl host];
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-    if (credential) {
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
-        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        //        NSString*token = credential.accessToken;
-        [manager GET:API_Goods_Buy_History parameters:@{@"page":aPage} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            DLog(@"^^^^^^^^^^^^%@", responseObject);
-            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            switch ([operation.response statusCode]) {
-                case 400:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
-                    break;
-                case 401:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
-                    break;
-                    
-                default:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
-                    break;
-            }
-        }];
-    } else {
-        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
-    }
-    
-    
-}
-//出售记录
-+ (void)getMyGoodsSellHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block {
-    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
-    NSString *serviceProviderIdentifier = [baseUrl host];
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-    if (credential) {
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
-        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        //        NSString*token = credential.accessToken;
-        [manager GET:API_Goods_Sell_History parameters:@{@"page":aPage} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            DLog(@"^^^^^^^^^^^^%@", responseObject);
-            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            switch ([operation.response statusCode]) {
-                case 400:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
-                    break;
-                case 401:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
-                    break;
-                    
-                default:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
-                    break;
-            }
-        }];
-    } else {
-        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
-    }
-    
-}
 
 //立即拍下
 + (void)getMallOrderWithDictionary:(NSData *)mallOrderDic withBlock:(void(^)(NSDictionary *dictionary))block {
@@ -2317,7 +2218,7 @@
         [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
         manager.requestSerializer.timeoutInterval = 20.f;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-        [manager POST:API_Buy_market_Buy parameters:mallOrderDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        [manager POST:API_Goods_Buy_History parameters:mallOrderDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
             DLog(@"responseObject= %@",responseObject);
             block(@{@"statusCode": @(200), @"data":responseObject });
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -2365,7 +2266,7 @@
         if (aPage) {
             [mallOrderBuyDic setObject:aPage forKey:@"page"];
         }
-        [manager GET:API_Buy_market_Buy parameters:mallOrderBuyDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        [manager GET:API_Goods_Buy_History parameters:mallOrderBuyDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
             DLog(@"responseObject= %@",responseObject);
             block(@{@"statusCode": @(200), @"data":responseObject });
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
