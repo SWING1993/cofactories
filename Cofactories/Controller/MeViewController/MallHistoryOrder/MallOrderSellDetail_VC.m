@@ -42,12 +42,6 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
     [self.tableView registerClass:[MallOrderAddressCell class] forCellReuseIdentifier:mallAddressCellIdentifier];
     [self.tableView registerClass:[MallOrderStatusCell class] forCellReuseIdentifier:mallStatusCellIdentifier];
     
-    UIBarButtonItem *mallDetailBackItem = [[UIBarButtonItem alloc] init];
-    mallDetailBackItem.image = [UIImage imageNamed:@"back"];
-    mallDetailBackItem.target = self;
-    mallDetailBackItem.action = @selector(back);
-    self.navigationItem.leftBarButtonItem = mallDetailBackItem;
-    
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
     temporaryBarButtonItem.image = [UIImage imageNamed:@"MePhoneCall"];
     temporaryBarButtonItem.target = self;
@@ -221,8 +215,5 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
 
-- (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 @end

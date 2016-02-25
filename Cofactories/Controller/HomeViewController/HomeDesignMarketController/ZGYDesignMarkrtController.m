@@ -26,12 +26,6 @@
     
     self.navigationItem.title = @"设计市场";
     
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
-    temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(back);
-    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
-    
     self.view.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:252.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
     NSArray *photoArray = @[@"Market-流行资讯.jpg", @"Market-设计者汇总.jpg", @"Market-版型购买.jpg"];
     NSArray *titleArray = @[@"时尚资讯", @"设计师集中营", @"版型聚集地"];
@@ -68,10 +62,6 @@
         default:
             break;
     }
-}
-
-- (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

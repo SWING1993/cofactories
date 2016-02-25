@@ -30,12 +30,6 @@
     self.navigationItem.title = @"供应市场";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
-    temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(back);
-    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
-    
     [self creatScrollView];
     [self creatSelectView];
 }
@@ -214,9 +208,6 @@
     }
 }
 
-- (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
