@@ -7,7 +7,8 @@
 //
 
 #import "PopularMessageController.h"
-
+#import "Business_Cloth_VC.h"
+#import "MeShoppingCar_VC.h"
 
 #import "Login.h"
 
@@ -173,14 +174,20 @@
     return YES;
 }
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    DLog(@"shortcutItem.localizedTitle = %@",shortcutItem.localizedTitle)
-    if ([shortcutItem.localizedTitle isEqualToString:@"流行资讯"]) {
-        DLog(@"123");
-        PopularMessageController * vc = [[PopularMessageController alloc]init];
-        [RootViewController toucHPushViewController:vc];
-        
-    } else if ([shortcutItem.localizedTitle isEqualToString:@"么么哒"]) {
-        self.window.rootViewController.view.backgroundColor = [UIColor redColor];
+    if ([Login isLogin]) {
+        if ([shortcutItem.localizedTitle isEqualToString:@"购物车"]) {
+            MeShoppingCar_VC * vc = [[MeShoppingCar_VC alloc]init];
+            [RootViewController toucHPushViewController:vc];
+        }
+        else if ([shortcutItem.localizedTitle isEqualToString:@"流行资讯"]) {
+            PopularMessageController * vc = [[PopularMessageController alloc]init];
+            [RootViewController toucHPushViewController:vc];
+            
+        } else if ([shortcutItem.localizedTitle isEqualToString:@"查找服装企业"]) {
+            Business_Cloth_VC *vc = [[Business_Cloth_VC alloc] initWithSelecteDataDictionary:[Tools returenSelectDataDictionaryWithIndex:2]];
+            vc.hidesBottomBarWhenPushed = YES;
+            [RootViewController toucHPushViewController:vc];
+        }
     }
 }
 

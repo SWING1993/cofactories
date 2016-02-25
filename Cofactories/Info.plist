@@ -101,41 +101,29 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeFavorite</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>购物车</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.cofactory.iosapp</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict/>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeLove</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>流行资讯</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>com.mycompany.myapp.openfavorites</string>
-			<key>UIApplicationShortcutItemUserInfo</key>
-			<dict/>
+			<string>com.cofactory.iosapp</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeSearch</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>查找订单</string>
+			<string>查找服装企业</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>com.mycompany.myapp.openfavorites</string>
-			<key>UIApplicationShortcutItemUserInfo</key>
-			<dict/>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutIconTypeFavorite</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>加工配套</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>com.mycompany.myapp.openfavorites</string>
-			<key>UIApplicationShortcutItemUserInfo</key>
-			<dict/>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutIconTypeShuffle</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>加工配套市场</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>com.mycompany.myapp.openfavorites</string>
+			<string>com.cofactory.iosapp</string>
 			<key>UIApplicationShortcutItemUserInfo</key>
 			<dict/>
 		</dict>
