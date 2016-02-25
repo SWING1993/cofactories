@@ -10,15 +10,10 @@
 
 @interface WalletHistoryModel : NSObject
 
-@property (nonatomic,assign) CGFloat  fee;
-@property (nonatomic,retain) NSString * Walletid;
-@property (nonatomic,assign) NSString * type;
-@property (nonatomic,assign) NSString * status;
-@property (nonatomic,retain) NSString * createdTime;
-@property (nonatomic,retain) NSString * finishedTime;
-@property (nonatomic,retain) NSString * products;
-
-
+@property (nonatomic,assign) CGFloat  fee;//交易金额
+@property (nonatomic,assign) NSString * type;//哪里的交易
+@property (nonatomic,retain) NSString * createdTime;//创建时间
+@property (nonatomic,retain) NSString * finishedTime;//更新时间
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

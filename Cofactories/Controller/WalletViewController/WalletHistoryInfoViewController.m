@@ -53,7 +53,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         switch (indexPath.row) {
             case 0:
             {
-                cell.textLabel.text = self.model.status;
+//                cell.textLabel.text = self.model.status;
                 cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
                 cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:14.5f];
 
@@ -69,7 +69,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             case 1:
             {
                cell.textLabel.text = @"订单号";
-                cell.detailTextLabel.text = self.model.Walletid;
+//                cell.detailTextLabel.text = self.model.Walletid;
                 cell.textLabel.font = kFont;
                 cell.detailTextLabel.font = kFont;
             }

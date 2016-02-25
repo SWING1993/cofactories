@@ -172,7 +172,7 @@ static NSString *payCellIndentifier = @"payCell";
                     NSString *amountStr = self.goodsModel.totalPrice;
                     DLog(@"amountPrice = %@", amountStr);
                     if (tradeNO && descriptionStr && subject) {
-                        [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
+                        [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"60m"];
                     } else {
                         kTipAlert(@"支付宝付款失败");
                     }

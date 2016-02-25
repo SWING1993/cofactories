@@ -177,12 +177,15 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
     switch (self.goodsModel.status) {
         case 2: {
             DLog(@"确认发货");
+            button.userInteractionEnabled = NO;
             [HttpClient sellerSendGoodsToBuyerWithPurchaseId:self.goodsModel.orderNumber WithBlock:^(NSDictionary *dictionary) {
                 NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
                 if (statusCode == 200) {
+                    button.userInteractionEnabled = YES;
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发货成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
                     [alert show];
                 } else {
+                    button.userInteractionEnabled = YES;
                     kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
                 }
             }];

@@ -231,27 +231,36 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         mallOrderPayVC.mallPurchseId = [self.mallBuyHistoryArray[button.tag - 222] orderNumber];
         [self.navigationController pushViewController:mallOrderPayVC animated:YES];
     } else if ([button.titleLabel.text isEqualToString:@"联系卖家"]){
+        button.userInteractionEnabled = NO;
         // 聊天
         MeHistoryOrderModel *historyOrder = self.mallBuyHistoryArray[button.tag - 222];
         //解析工厂信息
         [HttpClient getOtherIndevidualsInformationWithUserID:historyOrder.sellerUserId WithCompletionBlock:^(NSDictionary *dictionary) {
-            OthersUserModel *otherModel = (OthersUserModel *)dictionary[@"message"];
-            IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
-            conversationVC.conversationType = ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
-            conversationVC.targetId = historyOrder.sellerUserId; // 接收者的 targetId，这里为举例。
-            conversationVC.title = otherModel.name; // 会话的 title。
-            conversationVC.hidesBottomBarWhenPushed=YES;
-            [self.navigationController.navigationBar setHidden:NO];
-            [self.navigationController pushViewController:conversationVC animated:YES];
+            NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+            if (statusCode == 200) {
+                button.userInteractionEnabled = YES;
+                OthersUserModel *otherModel = (OthersUserModel *)dictionary[@"message"];
+                IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
+                conversationVC.conversationType = ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
+                conversationVC.targetId = historyOrder.sellerUserId; // 接收者的 targetId，这里为举例。
+                conversationVC.title = otherModel.name; // 会话的 title。
+                conversationVC.hidesBottomBarWhenPushed=YES;
+                [self.navigationController.navigationBar setHidden:NO];
+                [self.navigationController pushViewController:conversationVC animated:YES];
+            }
+            
         }];
     } else if ([button.titleLabel.text isEqualToString:@"确认收货"]){
+        button.userInteractionEnabled = NO;
         MeHistoryOrderModel *orderModel = self.mallBuyHistoryArray[button.tag - 222];
         [HttpClient buyerReceiveGoodsFromSellerWithPurchaseId:orderModel.orderNumber WithBlock:^(NSDictionary *dictionary) {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
             if (statusCode == 200) {
+                button.userInteractionEnabled = YES;
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认收货成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
                 [alert show];
             } else {
+                button.userInteractionEnabled = YES;
                 kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
             }
 

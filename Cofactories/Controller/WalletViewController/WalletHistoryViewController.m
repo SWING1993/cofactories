@@ -51,7 +51,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     [self setupRefresh];
     
-    [HttpClient walletHistoryWithPage:@1 WithBlock:^(NSDictionary *responseDictionary) {
+    [HttpClient getWalletHistoryWithPage:@1 WithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
             self.modelArray = [[responseDictionary objectForKey:@"ModelArray"] mutableCopy];
@@ -91,7 +91,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     _refrushCount++;
     DLog(@"加载第%ld页",(long)_refrushCount);
     NSNumber * pageNumber = [[NSNumber alloc]initWithInteger:_refrushCount];
-    [HttpClient walletHistoryWithPage:pageNumber WithBlock:^(NSDictionary *responseDictionary) {
+    [HttpClient getWalletHistoryWithPage:pageNumber WithBlock:^(NSDictionary *responseDictionary) {
         NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
         if (statusCode == 200) {
             NSArray *array = [[responseDictionary objectForKey:@"ModelArray"] mutableCopy];
@@ -164,14 +164,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        WalletHistoryInfoViewController * infoVC = [[WalletHistoryInfoViewController alloc]init];
-        infoVC.title = @"明细详情";
-        infoVC.model = self.modelArray[indexPath.row];
-        [self.navigationController pushViewController:infoVC animated:YES];
-    }
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (indexPath.section == 0) {
+//        WalletHistoryInfoViewController * infoVC = [[WalletHistoryInfoViewController alloc]init];
+//        infoVC.title = @"明细详情";
+//        infoVC.model = self.modelArray[indexPath.row];
+//        [self.navigationController pushViewController:infoVC animated:YES];
+//    }
+//}
 
 
 - (void)didReceiveMemoryWarning {

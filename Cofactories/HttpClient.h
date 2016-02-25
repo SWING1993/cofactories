@@ -390,5 +390,7 @@
 
 //获取交易订单详情
 + (void)getMallOrderDetailWithPurchseId:(NSString *)purchseId WithBlock:(void(^)(NSDictionary *dictionary))block;
+//钱包流水记录
++ (void)getWalletHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *responseDictionary))block;
 
 @end

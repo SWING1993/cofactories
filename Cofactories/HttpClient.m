@@ -70,6 +70,8 @@
 #define API_Goods_Buyer_Receive @"/market/purchase/receive/"//确认收货
 #define API_Goods_Comment @"/market/purchase/comment/"//商城评价
 
+#define API_Wallet_Transaction @"/wallet/transaction"//钱包流水记录
+
 @implementation HttpClient
 
 /*User**********************************************************************************************************************************************/
@@ -610,7 +612,7 @@
                 DLog(@"responseObject = %@",responseObject);
             NSMutableArray * array = [[NSMutableArray alloc]initWithCapacity:0];
             [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                DLog(@"%@", responseObject);
+                DLog(@"%@", responseObject);
                 WalletHistoryModel * model = [[WalletHistoryModel alloc]initWithDictionary:obj];
                 [array addObject:model];
             }];
@@ -2248,6 +2250,7 @@
         }];
     }
 }
+
 //查看商城购买记录
 + (void)getMallOrderOfBuyWithStatus:(NSString *)aStatus page:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
@@ -2319,6 +2322,7 @@
         }];
     }
 }
+
 //查看商城出售记录
 + (void)getMallOrderOfSellWithStatus:(NSString *)aStatus page:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
@@ -2424,6 +2428,7 @@
     }
 }
 
+//获取交易订单详情
 + (void)getMallOrderDetailWithPurchseId:(NSString *)purchseId WithBlock:(void(^)(NSDictionary *dictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
@@ -2446,5 +2451,35 @@
     }
 
 }
-
+//钱包流水记录
++ (void)getWalletHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *responseDictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        NSMutableDictionary *mallOrderBuyDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        if (aPage) {
+            [mallOrderBuyDic setObject:aPage forKey:@"page"];
+        }
+        [manager GET:API_Wallet_Transaction parameters:mallOrderBuyDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            NSMutableArray * array = [[NSMutableArray alloc]initWithCapacity:0];
+            [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                DLog(@"%@", responseObject);
+                WalletHistoryModel * model = [[WalletHistoryModel alloc]initWithDictionary:obj];
+                [array addObject:model];
+            }];
+            block(@{@"statusCode": @(200), @"ModelArray":array });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
 @end

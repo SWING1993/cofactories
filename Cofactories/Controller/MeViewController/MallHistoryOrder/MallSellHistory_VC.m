@@ -229,13 +229,16 @@ static NSString *mallSellCellIdentifier = @"mallSellCell";
     ApplicationDelegate.mallStatus = [NSString stringWithFormat:@"%ld", self.status];
     if ([button.titleLabel.text isEqualToString:@"确认发货"]) {
         DLog(@"确认发货");
+        button.userInteractionEnabled = NO;
         MeHistoryOrderModel *orderModel = self.mallSellHistoryArray[button.tag - 222];
         [HttpClient sellerSendGoodsToBuyerWithPurchaseId:orderModel.orderNumber WithBlock:^(NSDictionary *dictionary) {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
             if (statusCode == 200) {
+                button.userInteractionEnabled = YES;
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发货成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
                 [alert show];
             } else {
+                button.userInteractionEnabled = YES;
                 kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
             }
         }];
