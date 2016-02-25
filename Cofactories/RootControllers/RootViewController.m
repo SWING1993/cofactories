@@ -114,6 +114,10 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
     }
 }
 
++ (void)toucHPushViewController:(UIViewController *)VC {
+    [RootViewController presentVC:VC];
+}
+
 + (UIViewController *)presentingVC{
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];
     if (window.windowLevel != UIWindowLevelNormal)

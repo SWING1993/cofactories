@@ -5,6 +5,10 @@
 //  Created by 宋国华 on 15/11/3.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
+
+#import "PopularMessageController.h"
+
+
 #import "Login.h"
 
 #import "AppDelegate.h"
@@ -168,6 +172,19 @@
     
     return YES;
 }
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    DLog(@"shortcutItem.localizedTitle = %@",shortcutItem.localizedTitle)
+    if ([shortcutItem.localizedTitle isEqualToString:@"流行资讯"]) {
+        DLog(@"123");
+        PopularMessageController * vc = [[PopularMessageController alloc]init];
+        [RootViewController toucHPushViewController:vc];
+        
+    } else if ([shortcutItem.localizedTitle isEqualToString:@"么么哒"]) {
+        self.window.rootViewController.view.backgroundColor = [UIColor redColor];
+    }
+}
+
+
 /**
  * 融云推送处理2
  */
@@ -356,9 +373,7 @@
     [navigationBarAppearance setTitleTextAttributes:textAttributes];
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
 }
-
-
-
 
 @end

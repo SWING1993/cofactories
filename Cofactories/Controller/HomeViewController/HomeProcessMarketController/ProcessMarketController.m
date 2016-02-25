@@ -125,9 +125,9 @@ static NSString *processCellIdentifier = @"processCell";
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
-- (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//- (void)back {
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

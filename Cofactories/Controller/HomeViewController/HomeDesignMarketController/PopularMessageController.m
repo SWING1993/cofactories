@@ -71,11 +71,11 @@ static NSString *popularCellIdentifier = @"popularCell";
     [self creatHeaderView];
     [self creatFooterView];
     self.popularTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
-    temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(back);
-    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+//    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+//    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+//    temporaryBarButtonItem.target = self;
+//    temporaryBarButtonItem.action = @selector(back);
+//    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
 
     [HttpClient getPopularNewsWithBlock:^(NSDictionary *dictionary) {
 //        DLog(@"&&&&&&&%@", dictionary[@"responseArray"]);
