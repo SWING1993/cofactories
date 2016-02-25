@@ -35,12 +35,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     self.title = @"上传图片";
     self.tableView.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
     
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
-    temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(back);
-    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
-    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
     
     self.imageArray = [NSMutableArray arrayWithCapacity:0];
@@ -331,10 +325,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     }];
 }
 
-
-- (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

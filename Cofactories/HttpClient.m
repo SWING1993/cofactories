@@ -610,7 +610,7 @@
                 DLog(@"responseObject = %@",responseObject);
             NSMutableArray * array = [[NSMutableArray alloc]initWithCapacity:0];
             [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                DLog(@"%@", responseObject);
+//                DLog(@"%@", responseObject);
                 WalletHistoryModel * model = [[WalletHistoryModel alloc]initWithDictionary:obj];
                 [array addObject:model];
             }];

@@ -47,22 +47,22 @@
         
         if ( ![[dictionary objectForKey:@"status"] isEqual:[NSNull null]] ) {
             if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_seller_send"]) {
-                _status = @"等待卖家发货";
+                _status = @"（已付款）等待卖家发货";
                 
             }
             else if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_buyer_receive"]) {
-                _status = @"等待买家确认收货";
+                _status = @"（已付款）等待买家确认收货";
                 
             }
             else if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_comment"]) {
-                _status = @"等待评价";
+                _status = @"交易成功";
                 
             }
-            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_buyer_pay"]) {
+            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_buyer_pay"] || [[dictionary objectForKey:@"status"] isEqualToString:@"WAIT_BUYER_PAY"]) {
                 _status = @"等待支付";
                 
             }
-            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"finish"]) {
+            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"finish"] || [[dictionary objectForKey:@"status"] isEqualToString:@"TRADE_SUCCESS"]) {
                 _status = @"交易成功";
             }
             else if ([[dictionary objectForKey:@"status"] isEqualToString:@"WAIT_AUDIT"]) {

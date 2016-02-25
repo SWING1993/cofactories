@@ -26,12 +26,6 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     
     self.title = @"认证信息";
     
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
-    temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(back);
-    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
-    
     [self creatHeaderview];
     [self creatFooterView];
     
@@ -151,9 +145,6 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     }
 }
 
-- (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)dealloc
 {
