@@ -203,7 +203,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     return 5.0f;}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.01f;
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

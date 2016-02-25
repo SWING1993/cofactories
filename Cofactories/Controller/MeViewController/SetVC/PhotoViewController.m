@@ -15,6 +15,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #import "PhotoViewController.h"
+#import "TableViewHeaderView.h"
 
 @interface PhotoViewController () <UIImagePickerControllerDelegate, UICollectionViewDelegate,JKImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIAlertViewDelegate> {
     
@@ -52,9 +53,11 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     self.collectionView.scrollEnabled = YES;
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     [self.view addSubview:self.collectionView];
+    
+    if (self.photoArray.count == 0) {
+        self.collectionView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) withImage:@"数据暂无" withLabelText:@"暂无照片，点击右上角上传图片吧"];
+    }
 }
-
-
 
 - (void)uploadBtn {
     

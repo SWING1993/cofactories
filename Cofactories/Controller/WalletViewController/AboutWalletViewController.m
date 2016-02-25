@@ -18,6 +18,12 @@
     [super viewDidLoad];
     self.title = @"关于钱包";
     
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
     UIWebView * webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     NSString *walletString = [NSString stringWithFormat:@"%@%@", kH5BaseUrl, @"/info/wallet/"];
@@ -34,6 +40,10 @@
     DLog(@"nmb");
     NSString *meta = [NSString stringWithFormat:@"document.getElementsByName(\"viewport\")[0].content = \"width=%f, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"", kScreenW];
     [webView stringByEvaluatingJavaScriptFromString:meta];
+}
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

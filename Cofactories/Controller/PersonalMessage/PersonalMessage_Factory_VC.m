@@ -93,7 +93,6 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
         conversationVC.conversationType = ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
         conversationVC.targetId = self.userModel.uid; // 接收者的 targetId，这里为举例。
-        conversationVC.userName = self.userModel.name; // 接受者的 username，这里为举例。
         conversationVC.title = self.userModel.name; // 会话的 title。
         conversationVC.hidesBottomBarWhenPushed=YES;
         

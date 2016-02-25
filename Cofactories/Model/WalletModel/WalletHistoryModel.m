@@ -46,15 +46,15 @@
         }
         
         if ( ![[dictionary objectForKey:@"status"] isEqual:[NSNull null]] ) {
-            if ([[dictionary objectForKey:@"status"] isEqualToString:@"TRADE_SUCCESS"]) {
+            if ([[dictionary objectForKey:@"status"] isEqualToString:@"trade_success"]) {
                 _status = @"交易成功";
                 
             }
-            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"WAIT_BUYER_PAY"]) {
+            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_buyer_pay"]) {
                 _status = @"等待支付";
                 
             }
-            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"WAIT_AUDIT"]) {
+            else if ([[dictionary objectForKey:@"status"] isEqualToString:@"wait_audit"]) {
                 _status = @"等待审核";
             }
             else {

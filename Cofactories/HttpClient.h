@@ -386,4 +386,21 @@
 //出售记录
 + (void)getMyGoodsSellHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
 
+//立即拍下
++ (void)getMallOrderWithDictionary:(NSData *)mallOrderDic withBlock:(void(^)(NSDictionary *dictionary))block;
+//查看商城购买记录
++ (void)getMallOrderOfBuyWithStatus:(NSString *)aStatus page:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
+//商城付款
++ (void)buyGoodsWithPurchaseId:(NSString *)purchaseId payment:(NSString *)payment WithBlock:(void(^)(NSDictionary *dictionary))block;
+//查看商城出售记录
++ (void)getMallOrderOfSellWithStatus:(NSString *)aStatus page:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block;
+//商城卖家确认发货
++ (void)sellerSendGoodsToBuyerWithPurchaseId:(NSString *)purchaseId WithBlock:(void(^)(NSDictionary *dictionary))block;
+//商城买家家确认收货
++ (void)buyerReceiveGoodsFromSellerWithPurchaseId:(NSString *)purchaseId WithBlock:(void(^)(NSDictionary *dictionary))block;
+//商城评论
++ (void)mallCommentWithPurchseId:(NSString *)purchseId score:(NSString *)aScore comment:(NSString *)aComment WithBlock:(void(^)(NSDictionary *dictionary))block;
+//获取交易订单详情
++ (void)getMallOrderDetailWithPurchseId:(NSString *)purchseId WithBlock:(void(^)(NSDictionary *dictionary))block;
+
 @end

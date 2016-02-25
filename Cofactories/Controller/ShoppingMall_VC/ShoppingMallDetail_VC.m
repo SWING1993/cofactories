@@ -17,6 +17,7 @@
 #import "ShopCarModel.h"
 #import "ShoppingOrderController.h"
 #import "FabricMarketModel.h"
+#import "MallSelectAddress_VC.h"
 
 #define kPoptime 0.4f
 #define kImageViewHeight 0.94*kScreenW
@@ -525,19 +526,33 @@ static NSString *popViewCellIdentifier = @"popViewCell";
 }
 - (void)goToBuy {
     //立即拍下
+
     if ([marketDetailModel.amount isEqualToString:@"0"]) {
         kTipAlert(@"商品已售完，暂无法购买");
     } else {
         NSDictionary *myDic = @{@"amount":[NSString stringWithFormat:@"%ld", numberView.timeAmount], @"category":selectColorString};
         NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithCapacity:0];
         [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
-        ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
-        shopOrderVC.goodsDic = buyGoodsDic;
-        shopOrderVC.goodsID = self.shopID;
-        shopOrderVC.goodsNumber = numberView.timeAmount;
-        [self.navigationController pushViewController:shopOrderVC animated:YES];
+        
+        MeHistoryOrderModel *goodsModel = [[MeHistoryOrderModel alloc] init];
+        goodsModel.waitPayType = @"等待买家付款";
+        goodsModel.name = marketDetailModel.name;
+        goodsModel.price = marketDetailModel.price;
+        goodsModel.category = selectColorString;
+        goodsModel.amount = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
+        goodsModel.photoArray = marketDetailModel.photoArray;
+        
+        //    ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
+        //    shopOrderVC.goodsDic = buyGoodsDic;
+        //    shopOrderVC.goodsID = self.shopID;
+        //    shopOrderVC.goodsNumber = numberView.timeAmount;
+        //    [self.navigationController pushViewController:shopOrderVC animated:YES];
+        MallSelectAddress_VC *selectAddressVC = [[MallSelectAddress_VC alloc] init];
+        selectAddressVC.mallOrderDic = buyGoodsDic;
+        selectAddressVC.goodsModel = goodsModel;
+        [self.navigationController pushViewController:selectAddressVC animated:YES];
     }
-    
+
 }
 
 - (void)storeGoodsToShoppingCar {

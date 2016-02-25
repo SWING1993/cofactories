@@ -68,9 +68,16 @@
 #define kPopular_News_Top @"/api/getTop"
 #define kPopular_News_List @"/api/getList"
 
-#define API_Goods_Buy_History @"/market/buy"
-#define API_Goods_Sell_History @"/market/sell"
+#define API_Goods_Buy_History @"/market/buy"//购买交易
+#define API_Goods_Sell_History @"/market/sell"//出售交易
+#define API_Goods_Purchase @"/market/purchase/"//交易订单详情
 
+#define API_Goods_Buy_Wallet @"/wallet/pay/"//付款
+
+#define API_Goods_Seller_Send @"/market/purchase/send/"//确认发货
+#define API_Goods_Buyer_Receive @"/market/purchase/receive/"//确认收货
+
+#define API_Goods_Comment @"/market/purchase/comment/"//商城评价
 @implementation HttpClient
 
 /*User**********************************************************************************************************************************************/
@@ -608,9 +615,10 @@
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         [manager GET:API_walletHistory parameters:@{@"page":page} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-            //            DLog(@"responseObject = %@",responseObject);
+                DLog(@"responseObject = %@",responseObject);
             NSMutableArray * array = [[NSMutableArray alloc]initWithCapacity:0];
             [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                DLog(@"%@", responseObject);
                 WalletHistoryModel * model = [[WalletHistoryModel alloc]initWithDictionary:obj];
                 [array addObject:model];
             }];
@@ -2298,5 +2306,244 @@
     
 }
 
+//立即拍下
++ (void)getMallOrderWithDictionary:(NSData *)mallOrderDic withBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        [manager POST:API_Buy_market_Buy parameters:mallOrderDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            switch (statusCode) {
+                case 403:
+                    block(@{@"statusCode": @(403), @"message": @"不能购买自己的商品"});
+                    break;
+                case 405:
+                    block(@{@"statusCode": @(405), @"message": @"不能跨店铺购买"});
+                    break;
+                case 412:
+                    block(@{@"statusCode": @(412), @"message": @"库存不足"});
+                    break;
+                case 421:
+                    block(@{@"statusCode": @(421), @"message": @"购买数量超过限制"});
+                    break;
+                case 404:
+                    block(@{@"statusCode": @(404), @"message": @"该商品已下架或该分类已无货"});
+                    break;
+                default:{
+                    NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+                    block(@{@"statusCode": @(statusCode), @"message": errors});
+                }
+                    break;
+            }
+        }];
+    }
+}
+//查看商城购买记录
++ (void)getMallOrderOfBuyWithStatus:(NSString *)aStatus page:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        NSMutableDictionary *mallOrderBuyDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        if (aStatus) {
+            [mallOrderBuyDic setObject:aStatus forKey:@"status"];
+        }
+        if (aPage) {
+            [mallOrderBuyDic setObject:aPage forKey:@"page"];
+        }
+        [manager GET:API_Buy_market_Buy parameters:mallOrderBuyDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+
+}
+
+//商城付款
++ (void)buyGoodsWithPurchaseId:(NSString *)purchaseId payment:(NSString *)payment WithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        NSString *buyString = [NSString stringWithFormat:@"%@%@", API_Goods_Buy_Wallet, purchaseId];
+        NSMutableDictionary *goodsBuyDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        [goodsBuyDic setObject:payment forKey:@"payment"];
+        [manager PATCH:buyString parameters:goodsBuyDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            switch (statusCode) {
+                case 402:
+                    block(@{@"statusCode": @(402), @"message": @"支付失败，钱包余额不足"});
+                    break;
+                case 409:
+                    block(@{@"statusCode": @(409), @"message": @"支付失败，已经支付过了，不能重复支付"});
+                    break;
+                case 403:
+                    block(@{@"statusCode": @(403), @"message": @"支付失败，登陆用户不是购买的人"});
+                    break;
+                case 401:
+                    block(@{@"statusCode": @(401), @"message": @"支付失败，请重新登陆"});
+                    break;
+                default:{
+                    NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+                    block(@{@"statusCode": @(statusCode), @"message": errors});
+                }
+                    break;
+            }
+        }];
+    }
+}
+//查看商城出售记录
++ (void)getMallOrderOfSellWithStatus:(NSString *)aStatus page:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        NSMutableDictionary *mallOrderBuyDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        if (aStatus) {
+            [mallOrderBuyDic setObject:aStatus forKey:@"status"];
+        }
+        if (aPage) {
+            [mallOrderBuyDic setObject:aPage forKey:@"page"];
+        }
+        [manager GET:API_Goods_Sell_History parameters:mallOrderBuyDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
+
+//商城卖家确认发货
++ (void)sellerSendGoodsToBuyerWithPurchaseId:(NSString *)purchaseId WithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        NSString *sendGoods = [NSString stringWithFormat:@"%@%@", API_Goods_Seller_Send, purchaseId];
+        [manager PATCH:sendGoods parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
+
+//商城买家家确认收货
++ (void)buyerReceiveGoodsFromSellerWithPurchaseId:(NSString *)purchaseId WithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        NSString *sendGoods = [NSString stringWithFormat:@"%@%@", API_Goods_Buyer_Receive, purchaseId];
+        [manager PATCH:sendGoods parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
+
+//商城评论
++ (void)mallCommentWithPurchseId:(NSString *)purchseId score:(NSString *)aScore comment:(NSString *)aComment WithBlock:(void(^)(NSDictionary *dictionary))block{
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        NSString *commentString = [NSString stringWithFormat:@"%@%@", API_Goods_Comment, purchseId];
+        NSMutableDictionary *mallCommentDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        if (aScore) {
+            [mallCommentDic setObject:aScore forKey:@"score"];
+        }
+        if (aComment) {
+            [mallCommentDic setObject:aComment forKey:@"comment"];
+        }
+        [manager PUT:commentString parameters:mallCommentDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
+
++ (void)getMallOrderDetailWithPurchseId:(NSString *)purchseId WithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        NSString *mallOrderDetail = [NSString stringWithFormat:@"%@%@", API_Goods_Purchase, purchseId];
+        [manager GET:mallOrderDetail parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+
+}
 
 @end

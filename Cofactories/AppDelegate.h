@@ -13,6 +13,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RCIMConnectionStatusDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) NSString *mallStatus;
 
 @end
 

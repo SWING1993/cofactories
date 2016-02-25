@@ -51,16 +51,16 @@ static NSString *activityCellIdentifier = @"activityCell";
     //设置代理（融云）
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
-    
+    //钱包余额
+    [self getWalletMoney];
+    wallet = 0;
     //连接融云服务器
     [self connectToRongClound];
     //轮播图
     [self getConfig];
     //活动列表
     [self getActivityList];
-    //钱包余额
-    [self getWalletMoney];
-    wallet = 0;
+    
     [self creatTableView];
     [self creatTableHeaderView];
 }

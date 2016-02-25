@@ -10,4 +10,8 @@
 
 @interface MallAddressCell : UITableViewCell
 
+@property (nonatomic, strong) UILabel *personNameLabel;
+@property (nonatomic, strong) UILabel *phoneNumberLabel;
+@property (nonatomic, strong) UILabel *addressLabel;
+
 @end
