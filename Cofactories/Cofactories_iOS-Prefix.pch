@@ -99,8 +99,6 @@
 
 #pragma mark - key
 
-//#define RONGCLOUD_IM_APPKEY @"4z3hlwrv3iult"//融云
-//#define RONGCLOUD_IM_SERVICEID @"KEFU145230927149545"//融云
 #define kCustomerServicePhone @"4006400391"//充值电话
 #define Appkey_Umeng @"5566b5e767e58e0c4700aab0"//友盟
 #define kAppUrl  @"http://itunes.apple.com/app/id1015359842"//appStore地址

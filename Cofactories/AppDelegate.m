@@ -170,7 +170,7 @@
     DLog(@"------%@",ua);
     
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent" : ua, @"User-Agent" : ua}];
-    
+    DLog(@"================%@",launchOptions[@"UIApplicationLaunchOptionsShortcutItemKey"]);
     return YES;
 }
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {

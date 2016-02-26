@@ -46,7 +46,7 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
      *  判断是否展示过新版本特性页
      */
     
-    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"showEAIntroPage"] boolValue]) {
+    if ([Login isLogin]) {
         [self setupRootViewController];
     }else {
         [self showIntroWithCrossDissolve];
@@ -158,9 +158,6 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
 
 #pragma mark - EAIntroView delegate
 - (void)introDidFinish:(EAIntroView *)introView {
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"showEAIntroPage"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
     //展示页面结束 加载登陆注册页面
     [self setupRootViewController];
 }
