@@ -6,7 +6,7 @@ PODS:
   - Masonry (0.6.4)
   - MBProgressHUD (0.9.2)
   - RBBAnimation (0.4.0)
-  - RongCloudIMKit (2.4.7)
+  - RongCloudIMKit (2.4.8)
   - SDCAlertView (2.5.4):
     - RBBAnimation (~> 0.3)
     - SDCAutoLayout (~> 2.0)
@@ -46,7 +46,7 @@ SPEC CHECKSUMS:
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
-  RongCloudIMKit: d24685a8f2ea63e79aa2653a3275d7c64ea611ac
+  RongCloudIMKit: 43f367cba48b58238f1ab3b268842e6951231a54
   SDCAlertView: 2e2b0ecc5f1ec367e45d83efa2e512688ca7fa55
   SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
