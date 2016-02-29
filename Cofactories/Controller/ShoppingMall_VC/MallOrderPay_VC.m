@@ -170,7 +170,7 @@ static NSString *payCellIndentifier = @"payCell";
                     NSString *descriptionStr = dictionary[@"data"][@"body"];
                     NSString *subject = dictionary[@"data"][@"subject"];
                     NSString *amountStr = self.goodsModel.totalPrice;
-                    DLog(@"amountPrice = %@", amountStr);
+                    DLog(@"amountPrice = %@, tradeNO = %@", amountStr, tradeNO);
                     if (tradeNO && descriptionStr && subject) {
                         [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"60m"];
                     } else {

@@ -750,6 +750,7 @@
     NSString * GetUrl = [NSString stringWithFormat:@"%@%@",API_config,type];
     
     [manager GET:GetUrl parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        DLog(@"^^^^^^^^^^^^%@", responseObject);
         block(@{@"statusCode": @(200), @"responseArray": responseObject});
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];

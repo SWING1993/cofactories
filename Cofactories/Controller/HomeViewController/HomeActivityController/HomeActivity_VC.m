@@ -30,7 +30,14 @@
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
 //    self.urlString = @"http://h5.lo.cofactories.com/!)test/";
-    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]];
+    //添加access_token
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    NSString*token = credential.accessToken;
+    NSString *myString = [NSString stringWithFormat:@"%@?access_token=%@", self.urlString, token];
+    DLog(@"^^^^^^^^^^^%@", self.urlString);
+    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:myString]];
     [self.view addSubview:webView];
     [webView loadRequest:request];
     

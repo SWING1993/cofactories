@@ -454,9 +454,9 @@ static NSString *popularCellIdentifier = @"popularCell";
     return UIEdgeInsetsMake(10*kZGY, 10*kZGY, 10*kZGY, 10*kZGY);
 }
 
-- (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//- (void)back {
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
