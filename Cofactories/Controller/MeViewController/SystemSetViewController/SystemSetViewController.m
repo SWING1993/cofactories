@@ -374,7 +374,7 @@ UIAlertView * quitAlert;
             folderSize +=[self fileSizeAtPath:absolutePath];
         }
         //SDWebImage框架自身计算缓存的实现
-        folderSize+=[[SDImageCache sharedImageCache] getSize]/1024.0/1024.0;
+//        folderSize+=[[SDImageCache sharedImageCache] getSize]/1024.0/1024.0;
         return folderSize;
     }
     return 0;
