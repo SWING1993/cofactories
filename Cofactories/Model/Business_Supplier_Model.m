@@ -42,9 +42,9 @@
         
         NSString *cityString = [NSString stringWithFormat:@"%@",dictionary[@"city"]];
         if ([cityString isEqualToString:@"<null>"] || cityString == nil) {
-            self.businessCity = @"地址未填写";
+            self.businessCity = @"地址: 未填写";
         }else{
-            self.businessCity = cityString;
+            self.businessCity = [NSString stringWithFormat:@"地址: %@",cityString];
         }
         
         self.businessScore = [NSString stringWithFormat:@"%@",dictionary[@"score"]];

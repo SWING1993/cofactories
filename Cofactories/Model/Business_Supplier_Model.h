@@ -17,6 +17,7 @@
 @property (nonatomic,copy)NSString *businessSubrole;
 @property (nonatomic,copy)NSString *businessCity;
 @property (nonatomic,copy)NSString *businessScore;
+@property (nonatomic,copy)NSString *businessScale;
 
 - (instancetype)initBusinessSupplierModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getBusinessSupplierModelWithDictionary:(NSDictionary *)dictionary;

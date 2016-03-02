@@ -65,12 +65,12 @@
 
     _marketNameLabel.text = model.businessName;
     if ([model.businessScore isEqualToString:@"0"]) {
-        _marketCreditLabel.text = @"商家暂未获得评分";
+        _marketCreditLabel.text = @"信用积分 0";
         
     }else{
-        _marketCreditLabel.text = [NSString stringWithFormat:@"%@评分",model.businessScore];
+        _marketCreditLabel.text = [NSString stringWithFormat:@"信用积分 %@",model.businessScore];
     }
-    _marketMessageLabel.text = [NSString stringWithFormat:@"%@    %@",model.businessSubrole,model.businessCity];
+    _marketMessageLabel.text = [NSString stringWithFormat:@"%@",model.businessCity];
     
     CGSize textSize = [_marketNameLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:14] forKey:NSFontAttributeName]];
     _certifyImage.frame = CGRectMake(_marketNameLabel.frame.origin.x + textSize.width + 10, _marketNameLabel.frame.origin.y + 5, 15, 15);
