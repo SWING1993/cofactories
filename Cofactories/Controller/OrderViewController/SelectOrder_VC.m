@@ -8,12 +8,11 @@
 #define BUTTON_WIDETH   (kScreenW-4*40)/3.f
 
 #import "SelectOrder_VC.h"
-#import "PublishOrder_Common_VC.h"
-#import "PublishOrder_Factory_VC.h"
-#import "PublishOrder_Other_VC.h"
-#import "PublishOrder_Factory_Other_VC.h"
 #import "PublishOrder_Three_VC.h"
 #import "PublishOrder_Design_VC.h"
+#import "PublishOrder_Other_VC.h"
+#import "PublishOrder_Factory_VC.h"
+#import "PublishOrder_Factory_OtherRole_VC.h"
 @interface SelectOrder_VC ()
 @property(nonatomic,strong)UserModel *userModel;
 
@@ -79,7 +78,7 @@
                 [self.navigationController pushViewController:[PublishOrder_Factory_VC new] animated:YES];
             }else{
                 //其他身份发普通订单
-                [self.navigationController pushViewController:[PublishOrder_Factory_Other_VC new] animated:YES];
+                [self.navigationController pushViewController:[PublishOrder_Factory_OtherRole_VC new] animated:YES];
             }
             break;
         case 6:
