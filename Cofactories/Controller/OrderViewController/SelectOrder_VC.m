@@ -13,6 +13,7 @@
 #import "PublishOrder_Factory_VC.h"
 #import "PublishOrder_Other_VC.h"
 #import "PublishOrder_Factory_Other_VC.h"
+#import "PublishOrder_Three_VC.h"
 
 @interface SelectOrder_VC ()
 @property(nonatomic,strong)UserModel *userModel;
@@ -87,8 +88,8 @@
             break;
         default:
         {
-            PublishOrder_Common_VC *vc = [[PublishOrder_Common_VC alloc] init];
-            vc.orderType = button.tag;
+            PublishOrder_Three_VC *vc = [[PublishOrder_Three_VC alloc] init];
+            vc.orderType = button.tag-1;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
