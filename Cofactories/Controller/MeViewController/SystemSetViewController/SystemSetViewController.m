@@ -30,7 +30,6 @@ UIAlertView * quitAlert;
     [super viewDidLoad];
     [self initTableView];
     DLog(@"%f",[self cacheFilePath]);
-//    kTipAlert(@"%f",[self cacheFilePath]);
 }
 
 - (void)initTableView {
@@ -392,6 +391,7 @@ UIAlertView * quitAlert;
         }
     }
     [[SDImageCache sharedImageCache] cleanDisk];
+    [Tools removeAllCached];
     [self performSelectorOnMainThread:@selector(reloadTable) withObject:nil waitUntilDone:YES];
    
 }
