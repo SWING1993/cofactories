@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-@class CustomAddPhotoView;
-
+#import "JKAssets.h"
 @interface Publish_AddPhoto_TVC : UITableViewCell
-@property (nonatomic,strong)CustomAddPhotoView *photoView;
-@property (nonatomic,copy)void(^PhotoViewBlock)(void);
+
+@property (nonatomic,copy) void(^AddPhotoBlock)(void); 
+@property (nonatomic,strong)NSMutableArray *imageArray;
+@property (nonatomic, strong) JKAssets  *asset;
+@property (nonatomic,copy) void(^BrowsePhotoBlock)(NSInteger selectedIndex);
+@property (nonatomic,copy)void(^PublishBlock)(void);
+
 @end

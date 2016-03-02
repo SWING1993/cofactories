@@ -8,6 +8,7 @@
 
 #import "Tools.h"
 #import "AFNetworking.h"
+#import "JKAssets.h"
 #import <Accelerate/Accelerate.h>
 #define kKeyWindow [UIApplication sharedApplication].keyWindow
 
@@ -456,6 +457,32 @@
     button.backgroundColor = kLightBlue;
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     return button;
+}
+
++ (void)upLoadImagesWithArray:(NSMutableArray *)array
+                 policyString:(NSString *)policyString
+              signatureString:(NSString *)signatureString{
+    
+    UpYun *upYun = [[UpYun alloc] init];
+    upYun.bucket = bucketAPI;//图片测试
+    upYun.expiresIn = 600;// 10分钟
+    
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        ALAssetsLibrary   *lib = [[ALAssetsLibrary alloc] init];
+        
+        JKAssets *asset = array[idx];
+        [lib assetForURL:asset.assetPropertyURL resultBlock:^(ALAsset *asset) {
+            if (asset) {
+                UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+                [upYun uploadImage:image policy:policyString signature:signatureString];
+            }
+        } failureBlock:^(NSError *error) {
+            
+        }];
+
+    }];
+
 }
 
 @end

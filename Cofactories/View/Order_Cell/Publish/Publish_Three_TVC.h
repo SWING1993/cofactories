@@ -8,10 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ClickCanlendarDelegate <NSObject>
+@required
+- (void)clickCanlendarButton:(UIButton *)button;
+@end
+
 @interface Publish_Three_TVC : UITableViewCell
 
 @property (nonatomic,strong)UITextField *cellTF;
+@property (nonatomic,weak)id<ClickCanlendarDelegate> delgate;
+@property (nonatomic,assign)BOOL isShowCanlendar;
 - (void)loadDataWithTitleString:(NSString *)titleString
               placeHolderString:(NSString *)placeHolderString
-                       indexRow:(NSInteger)indexRow;
+                       isLast:(BOOL)isLast;
 @end

@@ -1,65 +1,47 @@
 //
-//  PublishOrder_Three_VC.m
+//  PublishOrder_Other_VC.m
 //  Cofactories
 //
-//  Created by GTF on 16/2/29.
+//  Created by GTF on 16/3/2.
 //  Copyright © 2016年 Cofactorios. All rights reserved.
 //
 #define kPhotoWidth  ([UIScreen mainScreen].bounds.size.width - 50)/4.f
 
-#import "PublishOrder_Three_VC.h"
+#import "PublishOrder_Other_VC.h"
 #import "Publish_Three_TVC.h"
 #import "Publish_AddPhoto_TVC.h"
 #import "JKImagePickerTool.h"
 #import "GTFLoadPhoto_VC.h"
+#import "CalendarHomeViewController.h"
 
-@interface PublishOrder_Three_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate>
+@interface PublishOrder_Other_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate,ClickCanlendarDelegate>
 @property (nonatomic, strong) NSMutableArray   *imageArray;
 @property (nonatomic, strong) JKImagePickerTool *tool;
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,copy)NSArray *sectionOneTitleArray;
 @property (nonatomic,copy)NSArray *placeHolderArray;
-@property (nonatomic,strong)UITextField *titleTF;
 @property (nonatomic,strong)UITextField *amountTF;
-@property (nonatomic,strong)UITextField *unitTF;
 @property (nonatomic,strong)UITextField *commentTF;
-@property (nonatomic,copy)NSString *typeString;
+@property (nonatomic,copy)NSString *timeString;
 @property (nonatomic,assign)BOOL isAblePublish;
+@property (nonatomic,strong)CalendarHomeViewController *calendar;
 
 @end
 static NSString *const reuseIdentifier1 = @"reuseIdentifier1";
 static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
-
-@implementation PublishOrder_Three_VC
+@implementation PublishOrder_Other_VC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    switch (_orderType) {
-        case PublishOrderTypeFabric:
-            self.navigationItem.title = @"求购面料";
-            _typeString = @"fabric";
-            break;
-        case PublishOrderTypeAccessory:
-            self.navigationItem.title = @"求购辅料";
-            _typeString = @"accessory";
-            break;
-            
-        case PublishOrderTypeMachine:
-            self.navigationItem.title = @"求购机械设备";
-            _typeString = @"machine";
-            break;
-        default:
-            break;
-    }
+    self.navigationItem.title = @"寻找其他生产配套";
     
-    _sectionOneTitleArray = @[@"订单标题",@"订单数量",@"单位",@"备注"];
-    _placeHolderArray = @[@"请填写订单标题",
-                          @"请填写订单数量",
-                          @"请填写单位",
+    _sectionOneTitleArray = @[@"订单数量",@"订单期限",@"备注"];
+    _placeHolderArray = @[@"请填写订单数量",
+                          @"请选择订单期限",
                           @"特殊要求请备注说明"];
     self.imageArray = [NSMutableArray arrayWithArray:@[]];
-
+    
     [self initTable];
 }
 
@@ -88,23 +70,22 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         Publish_Three_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier1 forIndexPath:indexPath];
-        cell.isShowCanlendar = NO;
         BOOL isLast = (indexPath.row+1 == _sectionOneTitleArray.count) ? YES:NO;
         [cell loadDataWithTitleString:_sectionOneTitleArray[indexPath.row]
                     placeHolderString:_placeHolderArray[indexPath.row]
                              isLast:isLast];
         switch (indexPath.row) {
             case 0:
-                _titleTF = cell.cellTF;
+                _amountTF = cell.cellTF;
+                cell.isShowCanlendar = NO;
                 break;
             case 1:
-                _amountTF = cell.cellTF;
+                cell.isShowCanlendar = YES;
+                cell.delgate = self;
                 break;
             case 2:
-                _unitTF = cell.cellTF;
-                break;
-            case 3:
                 _commentTF = cell.cellTF;
+                cell.isShowCanlendar = NO;
                 break;
             default:
                 break;
@@ -124,7 +105,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
             _tool.viewController = self;
         }
     };
-  
+    
     cell.BrowsePhotoBlock = ^(NSInteger selectedIndex){
         NSLog(@"%ld",(long)selectedIndex);
         GTFLoadPhoto_VC *vc = [[GTFLoadPhoto_VC alloc] init];
@@ -139,7 +120,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     cell.PublishBlock = ^{
         [self publishAction];
     };
-
+    
     return cell;
 }
 
@@ -172,7 +153,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         label.font = [UIFont systemFontOfSize:14];
         label.text = @"订单信息";
         [headView addSubview:label];
-
+        
         return headView;
     }else{
         return nil;
@@ -184,9 +165,31 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         return 40;
     }else{
         return 15+(kPhotoWidth+15)*(_imageArray.count/4+1) + 55;
-
+        
     }
     
+}
+
+#pragma mark - calanderBtn
+- (void)clickCanlendarButton:(UIButton *)button{
+//    NSLog(@">>>>>-------------%@",button.titleLabel.text);
+    if (!_calendar) {
+        NSLog(@"22");
+        
+        _calendar = [[CalendarHomeViewController alloc]init];
+        
+        _calendar.calendartitle = @"空闲日期";
+        
+        [_calendar setAirPlaneToDay:365 ToDateforString:nil];//飞机初始化方法
+        
+    }
+
+    _calendar.calendarblock = ^(CalendarDayModel *model){
+        
+        [button setTitle:[NSString stringWithFormat:@"%@",[model toString]] forState:UIControlStateNormal];
+        _timeString = [model toString];
+    };
+    [self presentViewController:_calendar animated:YES completion:nil];
 }
 
 #pragma mark - JKImagePickerControllerDelegate
@@ -209,44 +212,28 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     }];
 }
 
-#pragma mark - prvite
+#pragma mark - privite
 - (void)publishAction{
-    
-    if (_titleTF.text.length == 0 || [Tools isBlankString:_titleTF.text] == YES || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || _unitTF.text.length == 0 || [Tools isBlankString:_unitTF.text] == YES) {
-        _isAblePublish = NO;
+    if (_amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES ||_timeString == nil) {
         kTipAlert(@"请填写必填信息，再发布订单!");
     }else{
-        if (_titleTF.text.length > 20) {
-            _isAblePublish = NO;
-            kTipAlert(@"标题字符长度不得超过20个字符!");
+        if ([_amountTF.text isEqualToString:@"0"]) {
+            kTipAlert(@"订单数量不得为0!");
         }else{
-            if ([_amountTF.text isEqualToString:@"0"]) {
-                _isAblePublish = NO;
-                kTipAlert(@"订单数量不得为0!");
-            }else{
-                if (_unitTF.text.length > 3) {
-                    _isAblePublish = NO;
-                    kTipAlert(@"单位字符长度不得超过3个字符!");
-                }else{
-                    _isAblePublish = YES;
-                }
-            }
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
+            alertView.tag = 100;
+            [alertView show];
         }
     }
-    
-    if (_isAblePublish) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
-        alertView.tag = 100;
-        [alertView show];
-    }
 }
-
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100) {
         if (buttonIndex == 1) {
-            DLog(@"-----%@,%@,%@,%@,%@,%@",_imageArray,_typeString,_titleTF.text,_amountTF.text,_unitTF.text,_commentTF.text);
-            [HttpClient publishSupplierOrderWithType:_typeString name:_titleTF.text amount:_amountTF.text unit:_unitTF.text description:_commentTF.text WithCompletionBlock:^(NSDictionary *dictionary) {
+            
+            DLog(@"%@,%@,%@,%@",_amountTF.text,_timeString,_commentTF.text,_imageArray);
+            
+            [HttpClient publishFactoryOrderWithSubrole:@"其他" type:@"" amount:_amountTF.text deadline:_timeString description:_commentTF.text credit:@"-1" WithCompletionBlock:^(NSDictionary *dictionary) {
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
                     if (_imageArray.count > 0) {
                         [Tools upLoadImagesWithArray:_imageArray policyString:dictionary[@"message"][@"data"][@"policy"] signatureString:dictionary[@"message"][@"data"][@"signature"]];

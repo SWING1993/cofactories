@@ -9,12 +9,11 @@
 
 #import "SelectOrder_VC.h"
 #import "PublishOrder_Common_VC.h"
-#import "PublishOrder_Designer_VC.h"
 #import "PublishOrder_Factory_VC.h"
 #import "PublishOrder_Other_VC.h"
 #import "PublishOrder_Factory_Other_VC.h"
 #import "PublishOrder_Three_VC.h"
-
+#import "PublishOrder_Design_VC.h"
 @interface SelectOrder_VC ()
 @property(nonatomic,strong)UserModel *userModel;
 
@@ -72,7 +71,7 @@
     DLog(@"%ld",(long)button.tag);
     switch (button.tag) {
         case 4:
-            [self.navigationController pushViewController:[PublishOrder_Designer_VC new] animated:YES];
+            [self.navigationController pushViewController:[PublishOrder_Design_VC new] animated:YES];
             break;
         case 5:
             if (_userModel.UserType == 1) {
