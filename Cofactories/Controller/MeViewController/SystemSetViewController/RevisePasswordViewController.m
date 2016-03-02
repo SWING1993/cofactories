@@ -13,7 +13,7 @@
 
 static NSString * CellIdentifier = @"CellIdentifier";
 
-@interface RevisePasswordViewController (){
+@interface RevisePasswordViewController ()<UIAlertViewDelegate>{
 
     UITextField*oldPasswordTF;
     UITextField*passwordTF;
@@ -31,13 +31,13 @@ static NSString * CellIdentifier = @"CellIdentifier";
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.rowHeight = 40;
 
-    oldPasswordTF=[[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-30, 44)];
+    oldPasswordTF=[[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-30, 40)];
     oldPasswordTF.clearButtonMode=YES;
     oldPasswordTF.secureTextEntry=YES;
     oldPasswordTF.font = kFont;
     oldPasswordTF.placeholder=@"输入旧密码";
 
-    passwordTF=[[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-30, 44)];
+    passwordTF=[[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-30, 40)];
     passwordTF.clearButtonMode=YES;
     passwordTF.secureTextEntry=YES;
     passwordTF.font = kFont;
@@ -61,42 +61,43 @@ static NSString * CellIdentifier = @"CellIdentifier";
 - (void)buttonClicked{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//
-//    [self.tableView endEditing:YES];
-//}
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1 && alertView.tag == 200) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 - (void)RevisePasswordBtn {
-    if (oldPasswordTF.text.length==0&&passwordTF.text.length==0) {
-        UIAlertView*alertView = [[UIAlertView alloc]initWithTitle:@"密码不能为空" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-        [alertView show];
+    if (oldPasswordTF.text.length==0 && passwordTF.text.length==0) {
+        kTipAlert(@"密码不能为空");
+    }else if (passwordTF.text.length<6 || passwordTF.text.length>16) {
+        kTipAlert(@"新密码长度应该在6—16个字符之间");
     }else{
         [HttpClient changePassword:oldPasswordTF.text newPassword:passwordTF.text andBlock:^(NSInteger statusCode) {
             switch (statusCode) {
                 case 200:
                 {
-                    kTipAlert(@"密码修改成功!");
+                    UIAlertView * successAlert = [[UIAlertView alloc]initWithTitle:@"密码修改成功" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"知道了", nil];
+                    successAlert.tag = 200;
+                    [successAlert show];
+                    
                 }
                     break;
                 case 403:
                 {
-                    kTipAlert(@"旧密码错误!");
+                    kTipAlert(@"旧密码错误");
                 }
                     break;
                     
                 default:
-                    kTipAlert(@"修改失败，尝试重新修改！(错误码：%ld)",(long)statusCode);
+                    kTipAlert(@"修改失败，尝试重新修改！(%ld)",(long)statusCode);
                     break;
             }
-
         }];
     }
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
@@ -141,13 +142,11 @@ static NSString * CellIdentifier = @"CellIdentifier";
     UILabel*titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 2.5, kScreenW-20, 20)];
     titleLabel.font=kFont;
     switch (section) {
-        case 0:
-        {
+        case 0:{
             titleLabel.text=@"旧密码";
         }
             break;
-        case 1:
-        {
+        case 1:{
             titleLabel.text=@"新密码";
         }
             break;
@@ -156,14 +155,11 @@ static NSString * CellIdentifier = @"CellIdentifier";
             break;
     }
     [view addSubview:titleLabel];
-
-
     return view;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 0.01f)];
-    //view.backgroundColor = [UIColor colorWithHex:0xf0efea];
     return view;
 }
 
@@ -171,15 +167,5 @@ static NSString * CellIdentifier = @"CellIdentifier";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
