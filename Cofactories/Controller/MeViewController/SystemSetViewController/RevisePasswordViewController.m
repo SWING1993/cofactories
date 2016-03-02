@@ -13,15 +13,13 @@
 
 static NSString * CellIdentifier = @"CellIdentifier";
 
-@interface RevisePasswordViewController ()<UIAlertViewDelegate>{
-
-    UITextField*oldPasswordTF;
-    UITextField*passwordTF;
-}
+@interface RevisePasswordViewController ()<UIAlertViewDelegate>
 
 @end
 
 @implementation RevisePasswordViewController
+UITextField*oldPasswordTF;
+UITextField*passwordTF;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +40,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     passwordTF.secureTextEntry=YES;
     passwordTF.font = kFont;
     passwordTF.placeholder=@"6-16个字符，区分大小写";
-
 
 
     UIView*tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70)];
@@ -77,7 +74,11 @@ static NSString * CellIdentifier = @"CellIdentifier";
             switch (statusCode) {
                 case 200:
                 {
-                    UIAlertView * successAlert = [[UIAlertView alloc]initWithTitle:@"密码修改成功" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"知道了", nil];
+                    UIAlertView * successAlert = [[UIAlertView alloc]initWithTitle:@"密码修改成功"
+                                                                           message:nil
+                                                                          delegate:self
+                                                                 cancelButtonTitle:@"取消"
+                                                                 otherButtonTitles:@"知道了", nil];
                     successAlert.tag = 200;
                     [successAlert show];
                     
@@ -155,11 +156,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
             break;
     }
     [view addSubview:titleLabel];
-    return view;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 0.01f)];
     return view;
 }
 
