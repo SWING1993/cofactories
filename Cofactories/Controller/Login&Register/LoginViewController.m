@@ -24,7 +24,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 @property (nonatomic, strong) Login *myLogin;
 @property (strong, nonatomic) EaseInputTipsView *inputTipsView;
 @property (strong, nonatomic) UIImageView *bgBlurredView;
-
+@property (assign, nonatomic) BOOL isEnterprise;
 
 @end
 
@@ -77,18 +77,39 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView.tableHeaderView = tableHeaderView;
 
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 80)];
+    
+    //企业账号
+
+    UIButton * enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    enterpriseBtn.tag = 9;
+    enterpriseBtn.selected = self.isEnterprise;
+    [enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Normal"] forState:UIControlStateNormal];
+    [enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Selected"] forState:UIControlStateSelected];
+    enterpriseBtn.frame = CGRectMake(kScreenW - 40, 10, 20, 20);
+    [enterpriseBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [tableFooterView addSubview:enterpriseBtn];
+    
+    UILabel * enterpriseLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenW - 110, 10, 60, 20)];
+    enterpriseLabel.textAlignment = NSTextAlignmentCenter;
+    enterpriseLabel.text = @"企业账号";
+    enterpriseLabel.textColor = [UIColor blackColor];
+    enterpriseLabel.font = [UIFont systemFontOfSize:14];
+    [tableFooterView addSubview:enterpriseLabel];
+    
+    //登录 Button
     LoginButton*loginBtn=[[LoginButton alloc]init];
-    loginBtn.frame =  CGRectMake(20, 15, (kScreenW-40), 35);
-    loginBtn.tag=0;
+    loginBtn.frame =  CGRectMake(20, 40, (kScreenW-40), 35);
+    loginBtn.tag=10;
     loginBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16.5];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:loginBtn];
+    
 
     //注册 button
-    UIButton*registerBtn=[UIButton buttonWithType:UIButtonTypeSystem];
-      registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 60, (kScreenW-40)/2-20, 45);
-    registerBtn.tag=1;
+    UIButton * registerBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+      registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 75, (kScreenW-40)/2-20, 45);
+    registerBtn.tag=11;
     registerBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16];
     registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [registerBtn setTitle:@"去注册" forState:UIControlStateNormal];
@@ -96,9 +117,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [registerBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:registerBtn];
 
-    UIButton*forgetBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    forgetBtn.frame = CGRectMake(20, 60, (kScreenW-40)/2-20, 45);
-    forgetBtn.tag=2;
+    UIButton * forgetBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    forgetBtn.frame = CGRectMake(20, 75, (kScreenW-40)/2-20, 45);
+    forgetBtn.tag=12;
     forgetBtn.titleLabel.font=[UIFont boldSystemFontOfSize:14.5];
     forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [forgetBtn setTitle:@"忘记密码?" forState:UIControlStateNormal];
@@ -111,10 +132,17 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (void)clickbBtn:(UIButton*)sender{
-    DLog(@"%@,%@",self.myLogin.phone,self.myLogin.password);
     UIButton*button=(UIButton*)sender;
     switch (button.tag) {
-        case 0:{
+        case 9:{
+            self.isEnterprise = !self.isEnterprise;
+            sender.selected = self.isEnterprise;
+            DLog(@"企业账号:%d",sender.selected);
+
+        }
+            break;
+            
+        case 10:{
             DLog(@"登录");
             MBProgressHUD *hud = [Tools createHUD];
             hud.labelText = @"登录中...";
@@ -123,9 +151,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
                 [button setEnabled:YES];
                 [hud hide:YES];
-                kTipAlert(@"请您填写账号以及密码后登录!");
+                kTipAlert(@"请您填写账号以及密码后登录");
             }else{
-                [HttpClient loginWithUsername:self.myLogin.phone password:self.myLogin.password andBlock:^(NSInteger statusCode) {
+                [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
                     switch (statusCode) {
                         case 0:{
                             [hud hide:YES];
@@ -158,14 +186,15 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         default:
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@"登录失败 (错误码：%ld)",(long)statusCode);
+                            kTipAlert(@"登录失败 (%ld)",(long)statusCode);
                             break;
                     }
                 }];
             }
         }
             break;
-        case 1:{
+            
+        case 11:{
             DLog(@"注册账号");
             RegisterViewController*registerVC = [[RegisterViewController alloc]init];
             [self.navigationController pushViewController:registerVC animated:YES];
@@ -173,7 +202,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         }
             break;
        
-        case 2:{
+        case 12:{
             DLog(@"忘记密码");
             ResetPasswordViewController*resetVC = [[ResetPasswordViewController alloc]init];
             UINavigationController*resetNav = [[UINavigationController alloc]initWithRootViewController:resetVC];

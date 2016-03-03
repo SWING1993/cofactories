@@ -110,7 +110,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 - (void)login{
     MBProgressHUD *hud = [Tools createHUD];
     hud.labelText = @"登录中...";
-   [HttpClient loginWithUsername:self.phone password:self.password andBlock:^(NSInteger statusCode) {
+   [HttpClient loginWithUsername:self.phone Password:self.password Enterprise:NO andBlock:^(NSInteger statusCode) {
        switch (statusCode) {
            case 0:{
                [hud hide:YES];

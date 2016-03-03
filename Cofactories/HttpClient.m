@@ -178,7 +178,8 @@
     }];
 }
 
-+ (void)loginWithUsername:(NSString *)username password:(NSString *)password andBlock:(void (^)(NSInteger))block {
+
++ (void)loginWithUsername:(NSString *)username Password:(NSString *)password Enterprise:(BOOL)enterprise andBlock:(void (^)(NSInteger))block {
     NSParameterAssert(username);
     NSParameterAssert(password);
     
@@ -192,7 +193,13 @@
     [parameters setObject:@"code" forKey:@"response_type"];
     [parameters setObject:username forKey:@"username"];
     [parameters setObject:password forKey:@"password"];
-    [parameters setObject:@"no" forKey:@"enterprise"];
+    if (enterprise) {
+        DLog(@"企业账号");
+        [parameters setObject:@"no" forKey:@"enterprise"];
+    }else {
+        DLog(@"普通账号");
+        [parameters setObject:@"yes" forKey:@"enterprise"];
+    }
     
     [OAuth2Manager POST:API_authorise parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"success = %@",responseObject);
@@ -211,6 +218,7 @@
         
     }];
 }
+
 
 + (void)loginWithCode:(NSString *)code andBlock:(void (^)(NSInteger statusCode))block {
     NSParameterAssert(code);
