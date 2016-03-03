@@ -195,10 +195,10 @@
     [parameters setObject:password forKey:@"password"];
     if (enterprise) {
         DLog(@"企业账号");
-        [parameters setObject:@"no" forKey:@"enterprise"];
+        [parameters setObject:@"yes" forKey:@"enterprise"];
     }else {
         DLog(@"普通账号");
-        [parameters setObject:@"yes" forKey:@"enterprise"];
+        [parameters setObject:@"no" forKey:@"enterprise"];
     }
     
     [OAuth2Manager POST:API_authorise parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -213,9 +213,7 @@
         NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
         NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
         block(statusCode);
-        
-        DLog(@"statusCode = %ld\nfailure = %@",(long)statusCode,errors);
-        
+        DLog(@"statusCode = %ld\nfailure = %@",(long)statusCode,errors);        
     }];
 }
 
