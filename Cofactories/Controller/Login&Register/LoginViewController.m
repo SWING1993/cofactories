@@ -140,7 +140,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                             [button setEnabled:YES];
                             [Login setPreUserPhone:self.myLogin.phone];//记住登录账号
                             [RootViewController setupTabarController];
-                            double delayInSeconds = 15.0;
+                            double delayInSeconds = 7.0;
                             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
                             dispatch_after(popTime, dispatch_get_main_queue(), ^{
                                 [Login saveLoginData];
