@@ -14,18 +14,18 @@
 #import "JKImagePickerTool.h"
 #import "GTFLoadPhoto_VC.h"
 #import "CalendarHomeViewController.h"
+#import "ZFPopupMenu.h"
+#import "ZFPopupMenuItem.h"
 
 @interface PublishOrder_Factory_OtherRole_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate,ClickCanlendarDelegate>
 @property (nonatomic, strong) NSMutableArray   *imageArray;
 @property (nonatomic, strong) JKImagePickerTool *tool;
-@property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,copy)NSArray *sectionOneTitleArray;
 @property (nonatomic,copy)NSArray *placeHolderArray;
 @property (nonatomic,copy)NSString *typeString;
 @property (nonatomic,strong)UITextField *amountTF;
 @property (nonatomic,copy)NSString *timeString;
 @property (nonatomic,strong)UITextField *commentTF;
-@property (nonatomic,assign)BOOL isAblePublish;
 @property (nonatomic,strong)CalendarHomeViewController *calendar;
 
 @end
@@ -34,17 +34,26 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
 @implementation PublishOrder_Factory_OtherRole_VC
 
+-(NSArray *)menuItems
+{
+    ZFPopupMenuItem *item1 = [ZFPopupMenuItem initWithMenuName:@"针织"
+                                                         image:nil
+                                                        action:@selector(test:)
+                                                        target:self];
+    item1.tag = 1;
+    ZFPopupMenuItem *item2 = [ZFPopupMenuItem initWithMenuName:@"梭织"
+                                                         image:nil
+                                                        action:@selector(test:)
+                                                        target:self];
+    item2.tag = 2;
+    return @[item1,item2];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"加工订单";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(kScreenW-30, 20, 30, 30);
-    [button setBackgroundImage:[UIImage imageNamed:@"jiahao"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(typeAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-
     _sectionOneTitleArray = @[@"订单数量",@"订单期限",@"备注"];
     _placeHolderArray = @[@"请填写订单数量",
                           @"请选择订单期限",
@@ -52,6 +61,14 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
     self.imageArray = [NSMutableArray arrayWithArray:@[]];
     
     [self initTable];
+    
+    
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(kScreenW-30, 20, 30, 30);
+    [button setBackgroundImage:[UIImage imageNamed:@"jiahao"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(typeAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 
 }
 
@@ -80,7 +97,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
 #pragma mark - table
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-       
+        
         if (indexPath.row == 0) {
             Publish_FactoryOrderType_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier3 forIndexPath:indexPath];
             cell.typeString = _typeString;
@@ -111,7 +128,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
             }
             
             return cell;
-
+            
         }
     }
     
@@ -187,9 +204,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
         return 40;
     }else{
         return 15+(kPhotoWidth+15)*(_imageArray.count/4+1) + 55;
-        
     }
-    
 }
 
 #pragma mark - calanderBtn
@@ -238,11 +253,79 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
 #pragma mark - private
 
 - (void)typeAction{
-    _typeString = @"suozhi";
-    [_tableView reloadData];
+    
+    [ZFPopupMenu setMenuBackgroundColorWithRed:0 green:0 blue:0 aphla:0.2];
+    [ZFPopupMenu setTextColorWithRed:1 green:1 blue:1 aphla:1.0];
+    ZFPopupMenu *popupMenu = [[ZFPopupMenu alloc] initWithItems:[self menuItems]];
+    [popupMenu showInView:self.navigationController.view fromRect:CGRectMake(kScreenW - 60, 5, 40, 40) layoutType:Vertical];
+    [self.navigationController.view addSubview:popupMenu];
+}
+
+-(void)test:(ZFPopupMenuItem *)item{
+    if (item.tag == 1) {
+        _typeString = @"针织";
+        [_tableView reloadData];
+    }else{
+        _typeString = @"梭织";
+        [_tableView reloadData];
+    }
 }
 
 - (void)publishAction{
-    DLog(@"----------...........<<<<<<<");
+    
+    if (_typeString.length != 2 || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || [_timeString isEqualToString:@"请选择订单期限"]) {
+        kTipAlert(@"请填写必填信息，再发布订单!");
+    }else{
+        if ([_amountTF.text isEqualToString:@"0"]) {
+            kTipAlert(@"订单数量不得为0!");
+        }else{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
+            alertView.tag = 100;
+            [alertView show];
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (alertView.tag == 100){
+        
+        if (buttonIndex == 1){
+            
+            NSString *typeString = @"";
+            if ([_typeString isEqualToString:@"针织"]){
+                typeString = @"knit";
+            }else{
+                typeString = @"woven";
+            }
+            
+            DLog(@"----------...........%@,%@,%@,%@",typeString,_amountTF.text,_timeString,_commentTF.text);
+            
+            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeString description:_commentTF.text credit:@"-1" WithCompletionBlock:^(NSDictionary *dictionary) {
+                
+                if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
+                    if (_imageArray.count > 0) {
+                        [Tools upLoadImagesWithArray:_imageArray policyString:dictionary[@"message"][@"data"][@"policy"] signatureString:dictionary[@"message"][@"data"][@"signature"]];
+                    }else{
+                        //用户为上传图片
+                    }
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发布订单成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    alertView.tag = 10086;
+                    [alertView show];
+                }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
+                    kTipAlert(@"发布订单失败，请重新登录");
+                }
+                
+                DLog("--------------->>>>>>.....%@",dictionary[@"statusCode"]);
+
+            }];
+        }
+    }
+    
+    if (alertView.tag == 10086) {
+        if (buttonIndex == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 @end

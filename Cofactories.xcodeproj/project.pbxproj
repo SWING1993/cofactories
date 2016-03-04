@@ -190,7 +190,6 @@
 		70A63EAD1C4638AD00B68839 /* ContractFactoryDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A63EAC1C4638AD00B68839 /* ContractFactoryDetail_VC.m */; };
 		70A63EB01C4638D400B68839 /* ContractClothingDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A63EAF1C4638D400B68839 /* ContractClothingDetail_VC.m */; };
 		70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F31C083390003D1892 /* Order_Common_TVC.m */; };
-		70A784FA1C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F91C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m */; };
 		70CD41751C5B2F67000F2807 /* AlertWithTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 70CD41741C5B2F67000F2807 /* AlertWithTF.m */; };
 		70E8C0751C868E2C007C7C1D /* GTFLoadPhoto_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E8C0721C868E2C007C7C1D /* GTFLoadPhoto_VC.m */; };
 		70E8C0761C868E2C007C7C1D /* JKImagePickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E8C0741C868E2C007C7C1D /* JKImagePickerTool.m */; };
@@ -236,7 +235,6 @@
 		70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */; };
 		70F6D2071C16CD7E00E23166 /* Business_Cloth_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */; };
 		70F9AE881C3F48390003489B /* PublishOrder_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AE871C3F48390003489B /* PublishOrder_Factory_VC.m */; };
-		70F9AE8B1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AE8A1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m */; };
 		70F9AEC31C3F70B60003489B /* CalendarDayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB21C3F70B60003489B /* CalendarDayCell.m */; };
 		70F9AEC41C3F70B60003489B /* CalendarDayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB41C3F70B60003489B /* CalendarDayModel.m */; };
 		70F9AEC51C3F70B60003489B /* CalendarHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB61C3F70B60003489B /* CalendarHomeViewController.m */; };
@@ -777,8 +775,6 @@
 		70A63EAF1C4638D400B68839 /* ContractClothingDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContractClothingDetail_VC.m; sourceTree = "<group>"; };
 		70A784F21C083390003D1892 /* Order_Common_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order_Common_TVC.h; sourceTree = "<group>"; };
 		70A784F31C083390003D1892 /* Order_Common_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order_Common_TVC.m; sourceTree = "<group>"; };
-		70A784F81C085CD3003D1892 /* PublishOrder_Factory_Common_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishOrder_Factory_Common_VC.h; path = Cofactories/Controller/OrderViewController/PublishOrder_Factory_Common_VC.h; sourceTree = SOURCE_ROOT; };
-		70A784F91C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishOrder_Factory_Common_VC.m; path = Cofactories/Controller/OrderViewController/PublishOrder_Factory_Common_VC.m; sourceTree = SOURCE_ROOT; };
 		70CD41731C5B2F67000F2807 /* AlertWithTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWithTF.h; sourceTree = "<group>"; };
 		70CD41741C5B2F67000F2807 /* AlertWithTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWithTF.m; sourceTree = "<group>"; };
 		70E8C0711C868E2C007C7C1D /* GTFLoadPhoto_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFLoadPhoto_VC.h; sourceTree = "<group>"; };
@@ -868,8 +864,6 @@
 		70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Cloth_VC.m; sourceTree = "<group>"; };
 		70F9AE861C3F48390003489B /* PublishOrder_Factory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishOrder_Factory_VC.h; sourceTree = "<group>"; };
 		70F9AE871C3F48390003489B /* PublishOrder_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishOrder_Factory_VC.m; sourceTree = "<group>"; };
-		70F9AE891C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PublishOrder_Factory_ Restrict_VC.h"; sourceTree = "<group>"; };
-		70F9AE8A1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PublishOrder_Factory_ Restrict_VC.m"; sourceTree = "<group>"; };
 		70F9AEB11C3F70B60003489B /* CalendarDayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayCell.h; sourceTree = "<group>"; };
 		70F9AEB21C3F70B60003489B /* CalendarDayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayCell.m; sourceTree = "<group>"; };
 		70F9AEB31C3F70B60003489B /* CalendarDayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayModel.h; sourceTree = "<group>"; };
@@ -2237,10 +2231,6 @@
 			children = (
 				70F9AE861C3F48390003489B /* PublishOrder_Factory_VC.h */,
 				70F9AE871C3F48390003489B /* PublishOrder_Factory_VC.m */,
-				70A784F81C085CD3003D1892 /* PublishOrder_Factory_Common_VC.h */,
-				70A784F91C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m */,
-				70F9AE891C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.h */,
-				70F9AE8A1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m */,
 			);
 			path = Factory;
 			sourceTree = "<group>";
@@ -3037,7 +3027,6 @@
 				70F5EF771C0BE159008878B4 /* SearchOrder_Designer_VC.m in Sources */,
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
-				70F9AE8B1C3F48CC0003489B /* PublishOrder_Factory_ Restrict_VC.m in Sources */,
 				7D5063951C43929B00B04498 /* TableViewHeaderView.m in Sources */,
 				7D1A4E3A1C5A19880076B462 /* MallAddressModel.m in Sources */,
 				03623FF81C44E9FB0083044A /* UIDevice+Info.m in Sources */,
@@ -3138,7 +3127,6 @@
 				70FBE09C1C115A9F00B15513 /* BidManage_Factory_VC.m in Sources */,
 				03ACD1A11C0833E0003AB7CF /* ScaleViewController.m in Sources */,
 				03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */,
-				70A784FA1C085CD3003D1892 /* PublishOrder_Factory_Common_VC.m in Sources */,
 				7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */,
 				7DBDC8E61C15848B00D682D3 /* SelectColorModel.m in Sources */,
 				7094D7221BFC825200F7240B /* WalletViewController.m in Sources */,

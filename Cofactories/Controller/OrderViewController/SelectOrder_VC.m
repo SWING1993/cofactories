@@ -74,11 +74,13 @@
             break;
         case 5:
             if (_userModel.UserType == 1) {
-                //服装厂可以发限制加工厂订单
+                //服装厂发限制加工厂订单
                 [self.navigationController pushViewController:[PublishOrder_Factory_VC new] animated:YES];
             }else{
                 //其他身份发普通订单
-                [self.navigationController pushViewController:[PublishOrder_Factory_OtherRole_VC new] animated:YES];
+                PublishOrder_Factory_OtherRole_VC *vc = [PublishOrder_Factory_OtherRole_VC new];
+                vc.pubType =PublishFacTypeDefault;
+                [self.navigationController pushViewController:vc animated:YES];
             }
             break;
         case 6:
