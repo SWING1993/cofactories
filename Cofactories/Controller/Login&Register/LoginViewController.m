@@ -29,6 +29,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 @end
 
 @implementation LoginViewController
+UILabel * enterpriseLabel;
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -59,9 +60,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.myLogin = [[Login alloc] init];
     self.myLogin.phone = [Login preUserPhone];
-
 
     self.title=@"登录";
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
@@ -81,19 +82,20 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     //企业账号
 
     UIButton * enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    enterpriseBtn.frame = CGRectMake(kScreenW - 45, 7.5, 25, 25);
     enterpriseBtn.tag = 9;
     enterpriseBtn.selected = self.isEnterprise;
     [enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Normal"] forState:UIControlStateNormal];
     [enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Selected"] forState:UIControlStateSelected];
-    enterpriseBtn.frame = CGRectMake(kScreenW - 40, 10, 20, 20);
+    
     [enterpriseBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:enterpriseBtn];
     
-    UILabel * enterpriseLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenW - 110, 10, 60, 20)];
+    enterpriseLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenW - 110, 10, 60, 20)];
     enterpriseLabel.textAlignment = NSTextAlignmentCenter;
     enterpriseLabel.text = @"企业账号";
     enterpriseLabel.textColor = [UIColor blackColor];
-    enterpriseLabel.font = [UIFont systemFontOfSize:14];
+    enterpriseLabel.font = [UIFont boldSystemFontOfSize:14];
     [tableFooterView addSubview:enterpriseLabel];
     
     //登录 Button
@@ -137,8 +139,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         case 9:{
             self.isEnterprise = !self.isEnterprise;
             sender.selected = self.isEnterprise;
+            if (sender.selected) {
+                enterpriseLabel.textColor = [UIColor redColor];
+            }else {
+                enterpriseLabel.textColor = [UIColor blackColor];
+            }
             DLog(@"企业账号:%d",sender.selected);
-
         }
             break;
             
