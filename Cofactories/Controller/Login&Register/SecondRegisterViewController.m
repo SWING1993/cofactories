@@ -13,7 +13,7 @@
 #import "LoginTableHeaderView.h"
 #import "SecondRegisterViewController.h"
 #import "RootViewController.h"
-
+#import "Login.h"
 static NSString * const CellIdentifier = @"CellIdentifier";
 
 @interface SecondRegisterViewController ()<UIAlertViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource> {
@@ -101,32 +101,42 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 [alertView show];
             }else{
                 NSString*message = responseDictionary[@"message"];
-                kTipAlert(@"%@(错误码：%ld)",message,(long)statusCode);
+                kTipAlert(@"%@(%ld)",message,(long)statusCode);
             }
         }];
     }
 }
 //注册成功 登录
 - (void)login{
-
-   [HttpClient loginWithUsername:self.phone password:self.password andBlock:^(NSInteger statusCode) {
+    MBProgressHUD *hud = [Tools createHUD];
+    hud.labelText = @"登录中...";
+   [HttpClient loginWithUsername:self.phone Password:self.password Enterprise:NO andBlock:^(NSInteger statusCode) {
        switch (statusCode) {
            case 0:{
-               kTipAlert(@"您的网络状态不太顺畅哦！");
+               [hud hide:YES];
+               kTipAlert(@"您的网络状态不太顺畅哦");
            }
                break;
            case 200:{
+               DLog(@"登录成功");
+               [hud hide:YES];
                [RootViewController setupTabarController];
-               
+               double delayInSeconds = 7.0;
+               dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+               dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                   [Login saveLoginData];
+               });
            }
                break;
            case 401:{
-               kTipAlert(@"用户名或密码错误！");
+               [hud hide:YES];
+               kTipAlert(@"用户名或密码错误");
            }
                break;
                
            default:
-               kTipAlert(@"登录失败 (错误码：%ld)",(long)statusCode);
+               [hud hide:YES];
+               kTipAlert(@"登录失败 (%ld)",(long)statusCode);
                break;
        }
    }];

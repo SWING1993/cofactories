@@ -40,12 +40,12 @@ static NSString * CellIdentifier = @"CellIdentifier";
     label.text = @"二级身份:";
     label.font = kFont;
     
-    textField=[[UITextField alloc]initWithFrame:CGRectMake(20, 0, kScreenW-40, 40)];
+    textField =[[UITextField alloc]initWithFrame:CGRectMake(20, 0, kScreenW-40, 40)];
     textField.backgroundColor = [UIColor whiteColor];
     textField.font = kFont;
     textField.text = self.placeholder;
-    textField.clearButtonMode=YES;
-    textField.placeholder=@"选择二级身份";
+    textField.clearButtonMode = YES;
+    textField.placeholder = @"选择二级身份";
     textField.inputView = [self fecthPicker];
     textField.inputAccessoryView = [self fecthToolbar];
     textField.delegate =self;
@@ -56,7 +56,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 
 - (void)buttonClicked{
-    
     if ([textField.text isEqualToString:@""]) {
         kTipAlert(@"二级身份不能为空！");
     }else{

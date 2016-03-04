@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, UserType) {
 @property (nonatomic, strong) NSArray * UserTypeArray;
 
 @property (nonatomic, retain ,readonly) NSString * role;
-@property (nonatomic, assign ,readonly) UserType UserType;
+@property (atomic, assign ,readonly) UserType UserType;
 
 @property (nonatomic, retain ,readonly) NSString * uid;
 @property (nonatomic, retain ,readwrite) NSString * phone;

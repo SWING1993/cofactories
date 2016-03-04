@@ -2,8 +2,8 @@
 //  AlipayHeader.h
 //  IntegratedAlipay
 //
-//  Created by Winann on 15/1/9.
-//  Copyright (c) 2015年 Winann. All rights reserved.
+//  Created by 宋国华 on 15/1/9.
+//  Copyright (c) 2015年 宋国华. All rights reserved.
 //
 
 /**
