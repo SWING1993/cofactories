@@ -77,7 +77,7 @@ UILabel * enterpriseLabel;
     LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
     self.tableView.tableHeaderView = tableHeaderView;
 
-    UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 80)];
+    UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 120)];
     
     //企业账号
 
@@ -110,7 +110,7 @@ UILabel * enterpriseLabel;
 
     //注册 button
     UIButton * registerBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-      registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 75, (kScreenW-40)/2-20, 45);
+    registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 75, (kScreenW-40)/2-20, 55);
     registerBtn.tag=11;
     registerBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16];
     registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
@@ -120,7 +120,7 @@ UILabel * enterpriseLabel;
     [tableFooterView addSubview:registerBtn];
 
     UIButton * forgetBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    forgetBtn.frame = CGRectMake(20, 75, (kScreenW-40)/2-20, 45);
+    forgetBtn.frame = CGRectMake(20, 75, (kScreenW-40)/2-20, 55);
     forgetBtn.tag=12;
     forgetBtn.titleLabel.font=[UIFont boldSystemFontOfSize:14.5];
     forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -157,14 +157,14 @@ UILabel * enterpriseLabel;
             if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
                 [button setEnabled:YES];
                 [hud hide:YES];
-                kTipAlert(@"请您填写账号以及密码后登录");
+                kTipAlert(@":）请您填写账号以及密码后登录");
             }else{
                 [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
                     switch (statusCode) {
                         case 0:{
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@"您的网络状态不太顺畅哦");
+                            kTipAlert(@":）您的网络状态不太顺畅哦");
                         }
                             break;
                         case 200:{
@@ -185,14 +185,14 @@ UILabel * enterpriseLabel;
                         case 401:{
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@"用户名或密码错误");
+                            kTipAlert(@":）用户名或密码错误");
                         }
                             break;
                             
                         default:
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@"登录失败 (%ld)",(long)statusCode);
+                            kTipAlert(@":）登录失败 (%ld)",(long)statusCode);
                             break;
                     }
                 }];

@@ -40,6 +40,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView.dataSource = self;
     self.tableView.showsVerticalScrollIndicator = NO;// 竖直滚动条不显示
     
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
     priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 0, kScreenW - 100, 44)];
     priceTextField.placeholder = @"输入充值金额";
     priceTextField.tag = 2;
@@ -78,6 +84,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoActionRecharge) name:UITextFieldTextDidChangeNotification object:nil];
 }
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)infoActionRecharge {
     DLog(@"输入的金额：%@",priceTextField.text);
     if (priceTextField.text.length == 0 || priceTextField.text.length > 12) {

@@ -1,9 +1,9 @@
 //
 //  UIDevice+Info.h
-//  Coding_iOS
+//  Cofactories
 //
-//  Created by 王 原闯 on 14-9-24.
-//  Copyright (c) 2014年 Coding. All rights reserved.
+//  Created by 宋国华 on 15-9-24.
+//  Copyright (c) 2014年 宋国华. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

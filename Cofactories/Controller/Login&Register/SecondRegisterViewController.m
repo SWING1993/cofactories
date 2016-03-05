@@ -88,7 +88,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)registerBtnClick {
     if (_UserTypeTF.text.length==0 || _UserNameTF.text.length==0 ) {
-        kTipAlert(@"注册信息不完整!");
+        kTipAlert(@":( 注册信息不完整");
     }else{
         DLog(@"注册信息：Username:%@ password:%@ UserRole:%@ code:%@ UserName:%@",self.phone,self.password,self.UserTypeArray[selectedInt],self.code,_UserNameTF.text);
         
@@ -96,8 +96,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             int statusCode =[responseDictionary[@"statusCode"]intValue];
             DLog(@"statusCode == %d",statusCode);
             if (statusCode == 200) {
-                UIAlertView*alertView=[[UIAlertView alloc]initWithTitle:@"注册成功!" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"去登录", nil];
-                alertView.tag = 10086;
+                UIAlertView*alertView=[[UIAlertView alloc]initWithTitle:@"注册成功" message:nil delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:@"去登录", nil];
+                alertView.tag = 200;
                 [alertView show];
             }else{
                 NSString*message = responseDictionary[@"message"];
@@ -106,7 +106,16 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         }];
     }
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 200) {
+//        [self login];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
 //注册成功 登录
+/*
 - (void)login{
     MBProgressHUD *hud = [Tools createHUD];
     hud.labelText = @"登录中...";
@@ -141,12 +150,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
        }
    }];
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 10086) {
-        [self login];
-    }
-}
+*/
 
 #pragma mark - Table view data source
 
