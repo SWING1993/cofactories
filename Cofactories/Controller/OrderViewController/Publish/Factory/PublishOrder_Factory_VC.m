@@ -8,7 +8,7 @@
 
 #import "PublishOrder_Factory_VC.h"
 #import "PublishOrder_Factory_Common_VC.h"
-#import "PublishOrder_Factory_ Restrict_VC.h"
+#import "PublishOrder_Factory_Restrict_VC.h"
 #import "ZFPopupMenu.h"
 #import "ZFPopupMenuItem.h"
 @interface PublishOrder_Factory_VC ()<UIScrollViewDelegate>
@@ -47,7 +47,7 @@
     _viewControllesArray = [@[] mutableCopy];
     _buttonArray = [@[] mutableCopy];
     PublishOrder_Factory_Common_VC *vc1 = [PublishOrder_Factory_Common_VC new];
-    PublishOrder_Factory__Restrict_VC  *vc2 = [PublishOrder_Factory__Restrict_VC new];
+    PublishOrder_Factory_Restrict_VC  *vc2 = [PublishOrder_Factory_Restrict_VC new];
     [_viewControllesArray addObject:vc1];
     [_viewControllesArray addObject:vc2];
     
@@ -134,7 +134,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    DLog(@"%@",NSStringFromCGPoint(scrollView.contentOffset));
+//    DLog(@"%@",NSStringFromCGPoint(scrollView.contentOffset));
     [UIView animateWithDuration:0.2 animations:^{
         _lineLB.frame = CGRectMake((kScreenW-200)/3.f+(scrollView.contentOffset.x/scrollView.frame.size.width)*(80+(kScreenW-200)/3.f)+15, 42, 70, 2);
     }];
@@ -150,7 +150,6 @@
         [buttonOne setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];    }
 }
 
-
 - (void)typeAction{
     
     [ZFPopupMenu setMenuBackgroundColorWithRed:0 green:0 blue:0 aphla:0.2];
@@ -161,13 +160,30 @@
 }
 
 -(void)test:(ZFPopupMenuItem *)item{
-    if (item.tag == 1) {
-//        _typeString = @"针织";
-//        [_tableView reloadData];
+    
+    NSInteger index = _scrollView.contentOffset.x/_scrollView.frame.size.width;
+    
+    DLog(@"%@",NSStringFromCGPoint(_scrollView.contentOffset));
+
+    PublishOrder_Factory_Common_VC *vc1 = _viewControllesArray[0];
+    PublishOrder_Factory_Restrict_VC *vc2 = _viewControllesArray[1];
+    
+    if (index == 0) {
+        if (item.tag == 1) {
+            vc1.TypeStringChangeBlock1(@"针织");
+            
+        }else{
+            vc1.TypeStringChangeBlock1(@"梭织");
+        }
     }else{
-//        _typeString = @"梭织";
-//        [_tableView reloadData];
+        if (item.tag == 1) {
+            vc2.TypeStringChangeBlock2(@"针织");
+            
+        }else{
+            vc2.TypeStringChangeBlock2(@"梭织");
+        }
     }
+    
 }
 
 

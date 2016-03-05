@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PublishOrder_Factory_Common_VC : UIViewController
+@interface PublishOrder_Factory_Restrict_VC : UIViewController
 @property (nonatomic,strong)UITableView    *tableView;
-@property (nonatomic,copy) void(^TypeStringChangeBlock1)(NSString *string);
+@property (nonatomic,copy) void(^TypeStringChangeBlock2)(NSString *string);
 
 @end

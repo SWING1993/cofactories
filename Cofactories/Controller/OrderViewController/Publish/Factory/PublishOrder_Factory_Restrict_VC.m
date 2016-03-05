@@ -9,7 +9,8 @@
 #define kPhotoWidth  ([UIScreen mainScreen].bounds.size.width - 50)/4.f
 
 
-#import "PublishOrder_Factory_Common_VC.h"
+#import "PublishOrder_Factory_Restrict_VC.h"
+#import "CustomeView.h"
 #import "Publish_Three_TVC.h"
 #import "Publish_AddPhoto_TVC.h"
 #import "JKImagePickerTool.h"
@@ -18,19 +19,21 @@
 #import "UserModel.h"
 #import "AuthenticationController.h"
 #import "RechargeViewController.h"
-@interface PublishOrder_Factory_Common_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate>{
+
+@interface PublishOrder_Factory_Restrict_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate>{
     UITextField    *_amountTF;
     UITextField    *_commentTF;
     NSString       *_typeString;
     NSString       *_amountString;
     NSString       *_timeString;
     NSString       *_commentString;
+    NSString       *_moneyString;
+    CustomeView    *_customeView;
     UIButton       *_addButton;
-    UIScrollView   *_scrollView;
+    UIScrollView     *_scrollView;
     CalendarHomeViewController *_calendar;
-
+    
 }
-
 @property (nonatomic, strong) NSMutableArray   *imageArray;
 @property (nonatomic, strong) JKImagePickerTool *tool;
 @property (nonatomic,strong) UIButton  *timeButton;
@@ -42,17 +45,19 @@
 
 static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 
-@implementation PublishOrder_Factory_Common_VC
+@implementation PublishOrder_Factory_Restrict_VC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.userModel = [[UserModel alloc] getMyProfile];
     self.view.backgroundColor = [UIColor whiteColor];
     self.imageArray = [NSMutableArray arrayWithArray:@[]];
+    
     [self initTableView];
     _typeString = @"针织/梭织";
     _amountString = nil;
     _timeString = @"请选择订单期限";
+    _moneyString = @"1000";
     _commentString = nil;
 }
 
@@ -69,7 +74,6 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     Publish_AddPhoto_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier2 forIndexPath:indexPath];
     cell.imageArray = self.imageArray;
     
@@ -99,16 +103,18 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     };
     
     return cell;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 44*5+10;
+    return 44*6;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[UIView alloc] init];
     headerView.backgroundColor = [UIColor whiteColor];
-    headerView.frame = CGRectMake(0, 0, kScreenW, 44*5+10);
+    headerView.frame = CGRectMake(0, 0, kScreenW, 44*6+10);
+    
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 20)];
     imageView.image = [UIImage imageNamed:@"dd.png"];
@@ -166,37 +172,53 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     _timeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [headerView addSubview:_timeButton];
     
-        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45+44+44+44, 70, 44)];
-        commentLabel.font = [UIFont systemFontOfSize:14];
-        commentLabel.text = @"备注";
-        [headerView addSubview:commentLabel];
-        
-        _commentTF = [[UITextField alloc] initWithFrame:CGRectMake(115, 45+44+44+44+7, kScreenW - 120, 30)];
-        _commentTF.font = [UIFont systemFontOfSize:12];
-        _commentTF.placeholder = @"特殊要求填写备注说明";
-        _commentTF.text = _commentString;
-        [_commentTF addTarget:self action:@selector(commentTFChange) forControlEvents:    UIControlEventEditingChanged];
-        [headerView addSubview:_commentTF];
-        
-        _typeLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(115, 45, 100, 44)];
-        _typeLabel1.font = [UIFont systemFontOfSize:12];
-        _typeLabel1.textColor = [UIColor grayColor];
-        _typeLabel1.text = _typeString;
-        _typeLabel1.textAlignment = NSTextAlignmentLeft;
-        [headerView addSubview:_typeLabel1];
-
-        __weak typeof(self) weakSelf = self;
-
-        self.TypeStringChangeBlock1 = ^(NSString *string){
-            _typeString = string;
-            [weakSelf.tableView reloadData];
-        };
+    UILabel *moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 45+44+44+44, 70, 44)];
+    moneyLabel.font = [UIFont systemFontOfSize:14];
+    [headerView addSubview:moneyLabel];
+    
+    NSString *string3 = @"* 设保证金";
+    NSMutableAttributedString *attributedTitle3 = [[NSMutableAttributedString alloc] initWithString:string3];
+    [attributedTitle3 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,1)];
+    moneyLabel.attributedText = attributedTitle3;
+    
+    _customeView = [[CustomeView alloc] initWithFrame:CGRectMake(115, 45+44+44+44+12, kScreenW-200, (kScreenW-200)/6.f)];
+    _customeView.amount = [_moneyString integerValue];
+    _customeView.MoneyBlock = ^(NSInteger integer){
+        _moneyString = [NSString stringWithFormat:@"%ld",(long)integer];
+    };
+    [headerView addSubview:_customeView];
+    
+    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45+44+44+44+44, 70, 44)];
+    commentLabel.font = [UIFont systemFontOfSize:14];
+    commentLabel.text = @"备注";
+    [headerView addSubview:commentLabel];
+    
+    _commentTF = [[UITextField alloc] initWithFrame:CGRectMake(115, 45+44+44+44+44+7, kScreenW - 120, 30)];
+    _commentTF.font = [UIFont systemFontOfSize:12];
+    _commentTF.placeholder = @"特殊要求填写备注说明";
+    _commentTF.text = _commentString;
+    [_commentTF addTarget:self action:@selector(commentTFChange) forControlEvents:    UIControlEventEditingChanged];
+    [headerView addSubview:_commentTF];
+    
+    
+    _typeLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(115, 45, 100, 44)];
+    _typeLabel2.font = [UIFont systemFontOfSize:12];
+    _typeLabel2.textColor = [UIColor grayColor];
+    _typeLabel2.text = _typeString;
+    _typeLabel2.textAlignment = NSTextAlignmentLeft;
+    [headerView addSubview:_typeLabel2];
+    
+    __weak typeof(self) weakSelf = self;
+    self.TypeStringChangeBlock2 = ^(NSString *string){
+        _typeString = string;
+        [weakSelf.tableView reloadData];
+    };
     
     CALayer *linelayer = [CALayer layer];
-    linelayer.frame = CGRectMake(0, 44*5, kScreenW, 10);
+    linelayer.frame = CGRectMake(0, 44*6, kScreenW, 10);
     linelayer.backgroundColor = GRAYCOLOR(235).CGColor;
     [headerView.layer addSublayer:linelayer];
-        
+    
     return headerView;
 }
 
@@ -210,11 +232,10 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     [self.tableView reloadData];
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 15+(kPhotoWidth+15)*(_imageArray.count/4+1) + 55;
 }
-
-#pragma mark - private
 
 - (void)timeChangeClick{
     if (!_calendar) {
@@ -229,7 +250,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     }
     
     __weak typeof(self) weakSelf = self;
-
+    
     _calendar.calendarblock = ^(CalendarDayModel *model){
         
         _timeString = [model toString];
@@ -241,37 +262,48 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 
 - (void)publishAction{
     
-    DLog(@"%@,%@,%@,%@",_typeLabel1.text,_amountTF.text,_timeButton.titleLabel.text,_commentTF.text);
-
     
-    if (_typeLabel1.text.length != 2 || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || [_timeButton.titleLabel.text isEqualToString:@"请选择订单期限"]) {
-            kTipAlert(@"请填写必填信息，再发布订单!");
+    DLog(@"------------>>>>>%@,%@,%@,%ld,%@,%@",_typeLabel2.text,_amountTF.text,_timeButton.titleLabel.text,(long)_customeView.moneyAmount,_commentTF.text,_imageArray);
+    
+    if (_typeLabel2.text.length != 2 || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || [_timeButton.titleLabel.text isEqualToString:@"请选择订单期限"]) {
+        kTipAlert(@"请填写必填信息，再发布订单!");
+    }else{
+        if (_imageArray.count == 0) {
+            kTipAlert(@"限制订单发布,必须上传图片");
         }else{
             if ([_amountTF.text isEqualToString:@"0"]) {
                 kTipAlert(@"订单数量不得为0!");
             }else{
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
-                alertView.tag = 100;
+                alertView.tag = 200;
                 [alertView show];
             }
         }
+    }
 }
 
-#pragma mark - alert
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == 100) {
+    
+    if (alertView.tag == 10086) {
+        if (buttonIndex == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    
+    else if (alertView.tag == 200) {
         if (buttonIndex == 1) {
-            DLog(@"%@,%@,%@,%@",_typeLabel1.text,_amountTF.text,_timeButton.titleLabel.text,_commentTF.text);
+            DLog(@"%@,%@,%@,%ld,%@",_typeLabel2.text,_amountTF.text,_timeButton.titleLabel.text,(long)_customeView.moneyAmount,_commentTF.text);
             
             NSString *typeString = @"";
-            if ([_typeLabel1.text isEqualToString:@"针织"]) {
+            if ([_typeLabel2.text isEqualToString:@"针织"]) {
                 typeString = @"knit";
             }else{
                 typeString = @"woven";
             }
             
             //  此处要修改
-            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:@"-1" WithCompletionBlock:^(NSDictionary *dictionary) {
+            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:[NSString stringWithFormat:@"%ld",(long)_customeView.moneyAmount] WithCompletionBlock:^(NSDictionary *dictionary) {
+                
                 
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
                     if (_imageArray.count > 0) {
@@ -286,17 +318,28 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                     kTipAlert(@"发布订单失败，请重新登录");
                 }
                 
-                DLog("--------------->>>>>>.....%@",dictionary[@"statusCode"]);
                 
+                else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
+                    kTipAlert(@"发布订单失败，请重新登录");
+                }else if ([dictionary[@"statusCode"] isEqualToString:@"402"]) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"钱包余额小于您设置的保证金额" message:@"请充值" delegate:self cancelButtonTitle:@"暂不充值" otherButtonTitles:@"立即充值", nil];
+                    alert.tag = 402;
+                    [alert show];
+                }else if ([dictionary[@"statusCode"] isEqualToString:@"403"]) {
+                    
+                    if (_userModel.verify_status == 0) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未认证用户" message:nil delegate:self cancelButtonTitle:@"暂不认证" otherButtonTitles:@"立即认证", nil];
+                        alert.tag = 403;
+                        [alert show];
+                    }else if (_userModel.verify_status == 1){
+                        kTipAlert(@"您的认证正在处理，请耐心等待结果!");
+                    }
+                }
                 
             }];
+            
         }
-    }
-    
-    else if (alertView.tag == 10086) {
-        if (buttonIndex == 0) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
+        
     }
     
     else if (alertView.tag == 402) {
