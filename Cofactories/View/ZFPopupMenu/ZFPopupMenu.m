@@ -452,15 +452,15 @@ static  UIColor *SeparationLineColor = nil;
     //构造箭头坐标,转换到self 视图坐标
 
     if (self.frame.origin.x <= arrowStartPointXL && (self.frame.origin.x + contentSize.width) >= arrowStartPointXR) {
-        _arrowStartPoint = CGPointMake(fromMidX - self.frame.origin.x, arrowStartPointY);
+        _arrowStartPoint = CGPointMake(fromMidX - self.frame.origin.x+20, arrowStartPointY);
     }
     else if (self.frame.origin.x > arrowStartPointXL)
     {
-        _arrowStartPoint = CGPointMake(ArrowEdgeSize, arrowStartPointY);
+        _arrowStartPoint = CGPointMake(ArrowEdgeSize+20, arrowStartPointY);
     }
     else if ((self.frame.origin.x + contentSize.width) < arrowStartPointXR)
     {
-        _arrowStartPoint = CGPointMake(contentSize.width - ArrowEdgeSize - kArrowSize, arrowStartPointY);
+        _arrowStartPoint = CGPointMake(contentSize.width - ArrowEdgeSize - kArrowSize+20, arrowStartPointY);
     }
     
     if (self.frame.size.height + CGRectGetMaxY(fromRect) + _offset + kMarginFrame > CGRectGetMaxY(view.frame)) {

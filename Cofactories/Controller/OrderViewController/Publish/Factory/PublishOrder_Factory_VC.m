@@ -8,8 +8,9 @@
 
 #import "PublishOrder_Factory_VC.h"
 #import "PublishOrder_Factory_Common_VC.h"
-#import "PublishOrder_Factory_ Restrict_VC.h"
-
+#import "PublishOrder_Factory_Restrict_VC.h"
+#import "ZFPopupMenu.h"
+#import "ZFPopupMenuItem.h"
 @interface PublishOrder_Factory_VC ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView   *scrollView;
@@ -22,6 +23,21 @@
 
 @implementation PublishOrder_Factory_VC
 
+-(NSArray *)menuItems
+{
+    ZFPopupMenuItem *item1 = [ZFPopupMenuItem initWithMenuName:@"针织"
+                                                         image:nil
+                                                        action:@selector(test:)
+                                                        target:self];
+    item1.tag = 1;
+    ZFPopupMenuItem *item2 = [ZFPopupMenuItem initWithMenuName:@"梭织"
+                                                         image:nil
+                                                        action:@selector(test:)
+                                                        target:self];
+    item2.tag = 2;
+    return @[item1,item2];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -31,13 +47,21 @@
     _viewControllesArray = [@[] mutableCopy];
     _buttonArray = [@[] mutableCopy];
     PublishOrder_Factory_Common_VC *vc1 = [PublishOrder_Factory_Common_VC new];
-    PublishOrder_Factory__Restrict_VC  *vc2 = [PublishOrder_Factory__Restrict_VC new];
+    PublishOrder_Factory_Restrict_VC  *vc2 = [PublishOrder_Factory_Restrict_VC new];
     [_viewControllesArray addObject:vc1];
     [_viewControllesArray addObject:vc2];
     
     [self initBGView];
     [self initSelectButon];
     [self initScrollView];
+
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(kScreenW-30, 20, 30, 30);
+    [button setBackgroundImage:[UIImage imageNamed:@"jiahao"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(typeAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
 
 }
 
@@ -110,7 +134,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    DLog(@"%@",NSStringFromCGPoint(scrollView.contentOffset));
+//    DLog(@"%@",NSStringFromCGPoint(scrollView.contentOffset));
     [UIView animateWithDuration:0.2 animations:^{
         _lineLB.frame = CGRectMake((kScreenW-200)/3.f+(scrollView.contentOffset.x/scrollView.frame.size.width)*(80+(kScreenW-200)/3.f)+15, 42, 70, 2);
     }];
@@ -126,11 +150,42 @@
         [buttonOne setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];    }
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)typeAction{
+    
+    [ZFPopupMenu setMenuBackgroundColorWithRed:0 green:0 blue:0 aphla:0.2];
+    [ZFPopupMenu setTextColorWithRed:1 green:1 blue:1 aphla:1.0];
+    ZFPopupMenu *popupMenu = [[ZFPopupMenu alloc] initWithItems:[self menuItems]];
+    [popupMenu showInView:self.navigationController.view fromRect:CGRectMake(kScreenW - 60, 5, 40, 40) layoutType:Vertical];
+    [self.navigationController.view addSubview:popupMenu];
 }
+
+-(void)test:(ZFPopupMenuItem *)item{
+    
+    NSInteger index = _scrollView.contentOffset.x/_scrollView.frame.size.width;
+    
+    DLog(@"%@",NSStringFromCGPoint(_scrollView.contentOffset));
+
+    PublishOrder_Factory_Common_VC *vc1 = _viewControllesArray[0];
+    PublishOrder_Factory_Restrict_VC *vc2 = _viewControllesArray[1];
+    
+    if (index == 0) {
+        if (item.tag == 1) {
+            vc1.TypeStringChangeBlock1(@"针织");
+            
+        }else{
+            vc1.TypeStringChangeBlock1(@"梭织");
+        }
+    }else{
+        if (item.tag == 1) {
+            vc2.TypeStringChangeBlock2(@"针织");
+            
+        }else{
+            vc2.TypeStringChangeBlock2(@"梭织");
+        }
+    }
+    
+}
+
 
 
 
