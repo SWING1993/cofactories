@@ -15,6 +15,7 @@
 #import "WalletHistoryViewController.h"
 #import "AboutWalletViewController.h"
 
+#import "Verified_VC.h"
 
 #define kHeaderHeight kScreenW*0.47
 
@@ -209,15 +210,37 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             [self.navigationController pushViewController:historyVC animated:NO];
             
         } else if (indexPath.row == 1) {        
-            //实名认证
+//            //实名认证
+//            if (self.MyProfile.verify_status == 0) {
+//                AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
+//                authenticationVC.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:authenticationVC animated:YES];
+//            }else if (self.MyProfile.verify_status == 1){
+//                kTipAlert(@"您的认证正在审核中。");
+//            }else{
+//                kTipAlert(@"您已实名认证！");
+//            }
+            
+            //未认证
             if (self.MyProfile.verify_status == 0) {
                 AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
+                authenticationVC.homeEnter = YES;
                 authenticationVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:authenticationVC animated:YES];
-            }else if (self.MyProfile.verify_status == 1){
-                kTipAlert(@"您的认证正在审核中。");
-            }else{
-                kTipAlert(@"您已实名认证！");
+            }
+            if (self.MyProfile.verify_status == 1) {
+                Verified_VC *verifiedVC = [[Verified_VC alloc] init];
+                verifiedVC.verifiedModel = self.MyProfile;
+                verifiedVC.status = @"正在审核";
+                verifiedVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:verifiedVC animated:YES];
+            }
+            if (self.MyProfile.verify_status == 2) {
+                Verified_VC *verifiedVC = [[Verified_VC alloc] init];
+                verifiedVC.verifiedModel = self.MyProfile;
+                verifiedVC.status = @"认证成功";
+                verifiedVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:verifiedVC animated:YES];
             }
         }
     } else if (indexPath.section == 1) {
