@@ -41,7 +41,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.rowHeight = 70.0f;
     
-  
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
     
     footerLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 40)];
     footerLabel.text = @"没有更多数据";
@@ -74,6 +78,10 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             kTipAlert(@"%@(错误状态码：%ld)",message,(long)statusCode);
         }
     }];
+}
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - MJRefesh

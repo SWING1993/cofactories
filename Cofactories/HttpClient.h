@@ -72,7 +72,7 @@
  @param password 密码
  @param block    回调函数 会返回 0->(网络错误) 200->(登录成功) 400->(用户名密码错误)
  */
-+ (void)loginWithUsername:(NSString *)username password:(NSString *)password andBlock:(void (^)(NSInteger statusCode))block;
++ (void)loginWithUsername:(NSString *)username Password:(NSString *)password Enterprise:(BOOL)enterprise andBlock:(void (^)(NSInteger statusCode))block;
 
 
 /*!

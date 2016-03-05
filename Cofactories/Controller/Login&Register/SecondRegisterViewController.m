@@ -13,7 +13,7 @@
 #import "LoginTableHeaderView.h"
 #import "SecondRegisterViewController.h"
 #import "RootViewController.h"
-
+#import "Login.h"
 static NSString * const CellIdentifier = @"CellIdentifier";
 
 @interface SecondRegisterViewController ()<UIAlertViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource> {
@@ -88,7 +88,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)registerBtnClick {
     if (_UserTypeTF.text.length==0 || _UserNameTF.text.length==0 ) {
-        kTipAlert(@"注册信息不完整!");
+        kTipAlert(@":( 注册信息不完整");
     }else{
         DLog(@"注册信息：Username:%@ password:%@ UserRole:%@ code:%@ UserName:%@",self.phone,self.password,self.UserTypeArray[selectedInt],self.code,_UserNameTF.text);
         
@@ -96,47 +96,61 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             int statusCode =[responseDictionary[@"statusCode"]intValue];
             DLog(@"statusCode == %d",statusCode);
             if (statusCode == 200) {
-                UIAlertView*alertView=[[UIAlertView alloc]initWithTitle:@"注册成功!" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"去登录", nil];
-                alertView.tag = 10086;
+                UIAlertView*alertView=[[UIAlertView alloc]initWithTitle:@"注册成功" message:nil delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:@"去登录", nil];
+                alertView.tag = 200;
                 [alertView show];
             }else{
                 NSString*message = responseDictionary[@"message"];
-                kTipAlert(@"%@(错误码：%ld)",message,(long)statusCode);
+                kTipAlert(@"%@(%ld)",message,(long)statusCode);
             }
         }];
     }
 }
-//注册成功 登录
-- (void)login{
 
-   [HttpClient loginWithUsername:self.phone password:self.password andBlock:^(NSInteger statusCode) {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 200) {
+//        [self login];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
+//注册成功 登录
+/*
+- (void)login{
+    MBProgressHUD *hud = [Tools createHUD];
+    hud.labelText = @"登录中...";
+   [HttpClient loginWithUsername:self.phone Password:self.password Enterprise:NO andBlock:^(NSInteger statusCode) {
        switch (statusCode) {
            case 0:{
-               kTipAlert(@"您的网络状态不太顺畅哦！");
+               [hud hide:YES];
+               kTipAlert(@"您的网络状态不太顺畅哦");
            }
                break;
            case 200:{
+               DLog(@"登录成功");
+               [hud hide:YES];
                [RootViewController setupTabarController];
-               
+               double delayInSeconds = 7.0;
+               dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+               dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                   [Login saveLoginData];
+               });
            }
                break;
            case 401:{
-               kTipAlert(@"用户名或密码错误！");
+               [hud hide:YES];
+               kTipAlert(@"用户名或密码错误");
            }
                break;
                
            default:
-               kTipAlert(@"登录失败 (错误码：%ld)",(long)statusCode);
+               [hud hide:YES];
+               kTipAlert(@"登录失败 (%ld)",(long)statusCode);
                break;
        }
    }];
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 10086) {
-        [self login];
-    }
-}
+*/
 
 #pragma mark - Table view data source
 

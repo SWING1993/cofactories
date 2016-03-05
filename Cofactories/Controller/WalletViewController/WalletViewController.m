@@ -64,11 +64,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     [self creatTableView];
-    
-    
 }
 
 
@@ -101,14 +98,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     _myLabel2.textColor = [UIColor whiteColor];
 
     
-    
     UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 0.47)];
     image.image = [self imageFromColor:[UIColor colorWithRed:0.188 green:0.475 blue:0.839 alpha:1.000] forSize:CGSizeMake(kScreenW, kScreenW*0.47) withCornerRadius:0];
     [image addSubview:_myLabel1];
     [image addSubview:_myLabel2];
     
-    
-
     self.walletTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -64, kScreenW, kScreenH+64) style:UITableViewStyleGrouped];
     self.walletTableView.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
     self.walletTableView.delegate = self;
@@ -118,8 +112,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     self.walletTableView.tableHeaderView = image;
     [self.view addSubview:self.walletTableView];
-    
 }
+
 - (void)clickHeaderBtnInSection:(UIButton *)btn {
     if (btn.tag == 1) {
         RechargeViewController * vc1 = [[RechargeViewController alloc]init];

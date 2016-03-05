@@ -35,7 +35,6 @@ static NSString * CellIdentifier = @"CellIdentifier";
     
     self.title=@"公司规模";
     
-    
     //确定Btn
     UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
     self.navigationItem.rightBarButtonItem = setButton;
@@ -45,12 +44,11 @@ static NSString * CellIdentifier = @"CellIdentifier";
     self.tableView.rowHeight = 40;
     
     if (self.userType == UserType_clothing) {
-        DLog(@"11");
         self.cellPickList = @[@"0万件-10万件",@"10万件-40万件", @"40万件-100万件", @"100万件--200万件", @"200万件以上"];
-    }
-    else if (self.userType == UserType_processing) {
-        DLog(@"22");
+    }else if (self.userType == UserType_processing) {
     self.cellPickList = @[@"0人-2人",@"2人-10人",  @"10人-20人", @"20人以上"];
+    }else {
+        self.cellPickList = @[@"该身份暂不存在规模"];
     }
     
     SizeTF=[[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-30, 40)];

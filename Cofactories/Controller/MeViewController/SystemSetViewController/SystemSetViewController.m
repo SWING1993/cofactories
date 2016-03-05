@@ -30,7 +30,6 @@ UIAlertView * quitAlert;
     [super viewDidLoad];
     [self initTableView];
     DLog(@"%f",[self cacheFilePath]);
-//    kTipAlert(@"%f",[self cacheFilePath]);
 }
 
 - (void)initTableView {
@@ -374,7 +373,7 @@ UIAlertView * quitAlert;
             folderSize +=[self fileSizeAtPath:absolutePath];
         }
         //SDWebImage框架自身计算缓存的实现
-        folderSize+=[[SDImageCache sharedImageCache] getSize]/1024.0/1024.0;
+//        folderSize+=[[SDImageCache sharedImageCache] getSize]/1024.0/1024.0;
         return folderSize;
     }
     return 0;
@@ -392,6 +391,7 @@ UIAlertView * quitAlert;
         }
     }
     [[SDImageCache sharedImageCache] cleanDisk];
+    [Tools removeAllCached];
     [self performSelectorOnMainThread:@selector(reloadTable) withObject:nil waitUntilDone:YES];
    
 }
