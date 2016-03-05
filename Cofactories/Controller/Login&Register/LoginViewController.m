@@ -29,6 +29,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 @end
 
 @implementation LoginViewController
+UILabel * enterpriseLabel;
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -59,9 +60,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.myLogin = [[Login alloc] init];
     self.myLogin.phone = [Login preUserPhone];
-
 
     self.title=@"登录";
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
@@ -76,24 +77,25 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
     self.tableView.tableHeaderView = tableHeaderView;
 
-    UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 80)];
+    UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 120)];
     
     //企业账号
 
     UIButton * enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    enterpriseBtn.frame = CGRectMake(kScreenW - 45, 7.5, 25, 25);
     enterpriseBtn.tag = 9;
     enterpriseBtn.selected = self.isEnterprise;
     [enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Normal"] forState:UIControlStateNormal];
     [enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Selected"] forState:UIControlStateSelected];
-    enterpriseBtn.frame = CGRectMake(kScreenW - 40, 10, 20, 20);
+    
     [enterpriseBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:enterpriseBtn];
     
-    UILabel * enterpriseLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenW - 110, 10, 60, 20)];
+    enterpriseLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenW - 110, 10, 60, 20)];
     enterpriseLabel.textAlignment = NSTextAlignmentCenter;
     enterpriseLabel.text = @"企业账号";
     enterpriseLabel.textColor = [UIColor blackColor];
-    enterpriseLabel.font = [UIFont systemFontOfSize:14];
+    enterpriseLabel.font = [UIFont boldSystemFontOfSize:14];
     [tableFooterView addSubview:enterpriseLabel];
     
     //登录 Button
@@ -108,7 +110,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
     //注册 button
     UIButton * registerBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-      registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 75, (kScreenW-40)/2-20, 45);
+    registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 75, (kScreenW-40)/2-20, 55);
     registerBtn.tag=11;
     registerBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16];
     registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
@@ -118,7 +120,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [tableFooterView addSubview:registerBtn];
 
     UIButton * forgetBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    forgetBtn.frame = CGRectMake(20, 75, (kScreenW-40)/2-20, 45);
+    forgetBtn.frame = CGRectMake(20, 75, (kScreenW-40)/2-20, 55);
     forgetBtn.tag=12;
     forgetBtn.titleLabel.font=[UIFont boldSystemFontOfSize:14.5];
     forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -137,8 +139,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         case 9:{
             self.isEnterprise = !self.isEnterprise;
             sender.selected = self.isEnterprise;
+            if (sender.selected) {
+                enterpriseLabel.textColor = [UIColor redColor];
+            }else {
+                enterpriseLabel.textColor = [UIColor blackColor];
+            }
             DLog(@"企业账号:%d",sender.selected);
-
         }
             break;
             
@@ -151,14 +157,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
                 [button setEnabled:YES];
                 [hud hide:YES];
-                kTipAlert(@"请您填写账号以及密码后登录");
+                kTipAlert(@":）请您填写账号以及密码后登录");
             }else{
                 [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
                     switch (statusCode) {
                         case 0:{
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@"您的网络状态不太顺畅哦");
+                            kTipAlert(@":）您的网络状态不太顺畅哦");
                         }
                             break;
                         case 200:{
@@ -179,14 +185,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         case 401:{
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@"用户名或密码错误");
+                            kTipAlert(@":）用户名或密码错误");
                         }
                             break;
                             
                         default:
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@"登录失败 (%ld)",(long)statusCode);
+                            kTipAlert(@":）登录失败 (%ld)",(long)statusCode);
                             break;
                     }
                 }];

@@ -89,6 +89,7 @@
     
     return hud;
 }
+
 + (NSString *)SizeWith:(NSString *)sizeString {
     NSString*string;
     if ([sizeString rangeOfString:@"万件以上"].location !=NSNotFound) {
