@@ -16,8 +16,6 @@
 #import "GTFLoadPhoto_VC.h"
 #import "CalendarHomeViewController.h"
 #import "UserModel.h"
-#import "AuthenticationController.h"
-#import "RechargeViewController.h"
 @interface PublishOrder_Factory_Common_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate>{
     UITextField    *_amountTF;
     UITextField    *_commentTF;
@@ -253,8 +251,8 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
                 alertView.tag = 100;
                 [alertView show];
-            }
-        }
+     }
+   }
 }
 
 #pragma mark - alert
@@ -285,10 +283,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                 }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
                     kTipAlert(@"发布订单失败，请重新登录");
                 }
-                
                 DLog("--------------->>>>>>.....%@",dictionary[@"statusCode"]);
-                
-                
             }];
         }
     }
@@ -296,20 +291,6 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     else if (alertView.tag == 10086) {
         if (buttonIndex == 0) {
             [self.navigationController popViewControllerAnimated:YES];
-        }
-    }
-    
-    else if (alertView.tag == 402) {
-        if (buttonIndex == 1) {
-            [self.navigationController pushViewController:[RechargeViewController new] animated:YES];
-        }
-    }
-    
-    else if (alertView.tag == 403) {
-        if (buttonIndex == 1) {
-            AuthenticationController *vc = [AuthenticationController new];
-            vc.homeEnter = NO;
-            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }
