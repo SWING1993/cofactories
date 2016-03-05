@@ -8,12 +8,11 @@
 #define BUTTON_WIDETH   (kScreenW-4*40)/3.f
 
 #import "SelectOrder_VC.h"
-#import "PublishOrder_Common_VC.h"
-#import "PublishOrder_Designer_VC.h"
-#import "PublishOrder_Factory_VC.h"
+#import "PublishOrder_Three_VC.h"
+#import "PublishOrder_Design_VC.h"
 #import "PublishOrder_Other_VC.h"
-#import "PublishOrder_Factory_Other_VC.h"
-
+#import "PublishOrder_Factory_VC.h"
+#import "PublishOrder_Factory_OtherRole_VC.h"
 @interface SelectOrder_VC ()
 @property(nonatomic,strong)UserModel *userModel;
 
@@ -71,15 +70,17 @@
     DLog(@"%ld",(long)button.tag);
     switch (button.tag) {
         case 4:
-            [self.navigationController pushViewController:[PublishOrder_Designer_VC new] animated:YES];
+            [self.navigationController pushViewController:[PublishOrder_Design_VC new] animated:YES];
             break;
         case 5:
             if (_userModel.UserType == 1) {
-                //服装厂可以发限制加工厂订单
+                //服装厂发限制加工厂订单
                 [self.navigationController pushViewController:[PublishOrder_Factory_VC new] animated:YES];
             }else{
                 //其他身份发普通订单
-                [self.navigationController pushViewController:[PublishOrder_Factory_Other_VC new] animated:YES];
+                PublishOrder_Factory_OtherRole_VC *vc = [PublishOrder_Factory_OtherRole_VC new];
+                vc.pubType =PublishFacTypeDefault;
+                [self.navigationController pushViewController:vc animated:YES];
             }
             break;
         case 6:
@@ -87,8 +88,8 @@
             break;
         default:
         {
-            PublishOrder_Common_VC *vc = [[PublishOrder_Common_VC alloc] init];
-            vc.orderType = button.tag;
+            PublishOrder_Three_VC *vc = [[PublishOrder_Three_VC alloc] init];
+            vc.orderType = button.tag-1;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
