@@ -24,7 +24,6 @@ static NSString * const CellIdentifier = @"CellIdentifiers";
 UIAlertView * inviteCodeAlert;
 UIAlertView * quitAlert;
 
-
 - (void)viewDidLoad {
     self.title=@"设置";
     [super viewDidLoad];
@@ -48,7 +47,7 @@ UIAlertView * quitAlert;
     
     UILabel*logoLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, kScreenW, 20)];
     logoLabel.font = kLargeFont;
-    logoLabel.text=[NSString stringWithFormat:@"聚工厂 cofactories %@",kVersion_Cofactories];
+    logoLabel.text=[NSString stringWithFormat:@"聚工厂 Cofactories %@",kVersion_Cofactories];
     logoLabel.textAlignment = NSTextAlignmentCenter;
     [tableHeaderView addSubview:logoLabel];
     

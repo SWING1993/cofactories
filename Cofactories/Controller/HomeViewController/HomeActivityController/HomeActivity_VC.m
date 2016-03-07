@@ -13,6 +13,7 @@
 #import "HomeKoreaShopList_VC.h"
 #import "PopularMessageController.h"
 #import "ShoppingMallDetail_VC.h"
+#import <Bugly/JSExceptionReporter.h>
 
 @interface HomeActivity_VC ()<UIWebViewDelegate> {
     UIWebView * webView;
@@ -42,6 +43,7 @@
     NSString *requestString = [[request URL] absoluteString];
     DLog(@"^^^^^^^^%@", requestString);
     
+    [JSExceptionReporter startCaptureJSExceptionWithWebView:webView injectScript:YES];
     //判断是不是点击链接
     if ([requestString hasPrefix:@"cofactories:"]) {
         //判断是不是直接进入商城

@@ -30,9 +30,6 @@
 //支付宝
 #import <AlipaySDK/AlipaySDK.h>
 
-//腾讯bugly
-#define Appkey_bugly @"900009962"
-
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define _IPHONE80_ 80000
 
@@ -54,6 +51,7 @@
         [MobClick setCrashReportEnabled:NO];
         //开启腾讯Bugly
         [[CrashReporter sharedInstance] installWithAppId:Appkey_bugly];
+        [[CrashReporter sharedInstance] enableBlockMonitor:YES];
     }
 #pragma mark - iVersion
     {

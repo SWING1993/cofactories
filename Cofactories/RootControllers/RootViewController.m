@@ -45,7 +45,6 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
     /**
      *  判断是否展示过新版本特性页
      */
-
     if ([[[NSUserDefaults standardUserDefaults]stringForKey:@"kVersion"] isEqualToString: kVersion_Cofactories] && [[[NSUserDefaults standardUserDefaults]stringForKey:@"isShow"]isEqualToString:@"YES"]) {
         [self setupRootViewController];
     }else {
