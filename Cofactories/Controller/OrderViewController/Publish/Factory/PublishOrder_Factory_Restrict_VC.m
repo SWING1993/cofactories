@@ -54,7 +54,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     self.imageArray = [NSMutableArray arrayWithArray:@[]];
     
     [self initTableView];
-    _typeString = @"针织/梭织";
+    _typeString = @"请点击右上角加号,选择订单类型";
     _amountString = nil;
     _timeString = @"请选择订单期限";
     _moneyString = @"1000";
@@ -201,7 +201,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     [headerView addSubview:_commentTF];
     
     
-    _typeLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(115, 45, 100, 44)];
+    _typeLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(115, 45, kScreenW-120, 44)];
     _typeLabel2.font = [UIFont systemFontOfSize:12];
     _typeLabel2.textColor = [UIColor grayColor];
     _typeLabel2.text = _typeString;
@@ -232,7 +232,6 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     [self.tableView reloadData];
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 15+(kPhotoWidth+15)*(_imageArray.count/4+1) + 55;
 }
@@ -245,10 +244,9 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         
         _calendar.calendartitle = @"空闲日期";
         
-        [_calendar setAirPlaneToDay:365 ToDateforString:nil];//飞机初始化方法
+        [_calendar setAirPlaneToDay:365 ToDateforString:nil];
         
     }
-    
     __weak typeof(self) weakSelf = self;
     
     _calendar.calendarblock = ^(CalendarDayModel *model){
@@ -261,7 +259,6 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 }
 
 - (void)publishAction{
-    
     
     DLog(@"------------>>>>>%@,%@,%@,%ld,%@,%@",_typeLabel2.text,_amountTF.text,_timeButton.titleLabel.text,(long)_customeView.moneyAmount,_commentTF.text,_imageArray);
     
@@ -304,7 +301,6 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
             //  此处要修改
             [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:[NSString stringWithFormat:@"%ld",(long)_customeView.moneyAmount] WithCompletionBlock:^(NSDictionary *dictionary) {
                 
-                
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
                     if (_imageArray.count > 0) {
                         [Tools upLoadImagesWithArray:_imageArray policyString:dictionary[@"message"][@"data"][@"policy"] signatureString:dictionary[@"message"][@"data"][@"signature"]];
@@ -317,7 +313,6 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                 }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
                     kTipAlert(@"发布订单失败，请重新登录");
                 }
-                
                 
                 else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
                     kTipAlert(@"发布订单失败，请重新登录");
@@ -337,9 +332,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                 }
                 
             }];
-            
         }
-        
     }
     
     else if (alertView.tag == 402) {
@@ -376,6 +369,5 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         [self.tableView reloadData];
     }];
 }
-
 
 @end
