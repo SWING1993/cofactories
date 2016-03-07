@@ -160,19 +160,17 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         cell.textLabel.text = @"企业账号";
                     }
                         break;
+                        
                     case 1:
                     {
                         cell.textLabel.text = @"联系客服";
                     }
                         break;
+                        
                     case 2:
                     {
                         cell.textLabel.text = @"购买记录";
                     }
-                        break;
-
-                        
-                    default:
                         break;
                 }
                 break;
@@ -188,10 +186,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                     {
                         cell.textLabel.text = @"出售记录";
                     }
-                        break;
-                        
-                        
-                    default:
                         break;
                 }
                 break;
@@ -242,7 +236,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                     
                 case 0:
                 {
-                    DLog("客服聊天");
+                    DLog("企业账号");
                     BaseWebController * enterpriseView = [[BaseWebController alloc] init];
                     enterpriseView.requestUrl = kEnterpriseUrl;
                     enterpriseView.hidesBottomBarWhenPushed = YES;

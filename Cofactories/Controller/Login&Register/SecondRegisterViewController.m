@@ -88,7 +88,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)registerBtnClick {
     if (_UserTypeTF.text.length==0 || _UserNameTF.text.length==0 ) {
-        kTipAlert(@":( 注册信息不完整");
+        kTipAlert(@"注册信息不完整");
     }else{
         DLog(@"注册信息：Username:%@ password:%@ UserRole:%@ code:%@ UserName:%@",self.phone,self.password,self.UserTypeArray[selectedInt],self.code,_UserNameTF.text);
         

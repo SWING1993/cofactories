@@ -174,13 +174,13 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
             }else{
                 [hud  hide:YES];
-                kTipAlert(@"%@ （错误码：%ld）", message,(long)statusCode);
+                kTipAlert(@"%@ （%ld）", message,(long)statusCode);
                 [authcodeBtn setEnabled:YES];
             }
         }];
     }else{
         [hud  hide:YES];
-        kTipAlert(@"您输入的是一个无效的手机号码!");
+        kTipAlert(@"您输入的是一个无效的手机号码");
         [authcodeBtn setEnabled:YES];
     }
 }
@@ -188,14 +188,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)registerBtnClick {
     if (_usernameTF.text.length==0 || _passwordTF.text.length==0 || _codeTF.text.length==0 ) {
-        kTipAlert(@"注册信息不完整!");
+        kTipAlert(@"注册信息不完整");
     }
     else if (!self.isSeletecd){
-        kTipAlert(@"未同意注册用户协议。");
+        kTipAlert(@"未同意注册用户协议");
     }
     else {
         if (_passwordTF.text.length<6) {
-            kTipAlert(@"密码长度太短！");
+            kTipAlert(@"密码长度太短");
         }else{
             
             MBProgressHUD *hud = [Tools createHUD];
@@ -203,7 +203,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             [HttpClient validateCodeWithPhone:_usernameTF.text code:_codeTF.text andBlock:^(NSInteger statusCode) {
                 DLog(@"验证  验证码code==%ld",(long)statusCode);
                 if (statusCode == 200) {
-                    hud.labelText = @"验证成功!";
+                    hud.labelText = @"验证成功";
                     [hud hide:YES];
                     DLog(@"注册信息：%@、%@、%@",_usernameTF.text,_passwordTF.text,_codeTF.text);
                     SecondRegisterViewController * registerVC = [[SecondRegisterViewController alloc]init];
@@ -214,12 +214,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 }
                 else if (statusCode == 0) {
                     [hud hide:YES];
-                    kTipAlert(@"您的网络状态不太顺畅哦！");
+                    kTipAlert(@"您的网络状态不太顺畅哦");
                 }
                 
                 else {
                     [hud hide:YES];
-                    kTipAlert(@"验证码过期或者无效!");
+                    kTipAlert(@"验证码过期或者无效");
                 }
             }];
         }
