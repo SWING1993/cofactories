@@ -205,6 +205,7 @@
 		70EBD6C51C8D130300162D07 /* PublishOrder_Factory_Restrict_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EBD6C11C8D130300162D07 /* PublishOrder_Factory_Restrict_VC.m */; };
 		70EBD6C61C8D130300162D07 /* PublishOrder_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EBD6C31C8D130300162D07 /* PublishOrder_Factory_VC.m */; };
 		70EBD6C91C8D132D00162D07 /* SelectOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EBD6C81C8D132D00162D07 /* SelectOrder_VC.m */; };
+		70EBD6CD1C8D4F4000162D07 /* EnterpriseShowWeb_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EBD6CC1C8D4F4000162D07 /* EnterpriseShowWeb_VC.m */; };
 		70EFA1EB1C449ADA00C9F6A5 /* OrderContract_First_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EFA1EA1C449ADA00C9F6A5 /* OrderContract_First_VC.m */; };
 		70EFA1EE1C44CA2D00C9F6A5 /* FillBlanks_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EFA1ED1C44CA2D00C9F6A5 /* FillBlanks_VC.m */; };
 		70EFA1F11C44CF8B00C9F6A5 /* BlankFirst_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EFA1F01C44CF8B00C9F6A5 /* BlankFirst_TVC.m */; };
@@ -807,6 +808,8 @@
 		70EBD6C31C8D130300162D07 /* PublishOrder_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishOrder_Factory_VC.m; sourceTree = "<group>"; };
 		70EBD6C71C8D132D00162D07 /* SelectOrder_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectOrder_VC.h; sourceTree = "<group>"; };
 		70EBD6C81C8D132D00162D07 /* SelectOrder_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectOrder_VC.m; sourceTree = "<group>"; };
+		70EBD6CB1C8D4F4000162D07 /* EnterpriseShowWeb_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterpriseShowWeb_VC.h; sourceTree = "<group>"; };
+		70EBD6CC1C8D4F4000162D07 /* EnterpriseShowWeb_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterpriseShowWeb_VC.m; sourceTree = "<group>"; };
 		70EFA1E91C449ADA00C9F6A5 /* OrderContract_First_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderContract_First_VC.h; sourceTree = "<group>"; };
 		70EFA1EA1C449ADA00C9F6A5 /* OrderContract_First_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderContract_First_VC.m; sourceTree = "<group>"; };
 		70EFA1EC1C44CA2D00C9F6A5 /* FillBlanks_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FillBlanks_VC.h; sourceTree = "<group>"; };
@@ -2165,6 +2168,8 @@
 				70E9F1821C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m */,
 				70E9F1841C1AB3C100C13912 /* PersonalMessage_Clothing_VC.h */,
 				70E9F1851C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m */,
+				70EBD6CB1C8D4F4000162D07 /* EnterpriseShowWeb_VC.h */,
+				70EBD6CC1C8D4F4000162D07 /* EnterpriseShowWeb_VC.m */,
 			);
 			name = "PersonalMessage(个人界面)";
 			path = PersonalMessage;
@@ -3041,6 +3046,7 @@
 				03662CE61C12E0FD00AEEF48 /* MD5DataSigner.m in Sources */,
 				70F50D771C06FB0200920F63 /* SupplierOrderModel.m in Sources */,
 				7DB5E7431C585D6B004834E8 /* ShoppingMallDetail_VC.m in Sources */,
+				70EBD6CD1C8D4F4000162D07 /* EnterpriseShowWeb_VC.m in Sources */,
 				70EBD6C91C8D132D00162D07 /* SelectOrder_VC.m in Sources */,
 				039D4D531C72CACC0051CD2E /* AFURLSessionManager.m in Sources */,
 				03B120BF1C0594720023F362 /* SetViewController.m in Sources */,
