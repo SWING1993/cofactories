@@ -108,6 +108,7 @@
 		03662CE81C12E0FD00AEEF48 /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 03662CDC1C12E0FD00AEEF48 /* openssl_wrapper.m */; };
 		03662CE91C12E0FD00AEEF48 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 03662CDE1C12E0FD00AEEF48 /* RSADataSigner.m */; };
 		03662CEA1C12E0FD00AEEF48 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 03662CE01C12E0FD00AEEF48 /* RSADataVerifier.m */; };
+		03672B9D1C8D504D005AC526 /* BaseWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03672B9C1C8D504D005AC526 /* BaseWebController.m */; };
 		03882C4F1BEC951B0094524A /* HttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 03882C4E1BEC951B0094524A /* HttpClient.m */; };
 		03927D741BEC81E20087A2FD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03927D731BEC81E20087A2FD /* LaunchScreen.xib */; };
 		03927D781BEC86D90087A2FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03927D771BEC86D90087A2FD /* Images.xcassets */; };
@@ -615,6 +616,8 @@
 		03662CDE1C12E0FD00AEEF48 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
 		03662CDF1C12E0FD00AEEF48 /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
 		03662CE01C12E0FD00AEEF48 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
+		03672B9B1C8D504D005AC526 /* BaseWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWebController.h; sourceTree = "<group>"; };
+		03672B9C1C8D504D005AC526 /* BaseWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseWebController.m; sourceTree = "<group>"; };
 		03882C4D1BEC951B0094524A /* HttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpClient.h; sourceTree = "<group>"; };
 		03882C4E1BEC951B0094524A /* HttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpClient.m; sourceTree = "<group>"; };
 		03927D731BEC81E20087A2FD /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -1617,6 +1620,8 @@
 				03623FB71C44D8C70083044A /* BaseNavigationController.m */,
 				03623FB81C44D8C70083044A /* WelcomePageViewController.h */,
 				03623FB91C44D8C70083044A /* WelcomePageViewController.m */,
+				03672B9B1C8D504D005AC526 /* BaseWebController.h */,
+				03672B9C1C8D504D005AC526 /* BaseWebController.m */,
 			);
 			path = RootControllers;
 			sourceTree = "<group>";
@@ -3090,6 +3095,7 @@
 				7D34E4381C199D0F0049D9C7 /* MeDetailSupply_VC.m in Sources */,
 				70F5729A1C0E98E7005957CB /* Order_Designer_TVC.m in Sources */,
 				7D34E4321C1966600049D9C7 /* MeCatergoryCell.m in Sources */,
+				03672B9D1C8D504D005AC526 /* BaseWebController.m in Sources */,
 				035CC5231C06DCF000998FBD /* JKAssetsGroupCell.m in Sources */,
 				039D4D4D1C72CACC0051CD2E /* AFHTTPSessionManager.m in Sources */,
 				7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */,

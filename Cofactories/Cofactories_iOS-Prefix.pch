@@ -104,6 +104,8 @@
 #define kAppUrl  @"http://itunes.apple.com/app/id1015359842"//appStore地址
 #define kAppReviewURL   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1015359842"//appStore评分地址
 
+#define kEnterpriseUrl @"http://e.cofactories.com/"
+
 
 #pragma mark - 系统版本  屏幕尺寸
 //版本号
@@ -160,6 +162,10 @@
 //appdelegate
 #define ApplicationDelegate ((AppDelegate*)[[UIApplication sharedApplication] delegate])
 #import "AppDelegate.h"
+
+#pragma mark -ViewController
+#import "BaseWebController.h"
+#import "RootControllers/RootViewController.h"
 
 #pragma mark - 常用类
 #import "HttpClient.h"

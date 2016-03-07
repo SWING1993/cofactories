@@ -114,7 +114,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     switch (self.MyProfile.UserType) {
             DLog(@"^^^^^^^^^^%ld", (long)self.MyProfile.UserType);
         case UserType_designer:
@@ -135,7 +134,10 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 2) {
+    if (section == 0) {
+        return 3;
+    }
+    else if (section == 2) {
         return 1;
     }
     return 2;
@@ -155,10 +157,15 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 switch (indexPath.row) {
                     case 0:
                     {
-                        cell.textLabel.text = @"联系客服";
+                        cell.textLabel.text = @"企业账号";
                     }
                         break;
                     case 1:
+                    {
+                        cell.textLabel.text = @"联系客服";
+                    }
+                        break;
+                    case 2:
                     {
                         cell.textLabel.text = @"购买记录";
                     }
@@ -232,7 +239,18 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     switch (indexPath.section) {
         case 0: {
             switch (indexPath.row) {
+                    
                 case 0:
+                {
+                    DLog("客服聊天");
+                    BaseWebController * enterpriseView = [[BaseWebController alloc] init];
+                    enterpriseView.requestUrl = kEnterpriseUrl;
+                    enterpriseView.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:enterpriseView animated:YES];
+                }
+                    break;
+
+                case 1:
                 {
                     DLog("客服聊天");
                     PublicServiceViewController *conversationVC = [[PublicServiceViewController alloc] init];
@@ -241,18 +259,16 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                     conversationVC.title = @"聚工厂客服";
                     conversationVC.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:conversationVC animated:YES];
-                    
                 }
                     break;
                     
-                case 1:
+                case 2:
                 {
                     DLog(@"购买记录");
                     MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
                     ApplicationDelegate.mallStatus = @"0";
                     mallBuyVC.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:mallBuyVC animated:YES];
-                    
                 }
                     break;
                     
@@ -283,8 +299,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                     }
                 }
                     break;
-                    
-                    case 1:
+                case 1:
                 {
                     DLog(@"出售记录");
                     MallSellHistory_VC *mallSellVC = [[MallSellHistory_VC alloc] init];
