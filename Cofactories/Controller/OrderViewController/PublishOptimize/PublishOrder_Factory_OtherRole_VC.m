@@ -62,8 +62,6 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
     
     [self initTable];
     
-    
-    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(kScreenW-30, 20, 30, 30);
     [button setBackgroundImage:[UIImage imageNamed:@"jiahao"] forState:UIControlStateNormal];
@@ -126,9 +124,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
                     break;
                     
             }
-            
             return cell;
-            
         }
     }
     
@@ -217,7 +213,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
         
         _calendar.calendartitle = @"空闲日期";
         
-        [_calendar setAirPlaneToDay:365 ToDateforString:nil];//飞机初始化方法
+        [_calendar setAirPlaneToDay:365 ToDateforString:nil];
         
     }
     

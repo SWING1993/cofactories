@@ -49,8 +49,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"111111111111111111111111111111111");
-    
     _zhejiangArray = @[@"浙江不限",@"湖州(含织里)",@"杭州",@"宁波",@"浙江其他"];
     _anhuiArray = @[@"安徽不限",@"宣城(含广德)",@"安徽其他"];
     _guangdongArray = @[@"广东不限",@"广州(含新塘)",@"广东其他"];

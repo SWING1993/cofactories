@@ -13,7 +13,7 @@
 #import "MJRefresh.h"
 #import "ShoppingMallDetail_VC.h"
 #import "IMChatViewController.h"
-
+#import "EnterpriseShowWeb_VC.h"
 @interface PersonalMessage_Design_VC (){
     NSInteger              _selectedIndex;
     NSMutableArray        *_dataArrayOne;      // 个人店铺
@@ -44,7 +44,6 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     [super viewDidLoad];
     
     [self creatChatAndPhone];
-
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigator_btn_back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBackClick)];
@@ -133,17 +132,28 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     nameLB.frame = CGRectMake(90, 25, size.width, size.height);
     nameLB.text = _userModel.name;
     
+    UIButton *enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    enterpriseBtn.frame = CGRectMake(kScreenW - 70,
+                                     30,
+                                     55,
+                                     55);
+    [enterpriseBtn setBackgroundImage:[UIImage imageNamed:@"enterpriseShow"] forState:UIControlStateNormal];
+    [enterpriseBtn addTarget:self action:@selector(enterpriseShowAction) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:enterpriseBtn];
+
     UIImageView *typeImage = [[UIImageView alloc] init];
     typeImage.frame = CGRectMake(90+size.width+10, 26, 15, 15);
     [headerView addSubview:typeImage];
     
     if ([_userModel.enterprise isEqualToString:@"非企业用户"]) {
+        enterpriseBtn.hidden = YES;
         if ([_userModel.verified isEqualToString:@"非认证用户"]) {
             [typeImage removeFromSuperview];
         }else{
             typeImage.image = [UIImage imageNamed:@"证.png"];
         }
     }else{
+        enterpriseBtn.hidden = NO;
         typeImage.image = [UIImage imageNamed:@"企.png"];
     }
     
@@ -168,6 +178,14 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         lb.text = array[i];
         [headerView addSubview:lb];
     }
+}
+
+#pragma mark - enterpriseShow
+- (void)enterpriseShowAction{
+    NSLog(@"234567890-=");
+    EnterpriseShowWeb_VC *vc = [[EnterpriseShowWeb_VC alloc] init];
+    vc.urlStr = [NSString stringWithFormat:@"http://es.cofactories.com/%@",_userModel.uid];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

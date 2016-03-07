@@ -16,8 +16,6 @@
 #import "GTFLoadPhoto_VC.h"
 #import "CalendarHomeViewController.h"
 #import "UserModel.h"
-#import "AuthenticationController.h"
-#import "RechargeViewController.h"
 @interface PublishOrder_Factory_Common_VC ()<UITableViewDataSource,UITableViewDelegate,JKImagePickerControllerDelegate,UIAlertViewDelegate>{
     UITextField    *_amountTF;
     UITextField    *_commentTF;
@@ -28,7 +26,6 @@
     UIButton       *_addButton;
     UIScrollView   *_scrollView;
     CalendarHomeViewController *_calendar;
-
 }
 
 @property (nonatomic, strong) NSMutableArray   *imageArray;
@@ -50,7 +47,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     self.view.backgroundColor = [UIColor whiteColor];
     self.imageArray = [NSMutableArray arrayWithArray:@[]];
     [self initTableView];
-    _typeString = @"针织/梭织";
+    _typeString = @"请点击右上角加号,选择订单类型";
     _amountString = nil;
     _timeString = @"请选择订单期限";
     _commentString = nil;
@@ -178,7 +175,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         [_commentTF addTarget:self action:@selector(commentTFChange) forControlEvents:    UIControlEventEditingChanged];
         [headerView addSubview:_commentTF];
         
-        _typeLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(115, 45, 100, 44)];
+        _typeLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(115, 45, kScreenW-120, 44)];
         _typeLabel1.font = [UIFont systemFontOfSize:12];
         _typeLabel1.textColor = [UIColor grayColor];
         _typeLabel1.text = _typeString;
@@ -224,17 +221,14 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         
         _calendar.calendartitle = @"空闲日期";
         
-        [_calendar setAirPlaneToDay:365 ToDateforString:nil];//飞机初始化方法
+        [_calendar setAirPlaneToDay:365 ToDateforString:nil];
         
     }
-    
     __weak typeof(self) weakSelf = self;
 
     _calendar.calendarblock = ^(CalendarDayModel *model){
-        
         _timeString = [model toString];
         [weakSelf.tableView reloadData];
-        
     };
     [self presentViewController:_calendar animated:YES completion:nil];
 }
@@ -253,8 +247,8 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否确认发布订单" delegate:self cancelButtonTitle:@"再看看" otherButtonTitles:@"确认发布", nil];
                 alertView.tag = 100;
                 [alertView show];
-            }
-        }
+     }
+   }
 }
 
 #pragma mark - alert
@@ -285,10 +279,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                 }else if ([dictionary[@"statusCode"] isEqualToString:@"404"]) {
                     kTipAlert(@"发布订单失败，请重新登录");
                 }
-                
                 DLog("--------------->>>>>>.....%@",dictionary[@"statusCode"]);
-                
-                
             }];
         }
     }
@@ -296,20 +287,6 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     else if (alertView.tag == 10086) {
         if (buttonIndex == 0) {
             [self.navigationController popViewControllerAnimated:YES];
-        }
-    }
-    
-    else if (alertView.tag == 402) {
-        if (buttonIndex == 1) {
-            [self.navigationController pushViewController:[RechargeViewController new] animated:YES];
-        }
-    }
-    
-    else if (alertView.tag == 403) {
-        if (buttonIndex == 1) {
-            AuthenticationController *vc = [AuthenticationController new];
-            vc.homeEnter = NO;
-            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }
