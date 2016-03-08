@@ -189,7 +189,6 @@
 		70A63EA91C45ED1000B68839 /* Contract_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A63EA81C45ED1000B68839 /* Contract_VC.m */; };
 		70A63EAD1C4638AD00B68839 /* ContractFactoryDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A63EAC1C4638AD00B68839 /* ContractFactoryDetail_VC.m */; };
 		70A63EB01C4638D400B68839 /* ContractClothingDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A63EAF1C4638D400B68839 /* ContractClothingDetail_VC.m */; };
-		70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A784F31C083390003D1892 /* Order_Common_TVC.m */; };
 		70CD41751C5B2F67000F2807 /* AlertWithTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 70CD41741C5B2F67000F2807 /* AlertWithTF.m */; };
 		70E8C0751C868E2C007C7C1D /* GTFLoadPhoto_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E8C0721C868E2C007C7C1D /* GTFLoadPhoto_VC.m */; };
 		70E8C0761C868E2C007C7C1D /* JKImagePickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E8C0741C868E2C007C7C1D /* JKImagePickerTool.m */; };
@@ -248,7 +247,6 @@
 		70F9AEC91C3F70B60003489B /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEBE1C3F70B60003489B /* CalendarViewController.m */; };
 		70F9AECA1C3F70B60003489B /* chack.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9AEBF1C3F70B60003489B /* chack.png */; };
 		70F9AECB1C3F70B60003489B /* NSDate+WQCalendarLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEC21C3F70B60003489B /* NSDate+WQCalendarLogic.m */; };
-		70FA60E31C09425400EA84FD /* Comment_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60E21C09425400EA84FD /* Comment_TVC.m */; };
 		70FA60EF1C098DE400EA84FD /* ZFPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60EA1C098DE400EA84FD /* ZFPopupMenu.m */; };
 		70FA60F01C098DE400EA84FD /* ZFPopupMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60EC1C098DE400EA84FD /* ZFPopupMenuItem.m */; };
 		70FA60F11C098DE400EA84FD /* ZFPopupOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FA60EE1C098DE400EA84FD /* ZFPopupOverlayView.m */; };
@@ -776,8 +774,6 @@
 		70A63EAC1C4638AD00B68839 /* ContractFactoryDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContractFactoryDetail_VC.m; sourceTree = "<group>"; };
 		70A63EAE1C4638D400B68839 /* ContractClothingDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContractClothingDetail_VC.h; sourceTree = "<group>"; };
 		70A63EAF1C4638D400B68839 /* ContractClothingDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContractClothingDetail_VC.m; sourceTree = "<group>"; };
-		70A784F21C083390003D1892 /* Order_Common_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order_Common_TVC.h; sourceTree = "<group>"; };
-		70A784F31C083390003D1892 /* Order_Common_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order_Common_TVC.m; sourceTree = "<group>"; };
 		70CD41731C5B2F67000F2807 /* AlertWithTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWithTF.h; sourceTree = "<group>"; };
 		70CD41741C5B2F67000F2807 /* AlertWithTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWithTF.m; sourceTree = "<group>"; };
 		70E8C0711C868E2C007C7C1D /* GTFLoadPhoto_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFLoadPhoto_VC.h; sourceTree = "<group>"; };
@@ -893,8 +889,6 @@
 		70F9AEC01C3F70B60003489B /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		70F9AEC11C3F70B60003489B /* NSDate+WQCalendarLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+WQCalendarLogic.h"; sourceTree = "<group>"; };
 		70F9AEC21C3F70B60003489B /* NSDate+WQCalendarLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+WQCalendarLogic.m"; sourceTree = "<group>"; };
-		70FA60E11C09425400EA84FD /* Comment_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment_TVC.h; sourceTree = "<group>"; };
-		70FA60E21C09425400EA84FD /* Comment_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment_TVC.m; sourceTree = "<group>"; };
 		70FA60E91C098DE400EA84FD /* ZFPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPopupMenu.h; sourceTree = "<group>"; };
 		70FA60EA1C098DE400EA84FD /* ZFPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPopupMenu.m; sourceTree = "<group>"; };
 		70FA60EB1C098DE400EA84FD /* ZFPopupMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPopupMenuItem.h; sourceTree = "<group>"; };
@@ -2029,10 +2023,6 @@
 			isa = PBXGroup;
 			children = (
 				70F0B4431C83ECA400583B19 /* Publish */,
-				70A784F21C083390003D1892 /* Order_Common_TVC.h */,
-				70A784F31C083390003D1892 /* Order_Common_TVC.m */,
-				70FA60E11C09425400EA84FD /* Comment_TVC.h */,
-				70FA60E21C09425400EA84FD /* Comment_TVC.m */,
 				70F5EF7B1C0C24F5008878B4 /* Order_Factory_TVC.h */,
 				70F5EF7C1C0C24F5008878B4 /* Order_Factory_TVC.m */,
 				705421F91C0D983900BD2B47 /* Order_Supplier_TVC.h */,
@@ -2950,7 +2940,6 @@
 				7DBD04EF1C1C0A2000FD318B /* AccessoryShop_VC.m in Sources */,
 				70F6D2071C16CD7E00E23166 /* Business_Cloth_VC.m in Sources */,
 				7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */,
-				70FA60E31C09425400EA84FD /* Comment_TVC.m in Sources */,
 				7DC14FC61C7AD1BE00EE0908 /* MallOrderDetailModel.m in Sources */,
 				70F4AFB81C18249C00615A7E /* PersonalMessage_Design_VC.m in Sources */,
 				70F9AEC51C3F70B60003489B /* CalendarHomeViewController.m in Sources */,
@@ -2984,7 +2973,6 @@
 				03F846FF1C47740600F4EC00 /* LoginTableHeaderView.m in Sources */,
 				70E8C07E1C86CE06007C7C1D /* PublishOrder_Design_VC.m in Sources */,
 				70F3E7261C40E6480031613F /* UILabel+extension.m in Sources */,
-				70A784F41C083390003D1892 /* Order_Common_TVC.m in Sources */,
 				7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */,
 				03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */,
 				03662CE31C12E0FD00AEEF48 /* base64.m in Sources */,
