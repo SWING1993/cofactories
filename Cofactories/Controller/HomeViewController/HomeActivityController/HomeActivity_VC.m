@@ -31,7 +31,9 @@
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
 //    self.urlString = @"http://h5.lo.cofactories.com/!)test/";
-    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]];
+    AFOAuthCredential *credential=[HttpClient getToken];
+    NSString * urlStr = [NSString stringWithFormat:@"%@?access_token=%@",self.urlString,credential.accessToken];
+    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
     [self.view addSubview:webView];
     [webView loadRequest:request];
     
