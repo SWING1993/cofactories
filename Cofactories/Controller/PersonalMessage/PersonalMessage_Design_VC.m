@@ -264,9 +264,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     }else{
         return _dataArrayThree.count;
     }
-
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_selectedIndex == 1 ) {
