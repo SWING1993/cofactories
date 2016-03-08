@@ -31,7 +31,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     temporaryBarButtonItem.target = self;
     temporaryBarButtonItem.action = @selector(back);
     self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
-                                                                                                                                                                                                                                            
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoActionWithdrawal) name:UITextFieldTextDidChangeNotification object:nil];
 }
 

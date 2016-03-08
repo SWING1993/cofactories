@@ -13,6 +13,7 @@
 #import "HomeKoreaShopList_VC.h"
 #import "PopularMessageController.h"
 #import "ShoppingMallDetail_VC.h"
+#import <Bugly/JSExceptionReporter.h>
 
 @interface HomeActivity_VC ()<UIWebViewDelegate> {
     UIWebView * webView;
@@ -30,14 +31,9 @@
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];
 //    self.urlString = @"http://h5.lo.cofactories.com/!)test/";
-    //添加access_token
-    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
-    NSString *serviceProviderIdentifier = [baseUrl host];
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-    NSString*token = credential.accessToken;
-    NSString *myString = [NSString stringWithFormat:@"%@?access_token=%@", self.urlString, token];
-    DLog(@"^^^^^^^^^^^%@", self.urlString);
-    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:myString]];
+    AFOAuthCredential *credential=[HttpClient getToken];
+    NSString * urlStr = [NSString stringWithFormat:@"%@?access_token=%@",self.urlString,credential.accessToken];
+    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
     [self.view addSubview:webView];
     [webView loadRequest:request];
     
@@ -49,6 +45,7 @@
     NSString *requestString = [[request URL] absoluteString];
     DLog(@"^^^^^^^^%@", requestString);
     
+    [JSExceptionReporter startCaptureJSExceptionWithWebView:webView injectScript:YES];
     //判断是不是点击链接
     if ([requestString hasPrefix:@"cofactories:"]) {
         //判断是不是直接进入商城

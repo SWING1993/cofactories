@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PublishOrder_Factory_Common_VC : UIViewController
-@property (nonatomic,assign) BOOL isCommon;  // 普通订单或是担保订单
-- (void)initTableView;
+@property (nonatomic,strong)UITableView    *tableView;
+@property (nonatomic,copy) void(^TypeStringChangeBlock1)(NSString *string);
+
 @end

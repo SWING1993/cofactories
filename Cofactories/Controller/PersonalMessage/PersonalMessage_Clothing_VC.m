@@ -11,15 +11,13 @@
 #import "DealComment_TVC.h"
 #import "MJRefresh.h"
 #import "IMChatViewController.h"
-
-
+#import "EnterpriseShowWeb_VC.h"
 
 @interface PersonalMessage_Clothing_VC (){
     NSInteger              _selectedIndex;
     NSMutableArray        *_dataArrayThree;    // 交易评论
     NSInteger              _refreshCountThree; // 交易评论
     UIView                *_view;
-
 }
 
 @end
@@ -129,13 +127,24 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     typeImage.frame = CGRectMake(90+size.width+10, 26, 15, 15);
     [headerView addSubview:typeImage];
     
+    UIButton *enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    enterpriseBtn.frame = CGRectMake(kScreenW - 70,
+                                     30,
+                                     55,
+                                     55);
+    [enterpriseBtn setBackgroundImage:[UIImage imageNamed:@"enterpriseShow"] forState:UIControlStateNormal];
+    [enterpriseBtn addTarget:self action:@selector(enterpriseShowAction) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:enterpriseBtn];
+    
     if ([_userModel.enterprise isEqualToString:@"非企业用户"]) {
+        enterpriseBtn.hidden = YES;
         if ([_userModel.verified isEqualToString:@"非认证用户"]) {
             [typeImage removeFromSuperview];
         }else{
             typeImage.image = [UIImage imageNamed:@"证.png"];
         }
     }else{
+        enterpriseBtn.hidden = NO;
         typeImage.image = [UIImage imageNamed:@"企.png"];
     }
     
@@ -149,8 +158,9 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     subroleLB.layer.cornerRadius = 8;
     [headerView addSubview:subroleLB];
     CGSize subroleSize = [Tools getSize:_userModel.subRole andFontOfSize:12.f];
-    subroleLB.frame = CGRectMake(90, 25+size.height+5, subroleSize.width+10,subroleSize.height+5);
+    subroleLB.frame = CGRectMake(90, 25+size.height+5, subroleSize.width+15,subroleSize.height+5);
     subroleLB.text = _userModel.role;
+    NSLog(@"----------%@------------",_userModel.role);
     
     NSString *firstString = [NSString stringWithFormat:@"%@   %@",_userModel.address,_userModel.scale];
     NSArray *array = @[firstString,_userModel.descriptions];
@@ -163,6 +173,13 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     }
 }
 
+#pragma mark - enterpriseShow
+- (void)enterpriseShowAction{
+    NSLog(@"234567890-=");
+    EnterpriseShowWeb_VC *vc = [[EnterpriseShowWeb_VC alloc] init];
+    vc.urlStr = [NSString stringWithFormat:@"%@/%@",kEnterpriseShowWebBaseUrl,_userModel.uid];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 #pragma mark - 个人店铺、交易评论刷新
 

@@ -9,7 +9,6 @@
 #import "CustomeView.h"
 
 @implementation CustomeView{
-    NSInteger      _amount;
     UILabel       *_amountLabel;
 }
 
@@ -20,7 +19,6 @@
         self.layer.borderWidth = 1;
         self.layer.borderColor = [UIColor grayColor].CGColor;
         self.layer.cornerRadius = 5;
-        _amount = 1000;
         [self addButtonAndAmountViewWithFram:frame];
         self.moneyAmount = 1000;
     }
@@ -41,11 +39,15 @@
     }
     
     _amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/6.f, 0, frame.size.width-frame.size.width/3.f, frame.size.width/6.f)];
-    _amountLabel.text = [NSString stringWithFormat:@"%ld 元",(long)_amount];
     _amountLabel.textAlignment = NSTextAlignmentCenter;
     _amountLabel.textColor = [UIColor lightGrayColor];
     [self addSubview:_amountLabel];
     
+}
+
+- (void)setAmount:(NSInteger)amount{
+    _amount = amount;
+    _amountLabel.text = [NSString stringWithFormat:@"%ld 元",(long)amount];
 }
 
 - (void)buttonClick:(id)sender{
@@ -62,6 +64,8 @@
     
     _amountLabel.text = [NSString stringWithFormat:@"%ld 元",(long)_amount];
     self.moneyAmount = _amount;
+    
+    self.MoneyBlock(_amount);
 }
 
 
