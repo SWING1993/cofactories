@@ -180,6 +180,7 @@
 #import "TTTAttributedLabel.h"
 #import "TMCache.h"
 #import "SDCAlertView.h"
+#import "MBProgressHUD.h"
 
 #import <RongIMKit/RongIMKit.h>//融云IM
 #import "UIButton+WebCache.h"//SDWebImage

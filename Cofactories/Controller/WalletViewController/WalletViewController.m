@@ -2,7 +2,7 @@
 //  WalletViewController.m
 //  Cofactories
 //
-//  Created by GTF on 15/11/18.
+//  Created by 宋国华 on 15/11/18.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
@@ -13,7 +13,6 @@
 #import "WalletModel.h"
 #import "WithdrawalViewController.h"
 #import "WalletHistoryViewController.h"
-#import "AboutWalletViewController.h"
 
 #import "Verified_VC.h"
 
@@ -209,18 +208,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             historyVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:historyVC animated:NO];
             
-        } else if (indexPath.row == 1) {        
-//            //实名认证
-//            if (self.MyProfile.verify_status == 0) {
-//                AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
-//                authenticationVC.hidesBottomBarWhenPushed = YES;
-//                [self.navigationController pushViewController:authenticationVC animated:YES];
-//            }else if (self.MyProfile.verify_status == 1){
-//                kTipAlert(@"您的认证正在审核中。");
-//            }else{
-//                kTipAlert(@"您已实名认证！");
-//            }
-            
+        } else if (indexPath.row == 1) {
             //未认证
             if (self.MyProfile.verify_status == 0) {
                 AuthenticationController *authenticationVC = [[AuthenticationController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -245,9 +233,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            AboutWalletViewController * aboutVC = [[AboutWalletViewController alloc]init];
-            aboutVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:aboutVC animated:YES];
+            BaseWebController * aboutWallerVC = [[BaseWebController alloc]init];
+            aboutWallerVC.requestUrl = [NSString stringWithFormat:@"%@%@", kH5BaseUrl, @"/info/wallet/"];
+            aboutWallerVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:aboutWallerVC animated:YES];
+
         }
     }
 }

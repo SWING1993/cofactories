@@ -22,7 +22,10 @@ MBProgressHUD * _hud;
     
     _webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     _webView.delegate = self;
-    NSURL * url = [NSURL URLWithString:self.requestUrl];
+    
+    AFOAuthCredential *credential=[HttpClient getToken];
+    NSString * urlStr = [NSString stringWithFormat:@"%@?access_token=%@",self.requestUrl,credential.accessToken];
+    NSURL * url = [NSURL URLWithString:urlStr];
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
     [_webView loadRequest:request];
     [self.view addSubview:_webView];
