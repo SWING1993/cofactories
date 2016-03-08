@@ -18,7 +18,8 @@
     [super viewDidLoad];
     
     UIWebView *web = [[UIWebView alloc] initWithFrame:self.view.frame];
-    NSURL *url = [NSURL URLWithString:_urlStr];
+    AFOAuthCredential *auth = [HttpClient getToken];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?accessToken=%@",_urlStr,auth.accessToken]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [web loadRequest:request];
     [self.view addSubview:web];

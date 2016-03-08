@@ -105,9 +105,8 @@
 #define Appkey_Umeng @"5566b5e767e58e0c4700aab0"//友盟
 #define kAppUrl  @"http://itunes.apple.com/app/id1015359842"//appStore地址
 #define kAppReviewURL   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1015359842"//appStore评分地址
-
 #define kEnterpriseUrl @"http://e.cofactories.com/"
-
+#define kEnterpriseShowWebBaseUrl @"http://es.cofactories.com"
 
 #pragma mark - 系统版本  屏幕尺寸
 //版本号

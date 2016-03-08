@@ -184,7 +184,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
 - (void)enterpriseShowAction{
     NSLog(@"234567890-=");
     EnterpriseShowWeb_VC *vc = [[EnterpriseShowWeb_VC alloc] init];
-    vc.urlStr = [NSString stringWithFormat:@"http://es.cofactories.com/%@",_userModel.uid];
+    vc.urlStr = [NSString stringWithFormat:@"%@/%@",kEnterpriseShowWebBaseUrl,_userModel.uid];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -264,9 +264,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     }else{
         return _dataArrayThree.count;
     }
-
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_selectedIndex == 1 ) {
