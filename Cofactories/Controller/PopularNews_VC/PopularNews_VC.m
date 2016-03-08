@@ -35,6 +35,7 @@ static NSString *newsCellIdentifier = @"newsCell";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[PopularNewsTop_Cell class] forCellReuseIdentifier:topCellIdentifier];
     [self.tableView registerClass:[PopularNews_Cell class] forCellReuseIdentifier:newsCellIdentifier];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickBackgroundViewAction) name:UIKeyboardWillHideNotification object:nil];
 }
 - (void)creatHeaderView {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)];
@@ -57,13 +58,12 @@ static NSString *newsCellIdentifier = @"newsCell";
             self.tableView.tableHeaderView = headerView;
         }
     }];
-    
 }
 
 #pragma mark - 遮盖层
 - (void)creatBackgroundView {
     backgroundView = [UIButton buttonWithType:UIButtonTypeCustom];
-    backgroundView.frame = CGRectMake(0, 0, kScreenW, kScreenH);
+    backgroundView.frame = CGRectMake(0, 0, kScreenW, 10*kScreenH);
     backgroundView.backgroundColor = [UIColor blackColor];
     backgroundView.alpha = 0.0f;
     [backgroundView addTarget:self action:@selector(clickBackgroundViewAction) forControlEvents:UIControlEventTouchUpInside];
@@ -252,6 +252,11 @@ static NSString *newsCellIdentifier = @"newsCell";
     [paragraphStyle setLineSpacing:4];//调整行间距
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
     return attributedString;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

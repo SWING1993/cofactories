@@ -16,9 +16,7 @@
 @property (nonatomic, strong) UILabel *newsTitle;
 @property (nonatomic, strong) UILabel *newsDetail;
 @property (nonatomic, strong) UIImageView *newsPhoto;
-//@property (nonatomic, strong) UIImageView *readPhoto;
 @property (nonatomic, strong) UILabel *readCount;
-//@property (nonatomic, strong) UIImageView *commentPhoto;
 @property (nonatomic, strong) UILabel *commentCount;
 
 
