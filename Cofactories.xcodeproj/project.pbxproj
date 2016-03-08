@@ -198,6 +198,7 @@
 		70E8C0841C86E4C7007C7C1D /* PublishOrder_Factory_OtherRole_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E8C0831C86E4C7007C7C1D /* PublishOrder_Factory_OtherRole_VC.m */; };
 		70E9F1831C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F1821C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m */; };
 		70E9F1861C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F1851C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m */; };
+		70EA22F11C8ED51900E4407D /* Comment_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EA22F01C8ED51900E4407D /* Comment_TVC.m */; };
 		70EB7EE61C15697E009E19F9 /* Business_Supplier_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EB7EE01C15697E009E19F9 /* Business_Supplier_TVC.m */; };
 		70EB7EE71C15697E009E19F9 /* Business_Supplier_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EB7EE21C15697E009E19F9 /* Business_Supplier_VC.m */; };
 		70EBD6C41C8D130300162D07 /* PublishOrder_Factory_Common_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EBD6BF1C8D130300162D07 /* PublishOrder_Factory_Common_VC.m */; };
@@ -792,6 +793,8 @@
 		70E9F1821C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalMessage_Factory_VC.m; sourceTree = "<group>"; };
 		70E9F1841C1AB3C100C13912 /* PersonalMessage_Clothing_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalMessage_Clothing_VC.h; sourceTree = "<group>"; };
 		70E9F1851C1AB3C100C13912 /* PersonalMessage_Clothing_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalMessage_Clothing_VC.m; sourceTree = "<group>"; };
+		70EA22EF1C8ED51900E4407D /* Comment_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment_TVC.h; sourceTree = "<group>"; };
+		70EA22F01C8ED51900E4407D /* Comment_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment_TVC.m; sourceTree = "<group>"; };
 		70EB7EE01C15697E009E19F9 /* Business_Supplier_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Supplier_TVC.m; sourceTree = "<group>"; };
 		70EB7EE11C15697E009E19F9 /* Business_Supplier_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Supplier_VC.h; sourceTree = "<group>"; };
 		70EB7EE21C15697E009E19F9 /* Business_Supplier_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Supplier_VC.m; sourceTree = "<group>"; };
@@ -2130,6 +2133,8 @@
 		70F0B4431C83ECA400583B19 /* Publish */ = {
 			isa = PBXGroup;
 			children = (
+				70EA22EF1C8ED51900E4407D /* Comment_TVC.h */,
+				70EA22F01C8ED51900E4407D /* Comment_TVC.m */,
 				70F0B4441C83ED1E00583B19 /* Publish_Three_TVC.h */,
 				70F0B4451C83ED1E00583B19 /* Publish_Three_TVC.m */,
 				70F0B4471C83ED5A00583B19 /* Publish_AddPhoto_TVC.h */,
@@ -3058,6 +3063,7 @@
 				70FA60EF1C098DE400EA84FD /* ZFPopupMenu.m in Sources */,
 				039D4D511C72CACC0051CD2E /* AFURLRequestSerialization.m in Sources */,
 				03FF44F01BFEE73400D81DCE /* UIProgressView+AFNetworking.m in Sources */,
+				70EA22F11C8ED51900E4407D /* Comment_TVC.m in Sources */,
 				03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */,
 				7D2BE7361C19112200CE4138 /* MeShopController.m in Sources */,
 				03571C431BE85C3700900EF9 /* UIImageView+Common.m in Sources */,
