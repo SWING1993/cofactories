@@ -12,7 +12,7 @@
 #import "AllDesignController.h"
 #import "UMSocial.h"
 #import "DesignShop_VC.h"
-
+#import "PopularNews_VC.h"
 
 @interface ZGYDesignMarkrtController ()<ZGYSupplyMarketViewDelegate, UMSocialUIDelegate>
 @property(nonatomic,strong)UserModel *userModel;
@@ -43,8 +43,10 @@
 - (void)supplyMarketView:(ZGYSupplyMarketView *)supplyMarketView supplyMarketButtonTag:(NSInteger)supplyMarketButtonTag {
     switch (supplyMarketButtonTag) {
         case 0:{
-            PopularMessageController *popularVC = [[PopularMessageController alloc] init];
-            [self.navigationController pushViewController:popularVC animated:YES];
+//            PopularMessageController *popularVC = [[PopularMessageController alloc] init];
+//            [self.navigationController pushViewController:popularVC animated:YES];
+            PopularNews_VC *popularNewsVC = [[PopularNews_VC alloc] init];
+            [self.navigationController pushViewController:popularNewsVC animated:YES];
 
         }
             break;
