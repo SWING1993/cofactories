@@ -34,6 +34,7 @@ static NSString * placeholderString = @"暂无";
  UserType_facilitator, //服务商
  */
 - (instancetype)initWithArray {
+    self = [super init];
     if (self) {
         self.UserTypeListArray = [[NSArray alloc]initWithObjects:@"设计者",@"服装企业",@"加工配套企业",@"供应商",@"服务商", nil];
         
