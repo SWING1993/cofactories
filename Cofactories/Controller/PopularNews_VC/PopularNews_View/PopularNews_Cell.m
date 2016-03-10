@@ -30,14 +30,14 @@
         self.newsType.layer.borderColor = kLineGrayCorlor.CGColor;
         self.newsType.layer.cornerRadius = 3;
         self.newsType.clipsToBounds = YES;
-        self.newsType.textColor = GRAYCOLOR(102);
+        self.newsType.textColor = GRAYCOLOR(144);
         [self addSubview:self.newsType];
         
         //聚工厂
         UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW - kMargin - kNewsPhotoHeight, CGRectGetMinY(self.newsType.frame), kNewsPhotoHeight/2, CGRectGetHeight(self.newsType.frame))];
         myLabel.font = [UIFont systemFontOfSize:9*kZGY];
         myLabel.text = @"聚工厂";
-        myLabel.textColor = GRAYCOLOR(102);
+        myLabel.textColor = GRAYCOLOR(144);
         myLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:myLabel];
         //文章图片
@@ -47,7 +47,7 @@
         //文章作者名字
         self.userName = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.userPhoto.frame) + 5*kZGY, 20*kZGY, kScreenW - 2*kMargin - CGRectGetWidth(self.userPhoto.frame) - kNewsPhotoHeight - 30*kZGY, 15*kZGY)];
         self.userName.font = [UIFont systemFontOfSize:10*kZGY];
-        self.userName.textColor = GRAYCOLOR(102);
+        self.userName.textColor = GRAYCOLOR(144);
         [self addSubview:self.userName];
         //文章标题
         self.newsTitle = [[UILabel alloc] initWithFrame:CGRectMake(kMargin, CGRectGetMaxY(self.userPhoto.frame) + 2.5*kZGY, kScreenW - 2*kMargin - kNewsPhotoHeight - kMargin, 20*kZGY)];
@@ -58,7 +58,7 @@
         self.newsDetail = [[UILabel alloc] initWithFrame:CGRectMake(kMargin, CGRectGetMaxY(self.newsTitle.frame), CGRectGetWidth(self.newsTitle.frame), 52.5*kZGY)];
         self.newsDetail.numberOfLines = 3;
         self.newsDetail.font = [UIFont systemFontOfSize:11*kZGY];
-        self.newsDetail.textColor = GRAYCOLOR(102);
+        self.newsDetail.textColor = GRAYCOLOR(144);
         [self addSubview:self.newsDetail];
         
         //阅读数图标
@@ -69,7 +69,7 @@
         //阅读数
         self.readCount = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(readPhoto.frame) + 10*kZGY, CGRectGetMaxY(self.newsDetail.frame) + 2.5*kZGY, 50*kZGY, 15*kZGY)];
         self.readCount.font = [UIFont systemFontOfSize:10*kZGY];
-        self.readCount.textColor = GRAYCOLOR(102);
+        self.readCount.textColor = GRAYCOLOR(144);
         [self addSubview:self.readCount];
         
         //评论图标
@@ -80,7 +80,7 @@
         //评论数
         self.commentCount = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(commentPhoto.frame) + 10*kZGY, CGRectGetMaxY(self.newsDetail.frame) + 2.5*kZGY, 50*kZGY, 15*kZGY)];
         self.commentCount.font = [UIFont systemFontOfSize:10*kZGY];
-        self.commentCount.textColor = GRAYCOLOR(102);
+        self.commentCount.textColor = GRAYCOLOR(144);
         [self addSubview:self.commentCount];
         
         //线
@@ -90,16 +90,6 @@
         [self.layer addSublayer:line];
     }
     return self;
-}
-
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

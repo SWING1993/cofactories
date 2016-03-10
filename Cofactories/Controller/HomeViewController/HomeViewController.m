@@ -22,7 +22,9 @@
 #import "HomeActivity_VC.h"
 #import "IndexModel.h"
 #import "ActivityModel.h"
+#import "ZGYScrollView.h"
 
+static NSString * CellIdentifier = @"CellIdentifier";
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *personalDataCellIdentifier = @"personalDataCell";
 static NSString *activityCellIdentifier = @"activityCell";
@@ -38,6 +40,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 @implementation HomeViewController {
     CGFloat wallet;
+    ZGYScrollView *myView;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -63,16 +66,21 @@ static NSString *activityCellIdentifier = @"activityCell";
     
     [self creatTableView];
     [self creatTableHeaderView];
+    NSArray *array1 = @[@"如意加工厂参与投标针织与罗马布", @"二七服装厂购买男装上衣版型", @"聚工科技投标成功", @"小李广童祥样品发布几件商品", @"好好服侍参与投标成功"];
+    NSArray *array2 = @[@"聚工厂推出每日秒杀活动，火热展开，尽请关注！", @"聚工厂推出限制订单，为你的订单保驾护航！", @"聚工厂成立1周年，回馈广大用户！", @"聚工厂新增吐槽专区，说你想说的！", @"聚工厂新增版型推荐，推荐适合你的款型！"];
+    myView = [[ZGYScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 60) withMessageArray1:array1 withMessageArray2:array2];
+    
 }
 
 - (void)creatTableView {
-    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 49) style:UITableViewStyleGrouped];
+    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 49)];
     self.automaticallyAdjustsScrollViewInsets = YES;// 自动调整视图关闭
     self.homeTableView.showsVerticalScrollIndicator = NO;// 竖直滚动条不显示
     self.homeTableView.delegate = self;
     self.homeTableView.dataSource = self;
     [self.view addSubview:self.homeTableView];
     
+    [self.homeTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
     [self.homeTableView registerClass:[HomeMarketCell class] forCellReuseIdentifier:marketCellIdentifier];
     [self.homeTableView registerClass:[HomePersonalDataCell class] forCellReuseIdentifier:personalDataCellIdentifier];
     [self.homeTableView registerClass:[HomeActivityCell class] forCellReuseIdentifier:activityCellIdentifier];
@@ -88,10 +96,10 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 2) {
+    if (section == 3) {
         return self.activityArray.count;
     }
     return 1;
@@ -169,6 +177,12 @@ static NSString *activityCellIdentifier = @"activityCell";
         HomeMarketCell *cell = [tableView dequeueReusableCellWithIdentifier:marketCellIdentifier forIndexPath:indexPath];
         cell.delegate = self;
         return cell;
+    } else if (indexPath.section == 2) {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        [cell addSubview:myView];
+        return cell;
+        
     } else {
         HomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:activityCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -179,6 +193,7 @@ static NSString *activityCellIdentifier = @"activityCell";
             [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@"HomeActivityHolder"]];
         }
         return cell;
+
     }
 }
 
@@ -189,13 +204,15 @@ static NSString *activityCellIdentifier = @"activityCell";
         return 100*kZGY;
     } else if (indexPath.section == 1) {
         return 160*kZGY;
+    } else if (indexPath.section == 2)  {
+        return 60;
     } else {
         return 0.4*kScreenW;
     }
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 8;
+    return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
@@ -205,11 +222,8 @@ static NSString *activityCellIdentifier = @"activityCell";
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //活动点击事件
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"返回";
-    backItem.tintColor=[UIColor whiteColor];
-    self.navigationItem.backBarButtonItem = backItem;
-    if (indexPath.section == 2) {
+    
+    if (indexPath.section == 3) {
         HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
         ActivityModel *activityModel = self.activityArray[indexPath.row];
         activityVC.urlString = activityModel.url;
@@ -360,7 +374,7 @@ static NSString *activityCellIdentifier = @"activityCell";
                 ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
                 [self.activityArray addObject:activityModel];
             }
-            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:3];
             [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         } else if (statusCode == 0) {
             DLog(@"请求超时");

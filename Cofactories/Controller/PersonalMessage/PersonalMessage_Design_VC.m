@@ -46,7 +46,6 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     [self creatChatAndPhone];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigator_btn_back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBackClick)];
     self.navigationItem.title = @"个人信息";
     
     _selectedIndex = 1;
@@ -371,10 +370,6 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma mark - 导航pop
-- (void)goBackClick{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (CGSize)returnSizeWithString:(NSString *)string{
     

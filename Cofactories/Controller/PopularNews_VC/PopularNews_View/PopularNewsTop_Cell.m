@@ -27,7 +27,7 @@
             
             UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20*kZGY + i*kScreenW/2, CGRectGetMaxY(titleLabel.frame), kScreenW/2 - 40*kZGY, 25*kZGY)];
             detailLabel.font = [UIFont systemFontOfSize:13*kZGY];
-            detailLabel.textColor = GRAYCOLOR(102);
+            detailLabel.textColor = GRAYCOLOR(144);
             [self addSubview:detailLabel];
             
             UIButton *myButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -54,14 +54,5 @@
     return self;
 }
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end

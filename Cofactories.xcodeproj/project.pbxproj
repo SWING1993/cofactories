@@ -289,6 +289,8 @@
 		7D5682911C75AE2A00FF03AE /* MallCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5682901C75AE2A00FF03AE /* MallCommentCell.m */; };
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
 		7D5C482C1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5C482B1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png */; };
+		7D6311551C8FE3B60042A700 /* ZGYScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6311541C8FE3B60042A700 /* ZGYScrollView.m */; };
+		7D6311571C8FE6740042A700 /* Home-聚工动态.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6311561C8FE6740042A700 /* Home-聚工动态.png */; };
 		7D65688C1C3389D80066C82D /* PublishPopularNews_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D65688B1C3389D80066C82D /* PublishPopularNews_VC.m */; };
 		7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665E881C0C1C9000C7C7BF /* ZGYSupplyMarketView.m */; };
 		7D665E9C1C0C4A8500C7C7BF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D665E9B1C0C4A8500C7C7BF /* CoreAudio.framework */; };
@@ -982,6 +984,9 @@
 		7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketButton.h; sourceTree = "<group>"; };
 		7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketButton.m; sourceTree = "<group>"; };
 		7D5C482B1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_sel@2x.png"; sourceTree = "<group>"; };
+		7D6311531C8FE3B60042A700 /* ZGYScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYScrollView.h; sourceTree = "<group>"; };
+		7D6311541C8FE3B60042A700 /* ZGYScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYScrollView.m; sourceTree = "<group>"; };
+		7D6311561C8FE6740042A700 /* Home-聚工动态.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home-聚工动态.png"; sourceTree = "<group>"; };
 		7D65688A1C3389D80066C82D /* PublishPopularNews_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishPopularNews_VC.h; sourceTree = "<group>"; };
 		7D65688B1C3389D80066C82D /* PublishPopularNews_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishPopularNews_VC.m; sourceTree = "<group>"; };
 		7D665E871C0C1C9000C7C7BF /* ZGYSupplyMarketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSupplyMarketView.h; sourceTree = "<group>"; };
@@ -1288,6 +1293,7 @@
 				7DB8B0B51C8D795C00428AE7 /* 1.jpg */,
 				7DB8B0B31C8D788200428AE7 /* meinv.jpg */,
 				70F66D931C47A20500721C82 /* touchRefrush.png */,
+				7D6311561C8FE6740042A700 /* Home-聚工动态.png */,
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
 				03571B271BE84BA100900EF9 /* AppDelegate.m */,
 				03882C4D1BEC951B0094524A /* HttpClient.h */,
@@ -1314,7 +1320,6 @@
 				03571B241BE84BA100900EF9 /* main.m */,
 				03927D731BEC81E20087A2FD /* LaunchScreen.xib */,
 				03927D771BEC86D90087A2FD /* Images.xcassets */,
-				70F66D931C47A20500721C82 /* touchRefrush.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2416,6 +2421,8 @@
 		7D5BDB781BFF0E8400FC8054 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
+				7D6311531C8FE3B60042A700 /* ZGYScrollView.h */,
+				7D6311541C8FE3B60042A700 /* ZGYScrollView.m */,
 				7DF1C1B91C0056B400460DB7 /* WKFCircularSlidingView.h */,
 				7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */,
 				7D5BDB791BFF145800FC8054 /* HomeMarketButton.h */,
@@ -2853,6 +2860,7 @@
 				03927D741BEC81E20087A2FD /* LaunchScreen.xib in Resources */,
 				035CC5201C06DCF000998FBD /* ImagesPicker.xcassets in Resources */,
 				70F9AECA1C3F70B60003489B /* chack.png in Resources */,
+				7D6311571C8FE6740042A700 /* Home-聚工动态.png in Resources */,
 				03571C9E1BE85DAC00900EF9 /* icon_chose_bottom@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2946,6 +2954,7 @@
 				7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */,
 				035CC4FD1C06DC3100998FBD /* PhotoViewController.m in Sources */,
 				70EBD6C61C8D130300162D07 /* PublishOrder_Factory_VC.m in Sources */,
+				7D6311551C8FE3B60042A700 /* ZGYScrollView.m in Sources */,
 				03571B9E1BE85B8200900EF9 /* MJPhotoLoadingView.m in Sources */,
 				7D1A4E361C5A02080076B462 /* AddressTextFieldCell.m in Sources */,
 				03623FBA1C44D8C70083044A /* BaseNavigationController.m in Sources */,

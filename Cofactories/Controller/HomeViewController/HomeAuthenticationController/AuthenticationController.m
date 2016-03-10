@@ -145,7 +145,6 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
     }
 }
 
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
