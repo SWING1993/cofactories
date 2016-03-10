@@ -30,6 +30,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 @implementation LoginViewController
 UILabel * enterpriseLabel;
+LoginButton * loginBtn;
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -63,16 +64,15 @@ UILabel * enterpriseLabel;
 
     self.myLogin = [[Login alloc] init];
     self.myLogin.phone = [Login preUserPhone];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoActionRecharge) name:UITextFieldTextDidChangeNotification object:nil];
 
     self.title=@"登录";
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
-//    self.tableView.backgroundView = self.bgBlurredView;
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
     [self.tableView registerClass:[Input_OnlyText_Cell class] forCellReuseIdentifier:kCellIdentifier_Input_OnlyText_Cell_Text];
-
 
     LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
     self.tableView.tableHeaderView = tableHeaderView;
@@ -99,8 +99,11 @@ UILabel * enterpriseLabel;
     [tableFooterView addSubview:enterpriseLabel];
     
     //登录 Button
-    LoginButton*loginBtn=[[LoginButton alloc]init];
+    loginBtn=[[LoginButton alloc]init];
     loginBtn.frame =  CGRectMake(20, 40, (kScreenW-40), 35);
+    loginBtn.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+    [loginBtn setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    loginBtn.userInteractionEnabled = NO;
     loginBtn.tag=10;
     loginBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16.5];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
@@ -131,6 +134,18 @@ UILabel * enterpriseLabel;
 
     self.tableView.tableFooterView = tableFooterView;
     [self refreshIconUserImageWithKey:self.myLogin.phone];
+}
+
+- (void)infoActionRecharge {
+    if (self.myLogin.phone.length == 0 || self.myLogin.password.length == 0) {
+        loginBtn.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+        [loginBtn setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        loginBtn.userInteractionEnabled = NO;
+    } else {
+        loginBtn.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+        [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        loginBtn.userInteractionEnabled = YES;
+    }
 }
 
 - (void)clickbBtn:(UIButton*)sender{
@@ -308,6 +323,8 @@ UILabel * enterpriseLabel;
 - (void)dealloc {
     self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 
 @end

@@ -283,7 +283,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)dealloc {
     DLog(@"注册1dealloc");
-
     self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
 }
