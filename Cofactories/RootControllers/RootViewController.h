@@ -10,7 +10,7 @@
 
 @interface RootViewController : UIViewController
 
-@property (nonatomic, strong) NSDictionary *pushDic;
+@property (nonatomic, retain) NSDictionary *pushDic;
 
 //主页
 + (void)setupTabarController;
