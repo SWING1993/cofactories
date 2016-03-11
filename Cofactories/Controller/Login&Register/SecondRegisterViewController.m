@@ -82,7 +82,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         _UserTypeTF.inputView = [self fecthPicker];
         _UserTypeTF.inputAccessoryView = [self fecthToolbar];
         _UserTypeTF.delegate =self;
-        
     }
 }
 
