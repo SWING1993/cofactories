@@ -60,7 +60,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     
     _dataArray = [@[] mutableCopy];
     [HttpClient searchFactoryOrderWithKeyword:nil type:nil amount:nil deadline:nil pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
-        DLog(@"%@",dictionary);
+        //DLog(@"%@",dictionary);
         _dataArray = dictionary[@"message"];
         [_tableView reloadData];
     }];
@@ -123,7 +123,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _refrushCount = 1;
     
     [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
-        DLog(@"%@",dictionary);
+       // DLog(@"%@",dictionary);
         _dataArray = dictionary[@"message"];
         [_tableView reloadData];
     }];
@@ -156,6 +156,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     Order_Factory_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     FactoryOrderMOdel *model = _dataArray[indexPath.row];
+//    DLog(@"-------%@--------",model.descriptions);
     [cell laoutWithDataModel:model];
     cell.imageButton.tag = indexPath.row+1;
     [cell.imageButton addTarget:self action:@selector(imageDetailClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -245,7 +246,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath{
     
-    DLog(@"%ld,%ld",(long)indexPath.column,(long)indexPath.row);
+    //DLog(@"%ld,%ld",(long)indexPath.column,(long)indexPath.row);
     switch (indexPath.column) {
         case 0:
             switch (indexPath.row) {
@@ -291,25 +292,31 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             }
             break;
         case 2:{
+            
+            _oderKeywordString = nil;
+            _refrushCount = 1;
+            
             if (!_calendar) {
                 _calendar = [[CalendarHomeViewController alloc]init];
                 _calendar.calendartitle = @"空闲日期";
                 [_calendar setAirPlaneToDay:365 ToDateforString:nil];//飞机初始化方法
             }
+            
             __weak typeof(self) weakSelf = self;
             _calendar.calendarblock = ^(CalendarDayModel *model){
                 weakSelf.orderDeadlineString = [model toString];
+               // DLog(@"%@,%@,%@",weakSelf.orderTypeString, weakSelf.orderAmountArray,weakSelf.orderDeadlineString);
+                [HttpClient searchFactoryOrderWithKeyword:weakSelf.oderKeywordString type:weakSelf.orderTypeString amount:weakSelf.orderAmountArray deadline:weakSelf.orderDeadlineString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
+                    DLog(@"------------%@----------------",dictionary);
+                    _dataArray = dictionary[@"message"];
+                    [weakSelf.tableView reloadData];
+                }];
+
             };
             [self presentViewController:_calendar animated:YES completion:nil];
             
-            _oderKeywordString = nil;
-            _refrushCount = 1;
             
-            [HttpClient searchFactoryOrderWithKeyword:_oderKeywordString type:_orderTypeString amount:_orderAmountArray deadline:_orderDeadlineString pageCount:@1 WithCompletionBlock:^(NSDictionary *dictionary){
-                DLog(@"%@",dictionary);
-                _dataArray = dictionary[@"message"];
-                [_tableView reloadData];
-            }];
+            DLog(@"-----------5678----------");
 
         }
             break;
@@ -318,7 +325,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             break;
     }
     
-    DLog(@"%@,%@,%@",_orderTypeString,_orderAmountArray,_orderDeadlineString);
+//    DLog(@"%@,%@,%@",_orderTypeString,_orderAmountArray,_orderDeadlineString);
     _oderKeywordString = nil;
     _refrushCount = 1;
     
