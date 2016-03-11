@@ -177,7 +177,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             
         }];
     }];
-
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
