@@ -9,7 +9,6 @@
 #import "CYLPlusButtonSubclass.h"
 #import "CHTumblrMenuView.h"
 #import "SelectOrder_VC.h"
-#import "SearchOrder_Supplier_VC.h"
 #import "SearchOrder_Designer_VC.h"
 #import "SearchOrder_Factory_VC.h"
 #import "MangerOrderVC.h"
