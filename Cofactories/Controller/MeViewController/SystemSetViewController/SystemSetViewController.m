@@ -239,8 +239,12 @@ UIAlertView * quitAlert;
     }
     if (indexPath.section == 2 && indexPath.row == 0) {
         cell.textLabel.text = @"清理缓存";
-        NSString * cacheSize = [NSString stringWithFormat:@"%.2fM",[self cacheFilePath]];
-        cell.detailTextLabel.text = cacheSize ;
+        if (isnan([self cacheFilePath])) {
+            
+        }else {
+            NSString * cacheSize = [NSString stringWithFormat:@"%.2fM",[self cacheFilePath]];
+            cell.detailTextLabel.text = cacheSize;
+        }
     }
     return cell;
 }
@@ -350,11 +354,11 @@ UIAlertView * quitAlert;
 
 #pragma mark - 清理缓存
 
--(CGFloat)cacheFilePath{
+-(double)cacheFilePath{
     NSString * cachePath = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];
     return [ self folderSizeAtPath :cachePath];
 }
--(CGFloat)fileSizeAtPath:(NSString *)path{
+-(double)fileSizeAtPath:(NSString *)path{
     NSFileManager *fileManager=[NSFileManager defaultManager];
     if([fileManager fileExistsAtPath:path]){
         long long size=[fileManager attributesOfItemAtPath:path error:nil].fileSize;
@@ -362,7 +366,7 @@ UIAlertView * quitAlert;
     }
     return 0;
 }
--(CGFloat)folderSizeAtPath:(NSString *)path{
+-(double)folderSizeAtPath:(NSString *)path{
     NSFileManager *fileManager=[NSFileManager defaultManager];
     CGFloat folderSize;
     if ([fileManager fileExistsAtPath:path]) {
