@@ -18,6 +18,7 @@
 @end
 
 @implementation Input_OnlyText_Cell
+
 + (NSString *)randomCellIdentifierOfPhoneCodeType{
     return [NSString stringWithFormat:@"%@_%ld", kCellIdentifier_Input_OnlyText_Cell_PhoneCode, random()];
 }

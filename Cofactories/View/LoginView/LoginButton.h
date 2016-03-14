@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginButton
-: UIButton
+@interface LoginButton : UIButton
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
