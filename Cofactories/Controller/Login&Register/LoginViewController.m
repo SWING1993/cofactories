@@ -87,7 +87,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     //企业账号
     UIButton * enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    enterpriseBtn.frame = CGRectMake(kScreenW - 45, 7.5, 25, 25);
+    enterpriseBtn.frame = CGRectMake(kScreenW - 45, 10, 20, 20);
     enterpriseBtn.tag = 9;
     enterpriseBtn.selected = self.isEnterprise;
     [enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Normal"] forState:UIControlStateNormal];
@@ -119,9 +119,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         [button addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
         button;
     });
+    
     [tableFooterView addSubview:self.loginBtn];
-    
-    
+   
     //注册 button
     UIButton * registerBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 75, (kScreenW-40)/2-20, 55);
@@ -177,55 +177,69 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             
         case 10:{
             DLog(@"登录");
-            MBProgressHUD *hud = [Tools createHUD];
-            hud.labelText = @"登录中...";
-    
             [button setEnabled:NO];
-            if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
-                [button setEnabled:YES];
-                [hud hide:YES];
-                kTipAlert(@":）请您填写账号以及密码后登录");
-            }else{
-                [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
-                    switch (statusCode) {
-                        case 0:{
-                            [hud hide:YES];
-                            [button setEnabled:YES];
-                            kTipAlert(@":）您的网络状态不太顺畅哦");
-                        }
-                            break;
-                            
-                        case 200:{
-                            DLog(@"登录成功");
 
-                            [hud hide:YES];
-                            [button setEnabled:YES];
-                            [Login setPreUserPhone:self.myLogin.phone];//记住登录账号
-                            [RootViewController setupTabarController];
-                            double delayInSeconds = 7.0;
-                            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                            dispatch_after(popTime, dispatch_get_main_queue(), ^{
-                                [Login saveLoginData];
-                            });
+            CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+            animation.keyPath = @"position.x";
+            animation.values = @[ @0, @10, @-10, @10, @0 ];
+            animation.keyTimes = @[ @0, @(1 / 6.0), @(3 / 6.0), @(5 / 6.0), @1 ];
+            animation.duration = 0.5;
+            animation.additive = YES;
+            [self.loginBtn.layer addAnimation:animation forKey:@"shake"];
+            
+            double delayInSeconds = 0.5;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                MBProgressHUD *hud = [Tools createHUD];
+                hud.labelText = @"登录中...";
+                if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
+                    [button setEnabled:YES];
+                    [hud hide:YES];
+                    kTipAlert(@":）请您填写账号以及密码后登录");
+                }else{
+                    [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
+                        switch (statusCode) {
+                            case 0:{
+                                [hud hide:YES];
+                                [button setEnabled:YES];
+                                kTipAlert(@":）您的网络状态不太顺畅哦");
+                            }
+                                break;
+                                
+                            case 200:{
+                                DLog(@"登录成功");
+                                
+                                [hud hide:YES];
+                                [button setEnabled:YES];
+                                [Login setPreUserPhone:self.myLogin.phone];//记住登录账号
+                                [RootViewController setupTabarController];
+                                double delayInSeconds = 7.0;
+                                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                                dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                                    [Login saveLoginData];
+                                });
+                                
+                            }
+                                break;
+                                
+                            case 401:{
+                                [hud hide:YES];
+                                [button setEnabled:YES];
+                                kTipAlert(@":）用户名或密码错误");
+                                
+                            }
+                                break;
+                                
+                            default:
+                                [hud hide:YES];
+                                [button setEnabled:YES];
+                                kTipAlert(@":）登录失败 (%ld)",(long)statusCode);
+                                break;
+                        }
+                    }];
+                }
 
-                        }
-                            break;
-                            
-                        case 401:{
-                            [hud hide:YES];
-                            [button setEnabled:YES];
-                            kTipAlert(@":）用户名或密码错误");
-                        }
-                            break;
-                            
-                        default:
-                            [hud hide:YES];
-                            [button setEnabled:YES];
-                            kTipAlert(@":）登录失败 (%ld)",(long)statusCode);
-                            break;
-                    }
-                }];
-            }
+            });
         }
             break;
             
