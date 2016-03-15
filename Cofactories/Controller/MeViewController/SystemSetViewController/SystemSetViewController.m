@@ -36,7 +36,7 @@ UIAlertView * quitAlert;
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     
-    UIView*tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 130)];
+    UIView*tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 150)];
     tableHeaderView.backgroundColor=[UIColor whiteColor];
     
     UIImageView*logoImage = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenW/2-40, 10, 80, 80)];
@@ -47,9 +47,20 @@ UIAlertView * quitAlert;
     
     UILabel*logoLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, kScreenW, 20)];
     logoLabel.font = kLargeFont;
-    logoLabel.text=[NSString stringWithFormat:@"聚工厂 Cofactories %@",kVersion_Cofactories];
+    logoLabel.numberOfLines = 1;
+    logoLabel.text = @"聚工厂";
+    logoLabel.textColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
     logoLabel.textAlignment = NSTextAlignmentCenter;
     [tableHeaderView addSubview:logoLabel];
+    
+    UILabel*logoLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 120, kScreenW, 20)];
+    logoLabel1.font = kFont;
+    logoLabel1.numberOfLines = 1;
+    logoLabel1.text = [NSString stringWithFormat:@"版本 %@ (%@)",kVersion_Cofactories,kVersionBuild_Cofactories];
+    logoLabel1.textAlignment = NSTextAlignmentCenter;
+    logoLabel1.textColor = [UIColor grayColor];
+    [tableHeaderView addSubview:logoLabel1];
+    
     
     self.tableView.tableHeaderView=tableHeaderView;
     
