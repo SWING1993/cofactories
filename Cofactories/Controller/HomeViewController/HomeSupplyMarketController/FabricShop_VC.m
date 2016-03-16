@@ -138,7 +138,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     mySearchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     mySearchBar.delegate = self;
     mySearchBar.placeholder = @"请输入商品名称";
-    mySearchBar.tintColor = kDeepBlue;
+    mySearchBar.tintColor = kMainDeepBlue;
     [mySearchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"SearchBarBackgroundColor"] forState:UIControlStateNormal];
     mySearchBar.backgroundColor = [UIColor clearColor];
     [mySearchBar setShowsCancelButton:NO];
@@ -421,7 +421,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     self.myCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 45, kScreenW, kScreenH - 45) collectionViewLayout:layout];
     self.myCollectionView.delegate = self;
     self.myCollectionView.dataSource = self;
-    self.myCollectionView.backgroundColor = kBackgroundColor;
+    self.myCollectionView.backgroundColor = kTableViewBackgroundColor;
     [self.view addSubview:self.myCollectionView];
     
     [self.myCollectionView registerClass:[MaterialShopCell class] forCellWithReuseIdentifier:materialCellIdentifier];

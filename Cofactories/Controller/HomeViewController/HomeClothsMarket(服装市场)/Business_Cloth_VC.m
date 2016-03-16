@@ -143,7 +143,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     mySearchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     mySearchBar.delegate = self;
     mySearchBar.placeholder = @"请输入店铺名称";
-    mySearchBar.tintColor = kDeepBlue;
+    mySearchBar.tintColor = kMainDeepBlue;
     [mySearchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"SearchBarBackgroundColor"] forState:UIControlStateNormal];
     mySearchBar.backgroundColor = [UIColor clearColor];
     [mySearchBar setShowsCancelButton:NO];

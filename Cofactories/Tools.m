@@ -455,7 +455,7 @@
     button.titleLabel.font = [UIFont systemFontOfSize:15.5];
     button.layer.cornerRadius = 4;
     button.clipsToBounds = YES;
-    button.backgroundColor = kLightBlue;
+    button.backgroundColor = kMainLightBlueColor;
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     return button;
 }

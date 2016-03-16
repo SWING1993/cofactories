@@ -79,7 +79,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     _addImageBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     _addImageBtn.layer.masksToBounds = YES;
     _addImageBtn.layer.cornerRadius = 3;
-    _addImageBtn.backgroundColor = kLightBlue;
+    _addImageBtn.backgroundColor = kMainLightBlueColor;
     [_addImageBtn addTarget:self action:@selector(addImageBtn) forControlEvents:UIControlEventTouchUpInside];
     
     _addCatergoryLabel = [[UILabel alloc] init];
@@ -94,7 +94,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     _addCatergoryBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     _addCatergoryBtn.layer.masksToBounds = YES;
     _addCatergoryBtn.layer.cornerRadius = 3;
-    _addCatergoryBtn.backgroundColor = kLightBlue;
+    _addCatergoryBtn.backgroundColor = kMainLightBlueColor;
     [_addCatergoryBtn addTarget:self action:@selector(addCatergoryBtn) forControlEvents:UIControlEventTouchUpInside];
     
     tiShiYuLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 70, kScreenW - 30, 40)];

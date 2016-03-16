@@ -281,7 +281,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         [doneButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
         doneButton.userInteractionEnabled = NO;
     } else {
-        doneButton.backgroundColor = kLightBlue;
+        doneButton.backgroundColor = kMainLightBlueColor;
         [doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         doneButton.userInteractionEnabled = YES;
 
