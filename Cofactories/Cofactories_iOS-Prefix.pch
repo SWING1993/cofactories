@@ -145,6 +145,12 @@
 #define kBackgroundColor [UIColor colorWithRed:250.0f/255.0f green:251.0f/255.0f blue:252.0f/255.0f alpha:1.0f]
 #define GRAYCOLOR(RGB) [UIColor colorWithRed:RGB/255.0 green:RGB/255.0 blue:RGB/255.0 alpha:1.0] 
 
+#define kButtonNormalBackgroundCorlor [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f]
+#define kButtonHighlightedBackgroundCorlor [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f]
+
+#define kButtonNormalTitleCorlor [UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f]
+#define kButtonHighlightedTitleCorlor [UIColor whiteColor]
+
 #pragma mark - 常用变量
 #define kStatusBarHeight 20
 #define kNavigationBarHeight 44
@@ -180,7 +186,7 @@
 #import "TMCache.h"
 #import "SDCAlertView.h"
 #import "MBProgressHUD.h"
-
+#import <FlatUIKit/FlatUIKit.h>
 #import <RongIMKit/RongIMKit.h>//融云IM
 #import "UIButton+WebCache.h"//SDWebImage
 #import "UIImageView+WebCache.h"//SDWebImage
