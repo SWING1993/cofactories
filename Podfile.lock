@@ -1,5 +1,6 @@
 PODS:
   - Bugly (1.4.7)
+  - FlatUIKit (1.6.2)
   - IQKeyboardManager (3.3.7)
   - iVersion (1.11.4)
   - MarqueeLabel (2.5.0)
@@ -23,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - Bugly
+  - FlatUIKit
   - IQKeyboardManager
   - iVersion
   - MarqueeLabel
@@ -40,6 +42,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Bugly: 363ada47fabfc670a30e4d2a3c147ea2d20bba0e
+  FlatUIKit: 1b41f0d4952ce8d970d8479ce79df54a960242c4
   IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8
   iVersion: 2b6ffe708672cb494ba3cab150a94800c2892e81
   MarqueeLabel: 6b8ff6915c0536c5099ac30992b7d72f9807df20

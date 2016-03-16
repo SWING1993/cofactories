@@ -29,6 +29,8 @@ UIImageView*logoImage;
         label.text = @"聚工厂";
         label.font = [UIFont boldSystemFontOfSize:16.0f];
         label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+
         [self addSubview:label];
     }
     return self;
