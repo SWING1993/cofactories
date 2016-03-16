@@ -125,9 +125,9 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        return kHeaderHeight+15;
+        return kHeaderHeight+20;
     }
-    return 15;
+    return 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -218,7 +218,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         CGSize size = [Tools getSize:_designModel.descriptions andFontOfSize:12 andWidthMake:kScreenW-90];
-        return 80+size.height;
+        return 90+size.height;
     }
     return 30;
 }
