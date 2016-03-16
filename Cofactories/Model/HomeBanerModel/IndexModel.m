@@ -12,8 +12,8 @@
 
 - (instancetype)initIndexModelWithDictionary:(NSDictionary *)dictionary{
     if (self =[super init]) {
-        self.img = dictionary[@"img"];
-        self.url = dictionary[@"url"];
+        self.img = [NSString stringWithFormat:@"%@", dictionary[@"img"]];
+        self.url = [NSString stringWithFormat:@"%@", dictionary[@"url"]];
         self.action = dictionary[@"action"];
     }
     return self;
