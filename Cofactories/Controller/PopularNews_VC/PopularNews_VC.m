@@ -41,39 +41,37 @@ static NSString *newsCellIdentifier = @"newsCell";
 }
 
 - (void)creatTableHeaderView {
-    
     UIImageView *placeHolderView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)];
     placeHolderView.image = [UIImage imageNamed:@"bannerPlaceHolder"];
     self.tableView.tableHeaderView = placeHolderView;
-    
 }
 
-
 - (void)getConfig {
-    NSArray *imageArray = @[@"ZGY1", @"ZGY2", @"ZGY3", @"ZGY4"];
     
-    WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:NO];
-    firstView.delegate=self;
-    firstView.imagesArray = imageArray;
-    self.tableView.tableHeaderView = firstView;
-//    [HttpClient getConfigWithType:@"news" WithBlock:^(NSDictionary *responseDictionary) {
-//        int statusCode = [responseDictionary[@"statusCode"] intValue];
-//        DLog(@"statusCode = %d", statusCode);
-//        if (statusCode == 200) {
-//            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
-//            self.bannerImageArray = [NSMutableArray arrayWithCapacity:0];
-//            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
-//            for (NSDictionary *dictionary in jsonArray) {
-//                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
-//                [self.bannerArray addObject:bannerModel];
-//                [self.bannerImageArray addObject:bannerModel.img];
-//            }
-//            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
-//            firstView.delegate=self;
-//            firstView.imagesArray = self.bannerImageArray;
-//            self.tableView.tableHeaderView = firstView;
-//        }
-//    }];
+//    NSArray *imageArray = @[@"ZGY1", @"ZGY2", @"ZGY3", @"ZGY4"];
+//    WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:NO];
+//    firstView.delegate=self;
+//    firstView.imagesArray = imageArray;
+//    self.tableView.tableHeaderView = firstView;
+    
+    [HttpClient getConfigWithType:@"news" WithBlock:^(NSDictionary *responseDictionary) {
+        int statusCode = [responseDictionary[@"statusCode"] intValue];
+        DLog(@"statusCode = %d", statusCode);
+        if (statusCode == 200) {
+            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
+            self.bannerImageArray = [NSMutableArray arrayWithCapacity:0];
+            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dictionary in jsonArray) {
+                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
+                [self.bannerArray addObject:bannerModel];
+                [self.bannerImageArray addObject:bannerModel.img];
+            }
+            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
+            firstView.delegate=self;
+            firstView.imagesArray = self.bannerImageArray;
+            self.tableView.tableHeaderView = firstView;
+        }
+    }];
 }
 
 #pragma mark - 遮盖层
