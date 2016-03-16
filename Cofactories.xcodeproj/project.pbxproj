@@ -1405,10 +1405,10 @@
 			isa = PBXGroup;
 			children = (
 				7DC3D5681C8AAABF00D358BE /* PopularNews_VC */,
+				0395D2FD1BFC6D280009AABC /* Login&Register */,
 				7D6F43321C5EF54B00A60892 /* PushViewController */,
 				7DA17DE61C4CB9C200F024CB /* ShoppingMall_VC */,
 				70F4AFB11C180DEF00615A7E /* PersonalMessage(个人界面) */,
-				0395D2FD1BFC6D280009AABC /* Login&Register */,
 				03927D791BEC8C3F0087A2FD /* HomeViewController */,
 				7094D71F1BFC821400F7240B /* WalletViewController */,
 				0395D2F71BFC66C60009AABC /* OrderViewController */,

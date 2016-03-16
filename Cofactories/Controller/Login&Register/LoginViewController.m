@@ -85,6 +85,20 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 120)];
     
+//    FUISwitch * mySwitch = [[FUISwitch alloc]initWithFrame:CGRectMake(kScreenW-100, 10, 80, 20)];
+//    mySwitch.offLabel.text = @"普通账号";
+//    mySwitch.onLabel.text = @"企业账号";
+//    
+//    mySwitch.onColor = [UIColor turquoiseColor];
+//    mySwitch.offColor = [UIColor cloudsColor];
+//
+//    mySwitch.onBackgroundColor = [UIColor midnightBlueColor];
+//    mySwitch.offBackgroundColor = [UIColor silverColor];
+//    
+//    mySwitch.offLabel.font = [UIFont boldFlatFontOfSize:14];
+//    mySwitch.onLabel.font = [UIFont boldFlatFontOfSize:14];
+//    [tableFooterView addSubview:mySwitch];
+    
     //企业账号
     UIButton * enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     enterpriseBtn.frame = CGRectMake(kScreenW - 45, 10, 20, 20);
@@ -110,8 +124,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.loginBtn = ({
         LoginButton * button = [[LoginButton alloc]init];
         button.frame =  CGRectMake(20, 40, (kScreenW-40), 35);
-        button.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
-        [button setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        button.backgroundColor = kButtonNormalBackgroundCorlor;
+        [button setTitleColor:kButtonNormalTitleCorlor forState:UIControlStateNormal];
         button.userInteractionEnabled = NO;
         button.tag=10;
         button.titleLabel.font=[UIFont boldSystemFontOfSize:16.5];
@@ -150,12 +164,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)infoActionRecharge {
     if (self.myLogin.phone.length == 0 || self.myLogin.password.length == 0) {
-        self.loginBtn.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
-        [self.loginBtn setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        self.loginBtn.backgroundColor = kButtonNormalBackgroundCorlor;
+        [self.loginBtn setTitleColor:kButtonNormalTitleCorlor forState:UIControlStateNormal];
         self.loginBtn.userInteractionEnabled = NO;
     } else {
-        self.loginBtn.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
-        [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.loginBtn.backgroundColor = kButtonHighlightedBackgroundCorlor;
+        [self.loginBtn setTitleColor:kButtonHighlightedTitleCorlor forState:UIControlStateNormal];
         self.loginBtn.userInteractionEnabled = YES;
     }
 }

@@ -45,7 +45,7 @@
     NSString *requestString = [[request URL] absoluteString];
     DLog(@"^^^^^^^^%@", requestString);
     
-    [JSExceptionReporter startCaptureJSExceptionWithWebView:webView injectScript:YES];
+//    [JSExceptionReporter startCaptureJSExceptionWithWebView:webView injectScript:YES];
     //判断是不是点击链接
     if ([requestString hasPrefix:@"cofactories:"]) {
         //判断是不是直接进入商城

@@ -133,7 +133,7 @@ static NSString *renZhengCellIdentifier = @"renZhengCell";
 - (void)infoAction {
     if (priseNameTextField.text.length != 0 && priseAddressTextField.text.length != 0 && personNameTextField.text.length != 0 && (idCardTextField.text.length == 18 || idCardTextField.text.length == 19 || idCardTextField.text.length == 20) ) {
         DLog(@"去认证");
-        lastButton.backgroundColor = kLightBlue;
+        lastButton.backgroundColor = kMainLightBlueColor;
         [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         lastButton.userInteractionEnabled = YES;
 

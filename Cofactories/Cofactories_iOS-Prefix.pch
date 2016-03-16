@@ -139,11 +139,17 @@
 #define kGreen [UIColor colorWithHexString:@"0x3bbd79"]
 #define kBlack [UIColor colorWithHexString:@"0x28303b"]
 #define MAIN_COLOR  [UIColor colorWithRed:72/255.0 green:126/255.0 blue:208/255.0 alpha:1]
-#define kDeepBlue [UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f]
-#define kLightBlue [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f]
-#define kLineGrayCorlor [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f]
-#define kBackgroundColor [UIColor colorWithRed:250.0f/255.0f green:251.0f/255.0f blue:252.0f/255.0f alpha:1.0f]
+#define kMainDeepBlue [UIColor colorWithRed:48.0f/255.0f green:121.0f/255.0f blue:214.0f/255.0f alpha:1.0f]
+#define kMainLightBlueColor [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f]
+#define kLineGrayCorlor [UIColor colorWithRed:206.0f/255.0f green:206.0f/255.0f blue:207.0f/255.0f alpha:1.0f]//线或者框浅灰色
+#define kTableViewBackgroundColor [UIColor colorWithRed:250.0f/255.0f green:251.0f/255.0f blue:252.0f/255.0f alpha:1.0f]
 #define GRAYCOLOR(RGB) [UIColor colorWithRed:RGB/255.0 green:RGB/255.0 blue:RGB/255.0 alpha:1.0] 
+
+#define kButtonNormalBackgroundCorlor [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f]
+#define kButtonHighlightedBackgroundCorlor [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f]
+
+#define kButtonNormalTitleCorlor [UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f]
+#define kButtonHighlightedTitleCorlor [UIColor whiteColor]
 
 #pragma mark - 常用变量
 #define kStatusBarHeight 20
@@ -180,7 +186,7 @@
 #import "TMCache.h"
 #import "SDCAlertView.h"
 #import "MBProgressHUD.h"
-
+#import <FlatUIKit/FlatUIKit.h>
 #import <RongIMKit/RongIMKit.h>//融云IM
 #import "UIButton+WebCache.h"//SDWebImage
 #import "UIImageView+WebCache.h"//SDWebImage

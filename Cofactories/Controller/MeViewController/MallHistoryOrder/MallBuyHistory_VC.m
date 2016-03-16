@@ -115,12 +115,12 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         typeBtn.titleLabel.font=[UIFont systemFontOfSize:14.0f];
         [typeBtn setTitle:btnTitleArray[i] forState:UIControlStateNormal];
         [typeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [typeBtn setTitleColor:kDeepBlue forState:UIControlStateSelected];
+        [typeBtn setTitleColor:kMainDeepBlue forState:UIControlStateSelected];
         [typeBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         if (i == self.status) {
             typeBtn.selected = YES;
             lineLabel = [[UILabel alloc]initWithFrame:CGRectMake(typeBtn.frame.origin.x + 5, 42, kScreenW/5 - 10, 2)];
-            lineLabel.backgroundColor = kDeepBlue;
+            lineLabel.backgroundColor = kMainDeepBlue;
             [headerView addSubview:lineLabel];
         }
         

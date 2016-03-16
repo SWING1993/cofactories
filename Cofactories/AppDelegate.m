@@ -143,12 +143,6 @@
         [MobClick startWithAppkey:Appkey_Umeng reportPolicy:SENDDAILY channelId:@"appStore"];// 启动时发送 Log AppStore分发渠道
         [MobClick setAppVersion:kVersion_Cofactories];
     }
-    RootViewController *mainVC = [[RootViewController alloc] init];
-    self.window.rootViewController = mainVC;
-    [self customizeInterface];
-    [_window makeKeyAndVisible];
-    
-    
     
     if (launchOptions != nil) {
         NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -167,6 +161,11 @@
                     kVersion_Cofactories];
     DLog(@"------%@",ua);
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent" : ua, @"User-Agent" : ua}];
+    
+    RootViewController *mainVC = [[RootViewController alloc] init];
+    self.window.rootViewController = mainVC;
+    [self customizeInterface];
+    [_window makeKeyAndVisible];
     
     return YES;
 }
