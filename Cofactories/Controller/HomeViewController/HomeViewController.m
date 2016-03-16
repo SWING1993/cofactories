@@ -69,7 +69,6 @@ static NSString *activityCellIdentifier = @"activityCell";
     NSArray *array1 = @[@"如意加工厂参与投标针织与罗马布", @"二七服装厂购买男装上衣版型", @"聚工科技投标成功", @"小李广童祥样品发布几件商品", @"好好服侍参与投标成功"];
     NSArray *array2 = @[@"聚工厂推出每日秒杀活动，火热展开，尽请关注！", @"聚工厂推出限制订单，为你的订单保驾护航！", @"聚工厂成立1周年，回馈广大用户！", @"聚工厂新增吐槽专区，说你想说的！", @"聚工厂新增版型推荐，推荐适合你的款型！"];
     myView = [[ZGYScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 60) withMessageArray1:array1 withMessageArray2:array2];
-    
 }
 
 - (void)creatTableView {
@@ -381,6 +380,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         }
     }];
 }
+
 - (void)getConfig {
     //轮播图
     [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {

@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    DLog(@"^^^^^^^^^^^^^%@", self.urlString);
     webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     webView.delegate = self;
     webView.backgroundColor = [UIColor whiteColor];

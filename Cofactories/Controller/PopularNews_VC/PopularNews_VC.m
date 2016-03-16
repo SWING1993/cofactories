@@ -29,35 +29,51 @@ static NSString *newsCellIdentifier = @"newsCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self creatHeaderView];
-    [self customSearchBar];
-    [self creatBackgroundView];
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[PopularNewsTop_Cell class] forCellReuseIdentifier:topCellIdentifier];
     [self.tableView registerClass:[PopularNews_Cell class] forCellReuseIdentifier:newsCellIdentifier];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickBackgroundViewAction) name:UIKeyboardWillHideNotification object:nil];
+//    [self creatTableHeaderView];
+    [self getConfig];
+    [self customSearchBar];
+    [self creatBackgroundView];
 }
-- (void)creatHeaderView {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)];
-    [HttpClient getConfigWithType:@"news" WithBlock:^(NSDictionary *responseDictionary) {
-        int statusCode = [responseDictionary[@"statusCode"] intValue];
-        DLog(@"statusCode = %d", statusCode);
-        if (statusCode == 200) {
-            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
-            self.bannerImageArray = [NSMutableArray arrayWithCapacity:0];
-            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
-            for (NSDictionary *dictionary in jsonArray) {
-                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
-                [self.bannerArray addObject:bannerModel];
-                [self.bannerImageArray addObject:bannerModel.img];
-            }
-            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
-            firstView.delegate=self;
-            firstView.imagesArray = self.bannerImageArray;
-            [headerView addSubview:firstView];
-            self.tableView.tableHeaderView = headerView;
-        }
-    }];
+
+- (void)creatTableHeaderView {
+    
+    UIImageView *placeHolderView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)];
+    placeHolderView.image = [UIImage imageNamed:@"bannerPlaceHolder"];
+    self.tableView.tableHeaderView = placeHolderView;
+    
+}
+
+
+- (void)getConfig {
+    NSArray *imageArray = @[@"ZGY1", @"ZGY2", @"ZGY3", @"ZGY4"];
+    
+    WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:NO];
+    firstView.delegate=self;
+    firstView.imagesArray = imageArray;
+    self.tableView.tableHeaderView = firstView;
+//    [HttpClient getConfigWithType:@"news" WithBlock:^(NSDictionary *responseDictionary) {
+//        int statusCode = [responseDictionary[@"statusCode"] intValue];
+//        DLog(@"statusCode = %d", statusCode);
+//        if (statusCode == 200) {
+//            NSArray *jsonArray = (NSArray *)responseDictionary[@"responseArray"];
+//            self.bannerImageArray = [NSMutableArray arrayWithCapacity:0];
+//            self.bannerArray = [NSMutableArray arrayWithCapacity:0];
+//            for (NSDictionary *dictionary in jsonArray) {
+//                IndexModel *bannerModel = [IndexModel getIndexModelWithDictionary:dictionary];
+//                [self.bannerArray addObject:bannerModel];
+//                [self.bannerImageArray addObject:bannerModel.img];
+//            }
+//            WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
+//            firstView.delegate=self;
+//            firstView.imagesArray = self.bannerImageArray;
+//            self.tableView.tableHeaderView = firstView;
+//        }
+//    }];
 }
 
 #pragma mark - 遮盖层
@@ -150,7 +166,7 @@ static NSString *newsCellIdentifier = @"newsCell";
         cell.userPhoto.image = [UIImage imageNamed:@"meinv.jpg"];
         cell.userName.text = @"燕子photo";
         cell.newsType.text = @"设计师";
-        cell.newsPhoto.image = [UIImage imageNamed:@"1.jpg"];
+        cell.newsPhoto.image = [UIImage imageNamed:@"2"];
         cell.newsTitle.text = @"好戏就要开场，你功课做足了吗？";
         NSString *string = @"我叫我今儿机会也很好斤斤计较尽快解决经济我开开开开开已已已已已已奇偶姐姐看看解决快乐老家临渴掘...";
         
