@@ -354,7 +354,6 @@
             [HttpClient deleteToken];
             [RootViewController setupLoginViewController];
         }
-  
     }
     if (alertView.tag == 223) { 
         if (buttonIndex == 1) {

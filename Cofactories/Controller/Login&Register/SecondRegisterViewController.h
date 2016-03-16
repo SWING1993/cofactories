@@ -10,8 +10,8 @@
 
 @interface SecondRegisterViewController : UITableViewController
 
-@property (nonatomic,retain) NSString * phone;
-@property (nonatomic,retain) NSString * password;
-@property (nonatomic,retain) NSString * code;
+@property (nonatomic, copy) NSString * phone;
+@property (nonatomic, copy) NSString * password;
+@property (nonatomic, copy) NSString * code;
 
 @end

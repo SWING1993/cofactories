@@ -17,19 +17,20 @@
 #import "RootViewController.h"
 #import "EaseInputTipsView.h"
 #import "Login.h"
+
 static NSString * const CellIdentifier = @"CellIdentifier";
 
 @interface LoginViewController () <UIAlertViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) Login *myLogin;
 @property (strong, nonatomic) EaseInputTipsView *inputTipsView;
-@property (strong, nonatomic) UIImageView *bgBlurredView;
+@property (strong, nonatomic) UILabel * enterpriseLabel;
+@property (strong, nonatomic) LoginButton * loginBtn;
 @property (assign, nonatomic) BOOL isEnterprise;
 
 @end
 
 @implementation LoginViewController
-UILabel * enterpriseLabel;
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -63,26 +64,30 @@ UILabel * enterpriseLabel;
 
     self.myLogin = [[Login alloc] init];
     self.myLogin.phone = [Login preUserPhone];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoActionRecharge) name:UITextFieldTextDidChangeNotification object:nil];
 
+    [self createViews];
+}
+
+- (void)createViews {
+    
     self.title=@"登录";
-    self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
-    self.tableView.showsVerticalScrollIndicator=NO;
-    self.tableView.backgroundColor = [UIColor whiteColor];
-//    self.tableView.backgroundView = self.bgBlurredView;
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    [self.tableView registerClass:[Input_OnlyText_Cell class] forCellReuseIdentifier:kCellIdentifier_Input_OnlyText_Cell_Text];
-
-
-    LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
-    self.tableView.tableHeaderView = tableHeaderView;
-
+    self.tableView = ({
+        UITableView * tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
+        tableView.showsVerticalScrollIndicator = NO;
+        tableView.backgroundColor = [UIColor whiteColor];
+        [tableView registerClass:[Input_OnlyText_Cell class] forCellReuseIdentifier:kCellIdentifier_Input_OnlyText_Cell_Text];
+        LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
+        tableView.tableHeaderView = tableHeaderView;
+        tableView;
+    });
+    
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 120)];
     
     //企业账号
-
     UIButton * enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    enterpriseBtn.frame = CGRectMake(kScreenW - 45, 7.5, 25, 25);
+    enterpriseBtn.frame = CGRectMake(kScreenW - 45, 10, 20, 20);
     enterpriseBtn.tag = 9;
     enterpriseBtn.selected = self.isEnterprise;
     [enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Normal"] forState:UIControlStateNormal];
@@ -91,23 +96,32 @@ UILabel * enterpriseLabel;
     [enterpriseBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:enterpriseBtn];
     
-    enterpriseLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenW - 110, 10, 60, 20)];
-    enterpriseLabel.textAlignment = NSTextAlignmentCenter;
-    enterpriseLabel.text = @"企业账号";
-    enterpriseLabel.textColor = [UIColor blackColor];
-    enterpriseLabel.font = [UIFont boldSystemFontOfSize:14];
-    [tableFooterView addSubview:enterpriseLabel];
+    self.enterpriseLabel = ({
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenW - 110, 10, 60, 20)];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = @"企业账号";
+        label.textColor = [UIColor blackColor];
+        label.font = [UIFont boldSystemFontOfSize:14];
+        label;
+    });
+    [tableFooterView addSubview:self.enterpriseLabel];
     
     //登录 Button
-    LoginButton*loginBtn=[[LoginButton alloc]init];
-    loginBtn.frame =  CGRectMake(20, 40, (kScreenW-40), 35);
-    loginBtn.tag=10;
-    loginBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16.5];
-    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    [loginBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [tableFooterView addSubview:loginBtn];
+    self.loginBtn = ({
+        LoginButton * button = [[LoginButton alloc]init];
+        button.frame =  CGRectMake(20, 40, (kScreenW-40), 35);
+        button.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+        [button setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        button.userInteractionEnabled = NO;
+        button.tag=10;
+        button.titleLabel.font=[UIFont boldSystemFontOfSize:16.5];
+        [button setTitle:@"登录" forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
+        button;
+    });
     
-
+    [tableFooterView addSubview:self.loginBtn];
+   
     //注册 button
     UIButton * registerBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     registerBtn.frame =CGRectMake((kScreenW-40)/2+40, 75, (kScreenW-40)/2-20, 55);
@@ -118,7 +132,7 @@ UILabel * enterpriseLabel;
     [registerBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:registerBtn];
-
+    
     UIButton * forgetBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     forgetBtn.frame = CGRectMake(20, 75, (kScreenW-40)/2-20, 55);
     forgetBtn.tag=12;
@@ -128,9 +142,22 @@ UILabel * enterpriseLabel;
     [forgetBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [forgetBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:forgetBtn];
-
+    
     self.tableView.tableFooterView = tableFooterView;
     [self refreshIconUserImageWithKey:self.myLogin.phone];
+}
+
+
+- (void)infoActionRecharge {
+    if (self.myLogin.phone.length == 0 || self.myLogin.password.length == 0) {
+        self.loginBtn.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+        [self.loginBtn setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        self.loginBtn.userInteractionEnabled = NO;
+    } else {
+        self.loginBtn.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+        [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.loginBtn.userInteractionEnabled = YES;
+    }
 }
 
 - (void)clickbBtn:(UIButton*)sender{
@@ -140,9 +167,9 @@ UILabel * enterpriseLabel;
             self.isEnterprise = !self.isEnterprise;
             sender.selected = self.isEnterprise;
             if (sender.selected) {
-                enterpriseLabel.textColor = [UIColor redColor];
+                self.enterpriseLabel.textColor = [UIColor redColor];
             }else {
-                enterpriseLabel.textColor = [UIColor blackColor];
+                self.enterpriseLabel.textColor = [UIColor blackColor];
             }
             DLog(@"企业账号:%d",sender.selected);
         }
@@ -150,53 +177,69 @@ UILabel * enterpriseLabel;
             
         case 10:{
             DLog(@"登录");
-            MBProgressHUD *hud = [Tools createHUD];
-            hud.labelText = @"登录中...";
-    
             [button setEnabled:NO];
-            if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
-                [button setEnabled:YES];
-                [hud hide:YES];
-                kTipAlert(@":）请您填写账号以及密码后登录");
-            }else{
-                [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
-                    switch (statusCode) {
-                        case 0:{
-                            [hud hide:YES];
-                            [button setEnabled:YES];
-                            kTipAlert(@":）您的网络状态不太顺畅哦");
-                        }
-                            break;
-                        case 200:{
-                            [hud hide:YES];
 
-                            DLog(@"登录成功");
-                            [button setEnabled:YES];
-                            [Login setPreUserPhone:self.myLogin.phone];//记住登录账号
-                            [RootViewController setupTabarController];
-                            double delayInSeconds = 7.0;
-                            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                            dispatch_after(popTime, dispatch_get_main_queue(), ^{
-                                [Login saveLoginData];
-                            });
+            CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+            animation.keyPath = @"position.x";
+            animation.values = @[ @0, @10, @-10, @10, @0 ];
+            animation.keyTimes = @[ @0, @(1 / 6.0), @(3 / 6.0), @(5 / 6.0), @1 ];
+            animation.duration = 0.5;
+            animation.additive = YES;
+            [self.loginBtn.layer addAnimation:animation forKey:@"shake"];
+            
+            double delayInSeconds = 0.5;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                MBProgressHUD *hud = [Tools createHUD];
+                hud.labelText = @"登录中...";
+                if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
+                    [button setEnabled:YES];
+                    [hud hide:YES];
+                    kTipAlert(@":）请您填写账号以及密码后登录");
+                }else{
+                    [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
+                        switch (statusCode) {
+                            case 0:{
+                                [hud hide:YES];
+                                [button setEnabled:YES];
+                                kTipAlert(@":）您的网络状态不太顺畅哦");
+                            }
+                                break;
+                                
+                            case 200:{
+                                DLog(@"登录成功");
+                                
+                                [hud hide:YES];
+                                [button setEnabled:YES];
+                                [Login setPreUserPhone:self.myLogin.phone];//记住登录账号
+                                [RootViewController setupTabarController];
+                                double delayInSeconds = 7.0;
+                                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                                dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                                    [Login saveLoginData];
+                                });
+                                
+                            }
+                                break;
+                                
+                            case 401:{
+                                [hud hide:YES];
+                                [button setEnabled:YES];
+                                kTipAlert(@":）用户名或密码错误");
+                                
+                            }
+                                break;
+                                
+                            default:
+                                [hud hide:YES];
+                                [button setEnabled:YES];
+                                kTipAlert(@":）登录失败 (%ld)",(long)statusCode);
+                                break;
+                        }
+                    }];
+                }
 
-                        }
-                            break;
-                        case 401:{
-                            [hud hide:YES];
-                            [button setEnabled:YES];
-                            kTipAlert(@":）用户名或密码错误");
-                        }
-                            break;
-                            
-                        default:
-                            [hud hide:YES];
-                            [button setEnabled:YES];
-                            kTipAlert(@":）登录失败 (%ld)",(long)statusCode);
-                            break;
-                    }
-                }];
-            }
+            });
         }
             break;
             
@@ -216,6 +259,7 @@ UILabel * enterpriseLabel;
             [self presentViewController:resetNav animated:YES completion:nil];
         }
             break;
+            
         default:
             DLog(@"无该case");
             break;
@@ -230,6 +274,8 @@ UILabel * enterpriseLabel;
     }
 }
 
+
+/*
 - (UIImageView *)bgBlurredView{
     if (!_bgBlurredView) {
         //背景图片
@@ -248,6 +294,7 @@ UILabel * enterpriseLabel;
     }
     return _bgBlurredView;
 }
+ */
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -262,12 +309,11 @@ UILabel * enterpriseLabel;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2;
-    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     Input_OnlyText_Cell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Input_OnlyText_Cell_Text forIndexPath:indexPath];
-
     __weak typeof(self) weakSelf = self;
     if (indexPath.row == 0) {
         cell.textField.keyboardType = UIKeyboardTypeNumberPad;
@@ -306,8 +352,10 @@ UILabel * enterpriseLabel;
 }
 
 - (void)dealloc {
+    self.tableView = nil;
     self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

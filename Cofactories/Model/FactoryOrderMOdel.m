@@ -19,9 +19,8 @@
         self.createdAt = (NSString *)[creatArray firstObject];
         self.deadline = dictionary[@"deadline"];
         
-        NSString *saleString = [NSString stringWithFormat:@"%@",dictionary[@"description"]];
-                DLog(@"--------- ++++  %@",saleString);
-
+        NSString *saleString = dictionary[@"description"];
+                //DLog(@"---------++++%@",saleString);
         if ([saleString isEqualToString:@"<null>"] || [saleString isEqualToString:@"(null)"] || [Tools isBlankString:saleString] == YES){
             self.descriptions = @"商家未填写备注";
         }else{
