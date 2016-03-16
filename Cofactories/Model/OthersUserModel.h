@@ -21,8 +21,9 @@
 @property (nonatomic, retain) NSString * subRole;
 @property (nonatomic, retain) NSString * scale;
 @property (nonatomic, retain) NSString * score;
-@property (nonatomic, retain) NSString * verified;
-@property (nonatomic, retain) NSString * enterprise;
+//@property (nonatomic, retain) NSString * verified;
+//@property (nonatomic, retain) NSString * enterprise;
+@property (nonatomic, copy)   NSString *userIdentity; //用户身份
 @property (nonatomic, copy)   NSArray  *photoArray;
 @property (nonatomic, copy)   NSString *descriptions;
 

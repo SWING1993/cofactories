@@ -70,11 +70,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _refrushCount = 1;
     [self setupRefresh];
     [HttpClient searchBusinessWithRole:@"clothing" scale:nil province:nil city:nil subRole:nil keyWord:nil verified:nil page:@1 WithCompletionBlock:^(NSDictionary *dictionary) {
-        DLog(@"==%@",dictionary);
+        //DLog(@"==%@",dictionary);
         NSArray *array = dictionary[@"message"];
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSDictionary *dic = obj;
             Business_Supplier_Model *model = [Business_Supplier_Model getBusinessSupplierModelWithDictionary:dic];
+            
             [_dataArray addObject:model];
         }];
         [_tableView reloadData];
