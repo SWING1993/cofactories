@@ -2320,11 +2320,14 @@
                     break;
                 default:{
                     NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-                    block(@{@"statusCode": @(statusCode), @"message": errors});
+                    DLog(@"error = %@", errors);
+                    block(@{@"statusCode": @(statusCode), @"message": @"网络错误"});
                 }
                     break;
             }
         }];
+    } else {
+        block(@{@"statusCode": @404, @"message": @"access_token不存在!"});
     }
 }
 
@@ -2352,8 +2355,11 @@
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
             NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-            block(@{@"statusCode": @(statusCode), @"message":errors });
+            DLog(@"error = %@", errors);
+            block(@{@"statusCode": @(statusCode), @"message":@"网络错误"});
         }];
+    } else {
+        block(@{@"statusCode": @404, @"message": @"access_token不存在!"});
     }
 }
 

@@ -166,14 +166,14 @@ static NSString * placeholderString = @"暂无";
             _verified = placeholderString;
         }else {
             _verified = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"verified"]];
-
         }
         
         if ([[dictionary objectForKey:@"enterprise"] isEqual:[NSNull null]]) {
-            _enterprise = placeholderString;
-        }else {
-            _enterprise = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"enterprise"]];
-
+            _enterprise = @"非企业用户";
+        } else if ([[dictionary objectForKey:@"enterprise"] isEqual:@"0"]){
+            _enterprise = @"企业账号主账号";
+        } else {
+            _enterprise = @"企业账号子账号";
         }
         
         if ([[dictionary objectForKey:@"score"] isEqual:[NSNull null]]) {
