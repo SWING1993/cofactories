@@ -23,7 +23,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 @property (nonatomic, copy) NSString * statusCode;
 @property (nonatomic, assign) BOOL isSeletecd;
 @property (strong, nonatomic) UITextField * usernameTF,* passwordTF,* codeTF;
-@property (strong, nonatomic) LoginButton * authcodeBtn;
+@property (strong, nonatomic) LoginButton * authcodeBtn,* nextBtn ;
+
 @end
 
 @implementation RegisterViewController
@@ -31,14 +32,18 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title=@"注册";
-    self.view.backgroundColor=[UIColor whiteColor];
     self.isSeletecd = YES;
     DLog(@"用户协议 = %d",self.isSeletecd);
     [self createViews];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldCharge) name:UITextFieldTextDidChangeNotification object:nil];
+
 }
 
 - (void)createViews {
+    
+    self.title=@"注册";
+    self.view.backgroundColor=[UIColor whiteColor];
     
     self.tableView = ({
         UITableView * tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
@@ -71,13 +76,18 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [btn addTarget:self action:@selector(clickRightBtn) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:btn];
     
-    LoginButton*nextBtn = [[LoginButton alloc]initWithFrame:CGRectMake(20, 50, kScreenW-40, 35)];;
-    [nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
-    [nextBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [tableFooterView addSubview:nextBtn];
+    if (!_nextBtn) {
+        
+        _nextBtn = [[LoginButton alloc]initWithFrame:CGRectMake(20, 50, kScreenW-40, 35)];;
+        [_nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
+        [_nextBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _nextBtn.userInteractionEnabled = NO;
+        [_nextBtn changeState:_nextBtn.userInteractionEnabled];
+        [tableFooterView addSubview:_nextBtn];
+    }
     self.tableView.tableFooterView = tableFooterView;
 
-
+    
     if (!_usernameTF) {
         _usernameTF = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-15, 44)];
         _usernameTF.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -91,7 +101,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         _passwordTF.clearButtonMode = UITextFieldViewModeWhileEditing;
         _passwordTF.placeholder = @" 密码(6位及以上)";
         _passwordTF.font = [UIFont systemFontOfSize:15];
-
         _passwordTF.secureTextEntry = YES;
     }
 
@@ -105,8 +114,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
 
     if (!_authcodeBtn) {
-        _authcodeBtn=[[LoginButton alloc]initWithFrame:CGRectMake(kScreenW-100, 7, 90, 30)];
-
+        _authcodeBtn=[[LoginButton alloc]initWithFrame:CGRectMake(kScreenW-105, 7, 85, 30)];
         _authcodeBtn.titleLabel.font=[UIFont systemFontOfSize:14.0f];
         [_authcodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_authcodeBtn addTarget:self action:@selector(sendCodeBtn) forControlEvents:UIControlEventTouchUpInside];
@@ -114,11 +122,22 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
 }
 
+- (void)textFieldCharge {
+    if (self.usernameTF.text.length == 0 || self.passwordTF.text.length == 0 || self.codeTF.text.length == 0) {
+        _nextBtn.userInteractionEnabled = NO;
+        [_nextBtn changeState:_nextBtn.userInteractionEnabled];
+    } else {
+        _nextBtn.userInteractionEnabled = YES;
+        [_nextBtn changeState:_nextBtn.userInteractionEnabled];
+    }
+}
+
 - (void)sendCodeBtn {
-    MBProgressHUD *hud = [Tools createHUD];
-    hud.labelText = @"验证码发送中...";
     [self.authcodeBtn setEnabled:NO];
+    [self.authcodeBtn addShakeAnimation];
     if (_usernameTF.text.length==11) {
+        MBProgressHUD *hud = [Tools createHUD];
+        hud.labelText = @"验证码发送中...";
         [HttpClient postVerifyCodeWithPhone:self.usernameTF.text andBlock:^(NSDictionary *responseDictionary) {
             NSInteger  statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
             NSString * message = [responseDictionary objectForKey:@"message"];
@@ -134,7 +153,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             }
         }];
     }else{
-        [hud  hide:YES];
         kTipAlert(@"您输入的是一个无效的手机号码");
         [self.authcodeBtn setEnabled:YES];
     }
@@ -142,6 +160,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 
 - (void)registerBtnClick {
+    [self.nextBtn addShakeAnimation];
     if (self.usernameTF.text.length==0 || self.passwordTF.text.length==0 || self.codeTF.text.length==0 ) {
         kTipAlert(@"注册信息不完整");
     }
@@ -238,6 +257,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     self.tableView = nil;
     self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
