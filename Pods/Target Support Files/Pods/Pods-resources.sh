@@ -58,11 +58,6 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "FlatUIKit/Resources/flat-ui-icons-regular.ttf"
-  install_resource "FlatUIKit/Resources/Lato-Bold.ttf"
-  install_resource "FlatUIKit/Resources/Lato-Italic.ttf"
-  install_resource "FlatUIKit/Resources/Lato-Light.ttf"
-  install_resource "FlatUIKit/Resources/Lato-Regular.ttf"
   install_resource "IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_4_8_stable/RongCloud.bundle"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_4_8_stable/en.lproj"
@@ -100,11 +95,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "iVersion/iVersion/iVersion.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "FlatUIKit/Resources/flat-ui-icons-regular.ttf"
-  install_resource "FlatUIKit/Resources/Lato-Bold.ttf"
-  install_resource "FlatUIKit/Resources/Lato-Italic.ttf"
-  install_resource "FlatUIKit/Resources/Lato-Light.ttf"
-  install_resource "FlatUIKit/Resources/Lato-Regular.ttf"
   install_resource "IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_4_8_stable/RongCloud.bundle"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_4_8_stable/en.lproj"
