@@ -13,7 +13,7 @@
 #import "LoginTableHeaderView.h"
 #import "SecondRegisterViewController.h"
 #import "RootViewController.h"
-
+#import "Login.h"
 static NSString * const CellIdentifier = @"CellIdentifier";
 
 @interface SecondRegisterViewController ()<UIAlertViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource> {
@@ -39,56 +39,66 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     // Do any additional setup after loading the view.
     
     self.title=@"注册";
-   
+    self.view.backgroundColor=[UIColor whiteColor];
+
     UserModel * model = [[UserModel alloc]initWithArray];
     self.UserTypeList = model.UserTypeListArray;
     self.UserTypeArray = model.UserTypeArray;
     
-    self.view.backgroundColor=[UIColor whiteColor];
-    self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
-    self.tableView.showsVerticalScrollIndicator=NO;
-    self.tableView.backgroundColor = [UIColor whiteColor];
-    
-    LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
-    self.tableView.tableHeaderView = tableHeaderView;
-    UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 60)];
-    LoginButton*nextBtn=[[LoginButton alloc]initWithFrame:CGRectMake(20, 15, kScreenW-40, 35)];;
-    [nextBtn setTitle:@"注册" forState:UIControlStateNormal];
-    [nextBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [tableFooterView addSubview:nextBtn];
-    self.tableView.tableFooterView = tableFooterView;
-    [self createUI];
-    //设置Btn
-    UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"返回登录" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
-    self.navigationItem.rightBarButtonItem = setButton;
+    [self createViews];
 }
 
 - (void)buttonClicked{
-     NSArray * viewControllers = self.navigationController.viewControllers;
+    NSArray * viewControllers = self.navigationController.viewControllers;
     [self.navigationController popToViewController:[viewControllers firstObject] animated:YES];
 }
 
 
-- (void)createUI {
+- (void)createViews {
+    
+    //设置Btn
+    UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"返回登录" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
+    self.navigationItem.rightBarButtonItem = setButton;
+    
+    self.tableView = ({
+        UITableView * tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
+        tableView.showsVerticalScrollIndicator = NO;
+        tableView.backgroundColor = [UIColor whiteColor];
+        tableView;
+    });
+    
+    LoginTableHeaderView*tableHeaderView = [[LoginTableHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kLogintTableHeaderView_height)];
+    self.tableView.tableHeaderView = tableHeaderView;
+    
+    UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 60)];
+    
+    LoginButton*nextBtn = [[LoginButton alloc]initWithFrame:CGRectMake(20, 15, kScreenW-40, 35)];;
+    [nextBtn setTitle:@"注册" forState:UIControlStateNormal];
+    [nextBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [tableFooterView addSubview:nextBtn];
+    self.tableView.tableFooterView = tableFooterView;
+       
     if (!_UserNameTF) {
         _UserNameTF = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-15, 44)];
         _UserNameTF.clearButtonMode=UITextFieldViewModeWhileEditing;
-        _UserNameTF.placeholder=@"工厂名称";
+        _UserNameTF.placeholder = @" 工厂名称";
+        _UserNameTF.font = [UIFont systemFontOfSize:15];
+
     }
     
     if (!_UserTypeTF) {
         _UserTypeTF = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, kScreenW-15, 44)];
-        _UserTypeTF.placeholder=@"工厂类型";
+        _UserTypeTF.placeholder = @" 工厂类型";
         _UserTypeTF.inputView = [self fecthPicker];
         _UserTypeTF.inputAccessoryView = [self fecthToolbar];
-        _UserTypeTF.delegate =self;
-        
+        _UserTypeTF.delegate = self;
+        _UserTypeTF.font = [UIFont systemFontOfSize:15];
     }
 }
 
 - (void)registerBtnClick {
     if (_UserTypeTF.text.length==0 || _UserNameTF.text.length==0 ) {
-        kTipAlert(@"注册信息不完整!");
+        kTipAlert(@"注册信息不完整");
     }else{
         DLog(@"注册信息：Username:%@ password:%@ UserRole:%@ code:%@ UserName:%@",self.phone,self.password,self.UserTypeArray[selectedInt],self.code,_UserNameTF.text);
         
@@ -96,50 +106,24 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             int statusCode =[responseDictionary[@"statusCode"]intValue];
             DLog(@"statusCode == %d",statusCode);
             if (statusCode == 200) {
-                UIAlertView*alertView=[[UIAlertView alloc]initWithTitle:@"注册成功!" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"去登录", nil];
-                alertView.tag = 10086;
+                UIAlertView*alertView=[[UIAlertView alloc]initWithTitle:@"注册成功" message:nil delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:@"去登录", nil];
+                alertView.tag = 200;
                 [alertView show];
             }else{
                 NSString*message = responseDictionary[@"message"];
-                kTipAlert(@"%@(错误码：%ld)",message,(long)statusCode);
+                kTipAlert(@"%@(%ld)",message,(long)statusCode);
             }
         }];
     }
 }
-//注册成功 登录
-- (void)login{
-
-   [HttpClient loginWithUsername:self.phone password:self.password andBlock:^(NSInteger statusCode) {
-       switch (statusCode) {
-           case 0:{
-               kTipAlert(@"您的网络状态不太顺畅哦！");
-           }
-               break;
-           case 200:{
-               [RootViewController setupTabarController];
-               
-           }
-               break;
-           case 401:{
-               kTipAlert(@"用户名或密码错误！");
-           }
-               break;
-               
-           default:
-               kTipAlert(@"登录失败 (错误码：%ld)",(long)statusCode);
-               break;
-       }
-   }];
-}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 10086) {
-        [self login];
+    if (alertView.tag == 200) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -234,7 +218,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     [_UserTypeTF endEditing:YES];
     DLog(@"factoryTypeInt == %ld",(long)selectedInt);
-    
 }
 -(void)cancel{
     _UserTypeString = nil;
@@ -247,15 +230,5 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

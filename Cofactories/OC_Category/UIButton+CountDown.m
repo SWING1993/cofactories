@@ -51,8 +51,27 @@
             timeOut--;
         }
     });
-    
     dispatch_resume(_timer);
+}
+
+- (void)changeState:(BOOL)userInteractionEnabled {
+    if (userInteractionEnabled) {
+        self.backgroundColor = kButtonHighlightedBackgroundCorlor;
+        [self setTitleColor:kButtonHighlightedTitleCorlor forState:UIControlStateNormal];
+    }else {
+        self.backgroundColor = kButtonNormalBackgroundCorlor;
+        [self setTitleColor:kButtonNormalTitleCorlor forState:UIControlStateNormal];
+    }
+}
+
+- (void)addShakeAnimation {
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+    animation.keyPath = @"position.x";
+    animation.values = @[ @0, @10, @-10, @10, @0 ];
+    animation.keyTimes = @[ @0, @(1 / 6.0), @(3 / 6.0), @(5 / 6.0), @1 ];
+    animation.duration = 0.5;
+    animation.additive = YES;
+    [self.layer addAnimation:animation forKey:@"shake"];
 }
 
 @end

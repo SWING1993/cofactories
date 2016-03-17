@@ -30,9 +30,6 @@
 //支付宝
 #import <AlipaySDK/AlipaySDK.h>
 
-//腾讯bugly
-#define Appkey_bugly @"900009962"
-
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define _IPHONE80_ 80000
 
@@ -54,6 +51,7 @@
         [MobClick setCrashReportEnabled:NO];
         //开启腾讯Bugly
         [[CrashReporter sharedInstance] installWithAppId:Appkey_bugly];
+        [[CrashReporter sharedInstance] enableBlockMonitor:YES];
     }
 #pragma mark - iVersion
     {
@@ -145,12 +143,6 @@
         [MobClick startWithAppkey:Appkey_Umeng reportPolicy:SENDDAILY channelId:@"appStore"];// 启动时发送 Log AppStore分发渠道
         [MobClick setAppVersion:kVersion_Cofactories];
     }
-    RootViewController *mainVC = [[RootViewController alloc] init];
-    self.window.rootViewController = mainVC;
-    [self customizeInterface];
-    [_window makeKeyAndVisible];
-    
-    
     
     if (launchOptions != nil) {
         NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -168,9 +160,13 @@
                     userAgent,
                     kVersion_Cofactories];
     DLog(@"------%@",ua);
-    
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent" : ua, @"User-Agent" : ua}];
-    DLog(@"================%@",launchOptions[@"UIApplicationLaunchOptionsShortcutItemKey"]);
+    
+    RootViewController *mainVC = [[RootViewController alloc] init];
+    self.window.rootViewController = mainVC;
+    [self customizeInterface];
+    [_window makeKeyAndVisible];
+    
     return YES;
 }
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
@@ -357,7 +353,6 @@
             [HttpClient deleteToken];
             [RootViewController setupLoginViewController];
         }
-  
     }
     if (alertView.tag == 223) { 
         if (buttonIndex == 1) {

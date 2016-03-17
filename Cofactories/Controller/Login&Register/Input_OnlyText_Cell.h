@@ -19,4 +19,5 @@
 
 - (void)setPlaceholder:(NSString *)phStr value:(NSString *)valueStr;
 + (NSString *)randomCellIdentifierOfPhoneCodeType;
+
 @end

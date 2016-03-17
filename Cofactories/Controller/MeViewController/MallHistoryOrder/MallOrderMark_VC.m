@@ -52,7 +52,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         [headerView addSubview:button];
         
         if (i == 4) {
-            button.backgroundColor = kLightBlue;
+            button.backgroundColor = kMainLightBlueColor;
             [_buttonArray addObject:button];
             _markString = button.titleLabel.text;
         }
@@ -90,7 +90,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     UIButton *lastButton = [_buttonArray firstObject];
     lastButton.backgroundColor = [UIColor colorWithRed:193/255.0 green:193/255.0 blue:193/255.0 alpha:1];
     
-    button.backgroundColor = kLightBlue;
+    button.backgroundColor = kMainLightBlueColor;
     [_buttonArray removeAllObjects];
     [_buttonArray addObject:button];
     _markString = button.titleLabel.text;

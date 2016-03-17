@@ -22,7 +22,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        _nameLB = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 140, 25)];
+        _nameLB = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 140, 25)];
         _nameLB.font = [UIFont systemFontOfSize:14];
         [self.contentView addSubview:_nameLB];
         
@@ -35,12 +35,12 @@
         [self addSubview:_selectButton];
         
         _phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _phoneButton.frame = CGRectMake(15, 40, 20, 20);
+        _phoneButton.frame = CGRectMake(15, 30, 30, 30);
         [_phoneButton setBackgroundImage:[UIImage imageNamed:@"phone.png"] forState:UIControlStateNormal];
         [_phoneButton addTarget:self action:@selector(phoneClick) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_phoneButton];
         
-        _phoneLB = [[UILabel alloc] initWithFrame:CGRectMake(35, 40, 100, 25)];
+        _phoneLB = [[UILabel alloc] initWithFrame:CGRectMake(45, 30, 100, 25)];
         _phoneLB.font = [UIFont systemFontOfSize:12];
         _phoneLB.textColor = [UIColor grayColor];
         [self.contentView addSubview:_phoneLB];

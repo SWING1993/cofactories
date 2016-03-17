@@ -132,4 +132,9 @@
 //蓝色圆角button
 + (UIButton *)buttonWithFrame:(CGRect)frame withTitle:(NSString *)title;
 
+// UPYun上传
++ (void)upLoadImagesWithArray:(NSMutableArray *)array
+                 policyString:(NSString *)policyString
+              signatureString:(NSString *)signatureString;
+
 @end

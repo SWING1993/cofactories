@@ -23,11 +23,16 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 @implementation WithdrawalViewController
 
 - (void)viewDidLoad {
-        
     [self initView];
-    
     [super viewDidLoad];
     
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.image = [UIImage imageNamed:@"back"];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back);
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoActionWithdrawal) name:UITextFieldTextDidChangeNotification object:nil];
 }
 
 - (void)initView {
@@ -78,10 +83,13 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     UIView*view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 30)];
     [view addSubview:label];
     self.tableView.tableHeaderView = view;
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoActionWithdrawal) name:UITextFieldTextDidChangeNotification object:nil];
 }
+
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)infoActionWithdrawal {
     DLog(@"输入的金额：%@",priceTextField.text);
     if (priceTextField.text.length == 0 || [priceTextField.text floatValue] == 0 ) {
@@ -108,24 +116,19 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     CGFloat money ;
     money = [priceTextField.text floatValue];
     
-   
-    
     if (0<money) {
         
         NSString * amountStr = [NSString stringWithFormat:@"%.2f",money];
         [HttpClient walletWithDrawWithFee:amountStr WithMethod:@"alipay" WithAccount:bankcardTextField.text andBlock:^(NSInteger statusCode) {
             if (statusCode == 200) {
-//                kTipAlert(@"申请提现成功，我们将在2个工作日内处理您的申请，请耐心等待。");
                 UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"申请提现成功，我们将在2个工作日内处理您的申请，请耐心等待。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
                 alertView.tag = 1009;
                 [alertView show];                
             }
             else {
-                kTipAlert(@"申请提现失败,账户余额%@元。（错误码：%ld）",self.money,(long)statusCode);
+                kTipAlert(@"申请提现失败,账户余额%@元。（%ld）",self.money,(long)statusCode);
             }
         }];
-
-      
     }
     else {
         kTipAlert(@"你输入的%@无法识别，请重新输入！",priceTextField.text);

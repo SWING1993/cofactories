@@ -69,11 +69,11 @@
         self.changeStatus = [UIButton buttonWithType:UIButtonTypeCustom];
         self.changeStatus.frame = CGRectMake(kScreenW - 70 - kMargin, CGRectGetMaxY(self.totalPrice.frame) + 5, 70, kHeight - 10);
         self.changeStatus.layer.borderWidth = 1;
-        self.changeStatus.layer.borderColor = kDeepBlue.CGColor;
+        self.changeStatus.layer.borderColor = kMainDeepBlue.CGColor;
         self.changeStatus.layer.cornerRadius = 5;
         self.changeStatus.clipsToBounds = YES;
         self.changeStatus.titleLabel.font = [UIFont systemFontOfSize:12];
-        [self.changeStatus setTitleColor:kDeepBlue forState:UIControlStateNormal];
+        [self.changeStatus setTitleColor:kMainDeepBlue forState:UIControlStateNormal];
         [self addSubview:self.changeStatus];
         
     }
