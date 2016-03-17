@@ -393,4 +393,6 @@
 //钱包流水记录
 + (void)getWalletHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *responseDictionary))block;
 
+//获取订单信息（用于首页滚动）
++ (void)getScrollOrderMessageWithBlock:(void(^)(NSDictionary *dictionary))block;
 @end

@@ -291,7 +291,7 @@
 		7D5BDB7B1BFF145800FC8054 /* HomeMarketButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */; };
 		7D5C482C1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5C482B1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png */; };
 		7D6311551C8FE3B60042A700 /* ZGYScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6311541C8FE3B60042A700 /* ZGYScrollView.m */; };
-		7D6311571C8FE6740042A700 /* Home-聚工动态.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6311561C8FE6740042A700 /* Home-聚工动态.png */; };
+		7D64ABDD1C9AA39300F05A04 /* ScrollMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D64ABDC1C9AA39300F05A04 /* ScrollMessageModel.m */; };
 		7D65688C1C3389D80066C82D /* PublishPopularNews_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D65688B1C3389D80066C82D /* PublishPopularNews_VC.m */; };
 		7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D665E881C0C1C9000C7C7BF /* ZGYSupplyMarketView.m */; };
 		7D665E9C1C0C4A8500C7C7BF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D665E9B1C0C4A8500C7C7BF /* CoreAudio.framework */; };
@@ -988,7 +988,8 @@
 		7D5C482B1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_sel@2x.png"; sourceTree = "<group>"; };
 		7D6311531C8FE3B60042A700 /* ZGYScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYScrollView.h; sourceTree = "<group>"; };
 		7D6311541C8FE3B60042A700 /* ZGYScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYScrollView.m; sourceTree = "<group>"; };
-		7D6311561C8FE6740042A700 /* Home-聚工动态.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home-聚工动态.png"; sourceTree = "<group>"; };
+		7D64ABDB1C9AA39300F05A04 /* ScrollMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollMessageModel.h; sourceTree = "<group>"; };
+		7D64ABDC1C9AA39300F05A04 /* ScrollMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollMessageModel.m; sourceTree = "<group>"; };
 		7D65688A1C3389D80066C82D /* PublishPopularNews_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishPopularNews_VC.h; sourceTree = "<group>"; };
 		7D65688B1C3389D80066C82D /* PublishPopularNews_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishPopularNews_VC.m; sourceTree = "<group>"; };
 		7D665E871C0C1C9000C7C7BF /* ZGYSupplyMarketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSupplyMarketView.h; sourceTree = "<group>"; };
@@ -1296,7 +1297,6 @@
 				7DB8B0B31C8D788200428AE7 /* meinv.jpg */,
 				7D0841141C9147440066403C /* 2.png */,
 				70F66D931C47A20500721C82 /* touchRefrush.png */,
-				7D6311561C8FE6740042A700 /* Home-聚工动态.png */,
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
 				03571B271BE84BA100900EF9 /* AppDelegate.m */,
 				03882C4D1BEC951B0094524A /* HttpClient.h */,
@@ -2544,6 +2544,8 @@
 				7DA17DDE1C4CB6C000F024CB /* ActivityModel.m */,
 				7DA17DDA1C4CB68900F024CB /* IndexModel.h */,
 				7DA17DDB1C4CB68900F024CB /* IndexModel.m */,
+				7D64ABDB1C9AA39300F05A04 /* ScrollMessageModel.h */,
+				7D64ABDC1C9AA39300F05A04 /* ScrollMessageModel.m */,
 			);
 			path = HomeBanerModel;
 			sourceTree = "<group>";
@@ -2872,7 +2874,6 @@
 				03927D741BEC81E20087A2FD /* LaunchScreen.xib in Resources */,
 				035CC5201C06DCF000998FBD /* ImagesPicker.xcassets in Resources */,
 				70F9AECA1C3F70B60003489B /* chack.png in Resources */,
-				7D6311571C8FE6740042A700 /* Home-聚工动态.png in Resources */,
 				03571C9E1BE85DAC00900EF9 /* icon_chose_bottom@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3093,6 +3094,7 @@
 				7D34E4351C197B140049D9C7 /* PlaceholderTextView.m in Sources */,
 				03571C9B1BE85DAC00900EF9 /* DOPDropDownMenu.m in Sources */,
 				70EBD6C51C8D130300162D07 /* PublishOrder_Factory_Restrict_VC.m in Sources */,
+				7D64ABDD1C9AA39300F05A04 /* ScrollMessageModel.m in Sources */,
 				7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */,
 				7D65688C1C3389D80066C82D /* PublishPopularNews_VC.m in Sources */,
 				705421FB1C0D983900BD2B47 /* Order_Supplier_TVC.m in Sources */,

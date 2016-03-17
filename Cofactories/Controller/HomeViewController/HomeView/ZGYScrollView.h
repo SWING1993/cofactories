@@ -21,8 +21,8 @@
 //@property (nonatomic, weak)id<ZGYScrollViewDelegate>deleagte;
 
 @property (nonatomic, strong) UIScrollView *myScrollView;
-@property (nonatomic, strong) NSMutableArray *array1, *array2;
 @property (nonatomic,strong)NSTimer *myTimer;
-- (instancetype)initWithFrame:(CGRect)frame withMessageArray1:(NSArray *)messageArray1 withMessageArray2:(NSArray *)messageArray2;
 
+- (instancetype)initWithFrame:(CGRect)frame;
+- (void)reloadMessageWithMessageArray:(NSArray *)messageArray;
 @end
