@@ -85,20 +85,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 120)];
     
-//    FUISwitch * mySwitch = [[FUISwitch alloc]initWithFrame:CGRectMake(kScreenW-100, 10, 80, 20)];
-//    mySwitch.offLabel.text = @"普通账号";
-//    mySwitch.onLabel.text = @"企业账号";
-//    
-//    mySwitch.onColor = [UIColor turquoiseColor];
-//    mySwitch.offColor = [UIColor cloudsColor];
-//
-//    mySwitch.onBackgroundColor = [UIColor midnightBlueColor];
-//    mySwitch.offBackgroundColor = [UIColor silverColor];
-//    
-//    mySwitch.offLabel.font = [UIFont boldFlatFontOfSize:14];
-//    mySwitch.onLabel.font = [UIFont boldFlatFontOfSize:14];
-//    [tableFooterView addSubview:mySwitch];
-    
     //企业账号
     UIButton * enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     enterpriseBtn.frame = CGRectMake(kScreenW - 45, 10, 20, 20);
@@ -121,20 +107,16 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [tableFooterView addSubview:self.enterpriseLabel];
     
     //登录 Button
-    self.loginBtn = ({
-        LoginButton * button = [[LoginButton alloc]init];
-        button.frame =  CGRectMake(20, 40, (kScreenW-40), 35);
-        button.backgroundColor = kButtonNormalBackgroundCorlor;
-        [button setTitleColor:kButtonNormalTitleCorlor forState:UIControlStateNormal];
-        button.userInteractionEnabled = NO;
-        button.tag=10;
-        button.titleLabel.font=[UIFont boldSystemFontOfSize:16.5];
-        [button setTitle:@"登录" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
-        button;
-    });
+    _loginBtn  = [[LoginButton alloc]init];
+    _loginBtn.frame =  CGRectMake(20, 40, (kScreenW-40), 35);
+    _loginBtn.userInteractionEnabled = NO;
+    [_loginBtn changeState:_loginBtn.userInteractionEnabled];
+    _loginBtn.tag=10;
+    _loginBtn.titleLabel.font=[UIFont boldSystemFontOfSize:16.5];
+    [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [_loginBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    [tableFooterView addSubview:self.loginBtn];
+    [tableFooterView addSubview:_loginBtn];
    
     //注册 button
     UIButton * registerBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -164,14 +146,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)infoActionRecharge {
     if (self.myLogin.phone.length == 0 || self.myLogin.password.length == 0) {
-        self.loginBtn.backgroundColor = kButtonNormalBackgroundCorlor;
-        [self.loginBtn setTitleColor:kButtonNormalTitleCorlor forState:UIControlStateNormal];
         self.loginBtn.userInteractionEnabled = NO;
     } else {
-        self.loginBtn.backgroundColor = kButtonHighlightedBackgroundCorlor;
-        [self.loginBtn setTitleColor:kButtonHighlightedTitleCorlor forState:UIControlStateNormal];
         self.loginBtn.userInteractionEnabled = YES;
     }
+    [self.loginBtn changeState:self.loginBtn.userInteractionEnabled];
 }
 
 - (void)clickbBtn:(UIButton*)sender{
@@ -192,68 +171,55 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         case 10:{
             DLog(@"登录");
             [button setEnabled:NO];
-
-            CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
-            animation.keyPath = @"position.x";
-            animation.values = @[ @0, @10, @-10, @10, @0 ];
-            animation.keyTimes = @[ @0, @(1 / 6.0), @(3 / 6.0), @(5 / 6.0), @1 ];
-            animation.duration = 0.5;
-            animation.additive = YES;
-            [self.loginBtn.layer addAnimation:animation forKey:@"shake"];
-            
-            double delayInSeconds = 0.5;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^{
-                MBProgressHUD *hud = [Tools createHUD];
-                hud.labelText = @"登录中...";
-                if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
-                    [button setEnabled:YES];
-                    [hud hide:YES];
-                    kTipAlert(@":）请您填写账号以及密码后登录");
-                }else{
-                    [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
-                        switch (statusCode) {
-                            case 0:{
-                                [hud hide:YES];
-                                [button setEnabled:YES];
-                                kTipAlert(@":）您的网络状态不太顺畅哦");
-                            }
-                                break;
-                                
-                            case 200:{
-                                DLog(@"登录成功");
-                                
-                                [hud hide:YES];
-                                [button setEnabled:YES];
-                                [Login setPreUserPhone:self.myLogin.phone];//记住登录账号
-                                [RootViewController setupTabarController];
-                                double delayInSeconds = 7.0;
-                                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                                dispatch_after(popTime, dispatch_get_main_queue(), ^{
-                                    [Login saveLoginData];
-                                });
-                                
-                            }
-                                break;
-                                
-                            case 401:{
-                                [hud hide:YES];
-                                [button setEnabled:YES];
-                                kTipAlert(@":）用户名或密码错误");
-                                
-                            }
-                                break;
-                                
-                            default:
-                                [hud hide:YES];
-                                [button setEnabled:YES];
-                                kTipAlert(@":）登录失败 (%ld)",(long)statusCode);
-                                break;
+            [button addShakeAnimation];                      
+            MBProgressHUD *hud = [Tools createHUD];
+            hud.labelText = @"登录中...";
+            if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
+                [button setEnabled:YES];
+                [hud hide:YES];
+                kTipAlert(@":）请您填写账号以及密码后登录");
+            }else{
+                [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
+                    switch (statusCode) {
+                        case 0:{
+                            [hud hide:YES];
+                            [button setEnabled:YES];
+                            kTipAlert(@":）您的网络状态不太顺畅哦");
                         }
-                    }];
-                }
-
-            });
+                            break;
+                            
+                        case 200:{
+                            DLog(@"登录成功");
+                            
+                            [hud hide:YES];
+                            [button setEnabled:YES];
+                            [Login setPreUserPhone:self.myLogin.phone];//记住登录账号
+                            [RootViewController setupTabarController];
+                            double delayInSeconds = 7.0;
+                            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                                [Login saveLoginData];
+                            });
+                            
+                        }
+                            break;
+                            
+                        case 401:{
+                            [hud hide:YES];
+                            [button setEnabled:YES];
+                            kTipAlert(@":）用户名或密码错误");
+                            
+                        }
+                            break;
+                            
+                        default:
+                            [hud hide:YES];
+                            [button setEnabled:YES];
+                            kTipAlert(@":）登录失败 (%ld)",(long)statusCode);
+                            break;
+                    }
+                }];
+            }
         }
             break;
             

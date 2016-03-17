@@ -17,7 +17,19 @@
  *    @param subTitle  倒计时的子名字 如：时、分
 
  */
-
 - (void)startWithTime:(NSInteger)timeLine title:(NSString *)title countDownTitle:(NSString *)subTitle;
+
+/**
+ *  更改点击不可点击时候的BackGroundColor和Title
+ *
+ *  @param userInteractionEnabled userInteractionEnabled
+ */
+- (void)changeState:(BOOL)userInteractionEnabled;
+
+
+/**
+ *  添加Shake动画
+ */
+- (void)addShakeAnimation;
 
 @end
