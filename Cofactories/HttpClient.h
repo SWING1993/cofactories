@@ -158,9 +158,29 @@
  */
 + (void)walletWithFee:(NSString *)fee WihtCharge:(void (^)(NSDictionary *responseDictionary))block;
 
+/**
+ *  Wallet - 充值
+ *
+ *  @param fee   money
+ *  @param block 返回参数
+ */
++ (void)walletEnterpriseWithFee:(NSString *)fee wihtCharge:(void (^)(NSDictionary *responseDictionary))block;
+
+
+/**
+ *  钱包订单详情
+ *
+ *  @param orderSpec
+ *  @param block     返回参数
+ */
 + (void)walletsignwithOrderSpec:(NSString *)orderSpec andBlock:(void (^)(NSDictionary *responseDictionary))block;
 
-
+/**
+ *  钱包历史记录
+ *
+ *  @param page  第几页
+ *  @param block 返回data
+ */
 + (void)walletHistoryWithPage:(NSNumber *)page WithBlock:(void (^)(NSDictionary *responseDictionary))block;
 
 /**
@@ -299,7 +319,7 @@
 // 获取订单进度消息
 + (void)getOrderMessageWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 // 首款支付
-+ (void)payFirstWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
++ (void)payFirstWithOrderID:(NSString *)orderID payWay:(NSString *)payWay WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 // 限制订单完成
 + (void)finishRestrictOrderWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 

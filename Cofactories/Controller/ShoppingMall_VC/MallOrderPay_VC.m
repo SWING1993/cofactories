@@ -34,7 +34,7 @@ static NSString *payCellIndentifier = @"payCell";
     
     self.navigationItem.title = @"订单支付";
     self.MyProfile = [[UserModel alloc]getMyProfile];
-    payPhotoArray = @[@"Mall-alipay", @"Home-icon", @"enterprisePay"];
+    payPhotoArray = @[@"Mall-alipay", @"Home-icon", @"qiyezhanghaopay"];
     payTitleArray = @[@"支付宝支付", @"账户支付", @"企业账号支付"];
     paySelectString = @"支付宝支付";
     _header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 35)];
