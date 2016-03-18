@@ -79,7 +79,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     _tableHeadView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW*0.47)];
     _tableHeadView.image = [UIImage imageNamed:@"Me_tableHeadView"];
-    
     [_tableHeadView addSubview:myProfileLabel];
     
     self.tableView.tableHeaderView = _tableHeadView;

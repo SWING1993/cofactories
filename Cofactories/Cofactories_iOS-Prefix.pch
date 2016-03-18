@@ -179,6 +179,10 @@
 #import "Tools.h"
 #import "UserManagerCenter.h"
 
+#pragma mark - Views
+#import "LoginButton.h"
+
+
 #pragma mark - 第三方框架
 
 #import <Masonry/Masonry.h>

@@ -17,7 +17,7 @@
 static NSString * const CellIdentifier = @"CellIdentifier";
 
 @interface RechargeViewController ()<UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
-    UIButton *lastButton;
+    LoginButton *lastButton;
     UITextField *priceTextField;
 }
 @property (nonatomic,strong) UserModel * selfModel;
@@ -48,7 +48,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     temporaryBarButtonItem.action = @selector(back);
     self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
     
-    priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 0, kScreenW - 100, 44)];
+    priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, 0, kScreenW - 80, 44)];
     priceTextField.placeholder = @"输入充值金额";
     priceTextField.tag = 2;
     priceTextField.font = kFont;
@@ -59,16 +59,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 50)];
     tableFooterView.backgroundColor = [UIColor clearColor];
     
-    lastButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    lastButton.frame = CGRectMake(15,10,kScreenW-30,35);
+    lastButton = [[LoginButton alloc]initWithFrame:CGRectMake(15,10,kScreenW-30,35)];
     [lastButton setTitle:@"充值" forState:UIControlStateNormal];
-    lastButton.titleLabel.font = [UIFont systemFontOfSize:15.5*kZGY];
-    lastButton.layer.cornerRadius = 5;
-    lastButton.clipsToBounds = YES;
-    lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
-    [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-    [lastButton addTarget:self action:@selector(payAction:) forControlEvents:UIControlEventTouchUpInside];
     lastButton.userInteractionEnabled = NO;
+    [lastButton changeState:lastButton.userInteractionEnabled];
+    [lastButton addTarget:self action:@selector(payAction:) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:lastButton];
     self.tableView.tableFooterView = tableFooterView;
 
@@ -94,18 +89,17 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 - (void)infoActionRecharge {
     DLog(@"输入的金额：%@",priceTextField.text);
     if (priceTextField.text.length == 0 || priceTextField.text.length > 12) {
-        lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
-        [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
         lastButton.userInteractionEnabled = NO;
+        [lastButton changeState:lastButton.userInteractionEnabled];
     } else {
-        lastButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
-        [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         lastButton.userInteractionEnabled = YES;
+        [lastButton changeState:lastButton.userInteractionEnabled];
     }
 }
 
 
 - (void)payAction:(UIButton*)Btn {
+    [Btn addShakeAnimation];
     if ([self.selfModel.enterprise isEqualToString:@"非企业用户"]) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"线下充值", @"支付宝充值", nil];
         [actionSheet showInView:self.view];
@@ -113,7 +107,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"线下充值", @"支付宝充值", @"企业账号充值", nil];
         [actionSheet showInView:self.view];
     }
-    
 }
 
 
@@ -230,7 +223,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         [cell setAccessoryType:UITableViewCellAccessoryNone];
 
         if (indexPath.section == 0 && indexPath.row ==0) {
-            cell.textLabel.text = @"充值金额";
+            cell.textLabel.text = @"金额";
             [cell addSubview:priceTextField];
         }
     }
