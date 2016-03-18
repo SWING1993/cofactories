@@ -146,7 +146,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         if (buttonIndex == 0) {
             OrderContract_First_VC *vc = [[OrderContract_First_VC alloc] init];
             vc.orderID = _orderID;
-            vc.webUrlString = @"http://h5.lo.cofactories.com/!%29special/contract/index.html";
+            vc.webUrlString = @"http://h5.lo.cofactories.com/special/contractl/";
             [self.navigationController pushViewController:vc animated:YES];
 
         }
