@@ -16,7 +16,7 @@
 
 static NSString * const CellIdentifier = @"CellIdentifier";
 
-@interface RechargeViewController ()<UITextFieldDelegate,UIAlertViewDelegate> {
+@interface RechargeViewController ()<UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
     UIButton *lastButton;
     UITextField *priceTextField;
 }
@@ -102,62 +102,72 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
 }
 
+
 - (void)payAction:(UIButton*)Btn {
-    Btn.enabled = NO;
-    MBProgressHUD *hud = [Tools createHUD];
-    hud.labelText = @"正在生成订单";
-    [priceTextField resignFirstResponder];
-    CGFloat money ;
-    money = [priceTextField.text floatValue];
-    if (0<money && money<=5000) {
-        NSString * amountStr = [NSString stringWithFormat:@"%.2f",money];
-        [HttpClient walletWithFee:amountStr WihtCharge:^(NSDictionary *responseDictionary) {
-            NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
-            if (statusCode == 200) {
-//                DLog(@"%@",responseDictionary);
-                NSDictionary * dataDic = [responseDictionary objectForKey:@"data"];
-                NSString * tradeNO = [dataDic objectForKey:@"_id"];
-                NSString * descriptionStr = [dataDic objectForKey:@"description"];
-//                NSString * status = [dataDic objectForKey:@"status"];
-                NSString * subject = [dataDic objectForKey:@"subject"];
-                
-//                DLog(@"tradeNO =%@\ndescription =%@\nstatus = %@\nsubject = %@",tradeNO,descriptionStr,status,subject);
-                
-                if (tradeNO && descriptionStr && subject) {
-                    [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
-                    Btn.enabled = YES;
-                    [hud hide:YES];
-                }
-                else {
-                    [hud hide:YES];
-                    kTipAlert(@"生成订单信息失败");
-                    Btn.enabled = YES;
-                }
-                
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"线下充值", @"支付宝充值", @"企业账号充值", nil];
+    [actionSheet showInView:self.view];
+
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        
+        NSString *str = [NSString stringWithFormat:@"telprompt://%@", kCustomerServicePhone];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        
+    }else if (buttonIndex == 1) {
+        
+            MBProgressHUD *hud = [Tools createHUD];
+            hud.labelText = @"正在生成订单";
+            [priceTextField resignFirstResponder];
+            CGFloat money ;
+            money = [priceTextField.text floatValue];
+            if (0<money && money<=5000) {
+                NSString * amountStr = [NSString stringWithFormat:@"%.2f",money];
+                [HttpClient walletWithFee:amountStr WihtCharge:^(NSDictionary *responseDictionary) {
+                    NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"]integerValue];
+                    if (statusCode == 200) {
+                        NSDictionary * dataDic = [responseDictionary objectForKey:@"data"];
+                        NSString * tradeNO = [dataDic objectForKey:@"_id"];
+                        NSString * descriptionStr = [dataDic objectForKey:@"description"];
+                        NSString * subject = [dataDic objectForKey:@"subject"];
+        
+                        if (tradeNO && descriptionStr && subject) {
+                            [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"30m"];
+                            [hud hide:YES];
+                        }
+                        else {
+                            [hud hide:YES];
+                            kTipAlert(@"生成订单信息失败");
+                        }
+        
+                    }
+                    else if (statusCode == 0) {
+                        kTipAlert(@"网络暂无连接");
+                    }
+                    else {
+                        [hud hide:YES];
+                        kTipAlert(@"%@",[responseDictionary objectForKey:@"message"]);
+                    }
+                }];
             }
-            else if (statusCode == 0) {
-                kTipAlert(@"网络暂无连接");
+            else if (5000<money ) {
+                [hud hide:YES];
+                UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"充值金额过大，请联系客服进行线下充值！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                alertView.tag = 5000;
+                [alertView show];
+                
             }
             else {
-                kTipAlert(@"%@",[responseDictionary objectForKey:@"message"]);
-                Btn.enabled = YES;
                 [hud hide:YES];
-
+                kTipAlert(@"你输入的%@无法识别，请重新输入！",priceTextField.text);
             }
-        }];
-    }
-    else if (5000<money ) {
-        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"充值金额过大，请联系客服进行线下充值！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        alertView.tag = 5000;
-        [alertView show];
+    }else if (buttonIndex == 2) {
+    
+    }else if (buttonIndex == 3) {
         
-        Btn.enabled = YES;
-        [hud hide:YES];
-    }
-    else {
-        kTipAlert(@"你输入的%@无法识别，请重新输入！",priceTextField.text);
-        Btn.enabled = YES;
-        [hud hide:YES];
     }
 }
 
@@ -166,7 +176,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
+    if (buttonIndex == 1 && alertView.tag == 5000) {
         NSString *str = [NSString stringWithFormat:@"telprompt://%@", kCustomerServicePhone];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     }else {
