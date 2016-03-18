@@ -179,14 +179,20 @@
 #import "Tools.h"
 #import "UserManagerCenter.h"
 
+#pragma mark - Views
+#import "LoginButton.h"
+
+
 #pragma mark - 第三方框架
 
 #import <Masonry/Masonry.h>
-#import "TTTAttributedLabel.h"
-#import "TMCache.h"
+
+//#import "TTTAttributedLabel.h"
+//#import "TMCache.h"
+//#import <FlatUIKit/FlatUIKit.h>
+
 #import "SDCAlertView.h"
 #import "MBProgressHUD.h"
-#import <FlatUIKit/FlatUIKit.h>
 #import <RongIMKit/RongIMKit.h>//融云IM
 #import "UIButton+WebCache.h"//SDWebImage
 #import "UIImageView+WebCache.h"//SDWebImage

@@ -62,13 +62,21 @@
     [_designPhoto sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,model.businessUid]] placeholderImage:[UIImage imageNamed:@"headBtn.png"]];
    // DLog(@">>==%@",[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI,model.businessUid]);
     
-    if ([model.businessEnterprise isEqualToString:@"企业用户"]) {
+    if ([model.userIdentity isEqualToString:@"企业用户"]) {
         _levelPhoto.image = [UIImage imageNamed:@"企.png"];
-    }else if ([model.businessVerified isEqualToString:@"认证用户"]){
+    }else if ([model.userIdentity isEqualToString:@"认证用户"]){
         _levelPhoto.image = [UIImage imageNamed:@"证.png"];
     }else{
         _levelPhoto.image = nil;
     }
+    
+//    if ([model.businessEnterprise isEqualToString:@"企业用户"]) {
+//        _levelPhoto.image = [UIImage imageNamed:@"企.png"];
+//    }else if ([model.businessVerified isEqualToString:@"认证用户"]){
+//        _levelPhoto.image = [UIImage imageNamed:@"证.png"];
+//    }else{
+//        _levelPhoto.image = nil;
+//    }
     
     _designTitle.text = model.businessName;
     _classTitle.text = model.businessSubrole;

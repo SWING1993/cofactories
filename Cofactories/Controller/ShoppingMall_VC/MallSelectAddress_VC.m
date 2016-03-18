@@ -194,7 +194,7 @@ static NSString *addressCellIdentifier = @"addressCell";
             }
                 break;
             default:
-                kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                kTipAlert(@"%@(错误码：%ld)",[dictionary objectForKey:@"message"],(long)statusCode);
                 button.userInteractionEnabled = YES;
                 break;
         }

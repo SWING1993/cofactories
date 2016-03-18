@@ -207,6 +207,8 @@
 		70EBD6C61C8D130300162D07 /* PublishOrder_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EBD6C31C8D130300162D07 /* PublishOrder_Factory_VC.m */; };
 		70EBD6C91C8D132D00162D07 /* SelectOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EBD6C81C8D132D00162D07 /* SelectOrder_VC.m */; };
 		70EBD6CD1C8D4F4000162D07 /* EnterpriseShowWeb_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EBD6CC1C8D4F4000162D07 /* EnterpriseShowWeb_VC.m */; };
+		70EF6D821C9B996D00EB91DB /* PayWaySelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EF6D811C9B996D00EB91DB /* PayWaySelectTableViewCell.m */; };
+		70EF6D851C9B9F9800EB91DB /* PayWayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EF6D841C9B9F9800EB91DB /* PayWayModel.m */; };
 		70EFA1EB1C449ADA00C9F6A5 /* OrderContract_First_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EFA1EA1C449ADA00C9F6A5 /* OrderContract_First_VC.m */; };
 		70EFA1EE1C44CA2D00C9F6A5 /* FillBlanks_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EFA1ED1C44CA2D00C9F6A5 /* FillBlanks_VC.m */; };
 		70EFA1F11C44CF8B00C9F6A5 /* BlankFirst_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EFA1F01C44CF8B00C9F6A5 /* BlankFirst_TVC.m */; };
@@ -240,6 +242,7 @@
 		70F6D1F61C1697D000E23166 /* Business_Supplier_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1F51C1697D000E23166 /* Business_Supplier_Model.m */; };
 		70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */; };
 		70F6D2071C16CD7E00E23166 /* Business_Cloth_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */; };
+		70F8621F1C9A704D00B2E3CE /* PayWayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F8621E1C9A704D00B2E3CE /* PayWayViewController.m */; };
 		70F9AEC31C3F70B60003489B /* CalendarDayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB21C3F70B60003489B /* CalendarDayCell.m */; };
 		70F9AEC41C3F70B60003489B /* CalendarDayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB41C3F70B60003489B /* CalendarDayModel.m */; };
 		70F9AEC51C3F70B60003489B /* CalendarHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB61C3F70B60003489B /* CalendarHomeViewController.m */; };
@@ -823,6 +826,10 @@
 		70EBD6C81C8D132D00162D07 /* SelectOrder_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectOrder_VC.m; sourceTree = "<group>"; };
 		70EBD6CB1C8D4F4000162D07 /* EnterpriseShowWeb_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterpriseShowWeb_VC.h; sourceTree = "<group>"; };
 		70EBD6CC1C8D4F4000162D07 /* EnterpriseShowWeb_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterpriseShowWeb_VC.m; sourceTree = "<group>"; };
+		70EF6D801C9B996D00EB91DB /* PayWaySelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayWaySelectTableViewCell.h; sourceTree = "<group>"; };
+		70EF6D811C9B996D00EB91DB /* PayWaySelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayWaySelectTableViewCell.m; sourceTree = "<group>"; };
+		70EF6D831C9B9F9800EB91DB /* PayWayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayWayModel.h; sourceTree = "<group>"; };
+		70EF6D841C9B9F9800EB91DB /* PayWayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayWayModel.m; sourceTree = "<group>"; };
 		70EFA1E91C449ADA00C9F6A5 /* OrderContract_First_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderContract_First_VC.h; sourceTree = "<group>"; };
 		70EFA1EA1C449ADA00C9F6A5 /* OrderContract_First_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderContract_First_VC.m; sourceTree = "<group>"; };
 		70EFA1EC1C44CA2D00C9F6A5 /* FillBlanks_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FillBlanks_VC.h; sourceTree = "<group>"; };
@@ -888,6 +895,8 @@
 		70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Factory_VC.m; sourceTree = "<group>"; };
 		70F6D2051C16CD7E00E23166 /* Business_Cloth_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Cloth_VC.h; sourceTree = "<group>"; };
 		70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Cloth_VC.m; sourceTree = "<group>"; };
+		70F8621D1C9A704D00B2E3CE /* PayWayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayWayViewController.h; sourceTree = "<group>"; };
+		70F8621E1C9A704D00B2E3CE /* PayWayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayWayViewController.m; sourceTree = "<group>"; };
 		70F9AEB11C3F70B60003489B /* CalendarDayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayCell.h; sourceTree = "<group>"; };
 		70F9AEB21C3F70B60003489B /* CalendarDayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayCell.m; sourceTree = "<group>"; };
 		70F9AEB31C3F70B60003489B /* CalendarDayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayModel.h; sourceTree = "<group>"; };
@@ -2057,6 +2066,12 @@
 				70A63EAF1C4638D400B68839 /* ContractClothingDetail_VC.m */,
 				70F66D8B1C477FCC00721C82 /* TimeAxis_TVC.h */,
 				70F66D8C1C477FCC00721C82 /* TimeAxis_TVC.m */,
+				70F8621D1C9A704D00B2E3CE /* PayWayViewController.h */,
+				70F8621E1C9A704D00B2E3CE /* PayWayViewController.m */,
+				70EF6D801C9B996D00EB91DB /* PayWaySelectTableViewCell.h */,
+				70EF6D811C9B996D00EB91DB /* PayWaySelectTableViewCell.m */,
+				70EF6D831C9B9F9800EB91DB /* PayWayModel.h */,
+				70EF6D841C9B9F9800EB91DB /* PayWayModel.m */,
 			);
 			path = Contract_Factory;
 			sourceTree = "<group>";
@@ -3092,6 +3107,7 @@
 				70037F031C1021F40086267C /* ProgressingOrder_VC.m in Sources */,
 				70A63EAD1C4638AD00B68839 /* ContractFactoryDetail_VC.m in Sources */,
 				7D34E4351C197B140049D9C7 /* PlaceholderTextView.m in Sources */,
+				70EF6D821C9B996D00EB91DB /* PayWaySelectTableViewCell.m in Sources */,
 				03571C9B1BE85DAC00900EF9 /* DOPDropDownMenu.m in Sources */,
 				70EBD6C51C8D130300162D07 /* PublishOrder_Factory_Restrict_VC.m in Sources */,
 				7D64ABDD1C9AA39300F05A04 /* ScrollMessageModel.m in Sources */,
@@ -3100,6 +3116,7 @@
 				705421FB1C0D983900BD2B47 /* Order_Supplier_TVC.m in Sources */,
 				03571BA01BE85B8200900EF9 /* MJPhotoToolbar.m in Sources */,
 				7D06AF9D1C1687AE00EE7102 /* ShopCarModel.m in Sources */,
+				70EF6D851C9B9F9800EB91DB /* PayWayModel.m in Sources */,
 				70E9F1831C1AA6DA00C13912 /* PersonalMessage_Factory_VC.m in Sources */,
 				705679D51C194C6F00ACA494 /* DealComment_TVC.m in Sources */,
 				039D4D4E1C72CACC0051CD2E /* AFNetworkReachabilityManager.m in Sources */,
@@ -3208,6 +3225,7 @@
 				7D5682911C75AE2A00FF03AE /* MallCommentCell.m in Sources */,
 				039D4D4C1C72CACC0051CD2E /* AFHTTPRequestOperationManager.m in Sources */,
 				7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */,
+				70F8621F1C9A704D00B2E3CE /* PayWayViewController.m in Sources */,
 				7D56828E1C75A84400FF03AE /* MallOrderMark_VC.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,
 				70F50D7A1C06FB1500920F63 /* FactoryOrderMOdel.m in Sources */,

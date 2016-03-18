@@ -84,14 +84,31 @@
             
         }
         
-        _verified = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"verified"]];
-        if ([_verified isEqualToString:@"<null>"]) {
-            _verified = @"非认证用户";
+//        _verified = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"verified"]];
+//        if ([_verified isEqualToString:@"<null>"]) {
+//            _verified = @"非认证用户";
+//        }
+//        _enterprise = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"enterprise"]];
+//        if ([_enterprise isEqualToString:@"<null>"]) {
+//            _enterprise = @"非企业用户";
+//        }
+        
+        NSString *verifiedStr = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"verified"]];
+        NSString *enterpriseStr = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"enterprise"]];
+        if ([enterpriseStr isEqualToString:@"<null>"]) {
+            if ([verifiedStr isEqualToString:@"<null>"]) {
+                _userIdentity = @"非认证用户";
+            }else{
+                _userIdentity = @"认证用户";
+            }
+        }else if ([enterpriseStr isEqualToString:@"0"]){
+            //企业账号的住账号
+            _userIdentity = @"企业用户";
+        }else{
+            //企业账号的子账号
+            _userIdentity = @"企业用户";
         }
-        _enterprise = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"enterprise"]];
-        if ([_enterprise isEqualToString:@"<null>"]) {
-            _enterprise = @"非企业用户";
-        }
+        
         _score = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"score"]];
         if ([_score isEqualToString:@"<null>"]) {
             _score = @"尚未填写";

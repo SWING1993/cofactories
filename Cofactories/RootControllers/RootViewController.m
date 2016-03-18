@@ -18,6 +18,7 @@
 #import "EAIntroView.h"
 
 #import "PushPopularNews_VC.h"
+#import "HomeActivity_VC.h"
 
 /*
  id_flag   VyZh1mlKl
@@ -97,22 +98,17 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
     if ([Login isLogin]) {
         
         //已登录
-        if (applicationState == UIApplicationStateInactive) {
-            if ([userInfo[@"id_flag"] length] != 0) {
+        if (applicationState == UIApplicationStateInactive || applicationState == UIApplicationStateActive) {
+            if ([userInfo[@"action"] isEqualToString:@"news"]) {
                 PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
                 pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
-                pushPopularNewsVC.title_flag = userInfo[@"title_flag"];
-                pushPopularNewsVC.content_flag = userInfo[@"content_flag"];
                 [RootViewController presentVC:pushPopularNewsVC];
+            } else if ([userInfo[@"action"] isEqualToString:@"activity"]) {
+                HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
+                activityVC.urlString = userInfo[@"url"];
+                [RootViewController presentVC:activityVC];
             }
-        }else if (applicationState == UIApplicationStateActive){
-            if ([userInfo[@"id_flag"] length] != 0) {
-                PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
-                pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
-                pushPopularNewsVC.title_flag = userInfo[@"title_flag"];
-                pushPopularNewsVC.content_flag = userInfo[@"content_flag"];
-                [RootViewController presentVC:pushPopularNewsVC];
-            }
+                
         }
     } else {
         [RootViewController setupLoginViewController];

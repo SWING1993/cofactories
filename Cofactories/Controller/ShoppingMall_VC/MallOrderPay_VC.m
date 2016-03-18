@@ -21,6 +21,7 @@
 }
 
 @property (nonatomic, strong) MallOrderDetailModel *goodsModel;
+@property (nonatomic,retain)UserModel * MyProfile;
 
 @end
 
@@ -32,9 +33,9 @@ static NSString *payCellIndentifier = @"payCell";
     [super viewDidLoad];
     
     self.navigationItem.title = @"订单支付";
-    
-    payPhotoArray = @[@"Mall-alipay", @"Home-icon"];
-    payTitleArray = @[@"支付宝支付", @"账户支付"];
+    self.MyProfile = [[UserModel alloc]getMyProfile];
+    payPhotoArray = @[@"Mall-alipay", @"Home-icon", @"enterprisePay"];
+    payTitleArray = @[@"支付宝支付", @"账户支付", @"企业账号支付"];
     paySelectString = @"支付宝支付";
     _header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 35)];
     _header.backgroundColor = [UIColor whiteColor];
@@ -43,14 +44,12 @@ static NSString *payCellIndentifier = @"payCell";
     myLabel.textColor = GRAYCOLOR(100);
     myLabel.text = @"请选择一种付款方式";
     [_header addSubview:myLabel];
-    DLog(@"^^^^^^^^^^%@", self.mallPurchseId);
     [self creatTableViewFooterView];
     [self.tableView registerClass:[MallHistoryOrderCell class] forCellReuseIdentifier:CellIndentifier];
     [self.tableView registerClass:[MallPayTypeCell class] forCellReuseIdentifier:payCellIndentifier];
     [self netWork];
 }
 - (void)netWork {
-    DLog(@"^^^^^^^^^^%@", self.mallPurchseId);
     [HttpClient getMallOrderDetailWithPurchseId:self.mallPurchseId WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         if (statusCode == 200) {
@@ -82,7 +81,11 @@ static NSString *payCellIndentifier = @"payCell";
     if (section == 0) {
         return 1;
     }
-    return 2;
+    if ([self.MyProfile.enterprise isEqualToString:@"企业账号子账号"]) {
+        return 3;
+    } else {
+       return 2;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -179,7 +182,7 @@ static NSString *payCellIndentifier = @"payCell";
                 }
                     break;
                 default:
-                    kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                    kTipAlert(@"%@(错误码：%ld)",[dictionary objectForKey:@"message"],(long)statusCode);
                     button.userInteractionEnabled = YES;
                     break;
             }
@@ -196,12 +199,15 @@ static NSString *payCellIndentifier = @"payCell";
                 }
                     break;
                 default: {
-                    kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                    kTipAlert(@"%@(错误码：%ld)",[dictionary objectForKey:@"message"],(long)statusCode);
                     button.userInteractionEnabled = YES;
                 }
                     break;
             }
         }];
+    } else if ([paySelectString isEqualToString:@"企业账号支付"]) {
+        //企业账号支付
+        
     }
 }
 

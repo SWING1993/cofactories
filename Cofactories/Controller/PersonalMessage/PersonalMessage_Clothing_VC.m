@@ -135,16 +135,15 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     [enterpriseBtn addTarget:self action:@selector(enterpriseShowAction) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:enterpriseBtn];
     
-    if ([_userModel.enterprise isEqualToString:@"非企业用户"]) {
-        enterpriseBtn.hidden = YES;
-        if ([_userModel.verified isEqualToString:@"非认证用户"]) {
-            [typeImage removeFromSuperview];
-        }else{
-            typeImage.image = [UIImage imageNamed:@"证.png"];
-        }
-    }else{
+    if ([_userModel.userIdentity isEqualToString:@"企业用户"]) {
         enterpriseBtn.hidden = NO;
         typeImage.image = [UIImage imageNamed:@"企.png"];
+    }else if ([_userModel.userIdentity isEqualToString:@"认证用户"]){
+        enterpriseBtn.hidden = YES;
+        typeImage.image = [UIImage imageNamed:@"证.png"];
+    }else{
+        enterpriseBtn.hidden = YES;
+        [typeImage removeFromSuperview];
     }
     
     UILabel *subroleLB = [[UILabel alloc] init];

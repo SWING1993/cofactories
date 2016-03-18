@@ -218,7 +218,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     [_UserTypeTF endEditing:YES];
     DLog(@"factoryTypeInt == %ld",(long)selectedInt);
-    
 }
 -(void)cancel{
     _UserTypeString = nil;

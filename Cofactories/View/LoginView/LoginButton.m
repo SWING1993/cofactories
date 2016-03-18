@@ -18,9 +18,7 @@
 
         self.layer.cornerRadius=5.0f;
         self.layer.masksToBounds=YES;
-//        self.layer.borderColor = [UIColor colorWithRed:70.0f/255.0f green:126.0f/255.0f blue:220/255.0f alpha:1.0f].CGColor;
-//        self.layer.borderWidth = 1.0f;
-        
+
         self.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }

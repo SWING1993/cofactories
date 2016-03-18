@@ -137,8 +137,12 @@ static NSString *activityCellIdentifier = @"activityCell";
         //用户类型
         if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
             cell.personStatusImage.image = [UIImage imageNamed:@"注"];
-        } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
+        } else if ([self.MyProfile.verified isEqualToString:@"1"] && [self.MyProfile.enterprise isEqualToString:@"非企业用户"]) {
             cell.personStatusImage.image = [UIImage imageNamed:@"证"];
+        } else if (![self.MyProfile.enterprise isEqualToString:@"非企业用户"]) {
+            cell.personStatusImage.image = [UIImage imageNamed:@"企"];
+        } else {
+            cell.personStatusImage.image = [UIImage imageNamed:@""];
         }
         
         //用户身份
