@@ -158,9 +158,29 @@
  */
 + (void)walletWithFee:(NSString *)fee WihtCharge:(void (^)(NSDictionary *responseDictionary))block;
 
+/**
+ *  Wallet - 充值
+ *
+ *  @param fee   money
+ *  @param block 返回参数
+ */
++ (void)walletEnterpriseWithFee:(NSString *)fee wihtCharge:(void (^)(NSDictionary *responseDictionary))block;
+
+
+/**
+ *  钱包订单详情
+ *
+ *  @param orderSpec
+ *  @param block     返回参数
+ */
 + (void)walletsignwithOrderSpec:(NSString *)orderSpec andBlock:(void (^)(NSDictionary *responseDictionary))block;
 
-
+/**
+ *  钱包历史记录
+ *
+ *  @param page  第几页
+ *  @param block 返回data
+ */
 + (void)walletHistoryWithPage:(NSNumber *)page WithBlock:(void (^)(NSDictionary *responseDictionary))block;
 
 /**

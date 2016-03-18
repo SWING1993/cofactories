@@ -20,6 +20,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     UIButton *lastButton;
     UITextField *priceTextField;
 }
+@property (nonatomic,strong) UserModel * selfModel;
 
 @end
 
@@ -27,13 +28,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"充值";    
+    self.selfModel = [UserModel User];
     [self initView];
 }
 
 - (void)initView {
     
+    self.title = @"充值";
+
     self.tableView = [[UITableView alloc] initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
     self.tableView.delegate = self;
@@ -104,21 +106,22 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 
 - (void)payAction:(UIButton*)Btn {
+    if ([self.selfModel.enterprise isEqualToString:@"非企业用户"]) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"线下充值", @"支付宝充值", nil];
+        [actionSheet showInView:self.view];
+    }else {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"线下充值", @"支付宝充值", @"企业账号充值", nil];
+        [actionSheet showInView:self.view];
+    }
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"线下充值", @"支付宝充值", @"企业账号充值", nil];
-    [actionSheet showInView:self.view];
-
 }
 
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
-        
         NSString *str = [NSString stringWithFormat:@"telprompt://%@", kCustomerServicePhone];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-        
     }else if (buttonIndex == 1) {
-        
             MBProgressHUD *hud = [Tools createHUD];
             hud.labelText = @"正在生成订单";
             [priceTextField resignFirstResponder];
@@ -140,16 +143,15 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         }
                         else {
                             [hud hide:YES];
-                            kTipAlert(@"生成订单信息失败");
+                            kTipAlert(@"生成订单失败");
                         }
-        
                     }
                     else if (statusCode == 0) {
                         kTipAlert(@"网络暂无连接");
                     }
                     else {
                         [hud hide:YES];
-                        kTipAlert(@"%@",[responseDictionary objectForKey:@"message"]);
+                        kTipAlert(@"生成订单失败 (%ld)",(long)statusCode);
                     }
                 }];
             }
@@ -165,9 +167,32 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 kTipAlert(@"你输入的%@无法识别，请重新输入！",priceTextField.text);
             }
     }else if (buttonIndex == 2) {
-    
+        DLog(@"%@",self.selfModel.enterprise);
+        if ([self.selfModel.enterprise isEqualToString:@"非企业用户"]) {
+            return;
+        }else {
+            CGFloat money ;
+            money = [priceTextField.text floatValue];
+            NSString * amountStr = [NSString stringWithFormat:@"%.2f",money];
+            [HttpClient walletEnterpriseWithFee:amountStr wihtCharge:^(NSDictionary *responseDictionary) {
+                NSInteger statusCode = [[responseDictionary objectForKey:@"statusCode"] integerValue];
+                DLog(@"充值状态 %ld",(long)statusCode);
+                switch (statusCode) {
+                    case 200:{
+                        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"申请成功，等待主账号审核" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                        alertView.tag = 200;
+                        [alertView show];
+                    }
+                        break;
+                        
+                    default:
+                        kTipAlert(@"申请失败（%ld）",(long)statusCode);
+                        break;
+                }
+            }];
+        }
     }else if (buttonIndex == 3) {
-        
+        return;
     }
 }
 
@@ -179,7 +204,10 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     if (buttonIndex == 1 && alertView.tag == 5000) {
         NSString *str = [NSString stringWithFormat:@"telprompt://%@", kCustomerServicePhone];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-    }else {
+    }else if (buttonIndex == 1 && alertView.tag == 200) {
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    }
+    else {
         DLog(@"取消线下充值");
     }
 }

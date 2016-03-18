@@ -116,8 +116,12 @@ static NSString *activityCellIdentifier = @"activityCell";
         //用户类型
         if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
             cell.personStatusImage.image = [UIImage imageNamed:@"注"];
-        } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
+        } else if ([self.MyProfile.verified isEqualToString:@"1"] && [self.MyProfile.enterprise isEqualToString:@"非企业用户"]) {
             cell.personStatusImage.image = [UIImage imageNamed:@"证"];
+        } else if (![self.MyProfile.enterprise isEqualToString:@"非企业用户"]) {
+            cell.personStatusImage.image = [UIImage imageNamed:@"企"];
+        } else {
+            cell.personStatusImage.image = [UIImage imageNamed:@""];
         }
         
         //用户身份
@@ -205,10 +209,6 @@ static NSString *activityCellIdentifier = @"activityCell";
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //活动点击事件
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"返回";
-    backItem.tintColor=[UIColor whiteColor];
-    self.navigationItem.backBarButtonItem = backItem;
     if (indexPath.section == 2) {
         HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
         ActivityModel *activityModel = self.activityArray[indexPath.row];
