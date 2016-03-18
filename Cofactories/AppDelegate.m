@@ -144,13 +144,6 @@
         [MobClick setAppVersion:kVersion_Cofactories];
     }
     
-    if (launchOptions != nil) {
-        NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-        if (userInfo != nil) {
-            NSLog(@"remote notification:%@",userInfo);
-            [RootViewController handleNotificationInfo:userInfo applicationState:UIApplicationStateInactive];
-        }
-    }
     //修改app默认UA
     UIWebView* tempWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
     NSString* userAgent = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
@@ -162,10 +155,19 @@
     DLog(@"------%@",ua);
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent" : ua, @"User-Agent" : ua}];
     
+    if (launchOptions != nil) {
+        NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (userInfo != nil) {
+            NSLog(@"remote notification:%@",userInfo);
+            [RootViewController handleNotificationInfo:userInfo applicationState:UIApplicationStateInactive];
+        }
+    }
+    
     RootViewController *mainVC = [[RootViewController alloc] init];
     self.window.rootViewController = mainVC;
     [self customizeInterface];
     [_window makeKeyAndVisible];
+    
     
     return YES;
 }

@@ -21,10 +21,17 @@
 #import "HomeActivity_VC.h"
 
 /*
+ 
+ a5750fd0b8c59fa5660342e88439eeb482fc33dbae6282b1accf6879932c1a92
+ 
+ action   news
  id_flag   VyZh1mlKl
  title_flag  看了就忘不了
  content_flag  据材料款电视剧里的手机
- a5750fd0b8c59fa5660342e88439eeb482fc33dbae6282b1accf6879932c1a92
+ 
+ action  activity
+ url  https://h5.cofactories.com/activity/miaosha-0317/
+ 
  
 static NSString * const sampleDescription1 = @"全新界面 全新玩法";
 static NSString * const sampleDescription2 = @"在线商城 在线交易";
@@ -96,20 +103,22 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
 #pragma mark Notification
 + (void)handleNotificationInfo:(NSDictionary *)userInfo applicationState:(UIApplicationState)applicationState {
     if ([Login isLogin]) {
-        
         //已登录
         if (applicationState == UIApplicationStateInactive || applicationState == UIApplicationStateActive) {
             if ([userInfo[@"action"] isEqualToString:@"news"]) {
                 PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
                 pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
                 [RootViewController presentVC:pushPopularNewsVC];
-            } else if ([userInfo[@"action"] isEqualToString:@"activity"]) {
+            }
+            if ([userInfo[@"action"] isEqualToString:@"activity"]) {
+                kTipAlert(@"dniiiiiiiis");
                 HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
                 activityVC.urlString = userInfo[@"url"];
                 [RootViewController presentVC:activityVC];
             }
-                
         }
+        
+        
     } else {
         [RootViewController setupLoginViewController];
     }
