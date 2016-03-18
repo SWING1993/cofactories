@@ -99,6 +99,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 
 - (void)payAction:(UIButton*)Btn {
+    [priceTextField resignFirstResponder];
     [Btn addShakeAnimation];
     if ([self.selfModel.enterprise isEqualToString:@"非企业用户"]) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"线下充值", @"支付宝充值", nil];

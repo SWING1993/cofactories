@@ -21,17 +21,17 @@ static NSString * const CellIdentifier = @"CellIdentifiers";
 @end
 
 @implementation SystemSetViewController
-UIAlertView * inviteCodeAlert;
-UIAlertView * quitAlert;
+UIAlertView * _inviteCodeAlert;
+UIAlertView * _quitAlert;
+LoginButton * _nextBtn;
 
 - (void)viewDidLoad {
-    self.title=@"设置";
     [super viewDidLoad];
     [self initTableView];
-    DLog(@"%f",[self cacheFilePath]);
 }
 
 - (void)initTableView {
+    self.title=@"设置";
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
@@ -61,19 +61,27 @@ UIAlertView * quitAlert;
     logoLabel1.textColor = [UIColor grayColor];
     [tableHeaderView addSubview:logoLabel1];
     
-    
     self.tableView.tableHeaderView=tableHeaderView;
     
     
-    inviteCodeAlert = [[UIAlertView alloc]initWithTitle:@"邀请码"
+    UIView*tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70)];
+    tableFooterView.backgroundColor = [UIColor clearColor];
+    _nextBtn = [[LoginButton alloc]initWithFrame:CGRectMake(20, 20, kScreenW-40, 35)];
+    [_nextBtn setTitle:@"注销登录" forState:UIControlStateNormal];
+    [_nextBtn addTarget:self action:@selector(exitAccount) forControlEvents:UIControlEventTouchUpInside];
+    [tableFooterView addSubview:_nextBtn];
+    self.tableView.tableFooterView = tableFooterView;
+
+    
+    _inviteCodeAlert = [[UIAlertView alloc]initWithTitle:@"邀请码"
                                                 message:nil
                                                delegate:self
                                       cancelButtonTitle:@"取消"
                                       otherButtonTitles:@"发送",nil];
-    [inviteCodeAlert setTag:123456];
-    [inviteCodeAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [_inviteCodeAlert setTag:123456];
+    [_inviteCodeAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
     
-    UITextField * alertTextField = [inviteCodeAlert textFieldAtIndex:0];
+    UITextField * alertTextField = [_inviteCodeAlert textFieldAtIndex:0];
     alertTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     alertTextField.placeholder = @"邀请码";
     alertTextField.text = self.inviteCode;
@@ -82,10 +90,14 @@ UIAlertView * quitAlert;
     }
     alertTextField.keyboardType = UIKeyboardTypeNumberPad;
     
-    quitAlert = [[UIAlertView alloc]initWithTitle:@"确定退出" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    quitAlert.tag = 404;
+    _quitAlert = [[UIAlertView alloc]initWithTitle:@"确定退出" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    _quitAlert.tag = 404;
 }
 
+- (void)exitAccount {
+    [_nextBtn addShakeAnimation];
+    [_quitAlert show];
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 404) {
@@ -129,7 +141,7 @@ UIAlertView * quitAlert;
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -216,23 +228,7 @@ UIAlertView * quitAlert;
                 
             }
                 break;
-            /*
-            case 2:{
-                switch (indexPath.row) {
-                    case 0:{
-                        cell.textLabel.text = @"清理缓存";
-                        NSString * cacheSize = [NSString stringWithFormat:@"%.2fM",[self cacheFilePath]];
-                        cell.detailTextLabel.text = cacheSize ;
-                    }
-                        break;
-                        
-                    default:
-                        break;
-                }
-            }
-                break;
-             */
-                
+
             case 3:{
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 cell.textLabel.text = @"注销登录";
@@ -287,7 +283,7 @@ UIAlertView * quitAlert;
                 }
                     break;
                 case 3:{
-                    [inviteCodeAlert show];
+                    [_inviteCodeAlert show];
                 }
                     break;
                     
@@ -331,11 +327,6 @@ UIAlertView * quitAlert;
             UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"确定要清除所有缓存文件吗？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去清理", nil];
             alertView.tag = 92;
             [alertView show];
-        }
-            break;
-            
-        case 3:{
-            [quitAlert show];
         }
             break;
             
