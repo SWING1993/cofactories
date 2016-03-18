@@ -15,6 +15,8 @@
 #import "UILabel+extension.h"
 #import "TimeAxis_TVC.h"
 #import "AlertWithTF.h"
+#import "PayWayViewController.h"
+
 @interface ContractClothingDetail_VC ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>{
     UITableView         *_tableView;
     NSString            *_descriptionString;
@@ -406,9 +408,15 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     NSLog(@"%ld",(long)button.tag);
     if (button.tag == 1) {
         // 付款
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"该订单的首款为%@,确认支付首款?",_dataModel.fistPayCount] message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        alert.tag = 200;
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"该订单的首款为%@,确认支付首款?",_dataModel.fistPayCount] message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+//        alert.tag = 200;
+//        [alert show];
+        
+        PayWayViewController *vc = [PayWayViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+          
+        
     }else if (button.tag == 2){
         // 确定完成
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"货物已收完全收到?双方订单完成并评分后,保证金将返还到双方钱包!" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];

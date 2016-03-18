@@ -240,6 +240,7 @@
 		70F6D1F61C1697D000E23166 /* Business_Supplier_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1F51C1697D000E23166 /* Business_Supplier_Model.m */; };
 		70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */; };
 		70F6D2071C16CD7E00E23166 /* Business_Cloth_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */; };
+		70F8621F1C9A704D00B2E3CE /* PayWayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F8621E1C9A704D00B2E3CE /* PayWayViewController.m */; };
 		70F9AEC31C3F70B60003489B /* CalendarDayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB21C3F70B60003489B /* CalendarDayCell.m */; };
 		70F9AEC41C3F70B60003489B /* CalendarDayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB41C3F70B60003489B /* CalendarDayModel.m */; };
 		70F9AEC51C3F70B60003489B /* CalendarHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9AEB61C3F70B60003489B /* CalendarHomeViewController.m */; };
@@ -877,6 +878,8 @@
 		70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Factory_VC.m; sourceTree = "<group>"; };
 		70F6D2051C16CD7E00E23166 /* Business_Cloth_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Cloth_VC.h; sourceTree = "<group>"; };
 		70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Cloth_VC.m; sourceTree = "<group>"; };
+		70F8621D1C9A704D00B2E3CE /* PayWayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayWayViewController.h; sourceTree = "<group>"; };
+		70F8621E1C9A704D00B2E3CE /* PayWayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayWayViewController.m; sourceTree = "<group>"; };
 		70F9AEB11C3F70B60003489B /* CalendarDayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayCell.h; sourceTree = "<group>"; };
 		70F9AEB21C3F70B60003489B /* CalendarDayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayCell.m; sourceTree = "<group>"; };
 		70F9AEB31C3F70B60003489B /* CalendarDayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayModel.h; sourceTree = "<group>"; };
@@ -2024,6 +2027,8 @@
 				70A63EAF1C4638D400B68839 /* ContractClothingDetail_VC.m */,
 				70F66D8B1C477FCC00721C82 /* TimeAxis_TVC.h */,
 				70F66D8C1C477FCC00721C82 /* TimeAxis_TVC.m */,
+				70F8621D1C9A704D00B2E3CE /* PayWayViewController.h */,
+				70F8621E1C9A704D00B2E3CE /* PayWayViewController.m */,
 			);
 			path = Contract_Factory;
 			sourceTree = "<group>";
@@ -3142,6 +3147,7 @@
 				7D5682911C75AE2A00FF03AE /* MallCommentCell.m in Sources */,
 				039D4D4C1C72CACC0051CD2E /* AFHTTPRequestOperationManager.m in Sources */,
 				7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */,
+				70F8621F1C9A704D00B2E3CE /* PayWayViewController.m in Sources */,
 				7D56828E1C75A84400FF03AE /* MallOrderMark_VC.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,
 				70F50D7A1C06FB1500920F63 /* FactoryOrderMOdel.m in Sources */,

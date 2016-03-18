@@ -263,7 +263,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                         if ([_dataModel.contractStatus isEqualToString:@"0"]) {
                             OrderContract_First_VC *vc = [[OrderContract_First_VC alloc] init];
                             vc.orderID = _dataModel.ID;
-                            vc.webUrlString = @"http://h5.lo.cofactories.com/!%29special/contract/index.html";
+                            vc.webUrlString = @"http://h5.lo.cofactories.com/special/contractl/";
                             [self.navigationController pushViewController:vc animated:YES];
                         }else{
                             kTipAlert(@"该订单已完成投标");
