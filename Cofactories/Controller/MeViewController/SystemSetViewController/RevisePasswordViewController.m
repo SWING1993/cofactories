@@ -44,14 +44,14 @@ UITextField*passwordTF;
 
     UIView*tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70)];
     tableFooterView.backgroundColor = [UIColor clearColor];
-    LoginButton*nextBtn=[[LoginButton alloc]initWithFrame:CGRectMake(20, 20, kScreenW-40, 35)];
-    [nextBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [nextBtn addTarget:self action:@selector(RevisePasswordBtn) forControlEvents:UIControlEventTouchUpInside];
-    [tableFooterView addSubview:nextBtn];
+    LoginButton * okBtn = [[LoginButton alloc]initWithFrame:CGRectMake(20, 20, kScreenW-40, 35)];
+    [okBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [okBtn addTarget:self action:@selector(RevisePasswordBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [tableFooterView addSubview:okBtn];
     self.tableView.tableFooterView = tableFooterView;
 
     //设置Btn
-    UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
+    UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
     self.navigationItem.leftBarButtonItem = setButton;
 }
 
@@ -64,7 +64,8 @@ UITextField*passwordTF;
     }
 }
 
-- (void)RevisePasswordBtn {
+- (void)RevisePasswordBtn:(UIButton *)btn {
+    [btn addShakeAnimation];
     if (oldPasswordTF.text.length==0 && passwordTF.text.length==0) {
         kTipAlert(@"密码不能为空");
     }else if (passwordTF.text.length<6 || passwordTF.text.length>16) {
@@ -91,7 +92,7 @@ UITextField*passwordTF;
                     break;
                     
                 default:
-                    kTipAlert(@"修改失败，尝试重新修改！(%ld)",(long)statusCode);
+                    kTipAlert(@"修改失败，尝试重新修改 (%ld)",(long)statusCode);
                     break;
             }
         }];

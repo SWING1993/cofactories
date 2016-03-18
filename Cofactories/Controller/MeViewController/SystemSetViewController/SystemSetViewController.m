@@ -7,23 +7,20 @@
 //
 
 #import "MBProgressHUD+Add.h"
-#import "UMSocial.h"
-#import "UMFeedback.h"
 #import "RootViewController.h"
 #import "SystemSetViewController.h"
 #import "RevisePasswordViewController.h"
-#import "UserProtocolViewController.h"
-#import "WelcomePageViewController.h"
+#import "AboutController.h"
 
-static NSString * const CellIdentifier = @"CellIdentifiers";
+static NSString * const CellIdentifier = @"SetCellIdentifiers";
 
-@interface SystemSetViewController ()<UIAlertViewDelegate,UMSocialUIDelegate>
+@interface SystemSetViewController ()<UIAlertViewDelegate>
 @end
 
 @implementation SystemSetViewController
 UIAlertView * _inviteCodeAlert;
 UIAlertView * _quitAlert;
-LoginButton * _nextBtn;
+LoginButton * _exitBtn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,46 +30,10 @@ LoginButton * _nextBtn;
 - (void)initTableView {
     self.title=@"设置";
     self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
-    
-    UIView*tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 150)];
-    tableHeaderView.backgroundColor=[UIColor whiteColor];
-    
-    UIImageView*logoImage = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenW/2-40, 10, 80, 80)];
-    logoImage.image=[UIImage imageNamed:@"login_logo"];
-    logoImage.layer.cornerRadius = 15;
-    logoImage.layer.masksToBounds = YES;
-    [tableHeaderView addSubview:logoImage];
-    
-    UILabel*logoLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, kScreenW, 20)];
-    logoLabel.font = kLargeFont;
-    logoLabel.numberOfLines = 1;
-    logoLabel.text = @"聚工厂";
-    logoLabel.textColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
-    logoLabel.textAlignment = NSTextAlignmentCenter;
-    [tableHeaderView addSubview:logoLabel];
-    
-    UILabel*logoLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 120, kScreenW, 20)];
-    logoLabel1.font = kFont;
-    logoLabel1.numberOfLines = 1;
-    logoLabel1.text = [NSString stringWithFormat:@"版本 %@ (%@)",kVersion_Cofactories,kVersionBuild_Cofactories];
-    logoLabel1.textAlignment = NSTextAlignmentCenter;
-    logoLabel1.textColor = [UIColor grayColor];
-    [tableHeaderView addSubview:logoLabel1];
-    
-    self.tableView.tableHeaderView=tableHeaderView;
-    
-    
-    UIView*tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70)];
-    tableFooterView.backgroundColor = [UIColor clearColor];
-    _nextBtn = [[LoginButton alloc]initWithFrame:CGRectMake(20, 20, kScreenW-40, 35)];
-    [_nextBtn setTitle:@"注销登录" forState:UIControlStateNormal];
-    [_nextBtn addTarget:self action:@selector(exitAccount) forControlEvents:UIControlEventTouchUpInside];
-    [tableFooterView addSubview:_nextBtn];
-    self.tableView.tableFooterView = tableFooterView;
+    self.tableView.rowHeight = 45;
 
-    
     _inviteCodeAlert = [[UIAlertView alloc]initWithTitle:@"邀请码"
                                                 message:nil
                                                delegate:self
@@ -94,11 +55,6 @@ LoginButton * _nextBtn;
     _quitAlert.tag = 404;
 }
 
-- (void)exitAccount {
-    [_nextBtn addShakeAnimation];
-    [_quitAlert show];
-}
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 404) {
         if (buttonIndex==1) {
@@ -112,20 +68,20 @@ LoginButton * _nextBtn;
             if (alertTextField.text.length > 0) {
                 [HttpClient registerWithInviteCode:alertTextField.text andBlock:^(NSInteger statusCode) {
                     if (statusCode == 200) {
-                        kTipAlert(@"邀请码提交成功!");
+                        kTipAlert(@"邀请码提交成功 ");
                     }
                     else if (statusCode == 400) {
-                        kTipAlert(@"不存在该邀请码。(错误码：400)");
+                        kTipAlert(@"不存在该邀请码 (400)");
                     }
                     else if (statusCode == 409) {
-                        kTipAlert(@"该用户已存在邀请码。(错误码：409)");
+                        kTipAlert(@"该用户已存在邀请码 (409)");
                     }
                     else {
-                        kTipAlert(@"邀请码提交失败，尝试重新提交。(错误码：%ld)",(long)statusCode);
+                        kTipAlert(@"邀请码提交失败，尝试重新提交 (%ld)",(long)statusCode);
                     }
                 }];
             }else{
-                kTipAlert(@"请您填写邀请码后再提交!");
+                kTipAlert(@"请您填写邀请码后再提交");
             }
         }
     }
@@ -141,25 +97,22 @@ LoginButton * _nextBtn;
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 4;
+        return 1;
     }
     else if (section == 1) {
-        return 3;
+        return 2;
     }
     return 1;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return 0.0001f;
-    }
-    return 10.0f;
+    return 20.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -180,22 +133,8 @@ LoginButton * _nextBtn;
             case 0:{
                 switch (indexPath.row) {
                     case 0:{
-                        cell.textLabel.text =@"欢迎页";
-                        
-                    }
-                        break;
-                        
-                    case 1:{
-                        cell.textLabel.text =@"去评分";
-                        
-                    }
-                        break;
-                    case 2:{
-                        cell.textLabel.text =@"去分享";
-                    }
-                        break;
-                    case 3:{
                         cell.textLabel.text =@"邀请码";
+                        
                     }
                         break;
                         
@@ -210,15 +149,12 @@ LoginButton * _nextBtn;
             case 1:{
                 switch (indexPath.row) {
                     case 0:{
-                        cell.textLabel.text=@"修改密码";
+                        cell.textLabel.text= @"修改密码";
                     }
                         break;
+                        
                     case 1:{
-                        cell.textLabel.text=@"意见反馈";
-                    }
-                        break;
-                    case 2:{
-                        cell.textLabel.text = @"服务协议";
+                        cell.textLabel.text = @"关于聚工厂";
                     }
                         break;
                         
@@ -231,10 +167,12 @@ LoginButton * _nextBtn;
 
             case 3:{
                 cell.accessoryType = UITableViewCellAccessoryNone;
-                cell.textLabel.text = @"注销登录";
-                cell.textLabel.font = [UIFont boldSystemFontOfSize:15.5f];
-                cell.textLabel.textColor = [UIColor redColor];
-                cell.textLabel.textAlignment = NSTextAlignmentRight;
+                UILabel * exitLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 45)];
+                exitLable.text = @"退出登录";
+                exitLable.font = [UIFont boldSystemFontOfSize:16.f];
+                exitLable.textColor = [UIColor redColor];
+                exitLable.textAlignment = NSTextAlignmentCenter;
+                [cell.contentView addSubview:exitLable];
                 
             }
                 break;
@@ -262,31 +200,9 @@ LoginButton * _nextBtn;
         case 0:{
             switch (indexPath.row) {
                 case 0:{
-                    WelcomePageViewController * vc = [[WelcomePageViewController alloc]init];
-                    vc.modalPresentationStyle = UIModalPresentationCustom;                    
-                    [self presentViewController:vc animated:NO completion:nil];
-                }
-                    break;
-
-                case 1:{
-                    NSString *str = kAppReviewURL;
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-                }
-                    break;
-                case 2:{
-                    [UMSocialSnsService presentSnsIconSheetView:self
-                                                         appKey:Appkey_Umeng
-                                                      shareText:@"推荐一款非常好用的app——聚工厂，大家快来试试。下载链接：https://itunes.apple.com/cn/app/ju-gong-chang/id1015359842?mt=8"
-                                                     shareImage:[UIImage imageNamed:@"icon.png"]
-                                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToRenren, UMShareToSina,UMShareToTencent,UMShareToEmail,UMShareToSms,nil]
-                                                       delegate:self];
-                }
-                    break;
-                case 3:{
                     [_inviteCodeAlert show];
                 }
                     break;
-                    
                 default:
                     break;
             }
@@ -304,19 +220,13 @@ LoginButton * _nextBtn;
                     [self presentViewController:reviseNav animated:YES completion:nil];
                 }
                     break;
-                case 1:{
-                    [self presentViewController:[UMFeedback feedbackModalViewController] animated:YES completion:nil];
-                }
-                    break;
-                case 2:{
-                    UserProtocolViewController * protocolVC = [[UserProtocolViewController alloc]init];
-                    UINavigationController * protocolNav = [[UINavigationController alloc]initWithRootViewController:protocolVC];
-                    [self presentViewController:protocolNav animated:YES completion:^{
-                        
-                    }];
-                }
-                    break;
                     
+                case 1:{
+                    AboutController * aboutVC = [[AboutController alloc]init];
+                    [self.navigationController pushViewController:aboutVC animated:YES];
+                }
+                    break;
+              
                 default:
                     break;
             }
@@ -330,21 +240,18 @@ LoginButton * _nextBtn;
         }
             break;
             
+        case 3:{
+            [_quitAlert show];
+        }
+            break;
+            
+
+            
         default:
             break;
     }
 }
 
-#pragma mark - Table view data source 友盟实现回调方法（可选）：
--(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
-{
-    //根据`responseCode`得到发送结果,如果分享成功
-    if(response.responseCode == UMSResponseCodeSuccess)
-    {
-        //得到分享到的微博平台名
-        DLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
-    }
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
