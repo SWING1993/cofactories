@@ -209,10 +209,6 @@ static NSString *activityCellIdentifier = @"activityCell";
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //活动点击事件
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"返回";
-    backItem.tintColor=[UIColor whiteColor];
-    self.navigationItem.backBarButtonItem = backItem;
     if (indexPath.section == 2) {
         HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
         ActivityModel *activityModel = self.activityArray[indexPath.row];
