@@ -299,7 +299,7 @@
 // 获取订单进度消息
 + (void)getOrderMessageWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 // 首款支付
-+ (void)payFirstWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
++ (void)payFirstWithOrderID:(NSString *)orderID payWay:(NSString *)payWay WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 // 限制订单完成
 + (void)finishRestrictOrderWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 

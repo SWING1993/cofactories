@@ -1895,7 +1895,7 @@
 }
 
 // 首款支付
-+ (void)payFirstWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)payFirstWithOrderID:(NSString *)orderID payWay:(NSString *)payWay WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -1903,7 +1903,7 @@
         AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manger.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/firstPay/",orderID];
-        [manger GET:urlString parameters:@{@"payment":@"wallet"} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        [manger GET:urlString parameters:@{@"payment":payWay} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             DLog(@"%@",responseObject);
             completionBlock(@{@"statusCode":@"200"});
             

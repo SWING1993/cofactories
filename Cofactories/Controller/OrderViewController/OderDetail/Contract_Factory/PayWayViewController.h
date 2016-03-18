@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PayWayViewController : UIViewController
-
+- (id)initWithFacModel:(FactoryOrderMOdel *)model;
 @end
