@@ -238,7 +238,7 @@
 //    } else {
 //        kTipAlert(@"%@",userInfo[@"aps"][@"alert"]);
 //    }
-        if ([userInfo[@"action"] isEqualToString:@"news"] || [userInfo[@"action"] isEqualToString:@"activity"]) {
+        if ([userInfo[@"action_flag"] isEqualToString:@"news"] || [userInfo[@"action_flag"] isEqualToString:@"activity"]) {
             pushDic = [NSDictionary dictionaryWithDictionary:userInfo];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"通知" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看详情", nil];
             alert.tag = 223;
