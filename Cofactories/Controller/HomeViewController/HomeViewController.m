@@ -354,6 +354,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         int statusCode = [responseDictionary[@"statusCode"] intValue];
         DLog(@"statusCode = %d", statusCode);
         if (statusCode == 200) {
+            DLog(@"^^^^^^^^%@", responseDictionary);
             NSArray *jsonArray = responseDictionary[@"responseArray"];
             self.activityArray = [NSMutableArray arrayWithCapacity:0];
             for (NSDictionary *dictionary in jsonArray) {
