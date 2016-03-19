@@ -153,6 +153,7 @@
 		03B569771C02A4CC00F89CDA /* FastCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B569761C02A4CC00F89CDA /* FastCoder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		03B8973E1C151EC100DB8E4E /* WithdrawalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */; };
 		03B897401C15490400DB8E4E /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */; };
+		03C505761C9BE45F00E46E76 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C505751C9BE45F00E46E76 /* AboutController.m */; };
 		03CB36601C1AAEE600814CA9 /* WalletHistoryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB365F1C1AAEE600814CA9 /* WalletHistoryInfoViewController.m */; };
 		03CB36661C1AC4DE00814CA9 /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB36651C1AC4DE00814CA9 /* UserProtocolViewController.m */; };
 		03DA90A51C436C83009E4F22 /* UIButton+CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DA90A41C436C83009E4F22 /* UIButton+CountDown.m */; };
@@ -707,6 +708,8 @@
 		03B8973C1C151EC100DB8E4E /* WithdrawalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithdrawalViewController.h; sourceTree = "<group>"; };
 		03B8973D1C151EC100DB8E4E /* WithdrawalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithdrawalViewController.m; sourceTree = "<group>"; };
 		03B8973F1C15490400DB8E4E /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		03C505741C9BE45F00E46E76 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
+		03C505751C9BE45F00E46E76 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		03CB365E1C1AAEE600814CA9 /* WalletHistoryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryInfoViewController.h; sourceTree = "<group>"; };
 		03CB365F1C1AAEE600814CA9 /* WalletHistoryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHistoryInfoViewController.m; sourceTree = "<group>"; };
 		03CB36641C1AC4DE00814CA9 /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
@@ -1614,6 +1617,8 @@
 			children = (
 				035CC5321C070BC600998FBD /* SystemSetViewController.h */,
 				035CC5331C070BC600998FBD /* SystemSetViewController.m */,
+				03C505741C9BE45F00E46E76 /* AboutController.h */,
+				03C505751C9BE45F00E46E76 /* AboutController.m */,
 				03ACD19B1C081826003AB7CF /* RevisePasswordViewController.h */,
 				03ACD19C1C081826003AB7CF /* RevisePasswordViewController.m */,
 			);
@@ -3140,6 +3145,7 @@
 				039D4D4D1C72CACC0051CD2E /* AFHTTPSessionManager.m in Sources */,
 				7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */,
 				70F4A7771C12CF4E000DF7E7 /* CompletionOrder_TVC.m in Sources */,
+				03C505761C9BE45F00E46E76 /* AboutController.m in Sources */,
 				03571BA11BE85B8200900EF9 /* MJPhotoView.m in Sources */,
 				7D56828B1C759A7500FF03AE /* MallOrderSellDetail_VC.m in Sources */,
 				705421F81C0D7A3C00BD2B47 /* OrderBid_Factory_VC.m in Sources */,

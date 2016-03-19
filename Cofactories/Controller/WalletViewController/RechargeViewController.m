@@ -99,6 +99,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 
 - (void)payAction:(UIButton*)Btn {
+    [priceTextField resignFirstResponder];
     [Btn addShakeAnimation];
     if ([self.selfModel.enterprise isEqualToString:@"非企业用户"]) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"线下充值", @"支付宝充值", nil];
@@ -162,6 +163,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }else if (buttonIndex == 2) {
         DLog(@"%@",self.selfModel.enterprise);
         if ([self.selfModel.enterprise isEqualToString:@"非企业用户"]) {
+            priceTextField.text = @"";
             return;
         }else {
             CGFloat money ;
@@ -185,6 +187,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             }];
         }
     }else if (buttonIndex == 3) {
+        priceTextField.text = @"";
         return;
     }
 }
