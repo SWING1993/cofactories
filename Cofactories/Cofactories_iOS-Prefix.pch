@@ -163,7 +163,7 @@
 //字体 Font
 #define kNavTitleFontSize 17.0f
 #define kLargeFont  [UIFont boldSystemFontOfSize:16.5f]
-#define kFont [UIFont systemFontOfSize:15.0f]
+#define kFont [UIFont systemFontOfSize:15.5f]
 #define kSmallFont  [UIFont systemFontOfSize:12.0f]
 
 //appdelegate
