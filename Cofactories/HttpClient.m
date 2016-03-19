@@ -433,7 +433,7 @@
         [manager GET:API_userProfile parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             UserModel *userModel = [[UserModel alloc] initWithDictionary:responseObject];
             [userModel storeValueWithKey:@"MyProfile"];
-            //            DLog(@"userModel = %@",responseObject);
+                        DLog(@"userModel = %@",responseObject);
             //            DLog(@"userModel.description = %@",userModel.description);
             block(@{@"statusCode": @(200), @"model": userModel});
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

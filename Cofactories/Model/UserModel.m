@@ -169,7 +169,7 @@ static NSString * placeholderString = @"暂无";
         }
         
         if ([[dictionary objectForKey:@"enterprise"] isEqual:[NSNull null]]) {
-            _enterprise = @"非企业用户";
+            _enterprise = @"非企业账号";
         } else if ([[dictionary objectForKey:@"enterprise"] isEqual:@"0"]){
             _enterprise = @"企业账号主账号";
         } else {

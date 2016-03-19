@@ -29,6 +29,14 @@ static NSString *CellIndentifier = @"cell";
 static NSString *payCellIndentifier = @"payCell";
 @implementation MallOrderPay_VC
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.MyProfile = [[UserModel alloc]getMyProfile];
+    NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
+    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -80,11 +88,12 @@ static NSString *payCellIndentifier = @"payCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1;
-    }
-    if (![self.MyProfile.enterprise isEqualToString:@"非企业账号"]) {
-        return 3;
     } else {
-       return 2;
+        if ([self.MyProfile.enterprise isEqualToString:@"非企业账号"]) {
+            return 2;
+        } else {
+            return 3;
+        }
     }
 }
 
@@ -194,6 +203,7 @@ static NSString *payCellIndentifier = @"payCell";
             switch (statusCode) {
                 case 200: {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户付款成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    alert.tag = 222;
                     [alert show];
                     button.userInteractionEnabled = YES;
                 }
@@ -212,6 +222,7 @@ static NSString *payCellIndentifier = @"payCell";
             switch (statusCode) {
                 case 200: {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该订单已提交至主账号，请耐心等待主账号支付！" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    alert.tag = 223;
                     [alert show];
                     button.userInteractionEnabled = YES;
                 }
@@ -231,10 +242,11 @@ static NSString *payCellIndentifier = @"payCell";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
         if (_isMeMallOrder) {
-            if (![self.MyProfile.enterprise isEqualToString:@"非企业账号"]) {
-                ApplicationDelegate.mallStatus = @"1";
-            } else {
+            //
+            if (alertView.tag == 222) {
                 ApplicationDelegate.mallStatus = @"2";
+            } else if (alertView.tag == 223) {
+                ApplicationDelegate.mallStatus = @"1";
             }
             for (UIViewController *controller in self.navigationController.viewControllers) {
                 if ([controller isKindOfClass:[MallBuyHistory_VC class]]) {
@@ -243,10 +255,10 @@ static NSString *payCellIndentifier = @"payCell";
             }
         } else {
             MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
-            if (![self.MyProfile.enterprise isEqualToString:@"非企业账号"]) {
-                ApplicationDelegate.mallStatus = @"1";
-            } else {
+            if (alertView.tag == 222) {
                 ApplicationDelegate.mallStatus = @"2";
+            } else if (alertView.tag == 223) {
+                ApplicationDelegate.mallStatus = @"1";
             }
             [self.navigationController pushViewController:mallBuyVC animated:YES];
         }
