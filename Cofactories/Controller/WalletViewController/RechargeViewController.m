@@ -163,7 +163,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }else if (buttonIndex == 2) {
         DLog(@"%@",self.selfModel.enterprise);
         if ([self.selfModel.enterprise isEqualToString:@"非企业用户"]) {
-            priceTextField.text = @"";
+//            priceTextField.text = @"";
             return;
         }else {
             CGFloat money ;
@@ -187,7 +187,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             }];
         }
     }else if (buttonIndex == 3) {
-        priceTextField.text = @"";
+//        priceTextField.text = @"";
         return;
     }
 }
