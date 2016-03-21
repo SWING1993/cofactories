@@ -20,7 +20,7 @@
 
 static NSString * const CellIdentifier = @"CellIdentifier";
 
-@interface MeViewController ()
+@interface MeViewController ()<UIActionSheetDelegate>
 
 @property (nonatomic,retain)UserModel * MyProfile;
 
@@ -245,13 +245,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
                 case 1:
                 {
-                    DLog("客服聊天");
-                    PublicServiceViewController *conversationVC = [[PublicServiceViewController alloc] init];
-                    conversationVC.conversationType = ConversationType_APPSERVICE;
-                    conversationVC.targetId = RONGCLOUD_IM_SERVICEID;
-                    conversationVC.title = @"聚工厂客服";
-                    conversationVC.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:conversationVC animated:YES];
+                    DLog("客服聊天或打电话");
+                    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"客服聊天", @"客服电话", nil];
+                    [actionSheet showInView:self.view];
                 }
                     break;
                     
@@ -315,6 +311,21 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             [self.navigationController pushViewController:publishVC animated:YES];
         }
             break;
+    }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        PublicServiceViewController *conversationVC = [[PublicServiceViewController alloc] init];
+        conversationVC.conversationType = ConversationType_APPSERVICE;
+        conversationVC.targetId = RONGCLOUD_IM_SERVICEID;
+        conversationVC.title = @"聚工厂客服";
+        conversationVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:conversationVC animated:YES];
+
+    } else if (buttonIndex == 1) {
+        NSString *str = [NSString stringWithFormat:@"telprompt://%@", kCustomerServicePhone];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     }
 }
 

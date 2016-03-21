@@ -52,10 +52,14 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
 }
 - (void)creatTableViewFooterView {
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 160 - 20*(self.goodsModel.status - 1))];
+    
     switch (self.goodsModel.status) {
         case 1:
             lastButton = [Tools buttonWithFrame:CGRectMake(20, 100 - 20*(self.goodsModel.status - 1), kScreenW - 40, 38) withTitle:@"立即付款"];
             self.tableView.tableFooterView = footerView;
+            if ([self.goodsModel.waitPayType isEqualToString:@"等待主账号付款"]) {
+                lastButton.hidden = YES;
+            }
             break;
         case 3:
             lastButton = [Tools buttonWithFrame:CGRectMake(20, 100 - 20*(self.goodsModel.status - 1), kScreenW - 40, 38) withTitle:@"确认收货"];

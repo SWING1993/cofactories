@@ -267,6 +267,8 @@
 		7D1A4E331C59FFA10076B462 /* MallAddAddress_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E321C59FFA10076B462 /* MallAddAddress_VC.m */; };
 		7D1A4E361C5A02080076B462 /* AddressTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E351C5A02080076B462 /* AddressTextFieldCell.m */; };
 		7D1A4E3A1C5A19880076B462 /* MallAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E391C5A19880076B462 /* MallAddressModel.m */; };
+		7D1DC6531C9F9B540006DC0A /* HomeProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1DC6521C9F9B540006DC0A /* HomeProfileCell.m */; };
+		7D1DC6561C9FE5300006DC0A /* MallSellHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1DC6551C9FE5300006DC0A /* MallSellHistoryModel.m */; };
 		7D2BE7361C19112200CE4138 /* MeShopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BE7351C19112200CE4138 /* MeShopController.m */; };
 		7D2BE73A1C1918FA00CE4138 /* MeShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BE7391C1918FA00CE4138 /* MeShopCell.m */; };
 		7D2BE73D1C19272B00CE4138 /* MeAddSupply_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BE73C1C19272B00CE4138 /* MeAddSupply_VC.m */; };
@@ -936,6 +938,10 @@
 		7D1A4E351C5A02080076B462 /* AddressTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTextFieldCell.m; sourceTree = "<group>"; };
 		7D1A4E381C5A19880076B462 /* MallAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallAddressModel.h; sourceTree = "<group>"; };
 		7D1A4E391C5A19880076B462 /* MallAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallAddressModel.m; sourceTree = "<group>"; };
+		7D1DC6511C9F9B540006DC0A /* HomeProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeProfileCell.h; sourceTree = "<group>"; };
+		7D1DC6521C9F9B540006DC0A /* HomeProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeProfileCell.m; sourceTree = "<group>"; };
+		7D1DC6541C9FE5300006DC0A /* MallSellHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallSellHistoryModel.h; sourceTree = "<group>"; };
+		7D1DC6551C9FE5300006DC0A /* MallSellHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallSellHistoryModel.m; sourceTree = "<group>"; };
 		7D2BE7341C19112200CE4138 /* MeShopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeShopController.h; sourceTree = "<group>"; };
 		7D2BE7351C19112200CE4138 /* MeShopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeShopController.m; sourceTree = "<group>"; };
 		7D2BE7381C1918FA00CE4138 /* MeShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeShopCell.h; sourceTree = "<group>"; };
@@ -2419,6 +2425,8 @@
 			children = (
 				7D45D0D41C224C9100FC2988 /* MeHistoryOrderModel.h */,
 				7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */,
+				7D1DC6541C9FE5300006DC0A /* MallSellHistoryModel.h */,
+				7D1DC6551C9FE5300006DC0A /* MallSellHistoryModel.m */,
 			);
 			path = MeHistoryOrderModel;
 			sourceTree = "<group>";
@@ -2432,6 +2440,8 @@
 				7D5BDB7A1BFF145800FC8054 /* HomeMarketButton.m */,
 				7DF1C1AC1BFFFEB700460DB7 /* HomeMarketCell.h */,
 				7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */,
+				7D1DC6511C9F9B540006DC0A /* HomeProfileCell.h */,
+				7D1DC6521C9F9B540006DC0A /* HomeProfileCell.m */,
 				7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */,
 				7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */,
 				7DF1C1C41C005F2200460DB7 /* HomeActivityCell.h */,
@@ -3014,6 +3024,7 @@
 				039D4D751C72E14A0051CD2E /* MJRefreshHeaderView.m in Sources */,
 				03FF44F21BFEE73400D81DCE /* UIWebView+AFNetworking.m in Sources */,
 				70F9AEC91C3F70B60003489B /* CalendarViewController.m in Sources */,
+				7D1DC6561C9FE5300006DC0A /* MallSellHistoryModel.m in Sources */,
 				032554A31BFDC2AD003B2E76 /* Tools.m in Sources */,
 				705421FE1C0DA8F600BD2B47 /* SupplierOrderDetail_VC.m in Sources */,
 				03B4559B1C17EDE6002F1A81 /* WalletModel.m in Sources */,
@@ -3169,6 +3180,7 @@
 				7D56828E1C75A84400FF03AE /* MallOrderMark_VC.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,
 				70F50D7A1C06FB1500920F63 /* FactoryOrderMOdel.m in Sources */,
+				7D1DC6531C9F9B540006DC0A /* HomeProfileCell.m in Sources */,
 				0395D3001BFC6D970009AABC /* LoginViewController.m in Sources */,
 				0329517A1C75678B00713079 /* NSObject+StoreValue.m in Sources */,
 				70FA60F81C09A38E00EA84FD /* CustomeView.m in Sources */,
