@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class UserModel;
 
 @interface HomeProfileCell : UITableViewCell
 
@@ -15,5 +16,7 @@
 @property (nonatomic, strong) UIButton *personAddress;
 @property (nonatomic, strong) UIButton *verifyPhoto;
 @property (nonatomic, strong) UILabel *verifyLabel;
+
+- (void)reloadDataWithUserModel:(UserModel *)userModel wallet:(CGFloat)wallet;
 
 @end

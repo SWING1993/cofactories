@@ -7,9 +7,11 @@
 //
 
 #import "HomeProfileCell.h"
-#define kPersonPhotoHeight 60
-#define kPersonPhotoMargin 20
-#define kVerifyPhotoHeight 50
+#import "UserModel.h"
+
+#define kPersonPhotoHeight 60*kZGY
+#define kPersonPhotoMargin 20*kZGY
+#define kVerifyPhotoHeight 40*kZGY
 
 
 @implementation HomeProfileCell
@@ -18,20 +20,20 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.personPhoto = [[UIImageView alloc] initWithFrame:CGRectMake(kPersonPhotoMargin, kPersonPhotoMargin, kPersonPhotoHeight, kPersonPhotoHeight)];
-//        self.personPhoto.contentMode = UIViewContentModeScaleAspectFit;
         self.personPhoto.layer.cornerRadius = kPersonPhotoHeight/2;
         self.personPhoto.clipsToBounds = YES;
         [self addSubview:self.personPhoto];
         
-        self.stylePhoto = [[UIImageView alloc] initWithFrame:CGRectMake(kPersonPhotoHeight + 2*kPersonPhotoMargin, 12.5, 15, 15)];
+        self.stylePhoto = [[UIImageView alloc] initWithFrame:CGRectMake(kPersonPhotoHeight + 2*kPersonPhotoMargin, 12.5*kZGY, 15*kZGY, 15*kZGY)];
         [self addSubview:self.stylePhoto];
         
-        self.personName = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.stylePhoto.frame) + 10, 10, 200, 20)];
-        self.personName.font = [UIFont systemFontOfSize:14];
+        self.personName = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.stylePhoto.frame) + 5*kZGY, 10*kZGY, kScreenW - 4*kPersonPhotoMargin - kPersonPhotoHeight - kVerifyPhotoHeight - 15*kZGY, 20*kZGY)];
+        self.personName.font = [UIFont systemFontOfSize:12*kZGY];
         [self addSubview:self.personName];
+        
         for (int i = 0; i < 3; i++) {
-            UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.stylePhoto.frame), CGRectGetMaxY(self.stylePhoto.frame) + i*15, 200, 15)];
-            myLabel.font = [UIFont systemFontOfSize:12];
+            UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.stylePhoto.frame), CGRectGetMaxY(self.stylePhoto.frame) + i*15*kZGY, kScreenW - 4*kPersonPhotoMargin - kPersonPhotoHeight - kVerifyPhotoHeight, 15*kZGY)];
+            myLabel.font = [UIFont systemFontOfSize:10*kZGY];
             myLabel.textColor = [UIColor darkGrayColor];
             switch (i) {
                 case 0:
@@ -48,24 +50,79 @@
             }
             [self addSubview:myLabel];
         }
+        
         self.personAddress = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.personAddress.frame = CGRectMake(CGRectGetMinX(self.stylePhoto.frame), CGRectGetMaxY(self.personStyle.frame), 200, 15);
+        self.personAddress.frame = CGRectMake(CGRectGetMinX(self.stylePhoto.frame), CGRectGetMaxY(self.personStyle.frame), kScreenW - 4*kPersonPhotoMargin - kPersonPhotoHeight - kVerifyPhotoHeight, 15*kZGY);
+        self.personAddress.titleLabel.font = [UIFont systemFontOfSize:10*kZGY];
+        [self.personAddress setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        self.personAddress.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [self addSubview:self.personAddress];
         
         self.verifyPhoto = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.verifyPhoto.frame = CGRectMake(kScreenW - kVerifyPhotoHeight - kPersonPhotoMargin, kPersonPhotoMargin, kVerifyPhotoHeight, kVerifyPhotoHeight);
-        self.verifyPhoto.backgroundColor = [UIColor  blackColor];
+        self.verifyPhoto.frame = CGRectMake(kScreenW - kVerifyPhotoHeight - kPersonPhotoMargin - 5*kZGY, kPersonPhotoMargin, kVerifyPhotoHeight, kVerifyPhotoHeight);
         [self addSubview:self.verifyPhoto];
         
-        self.verifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.verifyPhoto.frame) - 10, CGRectGetMaxY(self.verifyPhoto.frame), kVerifyPhotoHeight + 10, 20)];
-        self.verifyLabel.font = [UIFont systemFontOfSize:14];
+        self.verifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenW - kVerifyPhotoHeight - kPersonPhotoMargin - 10*kZGY, CGRectGetMaxY(self.verifyPhoto.frame) + 10*kZGY, kVerifyPhotoHeight + 10*kZGY, 20*kZGY)];
+        self.verifyLabel.font = [UIFont systemFontOfSize:12*kZGY];
+        self.verifyLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.verifyLabel];
         
     }
     return self;
 }
 
-
+- (void)reloadDataWithUserModel:(UserModel *)userModel wallet:(CGFloat)wallet {
+    //用户头像
+    [self.personPhoto sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI, userModel.uid]] placeholderImage:[UIImage imageNamed:@"headBtn"]];
+    //用户名字
+    if (userModel.name.length) {
+        self.personName.text = userModel.name;
+    }
+    //用户积分
+    if (userModel.score.length) {
+        self.personScore.text = [NSString stringWithFormat:@"积分：%@", userModel.score];
+    }
+    //钱包余额
+    self.personWallet.text = [NSString stringWithFormat:@"余额：%.2f元", wallet];
+    //用户类型
+    if ([userModel.verified isEqualToString:@"0"] || [userModel.verified isEqualToString:@"暂无"]) {
+        self.stylePhoto.image = [UIImage imageNamed:@"注"];
+    } else if ([userModel.verified isEqualToString:@"1"] && [userModel.enterprise isEqualToString:@"非企业用户"]) {
+        self.stylePhoto.image = [UIImage imageNamed:@"证"];
+    } else if (![userModel.enterprise isEqualToString:@"非企业用户"]) {
+        self.stylePhoto.image = [UIImage imageNamed:@"企"];
+    } else {
+        self.stylePhoto.image = [UIImage imageNamed:@""];
+    }
+    //用户身份
+    self.personStyle.text = [NSString stringWithFormat:@"个人身份：%@", [UserModel getRoleWith:userModel.UserType]];
+    //地址
+    if ([userModel.address isEqualToString:@"暂无"] || userModel.address.length == 0) {
+        [self.personAddress setTitle:@"地址暂无，点击完善资料" forState: UIControlStateNormal];
+//        [self.personAddress addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [self.personAddress setTitle:userModel.address forState: UIControlStateNormal];
+    }
+    
+//    [self.verifyPhoto addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
+    //认证状态
+    switch (userModel.verify_status) {
+        case 0:
+            self.verifyLabel.text = @"前往认证";
+            [self.verifyPhoto setImage:[UIImage imageNamed:@"Home-verifying"] forState:UIControlStateNormal];
+            break;
+        case 1:
+            self.verifyLabel.text = @"正在审核";
+            [self.verifyPhoto setImage:[UIImage imageNamed:@"Home-verifying"] forState:UIControlStateNormal];
+            break;
+        case 2:
+            self.verifyLabel.text = @"已认证";
+            [self.verifyPhoto setImage:[UIImage imageNamed:@"Home-verifyed"] forState:UIControlStateNormal];
+            break;
+        default:
+            break;
+    }
+}
 
 
 @end

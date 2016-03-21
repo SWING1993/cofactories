@@ -103,47 +103,10 @@ static NSString *activityCellIdentifier = @"activityCell";
         HomeProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:ProfileCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        [cell.personPhoto sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI, self.MyProfile.uid]] placeholderImage:[UIImage imageNamed:@"headBtn"]];
-        if (self.MyProfile.name.length) {
-            cell.personName.text = self.MyProfile.name;
-        }
-        if (self.MyProfile.score.length) {
-            cell.personScore.text = [NSString stringWithFormat:@"积分：%@", self.MyProfile.score];
-        }
-        cell.personWallet.text = [NSString stringWithFormat:@"余额：%.2f元", wallet];
-        
-        if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
-            cell.stylePhoto.image = [UIImage imageNamed:@"注"];
-        } else if ([self.MyProfile.verified isEqualToString:@"1"] && [self.MyProfile.enterprise isEqualToString:@"非企业用户"]) {
-            cell.stylePhoto.image = [UIImage imageNamed:@"证"];
-        } else if (![self.MyProfile.enterprise isEqualToString:@"非企业用户"]) {
-            cell.stylePhoto.image = [UIImage imageNamed:@"企"];
-        } else {
-            cell.stylePhoto.image = [UIImage imageNamed:@""];
-        }
+        [cell reloadDataWithUserModel:self.MyProfile wallet:wallet];
 
-        cell.personStyle.text = [NSString stringWithFormat:@"个人身份：%@", [UserModel getRoleWith:self.MyProfile.UserType]];
-        if ([self.MyProfile.address isEqualToString:@"暂无"] || self.MyProfile.address.length == 0) {
-            [cell.personAddress setTitle:@"地址暂无，点击完善资料" forState: UIControlStateNormal];
-            [cell.personAddress addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
-        } else {
-            [cell.personAddress setTitle:self.MyProfile.address forState: UIControlStateNormal];
-        }
+        [cell.personAddress addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
         [cell.verifyPhoto addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
-        //认证状态
-        switch (self.MyProfile.verify_status) {
-            case 0:
-                cell.verifyLabel.text = @"前往认证";
-                break;
-            case 1:
-                cell.verifyLabel.text = @"正在审核";
-                break;
-            case 2:
-                cell.verifyLabel.text = @"已认证";
-                break;
-            default:
-                break;
-        }
 
         return cell;
 //         HomePersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:personalDataCellIdentifier forIndexPath:indexPath];
