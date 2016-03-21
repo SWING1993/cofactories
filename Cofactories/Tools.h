@@ -40,6 +40,13 @@
 
 + (MBProgressHUD *)createHUDWithView:(UIView *)bigView;
 
+/**
+ *  提示View
+ *
+ *  @param tipStr 提示String
+ */
++ (void)showHudTipStr:(NSString *)tipStr;
+
 + (NSString *)SizeWith:(NSString *)sizeString;
 
 

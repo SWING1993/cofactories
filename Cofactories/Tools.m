@@ -91,6 +91,19 @@
     return hud;
 }
 
++ (void)showHudTipStr:(NSString *)tipStr{
+    if (tipStr && tipStr.length > 0) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kKeyWindow animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.detailsLabelFont = [UIFont boldSystemFontOfSize:15.0];
+        hud.detailsLabelText = tipStr;
+        hud.margin = 12.f;
+        hud.removeFromSuperViewOnHide = YES;
+        hud.userInteractionEnabled = NO;
+        [hud hide:YES afterDelay:1.0];
+    }
+}
+
 + (NSString *)SizeWith:(NSString *)sizeString {
     NSString*string;
     if ([sizeString rangeOfString:@"万件以上"].location !=NSNotFound) {
