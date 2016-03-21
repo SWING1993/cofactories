@@ -31,9 +31,10 @@ static NSString * const CellIdentifier = @"AboutCellIdentifiers";
     
     self.title=@"关于聚工厂";
     self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:kScreenFrame style:UITableViewStyleGrouped];
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.rowHeight = 45;
+//    self.tableView.contentSize = CGSizeMake(kScreenW, kScreenH);
     
     UIView*tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 150)];
     tableHeaderView.backgroundColor=[UIColor whiteColor];
@@ -48,7 +49,7 @@ static NSString * const CellIdentifier = @"AboutCellIdentifiers";
     logoLabel.font = kLargeFont;
     logoLabel.numberOfLines = 1;
     logoLabel.text = @"聚工厂";
-    logoLabel.textColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+    logoLabel.textColor = kMainLightBlueColor;
     logoLabel.textAlignment = NSTextAlignmentCenter;
     [tableHeaderView addSubview:logoLabel];
     
@@ -63,9 +64,9 @@ static NSString * const CellIdentifier = @"AboutCellIdentifiers";
     self.tableView.tableHeaderView = tableHeaderView;
     
     
-    UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 200)];
+    UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 420)];
     UIButton * protocolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    protocolBtn.frame = CGRectMake((kScreenW - 140)/2, 80, 140, 20);
+    protocolBtn.frame = CGRectMake((kScreenW - 140)/2, kScreenH - 330 - 160, 140, 20);
        protocolBtn.titleLabel.font = kSmallFont;
     protocolBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [protocolBtn setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
@@ -73,7 +74,7 @@ static NSString * const CellIdentifier = @"AboutCellIdentifiers";
     [protocolBtn addTarget:self action:@selector(clickProtocolBtn) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:protocolBtn];
     
-    UILabel * copyrightLable = [[UILabel alloc]initWithFrame:CGRectMake(30, 100, kScreenW-60, 50)];
+    UILabel * copyrightLable = [[UILabel alloc]initWithFrame:CGRectMake(30, kScreenH - 330 - 140, kScreenW - 60, 40)];
     copyrightLable.text = @"Copyright © 2015-2016年 Cofactories. All rights reserved";
     copyrightLable.numberOfLines = 0;
     copyrightLable.textAlignment = NSTextAlignmentCenter;
@@ -82,6 +83,8 @@ static NSString * const CellIdentifier = @"AboutCellIdentifiers";
     [tableFooterView addSubview:copyrightLable];
     
     self.tableView.tableFooterView = tableFooterView;
+    
+    DLog(@"%@ -- %@ -- %@",self.tableView,tableHeaderView,tableFooterView);
 }
 
 - (void)clickProtocolBtn {
