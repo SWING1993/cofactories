@@ -184,12 +184,19 @@ LoginButton * _exitBtn;
     }
     if (indexPath.section == 2 && indexPath.row == 0) {
         cell.textLabel.text = @"清理缓存";
-        if (isnan([self cacheFilePath])) {
-            
-        }else {
+        
+        if (!isnan([self cacheFilePath]) && [self cacheFilePath] < 1000) {
             NSString * cacheSize = [NSString stringWithFormat:@"%.2fM",[self cacheFilePath]];
             cell.detailTextLabel.text = cacheSize;
         }
+//        if (isnan([self cacheFilePath])) {
+//            
+//        }else {
+//            if ([self cacheFilePath] < 1000) {
+//                NSString * cacheSize = [NSString stringWithFormat:@"%.2fM",[self cacheFilePath]];
+//                cell.detailTextLabel.text = cacheSize;
+//            }
+//        }
     }
     return cell;
 }
