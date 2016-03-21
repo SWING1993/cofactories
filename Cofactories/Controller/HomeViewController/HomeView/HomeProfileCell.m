@@ -85,15 +85,25 @@
     //钱包余额
     self.personWallet.text = [NSString stringWithFormat:@"余额：%.2f元", wallet];
     //用户类型
-    if ([userModel.verified isEqualToString:@"0"] || [userModel.verified isEqualToString:@"暂无"]) {
-        self.stylePhoto.image = [UIImage imageNamed:@"注"];
-    } else if ([userModel.verified isEqualToString:@"1"] && [userModel.enterprise isEqualToString:@"非企业用户"]) {
-        self.stylePhoto.image = [UIImage imageNamed:@"证"];
-    } else if (![userModel.enterprise isEqualToString:@"非企业用户"]) {
-        self.stylePhoto.image = [UIImage imageNamed:@"企"];
+    if ([userModel.enterprise isEqualToString:@"非企业账号"]) {
+        if ([userModel.verified isEqualToString:@"0"] || [userModel.verified isEqualToString:@"暂无"]) {
+            self.stylePhoto.image = [UIImage imageNamed:@"注"];
+        } else if ([userModel.verified isEqualToString:@"1"]) {
+            self.stylePhoto.image = [UIImage imageNamed:@"证"];
+        }
     } else {
-        self.stylePhoto.image = [UIImage imageNamed:@""];
+        self.stylePhoto.image = [UIImage imageNamed:@"企"];
     }
+    
+//    if ([userModel.verified isEqualToString:@"0"] || [userModel.verified isEqualToString:@"暂无"]) {
+//        self.stylePhoto.image = [UIImage imageNamed:@"注"];
+//    } else if ([userModel.verified isEqualToString:@"1"] && [userModel.enterprise isEqualToString:@"非企业用户"]) {
+//        self.stylePhoto.image = [UIImage imageNamed:@"证"];
+//    } else if (![userModel.enterprise isEqualToString:@"非企业账号"]) {
+//        self.stylePhoto.image = [UIImage imageNamed:@"企"];
+//    } else {
+//        self.stylePhoto.image = [UIImage imageNamed:@""];
+//    }
     //用户身份
     self.personStyle.text = [NSString stringWithFormat:@"个人身份：%@", [UserModel getRoleWith:userModel.UserType]];
     //地址
