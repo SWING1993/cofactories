@@ -188,32 +188,35 @@
     }];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"该订单的首款为%@,确认支付首款?",_model.fistPayCount] message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            alert.tag = 200;
+            alert.tag = 100;
     [alert show];
     
     DLog(@"-----%@-----%@",_model.fistPayCount,_payWayString);
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == 200) {
+    if (alertView.tag == 100) {
         if (buttonIndex == 1) {
             [HttpClient payFirstWithOrderID:_model.ID payWay:_payWayString WithCompletionBlock:^(NSDictionary *dictionary){
                 NSString *statusCode = dictionary[@"statusCode"];
                 DLog(@"---------statuscode%@------------",statusCode);
                 if ([statusCode isEqualToString:@"200"]) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"首笔付款成功" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil];
-                    alert.tag = 100;
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"首笔付款成功" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    alert.tag = 200;
                     [alert show];
-                    kTipAlert(@"首笔付款成功");
                 }else if ([statusCode isEqualToString:@"402"]){
-                    kTipAlert(@"余额不够,请充值");
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"余额不够,请充值" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    alert.tag = 402;
+                    [alert show];
                 }else if ([statusCode isEqualToString:@"409"]){
-                    kTipAlert(@"首款已付,余款支付请自行联系加工厂!");
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"首款已付,余款支付请自行联系加工厂!" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    alert.tag = 409;
+                    [alert show];
                 }
             }];
 
         }
-    }else if (alertView.tag == 100){
+    }else {
         if (buttonIndex == 0) {
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
