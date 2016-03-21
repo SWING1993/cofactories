@@ -32,9 +32,9 @@
         [self addSubview:self.personName];
         
         for (int i = 0; i < 3; i++) {
-            UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.stylePhoto.frame), CGRectGetMaxY(self.stylePhoto.frame) + i*15*kZGY, kScreenW - 4*kPersonPhotoMargin - kPersonPhotoHeight - kVerifyPhotoHeight, 15*kZGY)];
-            myLabel.font = [UIFont systemFontOfSize:10*kZGY];
-            myLabel.textColor = [UIColor darkGrayColor];
+            UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.stylePhoto.frame), CGRectGetMaxY(self.stylePhoto.frame) + i*15*kZGY + 3*kZGY, kScreenW - 4*kPersonPhotoMargin - kPersonPhotoHeight - kVerifyPhotoHeight, 15*kZGY)];
+            myLabel.font = [UIFont systemFontOfSize:11*kZGY];
+            myLabel.textColor = GRAYCOLOR(153);
             switch (i) {
                 case 0:
                     self.personScore = myLabel;
@@ -53,8 +53,8 @@
         
         self.personAddress = [UIButton buttonWithType:UIButtonTypeCustom];
         self.personAddress.frame = CGRectMake(CGRectGetMinX(self.stylePhoto.frame), CGRectGetMaxY(self.personStyle.frame), kScreenW - 4*kPersonPhotoMargin - kPersonPhotoHeight - kVerifyPhotoHeight, 15*kZGY);
-        self.personAddress.titleLabel.font = [UIFont systemFontOfSize:10*kZGY];
-        [self.personAddress setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        self.personAddress.titleLabel.font = [UIFont systemFontOfSize:11*kZGY];
+        [self.personAddress setTitleColor:GRAYCOLOR(153) forState:UIControlStateNormal];
         self.personAddress.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [self addSubview:self.personAddress];
         
