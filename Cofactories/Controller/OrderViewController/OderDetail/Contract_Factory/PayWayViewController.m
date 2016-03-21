@@ -201,7 +201,16 @@
                 NSString *statusCode = dictionary[@"statusCode"];
                 DLog(@"---------statuscode%@------------",statusCode);
                 if ([statusCode isEqualToString:@"200"]) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"首笔付款成功" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    
+                    NSString *alertString;
+
+                    if ([_payWayString isEqualToString:@"wallet"]) {
+                        alertString = @"首笔付款成功";
+                    }else{
+                        alertString = @"提交主账号付款";
+                    }
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
                     alert.tag = 200;
                     [alert show];
                 }else if ([statusCode isEqualToString:@"402"]){
