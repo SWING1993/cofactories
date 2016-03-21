@@ -541,11 +541,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         goodsModel.amount = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
         goodsModel.photoArray = marketDetailModel.photoArray;
         
-        //    ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
-        //    shopOrderVC.goodsDic = buyGoodsDic;
-        //    shopOrderVC.goodsID = self.shopID;
-        //    shopOrderVC.goodsNumber = numberView.timeAmount;
-        //    [self.navigationController pushViewController:shopOrderVC animated:YES];
         MallSelectAddress_VC *selectAddressVC = [[MallSelectAddress_VC alloc] init];
         selectAddressVC.mallOrderDic = buyGoodsDic;
         selectAddressVC.goodsModel = goodsModel;
