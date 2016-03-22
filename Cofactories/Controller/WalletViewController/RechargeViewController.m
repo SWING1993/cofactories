@@ -163,6 +163,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }else if (buttonIndex == 2) {
 //        DLog(@"%@",self.selfModel.enterprise);
         if (self.selfModel.enterpriseType == EnterpriseType_noEnterprise) {
+
 //            priceTextField.text = @"";
             return;
         }else {
