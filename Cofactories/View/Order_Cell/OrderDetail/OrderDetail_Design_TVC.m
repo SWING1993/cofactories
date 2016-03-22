@@ -48,6 +48,7 @@
         
         UILabel *lb = [UILabel new];
         lb.font = FontOfSize(12);
+        lb.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:lb];
         if (i==0) {
             _orderTitleLB = lb;

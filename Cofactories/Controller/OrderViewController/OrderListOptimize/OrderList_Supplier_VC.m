@@ -10,7 +10,8 @@
 #import "OrderList_Supplier_TVC.h"
 #import "SupplierOrderModel.h"
 #import "MJRefresh.h"
-#import "SupplierOrderDetail_VC.h"
+//#import "SupplierOrderDetail_VC.h"
+#import "OrderDetail_Supp_VC.h"
 
 @interface OrderList_Supplier_VC ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 @property (nonatomic,strong) UITableView    *tableView;
@@ -159,28 +160,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SupplierOrderModel *model = _dataArray[indexPath.row];
     
-    SupplierOrderDetail_VC *vc = [SupplierOrderDetail_VC new];
-    
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"返回";
-    backItem.tintColor=[UIColor whiteColor];
-    self.navigationItem.backBarButtonItem = backItem;
-    
-    [HttpClient getSupplierOrderDetailWithID:model.ID WithCompletionBlock:^(NSDictionary *dictionary) {
-        SupplierOrderModel *dataModel = [SupplierOrderModel getSupplierOrderModelWithDictionary:dictionary];
-        vc.dataModel = dataModel;
-        vc.supplierOrderDetailBidStatus = SupplierOrderDetailBidStatus_Common;
-        [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
-            OthersUserModel *model = dictionary[@"message"];
-            vc.otherUserModel = model;
-            [self.navigationController pushViewController:vc animated:YES];
-            
-        }];
-    }];
+    OrderDetail_Supp_VC *vc = [OrderDetail_Supp_VC new];
+    vc.enterType = kOrderDetail_Supp_TypeDefault;
+    vc.orderID = model.ID;
+    [self isShowTopView:NO];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    DLog(@">>>>>>>>>>>+=====------%@",NSStringFromCGPoint(_tableView.contentOffset));
+    //DLog(@">>>>>>>>>>>+=====------%@",NSStringFromCGPoint(_tableView.contentOffset));
     
     if (_tableView.contentOffset.y < 500) {
         [self isShowTopView:NO];

@@ -173,7 +173,7 @@
 		70037F061C1034A50086267C /* ProgressingOrder_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70037F051C1034A50086267C /* ProgressingOrder_TVC.m */; };
 		70037F091C10350B0086267C /* ProcessingAndComplitonOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70037F081C10350B0086267C /* ProcessingAndComplitonOrderModel.m */; };
 		702250A01C98FCA0006795EB /* OrderDetail_Design_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7022509F1C98FCA0006795EB /* OrderDetail_Design_VC.m */; };
-		702250A41C990886006795EB /* OrderDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 702250A31C990886006795EB /* OrderDetailHeaderView.m */; };
+		702250A41C990886006795EB /* OrderDetail_Design_HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 702250A31C990886006795EB /* OrderDetail_Design_HeaderView.m */; };
 		702250AB1C99273B006795EB /* OrderDetail_Design_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 702250AA1C99273B006795EB /* OrderDetail_Design_TVC.m */; };
 		705421F41C0D3AA100BD2B47 /* OthersUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 705421F31C0D3AA100BD2B47 /* OthersUserModel.m */; };
 		705421F81C0D7A3C00BD2B47 /* OrderBid_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 705421F71C0D7A3C00BD2B47 /* OrderBid_Factory_VC.m */; };
@@ -186,6 +186,9 @@
 		705679DA1C1952A800ACA494 /* PersonalShop_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 705679D91C1952A800ACA494 /* PersonalShop_Model.m */; };
 		705679E01C1952CC00ACA494 /* DealComment_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 705679DF1C1952CC00ACA494 /* DealComment_Model.m */; };
 		705B25671C09B31600CCA619 /* MangerOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 705B25661C09B31600CCA619 /* MangerOrderVC.m */; };
+		70612DD51CA0DF3600EC0272 /* OrderDetail_Supp_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70612DD41CA0DF3600EC0272 /* OrderDetail_Supp_VC.m */; };
+		70612DD91CA0E1D200EC0272 /* OrderDetail_Supp_HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70612DD81CA0E1D200EC0272 /* OrderDetail_Supp_HeaderView.m */; };
+		70612DDC1CA0E21300EC0272 /* OrderDetail_Supp_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70612DDB1CA0E21300EC0272 /* OrderDetail_Supp_TVC.m */; };
 		7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */; };
 		7094D7221BFC825200F7240B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D7211BFC825200F7240B /* WalletViewController.m */; };
 		70A63EA91C45ED1000B68839 /* Contract_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A63EA81C45ED1000B68839 /* Contract_VC.m */; };
@@ -747,8 +750,8 @@
 		70037F081C10350B0086267C /* ProcessingAndComplitonOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessingAndComplitonOrderModel.m; sourceTree = "<group>"; };
 		7022509E1C98FCA0006795EB /* OrderDetail_Design_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetail_Design_VC.h; sourceTree = "<group>"; };
 		7022509F1C98FCA0006795EB /* OrderDetail_Design_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_Design_VC.m; sourceTree = "<group>"; };
-		702250A21C990886006795EB /* OrderDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailHeaderView.h; sourceTree = "<group>"; };
-		702250A31C990886006795EB /* OrderDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailHeaderView.m; sourceTree = "<group>"; };
+		702250A21C990886006795EB /* OrderDetail_Design_HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetail_Design_HeaderView.h; sourceTree = "<group>"; };
+		702250A31C990886006795EB /* OrderDetail_Design_HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_Design_HeaderView.m; sourceTree = "<group>"; };
 		702250A91C99273B006795EB /* OrderDetail_Design_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetail_Design_TVC.h; sourceTree = "<group>"; };
 		702250AA1C99273B006795EB /* OrderDetail_Design_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_Design_TVC.m; sourceTree = "<group>"; };
 		705421F21C0D3AA100BD2B47 /* OthersUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OthersUserModel.h; sourceTree = "<group>"; };
@@ -773,6 +776,12 @@
 		705679DF1C1952CC00ACA494 /* DealComment_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealComment_Model.m; sourceTree = "<group>"; };
 		705B25651C09B31600CCA619 /* MangerOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MangerOrderVC.h; sourceTree = "<group>"; };
 		705B25661C09B31600CCA619 /* MangerOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MangerOrderVC.m; sourceTree = "<group>"; };
+		70612DD31CA0DF3600EC0272 /* OrderDetail_Supp_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetail_Supp_VC.h; sourceTree = "<group>"; };
+		70612DD41CA0DF3600EC0272 /* OrderDetail_Supp_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_Supp_VC.m; sourceTree = "<group>"; };
+		70612DD71CA0E1D200EC0272 /* OrderDetail_Supp_HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetail_Supp_HeaderView.h; sourceTree = "<group>"; };
+		70612DD81CA0E1D200EC0272 /* OrderDetail_Supp_HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_Supp_HeaderView.m; sourceTree = "<group>"; };
+		70612DDA1CA0E21300EC0272 /* OrderDetail_Supp_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetail_Supp_TVC.h; sourceTree = "<group>"; };
+		70612DDB1CA0E21300EC0272 /* OrderDetail_Supp_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_Supp_TVC.m; sourceTree = "<group>"; };
 		7094D71B1BFC7B4B00F7240B /* CHTumblrMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTumblrMenuView.h; sourceTree = "<group>"; };
 		7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTumblrMenuView.m; sourceTree = "<group>"; };
 		7094D7201BFC825200F7240B /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
@@ -1964,10 +1973,14 @@
 		702250A11C99084E006795EB /* OrderDetail */ = {
 			isa = PBXGroup;
 			children = (
-				702250A21C990886006795EB /* OrderDetailHeaderView.h */,
-				702250A31C990886006795EB /* OrderDetailHeaderView.m */,
+				702250A21C990886006795EB /* OrderDetail_Design_HeaderView.h */,
+				702250A31C990886006795EB /* OrderDetail_Design_HeaderView.m */,
 				702250A91C99273B006795EB /* OrderDetail_Design_TVC.h */,
 				702250AA1C99273B006795EB /* OrderDetail_Design_TVC.m */,
+				70612DD71CA0E1D200EC0272 /* OrderDetail_Supp_HeaderView.h */,
+				70612DD81CA0E1D200EC0272 /* OrderDetail_Supp_HeaderView.m */,
+				70612DDA1CA0E21300EC0272 /* OrderDetail_Supp_TVC.h */,
+				70612DDB1CA0E21300EC0272 /* OrderDetail_Supp_TVC.m */,
 			);
 			path = OrderDetail;
 			sourceTree = "<group>";
@@ -2261,6 +2274,8 @@
 			children = (
 				7022509E1C98FCA0006795EB /* OrderDetail_Design_VC.h */,
 				7022509F1C98FCA0006795EB /* OrderDetail_Design_VC.m */,
+				70612DD31CA0DF3600EC0272 /* OrderDetail_Supp_VC.h */,
+				70612DD41CA0DF3600EC0272 /* OrderDetail_Supp_VC.m */,
 			);
 			path = OrderDetailOptimize;
 			sourceTree = "<group>";
@@ -2913,6 +2928,7 @@
 				7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */,
 				7D45D0D61C224C9100FC2988 /* MeHistoryOrderModel.m in Sources */,
 				03571C421BE85C3700900EF9 /* UIImage+Common.m in Sources */,
+				70612DD91CA0E1D200EC0272 /* OrderDetail_Supp_HeaderView.m in Sources */,
 				032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */,
 				7D543D311C5B20090086B702 /* MallOrderPay_VC.m in Sources */,
 				03662CE71C12E0FD00AEEF48 /* NSDataEx.m in Sources */,
@@ -2944,6 +2960,7 @@
 				03571B9F1BE85B8200900EF9 /* MJPhotoProgressView.m in Sources */,
 				70EBD6C41C8D130300162D07 /* PublishOrder_Factory_Common_VC.m in Sources */,
 				03623FFB1C44EDFE0083044A /* NSObject+ObjectMap.m in Sources */,
+				70612DD51CA0DF3600EC0272 /* OrderDetail_Supp_VC.m in Sources */,
 				035CC5281C06DCF000998FBD /* JKPhotoBrowser.m in Sources */,
 				70E8C0751C868E2C007C7C1D /* GTFLoadPhoto_VC.m in Sources */,
 				039D4D771C72E14A0051CD2E /* UIScrollView+MJRefresh.m in Sources */,
@@ -3001,6 +3018,7 @@
 				7D8E703A1C0FE894004A7E2C /* ProcessMarketController.m in Sources */,
 				03662CE21C12E0FD00AEEF48 /* Order.m in Sources */,
 				03FF44F11BFEE73400D81DCE /* UIRefreshControl+AFNetworking.m in Sources */,
+				70612DDC1CA0E21300EC0272 /* OrderDetail_Supp_TVC.m in Sources */,
 				03F846FD1C47740600F4EC00 /* LoginButton.m in Sources */,
 				03B8973E1C151EC100DB8E4E /* WithdrawalViewController.m in Sources */,
 				035CC52A1C06DCF000998FBD /* JKPromptView.m in Sources */,
@@ -3053,7 +3071,7 @@
 				70F6D1F61C1697D000E23166 /* Business_Supplier_Model.m in Sources */,
 				70037F031C1021F40086267C /* ProgressingOrder_VC.m in Sources */,
 				70A63EAD1C4638AD00B68839 /* ContractFactoryDetail_VC.m in Sources */,
-				702250A41C990886006795EB /* OrderDetailHeaderView.m in Sources */,
+				702250A41C990886006795EB /* OrderDetail_Design_HeaderView.m in Sources */,
 				7D34E4351C197B140049D9C7 /* PlaceholderTextView.m in Sources */,
 				03571C9B1BE85DAC00900EF9 /* DOPDropDownMenu.m in Sources */,
 				70EBD6C51C8D130300162D07 /* PublishOrder_Factory_Restrict_VC.m in Sources */,

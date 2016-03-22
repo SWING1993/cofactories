@@ -1,14 +1,14 @@
 //
-//  OrderDetailHeaderView.m
+//  OrderDetail_Supp_HeaderView.m
 //  Cofactories
 //
-//  Created by GTF on 16/3/16.
+//  Created by GTF on 16/3/22.
 //  Copyright © 2016年 Cofactorios. All rights reserved.
 //
 
+#import "OrderDetail_Supp_HeaderView.h"
 
-#import "OrderDetailHeaderView.h"
-@implementation OrderDetailHeaderView{
+@implementation OrderDetail_Supp_HeaderView{
     UIButton  *_orderImageBtn;
     UILabel   *_userNameLB;
     UILabel   *_userAddressLB;
@@ -85,10 +85,10 @@
     lineLayerOne.backgroundColor = [UIColor grayColor].CGColor;
     [self.layer addSublayer:lineLayerOne];
     
-
+    
 }
 
-- (void)setModel:(DesignOrderModel *)model{
+- (void)setModel:(SupplierOrderModel *)model{
     _model = model;
     
     if (model.photoArray.count > 0) {
@@ -132,5 +132,6 @@
         self.BidBtnBlock();
     }
 }
+
 
 @end

@@ -21,7 +21,6 @@
     NSArray         *_workingTimeArray;
     NSMutableArray  *_dataArray;
     int              _refrushCount;
-    
 }
 
 @property (nonatomic,copy)NSString  *oderKeywordString;

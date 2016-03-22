@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OrderDetailHeaderView : UIView
+@interface OrderDetail_Design_HeaderView : UIView
 @property (nonatomic,strong)DesignOrderModel *model;
 @property (nonatomic,copy)NSString *userAddress;
 @property (nonatomic,copy)NSString *userName;

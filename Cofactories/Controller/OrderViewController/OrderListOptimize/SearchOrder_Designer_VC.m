@@ -135,27 +135,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DesignOrderModel *model = _dataArray[indexPath.row];
-//    
-//    DesignOrderDetail_VC *vc = [DesignOrderDetail_VC new];
-//    
-//    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-//    backItem.title=@"返回";
-//    backItem.tintColor=[UIColor whiteColor];
-//    self.navigationItem.backBarButtonItem = backItem;
-//    //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-//    
-//    [HttpClient getDesignOrderDetailWithID:model.ID WithCompletionBlock:^(NSDictionary *dictionary) {
-//        DesignOrderModel *dataModel = [DesignOrderModel getDesignOrderModelWithDictionary:dictionary];
-//        vc.dataModel = dataModel;
-//        vc.designOrderDetailBidStatus = DesignOrderDetailBidStatus_Common;
-//        [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
-//            OthersUserModel *model = dictionary[@"message"];
-//            vc.otherUserModel = model;
-//            [self.navigationController pushViewController:vc animated:YES];
-//            
-//        }];
-//    }];
-    
     OrderDetail_Design_VC *vc = [OrderDetail_Design_VC new];
     vc.enterType = kOrderDetail_Design_TypeDefault;
     vc.orderID = model.ID;
