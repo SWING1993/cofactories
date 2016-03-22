@@ -57,6 +57,9 @@
 #define RONGCLOUD_IM_APPKEY @"pwe86ga5edfp6"
 #define RONGCLOUD_IM_SERVICEID @"KEFU145230925094660"
 
+#define kFirstControllerTitle @"聚工厂 -- Debug -- 本地开发"
+
+
 //这里执行的是release模式下
 #else
 /**
@@ -79,6 +82,8 @@
 #define RONGCLOUD_IM_APPKEY @"4z3hlwrv3iult"
 #define RONGCLOUD_IM_SERVICEID @"KEFU145230927149545"
 
+#define kFirstControllerTitle @"聚工厂"
+
 #endif
 
 /**
@@ -100,6 +105,7 @@
 //#define RONGCLOUD_IM_APPKEY @"pwe86ga5edfp6"
 //#define RONGCLOUD_IM_SERVICEID @"KEFU145230925094660"
 
+//#define kFirstControllerTitle @"聚工厂 -- 远程测试"
 
 
 #pragma mark - key

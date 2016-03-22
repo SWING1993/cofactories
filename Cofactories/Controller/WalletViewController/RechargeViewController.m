@@ -162,7 +162,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             }
     }else if (buttonIndex == 2) {
         DLog(@"%@",self.selfModel.enterprise);
-        if ([self.selfModel.enterprise isEqualToString:@"非企业用户"]) {
+        if ([self.selfModel.enterprise isEqualToString:@"非企业账号"]) {
 //            priceTextField.text = @"";
             return;
         }else {
