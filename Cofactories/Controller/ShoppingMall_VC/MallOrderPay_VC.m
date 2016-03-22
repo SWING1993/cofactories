@@ -89,8 +89,7 @@ static NSString *payCellIndentifier = @"payCell";
     if (section == 0) {
         return 1;
     } else {
-        DLog(@"RRRRRRRRRRR%@", self.MyProfile.enterprise);
-        if ([self.MyProfile.enterprise isEqualToString:@"非企业账号"]) {
+        if (self.MyProfile.enterpriseType == EnterpriseType_noEnterprise) {
             return 2;
         } else {
             return 3;

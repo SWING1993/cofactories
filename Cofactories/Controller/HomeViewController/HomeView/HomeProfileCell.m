@@ -85,7 +85,7 @@
     //钱包余额
     self.personWallet.text = [NSString stringWithFormat:@"余额：%.2f元", wallet];
     //用户类型
-    if ([userModel.enterprise isEqualToString:@"非企业账号"]) {
+    if (userModel.enterpriseType == EnterpriseType_noEnterprise) {
         if ([userModel.verified isEqualToString:@"0"] || [userModel.verified isEqualToString:@"暂无"]) {
             self.stylePhoto.image = [UIImage imageNamed:@"注"];
         } else if ([userModel.verified isEqualToString:@"1"]) {
@@ -94,27 +94,16 @@
     } else {
         self.stylePhoto.image = [UIImage imageNamed:@"企"];
     }
-    
-//    if ([userModel.verified isEqualToString:@"0"] || [userModel.verified isEqualToString:@"暂无"]) {
-//        self.stylePhoto.image = [UIImage imageNamed:@"注"];
-//    } else if ([userModel.verified isEqualToString:@"1"] && [userModel.enterprise isEqualToString:@"非企业用户"]) {
-//        self.stylePhoto.image = [UIImage imageNamed:@"证"];
-//    } else if (![userModel.enterprise isEqualToString:@"非企业账号"]) {
-//        self.stylePhoto.image = [UIImage imageNamed:@"企"];
-//    } else {
-//        self.stylePhoto.image = [UIImage imageNamed:@""];
-//    }
     //用户身份
     self.personStyle.text = [NSString stringWithFormat:@"个人身份：%@", [UserModel getRoleWith:userModel.UserType]];
     //地址
-    if ([userModel.address isEqualToString:@"暂无"] || userModel.address.length == 0) {
+    
+    if ([userModel.address isEqualToString:@"暂无"] || [Tools isBlankString:userModel.address] == YES) {
         [self.personAddress setTitle:@"地址暂无，点击完善资料" forState: UIControlStateNormal];
-//        [self.personAddress addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [self.personAddress setTitle:userModel.address forState: UIControlStateNormal];
     }
     
-//    [self.verifyPhoto addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
     //认证状态
     switch (userModel.verify_status) {
         case 0:
