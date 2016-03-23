@@ -13,7 +13,8 @@
 
 @property (nonatomic, strong) UIImageView *personPhoto, *stylePhoto;
 @property (nonatomic, strong) UILabel *personName, *personScore, *personWallet, *personStyle;
-@property (nonatomic, strong) UIButton *personAddress;
+@property (nonatomic, strong) UILabel *personAddress;
+@property (nonatomic, strong) UIButton *changeAddressBtn;
 @property (nonatomic, strong) UIButton *verifyPhoto;
 @property (nonatomic, strong) UILabel *verifyLabel;
 
