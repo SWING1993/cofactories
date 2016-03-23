@@ -17,6 +17,12 @@ typedef NS_ENUM(NSInteger, UserType) {
     UserType_Null,        //null
 };
 
+typedef NS_ENUM(NSInteger, EnterpriseType) {
+    EnterpriseType_noEnterprise,
+    EnterpriseType_mainEnterprise,
+    EnterpriseType_supEnterprise,
+};
+
 @interface UserModel : NSObject
 
 @property (nonatomic, retain) NSArray * UserTypeListArray;
@@ -24,6 +30,7 @@ typedef NS_ENUM(NSInteger, UserType) {
 
 @property (nonatomic, retain ,readonly) NSString * role;
 @property (atomic, assign ,readonly) UserType UserType;
+@property (atomic, assign, readonly) EnterpriseType enterpriseType;
 
 @property (nonatomic, retain, readonly) NSString * uid;
 @property (nonatomic, retain, readwrite) NSString * phone;
@@ -37,7 +44,6 @@ typedef NS_ENUM(NSInteger, UserType) {
 @property (nonatomic, retain, readonly) NSString * inviteCode;
 @property (nonatomic, retain, readonly) NSString * rongToken;
 @property (nonatomic, retain, readonly) NSString * verified;
-@property (nonatomic, retain, readonly) NSString * enterprise;
 @property (nonatomic, retain, readonly) NSString * score;
 @property (nonatomic, retain, readonly) NSString * lastActivity;
 @property (nonatomic, retain, readonly) NSString * descriptionString;

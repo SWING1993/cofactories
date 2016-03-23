@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Process-代裁.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Process-代裁@2x.png",
       "scale" : "2x"
     },
     {

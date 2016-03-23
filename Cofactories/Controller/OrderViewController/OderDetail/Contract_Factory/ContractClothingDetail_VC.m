@@ -347,19 +347,40 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     driveButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [view addSubview:driveButton];
     
-    NSArray *array = @[@"付款",@"订单完成"];
-    for (int i = 0; i<array.count; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake((kScreenW-240)/3.f+i*(120+(kScreenW-240)/3.f), 60, 120,40);
-        [button setTitle:array[i] forState:UIControlStateNormal];
-        button.backgroundColor = MAIN_COLOR;
-        button.titleLabel.font = [UIFont systemFontOfSize:14];
-        button.tag = i+1;
-        button.layer.cornerRadius = 5;
-        [button addTarget:self action:@selector(payAndConfirmClick:) forControlEvents:UIControlEventTouchUpInside];
-        [view addSubview:button];
+    
+    // 判断第七位表示付款方式是否为企业帐号代付
+    
+    NSInteger status = [_dataModel.status integerValue];
+    int secondByte = status & 64;
+    
+    DLog(@"-------%@-jjjjjjj-%d-------",_dataModel.status,secondByte);
+    if (secondByte == 64) {
+        //是企业账号付首款
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, kScreenW,40)];
+        lab.textColor = [UIColor lightGrayColor];
+        lab.textAlignment = NSTextAlignmentCenter;
+        lab.font = [UIFont systemFontOfSize:14];
+        lab.text = @"该订单已提交至主账号,请耐心等待主账号支付!";
+        [view addSubview:lab];
+                                                                 
+    }else{
+        NSArray *array = @[@"付款",@"订单完成"];
+        for (int i = 0; i<array.count; i++) {
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.frame = CGRectMake((kScreenW-240)/3.f+i*(120+(kScreenW-240)/3.f), 60, 120,40);
+            [button setTitle:array[i] forState:UIControlStateNormal];
+            button.backgroundColor = MAIN_COLOR;
+            button.titleLabel.font = [UIFont systemFontOfSize:14];
+            button.tag = i+1;
+            button.layer.cornerRadius = 5;
+            [button addTarget:self action:@selector(payAndConfirmClick:) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:button];
+        }
+
     }
-    return view;
+    
+
+      return view;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -407,8 +428,20 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 - (void)payAndConfirmClick:(UIButton *)button{
     NSLog(@"%ld",(long)button.tag);
     if (button.tag == 1) {
-        PayWayViewController *vc = [[PayWayViewController alloc] initWithFacModel:_dataModel];
-        [self.navigationController pushViewController:vc animated:YES];
+        
+        // 先判断身份是否是企业账号
+        
+        DLog(@"------用户身份==%@------",_otherUserModel.userIdentity);
+        
+        if ([_otherUserModel.userIdentity isEqualToString:@"企业用户"]) {
+             PayWayViewController *vc = [[PayWayViewController alloc] initWithFacModel:_dataModel];
+             [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"该订单的首款为%@,确认支付首款?",_dataModel.fistPayCount] message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alert.tag = 200;
+            [alert show];
+        }
+        
         
     }else if (button.tag == 2){
         // 确定完成
@@ -437,7 +470,28 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                 }
             }];
         }
-    }    
+    }else  if (alertView.tag == 200) {
+        if (buttonIndex == 1) {
+            [HttpClient payFirstWithOrderID:_modelID payWay:@"wallet" WithCompletionBlock:^(NSDictionary *dictionary){
+                NSString *statusCode = dictionary[@"statusCode"];
+                DLog(@"---------statuscode%@------------",statusCode);
+                if ([statusCode isEqualToString:@"200"]) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"首笔付款成功" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    alert.tag = 200;
+                    [alert show];
+                }else if ([statusCode isEqualToString:@"402"]){
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"余额不够,请充值" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    alert.tag = 402;
+                    [alert show];
+                }else if ([statusCode isEqualToString:@"409"]){
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"首款已付,余款支付请自行联系加工厂!" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    alert.tag = 409;
+                    [alert show];
+                }
+            }];
+            
+        }
+    }
 }
 
 - (void)contractClick:(UIButton *)button{
