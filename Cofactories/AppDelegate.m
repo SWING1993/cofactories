@@ -5,8 +5,7 @@
 //  Created by 宋国华 on 15/11/3.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
-
-#import "PopularMessageController.h"
+#import "PopularNewsHome_VC.h"
 #import "Business_Cloth_VC.h"
 #import "MeShoppingCar_VC.h"
 
@@ -178,7 +177,7 @@
             [RootViewController toucHPushViewController:vc];
         }
         else if ([shortcutItem.localizedTitle isEqualToString:@"流行资讯"]) {
-            PopularMessageController * vc = [[PopularMessageController alloc]init];
+            PopularNewsHome_VC * vc = [[PopularNewsHome_VC alloc]init];
             [RootViewController toucHPushViewController:vc];
             
         } else if ([shortcutItem.localizedTitle isEqualToString:@"查找服装企业"]) {

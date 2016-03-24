@@ -186,12 +186,13 @@ static NSString *newsCellIdentifier = @"newsCell";
     [self.view bringSubviewToFront:backgroundView];
     [self controlBackgroundView:0.3];
 }
-
-
-//点击搜索出结果
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+//点击取消按钮
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     [self controlBackgroundView:0];
     [self.view endEditing:YES];
+}
+//点击搜索出结果
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     //搜索完移除view改变searchBar的大小
     [HttpClient searchPopularNewsWithKeyword:mySearchBar.text WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
@@ -253,7 +254,6 @@ static NSString *newsCellIdentifier = @"newsCell";
     } else {
         return nil;
     }
-    
 }
 
 #pragma mark - UITableViewDelegate
@@ -311,7 +311,6 @@ static NSString *newsCellIdentifier = @"newsCell";
         detailVC.popularNewsModel = newsModel;
         [self.navigationController pushViewController:detailVC animated:YES];
     }
-    
 }
 
 #pragma mark -WKFCircularSlidingViewDelegate轮播图
@@ -327,7 +326,6 @@ static NSString *newsCellIdentifier = @"newsCell";
         DLog(@"无链接，点不进去");
     }
 }
-
 
 #pragma mark - Action
 - (void)actionOfMoreTop:(UIButton *)button {
@@ -345,7 +343,6 @@ static NSString *newsCellIdentifier = @"newsCell";
 }
 - (void)actionOfTopRightNews:(UIButton *)button {
     DLog(@"置顶右边");
-    
     PopularNewsModel *newsModel = self.topNewsArray[1];
     PopularNews_Detail_VC *detailVC = [[PopularNews_Detail_VC alloc] init];
     detailVC.popularNewsModel = newsModel;
@@ -358,25 +355,9 @@ static NSString *newsCellIdentifier = @"newsCell";
     [self.navigationController pushViewController:popularNewsTypeVC animated:YES];
 }
 
-
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

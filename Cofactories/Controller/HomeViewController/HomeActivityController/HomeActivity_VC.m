@@ -11,7 +11,7 @@
 #import "PersonalMessage_Clothing_VC.h"
 #import "PersonalMessage_Factory_VC.h"
 #import "HomeKoreaShopList_VC.h"
-#import "PopularMessageController.h"
+#import "PopularNewsHome_VC.h"
 #import "ShoppingMallDetail_VC.h"
 #import <Bugly/JSExceptionReporter.h>
 
@@ -83,7 +83,7 @@
         
         //流行资讯
         if ([requestString rangeOfString:@"news"].location != NSNotFound) {
-            PopularMessageController *popularVC = [[PopularMessageController alloc] init];
+            PopularNewsHome_VC *popularVC = [[PopularNewsHome_VC alloc] init];
             popularVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:popularVC animated:YES];
         }

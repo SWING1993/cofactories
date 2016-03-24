@@ -7,7 +7,6 @@
 //
 
 #import "ZGYDesignMarkrtController.h"
-#import "PopularMessageController.h"
 #import "ZGYSupplyMarketView.h"
 #import "AllDesignController.h"
 #import "UMSocial.h"
@@ -43,8 +42,6 @@
 - (void)supplyMarketView:(ZGYSupplyMarketView *)supplyMarketView supplyMarketButtonTag:(NSInteger)supplyMarketButtonTag {
     switch (supplyMarketButtonTag) {
         case 0:{
-//            PopularMessageController *popularVC = [[PopularMessageController alloc] init];
-//            [self.navigationController pushViewController:popularVC animated:YES];
             PopularNewsHome_VC *popularNewsVC = [[PopularNewsHome_VC alloc] init];
             [self.navigationController pushViewController:popularNewsVC animated:YES];
 
@@ -64,11 +61,6 @@
         default:
             break;
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

@@ -404,19 +404,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MaterialShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:materialCellIdentifier forIndexPath:indexPath];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
-    //    cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
-    if (myModel.photoArray.count > 0) {
-        NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"ImageLoading"]];
-//        DLog(@"^^^^^^%@", [NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]]);
-    } else {
-        cell.photoView.image = [UIImage imageNamed:@"默认图片"];
-    }
-    
-    cell.materialTitle.text = myModel.name;
-    cell.priceLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"￥ %@", myModel.price]];
-    cell.saleLabel.text = [NSString stringWithFormat:@"已售 %@ 件", myModel.sales];
-    cell.placeLabel.text = myModel.city;
+    [cell reloadDataWithSearchShopMarketModel:myModel];
     return cell;
 }
 
@@ -437,15 +425,6 @@ static NSString *materialCellIdentifier = @"materialCell";
 //分区边距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(0, 0, 0, 0);
-}
-
-- (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
-    
-    //设置尺寸
-    [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(2, myString.length - 5)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
-    
-    return attributedString;
 }
 
 - (void)dealloc {

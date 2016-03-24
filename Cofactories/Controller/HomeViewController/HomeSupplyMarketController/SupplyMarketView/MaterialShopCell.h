@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SearchShopMarketModel;
 
 @interface MaterialShopCell : UICollectionViewCell
 
@@ -15,5 +16,7 @@
 @property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) UILabel *saleLabel;
 @property (nonatomic, strong) UILabel *placeLabel;
+
+- (void)reloadDataWithSearchShopMarketModel:(SearchShopMarketModel *)searchShopModel;
 
 @end

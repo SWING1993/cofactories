@@ -284,7 +284,6 @@
 		7D45D0D61C224C9100FC2988 /* MeHistoryOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */; };
 		7D4B74A11C3122B800344A43 /* Verified_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4B74A01C3122B800344A43 /* Verified_VC.m */; };
 		7D4D06C51C0ED48900BF49D9 /* AllDesignController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06C41C0ED48900BF49D9 /* AllDesignController.m */; };
-		7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5005671C098E230034BE03 /* PopularMessageController.m */; };
 		7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */; };
 		7D54172E1C8E8C0500229CDA /* PopularNewsType_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D54172D1C8E8C0500229CDA /* PopularNewsType_VC.m */; };
 		7D5417311C8E8CD900229CDA /* PopularNewsType_Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5417301C8E8CD900229CDA /* PopularNewsType_Cell.m */; };
@@ -309,8 +308,6 @@
 		7D6F43351C5EF58E00A60892 /* PushPopularNews_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6F43341C5EF58E00A60892 /* PushPopularNews_VC.m */; };
 		7D71D1081C1AC68A00CF324E /* MeTextLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D71D1071C1AC68A00CF324E /* MeTextLabelCell.m */; };
 		7D72CDCB1C3A0279005BDA66 /* HomeKoreaShopList_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D72CDCA1C3A0279005BDA66 /* HomeKoreaShopList_VC.m */; };
-		7D743A051C23A00B006AEA07 /* PopularNewsDetails_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D743A041C23A00B006AEA07 /* PopularNewsDetails_VC.m */; };
-		7D743A0B1C23DBF6006AEA07 /* PopularNewsList_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D743A0A1C23DBF6006AEA07 /* PopularNewsList_VC.m */; };
 		7D743A0F1C23E879006AEA07 /* HomeActivity_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D743A0E1C23E879006AEA07 /* HomeActivity_VC.m */; };
 		7D7DD3511C1C21DB00424C08 /* SearchShopMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD3501C1C21DB00424C08 /* SearchShopMarketModel.m */; };
 		7D7E8C111C5C96C40009452E /* MallBuyHistory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7E8C101C5C96C40009452E /* MallBuyHistory_VC.m */; };
@@ -319,7 +316,6 @@
 		7D8B338D1C118FC300616C1F /* MaterialShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8B338C1C118FC300616C1F /* MaterialShopCell.m */; };
 		7D8E703A1C0FE894004A7E2C /* ProcessMarketController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E70391C0FE894004A7E2C /* ProcessMarketController.m */; };
 		7D8E703E1C0FEA06004A7E2C /* ProcessMarketListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E703D1C0FEA06004A7E2C /* ProcessMarketListCell.m */; };
-		7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */; };
 		7DA17DDC1C4CB68900F024CB /* IndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA17DDB1C4CB68900F024CB /* IndexModel.m */; };
 		7DA17DDF1C4CB6C000F024CB /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA17DDE1C4CB6C000F024CB /* ActivityModel.m */; };
 		7DA9501E1C12AFEE00BFCB31 /* MaterialShopDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9501D1C12AFEE00BFCB31 /* MaterialShopDetailCell.m */; };
@@ -346,10 +342,8 @@
 		7DD1CC761C74664C007ED8BE /* MallOrderBuyDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC751C74664C007ED8BE /* MallOrderBuyDetail_VC.m */; };
 		7DD1CC791C747413007ED8BE /* MallOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC781C747413007ED8BE /* MallOrderAddressCell.m */; };
 		7DD1CC7C1C747489007ED8BE /* MallOrderStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC7B1C747489007ED8BE /* MallOrderStatusCell.m */; };
-		7DE36D221C0809A70090BF5D /* PopularCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
 		7DEB8F951C06F13C00B98912 /* ZGYDesignMarkrtController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */; };
-		7DEB8FE71C072E3700B98912 /* PopularNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */; };
 		7DEDD8CC1CA38FAF001815E6 /* PopularNews_Top_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEDD8CB1CA38FAF001815E6 /* PopularNews_Top_VC.m */; };
 		7DEDD8CF1CA3AB6E001815E6 /* PopularNewsHome_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEDD8CE1CA3AB6E001815E6 /* PopularNewsHome_VC.m */; };
 		7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */; };
@@ -984,8 +978,6 @@
 		7D4B74A01C3122B800344A43 /* Verified_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Verified_VC.m; sourceTree = "<group>"; };
 		7D4D06C31C0ED48900BF49D9 /* AllDesignController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllDesignController.h; sourceTree = "<group>"; };
 		7D4D06C41C0ED48900BF49D9 /* AllDesignController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllDesignController.m; sourceTree = "<group>"; };
-		7D5005661C098E230034BE03 /* PopularMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularMessageController.h; sourceTree = "<group>"; };
-		7D5005671C098E230034BE03 /* PopularMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularMessageController.m; sourceTree = "<group>"; };
 		7D50056D1C09A9040034BE03 /* SupplyMarketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplyMarketViewController.h; sourceTree = "<group>"; };
 		7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplyMarketViewController.m; sourceTree = "<group>"; };
 		7D54172C1C8E8C0500229CDA /* PopularNewsType_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsType_VC.h; sourceTree = "<group>"; };
@@ -1030,10 +1022,6 @@
 		7D71D1071C1AC68A00CF324E /* MeTextLabelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeTextLabelCell.m; sourceTree = "<group>"; };
 		7D72CDC91C3A0279005BDA66 /* HomeKoreaShopList_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeKoreaShopList_VC.h; sourceTree = "<group>"; };
 		7D72CDCA1C3A0279005BDA66 /* HomeKoreaShopList_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeKoreaShopList_VC.m; sourceTree = "<group>"; };
-		7D743A031C23A00B006AEA07 /* PopularNewsDetails_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsDetails_VC.h; sourceTree = "<group>"; };
-		7D743A041C23A00B006AEA07 /* PopularNewsDetails_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsDetails_VC.m; sourceTree = "<group>"; };
-		7D743A091C23DBF6006AEA07 /* PopularNewsList_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsList_VC.h; sourceTree = "<group>"; };
-		7D743A0A1C23DBF6006AEA07 /* PopularNewsList_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsList_VC.m; sourceTree = "<group>"; };
 		7D743A0D1C23E879006AEA07 /* HomeActivity_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeActivity_VC.h; sourceTree = "<group>"; };
 		7D743A0E1C23E879006AEA07 /* HomeActivity_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeActivity_VC.m; sourceTree = "<group>"; };
 		7D7DD34F1C1C21DB00424C08 /* SearchShopMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchShopMarketModel.h; sourceTree = "<group>"; };
@@ -1050,8 +1038,6 @@
 		7D8E70391C0FE894004A7E2C /* ProcessMarketController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessMarketController.m; sourceTree = "<group>"; };
 		7D8E703C1C0FEA06004A7E2C /* ProcessMarketListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessMarketListCell.h; sourceTree = "<group>"; };
 		7D8E703D1C0FEA06004A7E2C /* ProcessMarketListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessMarketListCell.m; sourceTree = "<group>"; };
-		7D9DDC9C1C07499500F26B1B /* ZGYSelectButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYSelectButtonView.h; sourceTree = "<group>"; };
-		7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYSelectButtonView.m; sourceTree = "<group>"; };
 		7DA17DDA1C4CB68900F024CB /* IndexModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexModel.h; sourceTree = "<group>"; };
 		7DA17DDB1C4CB68900F024CB /* IndexModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexModel.m; sourceTree = "<group>"; };
 		7DA17DDD1C4CB6C000F024CB /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
@@ -1102,14 +1088,10 @@
 		7DD1CC781C747413007ED8BE /* MallOrderAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderAddressCell.m; sourceTree = "<group>"; };
 		7DD1CC7A1C747489007ED8BE /* MallOrderStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderStatusCell.h; sourceTree = "<group>"; };
 		7DD1CC7B1C747489007ED8BE /* MallOrderStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderStatusCell.m; sourceTree = "<group>"; };
-		7DE36D201C0809A70090BF5D /* PopularCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularCollectionViewCell.h; sourceTree = "<group>"; };
-		7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularCollectionViewCell.m; sourceTree = "<group>"; };
 		7DE8C1911C043CA600E0917D /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
 		7DE8C1921C043CA600E0917D /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
 		7DEB8F931C06F13C00B98912 /* ZGYDesignMarkrtController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYDesignMarkrtController.h; sourceTree = "<group>"; };
 		7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYDesignMarkrtController.m; sourceTree = "<group>"; };
-		7DEB8FE51C072E3700B98912 /* PopularNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsCell.h; sourceTree = "<group>"; };
-		7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsCell.m; sourceTree = "<group>"; };
 		7DEDD8CA1CA38FAF001815E6 /* PopularNews_Top_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNews_Top_VC.h; sourceTree = "<group>"; };
 		7DEDD8CB1CA38FAF001815E6 /* PopularNews_Top_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNews_Top_VC.m; sourceTree = "<group>"; };
 		7DEDD8CD1CA3AB6E001815E6 /* PopularNewsHome_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsHome_VC.h; sourceTree = "<group>"; };
@@ -2688,12 +2670,6 @@
 				7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */,
 				7D31998D1C1EA6E900A713DF /* DesignShop_VC.h */,
 				7D31998E1C1EA6E900A713DF /* DesignShop_VC.m */,
-				7D5005661C098E230034BE03 /* PopularMessageController.h */,
-				7D5005671C098E230034BE03 /* PopularMessageController.m */,
-				7D743A091C23DBF6006AEA07 /* PopularNewsList_VC.h */,
-				7D743A0A1C23DBF6006AEA07 /* PopularNewsList_VC.m */,
-				7D743A031C23A00B006AEA07 /* PopularNewsDetails_VC.h */,
-				7D743A041C23A00B006AEA07 /* PopularNewsDetails_VC.m */,
 				7D4D06C31C0ED48900BF49D9 /* AllDesignController.h */,
 				7D4D06C41C0ED48900BF49D9 /* AllDesignController.m */,
 			);
@@ -2720,12 +2696,6 @@
 		7DEB8FE11C072DBA00B98912 /* PopularNewsView */ = {
 			isa = PBXGroup;
 			children = (
-				7D9DDC9C1C07499500F26B1B /* ZGYSelectButtonView.h */,
-				7D9DDC9D1C07499500F26B1B /* ZGYSelectButtonView.m */,
-				7DEB8FE51C072E3700B98912 /* PopularNewsCell.h */,
-				7DEB8FE61C072E3700B98912 /* PopularNewsCell.m */,
-				7DE36D201C0809A70090BF5D /* PopularCollectionViewCell.h */,
-				7DE36D211C0809A70090BF5D /* PopularCollectionViewCell.m */,
 				7DEFFE861C094A8200102C98 /* ZGYTitleView.h */,
 				7DEFFE871C094A8200102C98 /* ZGYTitleView.m */,
 				7D41C8A51C0EEAF800703869 /* AllDesignCell.h */,
@@ -3009,7 +2979,6 @@
 				03ACD19E1C081826003AB7CF /* RevisePasswordViewController.m in Sources */,
 				039D4D521C72CACC0051CD2E /* AFURLResponseSerialization.m in Sources */,
 				70EFA1EE1C44CA2D00C9F6A5 /* FillBlanks_VC.m in Sources */,
-				7D5005681C098E230034BE03 /* PopularMessageController.m in Sources */,
 				035CC4FD1C06DC3100998FBD /* PhotoViewController.m in Sources */,
 				70EBD6C61C8D130300162D07 /* PublishOrder_Factory_VC.m in Sources */,
 				7DEDD8CF1CA3AB6E001815E6 /* PopularNewsHome_VC.m in Sources */,
@@ -3047,7 +3016,6 @@
 				03662CEA1C12E0FD00AEEF48 /* RSADataVerifier.m in Sources */,
 				70E8C0811C86E306007C7C1D /* Publish_FactoryOrderType_TVC.m in Sources */,
 				7D41C8A71C0EEAF800703869 /* AllDesignCell.m in Sources */,
-				7D743A051C23A00B006AEA07 /* PopularNewsDetails_VC.m in Sources */,
 				70FBE09F1C115F8E00B15513 /* BidManage_Supp_TVC.m in Sources */,
 				70F5EF7D1C0C24F5008878B4 /* Order_Factory_TVC.m in Sources */,
 				7DC27B8F1C40B82F006DB851 /* PublicServiceViewController.m in Sources */,
@@ -3118,7 +3086,6 @@
 				03662CE41C12E0FD00AEEF48 /* DataSigner.m in Sources */,
 				035CC5221C06DCF000998FBD /* JKAssetsCollectionFooterView.m in Sources */,
 				03DA90A51C436C83009E4F22 /* UIButton+CountDown.m in Sources */,
-				7D9DDC9E1C07499500F26B1B /* ZGYSelectButtonView.m in Sources */,
 				70F66D8D1C477FCC00721C82 /* TimeAxis_TVC.m in Sources */,
 				7DBD04F51C1C0FEB00FD318B /* FabricShop_VC.m in Sources */,
 				70EFA1F41C44E02700C9F6A5 /* BlankThird_TVC.m in Sources */,
@@ -3169,13 +3136,11 @@
 				03B120C21C05B1AD0023F362 /* SetaddressViewController.m in Sources */,
 				7DB5E7461C5872BE004834E8 /* MeShoppingCar_VC.m in Sources */,
 				7D31998F1C1EA6E900A713DF /* DesignShop_VC.m in Sources */,
-				7DEB8FE71C072E3700B98912 /* PopularNewsCell.m in Sources */,
 				7D2BE73D1C19272B00CE4138 /* MeAddSupply_VC.m in Sources */,
 				70EFA1F11C44CF8B00C9F6A5 /* BlankFirst_TVC.m in Sources */,
 				7D665EA71C0C60EE00C7C7BF /* IMChatListViewController.m in Sources */,
 				035CC52B1C06DCF000998FBD /* JKUtil.m in Sources */,
 				70F527981C926716006A84EF /* SearchOrder_Designer_VC.m in Sources */,
-				7D743A0B1C23DBF6006AEA07 /* PopularNewsList_VC.m in Sources */,
 				70F9AEC41C3F70B60003489B /* CalendarDayModel.m in Sources */,
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
@@ -3212,7 +3177,6 @@
 				70037F091C10350B0086267C /* ProcessingAndComplitonOrderModel.m in Sources */,
 				03571BA51BE85B8200900EF9 /* YLImageView.m in Sources */,
 				03571C401BE85C3700900EF9 /* UIBarButtonItem+Common.m in Sources */,
-				7DE36D221C0809A70090BF5D /* PopularCollectionViewCell.m in Sources */,
 				03623FF51C44E9D90083044A /* NSString+Common.m in Sources */,
 				03662CE81C12E0FD00AEEF48 /* openssl_wrapper.m in Sources */,
 				70F9AEC61C3F70B60003489B /* CalendarLogic.m in Sources */,
