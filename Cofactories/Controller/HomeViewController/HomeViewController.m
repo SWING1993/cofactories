@@ -103,7 +103,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         HomeProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:ProfileCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell reloadDataWithUserModel:self.MyProfile wallet:wallet];
-        [cell.personAddress addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.changeAddressBtn addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
         [cell.verifyPhoto addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     } else if (indexPath.section == 1) {
