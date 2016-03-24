@@ -42,6 +42,7 @@
 
 #define API_verify @"/user/verify"//上传认证资料
 #define API_userProfile @"/user/profile"
+#define API_statistics @"/stat/report" //行为统计
 #define API_uploadPhoto @"/upload/user"
 #define API_config @"/config/ad/"//轮播图
 #define API_activity @"/config/activity"//首页活动列表
@@ -505,7 +506,7 @@
         // 已经登录则获取用户信息
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager    POST:API_userProfile parameters:@{key:uid} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager    POST:API_statistics parameters:@{key:uid} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             block(200);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             block([operation.response statusCode]);
