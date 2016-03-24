@@ -143,6 +143,16 @@
 + (void)postMyProfileWithDic:(NSMutableDictionary *)Dic andBlock:(void (^)(NSInteger statusCode))block;
 
 
+
+/**
+ *  统计报告
+ *
+ *  @param key   IMChat 即时聊天 phoneCall 通话记录
+ *  @param uid   用户uid
+ *  @param block  回调statusCode
+ */
++ (void)statisticsWithKey:(NSString *)key withUid:(NSString *)uid andBlock:(void (^)(NSInteger statusCode))block;
+
 /**
  *  获取自己的钱包
  *
