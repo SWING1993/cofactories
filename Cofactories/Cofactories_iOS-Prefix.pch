@@ -50,7 +50,7 @@
 #define kBaseUrl   @"https://lo.cofactories.com"               //后端服务器
 #define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
 #define kNotifyURL @"https://pay.cofactories.com/alipay/test"  //支付宝服务器通知URL
-#define kPopularBaseUrl @"http://lo.news.mxd.moe"//流行资讯
+#define kPopularBaseUrl @"http://news.lo.cofactories.com"//流行资讯
 
 #define kH5BaseUrl @"http://h5.lo.cofactories.com"//所有H5页面
 

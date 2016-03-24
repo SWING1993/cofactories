@@ -5,8 +5,7 @@
 //  Created by 宋国华 on 15/11/3.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
-
-#import "PopularMessageController.h"
+#import "PopularNewsHome_VC.h"
 #import "Business_Cloth_VC.h"
 #import "MeShoppingCar_VC.h"
 
@@ -178,7 +177,7 @@
             [RootViewController toucHPushViewController:vc];
         }
         else if ([shortcutItem.localizedTitle isEqualToString:@"流行资讯"]) {
-            PopularMessageController * vc = [[PopularMessageController alloc]init];
+            PopularNewsHome_VC * vc = [[PopularNewsHome_VC alloc]init];
             [RootViewController toucHPushViewController:vc];
             
         } else if ([shortcutItem.localizedTitle isEqualToString:@"查找服装企业"]) {
@@ -231,7 +230,9 @@
     //    [UMessage didReceiveRemoteNotification:userInfo];
     //    [RootViewController handleNotificationInfo:userInfo applicationState:[application applicationState]];
     
-        if ([userInfo[@"action"] isEqualToString:@"news"] || [userInfo[@"action"] isEqualToString:@"activity"]) {
+
+        if ([userInfo[@"action_flag"] isEqualToString:@"news"] || [userInfo[@"action_flag"] isEqualToString:@"activity"]) {
+
             pushDic = [NSDictionary dictionaryWithDictionary:userInfo];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"通知" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看详情", nil];
             alert.tag = 223;
@@ -380,6 +381,9 @@
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    
+    UIImage *backImage = [UIImage imageNamed:@"back"];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[backImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, backImage.size.width, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 }
 
 @end

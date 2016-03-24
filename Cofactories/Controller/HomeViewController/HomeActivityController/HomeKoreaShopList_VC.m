@@ -20,7 +20,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     DOPDropDownMenu *_dropDownMenu;
     UISearchBar     *mySearchBar;
     UIButton        *backgroundView;
-//    NSArray         *_maleArray, *_femaleArray, *_boyArray, *_girlArray;
+    NSArray         *_maleArray, *_femaleArray, *_boyArray, *_girlArray;
 
 }
 @property (nonatomic,copy)NSString *userType;
@@ -60,9 +60,9 @@ static NSString *materialCellIdentifier = @"materialCell";
     
     [self creatCollectionView];
     DLog(@"^^^^^^^^^^^^time=%@", self.timeString);
-//    _maleArray = @[@"男装不限", @"上衣", @"下衣", @"套装"];
-//    _femaleArray = @[@"女装不限", @"上衣", @"下衣", @"套装"];
-//    _girlArray = @[@"童装不限", @"上衣", @"下衣", @"套装"];
+    _maleArray = @[@"男装不限", @"上衣", @"下衣", @"套装"];
+    _femaleArray = @[@"女装不限", @"上衣", @"下衣", @"套装"];
+    _girlArray = @[@"童装不限", @"上衣", @"下衣", @"套装"];
     
     _dropDownMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
     _dropDownMenu.delegate = self;
@@ -228,47 +228,47 @@ static NSString *materialCellIdentifier = @"materialCell";
 }
 
 - (NSInteger)menu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column{
-//    if (column == 0) {
-//        switch (row) {
-//            case 0:
-//                return 0;
-//                break;
-//            case 1:
-//                return _femaleArray.count;
-//                break;
-//            case 2:
-//                return _maleArray.count;
-//                break;
-//            case 3:
-//                return _girlArray.count;
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-//    
+    if (column == 0) {
+        switch (row) {
+            case 0:
+                return 0;
+                break;
+            case 1:
+                return _femaleArray.count;
+                break;
+            case 2:
+                return _girlArray.count;
+                break;
+            case 3:
+                return _maleArray.count;
+                break;
+            default:
+                break;
+        }
+    }
+    
     return 0;
 }
 
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath{
-//    if (indexPath.column == 0) {
-//        switch (indexPath.row) {
-//            case 1:
-//                return _femaleArray[indexPath.item];
-//                break;
-//                
-//            case 2:
-//                return _maleArray[indexPath.item];
-//                break;
-//            case 3:
-//                return _girlArray[indexPath.item];
-//                break;
-//
-//            default:
-//                break;
-//        }
-//        
-//    }
+    if (indexPath.column == 0) {
+        switch (indexPath.row) {
+            case 1:
+                return _femaleArray[indexPath.item];
+                break;
+                
+            case 2:
+                return _girlArray[indexPath.item];
+                break;
+            case 3:
+                return _maleArray[indexPath.item];
+                break;
+
+            default:
+                break;
+        }
+        
+    }
     return nil;
 }
 
@@ -285,60 +285,60 @@ static NSString *materialCellIdentifier = @"materialCell";
                     break;
                 case 1:
                     _userType = @"female";
-//                    switch (indexPath.item) {
-//                        case 0:
-//                            _userPart = nil;
-//                            break;
-//                        case 1:
-//                            _userPart = @"top";
-//                            break;
-//                        case 2:
-//                            _userPart = @"bottom";
-//                            break;
-//                        case 3:
-//                            _userPart = @"suit";
-//                            break;
-//                        default:
-//                            break;
-//                    }
+                    switch (indexPath.item) {
+                        case 0:
+                            _userPart = nil;
+                            break;
+                        case 1:
+                            _userPart = @"top";
+                            break;
+                        case 2:
+                            _userPart = @"bottom";
+                            break;
+                        case 3:
+                            _userPart = @"suit";
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case 2:
                     _userType = @"girl";
-//                    switch (indexPath.item) {
-//                        case 0:
-//                            _userPart = nil;
-//                            break;
-//                        case 1:
-//                            _userPart = @"top";
-//                            break;
-//                        case 2:
-//                            _userPart = @"bottom";
-//                            break;
-//                        case 3:
-//                            _userPart = @"suit";
-//                            break;
-//                        default:
-//                            break;
-//                    }
+                    switch (indexPath.item) {
+                        case 0:
+                            _userPart = nil;
+                            break;
+                        case 1:
+                            _userPart = @"top";
+                            break;
+                        case 2:
+                            _userPart = @"bottom";
+                            break;
+                        case 3:
+                            _userPart = @"suit";
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case 3:
                     _userType = @"male";
-//                    switch (indexPath.item) {
-//                        case 0:
-//                            _userPart = nil;
-//                            break;
-//                        case 1:
-//                            _userPart = @"top";
-//                            break;
-//                        case 2:
-//                            _userPart = @"bottom";
-//                            break;
-//                        case 3:
-//                            _userPart = @"suit";
-//                            break;
-//                        default:
-//                            break;
-//                    }
+                    switch (indexPath.item) {
+                        case 0:
+                            _userPart = nil;
+                            break;
+                        case 1:
+                            _userPart = @"top";
+                            break;
+                        case 2:
+                            _userPart = @"bottom";
+                            break;
+                        case 3:
+                            _userPart = @"suit";
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;
@@ -404,19 +404,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MaterialShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:materialCellIdentifier forIndexPath:indexPath];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
-    //    cell.photoView.image = [UIImage imageNamed:@"4.jpg"];
-    if (myModel.photoArray.count > 0) {
-        NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
-//        DLog(@"^^^^^^%@", [NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]]);
-    } else {
-        cell.photoView.image = [UIImage imageNamed:@"默认图片"];
-    }
-    
-    cell.materialTitle.text = myModel.name;
-    cell.priceLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"￥ %@", myModel.price]];
-    cell.saleLabel.text = [NSString stringWithFormat:@"已售 %@ 件", myModel.sales];
-    cell.placeLabel.text = myModel.city;
+    [cell reloadDataWithSearchShopMarketModel:myModel];
     return cell;
 }
 
@@ -437,15 +425,6 @@ static NSString *materialCellIdentifier = @"materialCell";
 //分区边距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(0, 0, 0, 0);
-}
-
-- (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
-    
-    //设置尺寸
-    [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(2, myString.length - 5)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
-    
-    return attributedString;
 }
 
 - (void)dealloc {

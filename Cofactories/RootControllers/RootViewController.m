@@ -102,22 +102,24 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
 
 #pragma mark Notification
 + (void)handleNotificationInfo:(NSDictionary *)userInfo applicationState:(UIApplicationState)applicationState {
+    
     if ([Login isLogin]) {
-        //已登录
-        if (applicationState == UIApplicationStateInactive || applicationState == UIApplicationStateActive) {
-            if ([userInfo[@"action"] isEqualToString:@"news"]) {
-                PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
-                pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
-                [RootViewController presentVC:pushPopularNewsVC];
+        double delayInSeconds = 1.0f;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            //已登录
+            if (applicationState == UIApplicationStateInactive || applicationState == UIApplicationStateActive) {
+                if ([userInfo[@"action_flag"] isEqualToString:@"news"]) {
+                    PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
+                    pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
+                    [RootViewController presentVC:pushPopularNewsVC];
+                } else if ([userInfo[@"action_flag"] isEqualToString:@"activity"]) {
+                    HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
+                    activityVC.urlString = userInfo[@"url_flag"];
+                    [RootViewController presentVC:activityVC];
+                }
             }
-            if ([userInfo[@"action"] isEqualToString:@"activity"]) {
-                kTipAlert(@"dniiiiiiiis");
-                HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
-                activityVC.urlString = userInfo[@"url"];
-                [RootViewController presentVC:activityVC];
-            }
-        }
-        
+        });
         
     } else {
         [RootViewController setupLoginViewController];

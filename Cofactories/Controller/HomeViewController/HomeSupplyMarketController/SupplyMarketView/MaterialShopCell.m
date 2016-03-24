@@ -7,6 +7,7 @@
 //
 
 #import "MaterialShopCell.h"
+#import "SearchShopMarketModel.h"
 
 @implementation MaterialShopCell
 
@@ -43,6 +44,25 @@
     return self;
 }
 
-
-
+- (void)reloadDataWithSearchShopMarketModel:(SearchShopMarketModel *)searchShopModel {
+    if (searchShopModel.photoArray.count > 0) {
+        NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, searchShopModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [self.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"ImageLoading"]];
+    } else {
+        self.photoView.image = [UIImage imageNamed:@"默认图片"];
+    }
+    
+    self.materialTitle.text = searchShopModel.name;
+    self.priceLabel.attributedText = [MaterialShopCell changeFontAndColorWithString:[NSString stringWithFormat:@"￥ %@", searchShopModel.price]];
+    self.saleLabel.text = [NSString stringWithFormat:@"已售 %@ 件", searchShopModel.sales];
+    self.placeLabel.text = searchShopModel.city;
+}
++ (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
+    //设置尺寸
+    
+    [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(2, myString.length - 5)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
+    
+    return attributedString;
+}
 @end

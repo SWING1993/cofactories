@@ -122,7 +122,7 @@
         }
         UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         backBtn.frame = CGRectMake(0, 6, 87, 23);
-        UIImageView *backImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigator_btn_back"]];
+        UIImageView *backImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IM-back"]];
         backImg.frame = CGRectMake(-10, 0, 22, 22);
         [backBtn addSubview:backImg];
         UILabel *backText = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 85, 22)];
@@ -143,20 +143,5 @@
     [self.navigationController popViewControllerAnimated:YES];
     
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

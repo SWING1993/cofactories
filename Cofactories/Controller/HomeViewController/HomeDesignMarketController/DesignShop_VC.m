@@ -554,17 +554,7 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MaterialShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:materialCellIdentifier forIndexPath:indexPath];
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
-    if (myModel.photoArray.count > 0) {
-        NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
-    } else {
-        cell.photoView.image = [UIImage imageNamed:@"默认图片"];
-    }
-    
-    cell.materialTitle.text = myModel.name;
-    cell.priceLabel.attributedText = [self changeFontAndColorWithString:[NSString stringWithFormat:@"￥ %@", myModel.price]];
-    cell.saleLabel.text = [NSString stringWithFormat:@"已售 %@ 件", myModel.sales];
-    cell.placeLabel.text = myModel.city;
+    [cell reloadDataWithSearchShopMarketModel:myModel];
     return cell;
 }
 
@@ -587,22 +577,8 @@ static NSString *materialCellIdentifier = @"materialCell";
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
-- (NSAttributedString *)changeFontAndColorWithString:(NSString *)myString {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:myString];
-    //设置尺寸
-    [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(2, myString.length - 5)]; // 0为起始位置 length是从起始位置开始 设置指定字体尺寸的长度
-    return attributedString;
-}
-
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end
