@@ -12,7 +12,7 @@
 #import "AllDesignController.h"
 #import "UMSocial.h"
 #import "DesignShop_VC.h"
-#import "PopularNews_VC.h"
+#import "PopularNewsHome_VC.h"
 
 @interface ZGYDesignMarkrtController ()<ZGYSupplyMarketViewDelegate, UMSocialUIDelegate>
 @property(nonatomic,strong)UserModel *userModel;
@@ -45,7 +45,7 @@
         case 0:{
 //            PopularMessageController *popularVC = [[PopularMessageController alloc] init];
 //            [self.navigationController pushViewController:popularVC animated:YES];
-            PopularNews_VC *popularNewsVC = [[PopularNews_VC alloc] init];
+            PopularNewsHome_VC *popularNewsVC = [[PopularNewsHome_VC alloc] init];
             [self.navigationController pushViewController:popularNewsVC animated:YES];
 
         }

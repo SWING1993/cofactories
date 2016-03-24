@@ -59,7 +59,7 @@ static NSString *typeCellIndetifier = @"typeCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DLog(@"点击了%@", titleArray[indexPath.row]);
     PopularNews_List_VC *popularNewsListVC = [[PopularNews_List_VC alloc] init];
-    popularNewsListVC.selectType = titleArray[indexPath.row];
+    popularNewsListVC.newsCategory = titleArray[indexPath.row];
     [self.navigationController pushViewController:popularNewsListVC animated:YES];
 }
 

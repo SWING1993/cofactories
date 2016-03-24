@@ -13,9 +13,10 @@
 @property (nonatomic, strong) NSString *newsID;
 @property (nonatomic, strong) NSString *newsTitle;
 @property (nonatomic, strong) NSString *newsAuthor;
+@property (nonatomic, strong) NSString *newsType;
+@property (nonatomic, strong) NSString *authorImage;
 @property (nonatomic, strong) NSString *discriptions;
 @property (nonatomic, strong) NSString *newsImage;
-@property (nonatomic, strong) NSString *likeNum;
 @property (nonatomic, strong) NSString *commentNum;
 @property (nonatomic, strong) NSString *clickNum;
 

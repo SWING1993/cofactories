@@ -72,20 +72,16 @@ static NSString *activityCellIdentifier = @"activityCell";
     [self creatTableView];
     [self creatTableHeaderView];
     
-
-//    NSArray *array1 = @[@"如意加工厂参与投标针织与罗马布", @"二七服装厂购买男装上衣版型", @"聚工科技投标成功", @"小李广童祥样品发布几件商品", @"好好服侍参与投标成功"];
-//    NSArray *array2 = @[@"聚工厂推出每日秒杀活动，火热展开，尽请关注！", @"聚工厂推出限制订单，为你的订单保驾护航！", @"聚工厂成立1周年，回馈广大用户！", @"聚工厂新增吐槽专区，说你想说的！", @"聚工厂新增版型推荐，推荐适合你的款型！"];
-    
 }
 
 - (void)creatTableView {
-    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 49)];
+    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 49)style:UITableViewStyleGrouped];
     self.automaticallyAdjustsScrollViewInsets = YES;// 自动调整视图关闭
     self.homeTableView.showsVerticalScrollIndicator = NO;// 竖直滚动条不显示
     self.homeTableView.delegate = self;
     self.homeTableView.dataSource = self;
     [self.view addSubview:self.homeTableView];
-    
+    self.homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.homeTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
     [self.homeTableView registerClass:[HomeMarketCell class] forCellReuseIdentifier:marketCellIdentifier];
     [self.homeTableView registerClass:[HomeProfileCell class] forCellReuseIdentifier:ProfileCellIdentifier];

@@ -14,9 +14,10 @@
         self.newsID = [NSString stringWithFormat:@"%@", dictionary[@"_id"]];
         self.newsTitle = dictionary[@"title"];
         self.newsAuthor = dictionary[@"author"];
+        self.newsType = dictionary[@"categoryInfo"][@"name"];
         self.newsImage = dictionary[@"sImg"];
+        self.authorImage = dictionary[@"authorAvatar"];
         self.discriptions = dictionary[@"discription"];
-        self.likeNum = [NSString stringWithFormat:@"%@", dictionary[@"likeNum"]];
         self.clickNum = [NSString stringWithFormat:@"%@", dictionary[@"clickNum"]];
         self.commentNum = [NSString stringWithFormat:@"%@", dictionary[@"commentNum"]];
         }

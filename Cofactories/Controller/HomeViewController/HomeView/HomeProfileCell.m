@@ -100,7 +100,7 @@
     //地址
     
     if ([userModel.address isEqualToString:@"暂无"] || [Tools isBlankString:userModel.address] == YES) {
-        self.personAddress.text = @"地址暂无，点击完善资料";
+        self.personAddress.text = @"地址暂无，点击完善个人资料";
     } else {
         self.personAddress.text = userModel.address;
     }

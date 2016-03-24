@@ -10,6 +10,6 @@
 
 @interface PopularNews_List_VC : UITableViewController
 
-@property(nonatomic, strong) NSString *selectType;
+@property(nonatomic, strong) NSString *newsCategory;
 
 @end

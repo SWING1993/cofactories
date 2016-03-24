@@ -7,7 +7,7 @@
 //
 
 #import "PopularNews_Cell.h"
-
+#import "PopularNewsModel.h"
 #define kMargin 20*kZGY //左右边距
 #define kNewsPhotoHeight 65*kZGY //图片宽高
 
@@ -92,4 +92,26 @@
     return self;
 }
 
+- (void)reloadDataWithPopularNewsModel:(PopularNewsModel *)newsModel {
+    NSString* userPhotoString = [[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, newsModel.authorImage] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self.userPhoto sd_setImageWithURL:[NSURL URLWithString:userPhotoString] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    NSString* newsPhotoString = [[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, newsModel.newsImage] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self.newsPhoto sd_setImageWithURL:[NSURL URLWithString:newsPhotoString] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    self.userName.text = newsModel.newsAuthor;
+    self.newsType.text = newsModel.newsType;
+    self.newsTitle.text = newsModel.newsTitle;
+    NSString *string = newsModel.discriptions;
+    
+    self.newsDetail.attributedText = [PopularNews_Cell getAttributedStringWithString:string];
+    self.readCount.text = newsModel.clickNum;
+    self.commentCount.text = newsModel.commentNum;
+}
+
++ (NSMutableAttributedString *)getAttributedStringWithString:(NSString *)string {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:4];//调整行间距
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
+    return attributedString;
+}
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "PopularNewsTop_Cell.h"
-
+#import "PopularNewsModel.h"
 
 @implementation PopularNewsTop_Cell
 
@@ -39,10 +39,12 @@
                 self.leftButton = myButton;
                 self.leftTitle = titleLabel;
                 self.leftDetail = detailLabel;
+                self.leftImage = photoView;
             } else if (i == 1) {
                 self.rightButton = myButton;
                 self.rightTitle = titleLabel;
                 self.rightDetail = detailLabel;
+                self.rightImage = photoView;
             }
 
         }
@@ -54,5 +56,20 @@
     return self;
 }
 
-
+- (void)reloadDataWithTopNewsArray:(NSMutableArray *)topNewsArray {
+    if (topNewsArray.count == 1) {
+        PopularNewsModel *newsModel = topNewsArray[0];
+        self.leftTitle.text = newsModel.newsTitle;
+        self.leftDetail.text = newsModel.discriptions;
+        self.rightButton.hidden = YES;
+        self.rightImage.hidden = YES;
+    } else if (topNewsArray.count > 1) {
+        PopularNewsModel *leftNewsModel = topNewsArray[0];
+        PopularNewsModel *rightNewsModel = topNewsArray[1];
+        self.leftTitle.text = leftNewsModel.newsTitle;
+        self.leftDetail.text = leftNewsModel.discriptions;
+        self.rightTitle.text = rightNewsModel.newsTitle;
+        self.rightDetail.text = rightNewsModel.discriptions;
+    }
+}
 @end

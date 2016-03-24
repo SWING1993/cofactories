@@ -1,12 +1,12 @@
 //
-//  PopularNews_VC.m
+//  PopularNewsHome_VC.m
 //  Cofactories
 //
-//  Created by 赵广印 on 16/3/5.
+//  Created by 赵广印 on 16/3/24.
 //  Copyright © 2016年 Cofactorios. All rights reserved.
 //
 
-#import "PopularNews_VC.h"
+#import "PopularNewsHome_VC.h"
 #import "PopularNews_Cell.h"
 #import "PopularNewsTop_Cell.h"
 #import "WKFCircularSlidingView.h"
@@ -21,8 +21,7 @@
 
 static NSString *topCellIdentifier = @"topCell";
 static NSString *newsCellIdentifier = @"newsCell";
-
-@interface PopularNews_VC ()<UISearchBarDelegate, WKFCircularSlidingViewDelegate> {
+@interface PopularNewsHome_VC ()<UITableViewDataSource, UITableViewDelegate, WKFCircularSlidingViewDelegate, UISearchBarDelegate> {
     UISearchBar     *mySearchBar;
     UIButton        *backgroundView;
     NSInteger       page;
@@ -32,18 +31,17 @@ static NSString *newsCellIdentifier = @"newsCell";
 @property (nonatomic, strong) NSMutableArray *newsArray;
 @property (nonatomic, strong) NSMutableArray *topNewsArray;
 @property (nonatomic, strong) NSMutableArray *searchArray;//搜索数组
+@property (nonatomic, strong) UITableView *popularTableView;
 
 @end
 
-@implementation PopularNews_VC
+@implementation PopularNewsHome_VC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerClass:[PopularNewsTop_Cell class] forCellReuseIdentifier:topCellIdentifier];
-    [self.tableView registerClass:[PopularNews_Cell class] forCellReuseIdentifier:newsCellIdentifier];
+    [self creatTableView];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickBackgroundViewAction) name:UIKeyboardWillHideNotification object:nil];
     [self creatTableHeaderView];
     [self getConfig];
@@ -53,9 +51,16 @@ static NSString *newsCellIdentifier = @"newsCell";
     page = 1;
     [self netWork];
     [self setupRefresh];
-    
 }
-
+- (void)creatTableView {
+    self.popularTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
+    self.popularTableView.dataSource = self;
+    self.popularTableView.delegate = self;
+    self.popularTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.popularTableView];
+    [self.popularTableView registerClass:[PopularNewsTop_Cell class] forCellReuseIdentifier:topCellIdentifier];
+    [self.popularTableView registerClass:[PopularNews_Cell class] forCellReuseIdentifier:newsCellIdentifier];
+}
 - (void)getTopNews {
     [HttpClient getPopularNewsTopWithPage:@1 withBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
@@ -65,22 +70,22 @@ static NSString *newsCellIdentifier = @"newsCell";
                 PopularNewsModel *newsModel = [PopularNewsModel getPopularNewsModelWithDictionary:newsDic];
                 [self.topNewsArray addObject:newsModel];
             }
-            [self.tableView reloadData];
+            [self.popularTableView reloadData];
         }
     }];
-
+    
 }
 
 - (void)setupRefresh{
-    [self.tableView addFooterWithTarget:self action:@selector(footerRereshing)];
-    self.tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
-    self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
-    self.tableView.footerRefreshingText = @"加载中...";
+    [self.popularTableView addFooterWithTarget:self action:@selector(footerRereshing)];
+    self.popularTableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    self.popularTableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    self.popularTableView.footerRefreshingText = @"加载中...";
 }
 - (void)footerRereshing{
     page++;
     [self netWork];
-    [self.tableView footerEndRefreshing];
+    [self.popularTableView footerEndRefreshing];
 }
 - (void)netWork {
     [HttpClient getPopularNewsListWithCategory:nil page:@(page) withBlock:^(NSDictionary *dictionary) {
@@ -98,7 +103,7 @@ static NSString *newsCellIdentifier = @"newsCell";
                     [self.newsArray addObject:newsModel];
                 }
             }
-            [self.tableView reloadData];
+            [self.popularTableView reloadData];
         }
     }];
 }
@@ -106,7 +111,7 @@ static NSString *newsCellIdentifier = @"newsCell";
 - (void)creatTableHeaderView {
     UIImageView *placeHolderView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)];
     placeHolderView.image = [UIImage imageNamed:@"bannerPlaceHolder"];
-    self.tableView.tableHeaderView = placeHolderView;
+    self.popularTableView.tableHeaderView = placeHolderView;
 }
 
 - (void)getConfig {
@@ -126,7 +131,7 @@ static NSString *newsCellIdentifier = @"newsCell";
             WKFCircularSlidingView * firstView = [[WKFCircularSlidingView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 256 / 640)isNetwork:YES];
             firstView.delegate=self;
             firstView.imagesArray = self.bannerImageArray;
-            self.tableView.tableHeaderView = firstView;
+            self.popularTableView.tableHeaderView = firstView;
         }
     }];
 }
@@ -134,7 +139,7 @@ static NSString *newsCellIdentifier = @"newsCell";
 #pragma mark - 遮盖层
 - (void)creatBackgroundView {
     backgroundView = [UIButton buttonWithType:UIButtonTypeCustom];
-    backgroundView.frame = CGRectMake(0, 0, kScreenW, 10*kScreenH);
+    backgroundView.frame = CGRectMake(0, 0, kScreenW, kScreenH);
     backgroundView.backgroundColor = [UIColor blackColor];
     backgroundView.alpha = 0.0f;
     [backgroundView addTarget:self action:@selector(clickBackgroundViewAction) forControlEvents:UIControlEventTouchUpInside];
@@ -358,5 +363,20 @@ static NSString *newsCellIdentifier = @"newsCell";
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

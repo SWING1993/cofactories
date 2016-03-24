@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class PopularNewsModel;
 
 @interface PopularNews_Cell : UITableViewCell
+
 
 @property (nonatomic, strong) UIImageView *userPhoto;
 @property (nonatomic, strong) UILabel *userName;
@@ -19,5 +21,6 @@
 @property (nonatomic, strong) UILabel *readCount;
 @property (nonatomic, strong) UILabel *commentCount;
 
+- (void)reloadDataWithPopularNewsModel:(PopularNewsModel *)newsModel;
 
 @end

@@ -415,4 +415,9 @@
 
 //获取订单信息（用于首页滚动）
 + (void)getScrollOrderMessageWithBlock:(void(^)(NSDictionary *dictionary))block;
+
+//获取文章列表
++ (void)getPopularNewsListWithCategory:(NSString *)category page:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block;
+//获取置顶文章
++ (void)getPopularNewsTopWithPage:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block;
 @end

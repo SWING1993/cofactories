@@ -17,6 +17,7 @@
 #import "WalletModel.h"
 #import "WalletHistoryModel.h"
 
+
 #pragma mark - 服务器
 
 
@@ -72,6 +73,9 @@
 
 #define API_Wallet_Transaction @"/wallet/transaction"//钱包流水记录
 #define API_Home_OrderMessageLatest @"/order/factory/latest"//首页滚动的订单信息
+
+#define API_PopularNews_List @"/api/category"
+#define API_PopularNews_Top @"/api/top"
 
 @implementation HttpClient
 
@@ -2543,7 +2547,7 @@
         manager.requestSerializer.timeoutInterval = 20.f;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         [manager GET:API_Home_OrderMessageLatest parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-            DLog(@"responseObject= %@",responseObject);
+//            DLog(@"responseObject= %@",responseObject);
             block(@{@"statusCode": @(200), @"responseObject":responseObject});
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
@@ -2553,4 +2557,59 @@
     }
 }
 
++ (void)getPopularNewsListWithCategory:(NSString *)category page:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        NSMutableDictionary *myDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        if (category) {
+            [myDic setObject:category forKey:@"category"];
+        }
+        if (aPage) {
+            [myDic setObject:aPage forKey:@"page"];
+        }
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, API_PopularNews_List];
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        [manager GET:urlString parameters:myDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"RRRRRRRR= %@", responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject});
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
++ (void)getPopularNewsTopWithPage:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        NSMutableDictionary *myDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        if (aPage) {
+            [myDic setObject:aPage forKey:@"page"];
+        }
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, API_PopularNews_Top];
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        [manager GET:urlString parameters:myDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            //            DLog(@"RRRRRRRR= %@", responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject});
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
 @end

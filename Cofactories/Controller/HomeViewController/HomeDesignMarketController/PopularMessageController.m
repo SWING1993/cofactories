@@ -180,13 +180,12 @@ static NSString *popularCellIdentifier = @"popularCell";
     [self controlBackgroundView:0.3];
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    [self controlBackgroundView:0];
-    [self.view endEditing:YES];
-}
+
 
 //点击搜索出结果
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [self controlBackgroundView:0];
+    [self.view endEditing:YES];
     //搜索完移除view改变searchBar的大小
     [HttpClient searchPopularNewsWithKeyword:_searchBar.text WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
@@ -439,7 +438,6 @@ static NSString *popularCellIdentifier = @"popularCell";
     PopularNewsModel *popularNewsModel = self.popularNewsListArray[indexPath.row];
     [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, popularNewsModel.newsImage]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     cell.newsTitle.text = popularNewsModel.newsTitle;
-    cell.likeCountLabel.text = popularNewsModel.likeNum;
     cell.commentCountLabel.text = [NSString stringWithFormat:@"阅读数：%@", popularNewsModel.clickNum];
     return cell;
 }
