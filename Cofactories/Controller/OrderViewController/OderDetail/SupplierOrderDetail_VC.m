@@ -193,12 +193,13 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
         [self.navigationController.navigationBar setHidden:NO];
         [self.navigationController pushViewController:conversationVC animated:YES];
-
+        [HttpClient statisticsWithKey:@"IMChat" withUid:_userModel.uid andBlock:^(NSInteger statusCode) {
+            DLog(@"------------%ld--------",(long)statusCode);
+        }];
     }else if (button.tag == 2){
         
         
         // 投标
-        
         
         switch (_supplierOrderDetailBidStatus) {
             case SupplierOrderDetailBidStatus_Common:
@@ -267,7 +268,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return 4;
+        if (_supplierOrderDetailBidStatus == SupplierOrderDetailBidStatus_BidMark) {
+            return 6;
+        }else{
+            return 4;
+        }
+
     }
     return 1;
 }
@@ -278,25 +284,51 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
         cell.textLabel.font = [UIFont systemFontOfSize:13];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        switch (indexPath.row) {
-            case 0:
-                cell.textLabel.text = [NSString stringWithFormat:@"  类型:   %@",_dataModel.type];
-                break;
-            case 1:
-                cell.textLabel.text = [NSString stringWithFormat:@"  名称:   %@",_dataModel.name];
-                break;
-            case 2:
-                cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %.2f%@",_dataModel.amount,_dataModel.unit];
-                break;
-            case 3:
-                cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
-                break;
-                
-            default:
-                break;
+        
+        if (_supplierOrderDetailBidStatus == SupplierOrderDetailBidStatus_BidMark) {
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = [NSString stringWithFormat:@"  类型:   %@",_dataModel.type];
+                    break;
+                case 1:
+                    cell.textLabel.text = [NSString stringWithFormat:@"  名称:   %@",_dataModel.name];
+                    break;
+                case 2:
+                    cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %.2f%@",_dataModel.amount,_dataModel.unit];
+                    break;
+                case 3:
+                    cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
+                    break;
+                case 4:
+                    cell.textLabel.text = [NSString stringWithFormat:@"  中标者:   %@",_dataModel.orderWinnerName];
+                    break;
+                case 5:
+                    cell.textLabel.text = [NSString stringWithFormat:@"  中标电话:   %@",_dataModel.orderWinnerPhone];
+                    break;
+                default:
+                    break;
+            }
+
+        }else{
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = [NSString stringWithFormat:@"  类型:   %@",_dataModel.type];
+                    break;
+                case 1:
+                    cell.textLabel.text = [NSString stringWithFormat:@"  名称:   %@",_dataModel.name];
+                    break;
+                case 2:
+                    cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %.2f%@",_dataModel.amount,_dataModel.unit];
+                    break;
+                case 3:
+                    cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
+                    break;
+                    
+                default:
+                    break;
+            }
         }
         return cell;
-        
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];

@@ -196,6 +196,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
         [self.navigationController.navigationBar setHidden:NO];
         [self.navigationController pushViewController:conversationVC animated:YES];
+        [HttpClient statisticsWithKey:@"IMChat" withUid:_userModel.uid andBlock:^(NSInteger statusCode) {
+            DLog(@"------------%ld--------",(long)statusCode);
+        }];
 
     }else if (button.tag == 2){
         // 投标
@@ -352,7 +355,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                 [_orderImageThree sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,_dataModel.photoArray[2]]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
             break;
     }
-
+    
     UILabel *co = [[UILabel alloc]initWithFrame:CGRectMake(20, 138, 40, 30)];
     co.font = [UIFont systemFontOfSize:12];
     co.text = @"备注";

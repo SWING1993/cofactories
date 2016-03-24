@@ -97,10 +97,15 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         
         [self.navigationController.navigationBar setHidden:NO];
         [self.navigationController pushViewController:conversationVC animated:YES];
-
+        [HttpClient statisticsWithKey:@"IMChat" withUid:_userModel.uid andBlock:^(NSInteger statusCode) {
+            DLog(@"------------%ld--------",(long)statusCode);
+        }];
     }else if (button.tag == 1){
         NSString *str = [NSString stringWithFormat:@"telprompt://%@", _userModel.phone];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        [HttpClient statisticsWithKey:@"phoneCall" withUid:_userModel.uid andBlock:^(NSInteger statusCode) {
+            DLog(@"------------%ld--------",(long)statusCode);
+        }];
     }
 }
 

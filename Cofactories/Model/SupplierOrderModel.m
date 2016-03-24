@@ -45,6 +45,9 @@
         
         self.unit = [NSString stringWithFormat:@"%@",dictionary[@"unit"]];
         self.userUid = [NSString stringWithFormat:@"%@",dictionary[@"userUid"]];
+        
+        self.orderWinnerName = dictionary[@"winnerName"];
+        self.orderWinnerPhone = dictionary[@"winnerPhone"];
     }
     return self;
 }
