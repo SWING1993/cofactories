@@ -233,9 +233,14 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         mallOrderPayVC.mallPurchseId = [self.mallBuyHistoryArray[button.tag - 222] orderNumber];
         [self.navigationController pushViewController:mallOrderPayVC animated:YES];
     } else if ([button.titleLabel.text isEqualToString:@"联系卖家"]){
+        
         button.userInteractionEnabled = NO;
         // 聊天
         MeHistoryOrderModel *historyOrder = self.mallBuyHistoryArray[button.tag - 222];
+        //统计聊天
+        [HttpClient statisticsWithKey:@"IMChat" withUid:historyOrder.sellerUserId andBlock:^(NSInteger statusCode) {
+            
+        }];
         //解析工厂信息
         [HttpClient getOtherIndevidualsInformationWithUserID:historyOrder.sellerUserId WithCompletionBlock:^(NSDictionary *dictionary) {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];

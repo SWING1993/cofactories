@@ -556,7 +556,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     SearchShopMarketModel *myModel = self.goodsArray[indexPath.row];
     if (myModel.photoArray.count > 0) {
         NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, myModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"ImageLoading"]];
     } else {
         cell.photoView.image = [UIImage imageNamed:@"默认图片"];
     }

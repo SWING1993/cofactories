@@ -94,9 +94,9 @@
 
 - (void)reloadDataWithPopularNewsModel:(PopularNewsModel *)newsModel {
     NSString* userPhotoString = [[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, newsModel.authorImage] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [self.userPhoto sd_setImageWithURL:[NSURL URLWithString:userPhotoString] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    [self.userPhoto sd_setImageWithURL:[NSURL URLWithString:userPhotoString] placeholderImage:[UIImage imageNamed:@"ImageLoading"]];
     NSString* newsPhotoString = [[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, newsModel.newsImage] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [self.newsPhoto sd_setImageWithURL:[NSURL URLWithString:newsPhotoString] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    [self.newsPhoto sd_setImageWithURL:[NSURL URLWithString:newsPhotoString] placeholderImage:[UIImage imageNamed:@"ImageLoading"]];
     self.userName.text = newsModel.newsAuthor;
     self.newsType.text = newsModel.newsType;
     self.newsTitle.text = newsModel.newsTitle;
