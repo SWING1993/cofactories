@@ -31,7 +31,7 @@
         self.personName.font = [UIFont systemFontOfSize:12*kZGY];
         [self addSubview:self.personName];
         
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.stylePhoto.frame), CGRectGetMaxY(self.stylePhoto.frame) + i*15*kZGY + 3*kZGY, kScreenW - 4*kPersonPhotoMargin - kPersonPhotoHeight - kVerifyPhotoHeight, 15*kZGY)];
             myLabel.font = [UIFont systemFontOfSize:11*kZGY];
             myLabel.textColor = GRAYCOLOR(153);
@@ -45,18 +45,19 @@
                 case 2:
                     self.personStyle = myLabel;
                     break;
+                case 3:
+                    self.personAddress = myLabel;
+                    break;
                 default:
                     break;
             }
             [self addSubview:myLabel];
         }
         
-        self.personAddress = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.personAddress.frame = CGRectMake(CGRectGetMinX(self.stylePhoto.frame), CGRectGetMaxY(self.personStyle.frame), kScreenW - 4*kPersonPhotoMargin - kPersonPhotoHeight - kVerifyPhotoHeight, 15*kZGY);
-        self.personAddress.titleLabel.font = [UIFont systemFontOfSize:11*kZGY];
-        [self.personAddress setTitleColor:GRAYCOLOR(153) forState:UIControlStateNormal];
-        self.personAddress.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [self addSubview:self.personAddress];
+        self.changeAddressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.changeAddressBtn.frame = CGRectMake(CGRectGetMinX(self.personScore.frame), CGRectGetMaxY(self.personScore.frame), kScreenW - 4*kPersonPhotoMargin - kPersonPhotoHeight - kVerifyPhotoHeight, 50*kZGY);
+        self.changeAddressBtn.backgroundColor = [UIColor clearColor];
+        [self addSubview:self.changeAddressBtn];
         
         self.verifyPhoto = [UIButton buttonWithType:UIButtonTypeCustom];
         self.verifyPhoto.frame = CGRectMake(kScreenW - kVerifyPhotoHeight - kPersonPhotoMargin - 5*kZGY, kPersonPhotoMargin, kVerifyPhotoHeight, kVerifyPhotoHeight);
@@ -85,26 +86,25 @@
     //钱包余额
     self.personWallet.text = [NSString stringWithFormat:@"余额：%.2f元", wallet];
     //用户类型
-    if ([userModel.verified isEqualToString:@"0"] || [userModel.verified isEqualToString:@"暂无"]) {
-        self.stylePhoto.image = [UIImage imageNamed:@"注"];
-    } else if ([userModel.verified isEqualToString:@"1"] && [userModel.enterprise isEqualToString:@"非企业用户"]) {
-        self.stylePhoto.image = [UIImage imageNamed:@"证"];
-    } else if (![userModel.enterprise isEqualToString:@"非企业用户"]) {
-        self.stylePhoto.image = [UIImage imageNamed:@"企"];
+    if (userModel.enterpriseType == EnterpriseType_noEnterprise) {
+        if ([userModel.verified isEqualToString:@"0"] || [userModel.verified isEqualToString:@"暂无"]) {
+            self.stylePhoto.image = [UIImage imageNamed:@"注"];
+        } else if ([userModel.verified isEqualToString:@"1"]) {
+            self.stylePhoto.image = [UIImage imageNamed:@"证"];
+        }
     } else {
-        self.stylePhoto.image = [UIImage imageNamed:@""];
+        self.stylePhoto.image = [UIImage imageNamed:@"企"];
     }
     //用户身份
     self.personStyle.text = [NSString stringWithFormat:@"个人身份：%@", [UserModel getRoleWith:userModel.UserType]];
     //地址
-    if ([userModel.address isEqualToString:@"暂无"] || userModel.address.length == 0) {
-        [self.personAddress setTitle:@"地址暂无，点击完善资料" forState: UIControlStateNormal];
-//        [self.personAddress addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if ([userModel.address isEqualToString:@"暂无"] || [Tools isBlankString:userModel.address] == YES) {
+        self.personAddress.text = @"地址暂无，点击完善资料";
     } else {
-        [self.personAddress setTitle:userModel.address forState: UIControlStateNormal];
+        self.personAddress.text = userModel.address;
     }
     
-//    [self.verifyPhoto addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
     //认证状态
     switch (userModel.verify_status) {
         case 0:

@@ -1,15 +1,14 @@
 //
-//  MeHistoryOrderModel.m
+//  MallSellHistoryModel.m
 //  Cofactories
 //
-//  Created by 赵广印 on 15/12/17.
-//  Copyright © 2015年 Cofactorios. All rights reserved.
+//  Created by 赵广印 on 16/3/21.
+//  Copyright © 2016年 Cofactorios. All rights reserved.
 //
 
-#import "MeHistoryOrderModel.h"
+#import "MallSellHistoryModel.h"
 
-@implementation MeHistoryOrderModel
-
+@implementation MallSellHistoryModel
 - (instancetype)initMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         
@@ -28,16 +27,12 @@
         self.orderNumber = [NSString stringWithFormat:@"%@", dictionary[@"_id"]];
         self.payment = [NSString stringWithFormat:@"%@", dictionary[@"payment"]];
         if ([dictionary[@"status"] isEqualToString:@"wait_buyer_pay"]) {
-            if ([self.payment isEqualToString:@"enterprise"]) {
-                self.waitPayType = @"等待主账号付款";
-                self.showButton = NO;
-            } else {
-                self.waitPayType = @"等待买家付款";
-                self.showButton = YES;
-            }
+            
+            self.waitPayType = @"等待买家付款";
             self.payType = @"付款";
             self.mallOrderTitle = @"待付款订单";
             self.status = 1;
+            self.showButton = NO;
         } else if([dictionary[@"status"] isEqualToString:@"wait_seller_send"]) {
             self.waitPayType = @"买家已付款";
             self.payType = @"联系卖家";
@@ -52,7 +47,7 @@
             self.showButton = NO;
         } else if ([dictionary[@"status"] isEqualToString:@"wait_comment"]) {
             self.waitPayType = @"交易成功";
-//            self.payType = @"评价";
+            //            self.payType = @"评价";
             self.mallOrderTitle = @"待评价订单";
             self.status = 4;
             self.showButton = YES;
@@ -79,7 +74,7 @@
         
     }
     return self;
-
+    
 }
 + (instancetype)getMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary{
     

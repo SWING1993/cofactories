@@ -490,6 +490,27 @@
     }
 }
 
+
++ (void)statisticsWithKey:(NSString *)key withUid:(NSString *)uid andBlock:(void (^)(NSInteger statusCode))block {
+
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录则获取用户信息
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager    POST:API_userProfile parameters:@{key:uid} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            block(200);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            block([operation.response statusCode]);
+        }];
+    } else {
+        DLog(@"access_token不存在");
+        block(404);// access_token不存在
+    }
+}
+
 /**
  *  获取自己的钱包
  *

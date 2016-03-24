@@ -1,15 +1,14 @@
 //
-//  MeHistoryOrderModel.h
+//  MallSellHistoryModel.h
 //  Cofactories
 //
-//  Created by 赵广印 on 15/12/17.
-//  Copyright © 2015年 Cofactorios. All rights reserved.
+//  Created by 赵广印 on 16/3/21.
+//  Copyright © 2016年 Cofactorios. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface MeHistoryOrderModel : NSObject
-
+@interface MallSellHistoryModel : NSObject
 @property (nonatomic, strong) NSArray *photoArray;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *price;
@@ -42,6 +41,4 @@
 
 - (instancetype)initMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary;
-
-
 @end

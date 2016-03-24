@@ -101,7 +101,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 - (void)payAction:(UIButton*)Btn {
     [priceTextField resignFirstResponder];
     [Btn addShakeAnimation];
-    if ([self.selfModel.enterprise isEqualToString:@"非企业用户"]) {
+    if (self.selfModel.enterpriseType == EnterpriseType_noEnterprise) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"线下充值", @"支付宝充值", nil];
         [actionSheet showInView:self.view];
     }else {
@@ -161,8 +161,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 kTipAlert(@"你输入的%@无法识别，请重新输入！",priceTextField.text);
             }
     }else if (buttonIndex == 2) {
-        DLog(@"%@",self.selfModel.enterprise);
-        if ([self.selfModel.enterprise isEqualToString:@"非企业用户"]) {
+//        DLog(@"%@",self.selfModel.enterprise);
+        if (self.selfModel.enterpriseType == EnterpriseType_noEnterprise) {
+
 //            priceTextField.text = @"";
             return;
         }else {
