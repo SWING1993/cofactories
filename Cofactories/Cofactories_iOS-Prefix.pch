@@ -50,6 +50,20 @@
 #define kBaseUrl   @"https://lo.cofactories.com"               //后端服务器
 #define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
 #define kNotifyURL @"https://pay.cofactories.com/alipay/test"  //支付宝服务器通知URL
+#define kPopularBaseUrl @"http://lo.news.mxd.moe"//流行资讯
+
+#define kH5BaseUrl @"http://h5.lo.cofactories.com"//所有H5页面
+
+#define RONGCLOUD_IM_APPKEY @"pwe86ga5edfp6"
+#define RONGCLOUD_IM_SERVICEID @"KEFU145230925094660"
+
+#define kClientID  @"123"
+#define kSecret    @"123"
+
+#define kAuthUrl   @"http://auth.lo.cofactories.com"           //认证服务器
+#define kBaseUrl   @"https://lo.cofactories.com"               //后端服务器
+#define PhotoAPI   @"http://cofactories-test.b0.upaiyun.com"
+#define kNotifyURL @"https://pay.cofactories.com/alipay/test"  //支付宝服务器通知URL
 #define kPopularBaseUrl @"http://news.lo.cofactories.com"//流行资讯
 
 #define kH5BaseUrl @"http://h5.lo.cofactories.com"//所有H5页面
@@ -66,21 +80,21 @@
  *  正式环境：
  */
 
-#define bucketAPI  @"cofactories"
-
-#define kClientID  @"kpJ2HSYc2PMSUwWypKfQktbPSbUzJ8D4"
-#define kSecret    @"pnguPF3tQTCFUUevG3zBZ3EjR95QX8925Q5TBUucF2XhtA9uGAU6pSVnRdQTY6cR"
-
-#define kAuthUrl   @"https://auth.cofactories.com"  //认证服务器
-#define kBaseUrl   @"https://app.cofactories.com"   //后端服务器
-#define PhotoAPI   @"https://cdn.cofactories.com"
-#define kNotifyURL @"https://pay.cofactories.com/alipay"  //支付宝服务器通知URL
-#define kPopularBaseUrl @"http://news.cofactories.com"//流行资讯
-
-#define kH5BaseUrl @"http://h5.cofactories.com"//所有H5页面
-
-#define RONGCLOUD_IM_APPKEY @"4z3hlwrv3iult"
-#define RONGCLOUD_IM_SERVICEID @"KEFU145230927149545"
+//#define bucketAPI  @"cofactories"
+//
+//#define kClientID  @"kpJ2HSYc2PMSUwWypKfQktbPSbUzJ8D4"
+//#define kSecret    @"pnguPF3tQTCFUUevG3zBZ3EjR95QX8925Q5TBUucF2XhtA9uGAU6pSVnRdQTY6cR"
+//
+//#define kAuthUrl   @"https://auth.cofactories.com"  //认证服务器
+//#define kBaseUrl   @"https://app.cofactories.com"   //后端服务器
+//#define PhotoAPI   @"https://cdn.cofactories.com"
+//#define kNotifyURL @"https://pay.cofactories.com/alipay"  //支付宝服务器通知URL
+//#define kPopularBaseUrl @"http://news.cofactories.com"//流行资讯
+//
+//#define kH5BaseUrl @"http://h5.cofactories.com"//所有H5页面
+//
+//#define RONGCLOUD_IM_APPKEY @"4z3hlwrv3iult"
+//#define RONGCLOUD_IM_SERVICEID @"KEFU145230927149545"
 
 #define kFirstControllerTitle @"聚工厂"
 
@@ -176,6 +190,8 @@
 #define kLargeFont  [UIFont boldSystemFontOfSize:16.5f]
 #define kFont [UIFont systemFontOfSize:15.5f]
 #define kSmallFont  [UIFont systemFontOfSize:12.0f]
+#define FontOfSize(size)  [UIFont systemFontOfSize:size]
+
 
 //appdelegate
 #define ApplicationDelegate ((AppDelegate*)[[UIApplication sharedApplication] delegate])
@@ -197,10 +213,6 @@
 #pragma mark - 第三方框架
 
 #import <Masonry/Masonry.h>
-
-//#import "TTTAttributedLabel.h"
-//#import "TMCache.h"
-//#import <FlatUIKit/FlatUIKit.h>
 
 #import "SDCAlertView.h"
 #import "MBProgressHUD.h"
