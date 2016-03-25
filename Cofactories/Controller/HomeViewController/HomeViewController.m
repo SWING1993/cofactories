@@ -85,7 +85,7 @@ static NSString *activityCellIdentifier = @"activityCell";
     self.homeTableView.delegate = self;
     self.homeTableView.dataSource = self;
     [self.view addSubview:self.homeTableView];
-    self.homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.homeTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
     [self.homeTableView registerClass:[HomeMarketCell class] forCellReuseIdentifier:marketCellIdentifier];
     [self.homeTableView registerClass:[HomeProfileCell class] forCellReuseIdentifier:ProfileCellIdentifier];
@@ -166,7 +166,7 @@ static NSString *activityCellIdentifier = @"activityCell";
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 1;
+    return 8;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     

@@ -16,7 +16,7 @@
 #import <Bugly/JSExceptionReporter.h>
 
 @interface HomeActivity_VC ()<UIWebViewDelegate> {
-    UIWebView * webView;
+    UIWebView * activityWebView;
     MBProgressHUD *hud;
 }
 
@@ -26,16 +26,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    DLog(@"^^^^^^^^^^^^^%@", self.urlString);
-    webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
-    webView.delegate = self;
-    webView.backgroundColor = [UIColor whiteColor];
-//    self.urlString = @"http://h5.lo.cofactories.com/!)test/";
+    activityWebView = [[UIWebView alloc]initWithFrame:kScreenBounds];
+    activityWebView.delegate = self;
+    activityWebView.backgroundColor = [UIColor whiteColor];
+    
     AFOAuthCredential *credential=[HttpClient getToken];
     NSString * urlStr = [NSString stringWithFormat:@"%@?access_token=%@",self.urlString,credential.accessToken];
     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
-    [self.view addSubview:webView];
-    [webView loadRequest:request];
+    [self.view addSubview:activityWebView];
+    [activityWebView loadRequest:request];
     
     hud = [Tools createHUDWithView:self.view];
     hud.labelText = @"加载中...";
@@ -120,7 +119,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     [hud hide:YES];
 }
 
