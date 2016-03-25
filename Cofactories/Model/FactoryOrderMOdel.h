@@ -28,8 +28,9 @@
 @property(nonatomic,copy)NSString *fistPayCount;
 @property(nonatomic,copy)NSString *orderWinnerID;
 @property(nonatomic,copy)NSString *contractStatus;
-@property(nonatomic,copy)NSString *orderWinnerName;
-@property(nonatomic,copy)NSString *orderWinnerPhone;
+@property(nonatomic,copy)NSString *winnerName;
+@property(nonatomic,copy)NSString *winnerPhone;
+
 
 - (instancetype)initSupplierOrderModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getSupplierOrderModelWithDictionary:(NSDictionary *)dictionary;
