@@ -16,6 +16,7 @@
 #import "OrderBid_Factory_VC.h"
 #import "BidManage_Factory_VC.h"
 #import "MarkOrder_VC.h"
+#import "Contract_VC.h"
 @interface OrderDetail_Fac_VC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView   *tableView;
 @property (nonatomic,strong)FactoryOrderMOdel *facModel;
@@ -38,13 +39,14 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    if (!self.userModel) {
-        self.userModel = [[UserModel alloc] getMyProfile];
-    }
+    self.userModel = [[UserModel alloc] getMyProfile];
     
+    DLog(@"-------%@------",_userModel.uid);
+
     [HttpClient getFactoryOrderDetailWithID:_orderID WithCompletionBlock:^(NSDictionary *dictionary) {
         FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
         _facModel = dataModel;
+
         if ([dataModel.userUid isEqualToString:_userModel.uid]) {
             _isMyselfOrder = YES;
         }else{
@@ -80,8 +82,6 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
     }];
 }
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"订单详情";
@@ -91,7 +91,46 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
     OrderDetail_Fac_TVC *cell = [[OrderDetail_Fac_TVC alloc] init];
     [_cellArray addObject:cell];
     [self setupTable];
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 120)];
+//    footerView.backgroundColor = GRAYCOLOR(242);
+    _tableView.tableFooterView = footerView;
+    self.userModel = [[UserModel alloc] getMyProfile];
+
+    DLog(@"+++++++++======%@-----????-%@-----%@",_contractStatus,_winnerID,_userModel.uid);
+    
+    if ([_contractStatus isEqualToString:@"甲方签署合同"]&&[_winnerID isEqualToString:_userModel.uid]){
+        footerView.hidden = NO;
+    }else{
+        footerView.hidden = YES;
+    }
+    
+    UILabel *infoLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, kScreenW, 25)];
+    infoLB.text = @"恭喜您已中标,请签署担保协议";
+    infoLB.textAlignment = NSTextAlignmentCenter;
+    infoLB.font = [UIFont systemFontOfSize:13];
+    infoLB.textColor = MAIN_COLOR;
+    [footerView addSubview:infoLB];
+    
+    UIButton *signContractButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    signContractButton.frame = CGRectMake(15, 60, kScreenW-30, 40);
+    signContractButton.backgroundColor = MAIN_COLOR;
+    [signContractButton setTitle:@"确定" forState:UIControlStateNormal];
+    signContractButton.layer.masksToBounds = YES;
+    signContractButton.layer.cornerRadius = 5;
+    [signContractButton addTarget:self action:@selector(signClick) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:signContractButton];
+
 }
+
+- (void)signClick{
+    
+    Contract_VC *vc = [[Contract_VC alloc] init];
+    vc.isClothing = NO;
+    vc.orderID = _facModel.ID;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 #pragma mark - baseSet
 - (void)setupTable{

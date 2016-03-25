@@ -17,5 +17,7 @@ typedef NS_ENUM(NSInteger, kOrderDetail_Fac_Type) {
 @interface OrderDetail_Fac_VC : UIViewController
 @property (nonatomic,assign) kOrderDetail_Fac_Type enterType;
 @property (nonatomic,copy)NSString *orderID;
+@property (nonatomic,copy)NSString *contractStatus;
+@property (nonatomic,copy)NSString *winnerID;
 @property (nonatomic,assign)BOOL isRestrict;
 @end

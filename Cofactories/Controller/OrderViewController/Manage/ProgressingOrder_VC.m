@@ -111,7 +111,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             [self.navigationController pushViewController:vc animated:YES];
             
         }else{
-            
+
             OrderDetail_Fac_VC *vc = [OrderDetail_Fac_VC new];
             vc.enterType = kOrderDetail_Fac_TypePublic;
             [HttpClient getFactoryOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
@@ -187,6 +187,8 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     [HttpClient getFactoryOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
                         FactoryOrderMOdel *model = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
                         vc.orderID = model.ID;
+                        vc.contractStatus = _contractStatus;
+                        vc.winnerID = model.orderWinnerID;
                         if ([model.credit isEqualToString:@"担保订单"]) {
                             vc.isRestrict = YES;
                         }else{

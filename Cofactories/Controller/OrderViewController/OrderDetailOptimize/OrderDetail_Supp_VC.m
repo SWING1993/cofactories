@@ -207,7 +207,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                     
                 case kOrderDetail_Supp_TypeJudge:{
                     MarkOrder_VC *vc = [MarkOrder_VC new];
-                    vc.markOrderType = MarkOrderType_Factory;
+                    vc.markOrderType = MarkOrderType_Supplier;
                     vc.orderID = _suppModel.ID;
                     [self.navigationController pushViewController:vc animated:YES];
                 }

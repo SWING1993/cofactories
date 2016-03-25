@@ -51,10 +51,11 @@
     _orderIdlB.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:_orderIdlB];
     
+    NSArray *arr = @[@"类型",@"数量",@"下单时间",@"交货日期",@"中标者",@"中标者电话",@"担保金额",@"备注信息"];
     for (int i = 0; i<8; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 40+i*25, 60, 25)];
         label.font = FontOfSize(12);
-        label.text = @[@"类型",@"数量",@"下单时间",@"交货日期",@"中标者",@"中标者电话",@"担保金额",@"备注信息"][i];
+        label.text = arr[i];
         [self.contentView addSubview:label];
         
         UILabel *lb = [UILabel new];
@@ -124,12 +125,17 @@
     
     if (_isRestrict) {
         _orderMoneyLB.frame = CGRectMake(90, 40+150, kScreenW-90, 25);
+        _orderMoneyTitle.frame = CGRectMake(15, 40+150, 60, 25);
+
+        _commentTitle.frame = CGRectMake(15, 40+175, 60, 25);
         _commentLB.frame = CGRectMake(90, 40+175+5, textSize.width, textSize.height);
+        DLog(@"jjjjjjjjjjjjj");
         
     }else{
-        [_orderMoneyLB removeFromSuperview];
-        [_orderMoneyTitle removeFromSuperview];
-        
+        _orderMoneyLB.frame = CGRectMake(0, 0, 0, 0);
+        _orderMoneyTitle.frame = CGRectMake(0, 0, 0, 0);
+        DLog(@"uuuuuuuuuuu");
+
         _commentTitle.frame = CGRectMake(15, 40+150, 60, 25);
         _commentLB.frame = CGRectMake(90, 40+150+5, textSize.width, textSize.height);
     }
