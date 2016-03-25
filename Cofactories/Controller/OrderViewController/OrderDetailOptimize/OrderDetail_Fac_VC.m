@@ -1,44 +1,50 @@
 //
-//  OrderDetail_Design_VC.m
+//  OrderDetail_Fac_VC.m
 //  Cofactories
 //
-//  Created by GTF on 16/3/16.
+//  Created by GTF on 16/3/24.
 //  Copyright © 2016年 Cofactorios. All rights reserved.
 //
 #define kHeaderHeight 130
-#import "OrderDetail_Design_VC.h"
+#import "OrderDetail_Fac_VC.h"
 
-#import "OrderDetail_Design_HeaderView.h"
+#import "OrderDetail_Fac_HeaderView.h"
+#import "OrderDetail_Fac_TVC.h"
+#import "OrderDetail_FacMark_TVC.h"
 #import "OrderPhotoViewController.h"
 #import "IMChatViewController.h"
-#import "OrderDetail_Design_TVC.h"
-#import "BidManage_Design_VC.h"
 #import "OrderBid_Factory_VC.h"
-@interface OrderDetail_Design_VC ()<UITableViewDataSource,UITableViewDelegate>
+#import "BidManage_Factory_VC.h"
+#import "MarkOrder_VC.h"
+@interface OrderDetail_Fac_VC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView   *tableView;
-@property (nonatomic,strong)DesignOrderModel *designModel;
+@property (nonatomic,strong)FactoryOrderMOdel *facModel;
 @property (nonatomic,strong)OthersUserModel  *otherUserModel;
 @property (nonatomic,strong)UserModel *userModel;
 @property (nonatomic,assign)BOOL    isMyselfOrder;
 @property (nonatomic,assign)BOOL    isCompletion;
 @property (nonatomic,assign)BOOL    isAlreadyBid;
 @property (nonatomic,copy)NSArray   *bidAmountArray;
+@property (nonatomic,strong)NSMutableArray   *cellArray;
+
+
 @end
 static NSString *const reuseIdentifier1 = @"reuseIdentifier1";
 static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
-@implementation OrderDetail_Design_VC
+static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
+
+@implementation OrderDetail_Fac_VC
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     if (!self.userModel) {
         self.userModel = [[UserModel alloc] getMyProfile];
-        //        [_tableView reloadData];
     }
     
-    [HttpClient getDesignOrderDetailWithID:_orderID WithCompletionBlock:^(NSDictionary *dictionary) {
-        DesignOrderModel *dataModel = [DesignOrderModel getDesignOrderModelWithDictionary:dictionary];
-        _designModel = dataModel;
+    [HttpClient getFactoryOrderDetailWithID:_orderID WithCompletionBlock:^(NSDictionary *dictionary) {
+        FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
+        _facModel = dataModel;
         if ([dataModel.userUid isEqualToString:_userModel.uid]) {
             _isMyselfOrder = YES;
         }else{
@@ -56,7 +62,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
             [_tableView reloadData];
         }];
         
-        [HttpClient getDesignOrderBidUserAmountWithOrderID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
+        [HttpClient getFactoryOrderBidUserAmountWithOrderID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
             _bidAmountArray = dictionary[@"message"];
             [_bidAmountArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 NSDictionary *dic = (NSDictionary *)obj;
@@ -71,16 +77,19 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
             }];
             [_tableView reloadData];
         }];
-
     }];
-    
 }
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"订单详情";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
+    _cellArray = [@[] mutableCopy];
+    OrderDetail_Fac_TVC *cell = [[OrderDetail_Fac_TVC alloc] init];
+    [_cellArray addObject:cell];
     [self setupTable];
 }
 
@@ -89,7 +98,9 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, kScreenH-64) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource =self;
-    [_tableView registerClass:[OrderDetail_Design_TVC class] forCellReuseIdentifier:reuseIdentifier1];
+    [_tableView registerClass:[OrderDetail_Fac_TVC class] forCellReuseIdentifier:reuseIdentifier1];
+    [_tableView registerClass:[OrderDetail_FacMark_TVC class] forCellReuseIdentifier:reuseIdentifier3];
+
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier2];
     [self.view addSubview:_tableView];
 }
@@ -108,8 +119,17 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-        OrderDetail_Design_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier1 forIndexPath:indexPath];
-        cell.model = _designModel;
+        if (_enterType == kOrderDetail_Fac_TypeJudge) {
+            OrderDetail_FacMark_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier3 forIndexPath:indexPath];
+            cell.model = _facModel;
+            cell.isRestrict = _isRestrict;
+            
+            return cell;
+        }
+        
+        OrderDetail_Fac_TVC *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier1 forIndexPath:indexPath];
+        cell.isRestrict = _isRestrict;
+        cell.model = _facModel;
         return cell;
     }
     
@@ -134,8 +154,8 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kHeaderHeight)];
-        OrderDetail_Design_HeaderView *header = [[OrderDetail_Design_HeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kHeaderHeight)];
-        header.model = _designModel;
+        OrderDetail_Fac_HeaderView *header = [[OrderDetail_Fac_HeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kHeaderHeight)];
+        header.model = _facModel;
         header.enterType = _enterType;
         header.userName = _otherUserModel.name;
         header.userAddress = [NSString stringWithFormat:@"地址: %@",_otherUserModel.address];
@@ -159,20 +179,19 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
             conversationVC.hidesBottomBarWhenPushed=YES;
             [self.navigationController.navigationBar setHidden:NO];
             [self.navigationController pushViewController:conversationVC animated:YES];
-
+            
         };
         __weak typeof(self) weakSelf = self;
         header.BidBtnBlock = ^{
             switch (weakSelf.enterType) {
-                case kOrderDetail_Design_TypeDefault:{
+                case kOrderDetail_Fac_TypeDefault:{
                     if (!_isMyselfOrder) {
                         if (!_isCompletion) {
                             if (!_isAlreadyBid) {
                                 OrderBid_Factory_VC *vc = [OrderBid_Factory_VC new];
-                                vc.orderTypeString = @"DesignOrder";
-                                vc.orderID = _designModel.ID;
+                                vc.orderID = _facModel.ID;
+                                vc.orderTypeString = @"FactoryOrder";
                                 [self.navigationController pushViewController:vc animated:YES];
-                                DLog(@"------yes------");
                             }else{
                                 kTipAlert(@"该订单您已投过标");
                             }
@@ -185,27 +204,30 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                 }
                     break;
                     
-                case kOrderDetail_Design_TypeBid:{
+                case kOrderDetail_Fac_TypeBid:{
                     kTipAlert(@"该订单您已投过标");
                 }
                     break;
                     
-                case kOrderDetail_Design_TypePublic:{
+                case kOrderDetail_Fac_TypePublic:{
                     if (_bidAmountArray.count == 0) {
                         kTipAlert(@"该订单暂无商家投标");
                     }else{
-                        BidManage_Design_VC *vc = [BidManage_Design_VC new];
-                        vc.orderID = _designModel.ID;
+                        BidManage_Factory_VC *vc = [BidManage_Factory_VC new];
+                        vc.orderID = _facModel.ID;
                         [self.navigationController pushViewController:vc animated:YES];
-                        DLog(@"--2---2-");
                     }
                 }
                     break;
                     
-                case kOrderDetail_Design_TypeJudge:
-                    
+                case kOrderDetail_Fac_TypeJudge:{
+                    MarkOrder_VC *vc = [MarkOrder_VC new];
+                    vc.markOrderType = MarkOrderType_Factory;
+                    vc.orderID = _facModel.ID;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
                     break;
-                    default:
+                default:
                     break;
             }
         };
@@ -221,10 +243,27 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        CGSize size = [Tools getSize:_designModel.descriptions andFontOfSize:12 andWidthMake:kScreenW-90];
-        return 90+size.height;
+        CGSize textSize=[_facModel.descriptions boundingRectWithSize:CGSizeMake(kScreenW-100, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12]} context:nil].size;
+        
+        if (_enterType == kOrderDetail_Fac_TypeJudge) {
+            
+            if (_isRestrict) {
+                return  220+textSize.height+15;
+            }else{
+                return 195+textSize.height+15;
+            }
+
+        }else{
+            if (_isRestrict) {
+               return  170+textSize.height+15;
+            }else{
+                return 145+textSize.height+15;
+            }
+        }
+
     }
-    return 30;
+    return 40;
 }
+
 
 @end

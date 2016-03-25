@@ -10,7 +10,9 @@
 typedef NS_ENUM(NSInteger, kOrderDetail_Supp_Type) {
     kOrderDetail_Supp_TypeDefault,        //订单列表进入
     kOrderDetail_Supp_TypeBid,            //订单管理投标进入
-    kOrderDetail_Supp_TypePublic         //订单管理发布进入
+    kOrderDetail_Supp_TypePublic,         //订单管理发布进入
+    kOrderDetail_Supp_TypeJudge          //订单管理完成评分进入
+
 };
 
 @interface OrderDetail_Supp_VC : UIViewController

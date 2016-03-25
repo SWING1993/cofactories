@@ -12,7 +12,7 @@
 
 - (instancetype)initSupplierOrderModelWithDictionary:(NSDictionary *)dictionary{
     if (self = [super init]) {
-        self.amount = dictionary[@"amount"];
+        self.amount = [NSString stringWithFormat:@"%@",dictionary[@"amount"]];
         self.bidCount = [NSString stringWithFormat:@"%@",dictionary[@"bidCount"]];
         NSString *creatString = dictionary[@"createdAt"];
         NSArray *creatArray = [Tools WithTime:creatString];
@@ -71,6 +71,8 @@
         
         NSString *contractStatus = [NSString stringWithFormat:@"%@",dictionary[@"contract"]];
         self.contractStatus = contractStatus;
+        _winnerName = dictionary[@"winnerName"];
+        _winnerPhone = dictionary[@"winnerPhone"];
     }
     return self;
 }

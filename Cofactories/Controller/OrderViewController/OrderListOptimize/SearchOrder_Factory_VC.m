@@ -10,7 +10,9 @@
 #import "DOPDropDownMenu.h"
 #import "Order_Factory_TVC.h"
 #import "MJRefresh.h"
-#import "FactoryOrderDetail_VC.h"
+//#import "FactoryOrderDetail_VC.h"
+#import "OrderDetail_Fac_VC.h"
+
 #import "OrderPhotoViewController.h"
 #import "CalendarHomeViewController.h"
 
@@ -164,30 +166,15 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     FactoryOrderMOdel *model = _dataArray[indexPath.row];
-    FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
-    if ([model.credit isEqualToString:@"担保订单"]) {
-        vc.isRescrit = YES;
-    }else{
-        vc.isRescrit = NO;
-    }
-    
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"返回";
-    backItem.tintColor=[UIColor whiteColor];
-    self.navigationItem.backBarButtonItem = backItem;
-    
-    [HttpClient getFactoryOrderDetailWithID:model.ID WithCompletionBlock:^(NSDictionary *dictionary) {
-        FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
-        vc.dataModel = dataModel;
-        vc.factoryOrderDetailBidStatus = FactoryOrderDetailBidStatus_Common;
-        [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
-            OthersUserModel *model = dictionary[@"message"];
-            vc.otherUserModel = model;
-            [self.navigationController pushViewController:vc animated:YES];
-            
-        }];
-    }];
-    
+    OrderDetail_Fac_VC *vc = [OrderDetail_Fac_VC new];
+    vc.enterType = kCGBitmapByteOrderDefault;
+    vc.orderID = model.ID;
+        if ([model.credit isEqualToString:@"担保订单"]) {
+            vc.isRestrict = YES;
+        }else{
+            vc.isRestrict = NO;
+        }
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)imageDetailClick:(id)sender{

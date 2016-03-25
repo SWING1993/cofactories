@@ -200,6 +200,10 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                     }
                 }
                     break;
+                    
+                case kOrderDetail_Supp_TypeJudge:
+                    
+                    break;
                 default:
                     break;
             }

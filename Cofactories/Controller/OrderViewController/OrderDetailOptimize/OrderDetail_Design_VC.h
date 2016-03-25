@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSInteger, kOrderDetail_Design_Type) {
     kOrderDetail_Design_TypeDefault,        //设计师订单列表进入
     kOrderDetail_Design_TypeBid,            //设计师订单管理投标进入
-    kOrderDetail_Design_TypePublic         //设计师订单管理发布进入
+    kOrderDetail_Design_TypePublic,         //设计师订单管理发布进入
+    kOrderDetail_Design_TypeJudge          //设计师订单管理完成评分进入
 };
 
 @interface OrderDetail_Design_VC : UIViewController

@@ -10,6 +10,4 @@
 
 @interface OrderDetail_Supp_TVC : UITableViewCell
 @property (nonatomic,strong)SupplierOrderModel *model;
-@property (nonatomic,assign)CGFloat height;
-
 @end

@@ -8,11 +8,9 @@
 
 #import "ProgressingOrder_VC.h"
 #import "ProgressingOrder_TVC.h"
-#import "SupplierOrderDetail_VC.h"
-#import "FactoryOrderDetail_VC.h"
-#import "DesignOrderDetail_VC.h"
 #import "OrderDetail_Design_VC.h"
 #import "OrderDetail_Supp_VC.h"
+#import "OrderDetail_Fac_VC.h"
 
 #import "ContractClothingDetail_VC.h"
 #import "ContractFactoryDetail_VC.h"
@@ -113,28 +111,20 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
             [self.navigationController pushViewController:vc animated:YES];
             
         }else{
-                    FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
-                    if ([dataModel.creditString isEqualToString:@"担保订单"]) {
-                        vc.isRescrit = YES;
-                    }else{
-                        vc.isRescrit = NO;
-                    }
-                    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-                    backItem.title=@"返回";
-                    backItem.tintColor=[UIColor whiteColor];
-                    self.navigationItem.backBarButtonItem = backItem;
             
-                    [HttpClient getFactoryOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
-                        FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
-                        vc.dataModel = dataModel;
-                        vc.factoryOrderDetailBidStatus = FactoryOrderDetailBidStatus_BidManagement;
-                        [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
-                            OthersUserModel *model = dictionary[@"message"];
-                            vc.otherUserModel = model;
-                            [self.navigationController pushViewController:vc animated:YES];
-                            
-                        }];
-                }];
+            OrderDetail_Fac_VC *vc = [OrderDetail_Fac_VC new];
+            vc.enterType = kOrderDetail_Fac_TypePublic;
+            [HttpClient getFactoryOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
+                FactoryOrderMOdel *model = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
+                vc.orderID = model.ID;
+                if ([model.credit isEqualToString:@"担保订单"]) {
+                    vc.isRestrict = YES;
+                }else{
+                    vc.isRestrict = NO;
+                }
+
+                [self.navigationController pushViewController:vc animated:YES];
+            }];
         }
         
     }else if ([dataModel.orderType isEqualToString:@"设计师订单"]) {
@@ -192,31 +182,20 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
                     [self.navigationController pushViewController:vc animated:YES];
                 }else{
                     
-                    FactoryOrderDetail_VC *vc = [FactoryOrderDetail_VC new];
-                    vc.contractStatus = _contractStatus;
-                    if ([dataModel.creditString isEqualToString:@"担保订单"]) {
-                        vc.isRescrit = YES;
-                    }else{
-                        vc.isRescrit = NO;
-                    }
-                    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-                    backItem.title=@"返回";
-                    backItem.tintColor=[UIColor whiteColor];
-                    self.navigationItem.backBarButtonItem = backItem;
+                    OrderDetail_Fac_VC *vc = [OrderDetail_Fac_VC new];
+                    vc.enterType = kOrderDetail_Fac_TypeBid;
                     [HttpClient getFactoryOrderDetailWithID:dataModel.ID WithCompletionBlock:^(NSDictionary *dictionary) {
-                        FactoryOrderMOdel *dataModel = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
-                        vc.dataModel = dataModel;
-                        vc.factoryOrderDetailBidStatus = FactoryOrderDetailBidStatus_BidOver;
-                        [HttpClient getOtherIndevidualsInformationWithUserID:dataModel.userUid WithCompletionBlock:^(NSDictionary *dictionary) {
-                            OthersUserModel *model = dictionary[@"message"];
-                            vc.otherUserModel = model;
-                            [self.navigationController pushViewController:vc animated:YES];
-                            
-                        }];
+                        FactoryOrderMOdel *model = [FactoryOrderMOdel getSupplierOrderModelWithDictionary:dictionary];
+                        vc.orderID = model.ID;
+                        if ([model.credit isEqualToString:@"担保订单"]) {
+                            vc.isRestrict = YES;
+                        }else{
+                            vc.isRestrict = NO;
+                        }
+                        
+                        [self.navigationController pushViewController:vc animated:YES];
                     }];
-
                 }
-              
             }
 
                 break;

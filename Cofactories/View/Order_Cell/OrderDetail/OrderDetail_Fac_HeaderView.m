@@ -1,14 +1,14 @@
 //
-//  OrderDetailHeaderView.m
+//  OrderDetail_Fac_HeaderView.m
 //  Cofactories
 //
-//  Created by GTF on 16/3/16.
+//  Created by GTF on 16/3/24.
 //  Copyright © 2016年 Cofactorios. All rights reserved.
 //
 
+#import "OrderDetail_Fac_HeaderView.h"
 
-#import "OrderDetail_Design_HeaderView.h"
-@implementation OrderDetail_Design_HeaderView{
+@implementation OrderDetail_Fac_HeaderView{
     UIButton  *_orderImageBtn;
     UILabel   *_userNameLB;
     UILabel   *_userAddressLB;
@@ -16,6 +16,7 @@
     UIButton  *_bidBtn;
     UILabel   *_bidLB;
 }
+
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
@@ -85,10 +86,10 @@
     lineLayerOne.backgroundColor = [UIColor grayColor].CGColor;
     [self.layer addSublayer:lineLayerOne];
     
-
+    
 }
 
-- (void)setModel:(DesignOrderModel *)model{
+- (void)setModel:(FactoryOrderMOdel *)model{
     _model = model;
     
     if (model.photoArray.count > 0) {
@@ -119,7 +120,6 @@
     }else{
         _bidLB.text = @"订单评分";
     }
-
 }
 
 #pragma mark - Btn

@@ -114,9 +114,12 @@
         _bidLB.text = @"参与投标";
     }else if (enterType == 1){
         _bidLB.text = @"已投过标";
-    }else{
+    }else if (enterType == 2){
         _bidLB.text = @"投标管理";
+    }else{
+        _bidLB.text = @"订单评分";
     }
+
 }
 
 #pragma mark - Btn
