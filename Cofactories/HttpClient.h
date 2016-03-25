@@ -368,11 +368,12 @@
  */
 //获取搜索内容
 + (void)searchPopularNewsWithKeyword:(NSString *)keyWord WithBlock:(void (^)(NSDictionary *dictionary))block;
-//获取两篇置顶文章
-+ (void)getPopularNewsWithBlock:(void (^)(NSDictionary *dictionary))block;
-//根据分类获取六篇显示的文章
-+ (void)getSixPopularNewsListWithCategory:(NSInteger)category withBlock:(void (^)(NSDictionary *dictionary))block;
 
+//获取文章列表
++ (void)getPopularNewsListWithCategory:(NSString *)category page:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block;
+
+//获取置顶文章
++ (void)getPopularNewsTopWithPage:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block;
 /**********************************商城模块****************************************
  */
 
@@ -426,8 +427,5 @@
 //获取订单信息（用于首页滚动）
 + (void)getScrollOrderMessageWithBlock:(void(^)(NSDictionary *dictionary))block;
 
-//获取文章列表
-+ (void)getPopularNewsListWithCategory:(NSString *)category page:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block;
-//获取置顶文章
-+ (void)getPopularNewsTopWithPage:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block;
+
 @end

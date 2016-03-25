@@ -29,21 +29,21 @@
         [self addSubview:self.myScrollView];
         for (int i = 0; i < kMessageCount + 2; i++) {
             for (int j = 0; j < 2; j++) {
-                UIView *redPoint = [[UIView alloc] initWithFrame:CGRectMake(15, 15 + 25*j + kScrollViewHeight*i, 5, 5)];
+                UIView *redPoint = [[UIView alloc] initWithFrame:CGRectMake(15, 16 + 24*j + kScrollViewHeight*i, 5, 5)];
                 redPoint.backgroundColor = [UIColor redColor];
                 redPoint.layer.cornerRadius = 2.5;
                 redPoint.clipsToBounds = YES;
                 [self.myScrollView addSubview:redPoint];
             }
             
-            UILabel *newsUpLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 5 + i*kScrollViewHeight, kScreenW - 70, 25)];
-            newsUpLabel.font = [UIFont systemFontOfSize:14];
+            UILabel *newsUpLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 7 + i*kScrollViewHeight, kScreenW - 70, 23)];
+            newsUpLabel.font = [UIFont systemFontOfSize:12];
             newsUpLabel.textColor = GRAYCOLOR(82);
             [self.myScrollView addSubview:newsUpLabel];
             [upLabelArray addObject:newsUpLabel];
             
-            UILabel *newsDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 30 + i*kScrollViewHeight, kScreenW - 70, 25)];
-            newsDownLabel.font = [UIFont systemFontOfSize:14];
+            UILabel *newsDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 30 + i*kScrollViewHeight, kScreenW - 70, 23)];
+            newsDownLabel.font = [UIFont systemFontOfSize:12];
             newsDownLabel.textColor = GRAYCOLOR(82);
             [self.myScrollView addSubview:newsDownLabel];
             [downLabelArray addObject:newsDownLabel];

@@ -85,21 +85,21 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_rightBtn addTarget:self action:@selector(clickHeaderBtnInSection:) forControlEvents:UIControlEventTouchUpInside];
     
-    _myLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47/3, kScreenW, kScreenW*0.47*1/4)];
+    _myLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(0, kHeaderHeight/3, kScreenW, kHeaderHeight/4)];
     _myLabel1.font = [UIFont boldSystemFontOfSize:28.0f];
     _myLabel1.numberOfLines = 1;
     _myLabel1.textAlignment = NSTextAlignmentCenter;
     _myLabel1.textColor = [UIColor whiteColor];
     
-    _myLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47/2, kScreenW, kScreenW*0.47/2)];
+    _myLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, kHeaderHeight/2, kScreenW, kHeaderHeight/2)];
     _myLabel2.font = kFont;
     _myLabel2.numberOfLines = 5;
     _myLabel2.textAlignment = NSTextAlignmentCenter;
     _myLabel2.textColor = [UIColor whiteColor];
 
     
-    UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW * 0.47)];
-    image.image = [self imageFromColor:[UIColor colorWithRed:0.188 green:0.475 blue:0.839 alpha:1.000] forSize:CGSizeMake(kScreenW, kScreenW*0.47) withCornerRadius:0];
+    UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kHeaderHeight)];
+    image.image = [self imageFromColor:[UIColor colorWithRed:0.188 green:0.475 blue:0.839 alpha:1.000] forSize:CGSizeMake(kScreenW, kHeaderHeight) withCornerRadius:0];
     [image addSubview:_myLabel1];
     [image addSubview:_myLabel2];
     
@@ -124,9 +124,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     else if (btn.tag == 2) {
         
         if (self.MyProfile.verify_status == 0) {
-            kTipAlert(@"提现请先实名认证。");
+            kTipAlert(@"提现请先实名认证");
         }else if (self.MyProfile.verify_status == 1){
-            kTipAlert(@"您的认证正在审核中。");
+            kTipAlert(@"您的认证正在审核中");
         }else {
             WithdrawalViewController * vc2 = [[WithdrawalViewController alloc]init];
             vc2.title = @"提现";
