@@ -218,6 +218,7 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
                     }else{
                         BidManage_Factory_VC *vc = [BidManage_Factory_VC new];
                         vc.orderID = _facModel.ID;
+                        vc.isRestrict = _isRestrict;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                 }
