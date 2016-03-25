@@ -504,7 +504,7 @@
         // 已经登录则获取用户信息
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        [manager    POST:API_statistics parameters:@{key:uid} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager    POST:API_statistics parameters:@{@"key":key,@"value":uid} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             block(200);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             block([operation.response statusCode]);
