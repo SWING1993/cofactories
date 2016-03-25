@@ -15,6 +15,7 @@
 #import "IMChatViewController.h"
 #import "OrderBid_Supplier_VC.h"
 #import "BidManage_Supplier_VC.h"
+#import "MarkOrder_VC.h"
 
 @interface OrderDetail_Supp_VC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView   *tableView;
@@ -201,8 +202,12 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                 }
                     break;
                     
-                case kOrderDetail_Supp_TypeJudge:
-                    
+                case kOrderDetail_Supp_TypeJudge:{
+                    MarkOrder_VC *vc = [MarkOrder_VC new];
+                    vc.markOrderType = MarkOrderType_Factory;
+                    vc.orderID = _suppModel.ID;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
                     break;
                 default:
                     break;

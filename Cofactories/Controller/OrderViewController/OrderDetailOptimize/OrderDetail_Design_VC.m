@@ -14,6 +14,7 @@
 #import "OrderDetail_Design_TVC.h"
 #import "BidManage_Design_VC.h"
 #import "OrderBid_Factory_VC.h"
+#import "MarkOrder_VC.h"
 @interface OrderDetail_Design_VC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView   *tableView;
 @property (nonatomic,strong)DesignOrderModel *designModel;
@@ -202,9 +203,14 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                 }
                     break;
                     
-                case kOrderDetail_Design_TypeJudge:
-                    
+                case kOrderDetail_Design_TypeJudge:{
+                    MarkOrder_VC *vc = [MarkOrder_VC new];
+                    vc.markOrderType = MarkOrderType_Factory;
+                    vc.orderID = _designModel.ID;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
                     break;
+                    
                     default:
                     break;
             }

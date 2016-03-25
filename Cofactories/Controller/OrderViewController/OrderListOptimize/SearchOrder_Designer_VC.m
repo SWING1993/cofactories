@@ -9,7 +9,6 @@
 #import "SearchOrder_Designer_VC.h"
 #import "Order_Designer_TVC.h"
 #import "MJRefresh.h"
-#import "DesignOrderDetail_VC.h"
 #import "OrderDetail_Design_VC.h"
 
 @interface SearchOrder_Designer_VC ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>{
