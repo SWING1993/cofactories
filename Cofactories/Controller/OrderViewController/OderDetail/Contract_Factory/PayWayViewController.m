@@ -186,8 +186,9 @@
             _payWayString = @"enterprise";
         }
     }];
+    NSString *mesString = ([_payWayString isEqualToString:@"wallet"]) ? @"钱包支付":@"企业账号支付";
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"该订单的首款为%@,确认支付首款?",_model.fistPayCount] message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"该订单的首款为%@,确认用%@首款?",_model.fistPayCount,mesString] message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             alert.tag = 100;
     [alert show];
     
@@ -207,7 +208,7 @@
                     if ([_payWayString isEqualToString:@"wallet"]) {
                         alertString = @"首笔付款成功";
                     }else{
-                        alertString = @"提交主账号付款";
+                        alertString = @"已提交主账号付款";
                     }
                     
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];

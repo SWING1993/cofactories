@@ -71,6 +71,9 @@
         
         NSString *contractStatus = [NSString stringWithFormat:@"%@",dictionary[@"contract"]];
         self.contractStatus = contractStatus;
+        
+        self.orderWinnerName = dictionary[@"winnerName"];
+        self.orderWinnerPhone = dictionary[@"winnerPhone"];
     }
     return self;
 }

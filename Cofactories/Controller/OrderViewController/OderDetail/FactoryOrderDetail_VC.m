@@ -224,7 +224,9 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         
         [self.navigationController.navigationBar setHidden:NO];
         [self.navigationController pushViewController:conversationVC animated:YES];
-
+        [HttpClient statisticsWithKey:@"IMChat" withUid:_userModel.uid andBlock:^(NSInteger statusCode) {
+            DLog(@"------------%ld--------",(long)statusCode);
+        }];
     }else if (button.tag == 2){
         // 投标
         
@@ -309,10 +311,22 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        if (_isRescrit) {
-            return 5;
+        if (_factoryOrderDetailBidStatus == FactoryOrderDetailBidStatus_BidMark) {
+            if (_isRescrit) {
+                //7
+                return 7;
+            }else{
+                //6
+                return 6;
+            }
         }else{
-            return 4;
+            if (_isRescrit) {
+                //5
+                return 5;
+            }else{
+                //4
+                return 4;
+            }
         }
     }
     return 1;
@@ -324,30 +338,118 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
         cell.textLabel.font = [UIFont systemFontOfSize:13];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        switch (indexPath.row) {
-            case 0:
-                cell.textLabel.text = [NSString stringWithFormat:@"  类型:   %@",_dataModel.type];
-                break;
-            case 1:
-                cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %@件",_dataModel.amount];
-                break;
-            case 2:
-                cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
+        
+        if (_factoryOrderDetailBidStatus == FactoryOrderDetailBidStatus_BidMark) {
+            if (_isRescrit) {
+                //7
+                switch (indexPath.row) {
+                    case 0:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  类型:   %@",_dataModel.type];
+                        break;
+                    case 1:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %@件",_dataModel.amount];
+                        break;
+                    case 2:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
+                        
+                        break;
+                    case 3:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  交货日期:   %@",_dataModel.deadline];
+                        
+                        break;
+                    case 4:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  担保金额:   %@元",_dataModel.creditMoney];
+                        break;
+                    case 5:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  中标者:   %@",_dataModel.orderWinnerName];
+                        break;
 
-                break;
-            case 3:
-                cell.textLabel.text = [NSString stringWithFormat:@"  交货日期:   %@",_dataModel.deadline];
+                    case 6:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  中标者电话:   %@",_dataModel.orderWinnerPhone];
+                        break;
 
-                break;
-            case 4:
-                if (_isRescrit) {
-                    cell.textLabel.text = [NSString stringWithFormat:@"  担保金额:   %@元",_dataModel.creditMoney];
-                }else{
-                    
+                    default:
+                        break;
                 }
-                break;
-            default:
-                break;
+
+            }else{
+                //6
+                switch (indexPath.row) {
+                    case 0:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  类型:   %@",_dataModel.type];
+                        break;
+                    case 1:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %@件",_dataModel.amount];
+                        break;
+                    case 2:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
+                        
+                        break;
+                    case 3:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  交货日期:   %@",_dataModel.deadline];
+                        
+                        break;
+                    case 4:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  中标者:   %@",_dataModel.orderWinnerName];
+                        break;
+                        
+                    case 5:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  中标者电话:   %@",_dataModel.orderWinnerPhone];
+                        break;
+                        
+                    default:
+                        break;
+                }
+
+            }
+        }else{
+            if (_isRescrit) {
+                //5
+                switch (indexPath.row) {
+                    case 0:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  类型:   %@",_dataModel.type];
+                        break;
+                    case 1:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %@件",_dataModel.amount];
+                        break;
+                    case 2:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
+                        
+                        break;
+                    case 3:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  交货日期:   %@",_dataModel.deadline];
+                        
+                        break;
+                    case 4:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  担保金额:   %@元",_dataModel.creditMoney];
+                        
+                        break;
+                    default:
+                        break;
+                }
+
+            }else{
+                //4
+                switch (indexPath.row) {
+                    case 0:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  类型:   %@",_dataModel.type];
+                        break;
+                    case 1:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  数量:   %@件",_dataModel.amount];
+                        break;
+                    case 2:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  下单时间:   %@",_dataModel.createdAt];
+                        
+                        break;
+                    case 3:
+                        cell.textLabel.text = [NSString stringWithFormat:@"  交货日期:   %@",_dataModel.deadline];
+                        
+                        break;
+                        default:
+                        break;
+                }
+
+            }
         }
         return cell;
     }
