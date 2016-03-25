@@ -203,7 +203,12 @@ static NSString *newsCellIdentifier = @"newsCell";
             }
             [self controlBackgroundView:0];
             if (self.searchArray.count == 0) {
-                kTipAlert(@"搜索结果为空");
+                double delayInSeconds = 0.5f;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                   kTipAlert(@"搜索结果为空");
+                });
+                
             } else {
                 SearchNews_List_VC *searchNews_List_VC = [[SearchNews_List_VC alloc] init];
                 searchNews_List_VC.title = @"搜索结果";

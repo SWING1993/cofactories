@@ -20,6 +20,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.personPhoto = [[UIImageView alloc] initWithFrame:CGRectMake(kPersonPhotoMargin, kPersonPhotoMargin, kPersonPhotoHeight, kPersonPhotoHeight)];
+        self.personPhoto.contentMode = UIViewContentModeScaleAspectFill;
         self.personPhoto.layer.cornerRadius = kPersonPhotoHeight/2;
         self.personPhoto.clipsToBounds = YES;
         [self addSubview:self.personPhoto];

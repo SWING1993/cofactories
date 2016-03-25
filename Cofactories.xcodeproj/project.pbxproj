@@ -346,7 +346,6 @@
 		7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */; };
 		7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFFE871C094A8200102C98 /* ZGYTitleView.m */; };
 		7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */; };
-		7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */; };
 		7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */; };
 		7DF1C1C61C005F2200460DB7 /* HomeActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */; };
 		7DF83C961CA2743C007FA0A4 /* SearchNews_List_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF83C951CA2743C007FA0A4 /* SearchNews_List_VC.m */; };
@@ -1095,8 +1094,6 @@
 		7DEFFE871C094A8200102C98 /* ZGYTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYTitleView.m; sourceTree = "<group>"; };
 		7DF1C1AC1BFFFEB700460DB7 /* HomeMarketCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketCell.h; sourceTree = "<group>"; };
 		7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketCell.m; sourceTree = "<group>"; };
-		7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePersonalDataCell.h; sourceTree = "<group>"; };
-		7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePersonalDataCell.m; sourceTree = "<group>"; };
 		7DF1C1B91C0056B400460DB7 /* WKFCircularSlidingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKFCircularSlidingView.h; sourceTree = "<group>"; };
 		7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKFCircularSlidingView.m; sourceTree = "<group>"; };
 		7DF1C1C41C005F2200460DB7 /* HomeActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeActivityCell.h; sourceTree = "<group>"; };
@@ -2453,8 +2450,6 @@
 				7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */,
 				7D1DC6511C9F9B540006DC0A /* HomeProfileCell.h */,
 				7D1DC6521C9F9B540006DC0A /* HomeProfileCell.m */,
-				7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */,
-				7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */,
 				7DF1C1C41C005F2200460DB7 /* HomeActivityCell.h */,
 				7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */,
 			);
@@ -3228,7 +3223,6 @@
 				70FBE09C1C115A9F00B15513 /* BidManage_Factory_VC.m in Sources */,
 				03ACD1A11C0833E0003AB7CF /* ScaleViewController.m in Sources */,
 				03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */,
-				7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */,
 				7DBDC8E61C15848B00D682D3 /* SelectColorModel.m in Sources */,
 				7094D7221BFC825200F7240B /* WalletViewController.m in Sources */,
 				7D7E8C111C5C96C40009452E /* MallBuyHistory_VC.m in Sources */,
