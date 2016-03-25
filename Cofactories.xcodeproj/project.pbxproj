@@ -247,9 +247,6 @@
 		70F6017C1CA4E97200DDCE58 /* PayWaySelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F601741CA4E97200DDCE58 /* PayWaySelectTableViewCell.m */; };
 		70F6017D1CA4E97200DDCE58 /* PayWayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F601761CA4E97200DDCE58 /* PayWayViewController.m */; };
 		70F6017E1CA4E97200DDCE58 /* TimeAxis_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F601781CA4E97200DDCE58 /* TimeAxis_TVC.m */; };
-		70F66D941C47A20500721C82 /* touchRefrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F66D931C47A20500721C82 /* touchRefrush.png */; };
-		70F5EF811C0C4B49008878B4 /* FactoryOrderDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F5EF801C0C4B49008878B4 /* FactoryOrderDetail_VC.m */; };
-		70F66D8D1C477FCC00721C82 /* TimeAxis_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F66D8C1C477FCC00721C82 /* TimeAxis_TVC.m */; };
 		70F6D1F61C1697D000E23166 /* Business_Supplier_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1F51C1697D000E23166 /* Business_Supplier_Model.m */; };
 		70F6D1FD1C16C8BD00E23166 /* Business_Factory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D1FC1C16C8BD00E23166 /* Business_Factory_VC.m */; };
 		70F6D2071C16CD7E00E23166 /* Business_Cloth_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F6D2061C16CD7E00E23166 /* Business_Cloth_VC.m */; };
@@ -912,10 +909,6 @@
 		70F601761CA4E97200DDCE58 /* PayWayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayWayViewController.m; sourceTree = "<group>"; };
 		70F601771CA4E97200DDCE58 /* TimeAxis_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAxis_TVC.h; sourceTree = "<group>"; };
 		70F601781CA4E97200DDCE58 /* TimeAxis_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeAxis_TVC.m; sourceTree = "<group>"; };
-		70F66D931C47A20500721C82 /* touchRefrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touchRefrush.png; sourceTree = "<group>"; };
-
-		70F66D8B1C477FCC00721C82 /* TimeAxis_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAxis_TVC.h; sourceTree = "<group>"; };
-		70F66D8C1C477FCC00721C82 /* TimeAxis_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeAxis_TVC.m; sourceTree = "<group>"; };
 		70F6D1F41C1697D000E23166 /* Business_Supplier_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Supplier_Model.h; sourceTree = "<group>"; };
 		70F6D1F51C1697D000E23166 /* Business_Supplier_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business_Supplier_Model.m; sourceTree = "<group>"; };
 		70F6D1FB1C16C8BD00E23166 /* Business_Factory_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business_Factory_VC.h; sourceTree = "<group>"; };
@@ -3451,7 +3444,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
@@ -3491,7 +3484,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
