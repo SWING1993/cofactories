@@ -74,12 +74,12 @@
     } else {
         DLog(@"^^^^^^^urlString = %@", urlString);
         if ([Tools isBlankString:self.popularNewsModel.newsTitle]) {
-            newsTitle = @"来自于聚工厂《流行资讯》的分享";
+            newsTitle = @"来自于聚工厂《时尚资讯》的分享";
         } else {
             newsTitle = self.popularNewsModel.newsTitle;
         }
         if ([Tools isBlankString:self.popularNewsModel.discriptions]) {
-            newsDiscriptions = @"来自于聚工厂《流行资讯》的分享";
+            newsDiscriptions = @"来自于聚工厂《时尚资讯》的分享";
         } else {
             newsDiscriptions = self.popularNewsModel.discriptions;
         }

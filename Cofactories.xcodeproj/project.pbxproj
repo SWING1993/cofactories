@@ -340,7 +340,6 @@
 		7DD1CC7C1C747489007ED8BE /* MallOrderStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC7B1C747489007ED8BE /* MallOrderStatusCell.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
 		7DEB8F951C06F13C00B98912 /* ZGYDesignMarkrtController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */; };
-		7DEDD8CC1CA38FAF001815E6 /* PopularNews_Top_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEDD8CB1CA38FAF001815E6 /* PopularNews_Top_VC.m */; };
 		7DEDD8CF1CA3AB6E001815E6 /* PopularNewsHome_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEDD8CE1CA3AB6E001815E6 /* PopularNewsHome_VC.m */; };
 		7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */; };
 		7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */; };
@@ -1084,8 +1083,6 @@
 		7DE8C1921C043CA600E0917D /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
 		7DEB8F931C06F13C00B98912 /* ZGYDesignMarkrtController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYDesignMarkrtController.h; sourceTree = "<group>"; };
 		7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYDesignMarkrtController.m; sourceTree = "<group>"; };
-		7DEDD8CA1CA38FAF001815E6 /* PopularNews_Top_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNews_Top_VC.h; sourceTree = "<group>"; };
-		7DEDD8CB1CA38FAF001815E6 /* PopularNews_Top_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNews_Top_VC.m; sourceTree = "<group>"; };
 		7DEDD8CD1CA3AB6E001815E6 /* PopularNewsHome_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsHome_VC.h; sourceTree = "<group>"; };
 		7DEDD8CE1CA3AB6E001815E6 /* PopularNewsHome_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsHome_VC.m; sourceTree = "<group>"; };
 		7DEEA55E1C05479C009143C6 /* WalletHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryViewController.h; sourceTree = "<group>"; };
@@ -2613,8 +2610,6 @@
 				7DF83C951CA2743C007FA0A4 /* SearchNews_List_VC.m */,
 				7DF83C971CA27B2D007FA0A4 /* PopularNews_Detail_VC.h */,
 				7DF83C981CA27B2D007FA0A4 /* PopularNews_Detail_VC.m */,
-				7DEDD8CA1CA38FAF001815E6 /* PopularNews_Top_VC.h */,
-				7DEDD8CB1CA38FAF001815E6 /* PopularNews_Top_VC.m */,
 			);
 			path = PopularNews_VC;
 			sourceTree = "<group>";
@@ -2973,7 +2968,6 @@
 				039D4D5F1C72D5CD0051CD2E /* UpYun.m in Sources */,
 				70FBE0A51C1162FE00B15513 /* BidManage_Supplier_Model.m in Sources */,
 				7D7E8C181C5C9B830009452E /* MallHistoryOrderCell.m in Sources */,
-				7DEDD8CC1CA38FAF001815E6 /* PopularNews_Top_VC.m in Sources */,
 				7DC3D56F1C8AB2A900D358BE /* PopularNews_Cell.m in Sources */,
 				7DA950231C12ED2E00BFCB31 /* MaterialAbstractCell.m in Sources */,
 				705B25671C09B31600CCA619 /* MangerOrderVC.m in Sources */,

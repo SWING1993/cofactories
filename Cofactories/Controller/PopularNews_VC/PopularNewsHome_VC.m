@@ -15,7 +15,6 @@
 #import "PopularNewsType_VC.h"//文章分类
 #import "PopularNewsModel.h"
 #import "MJRefresh.h"
-#import "PopularNews_Top_VC.h"
 #import "PopularNews_Detail_VC.h"
 #import "SearchNews_List_VC.h"
 
@@ -207,6 +206,7 @@ static NSString *newsCellIdentifier = @"newsCell";
                 kTipAlert(@"搜索结果为空");
             } else {
                 SearchNews_List_VC *searchNews_List_VC = [[SearchNews_List_VC alloc] init];
+                searchNews_List_VC.title = @"搜索结果";
                 searchNews_List_VC.searchNewsArray = self.searchArray;
                 [self.navigationController pushViewController:searchNews_List_VC animated:YES];
             }
@@ -332,8 +332,10 @@ static NSString *newsCellIdentifier = @"newsCell";
 #pragma mark - Action
 - (void)actionOfMoreTop:(UIButton *)button {
     DLog(@"更多置顶");
-    PopularNews_Top_VC *topVC = [[PopularNews_Top_VC alloc] init];
-    [self.navigationController pushViewController:topVC animated:YES];
+    SearchNews_List_VC *searchNews_List_VC = [[SearchNews_List_VC alloc] init];
+    searchNews_List_VC.title = @"置顶文章";
+    searchNews_List_VC.searchNewsArray = self.topNewsArray;
+    [self.navigationController pushViewController:searchNews_List_VC animated:YES];
 }
 
 - (void)actionOfTopLeftNews:(UIButton *)button {
