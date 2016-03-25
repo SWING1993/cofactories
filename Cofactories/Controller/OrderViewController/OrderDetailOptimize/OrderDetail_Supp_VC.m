@@ -163,6 +163,9 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
             [self.navigationController.navigationBar setHidden:NO];
             [self.navigationController pushViewController:conversationVC animated:YES];
             
+            [HttpClient statisticsWithKey:@"IMChat" withUid:_userModel.uid andBlock:^(NSInteger statusCode) {
+                DLog(@"------------%ld--------",(long)statusCode);
+            }];
         };
         __weak typeof(self) weakSelf = self;
         header.BidBtnBlock = ^{
