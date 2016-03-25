@@ -13,7 +13,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RCIMConnectionStatusDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, strong) NSString *mallStatus;
+@property (nonatomic, strong) NSString *mallStatus;//商城订单的状态
 
 @end
 

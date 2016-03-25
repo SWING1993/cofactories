@@ -267,7 +267,7 @@ static NSString *newsCellIdentifier = @"newsCell";
         topTitle.font = [UIFont systemFontOfSize:13*kZGY];
         [headerView addSubview:topTitle];
         UIButton *moreTop = [UIButton buttonWithType:UIButtonTypeCustom];
-        moreTop.frame = CGRectMake(kScreenW - 20*kZGY - 35*kZGY, 0, 35*kZGY, 35*kZGY);
+        moreTop.frame = CGRectMake(kScreenW - 75*kZGY, 0, 75*kZGY, 35*kZGY);
         [moreTop setTitle:@"更多" forState:UIControlStateNormal];
         [moreTop setTitleColor:kMainDeepBlue forState:UIControlStateNormal];
         moreTop.titleLabel.font = [UIFont systemFontOfSize:13*kZGY];
@@ -283,11 +283,13 @@ static NSString *newsCellIdentifier = @"newsCell";
         topTitle.font = [UIFont systemFontOfSize:13*kZGY];
         [headerView addSubview:topTitle];
         
-        UIButton *moreNews = [UIButton buttonWithType:UIButtonTypeCustom];
-        moreNews.frame = CGRectMake(kScreenW - 20*kZGY - 30*kZGY, 2.5*kZGY, 30*kZGY, 30*kZGY);
-        [moreNews setImage:[UIImage imageNamed:@"PopularNews-菜单"] forState:UIControlStateNormal];
-        [moreNews addTarget:self action:@selector(actionOfMoreNews:) forControlEvents:UIControlEventTouchUpInside];
-        [headerView addSubview:moreNews];
+        UIImageView *moreImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW - 75*kZGY, 0, 75*kZGY, 35*kZGY)];
+        moreImage.contentMode = UIViewContentModeScaleAspectFit;
+        moreImage.userInteractionEnabled = YES;
+        moreImage.image = [UIImage imageNamed:@"PopularNews-菜单"];
+        UITapGestureRecognizer *clickTag = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionOfMoreNews:)];
+        [moreImage addGestureRecognizer:clickTag];
+        [headerView addSubview:moreImage];
         return headerView;
     }
     
@@ -349,7 +351,7 @@ static NSString *newsCellIdentifier = @"newsCell";
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
-- (void)actionOfMoreNews:(UIButton *)button {
+- (void)actionOfMoreNews:(UITapGestureRecognizer *)click {
     DLog(@"更多分类文章");
     PopularNewsType_VC *popularNewsTypeVC = [[PopularNewsType_VC alloc] init];
     [self.navigationController pushViewController:popularNewsTypeVC animated:YES];

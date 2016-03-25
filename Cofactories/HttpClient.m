@@ -57,9 +57,6 @@
 #define API_GetIMToken @"/im/token"//获取融云token
 #define API_SearchBusiness @"/user/search"
 
-#define kPopular_News_Search @"/api/search"//获取流行资讯搜索内容
-#define kPopular_News_Top @"/api/getTop"//获取流行资讯置顶文章
-#define kPopular_News_List @"/api/getList"//获取流行资讯下面文章列表
 
 #define API_Publish_Market_Publish   @"/market/add"//发布商城商品
 #define API_Search_Market_Search   @"/market/search"//搜索商城市场
@@ -74,8 +71,9 @@
 #define API_Wallet_Transaction @"/wallet/transaction"//钱包流水记录
 #define API_Home_OrderMessageLatest @"/order/factory/latest"//首页滚动的订单信息
 
-#define API_PopularNews_List @"/api/category"
-#define API_PopularNews_Top @"/api/top"
+#define kPopular_News_Search @"/api/search"//获取流行资讯搜索内容
+#define API_PopularNews_List @"/api/category"//获取该分类下的文章
+#define API_PopularNews_Top @"/api/top"//获取置顶文章
 
 @implementation HttpClient
 
@@ -2215,60 +2213,6 @@
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": @"没有数据"});
-        }];
-    } else {
-        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
-    }
-    
-}
-//获取两篇置顶文章
-+ (void)getPopularNewsWithBlock:(void (^)(NSDictionary *dictionary))block {
-    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
-    NSString *serviceProviderIdentifier = [baseUrl host];
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-    if (credential) {
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
-        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, kPopular_News_Top];
-        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            DLog(@"^^^^^^^^^^^^%@", responseObject);
-            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            switch ([operation.response statusCode]) {
-                case 400:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
-                    break;
-                case 401:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
-                    break;
-                    
-                default:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
-                    break;
-            }
-        }];
-    } else {
-        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
-    }
-}
-//随机获取六篇文章
-+ (void)getSixPopularNewsListWithCategory:(NSInteger)category withBlock:(void (^)(NSDictionary *dictionary))block {
-    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
-    NSString *serviceProviderIdentifier = [baseUrl host];
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-    if (credential) {
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
-        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, kPopular_News_List];
-        //        NSString*token = credential.accessToken;
-        [manager GET:urlString parameters:@{@"category":[NSString stringWithFormat:@"%ld", category]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            DLog(@"^^^^^^^^^^^^%@", responseObject);
-            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            DLog(@"error = %@", error);
-            block(@{@"statusCode": @([operation.response statusCode])});
         }];
     } else {
         block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
