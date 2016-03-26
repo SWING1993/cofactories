@@ -26,6 +26,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+    backItem.image = [UIImage imageNamed:@"back"];
+    backItem.action = @selector(back);
+    self.navigationItem.backBarButtonItem = backItem;
+    
     activityWebView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     activityWebView.delegate = self;
     activityWebView.backgroundColor = [UIColor whiteColor];
@@ -123,5 +129,12 @@
     [hud hide:YES];
 }
 
-
+- (void)back {
+    DLog(@"nvjkdfxhnv sdojnvlop; dsjm");
+    if ([activityWebView canGoBack]) {
+        [activityWebView goBack];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 @end
