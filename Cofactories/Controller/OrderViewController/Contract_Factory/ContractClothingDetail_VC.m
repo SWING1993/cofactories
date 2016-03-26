@@ -351,35 +351,41 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
     // 判断第七位表示付款方式是否为企业帐号代付
     
     NSInteger status = [_dataModel.status integerValue];
-    int secondByte = status & 64;
+    int sevenByte = status & 64;
+    int fourByte = status & 8;
     
-    DLog(@"-------%@-jjjjjjj-%d-------",_dataModel.status,secondByte);
-    if (secondByte == 64) {
-        //是企业账号付首款
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, kScreenW,40)];
-        lab.textColor = [UIColor lightGrayColor];
-        lab.textAlignment = NSTextAlignmentCenter;
-        lab.font = [UIFont systemFontOfSize:14];
-        lab.text = @"该订单已提交至主账号,请耐心等待主账号支付!";
-        [view addSubview:lab];
-                                                                 
-    }else{
-        NSArray *array = @[@"付款",@"订单完成"];
-        for (int i = 0; i<array.count; i++) {
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake((kScreenW-240)/3.f+i*(120+(kScreenW-240)/3.f), 60, 120,40);
-            [button setTitle:array[i] forState:UIControlStateNormal];
-            button.backgroundColor = MAIN_COLOR;
-            button.titleLabel.font = [UIFont systemFontOfSize:14];
-            button.tag = i+1;
-            button.layer.cornerRadius = 5;
-            [button addTarget:self action:@selector(payAndConfirmClick:) forControlEvents:UIControlEventTouchUpInside];
-            [view addSubview:button];
+    
+    
+    if (fourByte != 8) {
+        // 首款没有支付成功
+        if (sevenByte == 64) {
+            //是企业账号付首款
+            UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, kScreenW,40)];
+            lab.textColor = [UIColor lightGrayColor];
+            lab.textAlignment = NSTextAlignmentCenter;
+            lab.font = [UIFont systemFontOfSize:14];
+            lab.text = @"该订单已提交至主账号,请耐心等待主账号支付!";
+            [view addSubview:lab];
         }
-
+        
+    }else{
+        // 首款没有支付
+            NSArray *array = @[@"付款",@"订单完成"];
+            for (int i = 0; i<array.count; i++) {
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                button.frame = CGRectMake((kScreenW-240)/3.f+i*(120+(kScreenW-240)/3.f), 60, 120,40);
+                [button setTitle:array[i] forState:UIControlStateNormal];
+                button.backgroundColor = MAIN_COLOR;
+                button.titleLabel.font = [UIFont systemFontOfSize:14];
+                button.tag = i+1;
+                button.layer.cornerRadius = 5;
+                [button addTarget:self action:@selector(payAndConfirmClick:) forControlEvents:UIControlEventTouchUpInside];
+                [view addSubview:button];
+            }
     }
     
-
+    DLog(@"-------%@-jjjjjjj-%d-------",_dataModel.status,sevenByte);
+    
       return view;
 }
 
@@ -466,6 +472,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
                     kTipAlert(@"订单完成失败,请先支付首款");
                 }
                 else{
+                    DLog(@"-----------statusCode====------%@--------------------",statusCode);
                     kTipAlert(@"订单完成失败,请检查网络,是否登陆");
                 }
             }];
