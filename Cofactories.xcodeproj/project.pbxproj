@@ -2841,7 +2841,7 @@
 				TargetAttributes = {
 					03571B1F1BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 23L882L49W;
+						DevelopmentTeam = E47VD5D52W;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 0;
@@ -3265,7 +3265,6 @@
 				03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */,
 				704B1F721CA3D9F60043C033 /* OrderDetail_Fac_TVC.m in Sources */,
 				706504741CA3D73A0021E4B0 /* OrderDetail_Fac_VC.m in Sources */,
-				7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */,
 				7DBDC8E61C15848B00D682D3 /* SelectColorModel.m in Sources */,
 				7094D7221BFC825200F7240B /* WalletViewController.m in Sources */,
 				7D7E8C111C5C96C40009452E /* MallBuyHistory_VC.m in Sources */,
@@ -3433,7 +3432,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.ioss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
@@ -3473,7 +3472,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.ioss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";

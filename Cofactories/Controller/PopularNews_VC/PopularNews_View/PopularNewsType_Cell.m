@@ -15,6 +15,7 @@
     if (self) {
         self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(15*kZGY, 15*kZGY, 50*kZGY, 50*kZGY)];
         self.photoView.contentMode = UIViewContentModeScaleAspectFill;
+        self.photoView.clipsToBounds = YES;
         [self addSubview:self.photoView];
         
         self.typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.photoView.frame) + 10*kZGY, 15*kZGY, 100*kZGY, 20*kZGY)];

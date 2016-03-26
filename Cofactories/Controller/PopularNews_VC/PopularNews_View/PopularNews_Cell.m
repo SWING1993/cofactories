@@ -42,7 +42,8 @@
         [self addSubview:myLabel];
         //文章图片
         self.newsPhoto = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW - kMargin - kNewsPhotoHeight, 40*kZGY, kNewsPhotoHeight, kNewsPhotoHeight)];
-        self.newsPhoto.contentMode = UIViewContentModeScaleAspectFill;
+//        self.newsPhoto.contentMode = UIViewContentModeScaleAspectFill;
+//        self.newsPhoto.clipsToBounds = YES;
         [self addSubview:self.newsPhoto];
         //文章作者名字
         self.userName = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.userPhoto.frame) + 5*kZGY, 20*kZGY, kScreenW - 2*kMargin - CGRectGetWidth(self.userPhoto.frame) - kNewsPhotoHeight - 30*kZGY, 15*kZGY)];

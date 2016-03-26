@@ -239,7 +239,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         MeHistoryOrderModel *historyOrder = self.mallBuyHistoryArray[button.tag - 222];
         //统计聊天
         [HttpClient statisticsWithKey:@"IMChat" withUid:historyOrder.sellerUserId andBlock:^(NSInteger statusCode) {
-            
+            DLog(@"------------%ld--------------", statusCode);
         }];
         //解析工厂信息
         [HttpClient getOtherIndevidualsInformationWithUserID:historyOrder.sellerUserId WithCompletionBlock:^(NSDictionary *dictionary) {
