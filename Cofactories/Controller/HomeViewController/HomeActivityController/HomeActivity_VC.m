@@ -27,10 +27,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.image = [UIImage imageNamed:@"back"];
-    backItem.action = @selector(back);
-    self.navigationItem.backBarButtonItem = backItem;
+    //自定义返回键
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    self.navigationItem.leftBarButtonItem = backItem;
+    
+    //防止自定义返回键右滑返回手势失效
+    self.navigationController.interactivePopGestureRecognizer.delegate=(id)self;
+    
+    UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Home-刷新按钮"] style:UIBarButtonItemStylePlain target:self action:@selector(refresh)];
+    self.navigationItem.rightBarButtonItem = refreshItem;
     
     activityWebView = [[UIWebView alloc]initWithFrame:kScreenBounds];
     activityWebView.delegate = self;
@@ -130,11 +135,15 @@
 }
 
 - (void)back {
-    DLog(@"nvjkdfxhnv sdojnvlop; dsjm");
     if ([activityWebView canGoBack]) {
         [activityWebView goBack];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
+- (void)refresh {
+    [activityWebView reload];
+}
+
 @end
