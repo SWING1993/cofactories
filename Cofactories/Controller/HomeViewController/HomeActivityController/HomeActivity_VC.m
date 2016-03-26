@@ -130,7 +130,9 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+//    NSString *myString = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
+//    DLog(@"^^^^^^^^^^^^urlString=%@", myString);
     [hud hide:YES];
 }
 

@@ -36,7 +36,7 @@ MBProgressHUD * _hud;
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [_hud hide:YES];
-    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 @end
