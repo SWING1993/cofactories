@@ -325,7 +325,9 @@ static NSString *activityCellIdentifier = @"activityCell";
                 ScrollMessageModel *messageModel = [ScrollMessageModel getScrollMessageModelWithDictionary:myDic];
                 [self.messageArray addObject:messageModel];
             }
-            [myView reloadMessageWithMessageArray:self.messageArray];
+            if (self.messageArray.count == 20) {
+                [myView reloadMessageWithMessageArray:self.messageArray];
+            }
         }
     }];
 }
