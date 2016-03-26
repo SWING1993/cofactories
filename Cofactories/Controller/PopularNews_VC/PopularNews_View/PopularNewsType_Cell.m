@@ -13,16 +13,17 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 50, 50)];
-        self.photoView.contentMode = UIViewContentModeScaleAspectFit;
+        self.photoView = [[UIImageView alloc] initWithFrame:CGRectMake(15*kZGY, 15*kZGY, 50*kZGY, 50*kZGY)];
+        self.photoView.contentMode = UIViewContentModeScaleAspectFill;
+        self.photoView.clipsToBounds = YES;
         [self addSubview:self.photoView];
         
-        self.typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.photoView.frame) + 10, 15, 100, 20)];
-        self.typeLabel.font = [UIFont boldSystemFontOfSize:15];
+        self.typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.photoView.frame) + 10*kZGY, 15*kZGY, 100*kZGY, 20*kZGY)];
+        self.typeLabel.font = [UIFont boldSystemFontOfSize:15*kZGY];
         [self addSubview:self.typeLabel];
         
-        self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.self.typeLabel.frame), CGRectGetMaxY(self.typeLabel.frame), 200, 30)];
-        self.detailLabel.font = [UIFont systemFontOfSize:10];
+        self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.self.typeLabel.frame), CGRectGetMaxY(self.typeLabel.frame), 250*kZGY, 30*kZGY)];
+        self.detailLabel.font = [UIFont systemFontOfSize:11*kZGY];
         self.detailLabel.textColor = GRAYCOLOR(102);
         self.detailLabel.numberOfLines = 2;
         [self addSubview:self.detailLabel];

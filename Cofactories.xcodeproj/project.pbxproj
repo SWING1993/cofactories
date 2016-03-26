@@ -347,14 +347,12 @@
 		7DD1CC7C1C747489007ED8BE /* MallOrderStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC7B1C747489007ED8BE /* MallOrderStatusCell.m */; };
 		7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8C1921C043CA600E0917D /* RechargeViewController.m */; };
 		7DEB8F951C06F13C00B98912 /* ZGYDesignMarkrtController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */; };
-		7DEDD8CC1CA38FAF001815E6 /* PopularNews_Top_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEDD8CB1CA38FAF001815E6 /* PopularNews_Top_VC.m */; };
 		7DEDD8CF1CA3AB6E001815E6 /* PopularNewsHome_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEDD8CE1CA3AB6E001815E6 /* PopularNewsHome_VC.m */; };
 		7DEEA5601C05479C009143C6 /* WalletHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA55F1C05479C009143C6 /* WalletHistoryViewController.m */; };
 		7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CA1C058B81009143C6 /* AuthenticationController.m */; };
 		7DEEA5CE1C058B9A009143C6 /* AuthenticationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEA5CC1C058B9A009143C6 /* AuthenticationCell.m */; };
 		7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFFE871C094A8200102C98 /* ZGYTitleView.m */; };
 		7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */; };
-		7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */; };
 		7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */; };
 		7DF1C1C61C005F2200460DB7 /* HomeActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */; };
 		7DF83C961CA2743C007FA0A4 /* SearchNews_List_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF83C951CA2743C007FA0A4 /* SearchNews_List_VC.m */; };
@@ -1105,8 +1103,6 @@
 		7DE8C1921C043CA600E0917D /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
 		7DEB8F931C06F13C00B98912 /* ZGYDesignMarkrtController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYDesignMarkrtController.h; sourceTree = "<group>"; };
 		7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYDesignMarkrtController.m; sourceTree = "<group>"; };
-		7DEDD8CA1CA38FAF001815E6 /* PopularNews_Top_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNews_Top_VC.h; sourceTree = "<group>"; };
-		7DEDD8CB1CA38FAF001815E6 /* PopularNews_Top_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNews_Top_VC.m; sourceTree = "<group>"; };
 		7DEDD8CD1CA3AB6E001815E6 /* PopularNewsHome_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsHome_VC.h; sourceTree = "<group>"; };
 		7DEDD8CE1CA3AB6E001815E6 /* PopularNewsHome_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsHome_VC.m; sourceTree = "<group>"; };
 		7DEEA55E1C05479C009143C6 /* WalletHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHistoryViewController.h; sourceTree = "<group>"; };
@@ -1119,8 +1115,6 @@
 		7DEFFE871C094A8200102C98 /* ZGYTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYTitleView.m; sourceTree = "<group>"; };
 		7DF1C1AC1BFFFEB700460DB7 /* HomeMarketCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMarketCell.h; sourceTree = "<group>"; };
 		7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMarketCell.m; sourceTree = "<group>"; };
-		7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePersonalDataCell.h; sourceTree = "<group>"; };
-		7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePersonalDataCell.m; sourceTree = "<group>"; };
 		7DF1C1B91C0056B400460DB7 /* WKFCircularSlidingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKFCircularSlidingView.h; sourceTree = "<group>"; };
 		7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKFCircularSlidingView.m; sourceTree = "<group>"; };
 		7DF1C1C41C005F2200460DB7 /* HomeActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeActivityCell.h; sourceTree = "<group>"; };
@@ -2491,8 +2485,6 @@
 				7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */,
 				7D1DC6511C9F9B540006DC0A /* HomeProfileCell.h */,
 				7D1DC6521C9F9B540006DC0A /* HomeProfileCell.m */,
-				7DF1C1AF1C00173200460DB7 /* HomePersonalDataCell.h */,
-				7DF1C1B01C00173200460DB7 /* HomePersonalDataCell.m */,
 				7DF1C1C41C005F2200460DB7 /* HomeActivityCell.h */,
 				7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */,
 			);
@@ -2648,8 +2640,6 @@
 				7DF83C951CA2743C007FA0A4 /* SearchNews_List_VC.m */,
 				7DF83C971CA27B2D007FA0A4 /* PopularNews_Detail_VC.h */,
 				7DF83C981CA27B2D007FA0A4 /* PopularNews_Detail_VC.m */,
-				7DEDD8CA1CA38FAF001815E6 /* PopularNews_Top_VC.h */,
-				7DEDD8CB1CA38FAF001815E6 /* PopularNews_Top_VC.m */,
 			);
 			path = PopularNews_VC;
 			sourceTree = "<group>";
@@ -2851,7 +2841,7 @@
 				TargetAttributes = {
 					03571B1F1BE84BA100900EF9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 23L882L49W;
+						DevelopmentTeam = E47VD5D52W;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 0;
@@ -3009,7 +2999,6 @@
 				039D4D5F1C72D5CD0051CD2E /* UpYun.m in Sources */,
 				70FBE0A51C1162FE00B15513 /* BidManage_Supplier_Model.m in Sources */,
 				7D7E8C181C5C9B830009452E /* MallHistoryOrderCell.m in Sources */,
-				7DEDD8CC1CA38FAF001815E6 /* PopularNews_Top_VC.m in Sources */,
 				7DC3D56F1C8AB2A900D358BE /* PopularNews_Cell.m in Sources */,
 				7DA950231C12ED2E00BFCB31 /* MaterialAbstractCell.m in Sources */,
 				705B25671C09B31600CCA619 /* MangerOrderVC.m in Sources */,
@@ -3276,7 +3265,6 @@
 				03B120CA1C05C1340023F362 /* UbRoleViewController.m in Sources */,
 				704B1F721CA3D9F60043C033 /* OrderDetail_Fac_TVC.m in Sources */,
 				706504741CA3D73A0021E4B0 /* OrderDetail_Fac_VC.m in Sources */,
-				7DF1C1B11C00173200460DB7 /* HomePersonalDataCell.m in Sources */,
 				7DBDC8E61C15848B00D682D3 /* SelectColorModel.m in Sources */,
 				7094D7221BFC825200F7240B /* WalletViewController.m in Sources */,
 				7D7E8C111C5C96C40009452E /* MallBuyHistory_VC.m in Sources */,
@@ -3444,7 +3432,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.ioss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
@@ -3484,7 +3472,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.ioss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";

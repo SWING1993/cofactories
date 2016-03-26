@@ -6,25 +6,29 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "MobClick.h"
-#import "HttpClient.h"
+#import "MobClick.h"//统计
 #import "UserManagerCenter.h"
 #import "HomeViewController.h"
-#import "AuthenticationController.h"//认证1
-#import "ZGYDesignMarkrtController.h"//设计市场
+
+#import "IndexModel.h"//轮播图
+
+#import "HomeProfileCell.h"//个人信息
 #import "SetViewController.h"//完善资料
+#import "WalletModel.h"//钱包
+#import "Verified_VC.h"//查看认证资料
+#import "AuthenticationController.h"//认证1
+
+#import "ZGYDesignMarkrtController.h"//设计市场
 #import "SupplyMarketViewController.h"//供应市场
 #import "ProcessMarketController.h"//加工配套市场
-#import "Business_Cloth_VC.h"
-#import "MeShopController.h"
-#import "WalletModel.h"
-#import "Verified_VC.h"
-#import "HomeActivity_VC.h"
-#import "IndexModel.h"
-#import "ActivityModel.h"
-#import "ZGYScrollView.h"
+#import "Business_Cloth_VC.h"//服装企业
+
+#import "ZGYScrollView.h"//订单信息上下轮播
 #import "ScrollMessageModel.h"
-#import "HomeProfileCell.h"
+
+#import "HomeActivity_VC.h"//活动
+#import "HomeActivityCell.h"
+#import "ActivityModel.h"
 
 static NSString * CellIdentifier = @"CellIdentifier";
 static NSString *marketCellIdentifier = @"marketCell";
@@ -81,7 +85,7 @@ static NSString *activityCellIdentifier = @"activityCell";
     self.homeTableView.delegate = self;
     self.homeTableView.dataSource = self;
     [self.view addSubview:self.homeTableView];
-    self.homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.homeTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
     [self.homeTableView registerClass:[HomeMarketCell class] forCellReuseIdentifier:marketCellIdentifier];
     [self.homeTableView registerClass:[HomeProfileCell class] forCellReuseIdentifier:ProfileCellIdentifier];
@@ -162,7 +166,7 @@ static NSString *activityCellIdentifier = @"activityCell";
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 1;
+    return 8;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     

@@ -184,7 +184,7 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
 - (void)actionOfStatus:(UIButton *)button {
     //统计聊天
     [HttpClient statisticsWithKey:@"IMChat" withUid:self.goodsModel.sellerUserId andBlock:^(NSInteger statusCode) {
-        
+        DLog(@"------------%ld--------------", statusCode);
     }];
     // 聊天
     //解析工厂信息

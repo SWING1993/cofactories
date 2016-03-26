@@ -21,7 +21,7 @@
 #import "HomeActivity_VC.h"
 
 /*
- 
+ 4ce7064c216a6c79dbc2a151ae0fc27b95dddd692b4707d661a7a203fc4fd88b
  a5750fd0b8c59fa5660342e88439eeb482fc33dbae6282b1accf6879932c1a92
  
  action   news

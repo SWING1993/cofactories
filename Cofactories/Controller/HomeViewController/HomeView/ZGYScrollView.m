@@ -37,13 +37,13 @@
             }
             
             UILabel *newsUpLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 7 + i*kScrollViewHeight, kScreenW - 70, 23)];
-            newsUpLabel.font = [UIFont systemFontOfSize:12];
+            newsUpLabel.font = [UIFont systemFontOfSize:12*kZGY];
             newsUpLabel.textColor = GRAYCOLOR(82);
             [self.myScrollView addSubview:newsUpLabel];
             [upLabelArray addObject:newsUpLabel];
             
             UILabel *newsDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 30 + i*kScrollViewHeight, kScreenW - 70, 23)];
-            newsDownLabel.font = [UIFont systemFontOfSize:12];
+            newsDownLabel.font = [UIFont systemFontOfSize:12*kZGY];
             newsDownLabel.textColor = GRAYCOLOR(82);
             [self.myScrollView addSubview:newsDownLabel];
             [downLabelArray addObject:newsDownLabel];
