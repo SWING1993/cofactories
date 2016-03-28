@@ -82,7 +82,7 @@ static NSString *processCellIdentifier = @"processCell";
 }
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    DLog(@"第 %d 个item", indexPath.row + 1);
+//    DLog(@"第 %d 个item", indexPath.row + 1);
     
     NSArray *array = @[@"加工厂",@"锁眼钉扣",@"代裁",@"后整包装",@"砂洗水洗",@"印花厂",@"印染厂",@"绣花厂",@"其他特种工艺"];
     Business_Factory_VC *vc = [[Business_Factory_VC alloc] initWithSubrole:array[indexPath.row] andSelecteDataDictionary:[Tools returenSelectDataDictionaryWithIndex:4]];

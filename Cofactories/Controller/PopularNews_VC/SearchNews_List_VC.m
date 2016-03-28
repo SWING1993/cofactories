@@ -20,7 +20,7 @@ static NSString *newsCellIdentifier = @"newsCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = self.title;
+    self.navigationItem.title = self.newsVCTitle;
     self.tableView.rowHeight = 135*kZGY;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[PopularNews_Cell class] forCellReuseIdentifier:newsCellIdentifier];

@@ -8,18 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MallAddAddress_VC : UITableViewController {
-    UIPickerView *picker;
-    UIButton *button;
-    
-    NSDictionary *areaDic;
-    NSArray *province;
-    NSArray *city;
-    NSArray *district;
-    
-    NSString *selectedProvince;
-    NSString *addressString;
-}
+@interface MallAddAddress_VC : UITableViewController
+
 @property (nonatomic, assign) BOOL haveAddress;
 
 @end

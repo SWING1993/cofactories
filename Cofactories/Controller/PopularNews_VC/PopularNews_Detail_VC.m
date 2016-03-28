@@ -54,7 +54,7 @@
 #pragma mark - UIWebViewDelegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [hud hide:YES];
-    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 #pragma mark - 分享
@@ -106,16 +106,5 @@
                                            delegate:self];
     }
 }
-
-//- (void) back
-//{
-////    if ([webView canGoBack]) {
-////        [webView goBack];
-////    }
-////    else
-////    {
-//        [self.navigationController popViewControllerAnimated:YES];
-////    }
-//}
 
 @end
