@@ -333,7 +333,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
             ALAssetsLibrary   *lib = [[ALAssetsLibrary alloc] init];
             [lib assetForURL:_asset.assetPropertyURL resultBlock:^(ALAsset *asset) {
                 if (asset) {
-                    UIImage*image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+                    UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
                     [self.collectionImage addObject:image];
                     if (idx == [assets count] - 1) {
                         [self collectionView];
@@ -494,9 +494,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
                 NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:3];
                 [self.myTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
             }
-            
         }
-
     }
     
     if (alertView.tag == 666) {
@@ -552,7 +550,8 @@ static NSString * CellIdentifier = @"CellIdentifier";
             DLog(@"%@",self.collectionImage);
             [self.collectionImage enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 UIImage *image = (UIImage *)obj;
-                [upYun uploadImage:image policy:policyString signature:signatureString];
+                UIImage *uplodeImage = [Tools compressPicturesWithImage:image];
+                [upYun uploadImage:uplodeImage policy:policyString signature:signatureString];
             }];
             
         } else {

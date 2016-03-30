@@ -144,4 +144,9 @@
                  policyString:(NSString *)policyString
               signatureString:(NSString *)signatureString;
 
+
+// 图片等比压缩
+
++ (UIImage *)compressPicturesWithImage:(UIImage *)myImage;
+
 @end
