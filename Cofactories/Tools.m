@@ -494,9 +494,7 @@
         } failureBlock:^(NSError *error) {
             
         }];
-
     }];
-
 }
 
 @end
