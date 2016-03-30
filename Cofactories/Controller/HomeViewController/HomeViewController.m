@@ -166,7 +166,7 @@ static NSString *activityCellIdentifier = @"activityCell";
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 8;
+    return 5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
@@ -432,6 +432,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 //获取IM用户信息
 - (void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
     //解析工厂信息
+    DLog(@"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     [HttpClient getOtherIndevidualsInformationWithUserID:userId WithCompletionBlock:^(NSDictionary *dictionary) {
         OthersUserModel *otherModel = (OthersUserModel *)dictionary[@"message"];
         RCUserInfo *user = [[RCUserInfo alloc]init];

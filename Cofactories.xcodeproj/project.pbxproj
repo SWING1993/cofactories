@@ -281,6 +281,7 @@
 		7D2BE73D1C19272B00CE4138 /* MeAddSupply_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BE73C1C19272B00CE4138 /* MeAddSupply_VC.m */; };
 		7D2BE7401C192FF700CE4138 /* MeTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BE73F1C192FF700CE4138 /* MeTextFieldCell.m */; };
 		7D31998F1C1EA6E900A713DF /* DesignShop_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31998E1C1EA6E900A713DF /* DesignShop_VC.m */; };
+		7D34D8B61CAA225C00F9831C /* PushActivity_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34D8B51CAA225C00F9831C /* PushActivity_VC.m */; };
 		7D34E4321C1966600049D9C7 /* MeCatergoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34E4311C1966600049D9C7 /* MeCatergoryCell.m */; };
 		7D34E4351C197B140049D9C7 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34E4341C197B140049D9C7 /* PlaceholderTextView.m */; };
 		7D34E4381C199D0F0049D9C7 /* MeDetailSupply_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34E4371C199D0F0049D9C7 /* MeDetailSupply_VC.m */; };
@@ -342,6 +343,7 @@
 		7DC3D56F1C8AB2A900D358BE /* PopularNews_Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC3D56E1C8AB2A900D358BE /* PopularNews_Cell.m */; };
 		7DC3D5721C8AC79300D358BE /* PopularNewsTop_Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC3D5711C8AC79300D358BE /* PopularNewsTop_Cell.m */; };
 		7DCCC2A01C20FDB6002BF795 /* PopularNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */; };
+		7DCECC491CA92BC000AFD36C /* IMSearchResult_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCECC481CA92BC000AFD36C /* IMSearchResult_VC.m */; };
 		7DD1CC761C74664C007ED8BE /* MallOrderBuyDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC751C74664C007ED8BE /* MallOrderBuyDetail_VC.m */; };
 		7DD1CC791C747413007ED8BE /* MallOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC781C747413007ED8BE /* MallOrderAddressCell.m */; };
 		7DD1CC7C1C747489007ED8BE /* MallOrderStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC7B1C747489007ED8BE /* MallOrderStatusCell.m */; };
@@ -976,6 +978,8 @@
 		7D2BE73F1C192FF700CE4138 /* MeTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeTextFieldCell.m; sourceTree = "<group>"; };
 		7D31998D1C1EA6E900A713DF /* DesignShop_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignShop_VC.h; sourceTree = "<group>"; };
 		7D31998E1C1EA6E900A713DF /* DesignShop_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignShop_VC.m; sourceTree = "<group>"; };
+		7D34D8B41CAA225C00F9831C /* PushActivity_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushActivity_VC.h; sourceTree = "<group>"; };
+		7D34D8B51CAA225C00F9831C /* PushActivity_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushActivity_VC.m; sourceTree = "<group>"; };
 		7D34E4301C1966600049D9C7 /* MeCatergoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCatergoryCell.h; sourceTree = "<group>"; };
 		7D34E4311C1966600049D9C7 /* MeCatergoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCatergoryCell.m; sourceTree = "<group>"; };
 		7D34E4331C197B140049D9C7 /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
@@ -1093,6 +1097,8 @@
 		7DC3D5711C8AC79300D358BE /* PopularNewsTop_Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsTop_Cell.m; sourceTree = "<group>"; };
 		7DCCC29E1C20FDB6002BF795 /* PopularNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsModel.h; sourceTree = "<group>"; };
 		7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsModel.m; sourceTree = "<group>"; };
+		7DCECC471CA92BC000AFD36C /* IMSearchResult_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMSearchResult_VC.h; sourceTree = "<group>"; };
+		7DCECC481CA92BC000AFD36C /* IMSearchResult_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchResult_VC.m; sourceTree = "<group>"; };
 		7DD1CC741C74664C007ED8BE /* MallOrderBuyDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderBuyDetail_VC.h; sourceTree = "<group>"; };
 		7DD1CC751C74664C007ED8BE /* MallOrderBuyDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderBuyDetail_VC.m; sourceTree = "<group>"; };
 		7DD1CC771C747413007ED8BE /* MallOrderAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderAddressCell.h; sourceTree = "<group>"; };
@@ -1745,6 +1751,8 @@
 			children = (
 				7D665EA31C0C60EE00C7C7BF /* IMChatListViewController.h */,
 				7D665EA41C0C60EE00C7C7BF /* IMChatListViewController.m */,
+				7DCECC471CA92BC000AFD36C /* IMSearchResult_VC.h */,
+				7DCECC481CA92BC000AFD36C /* IMSearchResult_VC.m */,
 				7D665EA51C0C60EE00C7C7BF /* IMChatViewController.h */,
 				7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */,
 				7DC27B8D1C40B82F006DB851 /* PublicServiceViewController.h */,
@@ -2505,6 +2513,8 @@
 			children = (
 				7D6F43331C5EF58E00A60892 /* PushPopularNews_VC.h */,
 				7D6F43341C5EF58E00A60892 /* PushPopularNews_VC.m */,
+				7D34D8B41CAA225C00F9831C /* PushActivity_VC.h */,
+				7D34D8B51CAA225C00F9831C /* PushActivity_VC.m */,
 			);
 			path = PushViewController;
 			sourceTree = "<group>";
@@ -3139,6 +3149,7 @@
 				7D4B74A11C3122B800344A43 /* Verified_VC.m in Sources */,
 				7DBD04F21C1C0A4800FD318B /* MachineShop_VC.m in Sources */,
 				03571B9A1BE85B8200900EF9 /* MBProgressHUD+Add.m in Sources */,
+				7D34D8B61CAA225C00F9831C /* PushActivity_VC.m in Sources */,
 				70F50D731C06D1F900920F63 /* FabricMarketModel.m in Sources */,
 				03571BD01BE85BDB00900EF9 /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
 				70F6016B1CA4D06300DDCE58 /* OrderDetail_FacMark_TVC.m in Sources */,
@@ -3238,6 +3249,7 @@
 				7D2BE7401C192FF700CE4138 /* MeTextFieldCell.m in Sources */,
 				7D5682911C75AE2A00FF03AE /* MallCommentCell.m in Sources */,
 				039D4D4C1C72CACC0051CD2E /* AFHTTPRequestOperationManager.m in Sources */,
+				7DCECC491CA92BC000AFD36C /* IMSearchResult_VC.m in Sources */,
 				7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */,
 				7D56828E1C75A84400FF03AE /* MallOrderMark_VC.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,

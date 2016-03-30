@@ -92,15 +92,13 @@ static NSString *newsCellIdentifier = @"newsCell";
         if (statusCode == 200) {
             if (page == 1) {
                 self.newsArray = [NSMutableArray arrayWithCapacity:0];
-                for (NSDictionary *newsDic in dictionary[@"data"]) {
-                    PopularNewsModel *newsModel = [PopularNewsModel getPopularNewsModelWithDictionary:newsDic];
-                    [self.newsArray addObject:newsModel];
-                }
+                
             } else if (page > 1) {
-                for (NSDictionary *newsDic in dictionary[@"data"]) {
-                    PopularNewsModel *newsModel = [PopularNewsModel getPopularNewsModelWithDictionary:newsDic];
-                    [self.newsArray addObject:newsModel];
-                }
+                
+            }
+            for (NSDictionary *newsDic in dictionary[@"data"]) {
+                PopularNewsModel *newsModel = [PopularNewsModel getPopularNewsModelWithDictionary:newsDic];
+                [self.newsArray addObject:newsModel];
             }
             [self.popularTableView reloadData];
         }
