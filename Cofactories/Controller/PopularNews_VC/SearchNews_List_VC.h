@@ -10,6 +10,6 @@
 
 @interface SearchNews_List_VC : UITableViewController
 @property (nonatomic, strong) NSMutableArray *searchNewsArray;
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *newsVCTitle;
 
 @end

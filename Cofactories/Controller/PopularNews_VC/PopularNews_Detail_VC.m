@@ -152,15 +152,4 @@
     }
 }
 
-//- (void) back
-//{
-////    if ([webView canGoBack]) {
-////        [webView goBack];
-////    }
-////    else
-////    {
-//        [self.navigationController popViewControllerAnimated:YES];
-////    }
-//}
-
 @end

@@ -211,7 +211,7 @@ static NSString *newsCellIdentifier = @"newsCell";
                 
             } else {
                 SearchNews_List_VC *searchNews_List_VC = [[SearchNews_List_VC alloc] init];
-                searchNews_List_VC.title = @"搜索结果";
+                searchNews_List_VC.newsVCTitle = @"搜索结果";
                 searchNews_List_VC.searchNewsArray = self.searchArray;
                 [self.navigationController pushViewController:searchNews_List_VC animated:YES];
             }
@@ -338,7 +338,7 @@ static NSString *newsCellIdentifier = @"newsCell";
 - (void)actionOfMoreTop:(UIButton *)button {
     DLog(@"更多置顶");
     SearchNews_List_VC *searchNews_List_VC = [[SearchNews_List_VC alloc] init];
-    searchNews_List_VC.title = @"置顶文章";
+    searchNews_List_VC.newsVCTitle = @"置顶文章";
     searchNews_List_VC.searchNewsArray = self.topNewsArray;
     [self.navigationController pushViewController:searchNews_List_VC animated:YES];
 }

@@ -87,7 +87,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
     NSString *selectedCity = [city objectAtIndex: 0];
     district = [[NSArray alloc] initWithArray: [cityDic objectForKey: selectedCity]];
-
+    selectedProvince = selected;
 
     //确定Btn
     UIBarButtonItem *setButton = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(buttonClicked)];
