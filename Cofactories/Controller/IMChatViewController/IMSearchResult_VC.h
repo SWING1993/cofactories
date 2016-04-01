@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Business_Supplier_Model.h"
 @class IMSearchResult_VC;
+@class IMSearchResultModel;
 @protocol IMSearchResult_VCDelegate <NSObject>
 
-- (void)IMSearchResult_VC:(IMSearchResult_VC *)searchResultVC myModel:(Business_Supplier_Model *)myModel;
+- (void)IMSearchResult_VC:(IMSearchResult_VC *)searchResultVC myModel:(IMSearchResultModel *)myModel;
 
 @end
 

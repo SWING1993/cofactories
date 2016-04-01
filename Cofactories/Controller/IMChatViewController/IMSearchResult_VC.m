@@ -7,9 +7,10 @@
 //
 
 #import "IMSearchResult_VC.h"
-#import "Business_Supplier_TVC.h"
+#import "IMSearchResultCell.h"
 #import "PersonalMessage_Clothing_VC.h"
 #import "IMChatViewController.h"
+#import "IMSearchResultModel.h"
 
 static NSString *seachResultCellIdentifier = @"seachResultCell";
 @interface IMSearchResult_VC ()
@@ -23,7 +24,7 @@ static NSString *seachResultCellIdentifier = @"seachResultCell";
     self.tableView.tableFooterView = [UIView new];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.tableView.backgroundColor = [UIColor whiteColor];
-    [self.tableView registerClass:[Business_Supplier_TVC class] forCellReuseIdentifier:seachResultCellIdentifier];
+    [self.tableView registerClass:[IMSearchResultCell class] forCellReuseIdentifier:seachResultCellIdentifier];
     self.tableView.rowHeight = 90;
 }
 
@@ -38,15 +39,15 @@ static NSString *seachResultCellIdentifier = @"seachResultCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Business_Supplier_TVC *cell = [tableView dequeueReusableCellWithIdentifier:seachResultCellIdentifier forIndexPath:indexPath];
-    Business_Supplier_Model *model = self.searchResultArray[indexPath.row];
+    IMSearchResultCell *cell = [tableView dequeueReusableCellWithIdentifier:seachResultCellIdentifier forIndexPath:indexPath];
+    IMSearchResultModel *model = self.searchResultArray[indexPath.row];
     [cell layoutSomeDataWithMarketModel:model];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     // 聊天
-    Business_Supplier_Model *model = self.searchResultArray[indexPath.row];
+    IMSearchResultModel *model = self.searchResultArray[indexPath.row];
     [_delegate IMSearchResult_VC:self myModel:model];
 
 }

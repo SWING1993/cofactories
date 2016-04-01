@@ -9,6 +9,7 @@
 #import "IMChatListViewController.h"
 #import "IMChatViewController.h"
 #import "IMSearchResult_VC.h"
+#import "IMSearchResultModel.h"
 
 @interface IMChatListViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating, IMSearchResult_VCDelegate> {
     UIView *bigView;
@@ -58,7 +59,7 @@
     _searchController = [[UISearchController alloc] initWithSearchResultsController:_searchResult_VC];
     self.searchController.searchResultsUpdater = self;
     self.searchController.delegate = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
+//    self.searchController.dimsBackgroundDuringPresentation = NO;//背景
     self.searchController.searchBar.delegate = self;
     
     [self.searchController.searchBar sizeToFit];
@@ -109,7 +110,7 @@
 
 
 - (void)presentSearchController:(UISearchController *)searchController{
-    
+    DLog(@"AAAAAÀAÁAAAA");
 }
 #pragma mark - UISearchResultsUpdating  (which you use ,which you choose!!)
 
@@ -119,7 +120,8 @@
         self.searchResultArray = [NSMutableArray arrayWithCapacity:0];
         NSArray *array = dictionary[@"message"];
         for (NSDictionary *myDic in array) {
-            Business_Supplier_Model *model = [Business_Supplier_Model getBusinessSupplierModelWithDictionary:myDic];
+            IMSearchResultModel *model = [IMSearchResultModel getBusinessSupplierModelWithDictionary:myDic];
+            model.searchString = self.searchController.searchBar.text;
             [self.searchResultArray addObject:model];
         }
         IMSearchResult_VC *tableController = (IMSearchResult_VC *)self.searchController.searchResultsController;
@@ -128,7 +130,7 @@
     }];
 }
 
-- (void)IMSearchResult_VC:(IMSearchResult_VC *)searchResultVC myModel:(Business_Supplier_Model *)myModel {
+- (void)IMSearchResult_VC:(IMSearchResult_VC *)searchResultVC myModel:(IMSearchResultModel *)myModel {
     
     IMChatViewController *conversationVC = [[IMChatViewController alloc]init];
     conversationVC.conversationType = ConversationType_PRIVATE;
