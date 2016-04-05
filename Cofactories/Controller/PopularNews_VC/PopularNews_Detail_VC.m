@@ -21,7 +21,6 @@
     NSString *newsDiscriptions;
     UIImage *shareImage;
 }
-
 @end
 
 @implementation PopularNews_Detail_VC
@@ -72,35 +71,53 @@
     
     [webView stringByEvaluatingJavaScriptFromString:jsGetImages];//注入js方法
     
-    //注入自定义的js方法后别忘了调用 否则不会生效（不调用也一样生效了，，，不明白）
     NSString *resurlt = [webView stringByEvaluatingJavaScriptFromString:@"getImages()"];
-    //调用js方法
-    //NSLog(@"---调用js方法--%@  %s  jsMehtods_result = %@",self.class,__func__,resurlt);
+    NSLog(@"resurlt:%@",resurlt);
+   
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    //将url转换为string
     NSString *requestString = [[request URL] absoluteString];
-    //NSLog(@"requestString is %@",requestString);
-    
-    //hasPrefix 判断创建的字符串内容是否以pic:字符开始
     if ([requestString hasPrefix:@"myweb:imageClick:"]) {
         NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
-        
-    //NSLog(@"image url------%@", imageUrl);
-        NSMutableArray *photos = [NSMutableArray arrayWithCapacity:0];
-        MJPhoto *photo = [[MJPhoto alloc] init];
-        // photo.image = self.collectionImage[idx]; // 图片
-        photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",imageUrl]];
-        [photos addObject:photo];
-
-        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-        browser.currentPhotoIndex = 0;
-        browser.photos = photos;
-        [browser show];
+        [self showImage:imageUrl];
+        return NO;
     }
     return YES;
 }
+
+#pragma mark 显示大图片
+- (void)showImage:(NSString *)imageUrl{
+
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:0];
+    MJPhoto *photo = [[MJPhoto alloc] init];
+    photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",imageUrl]];
+    [photos addObject:photo];
+    
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = 0;
+    browser.photos = photos;
+    [browser show];
+}
+
+/*
+ 
+ NSMutableArray *photos = [NSMutableArray arrayWithCapacity:[self.photoArray count]];
+ [self.photoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+ 
+ MJPhoto *photo = [[MJPhoto alloc] init];
+ // photo.image = self.collectionImage[idx]; // 图片
+ photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,self.photoArray[idx]]];
+ [photos addObject:photo];
+ }];
+ 
+ MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+ browser.currentPhotoIndex = indexPath.row;
+ browser.photos = photos;
+ [browser show];
+
+ 
+ */
 
 #pragma mark - 分享
 - (void)pressRightItem {

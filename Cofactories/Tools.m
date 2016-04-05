@@ -9,6 +9,7 @@
 #import "Tools.h"
 #import "AFNetworking.h"
 #import "JKAssets.h"
+#import "JKPromptView.h"
 #import <Accelerate/Accelerate.h>
 #define kKeyWindow [UIApplication sharedApplication].keyWindow
 
@@ -102,6 +103,10 @@
         hud.userInteractionEnabled = NO;
         [hud hide:YES afterDelay:1.0];
     }
+}
+
++ (void)showErrorTipStr:(NSString *)tipStr {
+    [JKPromptView showWithImageName:@"picker_alert_sigh" message:tipStr];
 }
 
 + (NSString *)SizeWith:(NSString *)sizeString {

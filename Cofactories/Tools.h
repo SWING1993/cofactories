@@ -47,8 +47,15 @@
  */
 + (void)showHudTipStr:(NSString *)tipStr;
 
-+ (NSString *)SizeWith:(NSString *)sizeString;
+/**
+ *  提示错误文本
+ *
+ *  @param tipStr 提示Str
+ */
++ (void)showErrorTipStr:(NSString *)tipStr;
 
+
++ (NSString *)SizeWith:(NSString *)sizeString;
 
 /*!
  几天后
