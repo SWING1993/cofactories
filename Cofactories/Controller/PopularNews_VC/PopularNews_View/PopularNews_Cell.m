@@ -8,6 +8,8 @@
 
 #import "PopularNews_Cell.h"
 #import "PopularNewsModel.h"
+#import "ZGYAttributedStyle.h"
+
 #define kMargin 20*kZGY //左右边距
 #define kNewsPhotoHeight 65*kZGY //图片宽高
 
@@ -103,16 +105,9 @@
     self.newsTitle.text = newsModel.newsTitle;
     NSString *string = newsModel.discriptions;
     
-    self.newsDetail.attributedText = [PopularNews_Cell getAttributedStringWithString:string];
+    self.newsDetail.attributedText = [string creatAttributedStringWithStyles:@[paragraphStyle(4, NSMakeRange(0, string.length))]];
     self.readCount.text = newsModel.clickNum;
     self.commentCount.text = newsModel.commentNum;
 }
 
-+ (NSMutableAttributedString *)getAttributedStringWithString:(NSString *)string {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:4];//调整行间距
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
-    return attributedString;
-}
 @end

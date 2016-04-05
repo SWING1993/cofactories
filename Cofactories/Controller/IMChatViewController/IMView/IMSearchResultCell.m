@@ -64,11 +64,12 @@
 
 - (void)layoutSomeDataWithMarketModel:(IMSearchResultModel *)model{
     
-    NSString *Str = model.searchString;
-    NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:model.businessName];
-    NSRange range1=[[hintString string]rangeOfString:Str];
-    [hintString addAttribute:NSForegroundColorAttributeName value:kMainLightBlueColor range:range1];
-    _marketNameLabel.attributedText = hintString;
+    NSString *searchText = model.searchString;
+    NSMutableAttributedString *searchName = [[NSMutableAttributedString alloc]initWithString:model.businessName];
+    NSRange colorRange=[[searchName string]rangeOfString:searchText];
+    
+    [searchName addAttribute:NSForegroundColorAttributeName value:kMainLightBlueColor range:colorRange];
+    _marketNameLabel.attributedText = searchName;
     
     if ([model.businessScore isEqualToString:@"0"]) {
         _marketCreditLabel.text = @"信用积分 0";
