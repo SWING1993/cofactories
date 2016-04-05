@@ -10,10 +10,11 @@
 #import "UMSocial.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
-#import "MJPhoto.h"
-#import "MJPhotoBrowser.h"
 
-@interface PopularNews_Detail_VC ()<UIWebViewDelegate, UMSocialUIDelegate> {
+#import "SDPhotoBrowser.h"
+
+
+@interface PopularNews_Detail_VC ()<UIWebViewDelegate, UMSocialUIDelegate,SDPhotoBrowserDelegate> {
     NSString *urlString;
     UIWebView * newsWebView;
     MBProgressHUD *hud;
@@ -21,6 +22,10 @@
     NSString *newsDiscriptions;
     UIImage *shareImage;
 }
+
+@property (nonatomic, strong) NSMutableArray *imageUrlArray;
+
+
 @end
 
 @implementation PopularNews_Detail_VC
@@ -80,6 +85,7 @@
     NSString *requestString = [[request URL] absoluteString];
     if ([requestString hasPrefix:@"myweb:imageClick:"]) {
         NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
+        [self.imageUrlArray removeAllObjects];
         [self showImage:imageUrl];
         return NO;
     }
@@ -88,7 +94,17 @@
 
 #pragma mark 显示大图片
 - (void)showImage:(NSString *)imageUrl{
-
+    self.imageUrlArray = [[NSMutableArray alloc]initWithCapacity:0];
+    [self.imageUrlArray addObject:imageUrl];
+    
+    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+    browser.currentImageIndex = 0;
+    browser.imageCount = 1;
+    
+    browser.delegate = self;
+    [browser show];
+    
+    /*
     NSMutableArray *photos = [NSMutableArray arrayWithCapacity:0];
     MJPhoto *photo = [[MJPhoto alloc] init];
     photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",imageUrl]];
@@ -98,26 +114,25 @@
     browser.currentPhotoIndex = 0;
     browser.photos = photos;
     [browser show];
+     */
+
 }
 
-/*
- 
- NSMutableArray *photos = [NSMutableArray arrayWithCapacity:[self.photoArray count]];
- [self.photoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
- 
- MJPhoto *photo = [[MJPhoto alloc] init];
- // photo.image = self.collectionImage[idx]; // 图片
- photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,self.photoArray[idx]]];
- [photos addObject:photo];
- }];
- 
- MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
- browser.currentPhotoIndex = indexPath.row;
- browser.photos = photos;
- [browser show];
+#pragma mark - SDPhotoBrowserDelegate
 
- 
- */
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+{
+    NSString *imageUrl = self.imageUrlArray[index];
+    NSURL *url = [NSURL URLWithString:imageUrl];
+    return url;
+}
+
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+    UIImageView *imageView = [UIImageView new];
+    imageView.image = [UIImage imageNamed:@"placeHolderImage"];
+    return imageView.image;
+}
 
 #pragma mark - 分享
 - (void)pressRightItem {
