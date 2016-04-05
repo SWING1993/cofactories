@@ -10,10 +10,11 @@
 #import "UMSocial.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
-#import "MJPhoto.h"
-#import "MJPhotoBrowser.h"
 
-@interface PopularNews_Detail_VC ()<UIWebViewDelegate, UMSocialUIDelegate> {
+#import "SDPhotoBrowser.h"
+
+
+@interface PopularNews_Detail_VC ()<UIWebViewDelegate, UMSocialUIDelegate,SDPhotoBrowserDelegate> {
     NSString *urlString;
     UIWebView * newsWebView;
     MBProgressHUD *hud;
@@ -21,6 +22,9 @@
     NSString *newsDiscriptions;
     UIImage *shareImage;
 }
+
+@property (nonatomic, strong) NSMutableArray *imageUrlArray;
+
 
 @end
 
@@ -72,34 +76,62 @@
     
     [webView stringByEvaluatingJavaScriptFromString:jsGetImages];//注入js方法
     
-    //注入自定义的js方法后别忘了调用 否则不会生效（不调用也一样生效了，，，不明白）
     NSString *resurlt = [webView stringByEvaluatingJavaScriptFromString:@"getImages()"];
-    //调用js方法
-    //NSLog(@"---调用js方法--%@  %s  jsMehtods_result = %@",self.class,__func__,resurlt);
+    NSLog(@"resurlt:%@",resurlt);
+   
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    //将url转换为string
     NSString *requestString = [[request URL] absoluteString];
-    //NSLog(@"requestString is %@",requestString);
-    
-    //hasPrefix 判断创建的字符串内容是否以pic:字符开始
     if ([requestString hasPrefix:@"myweb:imageClick:"]) {
         NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
-        
-    //NSLog(@"image url------%@", imageUrl);
-        NSMutableArray *photos = [NSMutableArray arrayWithCapacity:0];
-        MJPhoto *photo = [[MJPhoto alloc] init];
-        // photo.image = self.collectionImage[idx]; // 图片
-        photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",imageUrl]];
-        [photos addObject:photo];
-
-        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-        browser.currentPhotoIndex = 0;
-        browser.photos = photos;
-        [browser show];
+        [self.imageUrlArray removeAllObjects];
+        [self showImage:imageUrl];
+        return NO;
     }
     return YES;
+}
+
+#pragma mark 显示大图片
+- (void)showImage:(NSString *)imageUrl{
+    self.imageUrlArray = [[NSMutableArray alloc]initWithCapacity:0];
+    [self.imageUrlArray addObject:imageUrl];
+    
+    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+    browser.currentImageIndex = 0;
+    browser.imageCount = 1;
+    
+    browser.delegate = self;
+    [browser show];
+    
+    /*
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:0];
+    MJPhoto *photo = [[MJPhoto alloc] init];
+    photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",imageUrl]];
+    [photos addObject:photo];
+    
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = 0;
+    browser.photos = photos;
+    [browser show];
+     */
+
+}
+
+#pragma mark - SDPhotoBrowserDelegate
+
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+{
+    NSString *imageUrl = self.imageUrlArray[index];
+    NSURL *url = [NSURL URLWithString:imageUrl];
+    return url;
+}
+
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+    UIImageView *imageView = [UIImageView new];
+    imageView.image = [UIImage imageNamed:@"placeHolderImage"];
+    return imageView.image;
 }
 
 #pragma mark - 分享

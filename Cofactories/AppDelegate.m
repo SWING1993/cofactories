@@ -35,10 +35,13 @@
 @interface AppDelegate () {
     NSDictionary *pushDic;
 }
+@property (strong,nonatomic) UIImageView *niceView;
 
 @end
 
 @implementation AppDelegate
+
+@synthesize niceView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -167,9 +170,39 @@
     [self customizeInterface];
     [_window makeKeyAndVisible];
     
-    
+    [self addAnimation];
+
     return YES;
 }
+
+- (void)addAnimation {
+    
+    niceView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    niceView.tag=11;
+    niceView.image = [UIImage imageNamed:@"LaunchImage"];
+    
+    [self.window addSubview:niceView];
+    [self.window bringSubviewToFront:niceView];
+    
+    CABasicAnimation *animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    niceView.layer.anchorPoint = CGPointMake(.5,.5);
+    animation.fromValue = @1.0f;
+    animation.toValue = @1.2f;
+    animation.fillMode=kCAFillModeForwards;
+    
+    animation.removedOnCompletion = NO;
+    [animation setAutoreverses:NO];
+    
+    animation.duration=0.9;
+    animation.delegate=self;
+    
+    [niceView.layer addAnimation:animation forKey:@"scale"];
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    [niceView removeFromSuperview];
+}
+
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     if ([Login isLogin]) {
         if ([shortcutItem.localizedTitle isEqualToString:@"购物车"]) {
@@ -199,8 +232,6 @@
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
- 
-    
     DLog(@"deviceToken = %@",[NSString stringWithFormat:@"%@", deviceToken]);
     [HttpClient iOSLaunchWithDeviceId:[NSString stringWithFormat:@"%@", deviceToken] WithClientVersion:kVersion_Cofactories];
     
@@ -293,7 +324,7 @@
             break;
             
         default:
-            kTipAlert(@"充值错误（%ld）",(long)resultStatus);
+            kTipAlert(@"订单支付失败（%ld）",(long)resultStatus);
             break;
     }
 }

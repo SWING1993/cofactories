@@ -189,14 +189,16 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
                 [button setEnabled:YES];
                 [hud hide:YES];
-                kTipAlert(@":）请您填写账号以及密码后登录");
+                [Tools showErrorTipStr:@":）请您填写账号以及密码后登录"];
+//                kTipAlert(@":）请您填写账号以及密码后登录");
             }else{
                 [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
                     switch (statusCode) {
                         case 0:{
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@":）您的网络状态不太顺畅哦");
+                            [Tools showErrorTipStr:@":）您的网络状态不太顺畅哦"];
+//                            kTipAlert(@":）您的网络状态不太顺畅哦");
                         }
                             break;
                             
@@ -219,7 +221,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         case 401:{
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@":）用户名或密码错误");
+                            [Tools showErrorTipStr:@":）用户名或密码错误"];
+//                            kTipAlert(@":）用户名或密码错误");
                             
                         }
                             break;
@@ -227,7 +230,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         default:
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@":）登录失败 (%ld)",(long)statusCode);
+                            kTipAlert(@"登录失败 (%ld)",(long)statusCode);
                             break;
                     }
                 }];
