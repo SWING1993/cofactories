@@ -24,7 +24,7 @@
        
         self.photoArray = photoArray;
     }
-    
+    // zhushi
     return self;
 }
 
