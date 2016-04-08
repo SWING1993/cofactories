@@ -18,7 +18,7 @@
 #import "EAIntroView.h"
 
 #import "PushPopularNews_VC.h"
-#import "HomeActivity_VC.h"
+#import "PushActivity_VC.h"
 
 /*
  4ce7064c216a6c79dbc2a151ae0fc27b95dddd692b4707d661a7a203fc4fd88b
@@ -114,7 +114,7 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
                     pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
                     [RootViewController presentVC:pushPopularNewsVC];
                 } else if ([userInfo[@"action_flag"] isEqualToString:@"activity"]) {
-                    HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
+                    PushActivity_VC *activityVC = [[PushActivity_VC alloc] init];
                     activityVC.urlString = userInfo[@"url_flag"];
                     [RootViewController presentVC:activityVC];
                 }

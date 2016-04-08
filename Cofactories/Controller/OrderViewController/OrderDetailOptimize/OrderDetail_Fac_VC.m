@@ -17,6 +17,8 @@
 #import "BidManage_Factory_VC.h"
 #import "MarkOrder_VC.h"
 #import "Contract_VC.h"
+#import "PersonalMessage_Factory_VC.h"
+
 @interface OrderDetail_Fac_VC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView   *tableView;
 @property (nonatomic,strong)FactoryOrderMOdel *facModel;
@@ -199,6 +201,12 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3";
         header.userName = _otherUserModel.name;
         header.userAddress = [NSString stringWithFormat:@"地址: %@",_otherUserModel.address];
         [view addSubview:header];
+        
+        header.UserDetailBlock = ^{
+            PersonalMessage_Factory_VC *vc = [PersonalMessage_Factory_VC new];
+            vc.userModel = _otherUserModel;
+            [self.navigationController pushViewController:vc animated:YES];
+        };
         
         header.ImageBtnBlock = ^(NSArray *imagesArray){
             if (imagesArray.count == 0) {

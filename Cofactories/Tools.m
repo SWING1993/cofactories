@@ -508,5 +508,46 @@
     [UIImagePNGRepresentation(image)writeToFile:filePath atomically:YES];
     return filePath;
 }
+//图片等比压缩
++ (UIImage *)compressPicturesWithImage:(UIImage *)myImage {
+    CGFloat imgH = myImage.size.height;
+    CGFloat imgW = myImage.size.width;
+    if (imgH >= imgW && imgH > 512) {
+        myImage = [self thumbnailWithImageWithoutScale: myImage size: CGSizeMake(imgW*512/imgH, 512)];
+    } else if (imgW > imgH && imgW > 512) {
+        myImage = [self thumbnailWithImageWithoutScale: myImage size: CGSizeMake(512, imgH*512/imgW)];
+    }
+    NSData *imageData = UIImageJPEGRepresentation(myImage,0.5);
+    UIImage*newImage = [UIImage imageWithData:imageData];
+    return newImage;
+}
+
+
++ (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize {
+    UIImage *newimage = nil;
+    if (image) {
+        CGSize oldsize = image.size;
+        CGRect rect;
+        if (asize.width/asize.height > oldsize.width/oldsize.height) {
+            rect.size.width = asize.height*oldsize.width/oldsize.height;
+            rect.size.height = asize.height;
+            rect.origin.x = (asize.width - rect.size.width)/2;
+            rect.origin.y = 0;
+        } else {
+            rect.size.width = asize.width;
+            rect.size.height = asize.width*oldsize.height/oldsize.width;
+            rect.origin.x = 0;
+            rect.origin.y = (asize.height - rect.size.height)/2;
+        }
+        UIGraphicsBeginImageContext(asize);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
+        UIRectFill(CGRectMake(0, 0, asize.width, asize.height));
+        [image drawInRect:rect];
+        newimage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    return newimage;
+}
 
 @end

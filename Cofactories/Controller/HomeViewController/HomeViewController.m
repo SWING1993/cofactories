@@ -30,6 +30,10 @@
 #import "HomeActivityCell.h"
 #import "ActivityModel.h"
 
+#import "OrderList_Supplier_VC.h"
+#import "SearchOrder_Designer_VC.h"
+#import "SearchOrder_Factory_VC.h"
+
 static NSString * CellIdentifier = @"CellIdentifier";
 static NSString *marketCellIdentifier = @"marketCell";
 static NSString *ProfileCellIdentifier = @"ProfileCell";
@@ -48,6 +52,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 @implementation HomeViewController {
     CGFloat wallet;
     ZGYScrollView *myView;
+    UIButton *tapMyView;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -102,6 +107,10 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (void)creatScrollMessageView {
     myView = [[ZGYScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 60)];
+    tapMyView = [UIButton buttonWithType:UIButtonTypeCustom];
+    tapMyView.frame = CGRectMake(0, 0, kScreenW, 60);
+    tapMyView.backgroundColor = [UIColor clearColor];
+    [tapMyView addTarget:self action:@selector(actionOfTapOrderMessage:) forControlEvents:UIControlEventTouchUpInside];
     [self getMessageArray];
     NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(getMessageArray) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:myTimer forMode:NSRunLoopCommonModes];
@@ -135,6 +144,7 @@ static NSString *activityCellIdentifier = @"activityCell";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         [cell addSubview:myView];
+        [cell addSubview:tapMyView];
         return cell;
         
     } else {
@@ -166,7 +176,7 @@ static NSString *activityCellIdentifier = @"activityCell";
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 8;
+    return 5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
@@ -274,6 +284,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 #pragma mark - 地址没有，去完善资料
+
 - (void)actionOfEdit:(UIButton *)button {
     if ([self.MyProfile.address isEqualToString:@"暂无"] || self.MyProfile.address.length == 0) {
         SetViewController *setVC = [[SetViewController alloc] init];
@@ -284,6 +295,39 @@ static NSString *activityCellIdentifier = @"activityCell";
         [self.navigationController pushViewController:setVC animated:YES];
     } else {
         DLog(@"有地址");
+    }
+}
+
+- (void)actionOfTapOrderMessage:(UIButton *)button {
+    DLog(@"点击订单信息");
+    NSLog(@"查找订单");
+    
+    switch (self.MyProfile.UserType) {
+            //供应商
+        case UserType_supplier: {
+            OrderList_Supplier_VC *vc = [[OrderList_Supplier_VC alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+        }
+            break;
+            //设计者
+        case UserType_designer: {
+            SearchOrder_Designer_VC *vc = [[SearchOrder_Designer_VC alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+        }
+            break;
+            //加工配套
+        case UserType_processing: {
+            SearchOrder_Factory_VC *vc = [[SearchOrder_Factory_VC alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+        }
+            break;
+            
+        default:
+//            kTipAlert(@"该身份接订单功能未开通");
+            break;
     }
 }
 
@@ -432,6 +476,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 //获取IM用户信息
 - (void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
     //解析工厂信息
+    DLog(@"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     [HttpClient getOtherIndevidualsInformationWithUserID:userId WithCompletionBlock:^(NSDictionary *dictionary) {
         OthersUserModel *otherModel = (OthersUserModel *)dictionary[@"message"];
         RCUserInfo *user = [[RCUserInfo alloc]init];

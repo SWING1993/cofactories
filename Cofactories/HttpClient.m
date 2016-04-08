@@ -2327,8 +2327,8 @@
                     block(@{@"statusCode": @(401), @"message": @"支付失败，请重新登陆"});
                     break;
                 default:{
-                    NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-                    DLog(@"error = %@", errors);
+//                    NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+//                    DLog(@"error = %@", errors);
                     block(@{@"statusCode": @(statusCode), @"message": @"网络错误"});
                 }
                     break;
@@ -2362,8 +2362,8 @@
             block(@{@"statusCode": @(200), @"data":responseObject });
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
-            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-            DLog(@"error = %@", errors);
+//            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+//            DLog(@"error = %@", errors);
             block(@{@"statusCode": @(statusCode), @"message":@"网络错误"});
         }];
     } else {
@@ -2470,6 +2470,7 @@
     }
 
 }
+
 //钱包流水记录
 + (void)getWalletHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *responseDictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
@@ -2502,6 +2503,7 @@
     }
 }
 
+//获取订单信息（用于首页滚动）
 + (void)getScrollOrderMessageWithBlock:(void(^)(NSDictionary *dictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
@@ -2523,6 +2525,7 @@
     }
 }
 
+//获取文章列表
 + (void)getPopularNewsListWithCategory:(NSString *)category page:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
@@ -2552,6 +2555,8 @@
         }];
     }
 }
+
+//获取置顶文章
 + (void)getPopularNewsTopWithPage:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];

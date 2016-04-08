@@ -26,7 +26,7 @@
             [self addSubview:titleLabel];
             
             UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20*kZGY + i*kScreenW/2, CGRectGetMaxY(titleLabel.frame), kScreenW/2 - 40*kZGY, 25*kZGY)];
-            detailLabel.font = [UIFont systemFontOfSize:13*kZGY];
+            detailLabel.font = [UIFont systemFontOfSize:12*kZGY];
             detailLabel.textColor = GRAYCOLOR(144);
             [self addSubview:detailLabel];
             

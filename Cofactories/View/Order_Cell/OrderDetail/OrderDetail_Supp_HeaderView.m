@@ -21,7 +21,9 @@
     if (self = [super initWithFrame:frame]) {
         self.frame = frame;
         self.backgroundColor = [UIColor whiteColor];
-        
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userDetailClick)];
+        [self addGestureRecognizer:gesture];
+
         [self setupUI];
     }
     return self;
@@ -134,6 +136,10 @@
     }else{
         self.BidBtnBlock();
     }
+}
+
+- (void)userDetailClick{
+    self.UserDetailBlock();
 }
 
 

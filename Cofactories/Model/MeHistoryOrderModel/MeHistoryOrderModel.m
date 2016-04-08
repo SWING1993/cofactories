@@ -64,8 +64,8 @@
             self.showButton = YES;
         } else {
             self.status = 0;
-            self.waitPayType = @"未知订单";
-            self.payType = @"未知订单";
+            self.waitPayType = @"商城订单";
+            self.payType = @"商城订单";
             self.mallOrderTitle = @"订单详情";
             self.showButton = NO;
         }

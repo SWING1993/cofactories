@@ -90,7 +90,6 @@ static NSString *newsCellIdentifier = @"newsCell";
     PopularNews_Detail_VC *detailVC = [[PopularNews_Detail_VC alloc] init];
     detailVC.popularNewsModel = newsModel;
     [self.navigationController pushViewController:detailVC animated:YES];
-    
 }
 
 @end

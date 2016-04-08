@@ -56,9 +56,6 @@
 		03571D451BE860B200900EF9 /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D441BE860B200900EF9 /* libc++abi.tbd */; };
 		03571D481BE8611500900EF9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D471BE8611500900EF9 /* OpenGLES.framework */; };
 		03571D4A1BE8612300900EF9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D491BE8612300900EF9 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		03571D4C1BE8614200900EF9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D4B1BE8614200900EF9 /* CFNetwork.framework */; };
-		03571D4E1BE8615800900EF9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D4D1BE8615800900EF9 /* QuartzCore.framework */; };
-		03571D501BE8616200900EF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D4F1BE8616200900EF9 /* CoreGraphics.framework */; };
 		03571D521BE8616C00900EF9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D511BE8616C00900EF9 /* CoreFoundation.framework */; };
 		03571D541BE8617A00900EF9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D531BE8617A00900EF9 /* AVFoundation.framework */; };
 		03571D561BE861A300900EF9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D551BE861A300900EF9 /* AudioToolbox.framework */; };
@@ -159,6 +156,9 @@
 		03C505761C9BE45F00E46E76 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C505751C9BE45F00E46E76 /* AboutController.m */; };
 		03CB36601C1AAEE600814CA9 /* WalletHistoryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB365F1C1AAEE600814CA9 /* WalletHistoryInfoViewController.m */; };
 		03CB36661C1AC4DE00814CA9 /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB36651C1AC4DE00814CA9 /* UserProtocolViewController.m */; };
+		03D59ECF1CB76FE000C3B23B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D4D1BE8615800900EF9 /* QuartzCore.framework */; };
+		03D59ED01CB76FE000C3B23B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D4B1BE8614200900EF9 /* CFNetwork.framework */; };
+		03D59ED11CB76FE000C3B23B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03571D4F1BE8616200900EF9 /* CoreGraphics.framework */; };
 		03DA90A51C436C83009E4F22 /* UIButton+CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DA90A41C436C83009E4F22 /* UIButton+CountDown.m */; };
 		03F846FD1C47740600F4EC00 /* LoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F846F81C47740600F4EC00 /* LoginButton.m */; };
 		03F846FE1C47740600F4EC00 /* EaseInputTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F846FA1C47740600F4EC00 /* EaseInputTipsView.m */; };
@@ -284,9 +284,15 @@
 		7D2BE73D1C19272B00CE4138 /* MeAddSupply_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BE73C1C19272B00CE4138 /* MeAddSupply_VC.m */; };
 		7D2BE7401C192FF700CE4138 /* MeTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BE73F1C192FF700CE4138 /* MeTextFieldCell.m */; };
 		7D31998F1C1EA6E900A713DF /* DesignShop_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31998E1C1EA6E900A713DF /* DesignShop_VC.m */; };
+		7D34D8B61CAA225C00F9831C /* PushActivity_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34D8B51CAA225C00F9831C /* PushActivity_VC.m */; };
 		7D34E4321C1966600049D9C7 /* MeCatergoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34E4311C1966600049D9C7 /* MeCatergoryCell.m */; };
 		7D34E4351C197B140049D9C7 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34E4341C197B140049D9C7 /* PlaceholderTextView.m */; };
 		7D34E4381C199D0F0049D9C7 /* MeDetailSupply_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34E4371C199D0F0049D9C7 /* MeDetailSupply_VC.m */; };
+		7D412B681CB3A74E0033140D /* NSString+AttributedStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D412B671CB3A74E0033140D /* NSString+AttributedStyle.m */; };
+		7D412B6B1CB3AA650033140D /* AttributedStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D412B6A1CB3AA650033140D /* AttributedStyle.m */; };
+		7D412B6E1CB3AEE70033140D /* ZGYFontStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D412B6D1CB3AEE70033140D /* ZGYFontStyle.m */; };
+		7D412B711CB3AFA20033140D /* ZGYColorStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D412B701CB3AFA20033140D /* ZGYColorStyle.m */; };
+		7D412B741CB3B1410033140D /* ParagraphStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D412B731CB3B1410033140D /* ParagraphStyle.m */; };
 		7D41C8A71C0EEAF800703869 /* AllDesignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D41C8A61C0EEAF800703869 /* AllDesignCell.m */; };
 		7D43078A1C10271E00C4A3FF /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4307891C10271E00C4A3FF /* libiconv.tbd */; };
 		7D45D0D61C224C9100FC2988 /* MeHistoryOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */; };
@@ -321,6 +327,8 @@
 		7D7E8C111C5C96C40009452E /* MallBuyHistory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7E8C101C5C96C40009452E /* MallBuyHistory_VC.m */; };
 		7D7E8C141C5C96EE0009452E /* MallSellHistory_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7E8C131C5C96EE0009452E /* MallSellHistory_VC.m */; };
 		7D7E8C181C5C9B830009452E /* MallHistoryOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7E8C171C5C9B830009452E /* MallHistoryOrderCell.m */; };
+		7D874F411CAD0C7E005C65F5 /* IMSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D874F401CAD0C7E005C65F5 /* IMSearchResultCell.m */; };
+		7D874F441CAD0D67005C65F5 /* IMSearchResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D874F431CAD0D67005C65F5 /* IMSearchResultModel.m */; };
 		7D8B338D1C118FC300616C1F /* MaterialShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8B338C1C118FC300616C1F /* MaterialShopCell.m */; };
 		7D8E703A1C0FE894004A7E2C /* ProcessMarketController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E70391C0FE894004A7E2C /* ProcessMarketController.m */; };
 		7D8E703E1C0FEA06004A7E2C /* ProcessMarketListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E703D1C0FEA06004A7E2C /* ProcessMarketListCell.m */; };
@@ -345,6 +353,7 @@
 		7DC3D56F1C8AB2A900D358BE /* PopularNews_Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC3D56E1C8AB2A900D358BE /* PopularNews_Cell.m */; };
 		7DC3D5721C8AC79300D358BE /* PopularNewsTop_Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC3D5711C8AC79300D358BE /* PopularNewsTop_Cell.m */; };
 		7DCCC2A01C20FDB6002BF795 /* PopularNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */; };
+		7DCECC491CA92BC000AFD36C /* IMSearchResult_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCECC481CA92BC000AFD36C /* IMSearchResult_VC.m */; };
 		7DD1CC761C74664C007ED8BE /* MallOrderBuyDetail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC751C74664C007ED8BE /* MallOrderBuyDetail_VC.m */; };
 		7DD1CC791C747413007ED8BE /* MallOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC781C747413007ED8BE /* MallOrderAddressCell.m */; };
 		7DD1CC7C1C747489007ED8BE /* MallOrderStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CC7B1C747489007ED8BE /* MallOrderStatusCell.m */; };
@@ -986,12 +995,25 @@
 		7D2BE73F1C192FF700CE4138 /* MeTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeTextFieldCell.m; sourceTree = "<group>"; };
 		7D31998D1C1EA6E900A713DF /* DesignShop_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignShop_VC.h; sourceTree = "<group>"; };
 		7D31998E1C1EA6E900A713DF /* DesignShop_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignShop_VC.m; sourceTree = "<group>"; };
+		7D34D8B41CAA225C00F9831C /* PushActivity_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushActivity_VC.h; sourceTree = "<group>"; };
+		7D34D8B51CAA225C00F9831C /* PushActivity_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushActivity_VC.m; sourceTree = "<group>"; };
 		7D34E4301C1966600049D9C7 /* MeCatergoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCatergoryCell.h; sourceTree = "<group>"; };
 		7D34E4311C1966600049D9C7 /* MeCatergoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCatergoryCell.m; sourceTree = "<group>"; };
 		7D34E4331C197B140049D9C7 /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
 		7D34E4341C197B140049D9C7 /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
 		7D34E4361C199D0F0049D9C7 /* MeDetailSupply_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeDetailSupply_VC.h; sourceTree = "<group>"; };
 		7D34E4371C199D0F0049D9C7 /* MeDetailSupply_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeDetailSupply_VC.m; sourceTree = "<group>"; };
+		7D412B661CB3A74E0033140D /* NSString+AttributedStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AttributedStyle.h"; sourceTree = "<group>"; };
+		7D412B671CB3A74E0033140D /* NSString+AttributedStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AttributedStyle.m"; sourceTree = "<group>"; };
+		7D412B691CB3AA650033140D /* AttributedStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttributedStyle.h; sourceTree = "<group>"; };
+		7D412B6A1CB3AA650033140D /* AttributedStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttributedStyle.m; sourceTree = "<group>"; };
+		7D412B6C1CB3AEE70033140D /* ZGYFontStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYFontStyle.h; sourceTree = "<group>"; };
+		7D412B6D1CB3AEE70033140D /* ZGYFontStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYFontStyle.m; sourceTree = "<group>"; };
+		7D412B6F1CB3AFA20033140D /* ZGYColorStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYColorStyle.h; sourceTree = "<group>"; };
+		7D412B701CB3AFA20033140D /* ZGYColorStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYColorStyle.m; sourceTree = "<group>"; };
+		7D412B721CB3B1410033140D /* ParagraphStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParagraphStyle.h; sourceTree = "<group>"; };
+		7D412B731CB3B1410033140D /* ParagraphStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParagraphStyle.m; sourceTree = "<group>"; };
+		7D412B751CB3B4190033140D /* ZGYAttributedStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZGYAttributedStyle.h; sourceTree = "<group>"; };
 		7D41C8A51C0EEAF800703869 /* AllDesignCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllDesignCell.h; sourceTree = "<group>"; };
 		7D41C8A61C0EEAF800703869 /* AllDesignCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllDesignCell.m; sourceTree = "<group>"; };
 		7D4307891C10271E00C4A3FF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
@@ -1055,6 +1077,10 @@
 		7D7E8C131C5C96EE0009452E /* MallSellHistory_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallSellHistory_VC.m; sourceTree = "<group>"; };
 		7D7E8C161C5C9B830009452E /* MallHistoryOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallHistoryOrderCell.h; sourceTree = "<group>"; };
 		7D7E8C171C5C9B830009452E /* MallHistoryOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallHistoryOrderCell.m; sourceTree = "<group>"; };
+		7D874F3F1CAD0C7E005C65F5 /* IMSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMSearchResultCell.h; sourceTree = "<group>"; };
+		7D874F401CAD0C7E005C65F5 /* IMSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchResultCell.m; sourceTree = "<group>"; };
+		7D874F421CAD0D67005C65F5 /* IMSearchResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMSearchResultModel.h; sourceTree = "<group>"; };
+		7D874F431CAD0D67005C65F5 /* IMSearchResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchResultModel.m; sourceTree = "<group>"; };
 		7D8B338B1C118FC300616C1F /* MaterialShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialShopCell.h; sourceTree = "<group>"; };
 		7D8B338C1C118FC300616C1F /* MaterialShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaterialShopCell.m; sourceTree = "<group>"; };
 		7D8E70381C0FE894004A7E2C /* ProcessMarketController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessMarketController.h; sourceTree = "<group>"; };
@@ -1103,6 +1129,8 @@
 		7DC3D5711C8AC79300D358BE /* PopularNewsTop_Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsTop_Cell.m; sourceTree = "<group>"; };
 		7DCCC29E1C20FDB6002BF795 /* PopularNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNewsModel.h; sourceTree = "<group>"; };
 		7DCCC29F1C20FDB6002BF795 /* PopularNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularNewsModel.m; sourceTree = "<group>"; };
+		7DCECC471CA92BC000AFD36C /* IMSearchResult_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMSearchResult_VC.h; sourceTree = "<group>"; };
+		7DCECC481CA92BC000AFD36C /* IMSearchResult_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchResult_VC.m; sourceTree = "<group>"; };
 		7DD1CC741C74664C007ED8BE /* MallOrderBuyDetail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderBuyDetail_VC.h; sourceTree = "<group>"; };
 		7DD1CC751C74664C007ED8BE /* MallOrderBuyDetail_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallOrderBuyDetail_VC.m; sourceTree = "<group>"; };
 		7DD1CC771C747413007ED8BE /* MallOrderAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallOrderAddressCell.h; sourceTree = "<group>"; };
@@ -1150,12 +1178,12 @@
 				03571D3B1BE8604100900EF9 /* SystemConfiguration.framework in Frameworks */,
 				7D43078A1C10271E00C4A3FF /* libiconv.tbd in Frameworks */,
 				03571D581BE861BD00900EF9 /* CoreMotion.framework in Frameworks */,
-				03571D4C1BE8614200900EF9 /* CFNetwork.framework in Frameworks */,
+				03D59ED01CB76FE000C3B23B /* CFNetwork.framework in Frameworks */,
 				03662C6C1C12C3D800AEEF48 /* Foundation.framework in Frameworks */,
 				03571D391BE8602E00900EF9 /* UIKit.framework in Frameworks */,
-				03571D501BE8616200900EF9 /* CoreGraphics.framework in Frameworks */,
+				03D59ED11CB76FE000C3B23B /* CoreGraphics.framework in Frameworks */,
 				03662C6A1C12C3B900AEEF48 /* CoreText.framework in Frameworks */,
-				03571D4E1BE8615800900EF9 /* QuartzCore.framework in Frameworks */,
+				03D59ECF1CB76FE000C3B23B /* QuartzCore.framework in Frameworks */,
 				03571D5C1BE861D100900EF9 /* CoreTelephony.framework in Frameworks */,
 				03662C7C1C12E0D700AEEF48 /* libssl.a in Frameworks */,
 				7D665E9E1C0C4A9B00C7C7BF /* CoreLocation.framework in Frameworks */,
@@ -1168,9 +1196,6 @@
 				03571D561BE861A300900EF9 /* AudioToolbox.framework in Frameworks */,
 				03571D541BE8617A00900EF9 /* AVFoundation.framework in Frameworks */,
 				03571D521BE8616C00900EF9 /* CoreFoundation.framework in Frameworks */,
-				03571D501BE8616200900EF9 /* CoreGraphics.framework in Frameworks */,
-				03571D4E1BE8615800900EF9 /* QuartzCore.framework in Frameworks */,
-				03571D4C1BE8614200900EF9 /* CFNetwork.framework in Frameworks */,
 				03571D481BE8611500900EF9 /* OpenGLES.framework in Frameworks */,
 				03571D451BE860B200900EF9 /* libc++abi.tbd in Frameworks */,
 				03571D431BE860A600900EF9 /* libsqlite3.tbd in Frameworks */,
@@ -1384,6 +1409,7 @@
 		03571B561BE84E1500900EF9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				7D412B651CB3A60E0033140D /* AttributedString */,
 				0332269D1CB3A9AE00FE7DD9 /* SDPhotoBrowser */,
 				70E8C0701C868E2C007C7C1D /* AddPhoto */,
 				032951751C75678B00713079 /* StoreValue */,
@@ -1768,8 +1794,11 @@
 		03927D7A1BEC8C9F0087A2FD /* IMChatViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7D874F3E1CAD0C61005C65F5 /* IMView */,
 				7D665EA31C0C60EE00C7C7BF /* IMChatListViewController.h */,
 				7D665EA41C0C60EE00C7C7BF /* IMChatListViewController.m */,
+				7DCECC471CA92BC000AFD36C /* IMSearchResult_VC.h */,
+				7DCECC481CA92BC000AFD36C /* IMSearchResult_VC.m */,
 				7D665EA51C0C60EE00C7C7BF /* IMChatViewController.h */,
 				7D665EA61C0C60EE00C7C7BF /* IMChatViewController.m */,
 				7DC27B8D1C40B82F006DB851 /* PublicServiceViewController.h */,
@@ -2486,6 +2515,24 @@
 			path = "我的店铺View";
 			sourceTree = "<group>";
 		};
+		7D412B651CB3A60E0033140D /* AttributedString */ = {
+			isa = PBXGroup;
+			children = (
+				7D412B751CB3B4190033140D /* ZGYAttributedStyle.h */,
+				7D412B661CB3A74E0033140D /* NSString+AttributedStyle.h */,
+				7D412B671CB3A74E0033140D /* NSString+AttributedStyle.m */,
+				7D412B691CB3AA650033140D /* AttributedStyle.h */,
+				7D412B6A1CB3AA650033140D /* AttributedStyle.m */,
+				7D412B6C1CB3AEE70033140D /* ZGYFontStyle.h */,
+				7D412B6D1CB3AEE70033140D /* ZGYFontStyle.m */,
+				7D412B6F1CB3AFA20033140D /* ZGYColorStyle.h */,
+				7D412B701CB3AFA20033140D /* ZGYColorStyle.m */,
+				7D412B721CB3B1410033140D /* ParagraphStyle.h */,
+				7D412B731CB3B1410033140D /* ParagraphStyle.m */,
+			);
+			path = AttributedString;
+			sourceTree = "<group>";
+		};
 		7D45D0D31C224C5B00FC2988 /* MeHistoryOrderModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2530,6 +2577,8 @@
 			children = (
 				7D6F43331C5EF58E00A60892 /* PushPopularNews_VC.h */,
 				7D6F43341C5EF58E00A60892 /* PushPopularNews_VC.m */,
+				7D34D8B41CAA225C00F9831C /* PushActivity_VC.h */,
+				7D34D8B51CAA225C00F9831C /* PushActivity_VC.m */,
 			);
 			path = PushViewController;
 			sourceTree = "<group>";
@@ -2576,6 +2625,17 @@
 				7D5682901C75AE2A00FF03AE /* MallCommentCell.m */,
 			);
 			path = MallHistoryOrderView;
+			sourceTree = "<group>";
+		};
+		7D874F3E1CAD0C61005C65F5 /* IMView */ = {
+			isa = PBXGroup;
+			children = (
+				7D874F3F1CAD0C7E005C65F5 /* IMSearchResultCell.h */,
+				7D874F401CAD0C7E005C65F5 /* IMSearchResultCell.m */,
+				7D874F421CAD0D67005C65F5 /* IMSearchResultModel.h */,
+				7D874F431CAD0D67005C65F5 /* IMSearchResultModel.m */,
+			);
+			path = IMView;
 			sourceTree = "<group>";
 		};
 		7D8E70371C0FE85C004A7E2C /* HomeProcessMarketController */ = {
@@ -2861,7 +2921,7 @@
 		03571B181BE84BA100900EF9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Cofactorios;
 				TargetAttributes = {
 					03571B1F1BE84BA100900EF9 = {
@@ -3066,6 +3126,7 @@
 				70E8C0761C868E2C007C7C1D /* JKImagePickerTool.m in Sources */,
 				70FBE0A21C115FB700B15513 /* BidManage_Factory_TVC.m in Sources */,
 				70F0B4491C83ED5A00583B19 /* Publish_AddPhoto_TVC.m in Sources */,
+				7D412B741CB3B1410033140D /* ParagraphStyle.m in Sources */,
 				702250A01C98FCA0006795EB /* OrderDetail_Design_VC.m in Sources */,
 				70A63EA91C45ED1000B68839 /* Contract_VC.m in Sources */,
 				03571B281BE84BA100900EF9 /* AppDelegate.m in Sources */,
@@ -3117,6 +3178,7 @@
 				03B4559B1C17EDE6002F1A81 /* WalletModel.m in Sources */,
 				03F846FF1C47740600F4EC00 /* LoginTableHeaderView.m in Sources */,
 				70E8C07E1C86CE06007C7C1D /* PublishOrder_Design_VC.m in Sources */,
+				7D874F411CAD0C7E005C65F5 /* IMSearchResultCell.m in Sources */,
 				70F3E7261C40E6480031613F /* UILabel+extension.m in Sources */,
 				7D665E891C0C1C9000C7C7BF /* ZGYSupplyMarketView.m in Sources */,
 				7DF83C991CA27B2D007FA0A4 /* PopularNews_Detail_VC.m in Sources */,
@@ -3166,6 +3228,7 @@
 				7D4B74A11C3122B800344A43 /* Verified_VC.m in Sources */,
 				7DBD04F21C1C0A4800FD318B /* MachineShop_VC.m in Sources */,
 				03571B9A1BE85B8200900EF9 /* MBProgressHUD+Add.m in Sources */,
+				7D34D8B61CAA225C00F9831C /* PushActivity_VC.m in Sources */,
 				70F50D731C06D1F900920F63 /* FabricMarketModel.m in Sources */,
 				03571BD01BE85BDB00900EF9 /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
 				70F6016B1CA4D06300DDCE58 /* OrderDetail_FacMark_TVC.m in Sources */,
@@ -3184,6 +3247,7 @@
 				70F527981C926716006A84EF /* SearchOrder_Designer_VC.m in Sources */,
 				70F9AEC41C3F70B60003489B /* CalendarDayModel.m in Sources */,
 				0395D2EE1BFC65920009AABC /* CYLPlusButton.m in Sources */,
+				7D874F441CAD0D67005C65F5 /* IMSearchResultModel.m in Sources */,
 				03571C411BE85C3700900EF9 /* UIColor+expanded.m in Sources */,
 				7D1A4E3A1C5A19880076B462 /* MallAddressModel.m in Sources */,
 				03623FF81C44E9FB0083044A /* UIDevice+Info.m in Sources */,
@@ -3192,6 +3256,7 @@
 				03B4559E1C17EE1E002F1A81 /* WalletHistoryModel.m in Sources */,
 				70FBE0991C115A8000B15513 /* BidManage_Supplier_VC.m in Sources */,
 				03662CE61C12E0FD00AEEF48 /* MD5DataSigner.m in Sources */,
+				7D412B711CB3AFA20033140D /* ZGYColorStyle.m in Sources */,
 				70F50D771C06FB0200920F63 /* SupplierOrderModel.m in Sources */,
 				7DB5E7431C585D6B004834E8 /* ShoppingMallDetail_VC.m in Sources */,
 				70EBD6CD1C8D4F4000162D07 /* EnterpriseShowWeb_VC.m in Sources */,
@@ -3205,6 +3270,7 @@
 				7D665EA81C0C60EE00C7C7BF /* IMChatViewController.m in Sources */,
 				7D543D371C5B439D0086B702 /* MallPayTypeCell.m in Sources */,
 				7DFEBE3C1C0C18F200B2D2D5 /* SupplyMarketButton.m in Sources */,
+				7D412B6E1CB3AEE70033140D /* ZGYFontStyle.m in Sources */,
 				70FA60EF1C098DE400EA84FD /* ZFPopupMenu.m in Sources */,
 				039D4D511C72CACC0051CD2E /* AFURLRequestSerialization.m in Sources */,
 				03FF44F01BFEE73400D81DCE /* UIProgressView+AFNetworking.m in Sources */,
@@ -3250,6 +3316,7 @@
 				7D56828B1C759A7500FF03AE /* MallOrderSellDetail_VC.m in Sources */,
 				705421F81C0D7A3C00BD2B47 /* OrderBid_Factory_VC.m in Sources */,
 				7D72CDCB1C3A0279005BDA66 /* HomeKoreaShopList_VC.m in Sources */,
+				7D412B6B1CB3AA650033140D /* AttributedStyle.m in Sources */,
 				70037F021C1021F40086267C /* CompletionOrder_VC.m in Sources */,
 				03623FBB1C44D8C70083044A /* WelcomePageViewController.m in Sources */,
 				039D4D731C72E14A0051CD2E /* MJRefreshConst.m in Sources */,
@@ -3266,6 +3333,7 @@
 				7D2BE7401C192FF700CE4138 /* MeTextFieldCell.m in Sources */,
 				7D5682911C75AE2A00FF03AE /* MallCommentCell.m in Sources */,
 				039D4D4C1C72CACC0051CD2E /* AFHTTPRequestOperationManager.m in Sources */,
+				7DCECC491CA92BC000AFD36C /* IMSearchResult_VC.m in Sources */,
 				7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */,
 				7D56828E1C75A84400FF03AE /* MallOrderMark_VC.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,
@@ -3280,6 +3348,7 @@
 				03571B771BE85B7900900EF9 /* EAIntroPage.m in Sources */,
 				70FA60F01C098DE400EA84FD /* ZFPopupMenuItem.m in Sources */,
 				0395D2F31BFC65B80009AABC /* CYLPlusButtonSubclass.m in Sources */,
+				7D412B681CB3A74E0033140D /* NSString+AttributedStyle.m in Sources */,
 				03571B781BE85B7900900EF9 /* EAIntroView.m in Sources */,
 				7D1A4E331C59FFA10076B462 /* MallAddAddress_VC.m in Sources */,
 				03927D7E1BEC8CF50087A2FD /* MeViewController.m in Sources */,

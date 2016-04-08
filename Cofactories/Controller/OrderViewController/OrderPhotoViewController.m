@@ -24,7 +24,6 @@
        
         self.photoArray = photoArray;
     }
-    
     return self;
 }
 

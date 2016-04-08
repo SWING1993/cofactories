@@ -15,6 +15,8 @@
 #import "BidManage_Design_VC.h"
 #import "OrderBid_Factory_VC.h"
 #import "MarkOrder_VC.h"
+#import "PersonalMessage_Design_VC.h"
+
 @interface OrderDetail_Design_VC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView   *tableView;
 @property (nonatomic,strong)DesignOrderModel *designModel;
@@ -74,7 +76,6 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         }];
 
     }];
-    
 }
 
 - (void)viewDidLoad {
@@ -141,6 +142,12 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         header.userName = _otherUserModel.name;
         header.userAddress = [NSString stringWithFormat:@"地址: %@",_otherUserModel.address];
         [view addSubview:header];
+        
+        header.UserDetailBlock = ^{
+            PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
+            vc.userModel = _otherUserModel;
+            [self.navigationController pushViewController:vc animated:YES];
+        };
         
         header.ImageBtnBlock = ^(NSArray *imagesArray){
             if (imagesArray.count == 0) {
