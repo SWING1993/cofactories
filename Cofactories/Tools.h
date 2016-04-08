@@ -40,8 +40,22 @@
 
 + (MBProgressHUD *)createHUDWithView:(UIView *)bigView;
 
-+ (NSString *)SizeWith:(NSString *)sizeString;
+/**
+ *  提示View
+ *
+ *  @param tipStr 提示String
+ */
++ (void)showHudTipStr:(NSString *)tipStr;
 
+/**
+ *  提示错误文本
+ *
+ *  @param tipStr 提示Str
+ */
++ (void)showErrorTipStr:(NSString *)tipStr;
+
+
++ (NSString *)SizeWith:(NSString *)sizeString;
 
 /*!
  几天后
@@ -136,5 +150,10 @@
 + (void)upLoadImagesWithArray:(NSMutableArray *)array
                  policyString:(NSString *)policyString
               signatureString:(NSString *)signatureString;
+
+
+// 图片等比压缩
+
++ (UIImage *)compressPicturesWithImage:(UIImage *)myImage;
 
 @end

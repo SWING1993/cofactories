@@ -166,14 +166,14 @@ static NSString * placeholderString = @"暂无";
             _verified = placeholderString;
         }else {
             _verified = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"verified"]];
-
         }
         
         if ([[dictionary objectForKey:@"enterprise"] isEqual:[NSNull null]]) {
-            _enterprise = placeholderString;
-        }else {
-            _enterprise = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"enterprise"]];
-
+            _enterpriseType = EnterpriseType_noEnterprise;
+        } else if ([[dictionary objectForKey:@"enterprise"] isEqual:@"0"]){
+            _enterpriseType = EnterpriseType_mainEnterprise;
+        } else {
+            _enterpriseType = EnterpriseType_supEnterprise;
         }
         
         if ([[dictionary objectForKey:@"score"] isEqual:[NSNull null]]) {
@@ -284,7 +284,7 @@ static NSString * placeholderString = @"暂无";
 }
 
 - (NSString *)description {
-    return [[NSString alloc] initWithFormat:@"\nrole: %@\nUserType: %ld\nuid: %@\nphone: %@\nname: %@\nprovince: %@\ncity: %@\ndistrict: %@\naddress: %@\nsubRole: %@\nscale: %@\ninviteCode: %@\nrongToken: %@\nverified: %@\nenterprise: %@\nscore:%@\nlastActivity:%@\ndescriptionString:%@\ncreatedAt:%@\nupdatedAt:%@\nphotoArray:%@\nverifyDic:%@\nenterpriseName:%@\npersonName:%@\nidCard:%@\nenterpriseAddress:%@\nstatus:%ld\nverifyCreatedAt:%@\nverifyUpdatedAt:%@", _role, (long)_UserType, _uid, _phone, _name, _province, _city, _district, _address, _subRole, _scale, _inviteCode, _rongToken, _verified, _enterprise, _score, _lastActivity, _descriptionString, _createdAt, _updatedAt, _photoArray, _verifyDic, _verify_enterpriseName, _verify_personName, _verify_idCard, _verify_enterpriseAddress, (long)_verify_status, _verify_CreatedAt, _verify_UpdatedAt];
+    return [[NSString alloc] initWithFormat:@"\nrole: %@\nUserType: %ld\nuid: %@\nphone: %@\nname: %@\nprovince: %@\ncity: %@\ndistrict: %@\naddress: %@\nsubRole: %@\nscale: %@\ninviteCode: %@\nrongToken: %@\nverified: %@\nenterpriseType: %ld\nscore:%@\nlastActivity:%@\ndescriptionString:%@\ncreatedAt:%@\nupdatedAt:%@\nphotoArray:%@\nverifyDic:%@\nenterpriseName:%@\npersonName:%@\nidCard:%@\nenterpriseAddress:%@\nstatus:%ld\nverifyCreatedAt:%@\nverifyUpdatedAt:%@", _role, (long)_UserType, _uid, _phone, _name, _province, _city, _district, _address, _subRole, _scale, _inviteCode, _rongToken, _verified, _enterpriseType, _score, _lastActivity, _descriptionString, _createdAt, _updatedAt, _photoArray, _verifyDic, _verify_enterpriseName, _verify_personName, _verify_idCard, _verify_enterpriseAddress, (long)_verify_status, _verify_CreatedAt, _verify_UpdatedAt];
 }
 
 

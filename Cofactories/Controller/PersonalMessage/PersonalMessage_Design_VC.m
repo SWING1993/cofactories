@@ -46,7 +46,6 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     [self creatChatAndPhone];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigator_btn_back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBackClick)];
     self.navigationItem.title = @"个人信息";
     
     _selectedIndex = 1;
@@ -108,9 +107,15 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
         [self.navigationController.navigationBar setHidden:NO];
         [self.navigationController pushViewController:conversationVC animated:YES];
 
+        [HttpClient statisticsWithKey:@"IMChat" withUid:_userModel.uid andBlock:^(NSInteger statusCode) {
+            DLog(@"------------%ld--------",(long)statusCode);
+        }];
     }else if (button.tag == 1){
         NSString *str = [NSString stringWithFormat:@"telprompt://%@", _userModel.phone];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        [HttpClient statisticsWithKey:@"phoneCall" withUid:_userModel.uid andBlock:^(NSInteger statusCode) {
+            DLog(@"------------%ld--------",(long)statusCode);
+        }];
     }
 }
 
@@ -145,16 +150,15 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     typeImage.frame = CGRectMake(90+size.width+10, 26, 15, 15);
     [headerView addSubview:typeImage];
     
-    if ([_userModel.enterprise isEqualToString:@"非企业用户"]) {
-        enterpriseBtn.hidden = YES;
-        if ([_userModel.verified isEqualToString:@"非认证用户"]) {
-            [typeImage removeFromSuperview];
-        }else{
-            typeImage.image = [UIImage imageNamed:@"证.png"];
-        }
-    }else{
+    if ([_userModel.userIdentity isEqualToString:@"企业用户"]) {
         enterpriseBtn.hidden = NO;
         typeImage.image = [UIImage imageNamed:@"企.png"];
+    }else if ([_userModel.userIdentity isEqualToString:@"认证用户"]){
+        enterpriseBtn.hidden = YES;
+        typeImage.image = [UIImage imageNamed:@"证.png"];
+    }else{
+        enterpriseBtn.hidden = YES;
+        [typeImage removeFromSuperview];
     }
     
     UILabel *subroleLB = [[UILabel alloc] init];
@@ -371,10 +375,6 @@ static NSString *const reuseIdentifier3 = @"reuseIdentifier3"; // 交易评论
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma mark - 导航pop
-- (void)goBackClick{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (CGSize)returnSizeWithString:(NSString *)string{
     

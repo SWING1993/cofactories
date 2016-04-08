@@ -17,6 +17,7 @@
 #import "WalletModel.h"
 #import "WalletHistoryModel.h"
 
+
 #pragma mark - 服务器
 
 
@@ -41,6 +42,7 @@
 
 #define API_verify @"/user/verify"//上传认证资料
 #define API_userProfile @"/user/profile"
+#define API_statistics @"/stat/report" //行为统计
 #define API_uploadPhoto @"/upload/user"
 #define API_config @"/config/ad/"//轮播图
 #define API_activity @"/config/activity"//首页活动列表
@@ -56,9 +58,6 @@
 #define API_GetIMToken @"/im/token"//获取融云token
 #define API_SearchBusiness @"/user/search"
 
-#define kPopular_News_Search @"/api/search"//获取流行资讯搜索内容
-#define kPopular_News_Top @"/api/getTop"//获取流行资讯置顶文章
-#define kPopular_News_List @"/api/getList"//获取流行资讯下面文章列表
 
 #define API_Publish_Market_Publish   @"/market/add"//发布商城商品
 #define API_Search_Market_Search   @"/market/search"//搜索商城市场
@@ -71,6 +70,11 @@
 #define API_Goods_Comment @"/market/purchase/comment/"//商城评价
 
 #define API_Wallet_Transaction @"/wallet/transaction"//钱包流水记录
+#define API_Home_OrderMessageLatest @"/order/factory/latest"//首页滚动的订单信息
+
+#define kPopular_News_Search @"/api/search"//获取流行资讯搜索内容
+#define API_PopularNews_List @"/api/category"//获取该分类下的文章
+#define API_PopularNews_Top @"/api/top"//获取置顶文章
 
 @implementation HttpClient
 
@@ -433,7 +437,7 @@
         [manager GET:API_userProfile parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             UserModel *userModel = [[UserModel alloc] initWithDictionary:responseObject];
             [userModel storeValueWithKey:@"MyProfile"];
-            //            DLog(@"userModel = %@",responseObject);
+                        DLog(@"userModel = %@",responseObject);
             //            DLog(@"userModel.description = %@",userModel.description);
             block(@{@"statusCode": @(200), @"model": userModel});
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -482,6 +486,27 @@
             block(200);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             DLog(@"123%@",error);
+            block([operation.response statusCode]);
+        }];
+    } else {
+        DLog(@"access_token不存在");
+        block(404);// access_token不存在
+    }
+}
+
+
++ (void)statisticsWithKey:(NSString *)key withUid:(NSString *)uid andBlock:(void (^)(NSInteger statusCode))block {
+
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录则获取用户信息
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager    POST:API_statistics parameters:@{@"key":key,@"value":uid} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            block(200);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             block([operation.response statusCode]);
         }];
     } else {
@@ -545,7 +570,6 @@
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         [manager POST:API_walletCharge parameters:@{@"fee":fee} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-            //            DLog(@"sucess data = %@",responseObject);
             NSDictionary * dataDic = [responseObject objectForKey:@"data"];
             block(@{@"statusCode": @(200), @"data":dataDic });
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -553,11 +577,11 @@
             NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
             switch (statusCode) {
                 case 0:
-                    block(@{@"statusCode": @(statusCode), @"message":@"暂无网络（错误码：0）" });
+                    block(@{@"statusCode": @(statusCode), @"message":@"暂无网络（0）" });
                     break;
                     
                 case 502:
-                    block(@{@"statusCode": @(statusCode), @"message":@"服务器已爆炸（错误码：502）" });
+                    block(@{@"statusCode": @(statusCode), @"message":@"服务器已爆炸（502）" });
                     break;
                     
                 default:
@@ -572,6 +596,44 @@
     }
 }
 
++ (void)walletEnterpriseWithFee:(NSString *)fee wihtCharge:(void (^)(NSDictionary *))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        // 已经登录则获取用户信息
+        AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        [manager POST:API_walletCharge parameters:@{@"fee":fee,@"payment":@"enterprise"} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            NSDictionary * dataDic = [responseObject objectForKey:@"data"];
+            block(@{@"statusCode": @(200), @"data":dataDic });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            switch (statusCode) {
+                case 0:
+                    block(@{@"statusCode": @(statusCode), @"message":@"暂无网络（0）" });
+                    break;
+                    
+                case 502:
+                    block(@{@"statusCode": @(statusCode), @"message":@"服务器已爆炸（502）" });
+                    break;
+                    
+                default:
+                    block(@{@"statusCode": @(statusCode), @"message":errors });
+                    break;
+            }
+            
+        }];
+    } else {
+        DLog(@"access_token不存在");
+        block(@{@"statusCode": @404, @"message": @"access_token不存在!"});// access_token不存在
+    }
+}
 
 + (void)walletsignwithOrderSpec:(NSString *)orderSpec andBlock:(void (^)(NSDictionary *))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
@@ -633,7 +695,6 @@
         DLog(@"access_token不存在");
         block(@{@"statusCode": @404, @"message": @"access_token不存在!"});// access_token不存在
     }
-    
 }
 
 
@@ -1896,7 +1957,7 @@
 }
 
 // 首款支付
-+ (void)payFirstWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
++ (void)payFirstWithOrderID:(NSString *)orderID payWay:(NSString *)payWay WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock{
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
     NSString *serviceProviderIdentifier = [baseUrl host];
     AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
@@ -1904,7 +1965,7 @@
         AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
         [manger.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         NSString * urlString = [NSString stringWithFormat:@"%@%@",@"/order/factory/firstPay/",orderID];
-        [manger GET:urlString parameters:@{@"payment":@"wallet"} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        [manger GET:urlString parameters:@{@"payment":payWay} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             DLog(@"%@",responseObject);
             completionBlock(@{@"statusCode":@"200"});
             
@@ -2159,60 +2220,6 @@
     }
     
 }
-//获取两篇置顶文章
-+ (void)getPopularNewsWithBlock:(void (^)(NSDictionary *dictionary))block {
-    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
-    NSString *serviceProviderIdentifier = [baseUrl host];
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-    if (credential) {
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
-        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, kPopular_News_Top];
-        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            DLog(@"^^^^^^^^^^^^%@", responseObject);
-            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            switch ([operation.response statusCode]) {
-                case 400:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"未登录"});
-                    break;
-                case 401:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"access_token过期或者无效"});
-                    break;
-                    
-                default:
-                    block(@{@"statusCode": @([operation.response statusCode]), @"message": @"网络错误"});
-                    break;
-            }
-        }];
-    } else {
-        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
-    }
-}
-//随机获取六篇文章
-+ (void)getSixPopularNewsListWithCategory:(NSInteger)category withBlock:(void (^)(NSDictionary *dictionary))block {
-    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
-    NSString *serviceProviderIdentifier = [baseUrl host];
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
-    if (credential) {
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseUrl];
-        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
-        NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, kPopular_News_List];
-        //        NSString*token = credential.accessToken;
-        [manager GET:urlString parameters:@{@"category":[NSString stringWithFormat:@"%ld", category]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            DLog(@"^^^^^^^^^^^^%@", responseObject);
-            block(@{@"statusCode": @([operation.response statusCode]), @"responseArray": responseObject});
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            DLog(@"error = %@", error);
-            block(@{@"statusCode": @([operation.response statusCode])});
-        }];
-    } else {
-        block(@{@"statusCode": @404, @"message": @"access_token不存在"});// access_token不存在
-    }
-    
-}
 
 
 //立即拍下
@@ -2320,12 +2327,15 @@
                     block(@{@"statusCode": @(401), @"message": @"支付失败，请重新登陆"});
                     break;
                 default:{
-                    NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-                    block(@{@"statusCode": @(statusCode), @"message": errors});
+//                    NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+//                    DLog(@"error = %@", errors);
+                    block(@{@"statusCode": @(statusCode), @"message": @"网络错误"});
                 }
                     break;
             }
         }];
+    } else {
+        block(@{@"statusCode": @404, @"message": @"access_token不存在!"});
     }
 }
 
@@ -2352,9 +2362,12 @@
             block(@{@"statusCode": @(200), @"data":responseObject });
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
-            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
-            block(@{@"statusCode": @(statusCode), @"message":errors });
+//            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+//            DLog(@"error = %@", errors);
+            block(@{@"statusCode": @(statusCode), @"message":@"网络错误"});
         }];
+    } else {
+        block(@{@"statusCode": @404, @"message": @"access_token不存在!"});
     }
 }
 
@@ -2457,6 +2470,7 @@
     }
 
 }
+
 //钱包流水记录
 + (void)getWalletHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *responseDictionary))block {
     NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
@@ -2488,4 +2502,86 @@
         }];
     }
 }
+
+//获取订单信息（用于首页滚动）
++ (void)getScrollOrderMessageWithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        [manager GET:API_Home_OrderMessageLatest parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+//            DLog(@"responseObject= %@",responseObject);
+            block(@{@"statusCode": @(200), @"responseObject":responseObject});
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
+
+//获取文章列表
++ (void)getPopularNewsListWithCategory:(NSString *)category page:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        NSMutableDictionary *myDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        if (category) {
+            [myDic setObject:category forKey:@"category"];
+        }
+        if (aPage) {
+            [myDic setObject:aPage forKey:@"page"];
+        }
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, API_PopularNews_List];
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        [manager GET:urlString parameters:myDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"RRRRRRRR= %@", responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject});
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
+
+//获取置顶文章
++ (void)getPopularNewsTopWithPage:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        NSMutableDictionary *myDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        if (aPage) {
+            [myDic setObject:aPage forKey:@"page"];
+        }
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", kPopularBaseUrl, API_PopularNews_Top];
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        [manager GET:urlString parameters:myDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            //            DLog(@"RRRRRRRR= %@", responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject});
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
+
 @end

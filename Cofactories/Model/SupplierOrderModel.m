@@ -19,7 +19,7 @@
         self.createdAt = (NSString *)[creatArray firstObject];
         
         NSString *saleString = [NSString stringWithFormat:@"%@",dictionary[@"description"]];
-        if ([saleString isEqualToString:@"<null>"]){
+        if ([saleString isEqualToString:@"<null>"] || [saleString isEqualToString:@"(null)"] ||[saleString isEqualToString:@""]){
             self.descriptions = @"商家未填写备注";
         }else{
             self.descriptions = dictionary[@"description"];
@@ -45,6 +45,9 @@
         
         self.unit = [NSString stringWithFormat:@"%@",dictionary[@"unit"]];
         self.userUid = [NSString stringWithFormat:@"%@",dictionary[@"userUid"]];
+        
+        self.orderWinnerName = dictionary[@"winnerName"];
+        self.orderWinnerPhone = dictionary[@"winnerPhone"];
     }
     return self;
 }

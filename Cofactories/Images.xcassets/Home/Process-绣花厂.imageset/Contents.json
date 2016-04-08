@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Process-绣花厂.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Process-绣花厂@2x.png",
       "scale" : "2x"
     },
     {

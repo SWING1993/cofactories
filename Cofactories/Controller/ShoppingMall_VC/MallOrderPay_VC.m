@@ -21,6 +21,7 @@
 }
 
 @property (nonatomic, strong) MallOrderDetailModel *goodsModel;
+@property (nonatomic,retain)UserModel * MyProfile;
 
 @end
 
@@ -28,13 +29,21 @@ static NSString *CellIndentifier = @"cell";
 static NSString *payCellIndentifier = @"payCell";
 @implementation MallOrderPay_VC
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.MyProfile = [[UserModel alloc]getMyProfile];
+    NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
+    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"订单支付";
-    
-    payPhotoArray = @[@"Mall-alipay", @"Home-icon"];
-    payTitleArray = @[@"支付宝支付", @"账户支付"];
+    self.MyProfile = [[UserModel alloc]getMyProfile];
+    payPhotoArray = @[@"Mall-alipay", @"Home-icon", @"qiyezhanghaopay"];
+    payTitleArray = @[@"支付宝支付", @"账户支付", @"企业账号支付"];
     paySelectString = @"支付宝支付";
     _header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 35)];
     _header.backgroundColor = [UIColor whiteColor];
@@ -43,14 +52,12 @@ static NSString *payCellIndentifier = @"payCell";
     myLabel.textColor = GRAYCOLOR(100);
     myLabel.text = @"请选择一种付款方式";
     [_header addSubview:myLabel];
-    DLog(@"^^^^^^^^^^%@", self.mallPurchseId);
     [self creatTableViewFooterView];
     [self.tableView registerClass:[MallHistoryOrderCell class] forCellReuseIdentifier:CellIndentifier];
     [self.tableView registerClass:[MallPayTypeCell class] forCellReuseIdentifier:payCellIndentifier];
     [self netWork];
 }
 - (void)netWork {
-    DLog(@"^^^^^^^^^^%@", self.mallPurchseId);
     [HttpClient getMallOrderDetailWithPurchseId:self.mallPurchseId WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         if (statusCode == 200) {
@@ -81,8 +88,13 @@ static NSString *payCellIndentifier = @"payCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1;
+    } else {
+        if (self.MyProfile.enterpriseType == EnterpriseType_noEnterprise) {
+            return 2;
+        } else {
+            return 3;
+        }
     }
-    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -179,7 +191,7 @@ static NSString *payCellIndentifier = @"payCell";
                 }
                     break;
                 default:
-                    kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                    kTipAlert(@"%@(错误码：%ld)",[dictionary objectForKey:@"message"],(long)statusCode);
                     button.userInteractionEnabled = YES;
                     break;
             }
@@ -191,12 +203,32 @@ static NSString *payCellIndentifier = @"payCell";
             switch (statusCode) {
                 case 200: {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户付款成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    alert.tag = 222;
                     [alert show];
                     button.userInteractionEnabled = YES;
                 }
                     break;
                 default: {
-                    kTipAlert(@"%@",[dictionary objectForKey:@"message"]);
+                    kTipAlert(@"%@(错误码：%ld)",[dictionary objectForKey:@"message"],(long)statusCode);
+                    button.userInteractionEnabled = YES;
+                }
+                    break;
+            }
+        }];
+    } else if ([paySelectString isEqualToString:@"企业账号支付"]) {
+        //企业账号支付
+        [HttpClient buyGoodsWithPurchaseId:self.mallPurchseId payment:@"enterprise" WithBlock:^(NSDictionary *dictionary) {
+            NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+            switch (statusCode) {
+                case 200: {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该订单已提交至主账号，请耐心等待主账号支付！" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                    alert.tag = 223;
+                    [alert show];
+                    button.userInteractionEnabled = YES;
+                }
+                    break;
+                default: {
+                    kTipAlert(@"%@(错误码：%ld)",[dictionary objectForKey:@"message"],(long)statusCode);
                     button.userInteractionEnabled = YES;
                 }
                     break;
@@ -210,7 +242,12 @@ static NSString *payCellIndentifier = @"payCell";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
         if (_isMeMallOrder) {
-            ApplicationDelegate.mallStatus = @"2";
+            //
+            if (alertView.tag == 222) {
+                ApplicationDelegate.mallStatus = @"2";
+            } else if (alertView.tag == 223) {
+                ApplicationDelegate.mallStatus = @"1";
+            }
             for (UIViewController *controller in self.navigationController.viewControllers) {
                 if ([controller isKindOfClass:[MallBuyHistory_VC class]]) {
                     [self.navigationController popToViewController:controller animated:YES];
@@ -218,7 +255,11 @@ static NSString *payCellIndentifier = @"payCell";
             }
         } else {
             MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
-            ApplicationDelegate.mallStatus = @"2";
+            if (alertView.tag == 222) {
+                ApplicationDelegate.mallStatus = @"2";
+            } else if (alertView.tag == 223) {
+                ApplicationDelegate.mallStatus = @"1";
+            }
             [self.navigationController pushViewController:mallBuyVC animated:YES];
         }
     }

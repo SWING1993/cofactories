@@ -6,31 +6,44 @@
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
 
-#import "MobClick.h"
-#import "HttpClient.h"
+#import "MobClick.h"//统计
 #import "UserManagerCenter.h"
 #import "HomeViewController.h"
-#import "AuthenticationController.h"//认证1
-#import "ZGYDesignMarkrtController.h"//设计市场
+
+#import "IndexModel.h"//轮播图
+
+#import "HomeProfileCell.h"//个人信息
 #import "SetViewController.h"//完善资料
+#import "WalletModel.h"//钱包
+#import "Verified_VC.h"//查看认证资料
+#import "AuthenticationController.h"//认证1
+
+#import "ZGYDesignMarkrtController.h"//设计市场
 #import "SupplyMarketViewController.h"//供应市场
 #import "ProcessMarketController.h"//加工配套市场
-#import "Business_Cloth_VC.h"
-#import "MeShopController.h"
-#import "WalletModel.h"
-#import "Verified_VC.h"
-#import "HomeActivity_VC.h"
-#import "IndexModel.h"
+#import "Business_Cloth_VC.h"//服装企业
+
+#import "ZGYScrollView.h"//订单信息上下轮播
+#import "ScrollMessageModel.h"
+
+#import "HomeActivity_VC.h"//活动
+#import "HomeActivityCell.h"
 #import "ActivityModel.h"
 
+#import "OrderList_Supplier_VC.h"
+#import "SearchOrder_Designer_VC.h"
+#import "SearchOrder_Factory_VC.h"
+
+static NSString * CellIdentifier = @"CellIdentifier";
 static NSString *marketCellIdentifier = @"marketCell";
-static NSString *personalDataCellIdentifier = @"personalDataCell";
+static NSString *ProfileCellIdentifier = @"ProfileCell";
 static NSString *activityCellIdentifier = @"activityCell";
 @interface HomeViewController ()
 
 @property (nonatomic,strong)NSMutableArray *firstViewImageArray;
 @property (nonatomic,strong)NSMutableArray *bannerArray;
 @property (nonatomic,strong)NSMutableArray *activityArray;
+@property (nonatomic,strong)NSMutableArray *messageArray;
 @property (nonatomic,retain)UserModel * MyProfile;
 @property (nonatomic,retain)WalletModel * walletModel;
 
@@ -38,6 +51,8 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 @implementation HomeViewController {
     CGFloat wallet;
+    ZGYScrollView *myView;
+    UIButton *tapMyView;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -60,21 +75,25 @@ static NSString *activityCellIdentifier = @"activityCell";
     [self getConfig];
     //活动列表
     [self getActivityList];
+    //滚动信息
+    [self creatScrollMessageView];
     
     [self creatTableView];
     [self creatTableHeaderView];
+    
 }
 
 - (void)creatTableView {
-    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 49) style:UITableViewStyleGrouped];
+    self.homeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 49)style:UITableViewStyleGrouped];
     self.automaticallyAdjustsScrollViewInsets = YES;// 自动调整视图关闭
     self.homeTableView.showsVerticalScrollIndicator = NO;// 竖直滚动条不显示
     self.homeTableView.delegate = self;
     self.homeTableView.dataSource = self;
     [self.view addSubview:self.homeTableView];
-    
+//    self.homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.homeTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
     [self.homeTableView registerClass:[HomeMarketCell class] forCellReuseIdentifier:marketCellIdentifier];
-    [self.homeTableView registerClass:[HomePersonalDataCell class] forCellReuseIdentifier:personalDataCellIdentifier];
+    [self.homeTableView registerClass:[HomeProfileCell class] forCellReuseIdentifier:ProfileCellIdentifier];
     [self.homeTableView registerClass:[HomeActivityCell class] forCellReuseIdentifier:activityCellIdentifier];
 }
 
@@ -86,12 +105,24 @@ static NSString *activityCellIdentifier = @"activityCell";
     
 }
 
+- (void)creatScrollMessageView {
+    myView = [[ZGYScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 60)];
+    tapMyView = [UIButton buttonWithType:UIButtonTypeCustom];
+    tapMyView.frame = CGRectMake(0, 0, kScreenW, 60);
+    tapMyView.backgroundColor = [UIColor clearColor];
+    [tapMyView addTarget:self action:@selector(actionOfTapOrderMessage:) forControlEvents:UIControlEventTouchUpInside];
+    [self getMessageArray];
+    NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(getMessageArray) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:myTimer forMode:NSRunLoopCommonModes];
+
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 2) {
+    if (section == 3) {
         return self.activityArray.count;
     }
     return 1;
@@ -99,76 +130,23 @@ static NSString *activityCellIdentifier = @"activityCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-         HomePersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:personalDataCellIdentifier forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;//去掉选中背景色
-        //用户头像
-        [cell.personalDataLeftImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/factory/%@.png",PhotoAPI, self.MyProfile.uid]] placeholderImage:[UIImage imageNamed:@"headBtn"]];
-        //用户名字
-        if (self.MyProfile.name.length) {
-            cell.personNameLabel.text = self.MyProfile.name;
-        }
-        //用户积分
-        if (self.MyProfile.score.length) {
-            cell.personScoreLabel.text = [NSString stringWithFormat:@"积分：%@", self.MyProfile.score];
-        }
-        //钱包余额
-        cell.personWalletLeft.text = [NSString stringWithFormat:@"余额：%.2f元", wallet];
-        //用户类型
-        if ([self.MyProfile.verified isEqualToString:@"0"] || [self.MyProfile.verified isEqualToString:@"暂无"]) {
-            cell.personStatusImage.image = [UIImage imageNamed:@"注"];
-        } else if ([self.MyProfile.verified isEqualToString:@"1"]) {
-            cell.personStatusImage.image = [UIImage imageNamed:@"证"];
-        }
-        
-        //用户身份
-        switch (self.MyProfile.UserType) {
-            case UserType_designer:
-                cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-设计者"];
-                break;
-            case UserType_clothing:
-                cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服装企业"];
-                break;
-            case UserType_processing:
-                cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-加工企业"];
-                break;
-            case UserType_supplier:
-                cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-供应商"];
-                break;
-            case UserType_facilitator:
-                cell.personalDataMiddleImage.image = [UIImage imageNamed:@"Home-服务商"];
-                break;
-            default:
-                cell.personalDataMiddleImage.image = [UIImage imageNamed:@""];
-                break;
-        }
-        //地址
-        if ([self.MyProfile.address isEqualToString:@"暂无"] || self.MyProfile.address.length == 0) {
-            [cell.personAddressButton setTitle:@"地址暂无，点击完善资料" forState: UIControlStateNormal];
-            [cell.personAddressButton addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
-        } else {
-            [cell.personAddressButton setTitle:self.MyProfile.address forState: UIControlStateNormal];
-        }
-        
-        [cell.authenticationButton addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
-        //认证状态
-        switch (self.MyProfile.verify_status) {
-            case 0:
-                cell.authenticationLabel.text = @"前往认证";
-                break;
-            case 1:
-                cell.authenticationLabel.text = @"正在审核";
-                break;
-            case 2:
-                cell.authenticationLabel.text = @"已认证";
-                break;
-            default:
-                break;
-        }
+        HomeProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:ProfileCellIdentifier forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell reloadDataWithUserModel:self.MyProfile wallet:wallet];
+        [cell.changeAddressBtn addTarget:self action:@selector(actionOfEdit:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.verifyPhoto addTarget:self action:@selector(authenticationAction:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     } else if (indexPath.section == 1) {
         HomeMarketCell *cell = [tableView dequeueReusableCellWithIdentifier:marketCellIdentifier forIndexPath:indexPath];
         cell.delegate = self;
         return cell;
+    } else if (indexPath.section == 2) {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        [cell addSubview:myView];
+        [cell addSubview:tapMyView];
+        return cell;
+        
     } else {
         HomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:activityCellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -179,6 +157,7 @@ static NSString *activityCellIdentifier = @"activityCell";
             [cell.activityPhoto sd_setImageWithURL:[NSURL URLWithString:activityModel.banner] placeholderImage:[UIImage imageNamed:@"HomeActivityHolder"]];
         }
         return cell;
+
     }
 }
 
@@ -189,13 +168,15 @@ static NSString *activityCellIdentifier = @"activityCell";
         return 100*kZGY;
     } else if (indexPath.section == 1) {
         return 160*kZGY;
+    } else if (indexPath.section == 2)  {
+        return 60;
     } else {
         return 0.4*kScreenW;
     }
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 8;
+    return 5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
@@ -205,11 +186,8 @@ static NSString *activityCellIdentifier = @"activityCell";
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //活动点击事件
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"返回";
-    backItem.tintColor=[UIColor whiteColor];
-    self.navigationItem.backBarButtonItem = backItem;
-    if (indexPath.section == 2) {
+    
+    if (indexPath.section == 3) {
         HomeActivity_VC *activityVC = [[HomeActivity_VC alloc] init];
         ActivityModel *activityModel = self.activityArray[indexPath.row];
         activityVC.urlString = activityModel.url;
@@ -306,6 +284,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 }
 
 #pragma mark - 地址没有，去完善资料
+
 - (void)actionOfEdit:(UIButton *)button {
     if ([self.MyProfile.address isEqualToString:@"暂无"] || self.MyProfile.address.length == 0) {
         SetViewController *setVC = [[SetViewController alloc] init];
@@ -316,6 +295,39 @@ static NSString *activityCellIdentifier = @"activityCell";
         [self.navigationController pushViewController:setVC animated:YES];
     } else {
         DLog(@"有地址");
+    }
+}
+
+- (void)actionOfTapOrderMessage:(UIButton *)button {
+    DLog(@"点击订单信息");
+    NSLog(@"查找订单");
+    
+    switch (self.MyProfile.UserType) {
+            //供应商
+        case UserType_supplier: {
+            OrderList_Supplier_VC *vc = [[OrderList_Supplier_VC alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+        }
+            break;
+            //设计者
+        case UserType_designer: {
+            SearchOrder_Designer_VC *vc = [[SearchOrder_Designer_VC alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+        }
+            break;
+            //加工配套
+        case UserType_processing: {
+            SearchOrder_Factory_VC *vc = [[SearchOrder_Factory_VC alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+        }
+            break;
+            
+        default:
+//            kTipAlert(@"该身份接订单功能未开通");
+            break;
     }
 }
 
@@ -348,25 +360,43 @@ static NSString *activityCellIdentifier = @"activityCell";
     }];
 }
 
+- (void)getMessageArray {
+    [HttpClient getScrollOrderMessageWithBlock:^(NSDictionary *dictionary) {
+        NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
+        if (statusCode == 200) {
+            self.messageArray = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *myDic in dictionary[@"responseObject"]) {
+                ScrollMessageModel *messageModel = [ScrollMessageModel getScrollMessageModelWithDictionary:myDic];
+                [self.messageArray addObject:messageModel];
+            }
+            if (self.messageArray.count == 20) {
+                [myView reloadMessageWithMessageArray:self.messageArray];
+            }
+        }
+    }];
+}
+
 - (void)getActivityList {
     //活动列表
     [HttpClient getActivityWithBlock:^(NSDictionary *responseDictionary) {
         int statusCode = [responseDictionary[@"statusCode"] intValue];
         DLog(@"statusCode = %d", statusCode);
         if (statusCode == 200) {
+            DLog(@"^^^^^^^^%@", responseDictionary);
             NSArray *jsonArray = responseDictionary[@"responseArray"];
             self.activityArray = [NSMutableArray arrayWithCapacity:0];
             for (NSDictionary *dictionary in jsonArray) {
                 ActivityModel *activityModel = [ActivityModel getActivityModelWithDictionary:dictionary];
                 [self.activityArray addObject:activityModel];
             }
-            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
+            NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:3];
             [self.homeTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         } else if (statusCode == 0) {
             DLog(@"请求超时");
         }
     }];
 }
+
 - (void)getConfig {
     //轮播图
     [HttpClient getConfigWithType:@"index" WithBlock:^(NSDictionary *responseDictionary) {
@@ -446,6 +476,7 @@ static NSString *activityCellIdentifier = @"activityCell";
 //获取IM用户信息
 - (void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
     //解析工厂信息
+    DLog(@"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     [HttpClient getOtherIndevidualsInformationWithUserID:userId WithCompletionBlock:^(NSDictionary *dictionary) {
         OthersUserModel *otherModel = (OthersUserModel *)dictionary[@"message"];
         RCUserInfo *user = [[RCUserInfo alloc]init];

@@ -26,12 +26,18 @@
         self.personAddress = [NSString stringWithFormat:@"%@ %@ %@ %@", dictionary[@"address"][@"province"], dictionary[@"address"][@"city"], dictionary[@"address"][@"district"], dictionary[@"address"][@"address"]];
         self.creatTime = [NSString stringWithFormat:@"%@", dictionary[@"createdTime"]];
         self.orderNumber = [NSString stringWithFormat:@"%@", dictionary[@"_id"]];
+        self.payment = [NSString stringWithFormat:@"%@", dictionary[@"payment"]];
         if ([dictionary[@"status"] isEqualToString:@"wait_buyer_pay"]) {
-            self.waitPayType = @"等待买家付款";
+            if ([self.payment isEqualToString:@"enterprise"]) {
+                self.waitPayType = @"等待主账号付款";
+                self.showButton = NO;
+            } else {
+                self.waitPayType = @"等待买家付款";
+                self.showButton = YES;
+            }
             self.payType = @"付款";
             self.mallOrderTitle = @"待付款订单";
             self.status = 1;
-            self.showButton = NO;
         } else if([dictionary[@"status"] isEqualToString:@"wait_seller_send"]) {
             self.waitPayType = @"买家已付款";
             self.payType = @"联系卖家";
@@ -58,8 +64,8 @@
             self.showButton = YES;
         } else {
             self.status = 0;
-            self.waitPayType = @"未知订单";
-            self.payType = @"未知订单";
+            self.waitPayType = @"商城订单";
+            self.payType = @"商城订单";
             self.mallOrderTitle = @"订单详情";
             self.showButton = NO;
         }
@@ -69,6 +75,8 @@
         self.sendTime = [NSString stringWithFormat:@"%@", dictionary[@"sendTime"]];
         self.receiveTime = [NSString stringWithFormat:@"%@", dictionary[@"receiveTime"]];
         self.comment = [NSString stringWithFormat:@"%@", dictionary[@"comment"]];
+        
+        
     }
     return self;
 

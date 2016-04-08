@@ -143,6 +143,16 @@
 + (void)postMyProfileWithDic:(NSMutableDictionary *)Dic andBlock:(void (^)(NSInteger statusCode))block;
 
 
+
+/**
+ *  统计报告
+ *
+ *  @param key   IMChat 即时聊天 phoneCall 通话记录
+ *  @param uid   用户uid
+ *  @param block  回调statusCode
+ */
++ (void)statisticsWithKey:(NSString *)key withUid:(NSString *)uid andBlock:(void (^)(NSInteger statusCode))block;
+
 /**
  *  获取自己的钱包
  *
@@ -158,9 +168,29 @@
  */
 + (void)walletWithFee:(NSString *)fee WihtCharge:(void (^)(NSDictionary *responseDictionary))block;
 
+/**
+ *  Wallet - 充值
+ *
+ *  @param fee   money
+ *  @param block 返回参数
+ */
++ (void)walletEnterpriseWithFee:(NSString *)fee wihtCharge:(void (^)(NSDictionary *responseDictionary))block;
+
+
+/**
+ *  钱包订单详情
+ *
+ *  @param orderSpec
+ *  @param block     返回参数
+ */
 + (void)walletsignwithOrderSpec:(NSString *)orderSpec andBlock:(void (^)(NSDictionary *responseDictionary))block;
 
-
+/**
+ *  钱包历史记录
+ *
+ *  @param page  第几页
+ *  @param block 返回data
+ */
 + (void)walletHistoryWithPage:(NSNumber *)page WithBlock:(void (^)(NSDictionary *responseDictionary))block;
 
 /**
@@ -299,7 +329,7 @@
 // 获取订单进度消息
 + (void)getOrderMessageWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 // 首款支付
-+ (void)payFirstWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
++ (void)payFirstWithOrderID:(NSString *)orderID payWay:(NSString *)payWay WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 // 限制订单完成
 + (void)finishRestrictOrderWithOrderID:(NSString *)orderID WithCompletionBlock:(void(^)(NSDictionary *dictionary))completionBlock;
 
@@ -338,11 +368,12 @@
  */
 //获取搜索内容
 + (void)searchPopularNewsWithKeyword:(NSString *)keyWord WithBlock:(void (^)(NSDictionary *dictionary))block;
-//获取两篇置顶文章
-+ (void)getPopularNewsWithBlock:(void (^)(NSDictionary *dictionary))block;
-//根据分类获取六篇显示的文章
-+ (void)getSixPopularNewsListWithCategory:(NSInteger)category withBlock:(void (^)(NSDictionary *dictionary))block;
 
+//获取文章列表
++ (void)getPopularNewsListWithCategory:(NSString *)category page:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block;
+
+//获取置顶文章
++ (void)getPopularNewsTopWithPage:(NSNumber *)aPage withBlock:(void(^)(NSDictionary *dictionary))block;
 /**********************************商城模块****************************************
  */
 
@@ -392,5 +423,9 @@
 + (void)getMallOrderDetailWithPurchseId:(NSString *)purchseId WithBlock:(void(^)(NSDictionary *dictionary))block;
 //钱包流水记录
 + (void)getWalletHistoryWithPage:(NSNumber *)aPage WithBlock:(void(^)(NSDictionary *responseDictionary))block;
+
+//获取订单信息（用于首页滚动）
++ (void)getScrollOrderMessageWithBlock:(void(^)(NSDictionary *dictionary))block;
+
 
 @end

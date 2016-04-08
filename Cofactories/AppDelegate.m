@@ -5,8 +5,7 @@
 //  Created by 宋国华 on 15/11/3.
 //  Copyright © 2015年 宋国华. All rights reserved.
 //
-
-#import "PopularMessageController.h"
+#import "PopularNewsHome_VC.h"
 #import "Business_Cloth_VC.h"
 #import "MeShoppingCar_VC.h"
 
@@ -36,10 +35,13 @@
 @interface AppDelegate () {
     NSDictionary *pushDic;
 }
+@property (strong,nonatomic) UIImageView *niceView;
 
 @end
 
 @implementation AppDelegate
+
+@synthesize niceView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -144,13 +146,6 @@
         [MobClick setAppVersion:kVersion_Cofactories];
     }
     
-    if (launchOptions != nil) {
-        NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-        if (userInfo != nil) {
-            NSLog(@"remote notification:%@",userInfo);
-            [RootViewController handleNotificationInfo:userInfo applicationState:UIApplicationStateInactive];
-        }
-    }
     //修改app默认UA
     UIWebView* tempWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
     NSString* userAgent = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
@@ -162,13 +157,52 @@
     DLog(@"------%@",ua);
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent" : ua, @"User-Agent" : ua}];
     
+    if (launchOptions != nil) {
+        NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (userInfo != nil) {
+            NSLog(@"remote notification:%@",userInfo);
+            [RootViewController handleNotificationInfo:userInfo applicationState:UIApplicationStateInactive];
+        }
+    }
+    
     RootViewController *mainVC = [[RootViewController alloc] init];
     self.window.rootViewController = mainVC;
     [self customizeInterface];
     [_window makeKeyAndVisible];
     
+    [self addAnimation];
+
     return YES;
 }
+
+- (void)addAnimation {
+    
+    niceView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    niceView.tag=11;
+    niceView.image = [UIImage imageNamed:@"LaunchImage"];
+    
+    [self.window addSubview:niceView];
+    [self.window bringSubviewToFront:niceView];
+    
+    CABasicAnimation *animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    niceView.layer.anchorPoint = CGPointMake(.5,.5);
+    animation.fromValue = @1.0f;
+    animation.toValue = @1.2f;
+    animation.fillMode=kCAFillModeForwards;
+    
+    animation.removedOnCompletion = NO;
+    [animation setAutoreverses:NO];
+    
+    animation.duration=0.9;
+    animation.delegate=self;
+    
+    [niceView.layer addAnimation:animation forKey:@"scale"];
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    [niceView removeFromSuperview];
+}
+
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     if ([Login isLogin]) {
         if ([shortcutItem.localizedTitle isEqualToString:@"购物车"]) {
@@ -176,7 +210,7 @@
             [RootViewController toucHPushViewController:vc];
         }
         else if ([shortcutItem.localizedTitle isEqualToString:@"流行资讯"]) {
-            PopularMessageController * vc = [[PopularMessageController alloc]init];
+            PopularNewsHome_VC * vc = [[PopularNewsHome_VC alloc]init];
             [RootViewController toucHPushViewController:vc];
             
         } else if ([shortcutItem.localizedTitle isEqualToString:@"查找服装企业"]) {
@@ -198,8 +232,6 @@
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
- 
-    
     DLog(@"deviceToken = %@",[NSString stringWithFormat:@"%@", deviceToken]);
     [HttpClient iOSLaunchWithDeviceId:[NSString stringWithFormat:@"%@", deviceToken] WithClientVersion:kVersion_Cofactories];
     
@@ -227,16 +259,20 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     //    [UMessage didReceiveRemoteNotification:userInfo];
-    if ([userInfo[@"id_flag"] length] != 0) {
-        pushDic = [NSDictionary dictionaryWithDictionary:userInfo];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"通知" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看详情", nil];
-        alert.tag = 223;
-        [alert show];
-        
-    } else {
-        kTipAlert(@"%@",userInfo[@"aps"][@"alert"]);
-    }
     //    [RootViewController handleNotificationInfo:userInfo applicationState:[application applicationState]];
+    
+
+        if ([userInfo[@"action_flag"] isEqualToString:@"news"] || [userInfo[@"action_flag"] isEqualToString:@"activity"]) {
+
+            pushDic = [NSDictionary dictionaryWithDictionary:userInfo];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"通知" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看详情", nil];
+            alert.tag = 223;
+            [alert show];
+    
+        } else {
+            kTipAlert(@"%@",userInfo[@"aps"][@"alert"]);
+        }
+    
 }
 
 
@@ -288,7 +324,7 @@
             break;
             
         default:
-            kTipAlert(@"充值错误（%ld）",(long)resultStatus);
+            kTipAlert(@"订单支付失败（%ld）",(long)resultStatus);
             break;
     }
 }
@@ -376,6 +412,9 @@
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    
+    UIImage *backImage = [UIImage imageNamed:@"back"];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[backImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, backImage.size.width, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 }
 
 @end

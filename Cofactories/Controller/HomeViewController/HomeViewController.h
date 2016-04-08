@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "HomeMarketButton.h"
 #import "HomeMarketCell.h"
-#import "HomePersonalDataCell.h"
-#import "HomeActivityCell.h"
 #import "WKFCircularSlidingView.h"
+
 @interface HomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, HomeMarketCellDelegate, WKFCircularSlidingViewDelegate, RCIMUserInfoDataSource, RCIMReceiveMessageDelegate>
 @property (nonatomic, strong) UITableView *homeTableView;
 

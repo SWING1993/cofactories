@@ -30,6 +30,8 @@
     _contractWebview = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [_contractWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webUrlString]]];
     [self.view addSubview:_contractWebview];
+    
+    DLog(@"------%@------",_webUrlString);
 }
 
 - (void)signClick{

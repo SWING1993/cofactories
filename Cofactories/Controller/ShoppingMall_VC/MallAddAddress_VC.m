@@ -18,8 +18,18 @@
 
 static NSString *addCellIdentifier = @"addCell";
 static NSString * CellIdentifier = @"CellIdentifier";
-
 @interface MallAddAddress_VC ()<UIPickerViewDataSource,UIPickerViewDelegate, UIAlertViewDelegate> {
+    UIPickerView *picker;
+    UIButton *button;
+    
+    NSDictionary *areaDic;
+    NSArray *province;
+    NSArray *city;
+    NSArray *district;
+    
+    NSString *addressString;
+    NSString *selectedProvince;
+    
     NSArray *placeHolderArray;
     UITextField *personNameTF, *phoneNumberTF, *postNumberTF, *addressTF;
     PlaceholderTextView *detailAddressTV;
@@ -71,24 +81,24 @@ static NSString * CellIdentifier = @"CellIdentifier";
     }];
     
     NSMutableArray *provinceTmp = [[NSMutableArray alloc] init];
-    for (int i=0; i<[sortedArray count]; i++) {
+    for (int i = 0; i < sortedArray.count; i++) {
         NSString *index = [sortedArray objectAtIndex:i];
         NSArray *tmp = [[areaDic objectForKey: index] allKeys];
         [provinceTmp addObject: [tmp objectAtIndex:0]];
     }
     province = [[NSArray alloc] initWithArray: provinceTmp];
     
-    NSString *index = [sortedArray objectAtIndex:0];
-    NSString *selected = [province objectAtIndex:0];
-    NSDictionary *dic = [NSDictionary dictionaryWithDictionary: [[areaDic objectForKey:index]objectForKey:selected]];
+    NSString *index = sortedArray[0];
+    NSString *selected = province[0];
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary: areaDic[index][selected]];
     
     NSArray *cityArray = [dic allKeys];
-    NSDictionary *cityDic = [NSDictionary dictionaryWithDictionary: [dic objectForKey: [cityArray objectAtIndex:0]]];
+    NSDictionary *cityDic = [NSDictionary dictionaryWithDictionary: dic[cityArray[0]]];
     city = [[NSArray alloc] initWithArray: [cityDic allKeys]];
     
     NSString *selectedCity = [city objectAtIndex: 0];
-    district = [[NSArray alloc] initWithArray: [cityDic objectForKey: selectedCity]];
-
+    district = [[NSArray alloc] initWithArray: cityDic[selectedCity]];
+    selectedProvince = selected;
 }
 
 - (void)creatTableViewFooterView {
@@ -207,9 +217,9 @@ static NSString * CellIdentifier = @"CellIdentifier";
     NSInteger cityIndex = [self.addressPicker selectedRowInComponent: CITY_COMPONENT];
     NSInteger districtIndex = [self.addressPicker selectedRowInComponent: DISTRICT_COMPONENT];
     
-    NSString *provinceStr = [province objectAtIndex: provinceIndex];
-    NSString *cityStr = [city objectAtIndex: cityIndex];
-    NSString *districtStr = [district objectAtIndex:districtIndex];
+    NSString *provinceStr = province[provinceIndex];
+    NSString *cityStr = city[cityIndex];
+    NSString *districtStr = district[districtIndex];
     
     addressString = [NSString stringWithFormat: @"%@%@%@", provinceStr, cityStr, districtStr];
     addressTF.text = addressString;
@@ -225,25 +235,25 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     if (component == PROVINCE_COMPONENT) {
-        return [province count];
+        return province.count;
     }
     else if (component == CITY_COMPONENT) {
-        return [city count];
+        return city.count;
     }
     else {
-        return [district count];
+        return district.count;
     }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (component == PROVINCE_COMPONENT) {
-        return [province objectAtIndex: row];
+        return province[row];
     }
     else if (component == CITY_COMPONENT) {
-        return [city objectAtIndex: row];
+        return city[row];
     }
     else {
-        return [district objectAtIndex: row];
+        return district[row];
     }
 }
 
@@ -251,8 +261,8 @@ static NSString * CellIdentifier = @"CellIdentifier";
     DLog(@"- (void)pickerView:(UIPickerView *)");
     if (component == PROVINCE_COMPONENT) {
         selectedProvince = [province objectAtIndex: row];
-        NSDictionary *tmp = [NSDictionary dictionaryWithDictionary: [areaDic objectForKey: [NSString stringWithFormat:@"%ld", (long)row]]];
-        NSDictionary *dic = [NSDictionary dictionaryWithDictionary: [tmp objectForKey: selectedProvince]];
+        NSDictionary *tmp = [NSDictionary dictionaryWithDictionary: areaDic[[NSString stringWithFormat:@"%ld", (long)row]]];
+        NSDictionary *dic = [NSDictionary dictionaryWithDictionary: tmp[selectedProvince]];
         NSArray *cityArray = [dic allKeys];
         NSArray *sortedArray = [cityArray sortedArrayUsingComparator: ^(id obj1, id obj2) {
             
@@ -267,14 +277,14 @@ static NSString * CellIdentifier = @"CellIdentifier";
         }];
         
         NSMutableArray *array = [[NSMutableArray alloc] init];
-        for (int i=0; i<[sortedArray count]; i++) {
-            NSString *index = [sortedArray objectAtIndex:i];
-            NSArray *temp = [[dic objectForKey: index] allKeys];
-            [array addObject: [temp objectAtIndex:0]];
+        for (int i = 0; i < sortedArray.count; i++) {
+            NSString *index = sortedArray[i];
+            NSArray *temp = [dic[index] allKeys];
+            [array addObject: temp[0]];
         }
         city = [[NSArray alloc] initWithArray: array];
-        NSDictionary *cityDic = [dic objectForKey: [sortedArray objectAtIndex: 0]];
-        district = [[NSArray alloc] initWithArray: [cityDic objectForKey: [city objectAtIndex: 0]]];
+        NSDictionary *cityDic = dic[sortedArray[0]];
+        district = [[NSArray alloc] initWithArray: cityDic[city[0]]];
         [self.addressPicker selectRow: 0 inComponent: CITY_COMPONENT animated: YES];
         [self.addressPicker selectRow: 0 inComponent: DISTRICT_COMPONENT animated: YES];
         [self.addressPicker reloadComponent: CITY_COMPONENT];
@@ -282,27 +292,25 @@ static NSString * CellIdentifier = @"CellIdentifier";
         
     }
     else if (component == CITY_COMPONENT) {
+        
         NSString *provinceIndex = [NSString stringWithFormat: @"%lu", (unsigned long)[province indexOfObject: selectedProvince]];
-        NSDictionary *tmp = [NSDictionary dictionaryWithDictionary: [areaDic objectForKey: provinceIndex]];
-        NSDictionary *dic = [NSDictionary dictionaryWithDictionary: [tmp objectForKey: selectedProvince]];
+        NSDictionary *tmp = [NSDictionary dictionaryWithDictionary: areaDic[provinceIndex]];
+        NSDictionary *dic = [NSDictionary dictionaryWithDictionary: tmp[selectedProvince]];
         NSArray *dicKeyArray = [dic allKeys];
         NSArray *sortedArray = [dicKeyArray sortedArrayUsingComparator: ^(id obj1, id obj2) {
-            
             if ([obj1 integerValue] > [obj2 integerValue]) {
                 return (NSComparisonResult)NSOrderedDescending;
-            }
-            
-            if ([obj1 integerValue] < [obj2 integerValue]) {
+            } else if ([obj1 integerValue] < [obj2 integerValue]) {
                 return (NSComparisonResult)NSOrderedAscending;
+            } else {
+               return (NSComparisonResult)NSOrderedSame;
             }
-            return (NSComparisonResult)NSOrderedSame;
         }];
-        
-        NSDictionary *cityDic = [NSDictionary dictionaryWithDictionary: [dic objectForKey: [sortedArray objectAtIndex: row]]];
-        NSArray *cityKeyArray = [cityDic allKeys];
-        district = [[NSArray alloc] initWithArray: [cityDic objectForKey: [cityKeyArray objectAtIndex:0]]];
-        [self.addressPicker selectRow: 0 inComponent: DISTRICT_COMPONENT animated: YES];
-        [self.addressPicker reloadComponent: DISTRICT_COMPONENT];
+            NSDictionary *cityDic = [NSDictionary dictionaryWithDictionary: dic[sortedArray[row]]];
+            NSArray *cityKeyArray = [cityDic allKeys];
+            district = [[NSArray alloc] initWithArray: cityDic[cityKeyArray[0]]];
+            [self.addressPicker selectRow: 0 inComponent: DISTRICT_COMPONENT animated: YES];
+            [self.addressPicker reloadComponent: DISTRICT_COMPONENT];
     }
 }
 

@@ -121,7 +121,7 @@
   if (page == self.myImagesArray.count - 3) {
     x = self.bounds.size.width * (self.myImagesArray.count-1);
   }else {
-    x = self.bounds.size.width * (page+2);
+    x = self.bounds.size.width * (page + 2);
   }
   [self.myScrollView setContentOffset:CGPointMake(x, 0) animated:YES];
 }

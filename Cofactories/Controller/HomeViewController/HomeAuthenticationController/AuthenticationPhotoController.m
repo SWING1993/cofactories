@@ -11,7 +11,7 @@
 
 static NSString * CellIdentifier = @"CellIdentifier";
 
-@interface AuthenticationPhotoController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+@interface AuthenticationPhotoController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIActionSheetDelegate,UICollectionViewDataSource, UICollectionViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, assign) NSInteger imageType;
 
@@ -257,22 +257,21 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 #pragma mark <UIImagePickerControllerDelegate>
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    DLog(@"+++++++++++++++++++++++");
-//    UIImage*image = info[UIImagePickerControllerOriginalImage];
-    UIImage*image = info[UIImagePickerControllerEditedImage];//截取图片
+    UIImage*image = info[UIImagePickerControllerOriginalImage];
+//    UIImage*image = info[UIImagePickerControllerEditedImage];//截取图片
+//    UIImage *scaleImage = [Tools compressPicturesWithImage:image];
+//    NSData *imageData = UIImageJPEGRepresentation(scaleImage,0.5);
+//    UIImage*newImage = [UIImage imageWithData:imageData];
     
-    NSData *imageData = UIImageJPEGRepresentation(image,0.5);
-    UIImage*newImage = [UIImage imageWithData:imageData];
-    
-    [self.imageArray addObject:newImage];
+    [self.imageArray addObject:image];
     if (self.imageType == 1) {
-        [self.idCardImageArray addObject:newImage];
+        [self.idCardImageArray addObject:image];
     }
     if (self.imageType == 2) {
-        [self.idCardBackImageArray addObject:newImage];
+        [self.idCardBackImageArray addObject:image];
     }
     if (self.imageType == 3) {
-        [self.licenseImageArray addObject:newImage];
+        [self.licenseImageArray addObject:image];
     }
     DLog(@"idCard = %ld, idCardBack = %ld, license = %ld", (unsigned long)self.idCardImageArray.count, (unsigned long)self.idCardBackImageArray.count, (unsigned long)self.licenseImageArray.count);
     DLog(@"self.imageArray.count%lu",(unsigned long)self.imageArray.count);
@@ -300,23 +299,15 @@ static NSString * CellIdentifier = @"CellIdentifier";
 - (void)actionOfDoneButton:(UIButton *)button {
     DLog(@"提交认证");
     doneButton.userInteractionEnabled = NO;
-    [HttpClient postVerifyWithenterpriseName:self.priseName withenterpriseAddress:self.priseAddress withpersonName:self.personName withidCard:self.idCard idCardImage:[self.idCardImageArray lastObject] idCardBackImage:[self.idCardBackImageArray lastObject] licenseImage:[self.licenseImageArray lastObject] andBlock:^(NSInteger statusCode) {
+    UIImage *idCardImage = [Tools compressPicturesWithImage:[self.idCardImageArray lastObject]];
+    UIImage *idCardBackImage = [Tools compressPicturesWithImage:[self.idCardBackImageArray lastObject]];
+    UIImage *licenseImage = [Tools compressPicturesWithImage:[self.licenseImageArray lastObject]];
+    [HttpClient postVerifyWithenterpriseName:self.priseName withenterpriseAddress:self.priseAddress withpersonName:self.personName withidCard:self.idCard idCardImage:idCardImage idCardBackImage:idCardBackImage licenseImage:licenseImage andBlock:^(NSInteger statusCode) {
         if (statusCode == 200) {
-            kTipAlert(@"提交认证成功, 可能需要几分钟的等待上传图片！");
             doneButton.userInteractionEnabled = YES;
-            if (self.homeEnter) {
-                double delayInSeconds = 1.0f;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    NSArray *navArray = self.navigationController.viewControllers;
-                    [self.navigationController popToViewController:navArray[0] animated:YES];
-                });
-            } else {
-                //不是首页进入的
-                NSArray *navArray = self.navigationController.viewControllers;
-                [self.navigationController popToViewController:navArray[0] animated:YES];
-            }
-            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"提交认证成功, 可能需要几分钟的等待上传图片！" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+            [alert show];
+//            kTipAlert(@"提交认证成功, 可能需要几分钟的等待上传图片！");
         } else {
             kTipAlert(@"提交认证失败");
             doneButton.userInteractionEnabled = YES;
@@ -325,10 +316,18 @@ static NSString * CellIdentifier = @"CellIdentifier";
     }];
 }
 
+#pragma mark - UIAlertViewDelegate
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        if (self.homeEnter) {
+            NSArray *navArray = self.navigationController.viewControllers;
+            [self.navigationController popToViewController:navArray[0] animated:YES];
+        } else {
+            //不是首页进入的
+            NSArray *navArray = self.navigationController.viewControllers;
+            [self.navigationController popToViewController:navArray[0] animated:YES];
+        }
+    }
 }
-
 @end

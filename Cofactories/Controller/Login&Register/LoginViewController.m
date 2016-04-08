@@ -24,7 +24,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 @property (nonatomic, strong) Login *myLogin;
 @property (strong, nonatomic) EaseInputTipsView *inputTipsView;
-@property (strong, nonatomic) UILabel * enterpriseLabel;
+@property (strong, nonatomic) UIButton * enterpriseBtn;
+@property (strong, nonatomic) UIButton * enterpriseBtn2;
 @property (strong, nonatomic) LoginButton * loginBtn;
 @property (assign, nonatomic) BOOL isEnterprise;
 
@@ -86,25 +87,35 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 120)];
     
     //企业账号
-    UIButton * enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    enterpriseBtn.frame = CGRectMake(kScreenW - 45, 10, 20, 20);
-    enterpriseBtn.tag = 9;
-    enterpriseBtn.selected = self.isEnterprise;
-    [enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Normal"] forState:UIControlStateNormal];
-    [enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Selected"] forState:UIControlStateSelected];
+    self.enterpriseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.enterpriseBtn.frame = CGRectMake(kScreenW - 45, 10, 20, 20);
+    self.enterpriseBtn.tag = 9;
+    self.enterpriseBtn.selected = self.isEnterprise;
+    [self.enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Normal"] forState:UIControlStateNormal];
+    [self.enterpriseBtn setImage:[UIImage imageNamed:@"leftBtn_Selected"] forState:UIControlStateSelected];
     
-    [enterpriseBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [tableFooterView addSubview:enterpriseBtn];
+    [self.enterpriseBtn addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [tableFooterView addSubview:self.enterpriseBtn];
     
-    self.enterpriseLabel = ({
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenW - 110, 10, 60, 20)];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.text = @"企业账号";
-        label.textColor = [UIColor blackColor];
-        label.font = [UIFont boldSystemFontOfSize:14];
-        label;
-    });
-    [tableFooterView addSubview:self.enterpriseLabel];
+    self.enterpriseBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.enterpriseBtn2.frame = CGRectMake(kScreenW - 110, 10, 60, 20);
+    self.enterpriseBtn2.tag = 9;
+    self.enterpriseBtn2.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+    [self.enterpriseBtn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.enterpriseBtn2 setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+
+    self.enterpriseBtn2.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.enterpriseBtn2 setTitle:@"企业账号" forState:UIControlStateNormal];
+    [self.enterpriseBtn2 addTarget:self action:@selector(clickbBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [tableFooterView addSubview:self.enterpriseBtn2];
+
+//        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenW - 110, 10, 60, 20)];
+//        label.textAlignment = NSTextAlignmentCenter;
+//        label.text = @"企业账号";
+//        label.textColor = [UIColor blackColor];
+//        label.font = [UIFont boldSystemFontOfSize:14];
+//        label;
+    
     
     //登录 Button
     _loginBtn  = [[LoginButton alloc]init];
@@ -158,13 +169,14 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     switch (button.tag) {
         case 9:{
             self.isEnterprise = !self.isEnterprise;
-            sender.selected = self.isEnterprise;
-            if (sender.selected) {
-                self.enterpriseLabel.textColor = [UIColor redColor];
+            self.enterpriseBtn.selected = self.isEnterprise;
+            self.enterpriseBtn2.selected = self.isEnterprise;
+            if (self.isEnterprise) {
+                [Tools showHudTipStr:@"企业账号登录"];
             }else {
-                self.enterpriseLabel.textColor = [UIColor blackColor];
+                [Tools showHudTipStr:@"普通账号登录"];
             }
-            DLog(@"企业账号:%d",sender.selected);
+            DLog(@"企业账号:%d",self.isEnterprise);
         }
             break;
             
@@ -177,14 +189,16 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             if (self.myLogin.phone.length == 0||self.myLogin.password.length == 0) {
                 [button setEnabled:YES];
                 [hud hide:YES];
-                kTipAlert(@":）请您填写账号以及密码后登录");
+                [Tools showErrorTipStr:@":）请您填写账号以及密码后登录"];
+//                kTipAlert(@":）请您填写账号以及密码后登录");
             }else{
                 [HttpClient loginWithUsername:self.myLogin.phone Password:self.myLogin.password Enterprise:self.isEnterprise andBlock:^(NSInteger statusCode) {
                     switch (statusCode) {
                         case 0:{
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@":）您的网络状态不太顺畅哦");
+                            [Tools showErrorTipStr:@":）您的网络状态不太顺畅哦"];
+//                            kTipAlert(@":）您的网络状态不太顺畅哦");
                         }
                             break;
                             
@@ -207,7 +221,8 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         case 401:{
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@":）用户名或密码错误");
+                            [Tools showErrorTipStr:@":）用户名或密码错误"];
+//                            kTipAlert(@":）用户名或密码错误");
                             
                         }
                             break;
@@ -215,7 +230,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         default:
                             [hud hide:YES];
                             [button setEnabled:YES];
-                            kTipAlert(@":）登录失败 (%ld)",(long)statusCode);
+                            kTipAlert(@"登录失败 (%ld)",(long)statusCode);
                             break;
                     }
                 }];

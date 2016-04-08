@@ -16,7 +16,7 @@
 static NSString *mallGoodsCellIdentifier = @"mallGoodsCell";
 static NSString *mallAddressCellIdentifier = @"mallAddressCell";
 static NSString *mallStatusCellIdentifier = @"mallStatusCell";
-@interface MallOrderSellDetail_VC (){
+@interface MallOrderSellDetail_VC ()<UIAlertViewDelegate> {
     UIButton *lastButton;
 }
 

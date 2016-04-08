@@ -262,7 +262,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
         UIImageView*imageView = [[UIImageView alloc]init];
         imageView.userInteractionEnabled = YES;
         imageView.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,marketDetailModel.photoArray[indexPath.row]]] placeholderImage:[UIImage imageNamed:@""]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PhotoAPI,marketDetailModel.photoArray[indexPath.row]]] placeholderImage:[UIImage imageNamed:@"ImageLoading"]];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
         [cell addSubview:imageView];

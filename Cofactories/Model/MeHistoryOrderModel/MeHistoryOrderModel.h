@@ -36,6 +36,8 @@
 @property (nonatomic, strong) NSString *receiveTime;
 @property (nonatomic, strong) NSString *comment;//评论状态（1：买家评论过卖家没评， 2：卖家评论过买家没评， 3：双方已评，订单已完成）
 
+@property (nonatomic, strong) NSString *payment;//判断是不是用企业账号付的款
+
 @property (nonatomic, assign) BOOL showButton;
 
 - (instancetype)initMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary;

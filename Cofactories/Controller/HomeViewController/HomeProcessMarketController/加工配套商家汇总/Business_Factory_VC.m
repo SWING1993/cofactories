@@ -97,7 +97,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)footerRereshing{
     _refrushCount++;
-    DLog(@"_refrushCount==%d",_refrushCount);
+//    DLog(@"_refrushCount==%d",_refrushCount);
     [HttpClient searchBusinessWithRole:@"processing" scale:_userScale province:_userProvince city:_userCity subRole:_subrole keyWord:_userBusinessName verified:_userType page:@(_refrushCount) WithCompletionBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"message"];
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Home_market_processed.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Home_market_processed@2x.png",
       "scale" : "2x"
     },
     {

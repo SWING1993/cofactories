@@ -46,18 +46,7 @@
         MeViewController *fourthViewController = [[MeViewController alloc] init];
         UIViewController *fourthNavigationController = [[UINavigationController alloc]
                                                         initWithRootViewController:fourthViewController];
-        
-        if ([kBaseUrl isEqualToString:@"https://app.cofactories.com"]) {
-            firstViewController.title = @"聚工厂";
-        }
-        
-        else if ([kBaseUrl isEqualToString:@"https://lo.cofactories.com"]) {
-            firstViewController.title = @"聚工厂（本地测试）";
-        }
-        else if ([kBaseUrl isEqualToString:@"https://test.cofactories.com"]) {
-            firstViewController.title = @"聚工厂（远程测试）";
-        }
-        
+        firstViewController.title = kFirstControllerTitle;
         secondViewController.title = @"";
         thirdViewController.title = @"消息";
         fourthViewController.title = @"我";

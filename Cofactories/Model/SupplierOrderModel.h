@@ -23,6 +23,8 @@
 @property(nonatomic,copy)NSString *unit;
 @property(nonatomic,copy)NSString *updatedAt;
 @property(nonatomic,copy)NSString *userUid;
+@property(nonatomic,copy)NSString *orderWinnerName;
+@property(nonatomic,copy)NSString *orderWinnerPhone;
 
 - (instancetype)initSupplierOrderModelWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)getSupplierOrderModelWithDictionary:(NSDictionary *)dictionary;

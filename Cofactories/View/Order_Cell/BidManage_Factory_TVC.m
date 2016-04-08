@@ -16,6 +16,7 @@
     UIScrollView *_scrollView;
     NSArray      *_array;
     UILabel      *_descriptionLB;
+    NSString     *_userID;
 }
 
 
@@ -86,6 +87,7 @@
     }
     
     _descriptionLB.text = [NSString stringWithFormat:@"备注信息: %@",model.descriptions];
+    _userID = model.userID;
 }
 
 - (void)MJPhotoBrowserClick:(id)sender{
@@ -111,7 +113,9 @@
 - (void)phoneClick{
     NSString *str = [NSString stringWithFormat:@"telprompt://%@", _phoneLB.text];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-    
+    [HttpClient statisticsWithKey:@"phoneCall" withUid:_userID andBlock:^(NSInteger statusCode) {
+        DLog(@"------------%ld--------",(long)statusCode);
+    }];
 }
 
 

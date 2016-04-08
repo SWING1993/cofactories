@@ -11,12 +11,12 @@
 #import "PersonalMessage_Clothing_VC.h"
 #import "PersonalMessage_Factory_VC.h"
 #import "HomeKoreaShopList_VC.h"
-#import "PopularMessageController.h"
+#import "PopularNewsHome_VC.h"
 #import "ShoppingMallDetail_VC.h"
 #import <Bugly/JSExceptionReporter.h>
 
 @interface HomeActivity_VC ()<UIWebViewDelegate> {
-    UIWebView * webView;
+    UIWebView * activityWebView;
     MBProgressHUD *hud;
 }
 
@@ -27,17 +27,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    webView = [[UIWebView alloc]initWithFrame:kScreenBounds];
-    webView.delegate = self;
-    webView.backgroundColor = [UIColor whiteColor];
-//    self.urlString = @"http://h5.lo.cofactories.com/!)test/";
-    //添加access_token
+    //自定义返回键
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    self.navigationItem.leftBarButtonItem = backItem;
+    
+    //防止自定义返回键右滑返回手势失效
+    self.navigationController.interactivePopGestureRecognizer.delegate=(id)self;
+    
+    UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Home-刷新按钮"] style:UIBarButtonItemStylePlain target:self action:@selector(refresh)];
+    self.navigationItem.rightBarButtonItem = refreshItem;
+    
+    activityWebView = [[UIWebView alloc]initWithFrame:kScreenBounds];
+    activityWebView.delegate = self;
+    activityWebView.backgroundColor = [UIColor whiteColor];
     
     AFOAuthCredential *credential=[HttpClient getToken];
     NSString * urlStr = [NSString stringWithFormat:@"%@?access_token=%@",self.urlString,credential.accessToken];
     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
-    [self.view addSubview:webView];
-    [webView loadRequest:request];
+    [self.view addSubview:activityWebView];
+    [activityWebView loadRequest:request];
     
     hud = [Tools createHUDWithView:self.view];
     hud.labelText = @"加载中...";
@@ -85,7 +93,7 @@
         
         //流行资讯
         if ([requestString rangeOfString:@"news"].location != NSNotFound) {
-            PopularMessageController *popularVC = [[PopularMessageController alloc] init];
+            PopularNewsHome_VC *popularVC = [[PopularNewsHome_VC alloc] init];
             popularVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:popularVC animated:YES];
         }
@@ -122,9 +130,22 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+//    NSString *myString = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
+//    DLog(@"^^^^^^^^^^^^urlString=%@", myString);
     [hud hide:YES];
 }
 
+- (void)back {
+    if ([activityWebView canGoBack]) {
+        [activityWebView goBack];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)refresh {
+    [activityWebView reload];
+}
 
 @end

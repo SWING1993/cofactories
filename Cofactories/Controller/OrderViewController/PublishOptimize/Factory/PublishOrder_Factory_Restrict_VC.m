@@ -260,7 +260,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
 
 - (void)publishAction{
     
-    DLog(@"------------>>>>>%@,%@,%@,%ld,%@,%@",_typeLabel2.text,_amountTF.text,_timeButton.titleLabel.text,(long)_customeView.moneyAmount,_commentTF.text,_imageArray);
+    DLog(@"------------>>>>>%@,%@,%@,%@,%@,%@",_typeLabel2.text,_amountTF.text,_timeButton.titleLabel.text,_moneyString,_commentTF.text,_imageArray);
     
     if (_typeLabel2.text.length != 2 || _amountTF.text.length == 0 || [Tools isBlankString:_amountTF.text] == YES || [_timeButton.titleLabel.text isEqualToString:@"请选择订单期限"]) {
         kTipAlert(@"请填写必填信息，再发布订单!");
@@ -299,7 +299,7 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
             }
             
             //  此处要修改
-            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:[NSString stringWithFormat:@"%ld",(long)_customeView.moneyAmount] WithCompletionBlock:^(NSDictionary *dictionary) {
+            [HttpClient publishFactoryOrderWithSubrole:@"加工厂"type:typeString amount:_amountTF.text deadline:_timeButton.titleLabel.text description:_commentTF.text credit:_moneyString WithCompletionBlock:^(NSDictionary *dictionary) {
                 
                 if ([dictionary[@"statusCode"] isEqualToString:@"200"]) {
                     if (_imageArray.count > 0) {

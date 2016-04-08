@@ -114,7 +114,7 @@
                     break;
                     
                 default:
-                    kTipAlert(@"充值错误（%@）",[resultDic objectForKey:@"resultStatus"]);
+                    kTipAlert(@"订单支付失败（%@）",[resultDic objectForKey:@"resultStatus"]);
                     break;
             }
             NSLog(@"reslut = %@",resultDic);

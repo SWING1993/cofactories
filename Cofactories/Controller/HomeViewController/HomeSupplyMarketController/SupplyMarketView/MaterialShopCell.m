@@ -7,6 +7,8 @@
 //
 
 #import "MaterialShopCell.h"
+#import "SearchShopMarketModel.h"
+#import "ZGYAttributedStyle.h"
 
 @implementation MaterialShopCell
 
@@ -43,6 +45,18 @@
     return self;
 }
 
-
+- (void)reloadDataWithSearchShopMarketModel:(SearchShopMarketModel *)searchShopModel {
+    if (searchShopModel.photoArray.count > 0) {
+        NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, searchShopModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [self.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"ImageLoading"]];
+    } else {
+        self.photoView.image = [UIImage imageNamed:@"默认图片"];
+    }
+    self.materialTitle.text = searchShopModel.name;
+    NSString *string = [NSString stringWithFormat:@"￥ %@", searchShopModel.price];
+    self.priceLabel.attributedText = [string creatAttributedStringWithStyles:@[fontStyle([UIFont systemFontOfSize:18.f], NSMakeRange(2, string.length - 5))]];
+    self.saleLabel.text = [NSString stringWithFormat:@"已售 %@ 件", searchShopModel.sales];
+    self.placeLabel.text = searchShopModel.city;
+}
 
 @end

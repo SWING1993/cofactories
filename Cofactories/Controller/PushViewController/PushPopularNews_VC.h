@@ -11,7 +11,5 @@
 @interface PushPopularNews_VC : UIViewController
 
 @property (nonatomic, strong) NSString *id_flag;
-@property (nonatomic, strong) NSString *title_flag;
-@property (nonatomic, strong) NSString *content_flag;
 
 @end

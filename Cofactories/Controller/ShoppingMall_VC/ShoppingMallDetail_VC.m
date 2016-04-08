@@ -232,7 +232,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         goodsImage.clipsToBounds = YES;
         goodsImage.tag = 10000 + i;
         NSString* encodedString = [[NSString stringWithFormat:@"%@%@",PhotoAPI,marketDetailModel.photoArray[i]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [goodsImage sd_setImageWithURL:[NSURL URLWithString:encodedString]  placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+        [goodsImage sd_setImageWithURL:[NSURL URLWithString:encodedString]  placeholderImage:[UIImage imageNamed:@"ImageLoading"]];
         //添加手势
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(MJPhotoBrowserClick:)];
         [goodsImage addGestureRecognizer:tap];
@@ -541,11 +541,6 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         goodsModel.amount = [NSString stringWithFormat:@"%ld", numberView.timeAmount];
         goodsModel.photoArray = marketDetailModel.photoArray;
         
-        //    ShoppingOrderController *shopOrderVC = [[ShoppingOrderController alloc] init];
-        //    shopOrderVC.goodsDic = buyGoodsDic;
-        //    shopOrderVC.goodsID = self.shopID;
-        //    shopOrderVC.goodsNumber = numberView.timeAmount;
-        //    [self.navigationController pushViewController:shopOrderVC animated:YES];
         MallSelectAddress_VC *selectAddressVC = [[MallSelectAddress_VC alloc] init];
         selectAddressVC.mallOrderDic = buyGoodsDic;
         selectAddressVC.goodsModel = goodsModel;

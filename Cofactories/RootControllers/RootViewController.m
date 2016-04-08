@@ -18,12 +18,20 @@
 #import "EAIntroView.h"
 
 #import "PushPopularNews_VC.h"
+#import "PushActivity_VC.h"
 
 /*
+ 4ce7064c216a6c79dbc2a151ae0fc27b95dddd692b4707d661a7a203fc4fd88b
+ a5750fd0b8c59fa5660342e88439eeb482fc33dbae6282b1accf6879932c1a92
+ 
+ action   news
  id_flag   VyZh1mlKl
  title_flag  看了就忘不了
  content_flag  据材料款电视剧里的手机
- a5750fd0b8c59fa5660342e88439eeb482fc33dbae6282b1accf6879932c1a92
+ 
+ action  activity
+ url  https://h5.cofactories.com/activity/miaosha-0317/
+ 
  
 static NSString * const sampleDescription1 = @"全新界面 全新玩法";
 static NSString * const sampleDescription2 = @"在线商城 在线交易";
@@ -94,26 +102,25 @@ static NSString * const sampleDescription5 = @"四大专区 应有尽有";
 
 #pragma mark Notification
 + (void)handleNotificationInfo:(NSDictionary *)userInfo applicationState:(UIApplicationState)applicationState {
+    
     if ([Login isLogin]) {
+        double delayInSeconds = 1.0f;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            //已登录
+            if (applicationState == UIApplicationStateInactive || applicationState == UIApplicationStateActive) {
+                if ([userInfo[@"action_flag"] isEqualToString:@"news"]) {
+                    PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
+                    pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
+                    [RootViewController presentVC:pushPopularNewsVC];
+                } else if ([userInfo[@"action_flag"] isEqualToString:@"activity"]) {
+                    PushActivity_VC *activityVC = [[PushActivity_VC alloc] init];
+                    activityVC.urlString = userInfo[@"url_flag"];
+                    [RootViewController presentVC:activityVC];
+                }
+            }
+        });
         
-        //已登录
-        if (applicationState == UIApplicationStateInactive) {
-            if ([userInfo[@"id_flag"] length] != 0) {
-                PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
-                pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
-                pushPopularNewsVC.title_flag = userInfo[@"title_flag"];
-                pushPopularNewsVC.content_flag = userInfo[@"content_flag"];
-                [RootViewController presentVC:pushPopularNewsVC];
-            }
-        }else if (applicationState == UIApplicationStateActive){
-            if ([userInfo[@"id_flag"] length] != 0) {
-                PushPopularNews_VC *pushPopularNewsVC = [[PushPopularNews_VC alloc] init];
-                pushPopularNewsVC.id_flag = userInfo[@"id_flag"];
-                pushPopularNewsVC.title_flag = userInfo[@"title_flag"];
-                pushPopularNewsVC.content_flag = userInfo[@"content_flag"];
-                [RootViewController presentVC:pushPopularNewsVC];
-            }
-        }
     } else {
         [RootViewController setupLoginViewController];
     }

@@ -581,7 +581,8 @@ static NSString * CellIdentifier = @"CellIdentifier";
             DLog(@"%@",self.collectionImage);
             [self.collectionImage enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 UIImage *image = (UIImage *)obj;
-                [upYun uploadImage:image policy:policyString signature:signatureString];
+                UIImage *uplodeImage = [Tools compressPicturesWithImage:image];
+                [upYun uploadImage:uplodeImage policy:policyString signature:signatureString];
             }];
             
         }else {

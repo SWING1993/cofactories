@@ -12,7 +12,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 
 
 @interface WithdrawalViewController ()<UITextFieldDelegate,UIAlertViewDelegate> {
-    UIButton * lastButton;
+    LoginButton * lastButton;
     UITextField * priceTextField;
     UITextField * bankcardTextField;
 
@@ -61,16 +61,11 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     UIView * tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 50)];
     tableFooterView.backgroundColor = [UIColor clearColor];
     
-    lastButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    lastButton.frame = CGRectMake(15,10,kScreenW-30,35);
+    lastButton = [[LoginButton alloc]initWithFrame:CGRectMake(15,10,kScreenW-30,35)];
     [lastButton setTitle:@"提现" forState:UIControlStateNormal];
-    lastButton.titleLabel.font = [UIFont systemFontOfSize:15.5*kZGY];
-    lastButton.layer.cornerRadius = 5;
-    lastButton.clipsToBounds = YES;
-    lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
-    [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-    [lastButton addTarget:self action:@selector(payAction) forControlEvents:UIControlEventTouchUpInside];
     lastButton.userInteractionEnabled = NO;
+    [lastButton changeState:lastButton.userInteractionEnabled];
+    [lastButton addTarget:self action:@selector(payAction) forControlEvents:UIControlEventTouchUpInside];
     [tableFooterView addSubview:lastButton];
     self.tableView.tableFooterView = tableFooterView;
     
@@ -99,23 +94,21 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
     else {
         if (([priceTextField.text floatValue]<[self.money floatValue] || [priceTextField.text floatValue]==[self.money floatValue]) && bankcardTextField.text.length>12) {
-            lastButton.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:171.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
-            [lastButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             lastButton.userInteractionEnabled = YES;
-
+            [lastButton changeState:lastButton.userInteractionEnabled];
         }
         else {
             DLog(@"提现金额太大");
-            lastButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
-            [lastButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
             lastButton.userInteractionEnabled = NO;
+            [lastButton changeState:lastButton.userInteractionEnabled];
         }
     }
 }
 - (void)payAction {
+    [lastButton addShakeAnimation];
+
     CGFloat money ;
     money = [priceTextField.text floatValue];
-    
     if (0<money) {
         
         NSString * amountStr = [NSString stringWithFormat:@"%.2f",money];
@@ -138,12 +131,10 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 #pragma mark - AlertView
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 1009) {
-        [self.navigationController popViewControllerAnimated:YES];
+    if (alertView.tag == 1009 && buttonIndex == 0) {
+        [self.navigationController popViewControllerAnimated:NO];
     }
 }
-
-
 
 #pragma mark - Table view data source
 
