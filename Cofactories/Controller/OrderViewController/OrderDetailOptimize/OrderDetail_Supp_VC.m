@@ -16,6 +16,7 @@
 #import "OrderBid_Supplier_VC.h"
 #import "BidManage_Supplier_VC.h"
 #import "MarkOrder_VC.h"
+#import "PersonalMessage_Design_VC.h"
 
 @interface OrderDetail_Supp_VC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView   *tableView;
@@ -143,6 +144,13 @@ static NSString *const reuseIdentifier2 = @"reuseIdentifier2";
         header.userName = _otherUserModel.name;
         header.userAddress = [NSString stringWithFormat:@"地址: %@",_otherUserModel.address];
         [view addSubview:header];
+        
+        
+        header.UserDetailBlock = ^{
+            PersonalMessage_Design_VC *vc = [PersonalMessage_Design_VC new];
+            vc.userModel = _otherUserModel;
+            [self.navigationController pushViewController:vc animated:YES];
+        };
         
         header.ImageBtnBlock = ^(NSArray *imagesArray){
             if (imagesArray.count == 0) {

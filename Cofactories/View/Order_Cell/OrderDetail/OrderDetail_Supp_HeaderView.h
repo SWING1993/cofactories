@@ -16,4 +16,6 @@
 @property (nonatomic,copy)void(^ImageBtnBlock)(NSArray *imagsArray);
 @property (nonatomic,copy)void(^ChatBtnBlock)(void);
 @property (nonatomic,copy)void(^BidBtnBlock)(void);
+@property (nonatomic,copy)void(^UserDetailBlock)(void);
+
 @end
