@@ -30,9 +30,9 @@
 #import "HomeActivityCell.h"
 #import "ActivityModel.h"
 
-#import "OrderList_Supplier_VC.h"
-#import "SearchOrder_Designer_VC.h"
-#import "SearchOrder_Factory_VC.h"
+#import "OrderList_Supplier_VC.h"//供应订单列表
+#import "SearchOrder_Designer_VC.h"//设计订单列表
+#import "SearchOrder_Factory_VC.h"//加工订单列表
 
 static NSString * CellIdentifier = @"CellIdentifier";
 static NSString *marketCellIdentifier = @"marketCell";

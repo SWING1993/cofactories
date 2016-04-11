@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "PopularNews-吐槽.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "PopularNews-吐槽.png",
       "scale" : "2x"
     },
     {

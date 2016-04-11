@@ -274,6 +274,7 @@
 		7D06AF9A1C166BD200EE7102 /* ShoppingCarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D06AF991C166BD200EE7102 /* ShoppingCarCell.m */; };
 		7D06AF9D1C1687AE00EE7102 /* ShopCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D06AF9C1C1687AE00EE7102 /* ShopCarModel.m */; };
 		7D0841181C914AFD0066403C /* TableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0841171C914AFD0066403C /* TableViewHeaderView.m */; };
+		7D1922D81CB8E5100076B1F0 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1922D71CB8E5100076B1F0 /* ShareView.m */; };
 		7D1A4E331C59FFA10076B462 /* MallAddAddress_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E321C59FFA10076B462 /* MallAddAddress_VC.m */; };
 		7D1A4E361C5A02080076B462 /* AddressTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E351C5A02080076B462 /* AddressTextFieldCell.m */; };
 		7D1A4E3A1C5A19880076B462 /* MallAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E391C5A19880076B462 /* MallAddressModel.m */; };
@@ -975,6 +976,8 @@
 		7D06AF9C1C1687AE00EE7102 /* ShopCarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarModel.m; sourceTree = "<group>"; };
 		7D0841161C914AFD0066403C /* TableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewHeaderView.h; sourceTree = "<group>"; };
 		7D0841171C914AFD0066403C /* TableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewHeaderView.m; sourceTree = "<group>"; };
+		7D1922D61CB8E5100076B1F0 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
+		7D1922D71CB8E5100076B1F0 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		7D1A4E311C59FFA10076B462 /* MallAddAddress_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallAddAddress_VC.h; sourceTree = "<group>"; };
 		7D1A4E321C59FFA10076B462 /* MallAddAddress_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallAddAddress_VC.m; sourceTree = "<group>"; };
 		7D1A4E341C5A02080076B462 /* AddressTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressTextFieldCell.h; sourceTree = "<group>"; };
@@ -2741,6 +2744,8 @@
 				7DC3D5711C8AC79300D358BE /* PopularNewsTop_Cell.m */,
 				7D54172F1C8E8CD900229CDA /* PopularNewsType_Cell.h */,
 				7D5417301C8E8CD900229CDA /* PopularNewsType_Cell.m */,
+				7D1922D61CB8E5100076B1F0 /* ShareView.h */,
+				7D1922D71CB8E5100076B1F0 /* ShareView.m */,
 			);
 			path = PopularNews_View;
 			sourceTree = "<group>";
@@ -3097,6 +3102,7 @@
 				70EBD6C41C8D130300162D07 /* PublishOrder_Factory_Common_VC.m in Sources */,
 				03623FFB1C44EDFE0083044A /* NSObject+ObjectMap.m in Sources */,
 				70612DD51CA0DF3600EC0272 /* OrderDetail_Supp_VC.m in Sources */,
+				7D1922D81CB8E5100076B1F0 /* ShareView.m in Sources */,
 				035CC5281C06DCF000998FBD /* JKPhotoBrowser.m in Sources */,
 				70E8C0751C868E2C007C7C1D /* GTFLoadPhoto_VC.m in Sources */,
 				039D4D771C72E14A0051CD2E /* UIScrollView+MJRefresh.m in Sources */,

@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "PopularNews-阅读数.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "PopularNews-阅读数.png",
       "scale" : "2x"
     },
     {
