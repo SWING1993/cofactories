@@ -143,59 +143,10 @@
     ShareView *shareView = [[ShareView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
     shareView.title = self.popularNewsModel.newsTitle;
     shareView.message = self.popularNewsModel.discriptions;
-    shareView.pictureName = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, self.popularNewsModel.newsImage]]]];
+    shareView.pictureName =  self.popularNewsModel.newsImage;
     shareView.shareUrl = urlString;
     shareView.myViewController = self;
-    [[[UIApplication  sharedApplication]keyWindow ]addSubview :shareView];
-//    [self.view addSubview:shareView];
-//    [self.view bringSubviewToFront:shareView];
-    
-    
-//    if ( [WXApi isWXAppInstalled] == NO &&[QQApiInterface isQQInstalled] == NO) {
-//        DLog(@"微信和QQ都没安装");
-//        [UMSocialSnsService presentSnsIconSheetView:self
-//                                             appKey:Appkey_Umeng
-//                                          shareText:[NSString stringWithFormat:@"%@, %@", self.popularNewsModel.newsTitle, urlString]
-//                                         shareImage:nil
-//                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToSms,nil]
-//                                           delegate:self];
-//    } else {
-//        DLog(@"^^^^^^^urlString = %@", urlString);
-//        if ([Tools isBlankString:self.popularNewsModel.newsTitle]) {
-//            newsTitle = @"来自于聚工厂《时尚资讯》的分享";
-//        } else {
-//            newsTitle = self.popularNewsModel.newsTitle;
-//        }
-//        if ([Tools isBlankString:self.popularNewsModel.discriptions]) {
-//            newsDiscriptions = @"来自于聚工厂《时尚资讯》的分享";
-//        } else {
-//            newsDiscriptions = self.popularNewsModel.discriptions;
-//        }
-//        
-//        if ([Tools isBlankString:self.popularNewsModel.newsImage]) {
-//            shareImage = [UIImage imageNamed:@"Home-icon"];
-//        } else {
-//            shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, self.popularNewsModel.newsImage]]]];
-//        }
-//        //分享多个
-//        [UMSocialData defaultData].extConfig.wechatSessionData.url = urlString;//微信好友
-//        [UMSocialData defaultData].extConfig.wechatSessionData.title = newsTitle;
-//        
-//        [UMSocialData defaultData].extConfig.wechatTimelineData.url = urlString;//微信朋友圈
-//        [UMSocialData defaultData].extConfig.wechatTimelineData.title = newsTitle;
-//        
-//        [UMSocialData defaultData].extConfig.qqData.url = urlString;//QQ好友
-//        [UMSocialData defaultData].extConfig.qqData.title = newsTitle;
-//        
-//        [UMSocialData defaultData].extConfig.qzoneData.url = urlString;//QQ空间
-//        [UMSocialData defaultData].extConfig.qzoneData.title = newsTitle;
-//        [UMSocialSnsService presentSnsIconSheetView:self
-//                                             appKey:Appkey_Umeng
-//                                          shareText:newsDiscriptions
-//                                         shareImage:shareImage
-//                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]
-//                                           delegate:self];
-//    }
+    [shareView showShareView];
 }
 
 @end

@@ -11,36 +11,38 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 
-#define kImageHeight 60*kZGY  //图片的大小
+#define kImageHeight 50*kZGY  //图片的大小
 #define kTop 20//距上边的距离
-#define kSpace (kScreenW - 3*kImageHeight)/18//间距
+#define kSpace (kScreenW - 3*kImageHeight)/18//间距（距两边的距离是4*kSpace，两个按钮之间的距离是5*kSpace）
+#define kCancleHeight 50 //取消按钮的高度
+#define kPopTime 0.3 //动画时间
 
 @implementation ShareView {
     NSArray *imageArray;
     NSArray *titleArray;
     UIButton *backgroundView;
     UIView *shareBackgroundView;
+    float btnsHeight;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self creatShareView];
+        [[[UIApplication  sharedApplication]keyWindow ]addSubview :self];
     }
     return self;
 }
 
 - (void)creatShareView {
     
-//    [self getShareArray];
-    imageArray = @[@"share_weixinFriend", @"share_wexin", @"share_QQ", @"share_Qzone", @"share_post", @"share_message"];
-    titleArray = @[@"微信朋友圈", @"微信好友", @"QQ", @"QQ空间", @"邮件", @"短信"];
+    [self getShareArray];
     
     //按钮列数
     int cloumsNum = 3;
     //按钮行数
     unsigned long rowsNum = (titleArray.count + cloumsNum - 1) / cloumsNum;
     //所有分享按钮高度
-    float btnsHeight = rowsNum*(kImageHeight + 30 + 10) + kTop;
+    btnsHeight = rowsNum*(kImageHeight + 30 + 10) + kTop;
     
     backgroundView = [UIButton buttonWithType:UIButtonTypeCustom];
     backgroundView.frame = CGRectMake(0, 0, kScreenW, kScreenH);
@@ -51,11 +53,9 @@
     
     shareBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenH, kScreenW, 44 + btnsHeight)];
     shareBackgroundView.backgroundColor = [UIColor whiteColor];
-//    [self addSubview:shareBackgroundView];
+    [self addSubview:shareBackgroundView];
     
-    
-    
-    UIImageView *lineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 1)];
+    UIImageView *lineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 1.5)];
     lineView.image = [UIImage imageNamed:@"share_TopLine"];
     [shareBackgroundView addSubview:lineView];
     
@@ -67,18 +67,20 @@
             }
             float shareX = 4*kSpace + j*(5*kSpace + kImageHeight);
             float shareY = kTop + i*(kImageHeight + 30 + 10);
-            UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            shareButton.frame = CGRectMake(shareX, shareY, kImageHeight, kImageHeight);
-            [shareButton setImage:[UIImage imageNamed:imageArray[num]] forState:UIControlStateNormal];
-            [shareButton setTitle:titleArray[num] forState:UIControlStateNormal];
-            [shareButton addTarget:self action:@selector(didTapShareView:) forControlEvents:UIControlEventTouchUpInside];
-            [shareBackgroundView addSubview:shareButton];
+            
+            UIImageView *shareImage = [[UIImageView alloc] initWithFrame:CGRectMake(shareX, shareY, kImageHeight, kImageHeight)];
+            shareImage.image = [UIImage imageNamed:imageArray[num]];
+            shareImage.userInteractionEnabled = YES;
+            shareImage.tag = 222 + num;
+            UITapGestureRecognizer *shareImageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapShareView:)];
+            [shareImage addGestureRecognizer:shareImageTap];
+            [shareBackgroundView addSubview:shareImage];
             
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-            titleLabel.center = CGPointMake(shareButton.center.x, shareButton.center.y + kImageHeight/2 + 15);
+            titleLabel.center = CGPointMake(shareImage.center.x, shareImage.center.y + kImageHeight/2 + 15);
             titleLabel.font = [UIFont systemFontOfSize:12];
             titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textColor = [UIColor darkGrayColor];
             titleLabel.text = titleArray[num];
             [shareBackgroundView addSubview:titleLabel];
         }
@@ -90,32 +92,17 @@
     [shareBackgroundView.layer addSublayer:line];
     
     UIButton *cancleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cancleButton.frame = CGRectMake(0, btnsHeight, kScreenW, 44);
+    cancleButton.frame = CGRectMake(0, btnsHeight, kScreenW, kCancleHeight);
     [cancleButton setTitle:@"取消" forState:UIControlStateNormal];
     [cancleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     cancleButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [cancleButton addTarget:self action:@selector(removeShareView) forControlEvents:UIControlEventTouchUpInside];
     [shareBackgroundView addSubview:cancleButton];
     
-    
-//    [UIView animateWithDuration:0.2 animations:^{
-//        shareMenuView.frame =CGRectMake(0,kScreenH - 170, kScreenW,170);
-//        [Weakself addSubview:shareMenuView];
-//        mainGrayBg.alpha = 0.3;
-//    } completion:^(BOOL finished) {
-//    }];
-    __block ShareView *Weakself = self;
-    [UIView animateWithDuration:0.4 animations:^{
-        NSLog(@"hvdiruhnvrdiohnvodishnvdsjnv");
-        [Weakself addSubview:shareBackgroundView];
-        backgroundView.alpha = 0.4;
-        shareBackgroundView.frame = CGRectMake(0, kScreenH - (44 + btnsHeight), kScreenW, 44 + btnsHeight);
-        
-    }];
-    
 }
 
 - (void)getShareArray {
+    
     if ( [WXApi isWXAppInstalled] == NO &&[QQApiInterface isQQInstalled] == NO) {
         //QQ和微信都没安装
         titleArray = @[@"邮件", @"短信"];
@@ -136,12 +123,15 @@
 }
 
 
-- (void)didTapShareView:(UIButton *)button {
+- (void)didTapShareView:(UITapGestureRecognizer *)tap {
+    UIImage *newsImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, self.pictureName]]]];
+    NSInteger number = tap.view.tag - 222;
     [self removeShareView];
-    if ([button.titleLabel.text isEqualToString:@"微信朋友圈"]) {
+    if ([titleArray[number] isEqualToString:@"微信朋友圈"]) {
         NSLog(@"微信朋友圈");
+        [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.shareUrl;
         [UMSocialData defaultData].extConfig.wechatTimelineData.title = self.title;
-        [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:self.message image:self.pictureName location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
+        [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:self.message image:newsImage location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
             if (response.responseCode == UMSResponseCodeSuccess) {
                 NSLog(@"分享成功！");
             } else {
@@ -149,10 +139,11 @@
             }
         }];
         
-    } else if ([button.titleLabel.text isEqualToString:@"微信好友"]) {
+    } else if ([titleArray[number] isEqualToString:@"微信好友"]) {
         NSLog(@"微信好友");
+        [UMSocialData defaultData].extConfig.wechatSessionData.url = self.shareUrl;
         [UMSocialData defaultData].extConfig.wechatSessionData.title = self.title;
-        [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:self.message image:self.pictureName location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
+        [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:self.message image:newsImage location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
             if (response.responseCode == UMSResponseCodeSuccess) {
                 NSLog(@"分享成功！");
             } else {
@@ -161,30 +152,30 @@
         }];
         
         
-    } else if ([button.titleLabel.text isEqualToString:@"QQ"]) {
+    } else if ([titleArray[number] isEqualToString:@"QQ"]) {
         NSLog(@"QQ");
         [UMSocialData defaultData].extConfig.qqData.url = self.shareUrl;
         [UMSocialData defaultData].extConfig.qqData.title = self.title;
         
-        [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:self.message image:self.pictureName location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
+        [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:self.message image:newsImage location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
             if (response.responseCode == UMSResponseCodeSuccess) {
                 NSLog(@"分享成功！");
             }
         }];
         
         
-    } else if ([button.titleLabel.text isEqualToString:@"QQ空间"]) {
+    } else if ([titleArray[number] isEqualToString:@"QQ空间"]) {
         NSLog(@"QQ空间");
         [UMSocialData defaultData].extConfig.qzoneData.url = self.shareUrl;
         [UMSocialData defaultData].extConfig.qzoneData.title = self.title;
         
-        [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:self.message image:self.pictureName location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
+        [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:self.message image:newsImage location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
             if (response.responseCode == UMSResponseCodeSuccess) {
                 NSLog(@"分享成功！");
             }
         }];
         
-    } else if ([button.titleLabel.text isEqualToString:@"邮件"]) {
+    } else if ([titleArray[number] isEqualToString:@"邮件"]) {
         NSLog(@"邮件");
         [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToEmail] content:[NSString stringWithFormat:@"%@%@", self.title, self.shareUrl] image:nil location:nil urlResource:nil presentedController:self.myViewController completion:^(UMSocialResponseEntity *shareResponse){
             if (shareResponse.responseCode == UMSResponseCodeSuccess) {
@@ -193,7 +184,7 @@
         }];
         
         
-    } else if ([button.titleLabel.text isEqualToString:@"短信"]) {
+    } else if ([titleArray[number] isEqualToString:@"短信"]) {
         NSLog(@"短信");
         [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToSms] content:[NSString stringWithFormat:@"%@%@", self.title, self.shareUrl] image:nil location:nil urlResource:nil presentedController:self.myViewController completion:^(UMSocialResponseEntity *shareResponse){
             if (shareResponse.responseCode == UMSResponseCodeSuccess) {
@@ -203,10 +194,20 @@
     }
 }
 
+
+- (void)showShareView {
+    [UIView animateWithDuration:kPopTime animations:^{
+        backgroundView.alpha = 0.4;
+        shareBackgroundView.frame = CGRectMake(0, kScreenH - (kCancleHeight + btnsHeight), kScreenW, kCancleHeight + btnsHeight);
+    } completion:^(BOOL finished) {
+        //在这里可以加动画效果
+    }];
+}
+
 - (void)removeShareView {
 
-    [UIView animateWithDuration:0.3 animations:^{
-        shareBackgroundView.frame =CGRectMake(0, kScreenH, kScreenH, 120);
+    [UIView animateWithDuration:kPopTime animations:^{
+        shareBackgroundView.frame =CGRectMake(0, kScreenH, kScreenH, kCancleHeight + btnsHeight);
         backgroundView.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
