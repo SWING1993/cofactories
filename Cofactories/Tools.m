@@ -502,6 +502,12 @@
     }];
 }
 
++ (NSString *)saveImageToLocal:(UIImage *)image imageName:(NSString *)name{
+    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *filePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", name]];   // 保存文件的名称
+    [UIImagePNGRepresentation(image)writeToFile:filePath atomically:YES];
+    return filePath;
+}
 //图片等比压缩
 + (UIImage *)compressPicturesWithImage:(UIImage *)myImage {
     CGFloat imgH = myImage.size.height;

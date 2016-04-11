@@ -151,6 +151,12 @@
                  policyString:(NSString *)policyString
               signatureString:(NSString *)signatureString;
 
+/**
+ *  保存图片到本地
+ *
+ *  @param iamge image
+ */
++ (NSString *)saveImageToLocal:(UIImage *)image imageName:(NSString *)name;
 
 // 图片等比压缩
 

@@ -20,7 +20,7 @@
 
 static NSString * const CellIdentifier = @"CellIdentifier";
 
-@interface MeViewController ()<UIActionSheetDelegate>
+@interface MeViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic,retain)UserModel * MyProfile;
 
@@ -53,6 +53,10 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 - (void)initView {
     
     self.tableView=[[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
+    
+    UIBarButtonItem*setButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"settingBtn_Nav"] style:UIBarButtonItemStylePlain target:self action:@selector(setButtonClicked)];
+    self.navigationItem.rightBarButtonItem = setButton;
+    
     myProfileLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenW*0.47-50, kScreenW, 50)];
     myProfileLabel.font = kFont;
     myProfileLabel.numberOfLines = 2;
@@ -74,12 +78,28 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_rightBtn addTarget:self action:@selector(clickHeaderBtnInSection:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem*setButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"settingBtn_Nav"] style:UIBarButtonItemStylePlain target:self action:@selector(setButtonClicked)];
-    self.navigationItem.rightBarButtonItem = setButton;
-    
     _tableHeadView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenW*0.47)];
-    _tableHeadView.image = [UIImage imageNamed:@"Me_tableHeadView"];
+    NSString * BGImageName = [[NSUserDefaults standardUserDefaults]objectForKey:@"BGImageName"];
+    if (BGImageName) {
+        NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+        NSString *imageFilePath = [documentPath stringByAppendingPathComponent:BGImageName];
+        UIImage * image = [UIImage imageWithContentsOfFile:imageFilePath];
+        _tableHeadView.image = image;
+        [self addblurEffect];
+        
+    }else {
+        _tableHeadView.image = [UIImage imageNamed:@"Me_tableHeadView"];
+    }
+    _tableHeadView.contentMode = UIViewContentModeScaleAspectFill;
+    _tableHeadView.layer.masksToBounds = YES;
     [_tableHeadView addSubview:myProfileLabel];
+    
+    if (iosNot7x) {
+        DLog(@"不是iOS7的设备 添加手势");
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doTap)];
+        _tableHeadView.userInteractionEnabled = YES;
+        [_tableHeadView addGestureRecognizer:tap];
+    }
     
     self.tableView.tableHeaderView = _tableHeadView;
 }
@@ -109,6 +129,23 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         [self.navigationController pushViewController:shoppingCarVC animated:YES];
     }
 }
+
+- (void)addblurEffect {
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    visualEffectView.frame = CGRectMake(0, kScreenW*0.47 - 50, kScreenW, 50);
+    [_tableHeadView addSubview:visualEffectView];
+
+}
+
+// 点击头像进入系统相册
+- (void)doTap{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"更换背景", nil];
+    actionSheet.tag = 99;
+    [actionSheet showInView:self.view];
+}
+
 
 #pragma mark - Table view data source
 
@@ -221,12 +258,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
    
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//    UIView * viewForHeaderInSection = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 50)];
-//    [viewForHeaderInSection addSubview:_leftBtn];
-//    [viewForHeaderInSection addSubview:_rightBtn];
-//    return viewForHeaderInSection;
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
@@ -247,6 +278,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 {
                     DLog("客服聊天或打电话");
                     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"客服聊天", @"客服电话", nil];
+                    actionSheet.tag = 100;
                     [actionSheet showInView:self.view];
                 }
                     break;
@@ -315,18 +347,52 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        PublicServiceViewController *conversationVC = [[PublicServiceViewController alloc] init];
-        conversationVC.conversationType = ConversationType_APPSERVICE;
-        conversationVC.targetId = RONGCLOUD_IM_SERVICEID;
-        conversationVC.title = @"聚工厂客服";
-        conversationVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:conversationVC animated:YES];
-
-    } else if (buttonIndex == 1) {
-        NSString *str = [NSString stringWithFormat:@"telprompt://%@", kCustomerServicePhone];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    if (actionSheet.tag == 100) {
+        if (buttonIndex == 0) {
+            PublicServiceViewController *conversationVC = [[PublicServiceViewController alloc] init];
+            conversationVC.conversationType = ConversationType_APPSERVICE;
+            conversationVC.targetId = RONGCLOUD_IM_SERVICEID;
+            conversationVC.title = @"聚工厂客服";
+            conversationVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:conversationVC animated:YES];
+            
+        } else if (buttonIndex == 1) {
+            NSString *str = [NSString stringWithFormat:@"telprompt://%@", kCustomerServicePhone];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        }
+ 
     }
+    else if (actionSheet.tag == 99) {
+        if (buttonIndex == 0) {
+            UIImagePickerController *imagePick = [[UIImagePickerController alloc]init];
+            // 设置图片来源
+            imagePick.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+            imagePick.delegate = self;
+            imagePick.allowsEditing = YES;
+            // 进入系统相册
+            [self presentViewController:imagePick animated:YES completion:nil];
+        }
+        else {
+            DLog(@"%ld",(long)buttonIndex);
+            return;
+        }
+    }
+}
+
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo{
+    _tableHeadView.image = image;
+    [self addblurEffect];
+    [_tableHeadView addSubview:myProfileLabel];
+
+    NSString * imageName = @"backgroundImage";
+    [Tools saveImageToLocal:image imageName:imageName];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:imageName forKey:@"BGImageName"];
+    [defaults synchronize];
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
