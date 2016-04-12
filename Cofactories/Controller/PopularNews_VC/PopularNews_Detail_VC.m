@@ -7,14 +7,14 @@
 //
 
 #import "PopularNews_Detail_VC.h"
-#import "UMSocial.h"
-#import <TencentOpenAPI/QQApiInterface.h>
-#import "WXApi.h"
+//#import "UMSocial.h"
+//#import <TencentOpenAPI/QQApiInterface.h>
+//#import "WXApi.h"
 
 #import "SDPhotoBrowser.h"
 #import "ShareView.h"
 
-@interface PopularNews_Detail_VC ()<UIWebViewDelegate, UMSocialUIDelegate,SDPhotoBrowserDelegate> {
+@interface PopularNews_Detail_VC ()<UIWebViewDelegate,SDPhotoBrowserDelegate> {
     NSString *urlString;
     UIWebView * newsWebView;
     MBProgressHUD *hud;

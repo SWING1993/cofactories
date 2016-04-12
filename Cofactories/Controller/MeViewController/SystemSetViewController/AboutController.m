@@ -11,6 +11,7 @@
 #import "UMFeedback.h"
 #import "WelcomePageViewController.h"
 #import "UserProtocolViewController.h"
+#import "ShareView.h"
 
 static NSString * const CellIdentifier = @"AboutCellIdentifiers";
 
@@ -168,12 +169,14 @@ static NSString * const CellIdentifier = @"AboutCellIdentifiers";
                 }
                     break;
                 case 2:{
-                    [UMSocialSnsService presentSnsIconSheetView:self
-                                                         appKey:Appkey_Umeng
-                                                      shareText:@"推荐一款非常好用的app——聚工厂，大家快来试试。下载链接：https://itunes.apple.com/cn/app/ju-gong-chang/id1015359842?mt=8"
-                                                     shareImage:[UIImage imageNamed:@"icon.png"]
-                                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToRenren, UMShareToSina,UMShareToTencent,UMShareToEmail,UMShareToSms,nil]
-                                                       delegate:self];
+                    ShareView *shareView = [[ShareView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
+                    shareView.title = @"推荐一款非常好用的app——聚工厂。";
+                    shareView.message = @"聚工厂是中国内贸服装生产服务第一资源平台，手机入驻平台，寻找最合适您的资源信息，生意快人一步。";
+                    shareView.pictureName =  nil;
+                    shareView.shareUrl = @"https://itunes.apple.com/cn/app/ju-gong-chang/id1015359842?mt=8";
+                    shareView.myViewController = self;
+                    [shareView showShareView];
+
                 }
                     break;
                 case 3:{

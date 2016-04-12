@@ -102,7 +102,7 @@
 }
 
 - (void)getShareArray {
-    
+    [UMSocialConfig setFinishToastIsHidden:YES position:UMSocialiToastPositionCenter];
     if ( [WXApi isWXAppInstalled] == NO &&[QQApiInterface isQQInstalled] == NO) {
         //QQ和微信都没安装
         titleArray = @[@"邮件", @"短信"];
@@ -124,7 +124,13 @@
 
 
 - (void)didTapShareView:(UITapGestureRecognizer *)tap {
-    UIImage *newsImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, self.pictureName]]]];
+    UIImage *newsImage = nil;
+    if (self.pictureName) {
+        newsImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kPopularBaseUrl, self.pictureName]]]];
+    } else {
+        newsImage = [UIImage imageNamed:@"Home-icon"];
+    }
+    
     NSInteger number = tap.view.tag - 222;
     [self removeShareView];
     if ([titleArray[number] isEqualToString:@"微信朋友圈"]) {
@@ -133,9 +139,9 @@
         [UMSocialData defaultData].extConfig.wechatTimelineData.title = self.title;
         [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:self.message image:newsImage location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
             if (response.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
+                [Tools showHudTipStr:@"分享成功！"];
             } else {
-                NSLog(@"分享失败！");
+                [Tools showErrorTipStr:@"分享失败！"];
             }
         }];
         
@@ -145,9 +151,9 @@
         [UMSocialData defaultData].extConfig.wechatSessionData.title = self.title;
         [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:self.message image:newsImage location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
             if (response.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
+                [Tools showHudTipStr:@"分享成功！"];
             } else {
-                NSLog(@"分享失败！");
+                [Tools showErrorTipStr:@"分享失败！"];
             }
         }];
         
@@ -159,7 +165,9 @@
         
         [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:self.message image:newsImage location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
             if (response.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
+                [Tools showHudTipStr:@"分享成功！"];
+            } else {
+                [Tools showErrorTipStr:@"分享失败！"];
             }
         }];
         
@@ -171,7 +179,9 @@
         
         [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:self.message image:newsImage location:nil urlResource:nil presentedController:nil completion:^(UMSocialResponseEntity *response){
             if (response.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
+                [Tools showHudTipStr:@"分享成功！"];
+            } else {
+                [Tools showErrorTipStr:@"分享失败！"];
             }
         }];
         
@@ -179,7 +189,9 @@
         NSLog(@"邮件");
         [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToEmail] content:[NSString stringWithFormat:@"%@%@", self.title, self.shareUrl] image:nil location:nil urlResource:nil presentedController:self.myViewController completion:^(UMSocialResponseEntity *shareResponse){
             if (shareResponse.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
+                [Tools showHudTipStr:@"发送邮件成功！"];
+            } else {
+                [Tools showErrorTipStr:@"发送邮件失败！"];
             }
         }];
         
@@ -188,7 +200,9 @@
         NSLog(@"短信");
         [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToSms] content:[NSString stringWithFormat:@"%@%@", self.title, self.shareUrl] image:nil location:nil urlResource:nil presentedController:self.myViewController completion:^(UMSocialResponseEntity *shareResponse){
             if (shareResponse.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
+                [Tools showHudTipStr:@"发送短信成功！"];
+            } else {
+                [Tools showErrorTipStr:@"发送短信失败！"];
             }
         }];
     }
