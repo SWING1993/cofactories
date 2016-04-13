@@ -274,6 +274,7 @@
 		7D06AF9A1C166BD200EE7102 /* ShoppingCarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D06AF991C166BD200EE7102 /* ShoppingCarCell.m */; };
 		7D06AF9D1C1687AE00EE7102 /* ShopCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D06AF9C1C1687AE00EE7102 /* ShopCarModel.m */; };
 		7D0841181C914AFD0066403C /* TableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0841171C914AFD0066403C /* TableViewHeaderView.m */; };
+		7D1408AC1CBDDBEB003D1FF2 /* MallSelectSuccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1408AB1CBDDBEB003D1FF2 /* MallSelectSuccess.m */; };
 		7D1922D81CB8E5100076B1F0 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1922D71CB8E5100076B1F0 /* ShareView.m */; };
 		7D1A4E331C59FFA10076B462 /* MallAddAddress_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E321C59FFA10076B462 /* MallAddAddress_VC.m */; };
 		7D1A4E361C5A02080076B462 /* AddressTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E351C5A02080076B462 /* AddressTextFieldCell.m */; };
@@ -976,6 +977,8 @@
 		7D06AF9C1C1687AE00EE7102 /* ShopCarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarModel.m; sourceTree = "<group>"; };
 		7D0841161C914AFD0066403C /* TableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewHeaderView.h; sourceTree = "<group>"; };
 		7D0841171C914AFD0066403C /* TableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewHeaderView.m; sourceTree = "<group>"; };
+		7D1408AA1CBDDBEB003D1FF2 /* MallSelectSuccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallSelectSuccess.h; sourceTree = "<group>"; };
+		7D1408AB1CBDDBEB003D1FF2 /* MallSelectSuccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallSelectSuccess.m; sourceTree = "<group>"; };
 		7D1922D61CB8E5100076B1F0 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
 		7D1922D71CB8E5100076B1F0 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		7D1A4E311C59FFA10076B462 /* MallAddAddress_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallAddAddress_VC.h; sourceTree = "<group>"; };
@@ -2689,10 +2692,12 @@
 				7DAB68DB1C576BA40045A115 /* ShoppingMallView */,
 				7DB5E7411C585D6B004834E8 /* ShoppingMallDetail_VC.h */,
 				7DB5E7421C585D6B004834E8 /* ShoppingMallDetail_VC.m */,
-				7DAB68D81C576B410045A115 /* MallSelectAddress_VC.h */,
-				7DAB68D91C576B410045A115 /* MallSelectAddress_VC.m */,
 				7D1A4E311C59FFA10076B462 /* MallAddAddress_VC.h */,
 				7D1A4E321C59FFA10076B462 /* MallAddAddress_VC.m */,
+				7DAB68D81C576B410045A115 /* MallSelectAddress_VC.h */,
+				7DAB68D91C576B410045A115 /* MallSelectAddress_VC.m */,
+				7D1408AA1CBDDBEB003D1FF2 /* MallSelectSuccess.h */,
+				7D1408AB1CBDDBEB003D1FF2 /* MallSelectSuccess.m */,
 				7D543D2F1C5B20090086B702 /* MallOrderPay_VC.h */,
 				7D543D301C5B20090086B702 /* MallOrderPay_VC.m */,
 			);
@@ -3322,6 +3327,7 @@
 				7D56828B1C759A7500FF03AE /* MallOrderSellDetail_VC.m in Sources */,
 				705421F81C0D7A3C00BD2B47 /* OrderBid_Factory_VC.m in Sources */,
 				7D72CDCB1C3A0279005BDA66 /* HomeKoreaShopList_VC.m in Sources */,
+				7D1408AC1CBDDBEB003D1FF2 /* MallSelectSuccess.m in Sources */,
 				7D412B6B1CB3AA650033140D /* AttributedStyle.m in Sources */,
 				70037F021C1021F40086267C /* CompletionOrder_VC.m in Sources */,
 				03623FBB1C44D8C70083044A /* WelcomePageViewController.m in Sources */,
@@ -3535,7 +3541,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";
@@ -3575,7 +3581,7 @@
 					"$(PROJECT_DIR)/Cofactories/Utils/AlipaySDK",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cofactory.iosapp6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cofactories/Controller/MeViewController/SetVC/Cofactories-Bridging-Header.h";

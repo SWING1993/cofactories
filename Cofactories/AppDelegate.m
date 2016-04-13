@@ -136,9 +136,9 @@
         
         [UMSocialData setAppKey:Appkey_Umeng];
         //设置微信AppId、appSecret，分享url
-        [UMSocialWechatHandler setWXAppId:@"wxdf66977ff3f413e2" appSecret:@"a6e3fe6788a9a523cb6657e0ef7ae9f4" url:@"http://www.umeng.com/social"];
+        [UMSocialWechatHandler setWXAppId:@"wxdf66977ff3f413e2" appSecret:@"a6e3fe6788a9a523cb6657e0ef7ae9f4" url:@"http://www.cofactories.com/"];
         //设置分享到QQ/Qzone的应用Id，和分享url 链接
-        [UMSocialQQHandler setQQWithAppId:@"1104779454" appKey:@"VNaZ1cQfyRS2C3I7" url:@"http://www.umeng.com/social"];
+        [UMSocialQQHandler setQQWithAppId:@"1104779454" appKey:@"VNaZ1cQfyRS2C3I7" url:@"http://www.cofactories.com/"];
         [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline]];
         
         //友盟统计 SDK

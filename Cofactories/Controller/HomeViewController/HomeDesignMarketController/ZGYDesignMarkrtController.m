@@ -42,8 +42,9 @@
 - (void)supplyMarketView:(ZGYSupplyMarketView *)supplyMarketView supplyMarketButtonTag:(NSInteger)supplyMarketButtonTag {
     switch (supplyMarketButtonTag) {
         case 0:{
-            PopularNewsHome_VC *popularNewsVC = [[PopularNewsHome_VC alloc] init];
-            [self.navigationController pushViewController:popularNewsVC animated:YES];
+            self.tabBarController.selectedIndex = 1;
+//            PopularNewsHome_VC *popularNewsVC = [[PopularNewsHome_VC alloc] init];
+//            [self.navigationController pushViewController:popularNewsVC animated:YES];
 
         }
             break;

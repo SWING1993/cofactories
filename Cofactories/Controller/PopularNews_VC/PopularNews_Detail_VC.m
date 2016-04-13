@@ -7,10 +7,6 @@
 //
 
 #import "PopularNews_Detail_VC.h"
-//#import "UMSocial.h"
-//#import <TencentOpenAPI/QQApiInterface.h>
-//#import "WXApi.h"
-
 #import "SDPhotoBrowser.h"
 #import "ShareView.h"
 
@@ -34,24 +30,20 @@
     [super viewDidLoad];
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"PopularNews-share"] style:UIBarButtonItemStylePlain target:self action:@selector(pressRightItem)];
-    
-//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(pressRightItem)];
-    
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    newsWebView = [[UIWebView alloc]initWithFrame:kScreenBounds];
-    newsWebView.delegate = self;
-    newsWebView.backgroundColor = [UIColor whiteColor];
+    urlString = [NSString stringWithFormat:@"%@%@%@", kPopularBaseUrl, @"/details/", self.popularNewsModel.newsID];
     
     //添加access_token
     AFOAuthCredential *credential=[HttpClient getToken];
     NSString*token = credential.accessToken;
     NSString *myUrlString = [NSString stringWithFormat:@"%@%@%@?access_token=%@", kPopularBaseUrl, @"/details/", self.popularNewsModel.newsID, token];
-    
-    urlString = [NSString stringWithFormat:@"%@%@%@", kPopularBaseUrl, @"/details/", self.popularNewsModel.newsID];
-    DLog(@"______%@", myUrlString);
     NSURL *url = [NSURL URLWithString:myUrlString];
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
+    
+    newsWebView = [[UIWebView alloc]initWithFrame:kScreenBounds];
+    newsWebView.delegate = self;
+    newsWebView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:newsWebView];
     [newsWebView loadRequest:request];
     

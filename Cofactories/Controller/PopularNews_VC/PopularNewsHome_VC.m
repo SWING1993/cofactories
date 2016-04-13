@@ -52,7 +52,7 @@ static NSString *newsCellIdentifier = @"newsCell";
     [self setupRefresh];
 }
 - (void)creatTableView {
-    self.popularTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
+    self.popularTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 49)];
     self.popularTableView.dataSource = self;
     self.popularTableView.delegate = self;
     self.popularTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -211,6 +211,7 @@ static NSString *newsCellIdentifier = @"newsCell";
                 SearchNews_List_VC *searchNews_List_VC = [[SearchNews_List_VC alloc] init];
                 searchNews_List_VC.newsVCTitle = @"搜索结果";
                 searchNews_List_VC.searchNewsArray = self.searchArray;
+                searchNews_List_VC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:searchNews_List_VC animated:YES];
             }
         } else {
@@ -314,6 +315,7 @@ static NSString *newsCellIdentifier = @"newsCell";
         PopularNewsModel *newsModel = self.newsArray[indexPath.row];
         PopularNews_Detail_VC *detailVC = [[PopularNews_Detail_VC alloc] init];
         detailVC.popularNewsModel = newsModel;
+        detailVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:detailVC animated:YES];
     }
 }
@@ -338,6 +340,7 @@ static NSString *newsCellIdentifier = @"newsCell";
     SearchNews_List_VC *searchNews_List_VC = [[SearchNews_List_VC alloc] init];
     searchNews_List_VC.newsVCTitle = @"置顶文章";
     searchNews_List_VC.searchNewsArray = self.topNewsArray;
+    searchNews_List_VC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchNews_List_VC animated:YES];
 }
 
@@ -346,6 +349,7 @@ static NSString *newsCellIdentifier = @"newsCell";
     PopularNewsModel *newsModel = self.topNewsArray[0];
     PopularNews_Detail_VC *detailVC = [[PopularNews_Detail_VC alloc] init];
     detailVC.popularNewsModel = newsModel;
+    detailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 - (void)actionOfTopRightNews:(UIButton *)button {
@@ -353,12 +357,14 @@ static NSString *newsCellIdentifier = @"newsCell";
     PopularNewsModel *newsModel = self.topNewsArray[1];
     PopularNews_Detail_VC *detailVC = [[PopularNews_Detail_VC alloc] init];
     detailVC.popularNewsModel = newsModel;
+    detailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (void)actionOfMoreNews:(UITapGestureRecognizer *)click {
     DLog(@"更多分类文章");
     PopularNewsType_VC *popularNewsTypeVC = [[PopularNewsType_VC alloc] init];
+    popularNewsTypeVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:popularNewsTypeVC animated:YES];
 }
 

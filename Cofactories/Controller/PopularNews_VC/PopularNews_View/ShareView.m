@@ -18,11 +18,11 @@
 #define kPopTime 0.3 //动画时间
 
 @implementation ShareView {
-    NSArray *imageArray;
-    NSArray *titleArray;
+    NSArray  *imageArray;
+    NSArray  *titleArray;
     UIButton *backgroundView;
-    UIView *shareBackgroundView;
-    float btnsHeight;
+    UIView   *shareBackgroundView;
+    float    btnsHeight;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -103,6 +103,7 @@
 
 - (void)getShareArray {
     [UMSocialConfig setFinishToastIsHidden:YES position:UMSocialiToastPositionCenter];
+    
     if ( [WXApi isWXAppInstalled] == NO &&[QQApiInterface isQQInstalled] == NO) {
         //QQ和微信都没安装
         titleArray = @[@"邮件", @"短信"];
