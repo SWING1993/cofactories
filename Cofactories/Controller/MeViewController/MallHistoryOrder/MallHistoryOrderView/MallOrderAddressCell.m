@@ -36,6 +36,26 @@
     }
     return self;
 }
+//购买订单
+- (void)reloadReceiveAddressWithMallBuyHistoryModel:(MallBuyHistoryModel *)mallBuyHistoryModel {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.personName.text = [NSString stringWithFormat:@"收货人：%@", mallBuyHistoryModel.personName];
+    self.personPhoneNumber.text = [NSString stringWithFormat:@"电话：%@", mallBuyHistoryModel.personPhone];
+    CGSize size = [Tools getSize:[NSString stringWithFormat:@"收货地址：%@", mallBuyHistoryModel.personAddress] andFontOfSize:12 andWidthMake:kScreenW - 60];
+    self.personAddress.frame = CGRectMake(45, CGRectGetMaxY(self.personName.frame) + 5, kScreenW - 60, size.height);
+    self.addressView.frame = CGRectMake(10, (45 + size.height - 25)/2, 25, 25);
+    self.personAddress.text = [NSString stringWithFormat:@"收货地址：%@", mallBuyHistoryModel.personAddress];
+}
 
+//出售订单
+- (void)reloadReceiveAddressWithMallSellHistoryModel:(MallSellHistoryModel *)mallSellHistoryModel {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.personName.text = [NSString stringWithFormat:@"收货人：%@", mallSellHistoryModel.personName];
+    self.personPhoneNumber.text = [NSString stringWithFormat:@"电话：%@", mallSellHistoryModel.personPhone];
+    CGSize size = [Tools getSize:[NSString stringWithFormat:@"收货地址：%@", mallSellHistoryModel.personAddress] andFontOfSize:12 andWidthMake:kScreenW - 60];
+    self.personAddress.frame = CGRectMake(45, CGRectGetMaxY(self.personName.frame) + 5, kScreenW - 60, size.height);
+    self.addressView.frame = CGRectMake(10, (45 + size.height - 25)/2, 25, 25);
+    self.personAddress.text = [NSString stringWithFormat:@"收货地址：%@", mallSellHistoryModel.personAddress];
+}
 
 @end

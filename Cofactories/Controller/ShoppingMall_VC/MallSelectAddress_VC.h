@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MeHistoryOrderModel.h"
+#import "MallBuyHistoryModel.h"
 
 @interface MallSelectAddress_VC : UITableViewController
 
 @property (nonatomic, strong) NSMutableDictionary *mallOrderDic;
-@property (nonatomic, strong) MeHistoryOrderModel *goodsModel;
+@property (nonatomic, strong) MallBuyHistoryModel *goodsModel;
 
 @end
