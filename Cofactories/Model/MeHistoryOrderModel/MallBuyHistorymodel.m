@@ -1,16 +1,16 @@
 //
-//  MeHistoryOrderModel.m
+//  MallBuyHistorymodel.m
 //  Cofactories
 //
-//  Created by 赵广印 on 15/12/17.
-//  Copyright © 2015年 Cofactorios. All rights reserved.
+//  Created by 赵广印 on 16/4/13.
+//  Copyright © 2016年 Cofactorios. All rights reserved.
 //
 
-#import "MeHistoryOrderModel.h"
+#import "MallBuyHistoryModel.h"
 
-@implementation MeHistoryOrderModel
+@implementation MallBuyHistoryModel
 
-- (instancetype)initMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary {
+- (instancetype)initMallBuyHistorymodelWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         
         self.photoArray = dictionary[@"products"][0][@"photo"];
@@ -52,7 +52,6 @@
             self.showButton = NO;
         } else if ([dictionary[@"status"] isEqualToString:@"wait_comment"]) {
             self.waitPayType = @"交易成功";
-//            self.payType = @"评价";
             self.mallOrderTitle = @"待评价订单";
             self.status = 4;
             self.showButton = YES;
@@ -79,11 +78,11 @@
         
     }
     return self;
-
-}
-+ (instancetype)getMeHistoryOrderModelWithDictionary:(NSDictionary *)dictionary{
     
-    return [[self alloc]initMeHistoryOrderModelWithDictionary:dictionary];
+}
++ (instancetype)getMallBuyHistorymodelWithDictionary:(NSDictionary *)dictionary{
+    
+    return [[self alloc]initMallBuyHistorymodelWithDictionary:dictionary];
 }
 
 @end

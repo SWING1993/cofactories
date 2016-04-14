@@ -37,5 +37,70 @@
     }
     return self;
 }
-
+//购买订单编号和交易记录
+- (void)reloadMallBuyHistoryOrderTimeWithMallBuyHistoryModel:(MallBuyHistoryModel *)mallBuyHistoryModel {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.creatTime.text = [NSString stringWithFormat:@"创建时间：%@", mallBuyHistoryModel.creatTime];
+    self.orderNum.text = [NSString stringWithFormat:@"订单编号：%@", mallBuyHistoryModel.orderNumber];
+    switch (mallBuyHistoryModel.status) {
+        case 2:
+            self.payTime.text = [NSString stringWithFormat:@"付款时间：%@", mallBuyHistoryModel.payTime];
+            self.sendTime.hidden = YES;
+            self.receiveTime.hidden = YES;
+            break;
+        case 3:
+            self.payTime.text = [NSString stringWithFormat:@"付款时间：%@", mallBuyHistoryModel.payTime];
+            self.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", mallBuyHistoryModel.sendTime];
+            self.receiveTime.hidden = YES;
+            break;
+        case 4:
+            self.payTime.text = [NSString stringWithFormat:@"付款时间：%@", mallBuyHistoryModel.payTime];
+            self.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", mallBuyHistoryModel.sendTime];
+            self.receiveTime.text = [NSString stringWithFormat:@"收货时间：%@", mallBuyHistoryModel.receiveTime];
+            break;
+        case 5:
+            self.payTime.text = [NSString stringWithFormat:@"付款时间：%@", mallBuyHistoryModel.payTime];
+            self.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", mallBuyHistoryModel.sendTime];
+            self.receiveTime.text = [NSString stringWithFormat:@"收货时间：%@", mallBuyHistoryModel.receiveTime];
+            break;
+        default:
+            self.payTime.hidden = YES;
+            self.sendTime.hidden = YES;
+            self.receiveTime.hidden = YES;
+            break;
+    }
+}
+//出售订单编号和交易记录
+- (void)reloadMallSellHistoryOrderTimeWithMallSellHistoryModel:(MallSellHistoryModel *)mallSellHistoryModel {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.creatTime.text = [NSString stringWithFormat:@"创建时间：%@", mallSellHistoryModel.creatTime];
+    self.orderNum.text = [NSString stringWithFormat:@"订单编号：%@", mallSellHistoryModel.orderNumber];
+    switch (mallSellHistoryModel.status) {
+        case 2:
+            self.payTime.text = [NSString stringWithFormat:@"付款时间：%@", mallSellHistoryModel.payTime];
+            self.sendTime.hidden = YES;
+            self.receiveTime.hidden = YES;
+            break;
+        case 3:
+            self.payTime.text = [NSString stringWithFormat:@"付款时间：%@", mallSellHistoryModel.payTime];
+            self.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", mallSellHistoryModel.sendTime];
+            self.receiveTime.hidden = YES;
+            break;
+        case 4:
+            self.payTime.text = [NSString stringWithFormat:@"付款时间：%@", mallSellHistoryModel.payTime];
+            self.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", mallSellHistoryModel.sendTime];
+            self.receiveTime.text = [NSString stringWithFormat:@"收货时间：%@", mallSellHistoryModel.receiveTime];
+            break;
+        case 5:
+            self.payTime.text = [NSString stringWithFormat:@"付款时间：%@", mallSellHistoryModel.payTime];
+            self.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", mallSellHistoryModel.sendTime];
+            self.receiveTime.text = [NSString stringWithFormat:@"收货时间：%@", mallSellHistoryModel.receiveTime];
+            break;
+        default:
+            self.payTime.hidden = YES;
+            self.sendTime.hidden = YES;
+            self.receiveTime.hidden = YES;
+            break;
+    }
+}
 @end

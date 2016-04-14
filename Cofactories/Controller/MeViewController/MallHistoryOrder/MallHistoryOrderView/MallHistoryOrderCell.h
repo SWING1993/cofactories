@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MallBuyHistoryModel.h"
+#import "MallSellHistoryModel.h"
+
 @interface MallHistoryOrderCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *goodsStatus;
@@ -19,4 +22,16 @@
 @property (nonatomic, strong) UILabel *totalPrice;
 @property (nonatomic, strong) UIButton *changeStatus;
 @property (nonatomic, assign) BOOL showButton;
+
+//购买历史记录列表
+- (void)reloadMallBuyHistoryOrderDataWithMallBuyHistoryModel:(MallBuyHistoryModel *)mallBuyHistoryModel;
+//出售历史记录列表
+- (void)reloadMallSellHistoryOrderDataWithMallSellHistoryModel:(MallSellHistoryModel *)mallSellHistoryModel;
+
+
+//购买历史记录某个订单详情
+- (void)reloadMallBuyHistoryOrderDetailDataWithMallBuyHistoryModel:(MallBuyHistoryModel *)mallBuyHistoryModel;
+//出售历史记录某个订单详情
+- (void)reloadMallSellHistoryOrderDetailDataWithMallSellHistoryModel:(MallSellHistoryModel *)mallSellHistoryModel;
+
 @end

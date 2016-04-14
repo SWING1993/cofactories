@@ -168,39 +168,10 @@ static NSString *mallSellCellIdentifier = @"mallSellCell";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MallHistoryOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:mallSellCellIdentifier forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    MallSellHistoryModel *historyOrderModel = self.mallSellHistoryArray[indexPath.section];
-    cell.goodsStatus.text = historyOrderModel.waitPayType;
-    if (historyOrderModel.photoArray.count > 0) {
-        NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, historyOrderModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"MallNoPhoto"]];
-    } else {
-        cell.photoView.image = [UIImage imageNamed:@"MallNoPhoto"];
-    }
-    cell.goodsTitle.text = historyOrderModel.name;
-    cell.goodsPrice.text = [NSString stringWithFormat:@"¥ %@", historyOrderModel.price];
-    cell.goodsCategory.text = historyOrderModel.category;
-    cell.goodsNumber.text = [NSString stringWithFormat:@"x%@", historyOrderModel.amount];
-    cell.totalPrice.text = [NSString stringWithFormat:@"共%@件商品 合计：¥ %@", historyOrderModel.amount, historyOrderModel.totalPrice];
+
+    MallSellHistoryModel *mallSellHistoryModel = self.mallSellHistoryArray[indexPath.section];
+    [cell reloadMallSellHistoryOrderDataWithMallSellHistoryModel:mallSellHistoryModel];
     
-    switch (historyOrderModel.status) {
-        case 2:
-            [cell.changeStatus setTitle:@"确认发货" forState:UIControlStateNormal];
-            break;
-        case 4:
-            if ([historyOrderModel.comment isEqualToString:@"1"]){
-                [cell.changeStatus setTitle:@"待买家评" forState:UIControlStateNormal];
-            } else {
-                [cell.changeStatus setTitle:@"评价" forState:UIControlStateNormal];
-            }
-            break;
-        case 5:
-            [cell.changeStatus setTitle:@"已完成" forState:UIControlStateNormal];
-            break;
-        default:
-            break;
-    }
-    cell.showButton = historyOrderModel.showButton;//判断button是否隐藏
     cell.changeStatus.tag = 222 + indexPath.section;
     [cell.changeStatus addTarget:self action:@selector(actionOfStatus:) forControlEvents:UIControlEventTouchUpInside];
     return cell;

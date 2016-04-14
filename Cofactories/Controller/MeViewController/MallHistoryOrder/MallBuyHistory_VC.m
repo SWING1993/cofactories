@@ -8,7 +8,7 @@
 
 #import "MallBuyHistory_VC.h"
 #import "MallHistoryOrderCell.h"
-#import "MeHistoryOrderModel.h"
+#import "MallBuyHistoryModel.h"
 #import "MJRefresh.h"
 #import "TableViewHeaderView.h"
 #import "MallOrderPay_VC.h"
@@ -56,10 +56,9 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
     [HttpClient getMallOrderOfBuyWithStatus:statusArray[self.status] page:@1 WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         if (statusCode == 200) {
-            DLog(@"^^^^^^^^^^^^^%@", dictionary[@"data"]);
             self.mallBuyHistoryArray = [NSMutableArray arrayWithCapacity:0];
             for (NSMutableDictionary *historyDic in dictionary[@"data"]) {
-                MeHistoryOrderModel *historyOrderModel = [MeHistoryOrderModel getMeHistoryOrderModelWithDictionary:historyDic];
+                MallBuyHistoryModel *historyOrderModel = [MallBuyHistoryModel getMallBuyHistorymodelWithDictionary:historyDic];
                 [self.mallBuyHistoryArray addObject:historyOrderModel];
             }
             if (self.mallBuyHistoryArray.count == 0) {
@@ -88,7 +87,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         if (statusCode == 200) {
             for (NSMutableDictionary *historyDic in dictionary[@"data"]) {
-                MeHistoryOrderModel *historyOrderModel = [MeHistoryOrderModel getMeHistoryOrderModelWithDictionary:historyDic];
+                MallBuyHistoryModel *historyOrderModel = [MallBuyHistoryModel getMallBuyHistorymodelWithDictionary:historyDic];
                 [self.mallBuyHistoryArray addObject:historyOrderModel];
             }
             [mallBuyTableView reloadData];
@@ -146,7 +145,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         if (statusCode == 200) {
             self.mallBuyHistoryArray = [NSMutableArray arrayWithCapacity:0];
             for (NSMutableDictionary *historyDic in dictionary[@"data"]) {
-                MeHistoryOrderModel *historyOrderModel = [MeHistoryOrderModel getMeHistoryOrderModelWithDictionary:historyDic];
+                MallBuyHistoryModel *historyOrderModel = [MallBuyHistoryModel getMallBuyHistorymodelWithDictionary:historyDic];
                 [self.mallBuyHistoryArray addObject:historyOrderModel];
             }
             [mallBuyTableView reloadData];
@@ -172,32 +171,10 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MallHistoryOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:mallBuyCellIdentifier forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    MeHistoryOrderModel *historyOrderModel = self.mallBuyHistoryArray[indexPath.section];
     
-    cell.goodsStatus.text = historyOrderModel.waitPayType;
-    if (historyOrderModel.photoArray.count > 0) {
-        NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, historyOrderModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"MallNoPhoto"]];
-    } else {
-        cell.photoView.image = [UIImage imageNamed:@"MallNoPhoto"];
-    }
-    cell.goodsTitle.text = historyOrderModel.name;
-    cell.goodsPrice.text = [NSString stringWithFormat:@"¥ %@", historyOrderModel.price];
-    cell.goodsCategory.text = historyOrderModel.category;
-    cell.goodsNumber.text = [NSString stringWithFormat:@"x%@", historyOrderModel.amount];
-    cell.totalPrice.text = [NSString stringWithFormat:@"共%@件商品 合计：¥ %@", historyOrderModel.amount, historyOrderModel.totalPrice];
+    MallBuyHistoryModel *mallBuyHistoryModel = self.mallBuyHistoryArray[indexPath.section];
+    [cell reloadMallBuyHistoryOrderDataWithMallBuyHistoryModel:mallBuyHistoryModel];
     cell.changeStatus.tag = 222 + indexPath.section;
-    if (historyOrderModel.status == 4) {
-        if ([historyOrderModel.comment isEqualToString:@"2"]) {
-            [cell.changeStatus setTitle:@"待卖家评" forState:UIControlStateNormal];
-        } else {
-            [cell.changeStatus setTitle:@"评价" forState:UIControlStateNormal];
-        }
-    } else {
-        [cell.changeStatus setTitle:historyOrderModel.payType forState:UIControlStateNormal];
-    }
-    cell.showButton = historyOrderModel.showButton;//判断button是否隐藏
     [cell.changeStatus addTarget:self action:@selector(actionOfStatus:) forControlEvents:UIControlEventTouchUpInside];
 
     return cell;
@@ -236,7 +213,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         
         button.userInteractionEnabled = NO;
         // 聊天
-        MeHistoryOrderModel *historyOrder = self.mallBuyHistoryArray[button.tag - 222];
+        MallBuyHistoryModel *historyOrder = self.mallBuyHistoryArray[button.tag - 222];
         //统计聊天
         [HttpClient statisticsWithKey:@"IMChat" withUid:historyOrder.sellerUserId andBlock:^(NSInteger statusCode) {
             DLog(@"------------%ld--------------", statusCode);
@@ -259,7 +236,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
         }];
     } else if ([button.titleLabel.text isEqualToString:@"确认收货"]){
         button.userInteractionEnabled = NO;
-        MeHistoryOrderModel *orderModel = self.mallBuyHistoryArray[button.tag - 222];
+        MallBuyHistoryModel *orderModel = self.mallBuyHistoryArray[button.tag - 222];
         [HttpClient buyerReceiveGoodsFromSellerWithPurchaseId:orderModel.orderNumber WithBlock:^(NSDictionary *dictionary) {
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
             if (statusCode == 200) {
@@ -273,7 +250,7 @@ static NSString *mallBuyCellIdentifier = @"mallBuyCell";
 
         }];
     } else if ([button.titleLabel.text isEqualToString:@"评价"]){
-        MeHistoryOrderModel *orderModel = self.mallBuyHistoryArray[button.tag - 222];
+        MallBuyHistoryModel *orderModel = self.mallBuyHistoryArray[button.tag - 222];
         MallOrderMark_VC *mallMarkVC = [[MallOrderMark_VC alloc] initWithStyle:UITableViewStyleGrouped];
         mallMarkVC.isBuyHistory = YES;
         mallMarkVC.purchaseId = orderModel.orderNumber;

@@ -94,66 +94,17 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         MallHistoryOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:mallGoodsCellIdentifier forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.goodsStatus.text = self.goodsModel.waitPayType;
-        if (self.goodsModel.photoArray.count > 0) {
-            NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, self.goodsModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"MallNoPhoto"]];
-        } else {
-            cell.photoView.image = [UIImage imageNamed:@"MallNoPhoto"];
-        }
-        cell.goodsTitle.text = self.goodsModel.name;
-        cell.goodsPrice.text = [NSString stringWithFormat:@"¥ %@", self.goodsModel.price];
-        cell.goodsCategory.text = self.goodsModel.category;
-        cell.goodsNumber.text = [NSString stringWithFormat:@"x%@", self.goodsModel.amount];
-        cell.totalPrice.text = [NSString stringWithFormat:@"共%@件商品 合计：¥ %@", self.goodsModel.amount, self.goodsModel.totalPrice];
+        [cell reloadMallBuyHistoryOrderDetailDataWithMallBuyHistoryModel:self.goodsModel];
         cell.changeStatus.tag = 222 + indexPath.section;
-        
-        [cell.changeStatus setTitle:@"联系卖家" forState:UIControlStateNormal];
         [cell.changeStatus addTarget:self action:@selector(actionOfStatus:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     } else if (indexPath.section == 1) {
         MallOrderAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:mallAddressCellIdentifier forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.personName.text = [NSString stringWithFormat:@"收货人：%@", self.goodsModel.personName];
-        cell.personPhoneNumber.text = [NSString stringWithFormat:@"电话：%@", self.goodsModel.personPhone];
-        CGSize size = [Tools getSize:[NSString stringWithFormat:@"收货地址：%@", self.goodsModel.personAddress] andFontOfSize:12 andWidthMake:kScreenW - 60];
-        cell.personAddress.frame = CGRectMake(45, CGRectGetMaxY(cell.personName.frame) + 5, kScreenW - 60, size.height);
-        cell.addressView.frame = CGRectMake(10, (45 + size.height - 25)/2, 25, 25);
-        cell.personAddress.text = [NSString stringWithFormat:@"收货地址：%@", self.goodsModel.personAddress];
+        [cell reloadReceiveAddressWithMallBuyHistoryModel:self.goodsModel];
         return cell;
     } else {
         MallOrderStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:mallStatusCellIdentifier forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.creatTime.text = [NSString stringWithFormat:@"创建时间：%@", self.goodsModel.creatTime];
-        cell.orderNum.text = [NSString stringWithFormat:@"订单编号：%@", self.goodsModel.orderNumber];
-        switch (self.goodsModel.status) {
-            case 2:
-                cell.payTime.text = [NSString stringWithFormat:@"付款时间：%@", self.goodsModel.payTime];
-                cell.sendTime.hidden = YES;
-                cell.receiveTime.hidden = YES;
-                break;
-            case 3:
-                cell.payTime.text = [NSString stringWithFormat:@"付款时间：%@", self.goodsModel.payTime];
-                cell.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", self.goodsModel.sendTime];
-                cell.receiveTime.hidden = YES;
-                break;
-            case 4:
-                cell.payTime.text = [NSString stringWithFormat:@"付款时间：%@", self.goodsModel.payTime];
-                cell.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", self.goodsModel.sendTime];
-                cell.receiveTime.text = [NSString stringWithFormat:@"收货时间：%@", self.goodsModel.receiveTime];
-                break;
-            case 5:
-                cell.payTime.text = [NSString stringWithFormat:@"付款时间：%@", self.goodsModel.payTime];
-                cell.sendTime.text = [NSString stringWithFormat:@"发货时间：%@", self.goodsModel.sendTime];
-                cell.receiveTime.text = [NSString stringWithFormat:@"收货时间：%@", self.goodsModel.receiveTime];
-                break;
-            default:
-                cell.payTime.hidden = YES;
-                cell.sendTime.hidden = YES;
-                cell.receiveTime.hidden = YES;
-                break;
-        }
+        [cell reloadMallBuyHistoryOrderTimeWithMallBuyHistoryModel:self.goodsModel];
         return cell;
     }
     

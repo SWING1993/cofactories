@@ -12,7 +12,7 @@
 #import "HomeViewController.h"
 #import "IMChatListViewController.h"
 #import "MeViewController.h"
-#import "WalletViewController.h"
+#import "PopularNewsHome_VC.h"
 
 @interface CYLTabBarControllerConfig ()
 
@@ -34,7 +34,7 @@
         UIViewController *firstNavigationController = [[UINavigationController alloc]
                                                        initWithRootViewController:firstViewController];
         
-        WalletViewController *secondViewController = [[WalletViewController alloc] init];
+        PopularNewsHome_VC *secondViewController = [[PopularNewsHome_VC alloc] init];
         UIViewController *secondNavigationController = [[UINavigationController alloc]
                                                         initWithRootViewController:secondViewController];
         
@@ -88,9 +88,9 @@
                             CYLTabBarItemSelectedImage : @"tabHomeSelected",
                             };
     NSDictionary *dict2 = @{
-                            CYLTabBarItemTitle : @"钱包",
-                            CYLTabBarItemImage : @"tabWallet",
-                            CYLTabBarItemSelectedImage : @"tabWalletSelected",
+                            CYLTabBarItemTitle : @"资讯",
+                            CYLTabBarItemImage : @"tabNews",
+                            CYLTabBarItemSelectedImage : @"tabNewsSelected",
                             };
     NSDictionary *dict3 = @{
                             CYLTabBarItemTitle : @"聊天",

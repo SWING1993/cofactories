@@ -17,6 +17,7 @@
 #import "ShopCarModel.h"
 #import "FabricMarketModel.h"
 #import "MallSelectAddress_VC.h"
+#import "MallBuyHistoryModel.h"
 
 #define kPoptime 0.4f
 #define kImageViewHeight 0.94*kScreenW
@@ -533,7 +534,7 @@ static NSString *popViewCellIdentifier = @"popViewCell";
         NSMutableDictionary *buyGoodsDic = [NSMutableDictionary dictionaryWithCapacity:0];
         [buyGoodsDic setObject:myDic forKey:marketDetailModel.ID];
         
-        MeHistoryOrderModel *goodsModel = [[MeHistoryOrderModel alloc] init];
+        MallBuyHistoryModel *goodsModel = [[MallBuyHistoryModel alloc] init];
         goodsModel.waitPayType = @"等待买家付款";
         goodsModel.name = marketDetailModel.name;
         goodsModel.price = marketDetailModel.price;

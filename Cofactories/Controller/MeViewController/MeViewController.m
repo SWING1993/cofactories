@@ -17,6 +17,8 @@
 #import "MeShoppingCar_VC.h"//购物车
 #import "MallBuyHistory_VC.h"//购买记录
 #import "MallSellHistory_VC.h"//出售记录
+#import "WalletViewController.h"//我的钱包
+
 
 static NSString * const CellIdentifier = @"CellIdentifier";
 
@@ -74,7 +76,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _rightBtn.tag = 2;
     _rightBtn.frame = CGRectMake(kScreenW/2+1, 0, kScreenW/2, 49);
-    [_rightBtn setImage:[UIImage imageNamed:@"Me_ShoppingCar"] forState:UIControlStateNormal];
+    [_rightBtn setImage:[UIImage imageNamed:@"Me_RightBtn"] forState:UIControlStateNormal];
     _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_rightBtn addTarget:self action:@selector(clickHeaderBtnInSection:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -124,9 +126,9 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
     if (Btn.tag == 2) {
         DLog("购物车");
-        MeShoppingCar_VC *shoppingCarVC = [[MeShoppingCar_VC alloc] init];
-        shoppingCarVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:shoppingCarVC animated:YES];
+        WalletViewController *walletVC = [[WalletViewController alloc] init];
+        walletVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:walletVC animated:YES];
     }
 }
 
@@ -154,26 +156,23 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             DLog(@"^^^^^^^^^^%ld", (long)self.MyProfile.UserType);
         case UserType_designer:
             //设计者
-            return 3;
+            return 4;
             break;
             
         case UserType_supplier:
             //供应商
-            return 2;
+            return 3;
             break;
             
         default:
-            return 1;
+            return 2;
             break;
     }
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 3;
-    }
-    else if (section == 2) {
+    if (section == 3) {
         return 1;
     }
     return 2;
@@ -202,16 +201,23 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                         cell.textLabel.text = @"联系客服";
                     }
                         break;
-                        
-                    case 2:
+                }
+                break;
+            case 1:
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        cell.textLabel.text = @"购物车";
+                    }
+                        break;
+                    case 1:
                     {
                         cell.textLabel.text = @"购买记录";
                     }
                         break;
                 }
                 break;
-             
-            case 1:
+            case 2:
                 switch (indexPath.row) {
                     case 0:
                     {
@@ -226,7 +232,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                 }
                 break;
                 
-            case 2:
+            case 3:
                 cell.textLabel.text = @"流行资讯发布";
                 break;
         }
@@ -282,8 +288,23 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                     [actionSheet showInView:self.view];
                 }
                     break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 1: {
+            switch (indexPath.row) {
                     
-                case 2:
+                case 0:
+                {
+                    DLog(@"购物车");
+                    MeShoppingCar_VC *shoppingCarVC = [[MeShoppingCar_VC alloc] init];
+                    shoppingCarVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:shoppingCarVC animated:YES];
+                }
+                    break;
+                case 1:
                 {
                     DLog(@"购买记录");
                     MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
@@ -292,14 +313,12 @@ static NSString * const CellIdentifier = @"CellIdentifier";
                     [self.navigationController pushViewController:mallBuyVC animated:YES];
                 }
                     break;
-                    
                 default:
                     break;
             }
         }
             break;
-            
-        case 1: {
+        case 2: {
             switch (indexPath.row) {
                 case 0:
                 {
@@ -336,7 +355,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
             
             break;
             
-        case 2: {
+        case 3: {
             DLog(@"流行资讯发布");
             PublishPopularNews_VC *publishVC = [[PublishPopularNews_VC alloc] init];
             publishVC.hidesBottomBarWhenPushed = YES;

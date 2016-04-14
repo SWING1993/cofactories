@@ -274,6 +274,8 @@
 		7D06AF9A1C166BD200EE7102 /* ShoppingCarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D06AF991C166BD200EE7102 /* ShoppingCarCell.m */; };
 		7D06AF9D1C1687AE00EE7102 /* ShopCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D06AF9C1C1687AE00EE7102 /* ShopCarModel.m */; };
 		7D0841181C914AFD0066403C /* TableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0841171C914AFD0066403C /* TableViewHeaderView.m */; };
+		7D1408AC1CBDDBEB003D1FF2 /* MallSelectSuccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1408AB1CBDDBEB003D1FF2 /* MallSelectSuccess.m */; };
+		7D1408AF1CBE1558003D1FF2 /* MallBuyHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1408AE1CBE1558003D1FF2 /* MallBuyHistoryModel.m */; };
 		7D1922D81CB8E5100076B1F0 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1922D71CB8E5100076B1F0 /* ShareView.m */; };
 		7D1A4E331C59FFA10076B462 /* MallAddAddress_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E321C59FFA10076B462 /* MallAddAddress_VC.m */; };
 		7D1A4E361C5A02080076B462 /* AddressTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E351C5A02080076B462 /* AddressTextFieldCell.m */; };
@@ -296,7 +298,6 @@
 		7D412B741CB3B1410033140D /* ParagraphStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D412B731CB3B1410033140D /* ParagraphStyle.m */; };
 		7D41C8A71C0EEAF800703869 /* AllDesignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D41C8A61C0EEAF800703869 /* AllDesignCell.m */; };
 		7D43078A1C10271E00C4A3FF /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4307891C10271E00C4A3FF /* libiconv.tbd */; };
-		7D45D0D61C224C9100FC2988 /* MeHistoryOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */; };
 		7D4B74A11C3122B800344A43 /* Verified_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4B74A01C3122B800344A43 /* Verified_VC.m */; };
 		7D4D06C51C0ED48900BF49D9 /* AllDesignController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D06C41C0ED48900BF49D9 /* AllDesignController.m */; };
 		7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */; };
@@ -976,6 +977,10 @@
 		7D06AF9C1C1687AE00EE7102 /* ShopCarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarModel.m; sourceTree = "<group>"; };
 		7D0841161C914AFD0066403C /* TableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewHeaderView.h; sourceTree = "<group>"; };
 		7D0841171C914AFD0066403C /* TableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewHeaderView.m; sourceTree = "<group>"; };
+		7D1408AA1CBDDBEB003D1FF2 /* MallSelectSuccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallSelectSuccess.h; sourceTree = "<group>"; };
+		7D1408AB1CBDDBEB003D1FF2 /* MallSelectSuccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallSelectSuccess.m; sourceTree = "<group>"; };
+		7D1408AD1CBE1558003D1FF2 /* MallBuyHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallBuyHistoryModel.h; sourceTree = "<group>"; };
+		7D1408AE1CBE1558003D1FF2 /* MallBuyHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallBuyHistoryModel.m; sourceTree = "<group>"; };
 		7D1922D61CB8E5100076B1F0 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
 		7D1922D71CB8E5100076B1F0 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		7D1A4E311C59FFA10076B462 /* MallAddAddress_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallAddAddress_VC.h; sourceTree = "<group>"; };
@@ -1020,8 +1025,6 @@
 		7D41C8A51C0EEAF800703869 /* AllDesignCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllDesignCell.h; sourceTree = "<group>"; };
 		7D41C8A61C0EEAF800703869 /* AllDesignCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllDesignCell.m; sourceTree = "<group>"; };
 		7D4307891C10271E00C4A3FF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
-		7D45D0D41C224C9100FC2988 /* MeHistoryOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeHistoryOrderModel.h; sourceTree = "<group>"; };
-		7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeHistoryOrderModel.m; sourceTree = "<group>"; };
 		7D4B749F1C3122B800344A43 /* Verified_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Verified_VC.h; sourceTree = "<group>"; };
 		7D4B74A01C3122B800344A43 /* Verified_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Verified_VC.m; sourceTree = "<group>"; };
 		7D4D06C31C0ED48900BF49D9 /* AllDesignController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllDesignController.h; sourceTree = "<group>"; };
@@ -2539,8 +2542,8 @@
 		7D45D0D31C224C5B00FC2988 /* MeHistoryOrderModel */ = {
 			isa = PBXGroup;
 			children = (
-				7D45D0D41C224C9100FC2988 /* MeHistoryOrderModel.h */,
-				7D45D0D51C224C9100FC2988 /* MeHistoryOrderModel.m */,
+				7D1408AD1CBE1558003D1FF2 /* MallBuyHistoryModel.h */,
+				7D1408AE1CBE1558003D1FF2 /* MallBuyHistoryModel.m */,
 				7D1DC6541C9FE5300006DC0A /* MallSellHistoryModel.h */,
 				7D1DC6551C9FE5300006DC0A /* MallSellHistoryModel.m */,
 			);
@@ -2689,10 +2692,12 @@
 				7DAB68DB1C576BA40045A115 /* ShoppingMallView */,
 				7DB5E7411C585D6B004834E8 /* ShoppingMallDetail_VC.h */,
 				7DB5E7421C585D6B004834E8 /* ShoppingMallDetail_VC.m */,
-				7DAB68D81C576B410045A115 /* MallSelectAddress_VC.h */,
-				7DAB68D91C576B410045A115 /* MallSelectAddress_VC.m */,
 				7D1A4E311C59FFA10076B462 /* MallAddAddress_VC.h */,
 				7D1A4E321C59FFA10076B462 /* MallAddAddress_VC.m */,
+				7DAB68D81C576B410045A115 /* MallSelectAddress_VC.h */,
+				7DAB68D91C576B410045A115 /* MallSelectAddress_VC.m */,
+				7D1408AA1CBDDBEB003D1FF2 /* MallSelectSuccess.h */,
+				7D1408AB1CBDDBEB003D1FF2 /* MallSelectSuccess.m */,
 				7D543D2F1C5B20090086B702 /* MallOrderPay_VC.h */,
 				7D543D301C5B20090086B702 /* MallOrderPay_VC.m */,
 			);
@@ -3062,7 +3067,6 @@
 				7D2BE73A1C1918FA00CE4138 /* MeShopCell.m in Sources */,
 				70F50D7D1C06FB3000920F63 /* DesignOrderModel.m in Sources */,
 				7DE8C1931C043CA600E0917D /* RechargeViewController.m in Sources */,
-				7D45D0D61C224C9100FC2988 /* MeHistoryOrderModel.m in Sources */,
 				03571C421BE85C3700900EF9 /* UIImage+Common.m in Sources */,
 				70612DD91CA0E1D200EC0272 /* OrderDetail_Supp_HeaderView.m in Sources */,
 				032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */,
@@ -3228,6 +3232,7 @@
 				705679D51C194C6F00ACA494 /* DealComment_TVC.m in Sources */,
 				039D4D4E1C72CACC0051CD2E /* AFNetworkReachabilityManager.m in Sources */,
 				70EFA1FA1C4500D500C9F6A5 /* BlankFourth_TVC.m in Sources */,
+				7D1408AF1CBE1558003D1FF2 /* MallBuyHistoryModel.m in Sources */,
 				03662CE11C12E0FD00AEEF48 /* AlipayRequestConfig.m in Sources */,
 				03B120C51C05B1BF0023F362 /* DescriptionViewController.m in Sources */,
 				70EA22F81C8ED73E00E4407D /* OrderList_Supplier_TVC.m in Sources */,
@@ -3322,6 +3327,7 @@
 				7D56828B1C759A7500FF03AE /* MallOrderSellDetail_VC.m in Sources */,
 				705421F81C0D7A3C00BD2B47 /* OrderBid_Factory_VC.m in Sources */,
 				7D72CDCB1C3A0279005BDA66 /* HomeKoreaShopList_VC.m in Sources */,
+				7D1408AC1CBDDBEB003D1FF2 /* MallSelectSuccess.m in Sources */,
 				7D412B6B1CB3AA650033140D /* AttributedStyle.m in Sources */,
 				70037F021C1021F40086267C /* CompletionOrder_VC.m in Sources */,
 				03623FBB1C44D8C70083044A /* WelcomePageViewController.m in Sources */,
