@@ -106,7 +106,9 @@
 }
 
 + (void)showErrorTipStr:(NSString *)tipStr {
-    [JKPromptView showWithImageName:@"picker_alert_sigh" message:tipStr];
+    if (tipStr && tipStr.length > 0) {
+        [JKPromptView showWithImageName:@"picker_alert_sigh" message:tipStr]; 
+    }
 }
 
 + (NSString *)SizeWith:(NSString *)sizeString {

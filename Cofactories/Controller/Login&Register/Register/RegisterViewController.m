@@ -33,7 +33,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.isSeletecd = YES;
-    DLog(@"用户协议 = %d",self.isSeletecd);
+//    DLog(@"用户协议 = %d",self.isSeletecd);
     [self createViews];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldCharge) name:UITextFieldTextDidChangeNotification object:nil];
@@ -44,7 +44,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     
     self.title=@"注册";
     self.view.backgroundColor=[UIColor whiteColor];
-    
     self.tableView = ({
         UITableView * tableView = [[UITableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
         tableView.showsVerticalScrollIndicator = NO;
@@ -77,7 +76,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     [tableFooterView addSubview:btn];
     
     if (!_nextBtn) {
-        
         _nextBtn = [[LoginButton alloc]initWithFrame:CGRectMake(20, 50, kScreenW-40, 35)];;
         [_nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
         [_nextBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -110,7 +108,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         _codeTF.keyboardType = UIKeyboardTypeNumberPad;
         _codeTF.font = [UIFont systemFontOfSize:15];
         _codeTF.placeholder = @" 验证码";
-        
     }
 
     if (!_authcodeBtn) {
@@ -118,7 +115,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
         _authcodeBtn.titleLabel.font=[UIFont systemFontOfSize:14.0f];
         [_authcodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_authcodeBtn addTarget:self action:@selector(sendCodeBtn) forControlEvents:UIControlEventTouchUpInside];
-
     }
 }
 
@@ -253,7 +249,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (void)dealloc {
-    DLog(@"注册1dealloc");
     self.tableView = nil;
     self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
