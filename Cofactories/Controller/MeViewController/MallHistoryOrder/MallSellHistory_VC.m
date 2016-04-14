@@ -59,12 +59,12 @@ static NSString *mallSellCellIdentifier = @"mallSellCell";
                 MallSellHistoryModel *historyOrderModel = [MallSellHistoryModel getMeHistoryOrderModelWithDictionary:historyDic];
                 [self.mallSellHistoryArray addObject:historyOrderModel];
             }
+            [mallSellTableView reloadData];
             if (self.mallSellHistoryArray.count == 0) {
                 mallSellTableView.backgroundView = [[TableViewHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - 64 - 44) withImage:@"数据暂无" withLabelText:@"您还没有相关的订单"];
             } else {
                 mallSellTableView.backgroundView = nil;
                 [self setupRefresh];
-                [mallSellTableView reloadData];
             }
         }
     }];

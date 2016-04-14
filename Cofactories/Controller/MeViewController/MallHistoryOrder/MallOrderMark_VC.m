@@ -96,6 +96,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     _markString = button.titleLabel.text;
 }
 - (void)markClick:(UIButton *)button {
+    [button addShakeAnimation];
     button.userInteractionEnabled = NO;
     if ([Tools isBlankString:_commentTF.text] == YES) {
         kTipAlert(@"请输入评论内容");

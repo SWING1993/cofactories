@@ -12,15 +12,15 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "AlipayHeader.h"
 #import "MallBuyHistory_VC.h"
-#import "MallOrderDetailModel.h"
+#import "TradeSuccessVC.h"
 
-@interface MallOrderPay_VC ()<UIAlertViewDelegate> {
+@interface MallOrderPay_VC () {
     NSArray *payPhotoArray, *payTitleArray;
     UIView *_header;
     NSString *paySelectString;
 }
 
-@property (nonatomic, strong) MallOrderDetailModel *goodsModel;
+@property (nonatomic, strong) MallBuyHistoryModel *goodsModel;
 @property (nonatomic,retain)UserModel * MyProfile;
 
 @end
@@ -39,6 +39,8 @@ static NSString *payCellIndentifier = @"payCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(aliPaySuccess) name: @"aliPaySuccess" object: nil];
     
     self.navigationItem.title = @"订单支付";
     self.MyProfile = [[UserModel alloc]getMyProfile];
@@ -61,7 +63,7 @@ static NSString *payCellIndentifier = @"payCell";
     [HttpClient getMallOrderDetailWithPurchseId:self.mallPurchseId WithBlock:^(NSDictionary *dictionary) {
         NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
         if (statusCode == 200) {
-            self.goodsModel = [MallOrderDetailModel getMallOrderDetailModelWithDictionary:dictionary[@"data"]];
+            self.goodsModel = [MallBuyHistoryModel getMallBuyHistorymodelWithDictionary:dictionary[@"data"]];
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
             [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         } else {
@@ -70,8 +72,8 @@ static NSString *payCellIndentifier = @"payCell";
     }];
 }
 - (void) creatTableViewFooterView {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 150)];
-    UIButton *doneButton = [Tools buttonWithFrame:CGRectMake(20, 100, kScreenW - 40, 38) withTitle:@"确认支付"];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 110)];
+    UIButton *doneButton = [Tools buttonWithFrame:CGRectMake(20, 60, kScreenW - 40, 38) withTitle:@"确认支付"];
     
     [doneButton addTarget:self action:@selector(actionOfDoneButton:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:doneButton];
@@ -100,19 +102,7 @@ static NSString *payCellIndentifier = @"payCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         MallHistoryOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.goodsStatus.text = self.goodsModel.waitPayType;
-        if (self.goodsModel.photoArray.count > 0) {
-            NSString* encodedString = [[NSString stringWithFormat:@"%@%@", PhotoAPI, self.goodsModel.photoArray[0]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            [cell.photoView sd_setImageWithURL:[NSURL URLWithString:encodedString] placeholderImage:[UIImage imageNamed:@"MallNoPhoto"]];
-        } else {
-            cell.photoView.image = [UIImage imageNamed:@"MallNoPhoto"];
-        }
-        cell.goodsTitle.text = self.goodsModel.name;
-        cell.goodsPrice.text = [NSString stringWithFormat:@"¥ %@", self.goodsModel.price];
-        cell.goodsCategory.text = self.goodsModel.category;
-        cell.goodsNumber.text = [NSString stringWithFormat:@"x%@", self.goodsModel.amount];
-        cell.totalPrice.text = [NSString stringWithFormat:@"共%@件商品 合计：¥ %@", self.goodsModel.amount, self.goodsModel.totalPrice];
+        [cell reloadMallBuyHistoryOrderDetailDataWithMallBuyHistoryModel:self.goodsModel];
         cell.changeStatus.hidden = YES;
         return cell;
     } else {
@@ -169,7 +159,9 @@ static NSString *payCellIndentifier = @"payCell";
 
 #pragma mark - 确认支付
 - (void)actionOfDoneButton:(UIButton *)button {
+    
     DLog(@"确认支付");
+    [button addShakeAnimation];
     button.userInteractionEnabled = NO;
     if ([paySelectString isEqualToString:@"支付宝支付"]) {
         [HttpClient buyGoodsWithPurchaseId:self.mallPurchseId payment:@"alipay" WithBlock:^(NSDictionary *dictionary) {
@@ -185,6 +177,7 @@ static NSString *payCellIndentifier = @"payCell";
                     DLog(@"amountPrice = %@, tradeNO = %@", amountStr, tradeNO);
                     if (tradeNO && descriptionStr && subject) {
                         [AlipayRequestConfig alipayWithPartner:kPartnerID seller:kSellerAccount tradeNO:tradeNO productName:subject productDescription:descriptionStr amount:amountStr notifyURL:kNotifyURL itBPay:@"60m"];
+
                     } else {
                         kTipAlert(@"支付宝付款失败");
                     }
@@ -202,9 +195,7 @@ static NSString *payCellIndentifier = @"payCell";
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
             switch (statusCode) {
                 case 200: {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户付款成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-                    alert.tag = 222;
-                    [alert show];
+                    [self orderPaySuccess:@"账户支付"];
                     button.userInteractionEnabled = YES;
                 }
                     break;
@@ -221,9 +212,7 @@ static NSString *payCellIndentifier = @"payCell";
             NSInteger statusCode = [dictionary[@"statusCode"] integerValue];
             switch (statusCode) {
                 case 200: {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该订单已提交至主账号，请耐心等待主账号支付！" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-                    alert.tag = 223;
-                    [alert show];
+                    [self orderPaySuccess:@"企业账号支付"];
                     button.userInteractionEnabled = YES;
                 }
                     break;
@@ -237,32 +226,35 @@ static NSString *payCellIndentifier = @"payCell";
     }
 }
 
-#pragma mark - UIAlertViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) {
-        if (_isMeMallOrder) {
-            //
-            if (alertView.tag == 222) {
-                ApplicationDelegate.mallStatus = @"2";
-            } else if (alertView.tag == 223) {
-                ApplicationDelegate.mallStatus = @"1";
-            }
-            for (UIViewController *controller in self.navigationController.viewControllers) {
-                if ([controller isKindOfClass:[MallBuyHistory_VC class]]) {
-                    [self.navigationController popToViewController:controller animated:YES];
-                }
-            }
-        } else {
-            MallBuyHistory_VC *mallBuyVC = [[MallBuyHistory_VC alloc] init];
-            if (alertView.tag == 222) {
-                ApplicationDelegate.mallStatus = @"2";
-            } else if (alertView.tag == 223) {
-                ApplicationDelegate.mallStatus = @"1";
-            }
-            [self.navigationController pushViewController:mallBuyVC animated:YES];
-        }
+//支付宝支付成功返回
+- (void)aliPaySuccess {
+    //支付宝付款成功，跳转到相应付款成功界面
+    TradeSuccessVC *tradeSuccessVC = [[TradeSuccessVC alloc] init];
+    tradeSuccessVC.purchaseId = self.mallPurchseId;
+    tradeSuccessVC.orderTitle = @"付款成功";
+    tradeSuccessVC.status = @"待发货订单";
+    tradeSuccessVC.totalPrice = self.goodsModel.totalPrice;
+    [self.navigationController pushViewController:tradeSuccessVC animated:YES];
+}
+
+
+- (void) orderPaySuccess:(NSString *)payType {
+    TradeSuccessVC *tradeSuccessVC = [[TradeSuccessVC alloc] init];
+    tradeSuccessVC.purchaseId = self.mallPurchseId;
+    if ([payType isEqualToString:@"账户支付"]) {
+        tradeSuccessVC.orderTitle = @"付款成功";
+        tradeSuccessVC.status = @"待发货订单";
+    } else if ([payType isEqualToString:@"企业账号支付"]) {
+        tradeSuccessVC.orderTitle = @"付款申请已提交至主账号";
+        tradeSuccessVC.status = @"等待主账号审核通过";
     }
+    tradeSuccessVC.totalPrice = self.goodsModel.totalPrice;
+    [self.navigationController pushViewController:tradeSuccessVC animated:YES];
+    
+}
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 @end

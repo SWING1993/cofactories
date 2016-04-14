@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Mall-alipay.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Mall-alipay.png",
       "scale" : "2x"
     },
     {

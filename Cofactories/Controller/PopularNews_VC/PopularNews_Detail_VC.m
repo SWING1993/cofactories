@@ -125,7 +125,7 @@
 - (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
     UIImageView *imageView = [UIImageView new];
-    imageView.image = [UIImage imageNamed:@"placeHolderImage"];
+    imageView.image = [UIImage imageNamed:@""];
     return imageView.image;
 }
 

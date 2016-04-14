@@ -157,6 +157,7 @@ static NSString *addressCellIdentifier = @"addressCell";
 
 #pragma mark - 拍下订单
 - (void)actionOfDoneButton:(UIButton *)button {
+    [button addShakeAnimation];
     button.userInteractionEnabled = NO;
     DLog(@"拍下订单");
     for (int i = 0; i < self.addressArray.count; i++) {

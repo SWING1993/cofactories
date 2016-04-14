@@ -353,7 +353,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
 }
 
 - (void)actionOfDoneButton:(UIButton *)button {
-    
+    [button addShakeAnimation];
     if ([Tools isBlankString:personNameTF.text] == YES || [Tools isBlankString:phoneNumberTF.text] == YES ||[Tools isBlankString:postNumberTF.text] == YES || addressTF.text.length == 0 ||[Tools isBlankString:detailAddressTV.text] == YES) {
         kTipAlert(@"信息填写不完整");
     } else {

@@ -49,7 +49,7 @@
             self.payType = @"确认收货";
             self.mallOrderTitle = @"待收货订单";
             self.status = 3;
-            self.showButton = NO;
+            self.showButton = YES;
         } else if ([dictionary[@"status"] isEqualToString:@"wait_comment"]) {
             self.waitPayType = @"交易成功";
             self.mallOrderTitle = @"待评价订单";

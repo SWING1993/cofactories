@@ -126,6 +126,7 @@ static NSString *mallStatusCellIdentifier = @"mallStatusCell";
 
 
 - (void)actionOfLastButton:(UIButton *)button {
+    [button addShakeAnimation];
     switch (self.goodsModel.status) {
         case 2: {
             DLog(@"确认发货");

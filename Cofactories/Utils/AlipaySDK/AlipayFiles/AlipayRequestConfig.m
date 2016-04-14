@@ -110,7 +110,8 @@
                     kTipAlert(@"支付结果确认中");
                     break;
                 case 9000:
-                    kTipAlert(@"订单支付成功");
+//                    kTipAlert(@"订单支付成功");
+                    [[NSNotificationCenter defaultCenter] postNotificationName: @"aliPaySuccess" object: nil];
                     break;
                     
                 default:
