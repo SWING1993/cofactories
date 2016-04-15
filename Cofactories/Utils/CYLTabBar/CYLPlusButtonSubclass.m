@@ -7,16 +7,20 @@
 //
 
 #import "CYLPlusButtonSubclass.h"
-#import "CHTumblrMenuView.h"
 #import "SelectOrder_VC.h"
 #import "SearchOrder_Designer_VC.h"
 #import "SearchOrder_Factory_VC.h"
 #import "MangerOrderVC.h"
 #import "OrderList_Supplier_VC.h"
-@interface CYLPlusButtonSubclass () {
+#import "RXRotateButtonOverlayView.h"
+
+@interface CYLPlusButtonSubclass () <RXRotateButtonOverlayViewDelegate>{
     CGFloat _buttonImageHeight;
 }
 @property(nonatomic,strong)UserModel *userModel;
+@property (nonatomic, strong) RXRotateButtonOverlayView* overlayView;
+@property (nonatomic, strong) UIViewController* now_VC;
+
 @end
 @implementation CYLPlusButtonSubclass
 
@@ -65,26 +69,6 @@
 
 #pragma mark -
 #pragma mark - Public Methods
-/*
- *
- Create a custom UIButton with title and add it to the center of our tab bar
- *
- */
-//+ (instancetype)plusButton{
-//    
-//    CYLPlusButtonSubclass *button = [[CYLPlusButtonSubclass alloc] init];
-//    
-//    [button setImage:[UIImage imageNamed:@"post_normal"] forState:UIControlStateNormal];
-//    [button setTitle:@"发布" forState:UIControlStateNormal];
-//    
-//    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-//    button.titleLabel.font = [UIFont systemFontOfSize:9.5];
-//    [button sizeToFit];
-//    
-//    [button addTarget:button action:@selector(clickPublish) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    return button;
-//}
 
 /*
  *
@@ -118,87 +102,89 @@
 - (void)showMenu{
     
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
-    UIViewController *viewController = tabBarController.selectedViewController;
-    
-    CHTumblrMenuView *menuView = [[CHTumblrMenuView alloc] init];
-    __unsafe_unretained CHTumblrMenuView *weakView = menuView; //
-    [menuView addMenuItemWithTitle:@"发布订单" andIcon:[UIImage imageNamed:@"发布订单"] andSelectedBlock:^{
-        NSLog(@"发布订单");
-        
+    _now_VC = tabBarController.selectedViewController;
+    [_now_VC.view addSubview:self.overlayView];
+    [self.overlayView show];
+
+}
+
+#pragma mark - RXRotateButtonOverlayViewDelegate
+- (void)didSelected:(NSUInteger)index{
+    if (index == 0) {
         SelectOrder_VC *vc = [[SelectOrder_VC alloc] init];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-        
-        [viewController presentViewController:nav animated:YES completion:^{
-            [weakView dismiss:nil];
-        }];
-    }];
-    [menuView addMenuItemWithTitle:@"查找订单" andIcon:[UIImage imageNamed:@"查找订单"] andSelectedBlock:^{
-        NSLog(@"查找订单");
-        
+        [_now_VC presentViewController:nav animated:YES completion:^{
+            [_overlayView dismiss];
+            }];
+ 
+    }else if (index == 1){
         self.userModel = [[UserModel alloc] getMyProfile];
-        switch (self.userModel.UserType) {
-            case UserType_supplier:
-            {
-                OrderList_Supplier_VC *vc = [[OrderList_Supplier_VC alloc] init];
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-                
-                [viewController presentViewController:nav animated:YES completion:^{
-                    [weakView dismiss:nil];
-                }];
-                
-            }
-                break;
-                
-            case UserType_designer:
-            {
-                SearchOrder_Designer_VC *vc = [[SearchOrder_Designer_VC alloc] init];
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-                
-                [viewController presentViewController:nav animated:YES completion:^{
-                    [weakView dismiss:nil];
-                }];
-                
-            }
-                break;
-            case UserType_processing:
-            {
-                SearchOrder_Factory_VC *vc = [[SearchOrder_Factory_VC alloc] init];
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-                
-                [viewController presentViewController:nav animated:YES completion:^{
-                    [weakView dismiss:nil];
-                }];
-            }
-                break;
-                
-            default:
-                kTipAlert(@"该身份接订单功能未开通");
-                break;
-        }
+                switch (self.userModel.UserType) {
+                    case UserType_supplier:{
+                        OrderList_Supplier_VC *vc = [[OrderList_Supplier_VC alloc] init];
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
         
-       
-    }];
-    [menuView addMenuItemWithTitle:@"管理订单" andIcon:[UIImage imageNamed:@"管理订单"] andSelectedBlock:^{
-        NSLog(@"管理订单");
-        MangerOrderVC *vc = [[MangerOrderVC alloc] init];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+                        [_now_VC presentViewController:nav animated:YES completion:^{
+                            [_overlayView dismiss];
+                        }];
         
-        [viewController presentViewController:nav animated:YES completion:^{
-            [weakView dismiss:nil];
-        }];
+                    }
+                        break;
+        
+                    case UserType_designer:{
+                    SearchOrder_Designer_VC *vc = [[SearchOrder_Designer_VC alloc] init];
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        
+                        [_now_VC presentViewController:nav animated:YES completion:^{
+                            [_overlayView dismiss];
+                        }];
+        
+                    }
+                        break;
+                    case UserType_processing:{
+                        SearchOrder_Factory_VC *vc = [[SearchOrder_Factory_VC alloc] init];
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        
+                        [_now_VC presentViewController:nav animated:YES completion:^{
+                            [_overlayView dismiss];
+                        }];
+                    }
+                        break;
+                        
+                    default:
+                        kTipAlert(@"该身份接订单功能未开通");
+                        break;
+                }
+                
+               
 
-    }];
-    
-    [menuView show];
+    }else if (index == 2){
+        MangerOrderVC *vc = [[MangerOrderVC alloc] init];
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        
+                [_now_VC presentViewController:nav animated:YES completion:^{
+                    [_overlayView dismiss];
+                }];
+
+    }
+}
+
+
+- (RXRotateButtonOverlayView *)overlayView{
+    if (_overlayView == nil) {
+        _overlayView = [[RXRotateButtonOverlayView alloc] init];
+        [_overlayView setTitles:@[@"发布订单",@"查找订单",@"管理订单"]];
+        [_overlayView setTitleImages:@[@"发布订单",@"查找订单",@"管理订单"]];
+        [_overlayView setDelegate:self];
+        [_overlayView setFrame:_now_VC.view.bounds];
+    }
+    return _overlayView;
 }
 
 
 
-#pragma mark - CYLPlusButtonSubclassing
 
-//+ (NSUInteger)indexOfPlusButtonInTabBar {
-//    return 3;
-//}
+#pragma mark - CYLPlusButtonSubclassing
 
 + (CGFloat)multiplerInCenterY {
     return  0.3;

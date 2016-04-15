@@ -171,6 +171,8 @@
 		03FF44F01BFEE73400D81DCE /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44E61BFEE73400D81DCE /* UIProgressView+AFNetworking.m */; };
 		03FF44F11BFEE73400D81DCE /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44E81BFEE73400D81DCE /* UIRefreshControl+AFNetworking.m */; };
 		03FF44F21BFEE73400D81DCE /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FF44EA1BFEE73400D81DCE /* UIWebView+AFNetworking.m */; };
+		642DCC671CC15A4800656954 /* ImageAndTitleVerticalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 642DCC641CC15A4800656954 /* ImageAndTitleVerticalButton.m */; };
+		642DCC681CC15A4800656954 /* RXRotateButtonOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 642DCC661CC15A4800656954 /* RXRotateButtonOverlayView.m */; };
 		6790C14863231C24E63EBF90 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D081D8C09CA3579B6A769D7E /* libPods.a */; };
 		70037F021C1021F40086267C /* CompletionOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70037EFF1C1021F40086267C /* CompletionOrder_VC.m */; };
 		70037F031C1021F40086267C /* ProgressingOrder_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70037F011C1021F40086267C /* ProgressingOrder_VC.m */; };
@@ -195,7 +197,6 @@
 		70612DD91CA0E1D200EC0272 /* OrderDetail_Supp_HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70612DD81CA0E1D200EC0272 /* OrderDetail_Supp_HeaderView.m */; };
 		70612DDC1CA0E21300EC0272 /* OrderDetail_Supp_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70612DDB1CA0E21300EC0272 /* OrderDetail_Supp_TVC.m */; };
 		706504741CA3D73A0021E4B0 /* OrderDetail_Fac_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 706504731CA3D73A0021E4B0 /* OrderDetail_Fac_VC.m */; };
-		7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */; };
 		7094D7221BFC825200F7240B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094D7211BFC825200F7240B /* WalletViewController.m */; };
 		70A63EA91C45ED1000B68839 /* Contract_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A63EA81C45ED1000B68839 /* Contract_VC.m */; };
 		70CD41751C5B2F67000F2807 /* AlertWithTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 70CD41741C5B2F67000F2807 /* AlertWithTF.m */; };
@@ -771,6 +772,10 @@
 		03FF44E81BFEE73400D81DCE /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		03FF44E91BFEE73400D81DCE /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		03FF44EA1BFEE73400D81DCE /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		642DCC631CC15A4800656954 /* ImageAndTitleVerticalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndTitleVerticalButton.h; sourceTree = "<group>"; };
+		642DCC641CC15A4800656954 /* ImageAndTitleVerticalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndTitleVerticalButton.m; sourceTree = "<group>"; };
+		642DCC651CC15A4800656954 /* RXRotateButtonOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXRotateButtonOverlayView.h; sourceTree = "<group>"; };
+		642DCC661CC15A4800656954 /* RXRotateButtonOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXRotateButtonOverlayView.m; sourceTree = "<group>"; };
 		70037EFE1C1021F40086267C /* CompletionOrder_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletionOrder_VC.h; sourceTree = "<group>"; };
 		70037EFF1C1021F40086267C /* CompletionOrder_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletionOrder_VC.m; sourceTree = "<group>"; };
 		70037F001C1021F40086267C /* ProgressingOrder_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressingOrder_VC.h; sourceTree = "<group>"; };
@@ -817,8 +822,6 @@
 		70612DDB1CA0E21300EC0272 /* OrderDetail_Supp_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_Supp_TVC.m; sourceTree = "<group>"; };
 		706504721CA3D73A0021E4B0 /* OrderDetail_Fac_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetail_Fac_VC.h; sourceTree = "<group>"; };
 		706504731CA3D73A0021E4B0 /* OrderDetail_Fac_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_Fac_VC.m; sourceTree = "<group>"; };
-		7094D71B1BFC7B4B00F7240B /* CHTumblrMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTumblrMenuView.h; sourceTree = "<group>"; };
-		7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTumblrMenuView.m; sourceTree = "<group>"; };
 		7094D7201BFC825200F7240B /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
 		7094D7211BFC825200F7240B /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
 		70A63EA71C45ED1000B68839 /* Contract_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contract_VC.h; sourceTree = "<group>"; };
@@ -1412,6 +1415,7 @@
 		03571B561BE84E1500900EF9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				642DCC621CC15A4800656954 /* RXRotateButtonOverlayView */,
 				7D412B651CB3A60E0033140D /* AttributedString */,
 				0332269D1CB3A9AE00FE7DD9 /* SDPhotoBrowser */,
 				70E8C0701C868E2C007C7C1D /* AddPhoto */,
@@ -1425,7 +1429,6 @@
 				03B569741C02A4AC00F89CDA /* FastCoder */,
 				039D4D371C72CACC0051CD2E /* AFNetworking */,
 				03FF44D81BFEE73400D81DCE /* UIKit+AFNetworking */,
-				7094D71A1BFC7B2000F7240B /* POPAnimation */,
 				03571C9F1BE85DDE00900EF9 /* UMeng */,
 				03571C951BE85DAC00900EF9 /* DOPDropDownMenu  */,
 				03571BCB1BE85BDB00900EF9 /* AFOAuth2Manager */,
@@ -2056,6 +2059,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		642DCC621CC15A4800656954 /* RXRotateButtonOverlayView */ = {
+			isa = PBXGroup;
+			children = (
+				642DCC631CC15A4800656954 /* ImageAndTitleVerticalButton.h */,
+				642DCC641CC15A4800656954 /* ImageAndTitleVerticalButton.m */,
+				642DCC651CC15A4800656954 /* RXRotateButtonOverlayView.h */,
+				642DCC661CC15A4800656954 /* RXRotateButtonOverlayView.m */,
+			);
+			path = RXRotateButtonOverlayView;
+			sourceTree = "<group>";
+		};
 		702250A11C99084E006795EB /* OrderDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -2111,15 +2125,6 @@
 				705679DF1C1952CC00ACA494 /* DealComment_Model.m */,
 			);
 			path = "Shop_Cell(店铺,作品，交易评论)";
-			sourceTree = "<group>";
-		};
-		7094D71A1BFC7B2000F7240B /* POPAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				7094D71B1BFC7B4B00F7240B /* CHTumblrMenuView.h */,
-				7094D71C1BFC7B4B00F7240B /* CHTumblrMenuView.m */,
-			);
-			path = POPAnimation;
 			sourceTree = "<group>";
 		};
 		7094D71F1BFC821400F7240B /* WalletViewController */ = {
@@ -3067,6 +3072,7 @@
 				032554991BFDC1F1003B2E76 /* RegisterViewController.m in Sources */,
 				7D543D311C5B20090086B702 /* MallOrderPay_VC.m in Sources */,
 				03662CE71C12E0FD00AEEF48 /* NSDataEx.m in Sources */,
+				642DCC681CC15A4800656954 /* RXRotateButtonOverlayView.m in Sources */,
 				70F0B43F1C83D86F00583B19 /* PublishOrder_Three_VC.m in Sources */,
 				03662CE51C12E0FD00AEEF48 /* DataVerifier.m in Sources */,
 				705679CF1C194A8E00ACA494 /* PersonalShop_TVC.m in Sources */,
@@ -3196,7 +3202,6 @@
 				7DBD04F51C1C0FEB00FD318B /* FabricShop_VC.m in Sources */,
 				70EFA1F41C44E02700C9F6A5 /* BlankThird_TVC.m in Sources */,
 				70F4A7811C12E2C9000DF7E7 /* MarkOrder_VC.m in Sources */,
-				7094D71D1BFC7B4B00F7240B /* CHTumblrMenuView.m in Sources */,
 				7D7DD3511C1C21DB00424C08 /* SearchShopMarketModel.m in Sources */,
 				70F4A76E1C1289C2000DF7E7 /* BidManage_Design_TVC.m in Sources */,
 				7D7E8C141C5C96EE0009452E /* MallSellHistory_VC.m in Sources */,
@@ -3328,6 +3333,7 @@
 				039D4D731C72E14A0051CD2E /* MJRefreshConst.m in Sources */,
 				03662CE91C12E0FD00AEEF48 /* RSADataSigner.m in Sources */,
 				7D5417311C8E8CD900229CDA /* PopularNewsType_Cell.m in Sources */,
+				642DCC671CC15A4800656954 /* ImageAndTitleVerticalButton.m in Sources */,
 				039D4D721C72E14A0051CD2E /* MJRefreshBaseView.m in Sources */,
 				7D8E703E1C0FEA06004A7E2C /* ProcessMarketListCell.m in Sources */,
 				70F9AEC71C3F70B60003489B /* CalendarMonthCollectionViewLayout.m in Sources */,
