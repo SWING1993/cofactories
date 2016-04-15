@@ -16,6 +16,9 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         for (int i = 0; i<3; i++) {
             UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(10+i*(10+(kScreenW - 40)/3.f), 0, (kScreenW - 40)/3.f, (kScreenW - 40)/3.f)];
+            image.layer.borderWidth = 1.f;
+            image.layer.masksToBounds = YES;
+            image.layer.cornerRadius = 10.f;
             [self addSubview:image];
             
             switch (i) {
