@@ -291,6 +291,14 @@
 		7D34E4321C1966600049D9C7 /* MeCatergoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34E4311C1966600049D9C7 /* MeCatergoryCell.m */; };
 		7D34E4351C197B140049D9C7 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34E4341C197B140049D9C7 /* PlaceholderTextView.m */; };
 		7D34E4381C199D0F0049D9C7 /* MeDetailSupply_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D34E4371C199D0F0049D9C7 /* MeDetailSupply_VC.m */; };
+		7D37772E1CC47CA40056F508 /* DesignMarketVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37772D1CC47CA40056F508 /* DesignMarketVC.m */; };
+		7D3777311CC47E5E0056F508 /* DesignCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3777301CC47E5E0056F508 /* DesignCollectionViewCell.m */; };
+		7D3777401CC4B9120056F508 /* ZGYMallDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3777361CC4B9120056F508 /* ZGYMallDownView.m */; };
+		7D3777411CC4B9120056F508 /* ZGYMallSelectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3777381CC4B9120056F508 /* ZGYMallSelectModel.m */; };
+		7D3777421CC4B9120056F508 /* ZGYMallSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37773A1CC4B9120056F508 /* ZGYMallSelectView.m */; };
+		7D3777431CC4B9120056F508 /* ZGYMallTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37773C1CC4B9120056F508 /* ZGYMallTitleView.m */; };
+		7D3777441CC4B9120056F508 /* ZGYTextCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37773E1CC4B9120056F508 /* ZGYTextCollectionItem.m */; };
+		7D3777471CC4BBA80056F508 /* KoreaDesignMallVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3777461CC4BBA80056F508 /* KoreaDesignMallVC.m */; };
 		7D3A6B8B1CBF5959001A4CB3 /* TradeSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A6B8A1CBF5959001A4CB3 /* TradeSuccessVC.m */; };
 		7D412B681CB3A74E0033140D /* NSString+AttributedStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D412B671CB3A74E0033140D /* NSString+AttributedStyle.m */; };
 		7D412B6B1CB3AA650033140D /* AttributedStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D412B6A1CB3AA650033140D /* AttributedStyle.m */; };
@@ -1011,6 +1019,23 @@
 		7D34E4341C197B140049D9C7 /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
 		7D34E4361C199D0F0049D9C7 /* MeDetailSupply_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeDetailSupply_VC.h; sourceTree = "<group>"; };
 		7D34E4371C199D0F0049D9C7 /* MeDetailSupply_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeDetailSupply_VC.m; sourceTree = "<group>"; };
+		7D37772C1CC47CA40056F508 /* DesignMarketVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignMarketVC.h; sourceTree = "<group>"; };
+		7D37772D1CC47CA40056F508 /* DesignMarketVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignMarketVC.m; sourceTree = "<group>"; };
+		7D37772F1CC47E5E0056F508 /* DesignCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignCollectionViewCell.h; sourceTree = "<group>"; };
+		7D3777301CC47E5E0056F508 /* DesignCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignCollectionViewCell.m; sourceTree = "<group>"; };
+		7D3777351CC4B9120056F508 /* ZGYMallDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYMallDownView.h; sourceTree = "<group>"; };
+		7D3777361CC4B9120056F508 /* ZGYMallDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYMallDownView.m; sourceTree = "<group>"; };
+		7D3777371CC4B9120056F508 /* ZGYMallSelectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYMallSelectModel.h; sourceTree = "<group>"; };
+		7D3777381CC4B9120056F508 /* ZGYMallSelectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYMallSelectModel.m; sourceTree = "<group>"; };
+		7D3777391CC4B9120056F508 /* ZGYMallSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYMallSelectView.h; sourceTree = "<group>"; };
+		7D37773A1CC4B9120056F508 /* ZGYMallSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYMallSelectView.m; sourceTree = "<group>"; };
+		7D37773B1CC4B9120056F508 /* ZGYMallTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYMallTitleView.h; sourceTree = "<group>"; };
+		7D37773C1CC4B9120056F508 /* ZGYMallTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYMallTitleView.m; sourceTree = "<group>"; };
+		7D37773D1CC4B9120056F508 /* ZGYTextCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGYTextCollectionItem.h; sourceTree = "<group>"; };
+		7D37773E1CC4B9120056F508 /* ZGYTextCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGYTextCollectionItem.m; sourceTree = "<group>"; };
+		7D3777451CC4BBA80056F508 /* KoreaDesignMallVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KoreaDesignMallVC.h; sourceTree = "<group>"; };
+		7D3777461CC4BBA80056F508 /* KoreaDesignMallVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KoreaDesignMallVC.m; sourceTree = "<group>"; };
+		7D3777481CC4BE750056F508 /* ZGYKoreaSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZGYKoreaSelectView.h; sourceTree = "<group>"; };
 		7D3A6B891CBF5959001A4CB3 /* TradeSuccessVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeSuccessVC.h; sourceTree = "<group>"; };
 		7D3A6B8A1CBF5959001A4CB3 /* TradeSuccessVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeSuccessVC.m; sourceTree = "<group>"; };
 		7D412B661CB3A74E0033140D /* NSString+AttributedStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AttributedStyle.h"; sourceTree = "<group>"; };
@@ -2521,6 +2546,24 @@
 			path = "我的店铺View";
 			sourceTree = "<group>";
 		};
+		7D3777321CC4B8AF0056F508 /* MallSelectView */ = {
+			isa = PBXGroup;
+			children = (
+				7D3777481CC4BE750056F508 /* ZGYKoreaSelectView.h */,
+				7D3777391CC4B9120056F508 /* ZGYMallSelectView.h */,
+				7D37773A1CC4B9120056F508 /* ZGYMallSelectView.m */,
+				7D3777351CC4B9120056F508 /* ZGYMallDownView.h */,
+				7D3777361CC4B9120056F508 /* ZGYMallDownView.m */,
+				7D3777371CC4B9120056F508 /* ZGYMallSelectModel.h */,
+				7D3777381CC4B9120056F508 /* ZGYMallSelectModel.m */,
+				7D37773B1CC4B9120056F508 /* ZGYMallTitleView.h */,
+				7D37773C1CC4B9120056F508 /* ZGYMallTitleView.m */,
+				7D37773D1CC4B9120056F508 /* ZGYTextCollectionItem.h */,
+				7D37773E1CC4B9120056F508 /* ZGYTextCollectionItem.m */,
+			);
+			path = MallSelectView;
+			sourceTree = "<group>";
+		};
 		7D412B651CB3A60E0033140D /* AttributedString */ = {
 			isa = PBXGroup;
 			children = (
@@ -2776,6 +2819,10 @@
 				7DEB8FE11C072DBA00B98912 /* PopularNewsView */,
 				7DEB8F931C06F13C00B98912 /* ZGYDesignMarkrtController.h */,
 				7DEB8F941C06F13C00B98912 /* ZGYDesignMarkrtController.m */,
+				7D37772C1CC47CA40056F508 /* DesignMarketVC.h */,
+				7D37772D1CC47CA40056F508 /* DesignMarketVC.m */,
+				7D3777451CC4BBA80056F508 /* KoreaDesignMallVC.h */,
+				7D3777461CC4BBA80056F508 /* KoreaDesignMallVC.m */,
 				7D31998D1C1EA6E900A713DF /* DesignShop_VC.h */,
 				7D31998E1C1EA6E900A713DF /* DesignShop_VC.m */,
 				7D4D06C31C0ED48900BF49D9 /* AllDesignController.h */,
@@ -2804,10 +2851,13 @@
 		7DEB8FE11C072DBA00B98912 /* PopularNewsView */ = {
 			isa = PBXGroup;
 			children = (
+				7D3777321CC4B8AF0056F508 /* MallSelectView */,
 				7DEFFE861C094A8200102C98 /* ZGYTitleView.h */,
 				7DEFFE871C094A8200102C98 /* ZGYTitleView.m */,
 				7D41C8A51C0EEAF800703869 /* AllDesignCell.h */,
 				7D41C8A61C0EEAF800703869 /* AllDesignCell.m */,
+				7D37772F1CC47E5E0056F508 /* DesignCollectionViewCell.h */,
+				7D3777301CC47E5E0056F508 /* DesignCollectionViewCell.m */,
 			);
 			path = PopularNewsView;
 			sourceTree = "<group>";
@@ -3091,6 +3141,7 @@
 				03571B9E1BE85B8200900EF9 /* MJPhotoLoadingView.m in Sources */,
 				7D1A4E361C5A02080076B462 /* AddressTextFieldCell.m in Sources */,
 				03623FBA1C44D8C70083044A /* BaseNavigationController.m in Sources */,
+				7D3777401CC4B9120056F508 /* ZGYMallDownView.m in Sources */,
 				039D4D5F1C72D5CD0051CD2E /* UpYun.m in Sources */,
 				70FBE0A51C1162FE00B15513 /* BidManage_Supplier_Model.m in Sources */,
 				7D7E8C181C5C9B830009452E /* MallHistoryOrderCell.m in Sources */,
@@ -3130,6 +3181,7 @@
 				7DEEA5CB1C058B81009143C6 /* AuthenticationController.m in Sources */,
 				035CC5271C06DCF000998FBD /* JKImagePickerController.m in Sources */,
 				03571B9B1BE85B8200900EF9 /* MJPhoto.m in Sources */,
+				7D3777311CC47E5E0056F508 /* DesignCollectionViewCell.m in Sources */,
 				7D06AF9A1C166BD200EE7102 /* ShoppingCarCell.m in Sources */,
 				702250AB1C99273B006795EB /* OrderDetail_Design_TVC.m in Sources */,
 				035CC5341C070BC600998FBD /* SystemSetViewController.m in Sources */,
@@ -3176,6 +3228,7 @@
 				70FA60F11C098DE400EA84FD /* ZFPopupOverlayView.m in Sources */,
 				039D4D4F1C72CACC0051CD2E /* AFSecurityPolicy.m in Sources */,
 				7D6F43351C5EF58E00A60892 /* PushPopularNews_VC.m in Sources */,
+				7D3777431CC4B9120056F508 /* ZGYMallTitleView.m in Sources */,
 				7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */,
 				035CC5261C06DCF000998FBD /* JKAssetsViewCell.m in Sources */,
 				033226A61CB3A9AE00FE7DD9 /* SDPhotoBrowser.m in Sources */,
@@ -3286,6 +3339,7 @@
 				039D4D511C72CACC0051CD2E /* AFURLRequestSerialization.m in Sources */,
 				03FF44F01BFEE73400D81DCE /* UIProgressView+AFNetworking.m in Sources */,
 				70EA22F41C8ED5D300E4407D /* Comment_TVC.m in Sources */,
+				7D3777471CC4BBA80056F508 /* KoreaDesignMallVC.m in Sources */,
 				03FF44EB1BFEE73400D81DCE /* AFNetworkActivityIndicatorManager.m in Sources */,
 				7D2BE7361C19112200CE4138 /* MeShopController.m in Sources */,
 				03571C431BE85C3700900EF9 /* UIImageView+Common.m in Sources */,
@@ -3322,6 +3376,7 @@
 				039D4D4D1C72CACC0051CD2E /* AFHTTPSessionManager.m in Sources */,
 				7D50056F1C09A9040034BE03 /* SupplyMarketViewController.m in Sources */,
 				70F4A7771C12CF4E000DF7E7 /* CompletionOrder_TVC.m in Sources */,
+				7D37772E1CC47CA40056F508 /* DesignMarketVC.m in Sources */,
 				03C505761C9BE45F00E46E76 /* AboutController.m in Sources */,
 				03571BA11BE85B8200900EF9 /* MJPhotoView.m in Sources */,
 				7D56828B1C759A7500FF03AE /* MallOrderSellDetail_VC.m in Sources */,
@@ -3348,6 +3403,7 @@
 				7DCECC491CA92BC000AFD36C /* IMSearchResult_VC.m in Sources */,
 				7DEFFE881C094A8200102C98 /* ZGYTitleView.m in Sources */,
 				7D56828E1C75A84400FF03AE /* MallOrderMark_VC.m in Sources */,
+				7D3777421CC4B9120056F508 /* ZGYMallSelectView.m in Sources */,
 				03571B9D1BE85B8200900EF9 /* MJPhotoBrowser.m in Sources */,
 				70F50D7A1C06FB1500920F63 /* FactoryOrderMOdel.m in Sources */,
 				7D1DC6531C9F9B540006DC0A /* HomeProfileCell.m in Sources */,
@@ -3357,6 +3413,7 @@
 				03A1A0CE1C00080500FBEDE8 /* UserModel.m in Sources */,
 				705679DA1C1952A800ACA494 /* PersonalShop_Model.m in Sources */,
 				035CC5251C06DCF000998FBD /* JKAssetsThumbnailView.m in Sources */,
+				7D3777411CC4B9120056F508 /* ZGYMallSelectModel.m in Sources */,
 				03571B771BE85B7900900EF9 /* EAIntroPage.m in Sources */,
 				70FA60F01C098DE400EA84FD /* ZFPopupMenuItem.m in Sources */,
 				0395D2F31BFC65B80009AABC /* CYLPlusButtonSubclass.m in Sources */,
@@ -3365,6 +3422,7 @@
 				7D1A4E331C59FFA10076B462 /* MallAddAddress_VC.m in Sources */,
 				03927D7E1BEC8CF50087A2FD /* MeViewController.m in Sources */,
 				039D4D5D1C72D5CD0051CD2E /* NSData+Utils.m in Sources */,
+				7D3777441CC4B9120056F508 /* ZGYTextCollectionItem.m in Sources */,
 				7D4D06C51C0ED48900BF49D9 /* AllDesignController.m in Sources */,
 				7DD1CC791C747413007ED8BE /* MallOrderAddressCell.m in Sources */,
 				7DA17DDF1C4CB6C000F024CB /* ActivityModel.m in Sources */,

@@ -18,7 +18,7 @@
 #import "Verified_VC.h"//查看认证资料
 #import "AuthenticationController.h"//认证1
 
-#import "ZGYDesignMarkrtController.h"//设计市场
+#import "DesignMarketVC.h"//设计市场
 #import "SupplyMarketViewController.h"//供应市场
 #import "ProcessMarketController.h"//加工配套市场
 #import "Business_Cloth_VC.h"//服装企业
@@ -204,7 +204,7 @@ static NSString *activityCellIdentifier = @"activityCell";
             //设计市场
             [MobClick event:@"sjsc"];
 
-            ZGYDesignMarkrtController *designVC = [[ZGYDesignMarkrtController alloc] init];
+            DesignMarketVC *designVC = [[DesignMarketVC alloc] init];
             designVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:designVC animated:YES];
         }

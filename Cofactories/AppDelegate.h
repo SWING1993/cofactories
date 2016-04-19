@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) NSString *mallStatus;//商城订单的状态
+@property (strong, nonatomic) NSMutableDictionary *moreSelectDic;
 
 @end
 
