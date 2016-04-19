@@ -13,6 +13,7 @@
 #import "HomeKoreaShopList_VC.h"
 #import "PopularNewsHome_VC.h"
 #import "ShoppingMallDetail_VC.h"
+#import "KoreaDesignMallVC.h"
 
 @interface PushActivity_VC ()<UIWebViewDelegate> {
     UIWebView * activityWebView;
@@ -77,9 +78,9 @@
                 
             } else {
                 //直接进入韩国版型购买商城
-                HomeKoreaShopList_VC *designShopVC = [[HomeKoreaShopList_VC alloc] initWithSubrole:@"设计者" andSelecteDataDictionary:[Tools goodsSelectDataDictionaryWithIndex:5]];
-                designShopVC.timeString = nil;
-                [self.navigationController pushViewController:designShopVC animated:YES];
+                KoreaDesignMallVC *designVC = [[KoreaDesignMallVC alloc] init];
+                ApplicationDelegate.moreSelectDic = nil;
+                [self.navigationController pushViewController:designVC animated:YES];
             }
         }
         

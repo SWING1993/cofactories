@@ -426,6 +426,7 @@
 
 //获取订单信息（用于首页滚动）
 + (void)getScrollOrderMessageWithBlock:(void(^)(NSDictionary *dictionary))block;
-
+// 搜索设计（韩版代购市场）
++ (void)searchKoreaDesignWithDictionary:(NSDictionary *)postDictionary WithBlock:(void(^)(NSDictionary *dictionary))block;
 
 @end

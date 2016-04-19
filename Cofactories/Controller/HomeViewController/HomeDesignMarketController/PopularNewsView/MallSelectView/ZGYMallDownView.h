@@ -23,4 +23,5 @@ typedef enum : NSUInteger {
 - (instancetype)initWithFrame:(CGRect)frame withSelectType:(SelectType)type;
 - (void)tappedCancel;
 
+
 @end

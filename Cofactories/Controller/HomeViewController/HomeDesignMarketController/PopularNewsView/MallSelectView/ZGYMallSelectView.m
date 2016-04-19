@@ -9,7 +9,6 @@
 #import "ZGYMallSelectView.h"
 #import "ZGYMallDownView.h"
 #import "ZGYKoreaSelectView.h"
-
 static NSString *newSelect = nil;
 
 @implementation ZGYMallSelectView {
@@ -18,6 +17,7 @@ static NSString *newSelect = nil;
     NSInteger currTag;//当前选择的按钮Tag
     NSString *priceSelect;
     NSMutableDictionary *moreSelect;
+    NSString *dateString;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -119,8 +119,7 @@ static NSString *newSelect = nil;
         UIImageView *markView = marksArray[i];
         NSString *title = myButton.titleLabel.text;
         if (i == 0 || i == 2) {
-            CGSize size =  [Tools getSize:title andFontOfSize:13];
-            
+            CGSize size = [Tools getSize:title andFontOfSize:13];
             CGFloat jxWidth = (myButton.superview.bounds.size.width - size.width - 20)/2; //间隙宽度
             myButton.frame = CGRectMake(jxWidth, 0, size.width, kSelectViewHeight);
             markView.frame = CGRectMake(myButton.frame.origin.x+myButton.frame.size.width, 12.5, 20, 20);
@@ -174,9 +173,16 @@ static NSString *newSelect = nil;
     if (button.selected == NO) {
         newSelect = @"最新";
         button.selected = YES;
-        [self.delegate selectView:self moreSelectDic:moreSelect newSelect:newSelect priceSelect:priceSelect];
+        [self getTodayDate];
+        if (moreSelect) {
+            [moreSelect setObject:dateString forKey:@"createdAt"];
+        } else {
+            moreSelect = [NSMutableDictionary dictionaryWithCapacity:0];
+            [moreSelect setObject:dateString forKey:@"createdAt"];
+        }
+        
+        [self.delegate selectView:self moreSelectDic:moreSelect];
     }
-    
     if (isShow) {
         if (currTag == button.tag) {
 //            NSLog(@"移除");
@@ -193,10 +199,7 @@ static NSString *newSelect = nil;
 - (void)actionOfPrice:(UIButton *)button {
     self.userInteractionEnabled = NO;
     [button setTitleColor:kMainDeepBlue forState:UIControlStateNormal];
-    UIButton *priceBtn = buttonsArray[1];
-    if (priceBtn.selected) {
-        priceBtn.selected = NO;
-    }
+
     if (isShow) {
         if (currTag == button.tag) {
 //            NSLog(@"移除");
@@ -226,11 +229,14 @@ static NSString *newSelect = nil;
         }
     }];
     
-    
     ZGYMallDownView *downMenuV = [[ZGYMallDownView alloc] initWithFrame:CGRectMake(0, 109, kScreenW, self.superview.bounds.size.height) withSelectType:currTag - 333];
     downMenuV.tag = 100;
-    //    cityMenuV.backgroundColor = [UIColor redColor];
-    [self.superview addSubview:downMenuV];
+    if (currTag == 333 || currTag == 335) {
+        //    cityMenuV.backgroundColor = [UIColor redColor];
+        [self.superview addSubview:downMenuV];
+    }
+    
+    
     isShow = YES;
     
     //取消
@@ -248,25 +254,30 @@ static NSString *newSelect = nil;
             }
         }];
     };
-        
+    
     downMenuV.selected = ^(SelectType type, NSString *selectString) {
-        [sender setTitle:selectString forState:UIControlStateNormal];
-        [self reloadFrame];
-        switch (type) {
-            case SelectTypeOfPrice:
-                priceSelect = selectString;
-                break;
-            
-            default:
-                break;
+        if (type == SelectTypeOfPrice) {
+            UIButton *priceBtn = buttonsArray[1];
+            if (priceBtn.selected) {
+                priceBtn.selected = NO;
+            }
+            [sender setTitle:selectString forState:UIControlStateNormal];
+            [self reloadFrame];
+            priceSelect = selectString;
         }
-        [self.delegate selectView:self moreSelectDic:moreSelect newSelect:newSelect priceSelect:priceSelect];
     };
+    
+    
     downMenuV.moreSelected = ^(SelectType type, NSDictionary *moreSelectDic) {
-        if (type == SelectTypeOfMore) {
+        if (type == SelectTypeOfMore || type == SelectTypeOfPrice) {
             moreSelect = [NSMutableDictionary dictionaryWithDictionary:moreSelectDic];
         }
-        [self.delegate selectView:self moreSelectDic:moreSelect newSelect:newSelect priceSelect:priceSelect];
+        UIButton *myButton = buttonsArray[1];
+        if (myButton.selected) {
+            [self getTodayDate];
+            [moreSelect setObject:dateString forKey:@"createdAt"];
+        }
+        [self.delegate selectView:self moreSelectDic:moreSelect];
     };
     
     
@@ -280,5 +291,12 @@ static NSString *newSelect = nil;
     }
 }
 
+- (void)getTodayDate {
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    dateString = [dateFormatter stringFromDate:currentDate];
+    NSLog(@"dateString:%@",dateString);
+}
 
 @end

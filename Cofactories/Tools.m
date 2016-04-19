@@ -554,29 +554,5 @@
     return newimage;
 }
 
-+ (NSMutableDictionary *)initMoreSelectDictionary {
-    NSArray *moreTitleArray = @[@"所有分类", @"商品分类", @"款式分类"];
-    NSDictionary *bigDic = @{@"所有分类":@[@"不限", @"实拍",@"精品"],
-                             @"商品分类":@[@"不限", @"女装",@"童装"],
-                             @"款式分类":@[@"不限", @"上装",@"下装", @"套装"]};
-    
-    NSMutableDictionary *moreDic = [NSMutableDictionary dictionaryWithDictionary:bigDic];
-    for (int i = 0; i < moreTitleArray.count; i++) {
-        NSMutableArray *array = [moreDic objectForKey:moreTitleArray[i]];
-        NSMutableArray *items = [NSMutableArray arrayWithCapacity:0];
-        for (int j = 0; j < array.count; j++) {
-            ZGYMallSelectModel *selectModel = [[ZGYMallSelectModel alloc] init];
-            selectModel.name = bigDic[moreTitleArray[i]][j];
-            if ([selectModel.name isEqualToString:@"不限"]) {
-                selectModel.mySelect = YES;
-            } else {
-                selectModel.mySelect = NO;
-            }
-            [items addObject:selectModel];
-        }
-        [moreDic setObject:items forKey:moreTitleArray[i]];
-    }
-    return moreDic;
-}
 
 @end

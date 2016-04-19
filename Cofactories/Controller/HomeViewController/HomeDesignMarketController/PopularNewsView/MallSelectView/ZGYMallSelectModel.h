@@ -12,6 +12,10 @@
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *mark;
-@property (nonatomic, assign) BOOL mySelect;
+@property (nonatomic, assign) BOOL isSelect;
+
+- (instancetype)initZGYmallSelectModdelWithDictionary:(NSDictionary *)dictionary;
++ (instancetype)getZGYmallSelectModdelWithDictionary:(NSDictionary *)dictionary;
+
 
 @end

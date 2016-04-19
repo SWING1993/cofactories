@@ -72,6 +72,7 @@ static NSString *designCellIdentifier = @"designCell";
             break;
         case 2: {
             KoreaDesignMallVC *designVC = [[KoreaDesignMallVC alloc] init];
+            ApplicationDelegate.moreSelectDic = nil;
             [self.navigationController pushViewController:designVC animated:YES];
         }
             break;

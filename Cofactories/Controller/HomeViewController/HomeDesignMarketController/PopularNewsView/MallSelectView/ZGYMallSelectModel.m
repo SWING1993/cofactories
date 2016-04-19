@@ -9,5 +9,15 @@
 #import "ZGYMallSelectModel.h"
 
 @implementation ZGYMallSelectModel
-
+- (instancetype)initZGYmallSelectModdelWithDictionary:(NSDictionary *)dictionary {
+    if (self = [super init]) {
+        self.name = dictionary[@"name"];
+        self.isSelect = [(NSNumber *)dictionary[@"isSelect"] boolValue];
+        self.mark = dictionary[@"mark"];
+    }
+    return self;
+}
++ (instancetype)getZGYmallSelectModdelWithDictionary:(NSDictionary *)dictionary {
+    return [[self alloc] initZGYmallSelectModdelWithDictionary:dictionary];
+}
 @end

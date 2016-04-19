@@ -12,7 +12,6 @@
 #import "ZGYMallSelectModel.h"
 #import "ZGYKoreaSelectView.h"
 
-
 #define kDragBtnHeight 30//拖拽按钮的高度
 static NSString *priceCellIdentifier = @"priceCell";
 static NSString *moreTextCellIdentifier = @"moreTextCell";
@@ -24,12 +23,15 @@ static NSString *priceSelect = @"默认排序";
     UIView* selectView;
     UIButton* dragBtn;
     CGFloat currH;//当前视图的高度
-    NSArray *priceArray, *moreTitleArray;
+    NSArray *moreTitleArray;
     UICollectionView *moreCollectionView;
     
     NSMutableDictionary *moreDic;
+    
+    UILabel *myTitleLabel;
     CALayer *lineOfFooter;
 }
+
 
 - (instancetype)initWithFrame:(CGRect)frame withSelectType:(SelectType)type {
     self = [super initWithFrame:frame];
@@ -80,14 +82,19 @@ static NSString *priceSelect = @"默认排序";
     lineOfFooter.frame = CGRectMake(20, 5, kScreenW - 40, 0.6);
     lineOfFooter.backgroundColor = kLineGrayCorlor.CGColor;
 }
+
+- (void)creatCollectionHeaderView {
+    myTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100, 30)];
+    myTitleLabel.font = [UIFont systemFontOfSize:15];
+    myTitleLabel.textColor = [UIColor lightGrayColor];
+}
+
+
 - (void)creatMoreView {
 //    NSLog(@"————————————————————————筛选");
-    moreTitleArray = @[@"所有分类", @"商品分类", @"款式分类"];
-    if (ApplicationDelegate.moreSelectDic) {
-        moreDic = ApplicationDelegate.moreSelectDic;
-    } else {
-        moreDic = [Tools initMoreSelectDictionary];
-    }
+    
+    
+    [self creatNewDictionary];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 5;
@@ -125,13 +132,13 @@ static NSString *priceSelect = @"默认排序";
 
 - (void)creatNewView {
 //    NSLog(@"————————————————————————最新");
-    
+//    [self creatNewDictionary];
 }
 
 - (void)creatPriceView {
 //    NSLog(@"————————————————————————价格排序");
-    priceArray = @[@"默认排序", @"价格从低到高", @"价格从高到低"];
-    float hh = 44*priceArray.count + kDragBtnHeight;
+    [self creatNewDictionary];
+    float hh = 44 * [moreDic[@"价格"] count] + kDragBtnHeight;
     UITableView *priceTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, selectView.bounds.size.width, hh)];
     priceTableView.delegate = self;
     priceTableView.dataSource = self;
@@ -169,17 +176,21 @@ static NSString *priceSelect = @"默认排序";
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return priceArray.count;
+    return [moreDic[@"价格"] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (currType == SelectTypeOfPrice) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:priceCellIdentifier forIndexPath:indexPath];
-        cell.textLabel.text = priceArray[indexPath.row];
+        ZGYMallSelectModel *myModel = moreDic[@"价格"][indexPath.row];
+        NSLog(@"^^^^^^^^^%@", myModel.name);
+        cell.textLabel.text = myModel.name;
         cell.textLabel.font = [UIFont systemFontOfSize:14];
         cell.textLabel.textColor = [UIColor darkGrayColor];
-        if ([cell.textLabel.text isEqualToString:priceSelect]) {
+        if (myModel.isSelect) {
             cell.textLabel.textColor = kMainDeepBlue;
+        } else {
+            cell.textLabel.textColor = [UIColor darkGrayColor];
         }
         return cell;
     } else {
@@ -190,11 +201,22 @@ static NSString *priceSelect = @"默认排序";
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (currType == SelectTypeOfPrice) {
-        priceSelect = priceArray[indexPath.row];
-        //选中的排序
+        ZGYMallSelectModel *myModel = moreDic[@"价格"][indexPath.row];
         if (self.selected) {
-            self.selected(currType, priceSelect);
+            self.selected(currType, myModel.name);
         }
+        if (!myModel.isSelect) {
+            myModel.isSelect = YES;
+        }
+        for (int i = 0; i < [moreDic[@"价格"] count]; i++) {
+            if (i != indexPath.row) {
+                ZGYMallSelectModel *selectModel = moreDic[@"价格"][i];
+                selectModel.isSelect = NO;
+            }
+        }
+        
+        [self findIsSelect];
+        
         [self tappedCancel];
     }
 }
@@ -215,7 +237,7 @@ static NSString *priceSelect = @"默认排序";
     ZGYMallSelectModel *selectModel = moreDic[moreTitleArray[indexPath.section]][indexPath.row];
     cell.myTextLabel.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
     cell.myTextLabel.text = selectModel.name;
-    if (selectModel.mySelect) {
+    if (selectModel.isSelect) {
         cell.myTextLabel.backgroundColor = kMainDeepBlue;
         cell.myTextLabel.textColor = [UIColor whiteColor];
     } else {
@@ -244,8 +266,8 @@ static NSString *priceSelect = @"默认排序";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
         ZGYMallSelectModel *myModel = moreDic[moreTitleArray[indexPath.section]][indexPath.row];
-        if (!myModel.mySelect) {
-            myModel.mySelect = YES;
+        if (!myModel.isSelect) {
+            myModel.isSelect = YES;
         } 
         //加上这个实现分区单选
         for (int i = 0; i < moreTitleArray.count; i++) {
@@ -254,7 +276,7 @@ static NSString *priceSelect = @"默认排序";
                 for (int j = 0; j < items.count; j++) {
                     if (j != indexPath.row) {
                         ZGYMallSelectModel *selectModel = items[j];
-                        selectModel.mySelect = NO;
+                        selectModel.isSelect = NO;
                     }
                 }
             }
@@ -287,26 +309,9 @@ static NSString *priceSelect = @"默认排序";
 #pragma mark - 处理第一个筛选的数据
 - (void)actionOfMoreDone:(UIButton *)button {
     //获取更多一栏的选择数据
-    ApplicationDelegate.moreSelectDic = moreDic;
-    NSMutableDictionary *selectDic = [NSMutableDictionary dictionaryWithCapacity:0];
-    NSArray *myArray = @[@"year", @"type", @"part"];
+    [self findIsSelect];
     
-    for (int i = 0; i < moreTitleArray.count; i++) {
-        NSArray *array = moreDic[moreTitleArray[i]];
-        NSString *selectString = nil;
-        for (ZGYMallSelectModel *myModel in array) {
-            if (myModel.mySelect) {
-                selectString = myModel.name;
-            }
-        }
-        if (selectString) {
-            [selectDic setObject:selectString forKey:myArray[i]];
-        }
-    }
     
-    if (self.moreSelected) {
-        self.moreSelected(currType, selectDic);
-    }
     [self tappedCancel];
 }
 
@@ -369,5 +374,50 @@ static NSString *priceSelect = @"默认排序";
         }
     }];
 }
+
+- (void)creatNewDictionary {
+    moreTitleArray = @[@"所有分类", @"商品分类", @"款式分类", @"价格"];
+    if (ApplicationDelegate.moreSelectDic) {
+        moreDic = ApplicationDelegate.moreSelectDic;
+    } else {
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"KoreaMallSelect" ofType:@"plist"];
+        NSDictionary *plistDic = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+        moreDic = [NSMutableDictionary dictionaryWithDictionary:plistDic];
+        for (int i = 0; i < moreTitleArray.count; i++) {
+            NSMutableArray *array = moreDic [moreTitleArray[i]];
+            NSMutableArray *items = [NSMutableArray arrayWithCapacity:0];
+            for (NSDictionary *dic in array) {
+                ZGYMallSelectModel *selectModel = [ZGYMallSelectModel getZGYmallSelectModdelWithDictionary:dic];
+                [items addObject:selectModel];
+            }
+            [moreDic setObject:items forKey:moreTitleArray[i]];
+        }
+    }
+}
+
+
+- (void)findIsSelect {
+    moreTitleArray = @[@"所有分类", @"商品分类", @"款式分类",@"价格"];
+    ApplicationDelegate.moreSelectDic = moreDic;
+    NSArray *myArray = @[@"year", @"type", @"part", @"priceOrder"];
+    NSMutableDictionary *selectDic = [NSMutableDictionary dictionaryWithCapacity:0];
+    for (int i = 0; i < myArray.count; i++) {
+        NSArray *array = moreDic[moreTitleArray[i]];
+        NSString *selectString = nil;
+        for (ZGYMallSelectModel *myModel in array) {
+            if (myModel.isSelect) {
+                selectString = myModel.mark;
+            }
+        }
+        if (selectString.length > 0 && ![selectString isEqualToString:@"空"]) {
+            
+            [selectDic setObject:selectString forKey:myArray[i]];
+        }
+    }
+    if (self.moreSelected) {
+        self.moreSelected(currType, selectDic);
+    }
+}
+
 
 @end

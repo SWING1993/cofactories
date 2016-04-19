@@ -15,14 +15,16 @@
 #import "ZGYKoreaSelectView.h"
 
 static NSString *materialCellIdentifier = @"materialCell";
-@interface KoreaDesignMallVC ()<UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
-    UISearchBar     *mySearchBar;
-    UIButton        *backgroundView;
+@interface KoreaDesignMallVC ()<UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ZGYMallSelectViewDelegate> {
+    UISearchBar *mySearchBar;
+    UIButton    *backgroundView;
+    NSString    *searchText;
 }
 
 @property (nonatomic, strong) UICollectionView *myCollectionView;
 @property (nonatomic, strong) NSMutableArray *goodsArray;
 @property (nonatomic)NSInteger page;
+@property (nonatomic, strong) NSMutableDictionary *postDic;
 
 @end
 
@@ -42,9 +44,53 @@ static NSString *materialCellIdentifier = @"materialCell";
     [self creatSelectView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickBackgroundViewAction) name:UIKeyboardWillHideNotification object:nil];
-    
+    [self customSearchBar];
     [self creatBackgroundView];
+    
+    self.page = 1;
+    //上拉加载更多数据
+    __weak typeof(self) weakSelf = self;
+    [self.myCollectionView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.page++;
+        
+//        weakSelf.goodsArray = [NSMutableArray arrayWithCapacity:0];
+//        [weakSelf.postDic setObject:@"design" forKey:@"market"];
+//        [weakSelf.postDic setObject:@"kr" forKey:@"country"];
+        [weakSelf.postDic setObject:@(weakSelf.page) forKey:@"page"];
+        [HttpClient searchKoreaDesignWithDictionary:weakSelf.postDic WithBlock:^(NSDictionary *dictionary) {
+            NSArray *array = dictionary[@"data"];
+            for (NSDictionary *myDic in array) {
+                SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
+                [weakSelf.goodsArray addObject:searchModel];
+            }
+            [weakSelf.myCollectionView.infiniteScrollingView stopAnimating];
+            [weakSelf.myCollectionView reloadData];
+        }];
+        
+        
+    }];
+    [self netWork];
+    
 }
+
+- (void)netWork {
+    self.goodsArray = [NSMutableArray arrayWithCapacity:0];
+    
+    self.postDic = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [self.postDic setObject:@"design" forKey:@"market"];
+    [self.postDic setObject:@"kr" forKey:@"country"];
+    [HttpClient searchKoreaDesignWithDictionary:self.postDic WithBlock:^(NSDictionary *dictionary) {
+        NSArray *array = dictionary[@"data"];
+        for (NSDictionary *myDic in array) {
+            SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
+            [self.goodsArray addObject:searchModel];
+        }
+        [self.myCollectionView reloadData];
+    }];
+    
+}
+
 
 - (void)creatSelectView {
     ZGYMallSelectView *selectView = [[ZGYMallSelectView alloc] initWithFrame:CGRectMake(0, 64, kScreenW, kSelectViewHeight)];
@@ -110,33 +156,31 @@ static NSString *materialCellIdentifier = @"materialCell";
     NSLog(@"%@",searchBar.text);
     
     self.page = 1;
-//    _userBusinessName = searchBar.text;
-//    _userType = nil;
-//    
-//    DLog(@"==%@,==%@",_userBusinessName,_userType);
-//    self.goodsArray = [NSMutableArray arrayWithCapacity:0];
-//    
-//    [HttpClient searchDesignWithMarket:@"design" type:_userType part:_userPart price:nil priceOrder:_userPrice keyword:_userBusinessName province:nil city:nil country:@"kr" aCreatedAt:self.timeString page:@(self.page) WithCompletionBlock:^(NSDictionary *dictionary) {
-//        NSArray *array = dictionary[@"message"];
-//        for (NSDictionary *myDic in array) {
-//            SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
-//            [self.goodsArray addObject:searchModel];
-//        }
-//        [self controlBackgroundView:0];
-//        [self.myCollectionView reloadData];
-//        //        if (self.goodsArray.count == 0) {
-//        //            kTipAlert(@"搜索结果为空");
-//        //        }
-//    }];
+    searchText = searchBar.text;
     
+    [self.postDic setObject:@"design" forKey:@"market"];
+    [self.postDic setObject:@"kr" forKey:@"country"];
+    if (searchText) {
+        [self.postDic setObject:searchText forKey:@"keyword"];
+    }
+    if (self.page) {
+        [self.postDic setObject:@(self.page) forKey:@"page"];
+    }
+    self.goodsArray = [NSMutableArray arrayWithCapacity:0];
+    [HttpClient searchKoreaDesignWithDictionary:self.postDic WithBlock:^(NSDictionary *dictionary) {
+        NSArray *array = dictionary[@"data"];
+        for (NSDictionary *myDic in array) {
+            SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
+            [self.goodsArray addObject:searchModel];
+        }
+        [self.myCollectionView reloadData];
+    }];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     [self controlBackgroundView:0];
     [self.view endEditing:YES];
 }
-
-
 
 - (void)creatCollectionView {
     //创建CollectionView
@@ -190,16 +234,37 @@ static NSString *materialCellIdentifier = @"materialCell";
 
 
 #pragma mark - ZGYMallSelectViewDelegate
-- (void)selectView:(ZGYMallSelectView *)selectView moreSelectDic:(NSDictionary *)moreSelectDic newSelect:(NSString *)newSelect priceSelect:(NSString *)priceSelect {
-    NSLog(@"moreSelectDic = %@, newSelect = %@, priceSelect = %@", moreSelectDic, newSelect, priceSelect);
+- (void)selectView:(ZGYMallSelectView *)selectView moreSelectDic:(NSDictionary *)moreSelectDic {
+    
+    self.page = 1;
+    self.postDic = [NSMutableDictionary dictionaryWithDictionary:moreSelectDic];
+    
+    [self.postDic setObject:@"design" forKey:@"market"];
+    [self.postDic setObject:@"kr" forKey:@"country"];
+    if (searchText) {
+        [self.postDic setObject:searchText forKey:@"keyword"];
+    }
+    if (self.page) {
+        [self.postDic setObject:@(self.page) forKey:@"page"];
+    }
+    
+    NSLog(@"moreSelectDic = %@", self.postDic);
+    self.goodsArray = [NSMutableArray arrayWithCapacity:0];
+    [HttpClient searchKoreaDesignWithDictionary:self.postDic WithBlock:^(NSDictionary *dictionary) {
+        NSArray *array = dictionary[@"data"];
+        for (NSDictionary *myDic in array) {
+            SearchShopMarketModel *searchModel = [SearchShopMarketModel getSearchShopModelWithDictionary:myDic];
+            [self.goodsArray addObject:searchModel];
+        }
+        [self.myCollectionView reloadData];
+    }];
+    
 }
 
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-
 
 
 - (void)didReceiveMemoryWarning {

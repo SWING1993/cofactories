@@ -11,7 +11,7 @@
 @class ZGYMallSelectView;
 @protocol ZGYMallSelectViewDelegate <NSObject>
 
-- (void)selectView:(ZGYMallSelectView *)selectView moreSelectDic:(NSDictionary *)moreSelectDic newSelect:(NSString *)newSelect priceSelect:(NSString *)priceSelect;
+- (void)selectView:(ZGYMallSelectView *)selectView moreSelectDic:(NSDictionary *)moreSelectDic;
 
 @end
 @interface ZGYMallSelectView : UIView

@@ -162,6 +162,5 @@
 
 + (UIImage *)compressPicturesWithImage:(UIImage *)myImage;
 
-+ (NSMutableDictionary *)initMoreSelectDictionary;
 
 @end

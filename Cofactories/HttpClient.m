@@ -2584,4 +2584,25 @@
     }
 }
 
++ (void)searchKoreaDesignWithDictionary:(NSDictionary *)postDictionary WithBlock:(void(^)(NSDictionary *dictionary))block {
+    NSURL *baseUrl = [NSURL URLWithString:kBaseUrl];
+    NSString *serviceProviderIdentifier = [baseUrl host];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:serviceProviderIdentifier];
+    if (credential) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseUrl];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 20.f;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        [manager GET:API_Search_Market_Search parameters:postDictionary success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            DLog(@"responseObject= %@",responseObject);
+            block(@{@"statusCode": @(200), @"data":responseObject });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];
+            NSString * errors = [[NSString alloc]initWithData:[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+            block(@{@"statusCode": @(statusCode), @"message":errors });
+        }];
+    }
+}
+
 @end
