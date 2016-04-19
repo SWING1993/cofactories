@@ -207,6 +207,7 @@
 #import <RongIMKit/RongIMKit.h>//融云IM
 #import "UIButton+WebCache.h"//SDWebImage
 #import "UIImageView+WebCache.h"//SDWebImage
+#import <BlocksKit/BlocksKit.h>
 
 
 #pragma mark - Category
