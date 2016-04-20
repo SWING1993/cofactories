@@ -44,7 +44,7 @@
 @synthesize niceView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    // Hello World.
     self.window = [[UIWindow alloc] initWithFrame:kScreenBounds];
     self.window.backgroundColor = [UIColor whiteColor];
 #pragma mark - 腾讯buglySDK
