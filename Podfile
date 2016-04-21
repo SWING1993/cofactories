@@ -14,9 +14,10 @@ pod 'UMengSocial', '~> 4.3'
 pod 'UMengAnalytics-NO-IDFA'
 pod 'UMengFeedback', '~> 2.3.4'
 pod 'RongCloudIMKit'
+pod 'BlocksKit'
+pod 'TMCache'
 
 #pod 'FlatUIKit'
-#pod 'TMCache'
 #pod 'TTTAttributedLabel'
 
 #pod 'TPKeyboardAvoiding', '1.2.4'
