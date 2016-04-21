@@ -27,9 +27,6 @@
     [super viewDidLoad];
     
     
-    //防止自定义返回键右滑返回手势失效
-    self.navigationController.interactivePopGestureRecognizer.delegate=(id)self;
-    
     UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Home-刷新按钮"] style:UIBarButtonItemStylePlain target:self action:@selector(refresh)];
     self.navigationItem.rightBarButtonItem = refreshItem;
     

@@ -29,8 +29,11 @@
  title_flag  看了就忘不了
  content_flag  据材料款电视剧里的手机
  
- action  activity
- url  https://h5.cofactories.com/activity/miaosha-0317/
+ action_flag  activity
+ url_flag  https://h5.cofactories.com/activity/miaosha-0317/
+ 757f147964d899aac3ec3fc7e60458ebfad6a6c9a426c29b1e854a05de29c4c9
+ 
+ 
  
  
 static NSString * const sampleDescription1 = @"全新界面 全新玩法";
