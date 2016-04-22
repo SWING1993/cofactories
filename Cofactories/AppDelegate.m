@@ -160,7 +160,7 @@
     if (launchOptions != nil) {
         NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (userInfo != nil) {
-            NSLog(@"remote notification:%@",userInfo);
+            DLog(@"remote notification:%@",userInfo);
             [RootViewController handleNotificationInfo:userInfo applicationState:UIApplicationStateInactive];
         }
     }
@@ -178,23 +178,23 @@
 - (void)addAnimation {
     
     niceView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    niceView.tag=11;
+    niceView.tag = 11;
     niceView.image = [UIImage imageNamed:@"LaunchImage"];
     
     [self.window addSubview:niceView];
     [self.window bringSubviewToFront:niceView];
     
-    CABasicAnimation *animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     niceView.layer.anchorPoint = CGPointMake(.5,.5);
     animation.fromValue = @1.0f;
     animation.toValue = @1.2f;
-    animation.fillMode=kCAFillModeForwards;
+    animation.fillMode = kCAFillModeForwards;
     
     animation.removedOnCompletion = NO;
     [animation setAutoreverses:NO];
     
-    animation.duration=0.9;
-    animation.delegate=self;
+    animation.duration = 0.9;
+    animation.delegate = self;
     
     [niceView.layer addAnimation:animation forKey:@"scale"];
 }
