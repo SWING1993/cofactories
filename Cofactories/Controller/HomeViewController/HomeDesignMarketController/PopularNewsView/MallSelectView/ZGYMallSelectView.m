@@ -169,7 +169,7 @@ static NSString *newSelect = nil;
 }
 - (void)actionOfNew:(UIButton *)button {
     
-    self.userInteractionEnabled = NO;
+//    self.userInteractionEnabled = NO;
     if (button.selected == NO) {
         newSelect = @"最新";
         button.selected = YES;

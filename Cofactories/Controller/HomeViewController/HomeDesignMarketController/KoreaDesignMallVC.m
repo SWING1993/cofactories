@@ -158,8 +158,6 @@ static NSString *materialCellIdentifier = @"materialCell";
     self.page = 1;
     searchText = searchBar.text;
     
-    [self.postDic setObject:@"design" forKey:@"market"];
-    [self.postDic setObject:@"kr" forKey:@"country"];
     if (searchText) {
         [self.postDic setObject:searchText forKey:@"keyword"];
     }

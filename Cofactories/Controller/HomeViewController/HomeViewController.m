@@ -19,7 +19,7 @@
 #import "AuthenticationController.h"//认证1
 
 #import "DesignMarketVC.h"//设计市场
-#import "SupplyMarketViewController.h"//供应市场
+#import "SupplyMarket_VC.h"//供应市场
 #import "ProcessMarketController.h"//加工配套市场
 #import "Business_Cloth_VC.h"//服装企业
 
@@ -222,7 +222,7 @@ static NSString *activityCellIdentifier = @"activityCell";
             //供应市场
             [MobClick event:@"gysc"];
 
-            SupplyMarketViewController *supplyMarketVC = [[SupplyMarketViewController alloc] init];
+            SupplyMarket_VC *supplyMarketVC = [[SupplyMarket_VC alloc] init];
             supplyMarketVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:supplyMarketVC animated:YES];
         }

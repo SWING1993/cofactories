@@ -18,7 +18,7 @@
 			<key>isSelect</key>
 			<false/>
 			<key>mark</key>
-			<string>未知</string>
+			<string>normal</string>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -26,7 +26,7 @@
 			<key>isSelect</key>
 			<false/>
 			<key>mark</key>
-			<string>未知</string>
+			<string>special</string>
 		</dict>
 	</array>
 	<key>商品分类</key>

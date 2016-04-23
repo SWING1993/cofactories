@@ -377,6 +377,7 @@
 		7DF1C1AE1BFFFEB700460DB7 /* HomeMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1AD1BFFFEB700460DB7 /* HomeMarketCell.m */; };
 		7DF1C1BB1C0056B400460DB7 /* WKFCircularSlidingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */; };
 		7DF1C1C61C005F2200460DB7 /* HomeActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */; };
+		7DF603451CC89328002B1803 /* SupplyMarket_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF603441CC89328002B1803 /* SupplyMarket_VC.m */; };
 		7DF83C961CA2743C007FA0A4 /* SearchNews_List_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF83C951CA2743C007FA0A4 /* SearchNews_List_VC.m */; };
 		7DF83C991CA27B2D007FA0A4 /* PopularNews_Detail_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF83C981CA27B2D007FA0A4 /* PopularNews_Detail_VC.m */; };
 		7DFADB7B1CC5FF3200072820 /* KoreaMallSelect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DFADB7A1CC5FF3200072820 /* KoreaMallSelect.plist */; };
@@ -1189,6 +1190,8 @@
 		7DF1C1BA1C0056B400460DB7 /* WKFCircularSlidingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKFCircularSlidingView.m; sourceTree = "<group>"; };
 		7DF1C1C41C005F2200460DB7 /* HomeActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeActivityCell.h; sourceTree = "<group>"; };
 		7DF1C1C51C005F2200460DB7 /* HomeActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeActivityCell.m; sourceTree = "<group>"; };
+		7DF603431CC89328002B1803 /* SupplyMarket_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplyMarket_VC.h; sourceTree = "<group>"; };
+		7DF603441CC89328002B1803 /* SupplyMarket_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplyMarket_VC.m; sourceTree = "<group>"; };
 		7DF83C941CA2743C007FA0A4 /* SearchNews_List_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchNews_List_VC.h; sourceTree = "<group>"; };
 		7DF83C951CA2743C007FA0A4 /* SearchNews_List_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchNews_List_VC.m; sourceTree = "<group>"; };
 		7DF83C971CA27B2D007FA0A4 /* PopularNews_Detail_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularNews_Detail_VC.h; sourceTree = "<group>"; };
@@ -2839,6 +2842,8 @@
 			children = (
 				7D50056D1C09A9040034BE03 /* SupplyMarketViewController.h */,
 				7D50056E1C09A9040034BE03 /* SupplyMarketViewController.m */,
+				7DF603431CC89328002B1803 /* SupplyMarket_VC.h */,
+				7DF603441CC89328002B1803 /* SupplyMarket_VC.m */,
 				7DBD04F31C1C0FEB00FD318B /* FabricShop_VC.h */,
 				7DBD04F41C1C0FEB00FD318B /* FabricShop_VC.m */,
 				7DBD04ED1C1C0A2000FD318B /* AccessoryShop_VC.h */,
@@ -3395,6 +3400,7 @@
 				642DCC671CC15A4800656954 /* ImageAndTitleVerticalButton.m in Sources */,
 				039D4D721C72E14A0051CD2E /* MJRefreshBaseView.m in Sources */,
 				7D8E703E1C0FEA06004A7E2C /* ProcessMarketListCell.m in Sources */,
+				7DF603451CC89328002B1803 /* SupplyMarket_VC.m in Sources */,
 				70F9AEC71C3F70B60003489B /* CalendarMonthCollectionViewLayout.m in Sources */,
 				03882C4F1BEC951B0094524A /* HttpClient.m in Sources */,
 				039D4D501C72CACC0051CD2E /* AFURLConnectionOperation.m in Sources */,

@@ -399,7 +399,7 @@ static NSString *priceSelect = @"默认排序";
 - (void)findIsSelect {
     moreTitleArray = @[@"所有分类", @"商品分类", @"款式分类",@"价格"];
     ApplicationDelegate.moreSelectDic = moreDic;
-    NSArray *myArray = @[@"year", @"type", @"part", @"priceOrder"];
+    NSArray *myArray = @[@"quality", @"type", @"part", @"priceOrder"];
     NSMutableDictionary *selectDic = [NSMutableDictionary dictionaryWithCapacity:0];
     for (int i = 0; i < myArray.count; i++) {
         NSArray *array = moreDic[moreTitleArray[i]];
