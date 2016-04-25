@@ -224,38 +224,44 @@ static NSString * CellIdentifier = @"CellIdentifier";
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                message:@"Device has no camera"
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles: nil];
-            
-            [alertView show];
-        } else {
-            UIImagePickerController *imagePickerController = [UIImagePickerController new];
-            imagePickerController.delegate = self;
-            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-            imagePickerController.allowsEditing = YES;
-            imagePickerController.showsCameraControls = YES;
-            imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-            imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
-            
-            [self presentViewController:imagePickerController animated:YES completion:nil];
-        }
+        //打开相机
+        [self openCamera];
         return;
     }
     if (buttonIndex == 1) {
-        // 相册
+        //打开相册
+        [self openPictures];
+    }
+}
+
+//打开相机
+- (void)openCamera {
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        kTipAlert(@"设备没有摄像头");
+    } else {
         UIImagePickerController *imagePickerController = [UIImagePickerController new];
         imagePickerController.delegate = self;
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePickerController.allowsEditing = YES;
+        imagePickerController.showsCameraControls = YES;
+        imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
         imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+        
         [self presentViewController:imagePickerController animated:YES completion:nil];
     }
 }
-#pragma mark <UIImagePickerControllerDelegate>
+
+//打开相册
+- (void)openPictures {
+    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    imagePickerController.delegate = self;
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage*image = info[UIImagePickerControllerOriginalImage];
 //    UIImage*image = info[UIImagePickerControllerEditedImage];//截取图片
@@ -273,8 +279,7 @@ static NSString * CellIdentifier = @"CellIdentifier";
     if (self.imageType == 3) {
         [self.licenseImageArray addObject:image];
     }
-    DLog(@"idCard = %ld, idCardBack = %ld, license = %ld", (unsigned long)self.idCardImageArray.count, (unsigned long)self.idCardBackImageArray.count, (unsigned long)self.licenseImageArray.count);
-    DLog(@"self.imageArray.count%lu",(unsigned long)self.imageArray.count);
+
     if (self.idCardImageArray.count == 0 || self.idCardBackImageArray.count == 0 || self.licenseImageArray.count == 0) {
         doneButton.backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
         [doneButton setTitleColor:[UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
@@ -288,12 +293,15 @@ static NSString * CellIdentifier = @"CellIdentifier";
     [picker dismissViewControllerAnimated:YES completion:^{
         NSIndexPath *te=[NSIndexPath indexPathForRow:self.imageType-1 inSection:0];
         [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObjects:te,nil] ];
-        //         reloadRowsAtIndexPaths:[NSArray arrayWithObjects:te,nil] withRowAnimation:UITableViewRowAnimationNone];
-        //        [self.collectionView reloadData];
-//        [self updatePortrait];
+        
     }];
 }
 
+// 取消相册
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    
+}
 #pragma mark - 提交认证
 
 - (void)actionOfDoneButton:(UIButton *)button {
