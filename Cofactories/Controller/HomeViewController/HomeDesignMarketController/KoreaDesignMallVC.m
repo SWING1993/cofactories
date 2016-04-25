@@ -224,12 +224,11 @@ static NSString *materialCellIdentifier = @"materialCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(kScreenW/2 - 2 , kScreenW/2 + 100);
 }
+
 //分区边距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
-
-
 
 #pragma mark - ZGYMallSelectViewDelegate
 - (void)selectView:(ZGYMallSelectView *)selectView moreSelectDic:(NSDictionary *)moreSelectDic {
@@ -247,6 +246,7 @@ static NSString *materialCellIdentifier = @"materialCell";
     }
     
     NSLog(@"moreSelectDic = %@", self.postDic);
+//    kTipAlert(@"moreSelectDic = %@", self.postDic);
     self.goodsArray = [NSMutableArray arrayWithCapacity:0];
     [HttpClient searchKoreaDesignWithDictionary:self.postDic WithBlock:^(NSDictionary *dictionary) {
         NSArray *array = dictionary[@"data"];
@@ -256,9 +256,7 @@ static NSString *materialCellIdentifier = @"materialCell";
         }
         [self.myCollectionView reloadData];
     }];
-    
 }
-
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

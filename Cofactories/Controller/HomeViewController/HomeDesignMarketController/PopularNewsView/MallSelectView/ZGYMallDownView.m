@@ -131,7 +131,9 @@ static NSString *priceSelect = @"默认排序";
 }
 
 - (void)creatNewView {
-//    NSLog(@"————————————————————————最新");
+    
+    NSLog(@"————————————————————————最新");
+    
 //    [self creatNewDictionary];
 }
 
@@ -310,8 +312,6 @@ static NSString *priceSelect = @"默认排序";
 - (void)actionOfMoreDone:(UIButton *)button {
     //获取更多一栏的选择数据
     [self findIsSelect];
-    
-    
     [self tappedCancel];
 }
 
@@ -397,9 +397,9 @@ static NSString *priceSelect = @"默认排序";
 
 
 - (void)findIsSelect {
-    moreTitleArray = @[@"所有分类", @"商品分类", @"款式分类",@"价格"];
+    moreTitleArray = @[@"所有分类", @"商品分类", @"款式分类", @"价格"];
     ApplicationDelegate.moreSelectDic = moreDic;
-    NSArray *myArray = @[@"quality", @"type", @"part", @"priceOrder"];
+    NSArray *myArray = @[@"quality", @"type", @"part", @"order"];
     NSMutableDictionary *selectDic = [NSMutableDictionary dictionaryWithCapacity:0];
     for (int i = 0; i < myArray.count; i++) {
         NSArray *array = moreDic[moreTitleArray[i]];

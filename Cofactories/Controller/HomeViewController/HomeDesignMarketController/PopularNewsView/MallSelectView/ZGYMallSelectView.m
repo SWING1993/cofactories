@@ -9,6 +9,8 @@
 #import "ZGYMallSelectView.h"
 #import "ZGYMallDownView.h"
 #import "ZGYKoreaSelectView.h"
+#import "ZGYMallSelectModel.h"
+
 static NSString *newSelect = nil;
 
 @implementation ZGYMallSelectView {
@@ -171,15 +173,28 @@ static NSString *newSelect = nil;
     
 //    self.userInteractionEnabled = NO;
     if (button.selected == NO) {
+        //修改最右边价格排序
+        UIButton *sender = buttonsArray[2];
+        [sender setTitle:@"默认排序" forState:UIControlStateNormal];
+        [self reloadFrame];
+        priceSelect = @"默认排序";
+        NSMutableDictionary *moreDic = [NSMutableDictionary dictionaryWithDictionary:ApplicationDelegate.moreSelectDic];
+        for (int i = 0; i < [moreDic[@"价格"] count]; i++) {
+            ZGYMallSelectModel *selectModel = moreDic[@"价格"][i];
+            if (i == 0) {
+                selectModel.isSelect = YES;
+            } else {
+                selectModel.isSelect = NO;
+            }
+        }
         newSelect = @"最新";
         button.selected = YES;
-        [self getTodayDate];
-        if (moreSelect) {
-            [moreSelect setObject:dateString forKey:@"createdAt"];
-        } else {
+        
+        if (!moreSelect) {
             moreSelect = [NSMutableDictionary dictionaryWithCapacity:0];
-            [moreSelect setObject:dateString forKey:@"createdAt"];
-        }
+        } 
+        [moreSelect setObject:@"time" forKey:@"sort"];
+        [moreSelect removeObjectForKey:@"order"];
         
         [self.delegate selectView:self moreSelectDic:moreSelect];
     }
@@ -274,8 +289,7 @@ static NSString *newSelect = nil;
         }
         UIButton *myButton = buttonsArray[1];
         if (myButton.selected) {
-            [self getTodayDate];
-            [moreSelect setObject:dateString forKey:@"createdAt"];
+            [moreSelect setObject:@"time" forKey:@"sort"];
         }
         [self.delegate selectView:self moreSelectDic:moreSelect];
     };
@@ -291,12 +305,12 @@ static NSString *newSelect = nil;
     }
 }
 
-- (void)getTodayDate {
-    NSDate *currentDate = [NSDate date];//获取当前时间，日期
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-    dateString = [dateFormatter stringFromDate:currentDate];
-    NSLog(@"dateString:%@",dateString);
-}
+//- (void)getTodayDate {
+//    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+//    dateString = [dateFormatter stringFromDate:currentDate];
+//    NSLog(@"dateString:%@",dateString);
+//}
 
 @end

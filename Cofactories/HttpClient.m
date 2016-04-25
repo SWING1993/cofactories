@@ -1018,7 +1018,7 @@
             [parametersDictionary setObject:aPrice forKey:@"price"];
         }
         if (aPriceOrder) {
-            [parametersDictionary setObject:aPriceOrder forKey:@"priceOrder"];
+            [parametersDictionary setObject:aPriceOrder forKey:@"order"];
         }
         if (aPart) {
             [parametersDictionary setObject:aPart forKey:@"part"];
@@ -1076,7 +1076,7 @@
             [parametersDictionary setObject:aPrice forKey:@"price"];
         }
         if (aPriceOrder) {
-            [parametersDictionary setObject:aPriceOrder forKey:@"priceOrder"];
+            [parametersDictionary setObject:aPriceOrder forKey:@"order"];
         }
         if (aProvince) {
             [parametersDictionary setObject:aProvince forKey:@"province"];
@@ -1095,7 +1095,7 @@
         [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:credential];
         [manager GET:API_Search_Market_Search parameters:parametersDictionary success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             completionBlock(@{@"statusCode": @"200", @"message": responseObject});
-            DLog(@"responseObject == %@",responseObject);
+//            DLog(@"responseObject == %@",responseObject);
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             DLog(@"error == %@",error);
             
@@ -2595,7 +2595,7 @@
         manager.requestSerializer.timeoutInterval = 20.f;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         [manager GET:API_Search_Market_Search parameters:postDictionary success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-            DLog(@"responseObject= %@",responseObject);
+//            DLog(@"responseObject= %@",responseObject);
             block(@{@"statusCode": @(200), @"data":responseObject });
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSInteger statusCode = [[error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"] statusCode];

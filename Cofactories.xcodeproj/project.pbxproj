@@ -282,6 +282,7 @@
 		7D1A4E3A1C5A19880076B462 /* MallAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A4E391C5A19880076B462 /* MallAddressModel.m */; };
 		7D1DC6531C9F9B540006DC0A /* HomeProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1DC6521C9F9B540006DC0A /* HomeProfileCell.m */; };
 		7D1DC6561C9FE5300006DC0A /* MallSellHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1DC6551C9FE5300006DC0A /* MallSellHistoryModel.m */; };
+		7D2B8F541CCB78D700C8234F /* said.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B8F531CCB78D600C8234F /* said.png */; };
 		7D2BE7361C19112200CE4138 /* MeShopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BE7351C19112200CE4138 /* MeShopController.m */; };
 		7D2BE73A1C1918FA00CE4138 /* MeShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BE7391C1918FA00CE4138 /* MeShopCell.m */; };
 		7D2BE73D1C19272B00CE4138 /* MeAddSupply_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BE73C1C19272B00CE4138 /* MeAddSupply_VC.m */; };
@@ -1003,6 +1004,7 @@
 		7D1DC6521C9F9B540006DC0A /* HomeProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeProfileCell.m; sourceTree = "<group>"; };
 		7D1DC6541C9FE5300006DC0A /* MallSellHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallSellHistoryModel.h; sourceTree = "<group>"; };
 		7D1DC6551C9FE5300006DC0A /* MallSellHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallSellHistoryModel.m; sourceTree = "<group>"; };
+		7D2B8F531CCB78D600C8234F /* said.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = said.png; sourceTree = "<group>"; };
 		7D2BE7341C19112200CE4138 /* MeShopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeShopController.h; sourceTree = "<group>"; };
 		7D2BE7351C19112200CE4138 /* MeShopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeShopController.m; sourceTree = "<group>"; };
 		7D2BE7381C1918FA00CE4138 /* MeShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeShopCell.h; sourceTree = "<group>"; };
@@ -1393,6 +1395,7 @@
 		03571B221BE84BA100900EF9 /* Cofactories */ = {
 			isa = PBXGroup;
 			children = (
+				7D2B8F531CCB78D600C8234F /* said.png */,
 				03571B5F1BE8546300900EF9 /* Cofactories_iOS-Prefix.pch */,
 				03571B261BE84BA100900EF9 /* AppDelegate.h */,
 				03571B271BE84BA100900EF9 /* AppDelegate.m */,
@@ -3042,6 +3045,7 @@
 			files = (
 				03571B9C1BE85B8200900EF9 /* MJPhotoBrowser.bundle in Resources */,
 				035CC51F1C06DCF000998FBD /* JKImagePickerController.strings in Resources */,
+				7D2B8F541CCB78D700C8234F /* said.png in Resources */,
 				7D5C482C1C48D7ED002DFF77 /* icon_chose_arrow_sel@2x.png in Resources */,
 				03571C9C1BE85DAC00900EF9 /* icon_chose_arrow_nor@2x.png in Resources */,
 				03B897401C15490400DB8E4E /* AlipaySDK.bundle in Resources */,
