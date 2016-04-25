@@ -47,8 +47,6 @@ static NSString * const CellIdentifier = @"CellIdentifier";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = item;
     [self initView];
 }
 
@@ -383,13 +381,7 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
     else if (actionSheet.tag == 99) {
         if (buttonIndex == 0) {
-            UIImagePickerController *imagePick = [[UIImagePickerController alloc]init];
-            // 设置图片来源
-            imagePick.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-            imagePick.delegate = self;
-            imagePick.allowsEditing = YES;
-            // 进入系统相册
-            [self presentViewController:imagePick animated:YES completion:nil];
+            [self changeBackgroupImage];
         }
         else {
             DLog(@"%ld",(long)buttonIndex);
@@ -398,19 +390,32 @@ static NSString * const CellIdentifier = @"CellIdentifier";
     }
 }
 
+#pragma mark - imagePickerController
 
+- (void)changeBackgroupImage {
+    UIImagePickerController *imagePick = [[UIImagePickerController alloc]init];
+    // 设置图片来源
+    imagePick.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePick.delegate = self;
+    imagePick.allowsEditing = YES;
+    // 进入系统相册
+    [self presentViewController:imagePick animated:YES completion:nil];
+}
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo{
-    _tableHeadView.image = image;
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    DLog(@"%@",info);
+    UIImage * editedImage = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    _tableHeadView.image = editedImage;
     [self addblurEffect];
     [_tableHeadView addSubview:myProfileLabel];
-
     NSString * imageName = @"backgroundImage";
-    [Tools saveImageToLocal:image imageName:imageName];
+    [Tools saveImageToLocal:editedImage imageName:imageName];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:imageName forKey:@"BGImageName"];
     [defaults synchronize];
-    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
